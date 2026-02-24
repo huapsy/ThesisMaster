@@ -195,8 +195,8 @@ def describe_ontology(g, class_depths):
 
 def main():
     # Configuration
-    input_json_path = "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/SystemComponents/PHOENIX_ontology/aggretated/01_raw/ontology_aggregated.json"  # Single json file
-    output_dir = "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/SystemComponents/PHOENIX_ontology/aggretated/01_raw"  # Output directory
+    input_json_path = "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/src/SystemComponents/PHOENIX_ontology/separate/01_raw/PREDICTOR/steps/01_raw/aggregated/PREDICTOR_ontology.json"  # Single json file
+    output_dir = "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/src/SystemComponents/PHOENIX_ontology/separate/01_raw/PREDICTOR/steps/01_raw/aggregated"  # Output directory
     output_name = os.path.splitext(os.path.basename(input_json_path))[0] + ".owl"  # Name based on input JSON
     output_path = os.path.join(output_dir, output_name)
 
@@ -212,7 +212,7 @@ def main():
     # Add ontology metadata
     add_ontology_metadata(
         g,
-        title="PHOENIX ONTOLOGY - unmapped version with raw fields",
+        title="SOLUTION ONTOLOGY - recursively generated bio-psycho-social solution space for mental health problems",
         iri=BASE_IRI,
         #description="Comprehensive formal representation of the full clinical (well-being) state space. This ontology is unprocessed, so no redundancy- and LLM-based filters are applied yet.",
         creator="Stijn Van Severen",

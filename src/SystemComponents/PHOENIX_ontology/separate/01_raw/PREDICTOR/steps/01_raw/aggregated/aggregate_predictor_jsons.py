@@ -41,11 +41,11 @@ from typing import Dict, Any
 # --------------------------
 
 INPUT_DIR = (
-    "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/SystemComponents/PHOENIX_ontology/separate/01_raw/PREDICTOR/steps/01_raw/separate"
+    "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/src/SystemComponents/PHOENIX_ontology/separate/01_raw/PREDICTOR/steps/01_raw/separate"
 )
 
 OUTPUT_DIR = (
-    "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/SystemComponents/PHOENIX_ontology/separate/01_raw/PREDICTOR/steps/01_raw/aggregated"
+    "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/src/SystemComponents/PHOENIX_ontology/separate/01_raw/PREDICTOR/steps/01_raw/aggregated"
 )
 
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, "PREDICTOR_ontology.json")
@@ -120,4 +120,4 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 
-# TODO: make ensure not some predictor-domains dominate due to count (only if truly needed)
+# TODO: ensure some of the predictor-domains do not dominate in their total count (only if truly needed)

@@ -1961,6 +1961,9 @@ def build_bio_ontology() -> Dict[str, Any]:
         "Mobile_App_Biofeedback_Guidance_Framework",
     ])
 
+    # Hierarchical (tree-correct) expansion using nested add_leaves calls.
+    # Keeps your original top-level modality list intact, but explodes fMRI—especially real-time connectomics—into proper sub-branches.
+
     add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities"], [
         "EEG_Neurofeedback",
         "QEEG_Guided_Neurofeedback_Framework",
@@ -1973,6 +1976,525 @@ def build_bio_ontology() -> Dict[str, Any]:
         "HEG_Neurofeedback_Framework",
         "Multimodal_Neurofeedback_Platform",
     ])
+
+    # =========================
+    # EEG / QEEG / InfraLow / Alpha-Theta / SMR / SMN (kept compact but hierarchical)
+    # =========================
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "EEG_Neurofeedback"], [
+        "EEG_NF_Target_Features",
+        "EEG_NF_Protocols_By_Target_Band",
+        "EEG_NF_Sensor_Space_vs_Source_Space",
+        "EEG_NF_Single_Site_vs_Network_Training",
+        "EEG_NF_Connectivity_Metrics",
+        "EEG_NF_CrossFrequency_Coupling_Feedback",
+        "EEG_NF_State_Space_and_Adaptive_Thresholds",
+        "EEG_NF_Artifacts_QC_and_Confidence_Gating",
+        "EEG_NF_Feedback_Schedules_Continuous_vs_Intermittent",
+        "EEG_NF_Transfer_and_Generalization_Assessment",
+    ])
+
+    add_leaves(neu,
+               ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "QEEG_Guided_Neurofeedback_Framework"], [
+                   "QEEG_NF_Normative_Database_Targeting",
+                   "QEEG_NF_RegionBand_Zscore_Targeting",
+                   "QEEG_NF_Connectivity_Zscore_Targeting",
+                   "QEEG_NF_Treatment_Planning_and_Reassessment",
+                   "QEEG_NF_Protocol_Selection_Rulesets",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities",
+                     "InfraLow_Frequency_Neurofeedback_Framework"], [
+                   "InfraLow_NF_Arousal_Instability_Targeting",
+                   "InfraLow_NF_Interoceptive_and_Autonomic_Coupling",
+                   "InfraLow_NF_Safety_Titration_and_Symptom_Tracking",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "Alpha_Theta_Training_Framework"], [
+        "AlphaTheta_NF_StageBased_Protocols",
+        "AlphaTheta_NF_Trauma_Addiction_Sleep_Targeting",
+        "AlphaTheta_NF_Depth_of_Relaxation_and_Hypnagogia_Monitoring",
+    ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "SMR_Training_Framework"], [
+        "SMR_NF_Attention_Sleep_Sensorimotor_Inhibition",
+        "SMR_NF_Spindle_Coupling_and_Sleep_QC",
+        "SMR_NF_Comorbidity_Adjustments",
+    ])
+
+    add_leaves(neu,
+               ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "Sensorimotor_Network_Training_Framework"],
+               [
+                   "SMN_NF_ERD_ERS_Feedback",
+                   "SMN_NF_Connectivity_and_Network_Synchronization",
+                   "SMN_NF_TaskEngagement_and_MotorImagery_Paradigms",
+               ])
+
+    # =========================
+    # fNIRS / HEG (compact but hierarchical)
+    # =========================
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fNIRS_Neurofeedback"], [
+        "fNIRS_NF_Signal_Models_HbO_HbR",
+        "fNIRS_NF_ROI_Targeting_and_Montage_Constraints",
+        "fNIRS_NF_Connectivity_Feedback",
+        "fNIRS_NF_Physiology_Regression_and_QC",
+        "fNIRS_NF_Latency_Constraints_and_Feedback_Design",
+    ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "HEG_Neurofeedback_Framework"], [
+        "HEG_NF_Signal_Physics_and_Artifacts",
+        "HEG_NF_Frontal_Training_Protocols",
+        "HEG_NF_Thermal_vs_NIR_HEG_Considerations",
+    ])
+
+    # =========================
+    # fMRI Neurofeedback (MAIN FOCUS) — FULL hierarchical resolution
+    # =========================
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework"], [
+        "fMRI_NF_Signal_and_Physics",
+        "fMRI_NF_RealTime_Acquisition_and_Sequences",
+        "fMRI_NF_RealTime_Preprocessing_and_QC",
+        "fMRI_NF_Feedback_Target_Types",
+        "fMRI_NF_Control_and_Optimization",
+        "fMRI_NF_Experimental_Design_and_Reporting",
+        "fMRI_NF_Clinical_Translation_and_Ethics",
+    ])
+
+    # --- Signal & Physics
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Signal_and_Physics"], [
+                   "BOLD_Origin_and_Neurovascular_Coupling",
+                   "HRF_Lag_and_Dispersion_Constraints_for_Control",
+                   "SNR_CNR_and_Temporal_SNR_for_NF",
+                   "FieldStrength_Considerations_1p5T_3T_7T",
+                   "Susceptibility_Dropout_and_Distortion_EPI",
+                   "Spatial_Smoothing_vs_Spatial_Specificity_Tradeoffs",
+               ])
+
+    # --- Real-time Acquisition & Sequences
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_RealTime_Acquisition_and_Sequences"], [
+                   "RealTime_EPI_TR_TE_FlipAngle_Tradeoffs",
+                   "Multiband_and_Acceleration_for_LowLatency",
+                   "Online_Reconstruction_and_DICOM_Streaming",
+                   "Prospective_Motion_Correction_and_Navigators",
+                   "Physio_Recording_Resp_Cardiac_CO2",
+                   "Online_Shim_and_Drift_Management",
+               ])
+
+    # --- Real-time Preprocessing & QC
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_RealTime_Preprocessing_and_QC"], [
+                   "RealTime_Motion_Correction_RigidBody",
+                   "SliceTiming_Strategies_for_RealTime",
+                   "Drift_Removal_and_HighPass_Filtering",
+                   "Spatial_Normalization_vs_SubjectSpace_Control",
+                   "Physiological_Noise_Modeling_RETROICOR_RVT_HR",
+                   "GlobalSignal_and_CompCor_Options_and_Risks",
+                   "Outlier_Detection_Scrubbing_and_FramewiseDisplacement",
+                   "Feedback_Suppression_when_QC_Fails",
+                   "ConfidenceWeighted_Feedback_and_Reliability_Gating",
+               ])
+
+    # --- Feedback Target Types (ROI / MVPA / Connectivity / Connectomics / etc.)
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types"], [
+                   "ROI_Based_BOLD_Feedback",
+                   "Multivoxel_Pattern_and_Decoder_Feedback",
+                   "Connectivity_Feedback_Static_and_Effective",
+                   "RealTime_Connectomics_and_Dynamic_Network_Feedback",
+                   "Composite_and_MultiObjective_Targets",
+               ])
+
+    # ROI-Based BOLD feedback (including your regions + targeting logic)
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "ROI_Based_BOLD_Feedback"], [
+                   "ROI_Definition_Anatomical_Atlas",
+                   "ROI_Definition_Functional_Localizer",
+                   "ROI_Definition_SubjectSpecific_Parcellation",
+                   "ROI_Signal_Extraction_PercentSignalChange",
+                   "ROI_Signal_Extraction_GLM_Residualized",
+                   "ROI_Signal_Extraction_StateSpace_Kalman",
+                   "ROI_Confound_Regression_Motion_Physio",
+                   "ROI_Targeting_Reward_Dopamine_System",
+                   "ROI_Targeting_Salience_Interoception",
+                   "ROI_Targeting_DefaultMode_Self_Referential",
+                   "ROI_Targeting_Emotion_Threat",
+                   "ROI_Targeting_CognitiveControl",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "ROI_Based_BOLD_Feedback",
+                     "ROI_Targeting_Reward_Dopamine_System"], [
+                   "Target_VTA",
+                   "Target_SubstantiaNigra",
+                   "Target_NucleusAccumbens",
+                   "Target_VentralStriatum",
+                   "Target_OFC_vmPFC_Valuation",
+                   "Target_RewardPredictionError_Proxies",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "ROI_Based_BOLD_Feedback",
+                     "ROI_Targeting_Salience_Interoception"], [
+                   "Target_AnteriorInsula",
+                   "Target_PosteriorInsula",
+                   "Target_dACC",
+                   "Target_Somatosensory_Interoception_Hubs",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "ROI_Based_BOLD_Feedback",
+                     "ROI_Targeting_DefaultMode_Self_Referential"], [
+                   "Target_Precuneus",
+                   "Target_PCC",
+                   "Target_vmPFC",
+                   "Target_TPJ_and_Mentalizing_Nodes",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "ROI_Based_BOLD_Feedback", "ROI_Targeting_Emotion_Threat"], [
+                   "Target_Amygdala_BLA_CeA_if_ResolutionAllows",
+                   "Target_Hippocampus",
+                   "Target_vlPFC_Reappraisal_Control",
+                   "Target_PAG_if_ResolutionAllows",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "ROI_Based_BOLD_Feedback", "ROI_Targeting_CognitiveControl"], [
+                   "Target_dlPFC",
+                   "Target_IFG",
+                   "Target_dACC",
+                   "Target_Parietal_Control_Network",
+                   "Target_SMA_PreSMA",
+               ])
+
+    # Multivoxel / decoder feedback (MVPA/RSA)
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "Multivoxel_Pattern_and_Decoder_Feedback"], [
+                   "MVPA_Classifier_Feedback",
+                   "Decoder_Regression_Feedback",
+                   "RSA_Representational_Similarity_Feedback",
+                   "Searchlight_vs_ROI_Decoding",
+                   "Online_Recalibration_and_DomainShift_Handling",
+                   "CrossValidated_Model_Selection_and_Leakage_Prevention",
+                   "Pattern_Stability_Metrics_and_Confidence_Gating",
+               ])
+
+    # Connectivity feedback (static/effective)
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "Connectivity_Feedback_Static_and_Effective"], [
+                   "SeedBased_FC_Correlation",
+                   "PartialCorrelation_and_RegularizedPrecision",
+                   "PsychophysiologicalInteraction_PPI_Feedback",
+                   "EffectiveConnectivity_DCM_like_Models",
+                   "Granger_and_TransferEntropy_with_Caveats",
+                   "Connectivity_Targeting_EmotionRegulation_Circuits",
+                   "Connectivity_Targeting_Reward_Control_Circuits",
+                   "Connectivity_Targeting_DefaultMode_Control_AntiCorrelation",
+               ])
+
+    # =========================
+    # Real-time connectomics / time-varying networks — MASSIVELY expanded & properly nested
+    # =========================
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "RealTime_Connectomics_and_Dynamic_Network_Feedback"], [
+                   "Dynamic_FC_Estimation",
+                   "RecencyWeighted_and_Online_Covariance",
+                   "Temporal_Graph_Construction_and_Parcellations",
+                   "TimeVarying_Graph_Metrics_and_Hub_Feedback",
+                   "Network_State_Modeling_and_Classification",
+                   "ChangePoint_and_Event_Segmentation",
+                   "Control_Objectives_for_Networks",
+                   "Reliability_Stability_and_QC_for_Dynamics",
+                   "Multilayer_and_Hypergraph_Formulations",
+               ])
+
+    # --- Dynamic FC estimation (windows, point-process, time-frequency, etc.)
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "RealTime_Connectomics_and_Dynamic_Network_Feedback",
+                     "Dynamic_FC_Estimation"], [
+                   "SlidingWindow_FC_FixedWindow",
+                   "SlidingWindow_FC_AdaptiveWindow",
+                   "Tapered_Windows_and_ExponentialKernels",
+                   "TimeFrequency_Coherence_like_FC",
+                   "Instantaneous_Phase_or_Hilbert_Approaches_with_Caveats",
+                   "PointProcess_and_CoActivation_Patterns_CAPs",
+                   "EdgeTimeSeries_and_CoFluctuation_Events",
+                   "StateSpace_Dynamic_FC_Kalman_and_Variational",
+                   "HMM_Based_Dynamic_FC",
+               ])
+
+    # --- Recency-weighted / online covariance & precision estimation
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "RealTime_Connectomics_and_Dynamic_Network_Feedback",
+                     "RecencyWeighted_and_Online_Covariance"], [
+                   "EWMA_Covariance_ExponentialForgetting",
+                   "Online_Shrinkage_Covariance",
+                   "Online_GraphicalLasso_Precision_Estimation",
+                   "Streaming_PartialCorrelation",
+                   "Regularization_Schedules_and_ForgetRates",
+                   "Robust_Covariance_for_Motion_Outliers",
+               ])
+
+    # --- Temporal graph construction choices (parcellation, edge definition, sparsification)
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "RealTime_Connectomics_and_Dynamic_Network_Feedback",
+                     "Temporal_Graph_Construction_and_Parcellations"], [
+                   "Node_Definition_Atlas_Parcellations",
+                   "Node_Definition_SubjectSpecific_Parcellations",
+                   "Node_Definition_Functional_Parcellation_Online_Updates",
+                   "Edge_Definition_Correlation",
+                   "Edge_Definition_PartialCorrelation_Precision",
+                   "Edge_Definition_MutualInformation",
+                   "Edge_Definition_EffectiveConnectivity_Approx",
+                   "Edge_Thresholding_Proportional_vs_Absolute",
+                   "Edge_Sparsification_MST_and_Backbone_Methods",
+                   "Signed_vs_Unsigned_Graphs",
+                   "Directed_vs_Undirected_DynamicGraphs",
+               ])
+
+    # --- Time-varying graph metrics (your “local centrality” emphasis + deep breadth)
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "RealTime_Connectomics_and_Dynamic_Network_Feedback",
+                     "TimeVarying_Graph_Metrics_and_Hub_Feedback"], [
+                   "Local_Centrality_Family",
+                   "Global_Centrality_Family",
+                   "Segregation_Integration_Metrics",
+                   "Modularity_Communities_and_Hubs",
+                   "RichClub_and_CorePeriphery",
+                   "EdgeLevel_Metrics_and_Dynamics",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "RealTime_Connectomics_and_Dynamic_Network_Feedback",
+                     "TimeVarying_Graph_Metrics_and_Hub_Feedback", "Local_Centrality_Family"], [
+                   "NodeStrength_WeightedDegree",
+                   "LocalEfficiency",
+                   "ClusteringCoefficient",
+                   "ParticipationCoefficient_LocalVariant",
+                   "WithinModuleZScore",
+                   "EigenvectorCentrality_OnlineApprox",
+                   "PageRank_OnlineApprox",
+                   "kCore_Coreness_Dynamics",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "RealTime_Connectomics_and_Dynamic_Network_Feedback",
+                     "TimeVarying_Graph_Metrics_and_Hub_Feedback", "Global_Centrality_Family"], [
+                   "BetweennessCentrality_ApproxStreaming",
+                   "ClosenessCentrality_ApproxStreaming",
+                   "Communicability_and_ExponentialCentrality",
+                   "ShortestPath_Length_Distribution",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "RealTime_Connectomics_and_Dynamic_Network_Feedback",
+                     "TimeVarying_Graph_Metrics_and_Hub_Feedback", "Segregation_Integration_Metrics"], [
+                   "Modularity_Q_TimeVarying",
+                   "SystemSegregation",
+                   "GlobalEfficiency",
+                   "SmallWorldness",
+                   "Assortativity",
+                   "Integration_Segregation_Balance_Index",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "RealTime_Connectomics_and_Dynamic_Network_Feedback",
+                     "TimeVarying_Graph_Metrics_and_Hub_Feedback", "Modularity_Communities_and_Hubs"], [
+                   "CommunityDetection_Louvain_Leiden_Online",
+                   "Temporal_Community_Tracking_and_LabelMatching",
+                   "Hubness_Definitions_Provincial_vs_Connector_Hubs",
+                   "Hubness_Thresholding_and_Stability",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "RealTime_Connectomics_and_Dynamic_Network_Feedback",
+                     "TimeVarying_Graph_Metrics_and_Hub_Feedback", "RichClub_and_CorePeriphery"], [
+                   "RichClub_Coefficient_TimeVarying",
+                   "CorePeriphery_Models_TimeVarying",
+                   "Backbone_Stability_and_CorePersistence",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "RealTime_Connectomics_and_Dynamic_Network_Feedback",
+                     "TimeVarying_Graph_Metrics_and_Hub_Feedback", "EdgeLevel_Metrics_and_Dynamics"], [
+                   "EdgeTimeSeries_CoFluctuation_Amplitude",
+                   "Edge_Entropy_and_Variability",
+                   "Edge_SwitchingRate_and_Persistence",
+                   "NetworkFlexibility_and_Allegiance",
+               ])
+
+    # --- Network state modeling & classification (states, dwell time, recency weighting, etc.)
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "RealTime_Connectomics_and_Dynamic_Network_Feedback",
+                     "Network_State_Modeling_and_Classification"], [
+                   "State_Definition_Clustering_of_FC_Matrices",
+                   "State_Definition_CAPs_and_CoActivationStates",
+                   "HMM_States_and_Transition_Matrices",
+                   "State_DwellTime_and_Occupancy",
+                   "State_Transition_Dynamics_and_Hysteresis",
+                   "State_QualityMetrics_Separability_and_Confidence",
+                   "Online_State_Decoding_and_Latency",
+               ])
+
+    # --- Change-point detection & event segmentation (your requested item, deeper)
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "RealTime_Connectomics_and_Dynamic_Network_Feedback",
+                     "ChangePoint_and_Event_Segmentation"], [
+                   "ChangePoint_Detection_CUSUM_like",
+                   "Bayesian_Online_ChangePoint_Detection",
+                   "Kernel_ChangePoint_Methods",
+                   "RupturesStyle_Segmentation_Objectives",
+                   "EventBoundary_Detection_in_EdgeTimeSeries",
+                   "Adaptive_Feedback_Triggers_on_StateShifts",
+               ])
+
+    # --- Control objectives for networks (what exactly is reinforced/penalized)
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "RealTime_Connectomics_and_Dynamic_Network_Feedback",
+                     "Control_Objectives_for_Networks"], [
+                   "Increase_LocalCentrality_in_TargetNodeSet",
+                   "Decrease_Hubness_in_Maladaptive_Hubs",
+                   "Increase_Modularity_or_Segregation",
+                   "Increase_Integration_or_GlobalEfficiency",
+                   "Stabilize_State_to_Desired_Attractor",
+                   "Shift_State_Occupancy_and_DwellTime",
+                   "Minimize_EdgeVolatility_or_NoiseDriven_Switching",
+                   "MultiObjective_Reward_Functions_for_Networks",
+               ])
+
+    # --- Reliability / stability / QC for dynamic metrics (your requested item, deeper)
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "RealTime_Connectomics_and_Dynamic_Network_Feedback",
+                     "Reliability_Stability_and_QC_for_Dynamics"], [
+                   "TestRetest_Reliability_of_DynamicFC",
+                   "Metric_Sensitivity_to_Window_and_Regularization",
+                   "MotionSensitivity_and_Spurious_Dynamics",
+                   "NullModels_and_PhaseRandomization_Tests",
+                   "ConfidenceIntervals_for_Streamed_Metrics",
+                   "Calibration_Runs_for_Baseline_Distributions",
+                   "Feedback_Gating_when_Unstable_or_Noisy",
+               ])
+
+    # --- Multilayer / hypergraph formulations (your requested item, deeper)
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "RealTime_Connectomics_and_Dynamic_Network_Feedback",
+                     "Multilayer_and_Hypergraph_Formulations"], [
+                   "Multilayer_Temporal_Networks",
+                   "Interlayer_Coupling_Selection",
+                   "Temporal_Modularity_Multilayer_Louvain",
+                   "Hypergraph_Networks_for_HigherOrder_Interactions",
+                   "SimplicialComplexes_and_Topological_Features",
+                   "Topological_Data_Analysis_TDA_PersistentHomology_Feedback",
+               ])
+
+    # --- Composite / multiobjective targets (general; applies to ROI, MVPA, networks)
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Feedback_Target_Types", "Composite_and_MultiObjective_Targets"], [
+                   "ROI_Contrast_Feedback_ROI1_minus_ROI2",
+                   "Ratio_Feedback_and_Normalization_Strategies",
+                   "Weighted_Sum_Objectives_and_Pareto_Tradeoffs",
+                   "Reward_Shaping_and_Adaptive_Difficulty",
+                   "ClosedLoop_Stimulus_Adaptation_from_BrainState",
+                   "Constraints_and_Penalties_Motion_Noise_Overcontrol",
+               ])
+
+    # =========================
+    # fMRI control/optimization, design/reporting, clinical/ethics (hierarchical)
+    # =========================
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Control_and_Optimization"], [
+                   "Reinforcement_Learning_Formulations_for_NF",
+                   "RewardPredictionError_Proxies_and_Targeting",
+                   "ModelBased_vs_ModelFree_Control",
+                   "Exploration_Exploitation_and_Bandit_Schedules",
+                   "Adaptive_Thresholding_and_Titration",
+                   "Subject_Specific_Personalization_and_Online_Recalibration",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Experimental_Design_and_Reporting"], [
+                   "Feedback_Display_Design_Thermometer_Game_Continuous",
+                   "Continuous_vs_Intermittent_Feedback_Schedules",
+                   "TransferRuns_and_Generalization_Assessment",
+                   "ControlConditions_Sham_Yoked_Inverted",
+                   "Blinding_Expectation_and_Demand_Characteristics",
+                   "Preregistration_and_Reporting_Standards",
+                   "Power_Estimation_and_EffectSize_Reporting",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "fMRI_Neurofeedback_Framework",
+                     "fMRI_NF_Clinical_Translation_and_Ethics"], [
+                   "Safety_and_MRI_Contraindications",
+                   "Clinical_Indications_and_TargetSelection",
+                   "OutcomeMeasures_Behavioral_Clinical_Neural",
+                   "Durability_FollowUp_and_Relapse",
+                   "Equity_Access_and_Cost_Constraints",
+                   "DataPrivacy_and_Neuroethics",
+                   "Replicability_and_OpenScience_Practices",
+               ])
+
+    # =========================
+    # Multimodal platforms (hierarchical)
+    # =========================
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "Multimodal_Neurofeedback_Platform"],
+               [
+                   "EEG_fMRI_Fusion",
+                   "fNIRS_EEG_Fusion",
+                   "Joint_StateSpace_Models",
+                   "Latency_Synchronization_and_Timestamping",
+                   "CrossModal_Calibration_and_Transfer",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "Multimodal_Neurofeedback_Platform",
+                     "EEG_fMRI_Fusion"], [
+                   "EEG_Informed_fMRI_NF",
+                   "fMRI_Informed_EEG_NF",
+                   "Shared_Latent_State_Feedback",
+               ])
+
+    # =========================
+    # Biofeedback (hierarchical)
+    # =========================
+
+    add_leaves(neu,
+               ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "Biofeedback_HRV_and_Autonomic_Feedback"],
+               [
+                   "HRV_TimeDomain_RMSSD_SDNN",
+                   "HRV_FrequencyDomain_LF_HF_with_Caveats",
+                   "Baroreflex_Proxy_and_RespiratorySinusArrhythmia",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities",
+                     "Biofeedback_Respiration_Pacing_and_CO2_Modulation"], [
+                   "Resonance_Frequency_Breathing",
+                   "EndTidal_CO2_Monitoring_if_Available",
+                   "Hyperventilation_Control_and_PanicTargets",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities",
+                     "Biofeedback_EDA_GSR_and_Sympathetic_Arousal"], [
+                   "SCR_Rate_and_Tonic_SCL",
+                   "EventRelated_Sympathetic_Reactivity",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities",
+                     "Biofeedback_Temperature_and_Peripheral_Vasomotor"], [
+                   "Peripheral_Temperature_Hand_Warming",
+                   "Raynaud_and_Migraine_Protocols",
+               ])
+
+    add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Neurofeedback_Modalities", "Biofeedback_EMG_and_Muscle_Tension"],
+               [
+                   "Frontalis_TMJ_Neck_EMG_Targets",
+                   "Relaxation_Training_and_Posture",
+               ])
 
     add_leaves(neu, ["Biofeedback_and_Neurofeedback", "Closed_Loop_and_BCI_Frameworks"], [
         "Closed_Loop_Biofeedback_Framework",
@@ -2068,6 +2590,8 @@ def build_bio_ontology() -> Dict[str, Any]:
         "Group_Biofeedback_Training_Format",
         "Self_Guided_With_Safety_Gating_Framework",
     ])
+
+    BIO["Neuromodulation_Biofeedback_and_Neurostimulation"] = neu
 
     # ------------------------------------------------------------------
     # 6) Pharmacology and Biomedical Treatments (mechanism + class; high-resolution)
@@ -3517,12 +4041,12 @@ def build_bio_ontology() -> Dict[str, Any]:
     #     personalization. Leaves are "test/service" or "interpretation pathway"
     #     entities (no disorder-labeled branches; no schedules).
     # ------------------------------------------------------------------
-    pers: Dict[str, Any] = {}
+    pers_gen: Dict[str, Any] = {}
 
     # ============================================================
     # A) Medication-Focused Pharmacogenomics (core clinical utility)
     # ============================================================
-    add_leaves(pers, ["Genetics_and_Pharmacogenomics_Tests", "Medication_Pharmacokinetics_Genes"], [
+    add_leaves(pers_gen, ["Genetics_and_Pharmacogenomics_Tests", "Medication_Pharmacokinetics_Genes"], [
         "Pharmacogenomics_Panel",
         "CYP2D6_Genotyping",
         "CYP2C19_Genotyping",
@@ -3535,13 +4059,13 @@ def build_bio_ontology() -> Dict[str, Any]:
         "DPYD_Genotyping_Clinical_Toxicity_Screen",
     ])
 
-    add_leaves(pers, ["Genetics_and_Pharmacogenomics_Tests", "Medication_Transporter_And_Distribution_Genes"], [
+    add_leaves(pers_gen, ["Genetics_and_Pharmacogenomics_Tests", "Medication_Transporter_And_Distribution_Genes"], [
         "ABCB1_Genotyping_Pglycoprotein",
         "SLCO1B1_Genotyping_StatinRisk_Screen",
         "SLC6A4_Serotonin_Transporter_Variant_Test",
     ])
 
-    add_leaves(pers, ["Genetics_and_Pharmacogenomics_Tests", "Medication_Pharmacodynamics_And_Target_Genes"], [
+    add_leaves(pers_gen, ["Genetics_and_Pharmacogenomics_Tests", "Medication_Pharmacodynamics_And_Target_Genes"], [
         "HTR2A_Genotyping_SerotoninReceptor",
         "HTR2C_Genotyping_SerotoninReceptor",
         "DRD2_Genotyping_DopamineReceptor",
@@ -3552,14 +4076,14 @@ def build_bio_ontology() -> Dict[str, Any]:
     # ============================================================
     # B) Serious Adverse Reaction Risk Screening (high clinical value)
     # ============================================================
-    add_leaves(pers, ["Genetics_and_Pharmacogenomics_Tests", "Severe_Adverse_Reaction_Risk_Screening", "HLA_Tests"], [
+    add_leaves(pers_gen, ["Genetics_and_Pharmacogenomics_Tests", "Severe_Adverse_Reaction_Risk_Screening", "HLA_Tests"], [
         "HLA_Risk_Screening",
         "HLA_B_1502_Genotyping_SJS_TEN_Risk_Screen",
         "HLA_A_3101_Genotyping_Cutaneous_Hypersensitivity_Risk_Screen",
         "HLA_B_5701_Genotyping_Hypersensitivity_Risk_Screen",
     ])
 
-    add_leaves(pers, ["Genetics_and_Pharmacogenomics_Tests", "Severe_Adverse_Reaction_Risk_Screening",
+    add_leaves(pers_gen, ["Genetics_and_Pharmacogenomics_Tests", "Severe_Adverse_Reaction_Risk_Screening",
                       "Metabolic_And_Other_Toxicity_Screens"], [
                    "TPMT_Genotyping_Drug_Toxicity_Risk_Screen",
                    "NUDT15_Genotyping_Drug_Toxicity_Risk_Screen",
@@ -3570,7 +4094,7 @@ def build_bio_ontology() -> Dict[str, Any]:
     # C) Nutrient-Related and One-Carbon Metabolism (supportive personalization)
     #     (Kept as optional optimization tools; interpret with biomarkers/clinical context.)
     # ============================================================
-    add_leaves(pers, ["Genetics_and_Pharmacogenomics_Tests", "Nutrigenetic_And_Methylation_Related_Tests"], [
+    add_leaves(pers_gen, ["Genetics_and_Pharmacogenomics_Tests", "Nutrigenetic_And_Methylation_Related_Tests"], [
         "MTHFR_Genotyping",
         "MTRR_Genotyping_OneCarbonMetabolism",
         "CBS_Genotyping_Transsulfuration",
@@ -3581,7 +4105,7 @@ def build_bio_ontology() -> Dict[str, Any]:
     # D) Neurodegenerative / Cognitive Risk and Long-Horizon Planning
     #     (Use for risk counseling and prevention strategy personalization.)
     # ============================================================
-    add_leaves(pers, ["Genetics_and_Pharmacogenomics_Tests", "Cognition_And_LongHorizon_Risk_Tests"], [
+    add_leaves(pers_gen, ["Genetics_and_Pharmacogenomics_Tests", "Cognition_And_LongHorizon_Risk_Tests"], [
         "APOE_Genotyping",
         "Cognitive_Risk_Genetic_Counseling_Referral_Pathway",
     ])
@@ -3590,7 +4114,7 @@ def build_bio_ontology() -> Dict[str, Any]:
     # E) Broader Psychiatric-Relevant Risk/Response Adjuncts (optional / context-dependent)
     #     (Avoids disorder-labeled branches; focuses on actionable interpretation.)
     # ============================================================
-    add_leaves(pers, ["Genetics_and_Pharmacogenomics_Tests", "Adjunct_Response_Modifier_Tests"], [
+    add_leaves(pers_gen, ["Genetics_and_Pharmacogenomics_Tests", "Adjunct_Response_Modifier_Tests"], [
         "BDNF_Variant_Test_Response_Modifier",
         "FKBP5_Stress_Response_Modifier_Test",
         "Inflammation_Response_Modifier_Genetic_Profile_Test",
@@ -3600,7 +4124,7 @@ def build_bio_ontology() -> Dict[str, Any]:
     # F) Reporting, Interpretation, and Clinical Integration Pathways
     #     (Makes the tests usable; keeps outcomes tied to decision-support.)
     # ============================================================
-    add_leaves(pers, ["Genetics_and_Pharmacogenomics_Tests", "Interpretation_And_Clinical_Integration"], [
+    add_leaves(pers_gen, ["Genetics_and_Pharmacogenomics_Tests", "Interpretation_And_Clinical_Integration"], [
         "Pharmacogenomics_Report_Clinical_Interpretation_Session",
         "Medication_Dosing_Adjustment_Recommendation_From_PGx_Report",
         "Medication_Selection_Support_From_PGx_Report",
@@ -3613,7 +4137,7 @@ def build_bio_ontology() -> Dict[str, Any]:
     ])
 
     # Optional: keep legacy names for backward compatibility with earlier ontology references
-    add_leaves(pers, ["Genetics_and_Pharmacogenomics_Tests", "Legacy_Aliases"], [
+    add_leaves(pers_gen, ["Genetics_and_Pharmacogenomics_Tests", "Legacy_Aliases"], [
         "CYP_Genotyping",
     ])
 
@@ -3626,14 +4150,14 @@ def build_bio_ontology() -> Dict[str, Any]:
     # ----------------------------
     # 10) Personalization & Monitoring
     # ----------------------------
-    pers: Dict[str, Any] = {}
+    pers_mon: Dict[str, Any] = {}
 
     # ------------------------------------------------------------------
     # Wearables_and_Home_Monitoring → Physiology (expanded, hierarchical)
     # ------------------------------------------------------------------
 
     # 1) Sleep, circadian, and recovery physiology
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Sleep_and_Circadian", "Wearables"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Sleep_and_Circadian", "Wearables"], [
         "Sleep_Tracker_Ring",
         "Sleep_Tracker_Wrist_Wearable",
         "Sleep_Tracker_Armband",
@@ -3641,7 +4165,7 @@ def build_bio_ontology() -> Dict[str, Any]:
         "EEG_Sleep_Headband_Consumer",
         "Actigraphy_Wearable",
     ])
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Sleep_and_Circadian", "Bed_And_Room_Sensors"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Sleep_and_Circadian", "Bed_And_Room_Sensors"], [
         "Under_Mattress_Ballisto_Sensor",
         "Bedside_Radar_Sleep_Sensor",
         "Smart_Mattress_Sensor_System",
@@ -3652,46 +4176,46 @@ def build_bio_ontology() -> Dict[str, Any]:
         "Bedroom_CO2_Monitor",
         "Indoor_Air_Quality_Monitor_PM25_VOC",
     ])
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Sleep_and_Circadian", "Circadian_Exposure_Monitoring"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Sleep_and_Circadian", "Circadian_Exposure_Monitoring"], [
         "Light_Exposure_Dosimeter",
         "Blue_Light_Exposure_Meter",
         "Daylight_Exposure_Tracker",
     ])
 
     # 2) Autonomic and cardiovascular monitoring
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Autonomic_and_Cardiovascular", "Heart_Rate_and_HRV"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Autonomic_and_Cardiovascular", "Heart_Rate_and_HRV"], [
         "HRV_Tracker_Ring",
         "HRV_Tracker_Wrist_Wearable",
         "Chest_Strap_ECG_HRV_Device",
         "Photoplethysmography_HRV_Wearable",
         "HRV_Biofeedback_Device",
     ])
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Autonomic_and_Cardiovascular", "Blood_Pressure"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Autonomic_and_Cardiovascular", "Blood_Pressure"], [
         "Blood_Pressure_Home_Monitor_UpperArm_Cuff",
         "Blood_Pressure_Home_Monitor_Wrist_Cuff",
         "Cuffless_Blood_Pressure_Estimation_Wearable",
         "Ambulatory_Blood_Pressure_Monitor_Referral",
     ])
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Autonomic_and_Cardiovascular", "ECG_and_Arrhythmia_Screening"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Autonomic_and_Cardiovascular", "ECG_and_Arrhythmia_Screening"], [
         "Single_Lead_ECG_Wearable",
         "Multi_Lead_ECG_Patch_Monitor",
         "ECG_Chest_Strap_Device",
         "Event_Monitor_Referral",
         "Holter_Monitor_Referral",
     ])
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Autonomic_and_Cardiovascular", "Vascular_and_Perfusion"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Autonomic_and_Cardiovascular", "Vascular_and_Perfusion"], [
         "Peripheral_Perfusion_Index_Monitor",
         "Digital_Vascular_Assessment_Device_Referral",
         "Arterial_Stiffness_Pulse_Wave_Velocity_Device_Consumer",
     ])
 
     # 3) Respiratory and oxygenation monitoring
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Respiratory_and_Oxygenation", "Oxygenation"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Respiratory_and_Oxygenation", "Oxygenation"], [
         "Pulse_Oximeter_Fingertip",
         "Pulse_Oximeter_Wrist_Wearable",
         "Overnight_Oximetry_Device",
     ])
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Respiratory_and_Oxygenation", "Breathing_And_Ventilation"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Respiratory_and_Oxygenation", "Breathing_And_Ventilation"], [
         "Respiratory_Rate_Wearable",
         "Capnography_Monitoring_Device_Referral",
         "Breath_Sensor_Chest_Band",
@@ -3699,23 +4223,23 @@ def build_bio_ontology() -> Dict[str, Any]:
         "Peak_Flow_Meter",
         "Home_Spirometry_Device",
     ])
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Respiratory_and_Oxygenation", "Sleep_Disordered_Breathing_Screening"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Respiratory_and_Oxygenation", "Sleep_Disordered_Breathing_Screening"], [
         "Snore_And_Breathing_Pattern_Monitor",
         "Home_Sleep_Testing_Device_Referral",
         "Positional_Sleep_Monitor",
     ])
 
     # 4) Metabolic monitoring (glucose, ketones, lipids proxies)
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Metabolic", "Glucose"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Metabolic", "Glucose"], [
         "Continuous_Glucose_Monitoring_Device",
         "Flash_Glucose_Monitoring_Device",
         "Fingerstick_Glucometer",
     ])
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Metabolic", "Ketones_And_Metabolic_Flexibility"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Metabolic", "Ketones_And_Metabolic_Flexibility"], [
         "Blood_Ketone_Meter",
         "Breath_Ketone_Sensor",
     ])
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Metabolic", "Body_Composition_And_Weight"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Metabolic", "Body_Composition_And_Weight"], [
         "Smart_Scale",
         "Bioimpedance_Scale_Consumer",
         "Body_Composition_Analyzer_Handheld_BIA",
@@ -3724,30 +4248,30 @@ def build_bio_ontology() -> Dict[str, Any]:
     ])
 
     # 5) Temperature, thermoregulation, and illness signals
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Thermoregulation_And_Inflammatory_Signals", "Wearables"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Thermoregulation_And_Inflammatory_Signals", "Wearables"], [
         "Skin_Temperature_Sensor_Wearable",
         "Core_Temperature_Estimation_Wearable",
         "Thermal_Ring_Sensor",
     ])
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Thermoregulation_And_Inflammatory_Signals", "Home_Tools"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Thermoregulation_And_Inflammatory_Signals", "Home_Tools"], [
         "Digital_Thermometer_Oral",
         "Digital_Thermometer_Tympanic",
         "Digital_Thermometer_Forehead",
     ])
 
     # 6) Activity, fitness physiology, and biomechanics (still physiology-anchored)
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Activity_Fitness_And_Biomechanics", "Activity_and_Energy"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Activity_Fitness_And_Biomechanics", "Activity_and_Energy"], [
         "Activity_Tracker_Wearable",
         "Step_Counting_Wearable",
         "Energy_Expenditure_Estimation_Wearable",
         "Stair_Climb_And_Elevation_Tracker",
     ])
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Activity_Fitness_And_Biomechanics", "Cardiorespiratory_Fitness_Proxies"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Activity_Fitness_And_Biomechanics", "Cardiorespiratory_Fitness_Proxies"], [
         "VO2max_Estimation_Wearable",
         "Heart_Rate_Training_Zone_Device",
         "Recovery_Readiness_Score_Wearable",
     ])
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Activity_Fitness_And_Biomechanics", "Gait_Posture_And_Movement_Quality"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Activity_Fitness_And_Biomechanics", "Gait_Posture_And_Movement_Quality"], [
         "Gait_Analysis_Insole_Sensors",
         "Pressure_Sensing_Insoles",
         "Running_Pod_Biomechanics_Sensor",
@@ -3756,21 +4280,21 @@ def build_bio_ontology() -> Dict[str, Any]:
     ])
 
     # 7) Nervous system, stress physiology, and arousal proxies
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Neurophysiology_And_Stress_Proxies", "Electrodermal_And_Sympathetic"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Neurophysiology_And_Stress_Proxies", "Electrodermal_And_Sympathetic"], [
         "Electrodermal_Activity_Wearable",
         "Skin_Conductance_Sensor",
     ])
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Neurophysiology_And_Stress_Proxies", "EEG_And_Cognition_Adjacent"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Neurophysiology_And_Stress_Proxies", "EEG_And_Cognition_Adjacent"], [
         "EEG_Headband_Consumer",
         "Neurofeedback_Headset_Consumer",
     ])
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Neurophysiology_And_Stress_Proxies", "Muscle_Tension"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Neurophysiology_And_Stress_Proxies", "Muscle_Tension"], [
         "EMG_Biofeedback_Device_Consumer",
         "Jaw_Clench_Bruxism_Sensor",
     ])
 
     # 8) Home lab / point-of-care style monitoring (physiology)
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Physiology", "Home_PointOfCare_Measurements"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Physiology", "Home_PointOfCare_Measurements"], [
         "Blood_Pressure_Home_Monitor",
         "Pulse_Oximeter",
         "Fingerstick_Glucometer",
@@ -3786,7 +4310,7 @@ def build_bio_ontology() -> Dict[str, Any]:
     # BIO["Personalization_and_Monitoring"] = pers
 
 
-    add_leaves(pers, ["Wearables_and_Home_Monitoring", "Environment"], [
+    add_leaves(pers_mon, ["Wearables_and_Home_Monitoring", "Environment"], [
         "Air_Quality_Monitor",
         "Indoor_Particulate_Monitor",
         "Room_Humidity_Meter",
@@ -3801,7 +4325,7 @@ def build_bio_ontology() -> Dict[str, Any]:
     # behaviors, context, and subjective experience (non-device).
     # ------------------------------------------------------------------
 
-    add_leaves(pers, ["Self_Assessment_and_Logs", "Daily_and_Retrospective_Logs"], [
+    add_leaves(pers_mon, ["Self_Assessment_and_Logs", "Daily_and_Retrospective_Logs"], [
         "Sleep_Diary",
         "Sleep_Quality_Rating",
         "Sleep_Timing_Log",
@@ -3818,7 +4342,7 @@ def build_bio_ontology() -> Dict[str, Any]:
         "Pain_Intensity_And_Interference_Log",
     ])
 
-    add_leaves(pers, ["Self_Assessment_and_Logs", "Affect_Mood_and_Stress_SelfReports"], [
+    add_leaves(pers_mon, ["Self_Assessment_and_Logs", "Affect_Mood_and_Stress_SelfReports"], [
         "Mood_Diary",
         "Affect_Valence_Arousal_Rating",
         "Emotion_Labeling_Log",
@@ -3831,7 +4355,7 @@ def build_bio_ontology() -> Dict[str, Any]:
         "Calmness_Relaxation_Rating",
     ])
 
-    add_leaves(pers, ["Self_Assessment_and_Logs", "Cognition_and_Energy_SelfReports"], [
+    add_leaves(pers_mon, ["Self_Assessment_and_Logs", "Cognition_and_Energy_SelfReports"], [
         "Mental_Energy_Rating",
         "Fatigue_Severity_SelfReport",
         "Brain_Fog_Severity_Log",
@@ -3842,7 +4366,7 @@ def build_bio_ontology() -> Dict[str, Any]:
         "Decision_Fatigue_SelfReport",
     ])
 
-    add_leaves(pers, ["Self_Assessment_and_Logs", "Somatic_and_Interoceptive_SelfReports"], [
+    add_leaves(pers_mon, ["Self_Assessment_and_Logs", "Somatic_and_Interoceptive_SelfReports"], [
         "Body_Sensation_Log",
         "Arousal_Sensation_Log",
         "Interoceptive_Awareness_Log",
@@ -3852,7 +4376,7 @@ def build_bio_ontology() -> Dict[str, Any]:
         "Appetite_And_Satiety_Log",
     ])
 
-    add_leaves(pers, ["Self_Assessment_and_Logs", "Context_and_Behavioral_Context_Logs"], [
+    add_leaves(pers_mon, ["Self_Assessment_and_Logs", "Context_and_Behavioral_Context_Logs"], [
         "Location_Context_Log",
         "Social_Context_Log",
         "Workload_And_Demand_Log",
@@ -3865,7 +4389,7 @@ def build_bio_ontology() -> Dict[str, Any]:
     # ----------------------------
     # Ecological Momentary Assessment (EMA)
     # ----------------------------
-    add_leaves(pers, ["Self_Assessment_and_Logs", "Ecological_Momentary_Assessment_EMA", "Momentary_Affect_and_Stress"], [
+    add_leaves(pers_mon, ["Self_Assessment_and_Logs", "Ecological_Momentary_Assessment_EMA", "Momentary_Affect_and_Stress"], [
         "EMA_Mood_CheckIn",
         "EMA_Stress_Level",
         "EMA_Anxiety_Arousal",
@@ -3873,7 +4397,7 @@ def build_bio_ontology() -> Dict[str, Any]:
         "EMA_Irritability_Check",
     ])
 
-    add_leaves(pers, ["Self_Assessment_and_Logs", "Ecological_Momentary_Assessment_EMA", "Momentary_Cognition_and_Energy"], [
+    add_leaves(pers_mon, ["Self_Assessment_and_Logs", "Ecological_Momentary_Assessment_EMA", "Momentary_Cognition_and_Energy"], [
         "EMA_Mental_Energy",
         "EMA_Fatigue",
         "EMA_Attention_Quality",
@@ -3881,7 +4405,7 @@ def build_bio_ontology() -> Dict[str, Any]:
         "EMA_Motivation_Level",
     ])
 
-    add_leaves(pers, ["Self_Assessment_and_Logs", "Ecological_Momentary_Assessment_EMA", "Momentary_Somatic_and_Physiological_Perception"], [
+    add_leaves(pers_mon, ["Self_Assessment_and_Logs", "Ecological_Momentary_Assessment_EMA", "Momentary_Somatic_and_Physiological_Perception"], [
         "EMA_Body_Tension",
         "EMA_Breathing_Ease",
         "EMA_Heart_Pounding_Perception",
@@ -3889,7 +4413,7 @@ def build_bio_ontology() -> Dict[str, Any]:
         "EMA_Pain_Level",
     ])
 
-    add_leaves(pers, ["Self_Assessment_and_Logs", "Ecological_Momentary_Assessment_EMA", "Momentary_Context_and_Triggers"], [
+    add_leaves(pers_mon, ["Self_Assessment_and_Logs", "Ecological_Momentary_Assessment_EMA", "Momentary_Context_and_Triggers"], [
         "EMA_Current_Activity",
         "EMA_Social_Context",
         "EMA_Environmental_Context",
@@ -3897,7 +4421,7 @@ def build_bio_ontology() -> Dict[str, Any]:
         "EMA_Recent_Stress_Event",
     ])
 
-    add_leaves(pers, ["Self_Assessment_and_Logs", "Ecological_Momentary_Assessment_EMA", "Momentary_Coping_and_Response"], [
+    add_leaves(pers_mon, ["Self_Assessment_and_Logs", "Ecological_Momentary_Assessment_EMA", "Momentary_Coping_and_Response"], [
         "EMA_Coping_Strategy_Used",
         "EMA_Perceived_Coping_Effectiveness",
         "EMA_Urge_Intensity",
@@ -3905,7 +4429,7 @@ def build_bio_ontology() -> Dict[str, Any]:
         "EMA_Recovery_State",
     ])
 
-    add_leaves(pers, ["Self_Assessment_and_Logs", "Structured_Scales_and_Questionnaires"], [
+    add_leaves(pers_mon, ["Self_Assessment_and_Logs", "Structured_Scales_and_Questionnaires"], [
         "Standardized_Mood_Scale_SelfReport",
         "Standardized_Stress_Scale_SelfReport",
         "Sleep_Questionnaire_SelfReport",
@@ -3915,7 +4439,7 @@ def build_bio_ontology() -> Dict[str, Any]:
     ])
 
 
-    add_leaves(pers, ["Personalization_Workflows"], [
+    add_leaves(pers_mon, ["Personalization_Workflows"], [
         "Baseline_Assessment_Workup_Framework",
         "Iterative_Test_And_Adjust_Framework",
         "Clinician_Shared_Decision_Making_Framework",
@@ -3923,7 +4447,7 @@ def build_bio_ontology() -> Dict[str, Any]:
         "Adherence_Barrier_Review_Framework",
     ])
 
-    BIO["Personalization_Monitoring_and_Data_Feedback"] = pers
+    BIO["Personalization_Monitoring_and_Data_Feedback"] = pers_mon
 
     return {"BIO": BIO}
 
