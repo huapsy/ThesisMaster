@@ -6,8 +6,17 @@ import sys
 from pathlib import Path
 
 
+def _resolve_repo_root() -> Path:
+    here = Path(__file__).resolve()
+    for candidate in [*here.parents]:
+        if (candidate / "src").exists() and (candidate / "evaluation").exists():
+            return candidate
+    # Fallback to historical layout assumption.
+    return here.parents[3]
+
+
 def main() -> int:
-    repo_root = Path(__file__).resolve().parents[2]
+    repo_root = _resolve_repo_root()
     contracts_root = repo_root / "src/utils/agentic_core/shared/contracts"
     schemas_root = contracts_root / "schemas"
     required = [
@@ -20,7 +29,9 @@ def main() -> int:
         "pipeline_summary",
     ]
 
-    sys.path.insert(0, str((repo_root / "src/utils/agentic_core").resolve()))
+    agentic_core_root = str((repo_root / "src/utils/agentic_core").resolve())
+    if agentic_core_root not in sys.path:
+        sys.path.insert(0, agentic_core_root)
     from shared import ContractValidator  # type: ignore
 
     validator = ContractValidator()
