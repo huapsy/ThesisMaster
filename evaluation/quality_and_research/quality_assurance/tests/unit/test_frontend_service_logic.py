@@ -478,6 +478,7 @@ def test_run_initial_model_writes_and_uses_session_complaint(repo_root, tmp_path
     fake_hyde.write_text("pseudoprofile_id,dense_profile\n", encoding="utf-8")
     service._discover_latest_hyde_dense_profiles = lambda: fake_hyde  # type: ignore[method-assign]
     service._collect_profile_visuals = lambda *_args, **_kwargs: []  # type: ignore[method-assign]
+    service._assert_operationalization_cache = lambda: None  # type: ignore[method-assign]
 
     captured = {"input_seen": False}
 
