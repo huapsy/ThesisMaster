@@ -160,8 +160,8 @@ def build():
             "PHOENIX engine — Multi Agent System Architecture",
             ha="center", fontsize=20, fontweight="bold", color=TEXT_DARK)
 
-    # thin rule under title
-    ax.axhline(31.4, xmin=0.02, xmax=0.98, color=BORDER_MID, lw=0.8)
+    # thin rule under title — clipped to frame bounds
+    ax.axhline(31.4, xmin=2.3/29.5, xmax=(29.5-0.5)/29.5, color=BORDER_MID, lw=0.8)
 
     # ── Column X positions ───────────────────────────────────────────────────
     Cx  = 9.0     # main LLM spine
@@ -240,9 +240,9 @@ def build():
         sub="EMA items determined by Step 02 predictor selection  ·  per-participant idiographic time-series",
         bc=B_DATA, fc=F_DATA, fontsize=8.2)
     arr(ax, Cx, y_ema1-0.36, Cx-0.5, y_rdy-0.01,
-        label="EMA time-series", color=E_FWD)
+        label="EMA time-series", color=B_DATA)
     arr(ax, Cx+4.25, y_ema1, Hx-3.4, y_rdy,
-        label="EMA series→HUA", color=E_HUA, lw=1.0)
+        label="EMA series→HUA", color=B_DATA, lw=1.0)
 
     # ── HUA: READINESS CLASSIFIER ────────────────────────────────────────────
     box(ax, Hx, y_rdy, 6.5, 0.84,
@@ -387,7 +387,7 @@ def build():
         bc=B_DATA, fc=F_DATA, fontsize=8.2)
 
     arr(ax, Cx+4.25, y_ema2, Hx-3.25, y_rdy,
-        label="new EMA series → Cycle N+1", color=E_CYCLE, lw=1.1, rad=0.0)
+        label="new EMA series → Cycle N+1", color=B_DATA, lw=1.1, rad=0.0)
 
     # ── STAGE ANNOTATIONS (left margin) ──────────────────────────────────────
     for y_pos, lbl in [(y_complaint, "INPUT"), (y_s01, "01"), (y_s02, "02"),
@@ -397,11 +397,13 @@ def build():
         ax.text(2.8, y_pos, lbl, ha="center", va="center",
                 fontsize=7, fontweight="bold", color=TEXT_LIGHT, style="italic")
 
-    # light horizontal separators
+    # light horizontal separators — bounded to content x-range only
+    sep_x0 = Cx - 4.25  # left edge of main boxes
+    sep_x1 = Kx + 4.25  # right edge of critic boxes
     for y_sep in [y_s01-0.65, y_s02-0.65, y_ema1-0.55,
                   y_s03-0.70, y_s04-0.70, y_s05-0.70, y_arts-0.65]:
-        ax.axhline(y_sep, xmin=0.04, xmax=0.84, color=BORDER_MID,
-                   lw=0.4, linestyle=":", zorder=0)
+        ax.plot([sep_x0, sep_x1], [y_sep, y_sep], color=BORDER_MID,
+                lw=0.4, linestyle=":", zorder=1.5)
 
 
     # thin outer frame
@@ -415,7 +417,7 @@ def build():
 
     # ── SAVE ─────────────────────────────────────────────────────────────────
     out = Path(__file__).parent / "create_flowchart.png"
-    fig.savefig(out, dpi=DPI, bbox_inches="tight",
+    fig.savefig(out, dpi=DPI, bbox_inches="tight", pad_inches=0,
                 facecolor=BG, edgecolor="none")
     plt.close(fig)
     print(f"[PHOENIX] Saved: {out}")

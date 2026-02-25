@@ -47,4 +47,8 @@ def test_pipeline_smoke_single_profile(tmp_path: Path, repo_file_fn) -> None:
     assert summary_path.exists()
     payload = json.loads(summary_path.read_text(encoding="utf-8"))
     assert payload["status"] == "ok"
-    assert (output_root / run_id / "05_research_reports" / "run_report.md").exists()
+    report_candidates = [
+        output_root / run_id / "10_research_reports" / "run_report.md",
+        output_root / run_id / "05_research_reports" / "run_report.md",  # legacy layout
+    ]
+    assert any(path.exists() for path in report_candidates)

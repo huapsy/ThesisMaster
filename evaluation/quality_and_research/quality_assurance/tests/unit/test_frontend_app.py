@@ -26,16 +26,13 @@ def test_frontend_app_boots(repo_root):
     detail = client.get(location)
     assert detail.status_code == 200
     assert b"topbar-pipeline-nodes" in detail.data
-    assert b"Workspace Control" in detail.data
+    assert b"Session Profile" in detail.data
     assert b"Runtime Components" in detail.data
     assert b"run-next-phase-btn" in detail.data
-    assert b"Expand all sections" in detail.data
+    assert b"Advanced configuration" in detail.data
     assert b"Logs" in detail.data
     assert b"Realtime Process Logs" in detail.data
     assert b"cycle-request-refinement" in detail.data
-    assert b"logs-drawer-open" in detail.data
-    assert b"run-cohort-btn" in detail.data
-    assert b"Advanced configuration" in detail.data
     assert b"runtime-events-list" in detail.data
 
 

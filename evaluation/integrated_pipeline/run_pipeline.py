@@ -59,6 +59,29 @@ def _bootstrap_env(repo_root: Path) -> None:
             os.environ["OPENAI_BASE_URL"] = "https://openrouter.ai/api/v1"
 
 
+def _extract_passthrough_option(args: Sequence[str], option_name: str) -> tuple[list[str], str]:
+    """Extract one option from passthrough args and return (remaining_args, last_value)."""
+    remaining: list[str] = []
+    found_value = ""
+    i = 0
+    while i < len(args):
+        token = str(args[i])
+        if token == option_name:
+            if i + 1 < len(args):
+                found_value = str(args[i + 1])
+                i += 2
+                continue
+            i += 1
+            continue
+        if token.startswith(f"{option_name}="):
+            found_value = token.split("=", 1)[1].strip()
+            i += 1
+            continue
+        remaining.append(token)
+        i += 1
+    return remaining, found_value
+
+
 def parse_args(argv: Optional[Sequence[str]] = None) -> tuple[argparse.Namespace, list[str]]:
     repo_root = Path(__file__).resolve().parents[2]
     parser = argparse.ArgumentParser(
@@ -81,6 +104,24 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> tuple[argparse.Namespace
     parser.add_argument("--ui-port", type=int, default=5050)
     parser.add_argument("--ui-debug", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--python-exe", type=str, default=_default_python_exe(repo_root))
+    parser.add_argument(
+        "--run-id",
+        type=str,
+        default="",
+        help="Explicit run id. If omitted, a timestamped run id is generated.",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Print resolved commands/configuration and exit without executing engine runs.",
+    )
+    parser.add_argument(
+        "--print-effective-config",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Print resolved runtime configuration before launch.",
+    )
     parser.add_argument(
         "--disable-llm",
         "--disable_LLM",
@@ -142,12 +183,27 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     target_script = evaluation_root / "integrated_pipeline/run_engine_pipeline.py"
     cycles = max(1, int(args.cycles))
-    base_run_id = datetime.now().strftime("run_%Y%m%d_%H%M%S")
+    passthrough, passthrough_run_id = _extract_passthrough_option(passthrough, "--run-id")
+    base_run_id = (
+        str(args.run_id).strip()
+        or str(passthrough_run_id).strip()
+        or datetime.now().strftime("run_%Y%m%d_%H%M%S")
+    )
     history_root = (
         Path(args.history_root).expanduser().resolve()
         if str(args.history_root).strip()
         else (evaluation_root / "integrated_pipeline/runs/_history").resolve()
     )
+    if bool(args.print_effective_config):
+        print(
+            "[PHOENIX] Effective config: "
+            f"mode={args.mode} cycles={cycles} run_id={base_run_id} "
+            f"python={args.python_exe} disable_llm={bool(args.disable_llm)} "
+            f"history_root={history_root}",
+            flush=True,
+        )
+        if passthrough:
+            print(f"[PHOENIX] Passthrough args: {' '.join(passthrough)}", flush=True)
 
     for cycle_index in range(1, cycles + 1):
         cmd = [
@@ -175,6 +231,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             cmd.extend(["--resume-from-run", str(args.resume_from_run).strip()])
         cmd.extend(passthrough)
         print(f"[PHOENIX] Running cycle {cycle_index}/{cycles}", flush=True)
+        print(f"[PHOENIX] Command: {' '.join(cmd)}", flush=True)
+        if bool(args.dry_run):
+            continue
         proc = subprocess.run(cmd, check=False)
         if proc.returncode != 0:
             return int(proc.returncode)

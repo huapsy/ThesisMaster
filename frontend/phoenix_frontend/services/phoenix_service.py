@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import queue
+import re
 import shlex
 import subprocess
 import threading
@@ -66,6 +67,12 @@ class PhoenixService:
         )
         self.cohort_runs_root = (self.session_store.sessions_root.parent / "cohort_runs").resolve()
         self.cohort_runs_root.mkdir(parents=True, exist_ok=True)
+        self.ui_show_static_visuals = str(os.getenv("PHOENIX_UI_SHOW_STATIC_VISUALS", "")).strip().lower() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }
         self._llm_model_cache: Dict[str, Any] = {"fetched_at": 0.0, "models": []}
         self._llm_model_cache_ttl_seconds = max(30, int(os.getenv("PHOENIX_MODEL_CATALOG_TTL_SECONDS", "300")))
 
@@ -110,6 +117,15 @@ class PhoenixService:
             self._assert_operationalization_cache()
             env_step01 = os.environ.copy()
             env_step01.setdefault("CRITERION_CACHE_DIR", str(self.operationalization_cache_dir))
+            complaint_preview = " ".join(str(session.complaint_text or "").split())
+            if len(complaint_preview) > 180:
+                complaint_preview = f"{complaint_preview[:180]}..."
+            log(
+                "[component:step01_operationalization] "
+                f"profile={profile_id} input={free_text_files['free_text_complaints']} "
+                f"complaint_preview={complaint_preview}",
+                "INFO",
+            )
             log("Running Step 01 operationalization from session-specific free-text input.", "INFO")
             self._run_command(
                 cmd=[
@@ -127,6 +143,17 @@ class PhoenixService:
                 log=log,
                 env=env_step01,
                 component="step01_operationalization",
+            )
+
+            op_summary = self._load_operationalization_summary(
+                mapped_csv_path=mapped_csv,
+                profile_id=profile_id,
+                fallback_complaint_text=session.complaint_text,
+            )
+            log(
+                "[component:step01_operationalization] "
+                f"mapped_variables={int(op_summary.get('criteria_count') or 0)} source={op_summary.get('source') or 'none'}",
+                "INFO",
             )
 
             hyde_dense_profiles = self._discover_latest_hyde_dense_profiles()
@@ -189,10 +216,21 @@ class PhoenixService:
                 f"({step02_fallback_reason}).",
                 "WARNING",
             )
-            fallback_model = self._build_heuristic_initial_model(
+            op_summary = self._load_operationalization_summary(
+                mapped_csv_path=mapped_csv,
+                profile_id=profile_id,
+                fallback_complaint_text=session.complaint_text,
+            )
+            fallback_model = self._build_fallback_model_from_operationalization(
                 profile_id=profile_id,
                 complaint_text=session.complaint_text,
+                op_summary=op_summary,
             )
+            if not fallback_model:
+                fallback_model = self._build_heuristic_initial_model(
+                    profile_id=profile_id,
+                    complaint_text=session.complaint_text,
+                )
             fallback_summary = str(fallback_model.get("model_summary") or "").strip()
             fallback_model["model_summary"] = (
                 f"{fallback_summary}\n"
@@ -459,12 +497,23 @@ class PhoenixService:
         pipeline_run_id = session.pipeline_run_id.strip() or f"frontend_pipeline_{session.session_id}"
         cycle_index = int(session.current_cycle) + 1
         effective_network_jobs = max(1, int(network_jobs))
-        if effective_network_jobs > 1:
+        force_single_network_job = str(os.getenv("PHOENIX_FORCE_SINGLE_NETWORK_JOB", "")).strip().lower() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }
+        if effective_network_jobs > 1 and force_single_network_job:
             log(
-                "network_jobs > 1 can fail in constrained environments; clamping to 1 for stable execution.",
+                "PHOENIX_FORCE_SINGLE_NETWORK_JOB enabled; clamping network_jobs to 1.",
                 "WARNING",
             )
             effective_network_jobs = 1
+        elif effective_network_jobs > 1:
+            log(
+                f"Using network_jobs={effective_network_jobs} (parallel network estimation enabled).",
+                "INFO",
+            )
 
         cmd = [
             self.python_exe,
@@ -541,11 +590,33 @@ class PhoenixService:
             cmd.append("--communication-disable-llm")
 
         log(f"Running integrated PHOENIX analysis cycle {cycle_index}.", "INFO")
-        self._run_command(
-            cmd=cmd,
-            log=log,
-            component="pipeline_cycle_engine",
-        )
+        try:
+            self._run_command(
+                cmd=cmd,
+                log=log,
+                component="pipeline_cycle_engine",
+            )
+        except RuntimeError as exc:
+            if effective_network_jobs <= 1:
+                raise
+            retry_cmd = list(cmd)
+            try:
+                idx = retry_cmd.index("--network-jobs")
+                retry_cmd[idx + 1] = "1"
+            except Exception:
+                raise
+            log(
+                "Cycle run failed with parallel network jobs "
+                f"(network_jobs={effective_network_jobs}); retrying once with network_jobs=1. "
+                f"Original error: {exc}",
+                "WARNING",
+            )
+            self._run_command(
+                cmd=retry_cmd,
+                log=log,
+                component="pipeline_cycle_engine",
+            )
+            effective_network_jobs = 1
 
         cycle_root = self._cycle_run_root(
             output_root=paths["pipeline_root"],
@@ -1010,6 +1081,12 @@ class PhoenixService:
         if generation_summary_path.exists():
             pseudodata_summary = json.loads(generation_summary_path.read_text(encoding="utf-8"))
 
+        operationalization_summary = self._load_operationalization_summary(
+            mapped_csv_path=paths["operationalization_root"] / "mapped_criterions.csv",
+            profile_id=session.profile_id,
+            fallback_complaint_text=session.complaint_text,
+        )
+
         pipeline_summary: Dict[str, Any] = {}
         pipeline_dashboard: Dict[str, Any] = {}
         pipeline_summary_raw = str(session.latest_pipeline_summary or "").strip()
@@ -1040,6 +1117,7 @@ class PhoenixService:
             },
             "model_summary": model_summary,
             "collection_schema": collection_schema,
+            "operationalization_summary": operationalization_summary,
             "visuals": visuals,
             "pseudodata_summary": pseudodata_summary,
             "pipeline_summary": pipeline_summary,
@@ -1054,6 +1132,8 @@ class PhoenixService:
         }
 
     def _collect_profile_visuals(self, profile_dir: Path, *, session_id: str) -> List[Dict[str, str]]:
+        if not self.ui_show_static_visuals:
+            return []
         visuals_root = profile_dir / "visuals"
         out: List[Dict[str, str]] = []
         if not visuals_root.exists():
@@ -1361,6 +1441,24 @@ class PhoenixService:
         step03 = self._read_json(step03_path)
         step04 = self._read_json(step04_path)
         step05 = self._read_json(step05_path)
+        variable_labels: Dict[str, str] = {}
+        try:
+            session = self.session_store.load_session(session_id)
+            model_path_raw = str(session.latest_model_json or "").strip()
+            if model_path_raw:
+                model_path = Path(model_path_raw).expanduser().resolve()
+                if model_path.exists():
+                    payload = self._read_json(model_path)
+                    schema = build_collection_schema(payload)
+                    for item in schema.get("variables", []):
+                        if not isinstance(item, dict):
+                            continue
+                        var_id = str(item.get("var_id") or "").strip()
+                        if not var_id:
+                            continue
+                        variable_labels[var_id] = str(item.get("label") or var_id).strip() or var_id
+        except Exception:
+            variable_labels = {}
 
         top_predictors: List[Dict[str, Any]] = []
         if not impact_df.empty:
@@ -1374,9 +1472,17 @@ class PhoenixService:
                     local["_score"] = local["_score"] / 1000.0
                 local = local.sort_values("_score", ascending=False).head(10)
                 for _, row in local.iterrows():
+                    predictor_id = str(row.get("predictor") or "").strip()
+                    predictor_label = str(variable_labels.get(predictor_id) or predictor_id).strip() or predictor_id
                     top_predictors.append(
                         {
-                            "predictor": str(row.get("predictor") or ""),
+                            "predictor": predictor_id,
+                            "predictor_label": predictor_label,
+                            "predictor_display": (
+                                f"{predictor_label} ({predictor_id})"
+                                if predictor_id and predictor_label and predictor_label != predictor_id
+                                else predictor_label
+                            ),
                             "score_0_1": float(max(0.0, min(1.0, row.get("_score", 0.0)))),
                         }
                     )
@@ -1384,17 +1490,33 @@ class PhoenixService:
         recommended_targets = [
             {
                 "predictor": str(item.get("predictor") or ""),
+                "predictor_label": str(
+                    item.get("predictor_label")
+                    or variable_labels.get(str(item.get("predictor") or "").strip())
+                    or item.get("predictor")
+                    or ""
+                ),
                 "score_0_1": float(item.get("score_0_1") or 0.0),
                 "rationale": str(item.get("rationale") or ""),
             }
             for item in (step03.get("recommended_targets") or [])
             if isinstance(item, dict)
         ]
-        updated_predictors = [str(item) for item in (step04.get("recommended_next_observation_predictors") or []) if str(item).strip()]
+        updated_predictors = [
+            str(item) for item in (step04.get("recommended_next_observation_predictors") or []) if str(item).strip()
+        ]
+        updated_predictor_rows = [
+            {
+                "predictor": pid,
+                "label": str(variable_labels.get(pid) or pid),
+            }
+            for pid in updated_predictors
+        ]
         selected_barriers = [
             {
                 "barrier_name": str(item.get("barrier_name") or ""),
                 "score_0_1": float(item.get("score_0_1") or 0.0),
+                "rationale": str(item.get("rationale") or ""),
             }
             for item in (step05.get("selected_barriers") or [])
             if isinstance(item, dict)
@@ -1403,10 +1525,48 @@ class PhoenixService:
             {
                 "coping_name": str(item.get("coping_name") or ""),
                 "score_0_1": float(item.get("score_0_1") or 0.0),
+                "rationale": str(item.get("rationale") or ""),
             }
             for item in (step05.get("selected_coping_strategies") or [])
             if isinstance(item, dict)
         ]
+        selected_targets = [
+            {
+                "predictor": str(item.get("predictor") or ""),
+                "predictor_label": str(
+                    item.get("predictor_label")
+                    or variable_labels.get(str(item.get("predictor") or "").strip())
+                    or item.get("predictor")
+                    or ""
+                ),
+                "priority_0_1": float(item.get("priority_0_1") or 0.0),
+                "rationale": str(item.get("rationale") or ""),
+            }
+            for item in (step05.get("selected_treatment_targets") or [])
+            if isinstance(item, dict)
+        ]
+        hapa_component_plan = [
+            {
+                "component": str(item.get("component") or ""),
+                "objective": str(item.get("objective") or ""),
+                "actions": [str(x) for x in (item.get("actions") or []) if str(x).strip()],
+                "digital_delivery": str(item.get("digital_delivery") or ""),
+            }
+            for item in (step05.get("hapa_component_plan") or [])
+            if isinstance(item, dict)
+        ]
+        phased_delivery_plan = [
+            {
+                "phase": str(item.get("phase") or ""),
+                "time_window": str(item.get("time_window") or ""),
+                "primary_goal": str(item.get("primary_goal") or ""),
+                "concrete_actions": [str(x) for x in (item.get("concrete_actions") or []) if str(x).strip()],
+            }
+            for item in (step05.get("phased_delivery_plan") or [])
+            if isinstance(item, dict)
+        ]
+        monitoring_plan = [str(x) for x in (step05.get("monitoring_plan") or []) if str(x).strip()]
+        safety_notes = [str(x) for x in (step05.get("safety_notes") or []) if str(x).strip()]
 
         overall = readiness.get("overall", {}) if isinstance(readiness.get("overall"), dict) else {}
         execution_plan = network.get("execution_plan", {}) if isinstance(network.get("execution_plan"), dict) else {}
@@ -1465,13 +1625,20 @@ class PhoenixService:
             "step03": {"recommended_targets": recommended_targets, "status": step03_status},
             "step04": {
                 "recommended_predictors": updated_predictors,
+                "recommended_predictor_rows": updated_predictor_rows,
                 "retained_criteria_ids": [str(item) for item in (step04.get("retained_criteria_ids") or [])],
                 "reason_codes": [str(item) for item in (step04.get("range_policy_reason_codes") or [])],
                 "status": step04_status,
             },
             "step05": {
+                "selected_targets": selected_targets,
                 "selected_barriers": selected_barriers,
                 "selected_coping": selected_coping,
+                "hapa_component_plan": hapa_component_plan,
+                "phased_delivery_plan": phased_delivery_plan,
+                "monitoring_plan": monitoring_plan,
+                "safety_notes": safety_notes,
+                "confidence_0_1": float(step05.get("confidence_0_1") or 0.0),
                 "user_summary": str(step05.get("user_friendly_summary") or step05.get("personalized_message") or ""),
                 "status": step05_status,
             },
@@ -1479,6 +1646,8 @@ class PhoenixService:
         }
 
     def _collect_cycle_visuals(self, *, cycle_root: Path, profile_id: str, session_id: str) -> List[Dict[str, str]]:
+        if not self.ui_show_static_visuals:
+            return []
         session_root = self.session_store.session_paths(session_id)["session_root"]
         out: List[Dict[str, str]] = []
         candidates: List[Path] = []
@@ -1522,6 +1691,237 @@ class PhoenixService:
             seen_rel.add(rel)
             out.append({"name": path.name, "relative_path": rel})
         return out
+
+    def _load_operationalization_summary(
+        self,
+        *,
+        mapped_csv_path: Path,
+        profile_id: str,
+        fallback_complaint_text: str,
+    ) -> Dict[str, Any]:
+        def _clean_cell(value: Any) -> str:
+            if value is None:
+                return ""
+            try:
+                if pd.isna(value):
+                    return ""
+            except Exception:
+                pass
+            text = str(value).strip()
+            if text.lower() in {"nan", "none", "null"}:
+                return ""
+            return text
+
+        def _norm_text(value: str) -> str:
+            text = re.sub(r"\s+", " ", str(value or "").strip().lower())
+            text = re.sub(r"[^\w\s]", "", text)
+            return text
+
+        summary: Dict[str, Any] = {
+            "source": "none",
+            "profile_id": str(profile_id),
+            "complaint_text": str(fallback_complaint_text or "").strip(),
+            "criteria_count": 0,
+            "variables": [],
+            "confidence_avg_0_1": 0.0,
+            "ontology_domains": [],
+            "matches_session_complaint": None,
+            "mismatch_warning": "",
+            "errors": [],
+        }
+        if not mapped_csv_path.exists():
+            return summary
+        try:
+            frame = self._safe_read_csv(mapped_csv_path)
+        except Exception:
+            return summary
+        if frame.empty:
+            summary["source"] = "mapped_csv_empty"
+            return summary
+
+        scoped = frame
+        if "pseudoprofile_id" in frame.columns:
+            candidate = frame[frame["pseudoprofile_id"].astype(str) == str(profile_id)]
+            if not candidate.empty:
+                scoped = candidate
+        if scoped.empty:
+            summary["source"] = "mapped_csv_empty"
+            return summary
+
+        if "complaint_text" in scoped.columns:
+            vals = [_clean_cell(v) for v in scoped["complaint_text"].tolist()]
+            vals = [v for v in vals if v]
+            if vals:
+                summary["complaint_text"] = vals[0]
+
+        rows: List[Dict[str, Any]] = []
+        seen: set[str] = set()
+        errors: List[str] = []
+        for _, row in scoped.iterrows():
+            mapping_status = _clean_cell(row.get("mapping_status")).upper() or "UNKNOWN"
+            error_text = _clean_cell(row.get("error"))
+            if mapping_status == "ERROR" and error_text:
+                errors.append(error_text)
+
+            var_id = _clean_cell(row.get("variable_id"))
+            if not var_id:
+                continue
+            if var_id in seen:
+                continue
+            seen.add(var_id)
+            label = (
+                _clean_cell(row.get("variable_label"))
+                or _clean_cell(row.get("variable_criterion"))
+                or var_id
+            )
+            ontology_path = _clean_cell(
+                row.get("chosen_leaf_embed_path")
+                or row.get("chosen_leaf_full_path")
+                or row.get("variable_criterion")
+                or "",
+            )
+            status = mapping_status or "UNKNOWN"
+            confidence = 0.0
+            for key in ("chosen_confidence", "variable_confidence_0_1"):
+                raw = row.get(key)
+                try:
+                    confidence = float(raw)
+                    if confidence > 0:
+                        break
+                except Exception:
+                    continue
+            rows.append(
+                {
+                    "var_id": var_id,
+                    "label": label,
+                    "criterion": _clean_cell(row.get("variable_criterion")),
+                    "ontology_path": ontology_path,
+                    "mapping_status": status,
+                    "confidence_0_1": float(max(0.0, min(1.0, confidence))),
+                    "polarity": _clean_cell(row.get("variable_polarity")),
+                    "timeframe": _clean_cell(row.get("variable_timeframe")),
+                }
+            )
+
+        summary["source"] = "mapped_csv"
+        summary["variables"] = rows
+        summary["criteria_count"] = len(rows)
+        summary["errors"] = errors[:6]
+        confidences = [float(row.get("confidence_0_1") or 0.0) for row in rows]
+        if confidences:
+            summary["confidence_avg_0_1"] = float(max(0.0, min(1.0, sum(confidences) / len(confidences))))
+        domains: List[str] = []
+        seen_domains: set[str] = set()
+        for row in rows:
+            ontology_path = str(row.get("ontology_path") or "").strip()
+            if not ontology_path:
+                continue
+            domain = ontology_path.split("/")[0].strip().lower()
+            if not domain or domain in seen_domains:
+                continue
+            seen_domains.add(domain)
+            domains.append(domain)
+        summary["ontology_domains"] = domains
+
+        session_norm = _norm_text(fallback_complaint_text)
+        mapped_norm = _norm_text(summary.get("complaint_text") or "")
+        if session_norm and mapped_norm:
+            matches = session_norm == mapped_norm
+            summary["matches_session_complaint"] = matches
+            if not matches:
+                summary["mismatch_warning"] = (
+                    "Mapped complaint text differs from the current session complaint. "
+                    "Verify free-text intake wiring before trusting downstream outputs."
+                )
+        return summary
+
+    def _build_fallback_model_from_operationalization(
+        self,
+        *,
+        profile_id: str,
+        complaint_text: str,
+        op_summary: Dict[str, Any],
+    ) -> Dict[str, Any]:
+        op_rows = list(op_summary.get("variables") or [])
+        if not op_rows:
+            return {}
+
+        def _safe_code(code: str, prefix: str, idx: int) -> str:
+            token = str(code or "").strip().upper()
+            if re.fullmatch(rf"{prefix}\d{{2}}", token):
+                return token
+            if re.fullmatch(rf"{prefix}\d{{1}}", token):
+                return f"{prefix}{int(token[1:]):02d}"
+            return f"{prefix}{idx:02d}"
+
+        def _slug(text: str) -> str:
+            token = re.sub(r"[^a-z0-9]+", "_", str(text or "").strip().lower()).strip("_")
+            return token or "unspecified"
+
+        criteria_variables: List[Dict[str, Any]] = []
+        for idx, row in enumerate(op_rows[:8], start=1):
+            var_id = _safe_code(str(row.get("var_id") or ""), "C", idx)
+            label = str(row.get("label") or row.get("criterion") or var_id).strip() or var_id
+            ontology_path = str(row.get("ontology_path") or "").strip()
+            if not ontology_path:
+                ontology_path = f"criteria/high_level/{_slug(label)}"
+            polarity = str(row.get("polarity") or "higher_is_worse").strip() or "higher_is_worse"
+            timeframe = str(row.get("timeframe") or "daily").strip() or "daily"
+            confidence = float(row.get("confidence_0_1") or 0.75)
+            criteria_variables.append(
+                {
+                    "var_id": var_id,
+                    "label": label,
+                    "criterion_path": ontology_path,
+                    "polarity": polarity,
+                    "timeframe": timeframe,
+                    "variable_confidence_0_1": float(max(0.1, min(1.0, confidence))),
+                    "measurement": {
+                        "item_or_signal": str(row.get("criterion") or label),
+                        "response_scale_or_unit": "0-10",
+                        "sampling_per_day": 1,
+                    },
+                }
+            )
+
+        predictor_count = max(3, min(6, len(criteria_variables) + 1))
+        predictor_variables: List[Dict[str, Any]] = []
+        for idx in range(1, predictor_count + 1):
+            source = criteria_variables[(idx - 1) % max(1, len(criteria_variables))]
+            source_label = str(source.get("label") or f"criterion_{idx}").strip()
+            p_var_id = f"P{idx:02d}"
+            p_label = f"Self-regulation signal for {source_label}"
+            predictor_variables.append(
+                {
+                    "var_id": p_var_id,
+                    "label": p_label,
+                    "ontology_path": f"predictors/high_level/self_regulation/{_slug(source_label)}",
+                    "expected_direction": "higher_is_worse",
+                    "measurement": {
+                        "item_or_signal": f"Daily burden linked to {source_label}",
+                        "response_scale_or_unit": "0-10",
+                        "sampling_per_day": 1,
+                    },
+                    "feasibility": {
+                        "data_collection_feasibility_0_1": 0.75,
+                    },
+                }
+            )
+
+        return {
+            "pseudoprofile_id": str(profile_id),
+            "model_summary": (
+                "Complaint-grounded fallback model generated from Step-01 operationalization output. "
+                "This keeps criteria aligned with the current free-text intake when Step-02 artifacts are unavailable."
+            ),
+            "variable_selection_notes": (
+                "Fallback preserves operationalized complaint variables and synthesizes high-level predictor probes "
+                f"for downstream PHOENIX compatibility.\nComplaint context: {str(complaint_text or '')[:500]}"
+            ),
+            "design_recommendations": {"study_days": 14, "sampling_per_day": 1},
+            "criteria_variables": criteria_variables,
+            "predictor_variables": predictor_variables,
+        }
 
     def _assert_operationalization_cache(self) -> None:
         required = [

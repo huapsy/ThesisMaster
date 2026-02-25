@@ -435,7 +435,7 @@
     }
     UI.errorBanner.innerHTML = `<strong>Runtime error:</strong> ${escapeHtml(raw)}<br><span>${escapeHtml(hint)}</span>`;
     UI.errorBanner.classList.remove("hidden");
-    setLogsDrawerOpen(true);
+    if (typeof switchTab === 'function') switchTab('logs');
   }
 
   function setButtonLoading(buttonId, loading, runningLabel = "Processing…") {
@@ -491,15 +491,30 @@
   }
 
   function renderLlmModelOptions(models) {
-    if (!UI.llmModelOptions) return;
+    const dropdown = document.getElementById("llm-autocomplete-dropdown");
+    if (!dropdown) return;
     const rows = Array.isArray(models) ? models : [];
-    if (!rows.length) return;
-    UI.llmModelOptions.innerHTML = rows.map((row) => {
+    state._llmCatalog = rows;
+    if (!rows.length) {
+      dropdown.innerHTML = `<div class="autocomplete-item muted">No models found</div>`;
+      return;
+    }
+    dropdown.innerHTML = rows.slice(0, 40).map((row) => {
       const id = String(row.id || "").trim();
-      const label = String(row.label || id).trim();
       if (!id) return "";
-      return `<option value="${escapeHtml(id)}">${escapeHtml(label)}</option>`;
+      return `<div class="autocomplete-item" data-model-id="${escapeHtml(id)}"><span class="model-id">${escapeHtml(id)}</span></div>`;
     }).join("");
+  }
+
+  function showLlmDropdown() {
+    const dropdown = document.getElementById("llm-autocomplete-dropdown");
+    if (dropdown) dropdown.classList.remove("hidden");
+  }
+  function hideLlmDropdown() {
+    setTimeout(() => {
+      const dropdown = document.getElementById("llm-autocomplete-dropdown");
+      if (dropdown) dropdown.classList.add("hidden");
+    }, 180);
   }
 
   async function fetchLlmModelCatalog(query = "") {
@@ -529,10 +544,28 @@
   function bindModelCatalogAutocomplete() {
     const inputs = UI.llmModelInputs || [];
     if (!inputs.length) return;
+
+    /* Click handler on the dropdown */
+    const dropdown = document.getElementById("llm-autocomplete-dropdown");
+    if (dropdown) {
+      dropdown.addEventListener("mousedown", (e) => {
+        e.preventDefault(); /* prevent blur */
+        const item = e.target.closest(".autocomplete-item");
+        if (!item) return;
+        const modelId = item.dataset.modelId;
+        if (!modelId) return;
+        /* Set ALL visible LLM model inputs to the selected model */
+        inputs.forEach((inp) => { if (inp) inp.value = modelId; });
+        hideLlmDropdown();
+      });
+    }
+
     inputs.forEach((node) => {
       node?.addEventListener("focus", () => {
         if (!state.llmModelLoaded) scheduleLlmModelFetch("");
+        showLlmDropdown();
       });
+      node?.addEventListener("blur", hideLlmDropdown);
       node?.addEventListener("input", (event) => {
         const value = String(event?.target?.value || "");
         if (value.length >= 1) {
@@ -540,6 +573,7 @@
         } else if (!state.llmModelLoaded) {
           scheduleLlmModelFetch("");
         }
+        showLlmDropdown();
       });
     });
     scheduleLlmModelFetch("");
@@ -615,6 +649,59 @@
     return Number.isFinite(num) ? num : null;
   }
 
+  const SERIES_COLORS = [
+    "#4f8dff",
+    "#11c4a5",
+    "#f59f3a",
+    "#e4588f",
+    "#8d6bff",
+    "#18b6d9",
+    "#f06d5f",
+    "#6ccf5f",
+    "#f2c84b",
+    "#4bc0ff",
+    "#ff7ab6",
+    "#a5b4fc",
+  ];
+
+  function colorForSeries(index, alpha = 1) {
+    const idx = Math.abs(Number(index) || 0) % SERIES_COLORS.length;
+    const hex = SERIES_COLORS[idx];
+    if (alpha >= 1) return hex;
+    const rgb = hex.replace("#", "");
+    const r = parseInt(rgb.slice(0, 2), 16);
+    const g = parseInt(rgb.slice(2, 4), 16);
+    const b = parseInt(rgb.slice(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${Math.max(0, Math.min(1, alpha))})`;
+  }
+
+  function buildVarLabelMap(snapshot) {
+    const map = {};
+    const schemaVars = snapshot?.collection_schema?.variables || [];
+    schemaVars.forEach((row) => {
+      const varId = String(row?.var_id || "").trim();
+      if (!varId) return;
+      const label = String(row?.label || "").trim();
+      if (label) map[varId] = label;
+    });
+    const opVars = snapshot?.operationalization_summary?.variables || [];
+    opVars.forEach((row) => {
+      const varId = String(row?.var_id || "").trim();
+      if (!varId || map[varId]) return;
+      const label = String(row?.label || "").trim();
+      if (label) map[varId] = label;
+    });
+    return map;
+  }
+
+  function toDisplayLabel(varId, labelMap) {
+    const token = String(varId || "").trim();
+    const label = String((labelMap || {})[token] || token).trim();
+    if (!token) return label || "unknown";
+    if (!label || label === token) return token;
+    return `${label} (${token})`;
+  }
+
   async function ensureTimeSeriesData(snapshot) {
     const profileId = String(snapshot?.session?.profile_id || "").trim();
     if (!profileId || !snapshot?.has_pseudodata) {
@@ -645,6 +732,7 @@
     }
 
     const variableColumns = parsed.headers.filter((name) => !["t_index", "date"].includes(String(name || "").trim()));
+    const labelMap = buildVarLabelMap(snapshot);
     const x = parsed.rows.map((row, idx) => {
       const tVal = parseNumeric(row.t_index);
       if (tVal != null) return tVal;
@@ -661,6 +749,7 @@
       dates,
       series,
       columns: variableColumns,
+      labelMap,
       rowCount: parsed.rows.length,
     };
     state.timeSeriesCacheKey = cacheKey;
@@ -678,13 +767,18 @@
     }
     variableSelect.disabled = false;
     const current = String(variableSelect.value || "");
-    variableSelect.innerHTML = columns
-      .map((name) => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`)
-      .join("");
+    const labelMap = data?.labelMap || {};
+    const rows = [`<option value="__all__">All variables</option>`];
+    columns.forEach((name) => {
+      rows.push(`<option value="${escapeHtml(name)}">${escapeHtml(toDisplayLabel(name, labelMap))}</option>`);
+    });
+    variableSelect.innerHTML = rows.join("");
     if (current && columns.includes(current)) {
       variableSelect.value = current;
+    } else if (current === "__all__") {
+      variableSelect.value = "__all__";
     } else {
-      variableSelect.value = columns[0];
+      variableSelect.value = "__all__";
     }
   }
 
@@ -709,7 +803,7 @@
     }
 
     const signal = String(variableSelect.value || data.columns[0] || "");
-    if (!signal || !data.series[signal]) {
+    if (!signal || (signal !== "__all__" && !data.series[signal])) {
       updateTimeSeriesStatus("Select a signal to display time-series data.");
       return;
     }
@@ -719,7 +813,24 @@
     const start = Math.max(0, data.x.length - requestedWindow);
     const xSlice = data.x.slice(start);
     const dateSlice = data.dates.slice(start);
-    const ySlice = data.series[signal].slice(start);
+    const labelMap = data.labelMap || {};
+    const signalColumns = signal === "__all__" ? data.columns : [signal];
+    const datasets = signalColumns.map((column) => {
+      const ySlice = (data.series[column] || []).slice(start);
+      const baseIndex = Math.max(0, data.columns.indexOf(column));
+      const color = colorForSeries(baseIndex, 1);
+      return {
+        label: toDisplayLabel(column, labelMap),
+        data: ySlice,
+        borderColor: color,
+        backgroundColor: colorForSeries(baseIndex, signal === "__all__" ? 0.08 : 0.16),
+        tension: 0.2,
+        pointRadius: signal === "__all__" ? 1.2 : 1.8,
+        pointHoverRadius: signal === "__all__" ? 2.2 : 3.2,
+        borderWidth: signal === "__all__" ? 1.8 : 2.2,
+        spanGaps: true,
+      };
+    });
 
     if (state.timeSeriesChart && typeof state.timeSeriesChart.destroy === "function") {
       state.timeSeriesChart.destroy();
@@ -728,24 +839,13 @@
       type: "line",
       data: {
         labels: xSlice,
-        datasets: [
-          {
-            label: signal,
-            data: ySlice,
-            borderColor: "#76b1ff",
-            backgroundColor: "rgba(118, 177, 255, 0.18)",
-            tension: 0.2,
-            pointRadius: 1.8,
-            pointHoverRadius: 3.2,
-            spanGaps: true,
-          },
-        ],
+        datasets,
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
-          legend: { display: true, labels: { color: "#c6d8f3" } },
+          legend: { display: true, labels: { color: "#c6d8f3", boxWidth: 12 } },
           tooltip: {
             callbacks: {
               title: (ctx) => {
@@ -769,10 +869,20 @@
         },
       },
     });
-
-    updateTimeSeriesStatus(
-      `Signal=${signal} | points=${xSlice.length} / ${data.x.length} | missing=${ySlice.filter((v) => v == null).length}`,
-    );
+    if (signal === "__all__") {
+      const aggregateMissing = signalColumns.reduce((acc, col) => {
+        const ys = (data.series[col] || []).slice(start);
+        return acc + ys.filter((v) => v == null).length;
+      }, 0);
+      updateTimeSeriesStatus(
+        `Signals=${signalColumns.length} | points=${xSlice.length} / ${data.x.length} | missing cells=${aggregateMissing}`,
+      );
+    } else {
+      const ySlice = (data.series[signal] || []).slice(start);
+      updateTimeSeriesStatus(
+        `Signal=${toDisplayLabel(signal, labelMap)} | points=${xSlice.length} / ${data.x.length} | missing=${ySlice.filter((v) => v == null).length}`,
+      );
+    }
   }
 
   async function refreshTimeSeries(snapshot) {
@@ -800,6 +910,11 @@
     const impact = dashboard.impact || {};
     const step05 = dashboard.step05 || {};
     const topPredictor = (impact.top_predictors || [])[0] || {};
+    const labelMap = buildVarLabelMap(state.snapshot || {});
+    const topPredictorName = topPredictor.predictor_display
+      || topPredictor.predictor_label
+      || toDisplayLabel(topPredictor.predictor || "", labelMap)
+      || "—";
 
     const setText = (id, value) => {
       const node = document.getElementById(id);
@@ -809,7 +924,7 @@
     setText("metric-readiness-label", readiness.label || "unknown");
     setText("metric-tier", readiness.tier || "—");
     setText("metric-variant", readiness.tier3_variant || "—");
-    setText("metric-top-predictor", topPredictor.predictor || "—");
+    setText("metric-top-predictor", topPredictorName);
     setText(
       "metric-top-predictor-score",
       topPredictor.score_0_1 != null ? Number(topPredictor.score_0_1).toFixed(3) : "—",
@@ -820,6 +935,7 @@
   function renderDashboard(dashboard) {
     renderMetricCards(dashboard);
     destroyCharts();
+    const labelMap = buildVarLabelMap(state.snapshot || {});
 
     const impactRows = (dashboard.impact?.top_predictors || []).slice(0, 8);
     const barrierRows = (dashboard.step05?.selected_barriers || []).slice(0, 8);
@@ -827,7 +943,7 @@
 
     state.impactChart = buildBarChart(
       "chart-impact",
-      impactRows.map((x) => x.predictor || "n/a"),
+      impactRows.map((x) => x.predictor_display || x.predictor_label || toDisplayLabel(x.predictor || "", labelMap) || "n/a"),
       impactRows.map((x) => Number(x.score_0_1 || 0)),
       "#4f8dff",
     );
@@ -857,7 +973,7 @@
     const networkNotes = dashboard.network?.notes || [];
     renderList("dashboard-network-notes", networkNotes, "No network notes available.");
     const targetRows = (dashboard.step03?.recommended_targets || []).map((row) => {
-      const p = row.predictor || "unknown";
+      const p = row.predictor_label || toDisplayLabel(row.predictor || "", labelMap) || "unknown";
       const s = Number(row.score_0_1 || 0).toFixed(3);
       const r = row.rationale ? ` — ${row.rationale}` : "";
       return `${p} (score=${s})${r}`;
@@ -869,11 +985,21 @@
 
     const step04 = dashboard.step04 || {};
     const step04Rows = [];
-    if ((step04.recommended_predictors || []).length) {
-      step04Rows.push(`Predictors (${step04.recommended_predictors.length}): ${step04.recommended_predictors.join(", ")}`);
+    const predictorRows = Array.isArray(step04.recommended_predictor_rows)
+      ? step04.recommended_predictor_rows
+      : [];
+    if (predictorRows.length) {
+      const predictorText = predictorRows
+        .map((row) => toDisplayLabel(row?.predictor || "", { ...(labelMap || {}), [String(row?.predictor || "")]: String(row?.label || "") }))
+        .join(", ");
+      step04Rows.push(`Predictors (${predictorRows.length}): ${predictorText}`);
+    } else if ((step04.recommended_predictors || []).length) {
+      const predictorText = (step04.recommended_predictors || []).map((id) => toDisplayLabel(id, labelMap)).join(", ");
+      step04Rows.push(`Predictors (${step04.recommended_predictors.length}): ${predictorText}`);
     }
     if ((step04.retained_criteria_ids || []).length) {
-      step04Rows.push(`Retained criteria (${step04.retained_criteria_ids.length}): ${step04.retained_criteria_ids.join(", ")}`);
+      const retained = (step04.retained_criteria_ids || []).map((id) => toDisplayLabel(id, labelMap)).join(", ");
+      step04Rows.push(`Retained criteria (${step04.retained_criteria_ids.length}): ${retained}`);
     }
     if ((step04.reason_codes || []).length) {
       step04Rows.push(`Range-policy reasons: ${step04.reason_codes.join(", ")}`);
@@ -894,6 +1020,92 @@
         step05SummaryNode.textContent = "No intervention summary yet.";
       }
     }
+
+    /* HAPA Intervention Message — prominent panel in Dashboard */
+    const interventionPanel = document.getElementById("panel-intervention-message");
+    const interventionText = document.getElementById("dashboard-intervention-message");
+    const interventionStructured = document.getElementById("dashboard-intervention-structure");
+    if (interventionPanel && interventionText) {
+      if (summary) {
+        interventionText.textContent = summary;
+        const selectedTargets = (dashboard.step05?.selected_targets || []).slice(0, 5);
+        const selectedBarriers = (dashboard.step05?.selected_barriers || []).slice(0, 6);
+        const selectedCoping = (dashboard.step05?.selected_coping || []).slice(0, 6);
+        const hapaPlan = (dashboard.step05?.hapa_component_plan || []).slice(0, 4);
+        const phasedPlan = (dashboard.step05?.phased_delivery_plan || []).slice(0, 3);
+        const monitoring = (dashboard.step05?.monitoring_plan || []).slice(0, 5);
+        const safety = (dashboard.step05?.safety_notes || []).slice(0, 4);
+
+        const mkList = (rows, fn, emptyText) => (
+          Array.isArray(rows) && rows.length
+            ? `<ul>${rows.map((item) => `<li>${fn(item)}</li>`).join("")}</ul>`
+            : `<p class="muted compact">${escapeHtml(emptyText)}</p>`
+        );
+
+        if (interventionStructured) {
+          interventionStructured.innerHTML = `
+            <div class="detail-grid" style="margin-top:10px">
+              <article class="detail-card">
+                <h3>Selected Treatment Targets</h3>
+                ${mkList(
+                  selectedTargets,
+                  (item) => `${escapeHtml(String(item.predictor_label || item.predictor || "target"))} (priority=${Number(item.priority_0_1 || 0).toFixed(3)})`,
+                  "No treatment targets reported.",
+                )}
+              </article>
+              <article class="detail-card">
+                <h3>Top Barriers</h3>
+                ${mkList(
+                  selectedBarriers,
+                  (item) => `${escapeHtml(String(item.barrier_name || "barrier"))} (score=${Number(item.score_0_1 || 0).toFixed(3)})`,
+                  "No barriers reported.",
+                )}
+              </article>
+              <article class="detail-card">
+                <h3>Top Coping Strategies</h3>
+                ${mkList(
+                  selectedCoping,
+                  (item) => `${escapeHtml(String(item.coping_name || "strategy"))} (score=${Number(item.score_0_1 || 0).toFixed(3)})`,
+                  "No coping strategies reported.",
+                )}
+              </article>
+              <article class="detail-card">
+                <h3>HAPA Components</h3>
+                ${mkList(
+                  hapaPlan,
+                  (item) => `<strong>${escapeHtml(String(item.component || "component"))}</strong>: ${escapeHtml(String(item.objective || ""))}`,
+                  "No HAPA component plan reported.",
+                )}
+              </article>
+              <article class="detail-card">
+                <h3>Phased Delivery</h3>
+                ${mkList(
+                  phasedPlan,
+                  (item) => `<strong>${escapeHtml(String(item.phase || "phase"))}</strong> (${escapeHtml(String(item.time_window || ""))}): ${escapeHtml(String(item.primary_goal || ""))}`,
+                  "No phased delivery plan reported.",
+                )}
+              </article>
+              <article class="detail-card">
+                <h3>Monitoring and Safety</h3>
+                ${mkList(
+                  [...monitoring, ...safety],
+                  (item) => escapeHtml(String(item || "")),
+                  "No monitoring/safety notes reported.",
+                )}
+              </article>
+            </div>
+          `;
+        }
+        interventionPanel.style.display = "block";
+      } else {
+        if (interventionStructured) interventionStructured.innerHTML = "";
+        interventionPanel.style.display = "none";
+      }
+    }
+
+    /* Static image galleries are intentionally hidden in frontend; dashboard uses computed charts instead. */
+    const cycleVisualsPanel = document.getElementById("panel-cycle-visuals");
+    if (cycleVisualsPanel) cycleVisualsPanel.style.display = "none";
 
     if (dashboard.impact?.status === "skipped") {
       const reason = String(dashboard.impact?.status_reason || "").trim();
@@ -920,6 +1132,19 @@
       if (previewNode) previewNode.textContent = "Communication summary will appear after cycle completion.";
       return;
     }
+    const listBlock = (title, rows, emptyText) => {
+      const values = Array.isArray(rows) ? rows.filter((x) => String(x || "").trim()) : [];
+      return `
+        <article class="detail-card">
+          <h3>${escapeHtml(title)}</h3>
+          ${values.length
+            ? `<ul class="detail-list">${values.map((item) => `<li>${escapeHtml(String(item))}</li>`).join("")}</ul>`
+            : `<p class="muted compact">${escapeHtml(emptyText)}</p>`
+          }
+        </article>
+      `;
+    };
+
     target.innerHTML = `
       <h3>${escapeHtml(summary.headline || "Communication Summary")}</h3>
       <p>${escapeHtml(summary.summary_markdown || "")}</p>
@@ -927,7 +1152,15 @@
         <div><strong>LLM enabled:</strong> ${escapeHtml(String(payload.llm_enabled))}</div>
         <div><strong>Stage:</strong> ${escapeHtml(payload.stage || "unknown")}</div>
       </div>
-      <pre class="json-view">${escapeHtml(JSON.stringify(payload, null, 2))}</pre>
+      <div class="detail-grid" style="margin-top:10px">
+        ${listBlock("Key Points", summary.key_points || [], "No key points reported.")}
+        ${listBlock("Risks / Caveats", summary.risks || [], "No specific risks reported.")}
+        ${listBlock("Recommended Next Actions", summary.recommended_next_actions || [], "No next actions reported.")}
+      </div>
+      <details style="margin-top:10px">
+        <summary>Raw communication JSON</summary>
+        <pre class="json-view">${escapeHtml(JSON.stringify(payload, null, 2))}</pre>
+      </details>
     `;
 
     const previewNode = document.getElementById("control-communication-preview");
@@ -1003,31 +1236,7 @@
   }
 
   function computePhases() {
-    const engineFlow = Array.isArray(state.engineFlowFromSummary) ? state.engineFlowFromSummary : [];
-    if (engineFlow.length > 0) {
-        const mapped = engineFlow.map((row, index) => {
-          const rawStatus = String(row.status || "pending").toLowerCase();
-          let status = "pending";
-          if (rawStatus === "succeeded") status = "done";
-          else if (rawStatus === "running") status = "active";
-          return {
-            key: String(row.stage_id || `stage_${index}`),
-            label: String(row.label || row.stage_id || `Stage ${index + 1}`),
-            note: String(row.description || ""),
-            done: status === "done",
-            active: status === "active",
-            status,
-          };
-        });
-        if (!mapped.some((row) => row.status === "active")) {
-          const next = mapped.find((row) => row.status !== "done");
-          if (next) {
-            next.status = "active";
-            next.active = true;
-          }
-        }
-        return mapped;
-    }
+    /* Always use the 5-phase stepper logic based on pipeline signals */
 
     const s = derivePipelineSignals();
     const running = phaseRunningFlags();
@@ -1054,7 +1263,7 @@
         key: "intake",
         label: "INTAKE",
         note: "Complaint and context captured",
-        done: s.hasIntake,
+        done: true,  /* Always done — session exists with complaint */
         active: false,
       },
       {
@@ -1108,23 +1317,274 @@
   }
 
   function renderTopbarProgress(phases) {
-    if (!UI.topbarPipelineStrip || !UI.topbarPipelineNodes) return;
-    if (!phases.length) {
-      UI.topbarPipelineStrip.classList.add("hidden");
-      UI.topbarPipelineStrip.setAttribute("aria-hidden", "true");
+    var stepper = document.getElementById("pipeline-progress");
+    if (!stepper) return;
+    if (!phases.length) return;
+
+    var stepNodes = stepper.querySelectorAll(".step-node");
+    var connectors = stepper.querySelectorAll(".step-connector");
+
+    phases.forEach(function (phase, i) {
+      var node = stepNodes[i];
+      if (!node) return;
+      node.classList.remove("done", "running", "error");
+      if (phase.status === "done") node.classList.add("done");
+      else if (phase.status === "active") node.classList.add("running");
+      else if (phase.status === "error") node.classList.add("error");
+    });
+
+    for (var i = 0; i < connectors.length; i++) {
+      var conn = connectors[i];
+      conn.classList.remove("done", "active");
+      var left = phases[i];
+      var right = phases[i + 1];
+      if (left && right) {
+        if (left.status === "done" && right.status === "done") conn.classList.add("done");
+        else if (left.status === "done" && right.status === "active") conn.classList.add("active");
+      }
+    }
+  }
+
+  /* Per-component step badges: each step independently tracked */
+  function updateStepStatusBadges() {
+    var componentBadgeMap = [
+      { componentId: "step01_operationalization", badgeId: "step01-status", panelId: "panel-step01" },
+      { componentId: "step02_initial_model", badgeId: "step02-status", panelId: "panel-step02" },
+      { componentId: "pseudodata_collection", badgeId: "step03-acq-status", panelId: "panel-step03" },
+      { componentId: "pipeline_cycle_engine", badgeId: "step04-cycle-status", panelId: "panel-step04" },
+    ];
+
+    var snapshot = state.snapshot || {};
+    /* Determine per-component state considering both live status AND snapshot */
+    componentBadgeMap.forEach(function (m) {
+      var liveStatus = normalizeStatus(state.componentStatus[m.componentId] || "");
+      var label = "PENDING";
+      var statusClass = "status-idle";
+      var panelState = ""; /* empty | panel-active | panel-complete */
+
+      /* For Step 01/02: if model exists in snapshot, they completed previously */
+      if (m.componentId === "step01_operationalization" && snapshot.has_model && !liveStatus) {
+        liveStatus = "succeeded";
+      }
+      if (m.componentId === "step02_initial_model" && snapshot.has_model && !liveStatus) {
+        liveStatus = "succeeded";
+      }
+      if (m.componentId === "pseudodata_collection" && snapshot.has_pseudodata && !liveStatus) {
+        liveStatus = "succeeded";
+      }
+      if (m.componentId === "pipeline_cycle_engine" && snapshot.has_pipeline_summary && !liveStatus) {
+        liveStatus = "succeeded";
+      }
+
+      if (liveStatus === "succeeded" || liveStatus === "done") {
+        label = "DONE"; statusClass = "status-succeeded"; panelState = "panel-complete";
+      } else if (liveStatus === "running") {
+        label = "RUNNING"; statusClass = "status-running"; panelState = "panel-active";
+      } else if (liveStatus === "queued") {
+        label = "QUEUED"; statusClass = "status-queued"; panelState = "";
+      } else if (liveStatus === "failed" || liveStatus === "error") {
+        label = "ERROR"; statusClass = "status-failed"; panelState = "";
+      }
+
+      /* Update badge */
+      var el = document.getElementById(m.badgeId);
+      if (el) {
+        el.textContent = label;
+        el.className = "panel-step-status status-chip " + statusClass;
+      }
+      /* Update panel border state */
+      var panel = document.getElementById(m.panelId);
+      if (panel) {
+        panel.classList.remove("panel-active", "panel-complete");
+        if (panelState) panel.classList.add(panelState);
+      }
+    });
+  }
+
+  /* Progressive disclosure: lock future steps until prerequisites are met */
+  function updateStepVisibility() {
+    var snapshot = state.snapshot || {};
+    var hasModel = Boolean(snapshot.has_model);
+    var hasPseudodata = Boolean(snapshot.has_pseudodata) && !state.awaitingFreshAcquisition;
+
+    /* Also unlock if Step 01/02 are currently running (user should see them) */
+    var step01Live = normalizeStatus(state.componentStatus.step01_operationalization || "");
+    var step02Live = normalizeStatus(state.componentStatus.step02_initial_model || "");
+    var modelInProgress = step01Live === "running" || step01Live === "queued" || step02Live === "running" || step02Live === "queued";
+
+    /* Step 03: unlock when model is complete */
+    var panel03 = document.getElementById("panel-step03");
+    if (panel03) {
+      if (hasModel || modelInProgress) {
+        panel03.classList.remove("panel-locked");
+      } else {
+        panel03.classList.add("panel-locked");
+      }
+    }
+
+    /* Step 04: unlock when data is ready */
+    var panel04 = document.getElementById("panel-step04");
+    if (panel04) {
+      if (hasPseudodata) {
+        panel04.classList.remove("panel-locked");
+      } else {
+        panel04.classList.add("panel-locked");
+      }
+    }
+
+    /* Also render Step 01 output if criteria are available */
+    renderStep01Output();
+  }
+
+  /* Render Step 01 output: prefer operationalization CSV summary, fallback to model schema */
+  function renderStep01Output() {
+    var outputEl = document.getElementById("step01-output");
+    if (!outputEl) return;
+    var snapshot = state.snapshot || {};
+    var op = snapshot.operationalization_summary || {};
+    var opErrors = Array.isArray(op.errors) ? op.errors.filter(function (x) { return String(x || "").trim(); }) : [];
+    var source = String(op.source || "").trim();
+    var criteria = Array.isArray(op.variables) ? op.variables : [];
+    var hasMappedSource = source.indexOf("mapped_csv") === 0;
+    if (!criteria.length) {
+      if (!hasMappedSource) {
+        var schema = snapshot.collection_schema || {};
+        var variables = schema.variables || [];
+        criteria = variables
+          .filter(function (v) { return String(v.role || "").toLowerCase() === "criterion"; })
+          .map(function (v) {
+            return {
+              var_id: String(v.var_id || ""),
+              label: String(v.label || v.var_id || ""),
+              ontology_path: String(v.ontology_path || ""),
+              mapping_status: "MODEL_SCHEMA",
+              confidence_0_1: null,
+            };
+          });
+      }
+    }
+
+    if (!criteria.length) {
+      if (hasMappedSource) {
+        var complaintOnly = String(op.complaint_text || snapshot.session?.complaint_text || "").trim();
+        if (complaintOnly.length > 220) complaintOnly = complaintOnly.slice(0, 220) + "...";
+        var errHtml = '<div class="step-output">';
+        errHtml += '<h4>⚠ Operationalization produced no mapped variables</h4>';
+        errHtml += '<p class="muted compact">Source: <code>' + escapeHtml(source || "mapped_csv") + '</code></p>';
+        if (complaintOnly) {
+          errHtml += '<p class="muted compact"><strong>Input complaint used:</strong> ' + escapeHtml(complaintOnly) + '</p>';
+        }
+        if (opErrors.length) {
+          errHtml += '<ul class="detail-list">';
+          opErrors.slice(0, 4).forEach(function (item) {
+            errHtml += '<li>' + escapeHtml(String(item)) + '</li>';
+          });
+          errHtml += '</ul>';
+        } else {
+          errHtml += '<p class="muted compact">No explicit error text was returned. Check Step-01 logs for details.</p>';
+        }
+        errHtml += '</div>';
+        outputEl.innerHTML = errHtml;
+        return;
+      }
+      outputEl.innerHTML = "";
       return;
     }
-    UI.topbarPipelineStrip.classList.remove("hidden");
-    UI.topbarPipelineStrip.setAttribute("aria-hidden", "false");
-    UI.topbarPipelineNodes.innerHTML = phases.map((phase, index) => `
-      <span class="topbar-phase-chip topbar-phase-chip--${phase.status}">${escapeHtml(phase.label)}</span>${index < phases.length - 1 ? '<span class="topbar-phase-link">—</span>' : ''}
-    `).join("");
+
+    var html = '<div class="step-output"><h4>✓ Mapped Criteria (' + criteria.length + ' variables)</h4>';
+    var complaintPreview = String(op.complaint_text || snapshot.session?.complaint_text || "").trim();
+    var sessionComplaint = String(snapshot.session?.complaint_text || "").trim();
+    var mismatchWarning = String(op.mismatch_warning || "").trim();
+    var hasMismatch = op.matches_session_complaint === false || Boolean(mismatchWarning);
+    var avgConfidence = Number(op.confidence_avg_0_1 || 0);
+    var domains = Array.isArray(op.ontology_domains) ? op.ontology_domains : [];
+    if (complaintPreview.length > 220) complaintPreview = complaintPreview.slice(0, 220) + "...";
+    if (sessionComplaint.length > 220) sessionComplaint = sessionComplaint.slice(0, 220) + "...";
+    html += '<div class="meta-grid compact" style="margin:8px 0">';
+    html += '<div><strong>Mapped:</strong> ' + criteria.length + '</div>';
+    html += '<div><strong>Avg confidence:</strong> ' + avgConfidence.toFixed(2) + '</div>';
+    html += '<div><strong>Ontology domains:</strong> ' + escapeHtml(domains.slice(0, 3).join(", ") || "n/a") + '</div>';
+    html += '</div>';
+    if (source) {
+      html += '<p class="muted compact">Source: <code>' + escapeHtml(source) + '</code> · high-level ontology alignment is displayed per criterion.</p>';
+    }
+    if (complaintPreview) {
+      html += '<p class="muted compact"><strong>Input complaint used:</strong> ' + escapeHtml(complaintPreview) + '</p>';
+    }
+    if (opErrors.length) {
+      html += '<p class="alert error compact"><strong>Step-01 warnings:</strong> ' + escapeHtml(opErrors[0]) + '</p>';
+    }
+    if (hasMismatch) {
+      html += '<p class="alert error compact"><strong>Warning:</strong> '
+        + escapeHtml(mismatchWarning || "Mapped complaint text does not match session intake complaint.")
+        + '</p>';
+      if (sessionComplaint) {
+        html += '<p class="muted compact"><strong>Current session complaint:</strong> ' + escapeHtml(sessionComplaint) + '</p>';
+      }
+    }
+    html += '<ul class="criteria-list">';
+    criteria.forEach(function (c) {
+      var confValue = c.confidence_0_1 == null ? null : Number(c.confidence_0_1);
+      var conf = confValue == null || Number.isNaN(confValue) ? "" : " · conf=" + confValue.toFixed(2);
+      var status = String(c.mapping_status || "").trim();
+      var meta = [String(c.ontology_path || "").trim(), status ? ("status=" + status) : "", conf].filter(Boolean).join(" | ");
+      var confBar = "";
+      if (confValue != null && !Number.isNaN(confValue)) {
+        var pct = Math.max(0, Math.min(100, Math.round(confValue * 100)));
+        confBar = '<span class="criteria-conf-bar"><span class="criteria-conf-fill" style="width:' + pct + '%"></span></span>';
+      }
+      html += '<li>'
+        + '<span class="criteria-id">' + escapeHtml(String(c.var_id || "")) + '</span>'
+        + '<span class="criteria-label">' + escapeHtml(String(c.label || c.var_id || "")) + '</span>'
+        + confBar
+        + '<span class="criteria-conf">' + escapeHtml(meta) + '</span>'
+        + '</li>';
+    });
+    html += '</ul></div>';
+    outputEl.innerHTML = html;
+  }
+
+  /* Update analysis sub-stage items in the decomposed Step 04 panel */
+  function updateAnalysisSubStages() {
+    var container = document.getElementById("analysis-sub-stages");
+    if (!container) return;
+
+    var items = container.querySelectorAll(".sub-stage-item");
+    items.forEach(function (item) {
+      var compId = item.getAttribute("data-component");
+      if (!compId) return;
+      var liveStatus = normalizeStatus(state.componentStatus[compId] || "");
+      var detail = state.componentDetail[compId] || "";
+
+      /* Determine display status */
+      var label = "IDLE";
+      var statusClass = "status-idle";
+      if (liveStatus === "running") { label = "RUNNING"; statusClass = "status-running"; }
+      else if (liveStatus === "succeeded" || liveStatus === "done") { label = "DONE"; statusClass = "status-succeeded"; }
+      else if (liveStatus === "queued") { label = "QUEUED"; statusClass = "status-queued"; }
+      else if (liveStatus === "failed" || liveStatus === "error") { label = "FAILED"; statusClass = "status-failed"; }
+
+      item.setAttribute("data-status", liveStatus || "idle");
+      var chip = item.querySelector(".status-chip");
+      if (chip) {
+        chip.textContent = label;
+        chip.className = "status-chip " + statusClass;
+      }
+      var detailEl = item.querySelector(".sub-stage-detail");
+      /* Only overwrite detail if it's meaningful (not a category label) */
+      if (detailEl && detail && !detail.startsWith("Category:")) {
+        detailEl.textContent = detail;
+      }
+    });
   }
 
   function renderPhaseProgress() {
     const decorated = computePhases();
     state.phaseState = decorated;
     renderTopbarProgress(decorated);
+    updateStepStatusBadges();
+    updateStepVisibility();
+    updateAnalysisSubStages();
 
     const runNextLabel = UI.runNextPhaseBtn;
     if (runNextLabel) {
@@ -1227,21 +1687,10 @@
 
     const visualGrid = document.getElementById("visual-grid");
     if (visualGrid) {
-      if (!visuals.length) {
-        visualGrid.innerHTML = `<p class="muted">No visuals generated yet.</p>`;
-      } else {
-        visualGrid.innerHTML = visuals.map((item) => {
-          const relPath = encodeURI(item.relative_path || "");
-          const ext = String(item.name || "").toLowerCase();
-          const preview = ext.endsWith(".png") || ext.endsWith(".svg") || ext.endsWith(".gif");
-          return `
-            <a class="visual-card" target="_blank" href="/api/sessions/${sessionId}/files/${relPath}">
-              ${preview ? `<img class="visual-thumb" src="/api/sessions/${sessionId}/files/${relPath}" alt="${escapeHtml(item.name)}">` : ""}
-              <span>${escapeHtml(item.name)}</span>
-            </a>
-          `;
-        }).join("");
-      }
+      const note = visuals.length
+        ? "Static visual artifact previews are hidden in the frontend. Use the interactive dashboard charts for analysis."
+        : "Interactive dashboard charts are used instead of static image previews.";
+      visualGrid.innerHTML = `<p class="muted">${escapeHtml(note)}</p>`;
     }
 
     populateCollectionSummary(collection);
@@ -1249,9 +1698,41 @@
 
     const pseudoNode = document.getElementById("pseudodata-summary");
     if (pseudoNode) {
-      pseudoNode.innerHTML = Object.keys(pseudoSummary).length
-        ? `<h4>Current pseudodata summary</h4><pre class="json-view">${escapeHtml(JSON.stringify(pseudoSummary, null, 2))}</pre>`
-        : "";
+      if (Object.keys(pseudoSummary).length) {
+        var vars = Array.isArray(pseudoSummary.variables) ? pseudoSummary.variables : [];
+        pseudoNode.innerHTML = `
+          <div class="pseudodata-card">
+            <h4>✓ Pseudodata Generated</h4>
+            <div class="meta-grid">
+              <div><strong>Time points:</strong> ${pseudoSummary.n_points || 0}</div>
+              <div><strong>Criteria:</strong> ${pseudoSummary.criteria_count || 0}</div>
+              <div><strong>Predictors:</strong> ${pseudoSummary.predictor_count || 0}</div>
+              <div><strong>Missing rate:</strong> ${(Number(pseudoSummary.missing_rate_target || 0) * 100).toFixed(0)}%</div>
+              <div><strong>Profile:</strong> ${escapeHtml(pseudoSummary.profile_id || "—")}</div>
+            </div>
+            ${vars.length ? `
+              <div class="table-wrap" style="margin-top:8px">
+                <table class="data-table">
+                  <thead><tr><th>ID</th><th>Role</th><th>Baseline</th><th>Missing %</th><th>Scale</th></tr></thead>
+                  <tbody>
+                    ${vars.map(v => `
+                      <tr>
+                        <td><code>${escapeHtml(v.var_id)}</code></td>
+                        <td>${escapeHtml(v.role)}</td>
+                        <td>${Number(v.baseline_0_1 || 0).toFixed(2)}</td>
+                        <td>${(Number(v.missing_rate_empirical || 0) * 100).toFixed(1)}%</td>
+                        <td>${v.scale_min}–${v.scale_max}</td>
+                      </tr>
+                    `).join("")}
+                  </tbody>
+                </table>
+              </div>
+            ` : ""}
+          </div>
+        `;
+      } else {
+        pseudoNode.innerHTML = "";
+      }
     }
 
     const pipeNode = document.getElementById("pipeline-summary");
@@ -1269,6 +1750,11 @@
           : [];
         state.engineFlowFromSummary = engineFlow;
         state.qualityFlowFromSummary = supportFlow;
+
+        /* Filter out skipped stages — they ran during model creation, not the cycle */
+        const activeEngine = engineFlow.filter(r => String(r.status || "").toLowerCase() !== "skipped");
+        const activeSupport = supportFlow.filter(r => String(r.status || "").toLowerCase() !== "skipped");
+
         const flowTable = (rows, title) => {
           if (!rows.length) return "";
           return `
@@ -1276,15 +1762,14 @@
             <div class="table-wrap">
               <table class="data-table">
                 <thead>
-                  <tr><th>Stage</th><th>Status</th><th>Source</th><th>Duration (s)</th></tr>
+                  <tr><th>Stage</th><th>Status</th><th>Duration (s)</th></tr>
                 </thead>
                 <tbody>
                   ${rows.map((row) => `
                     <tr>
                       <td>${escapeHtml(String(row.label || row.stage_id || "unknown"))}</td>
-                      <td>${escapeHtml(String(row.status || "unknown"))}</td>
-                      <td>${escapeHtml(String(row.source_stage || "—"))}</td>
-                      <td>${escapeHtml(String(Number(row.duration_seconds || 0).toFixed(3)))}</td>
+                      <td><span class="status-chip ${row.status === "succeeded" ? "status-succeeded" : row.status === "failed" ? "status-failed" : "status-idle"}">${escapeHtml(String(row.status || "unknown"))}</span></td>
+                      <td>${escapeHtml(String(Number(row.duration_seconds || 0).toFixed(1)))}</td>
                     </tr>
                   `).join("")}
                 </tbody>
@@ -1292,31 +1777,19 @@
             </div>
           `;
         };
+        const totalDuration = stages.reduce((s, r) => s + Number(r.duration_seconds || 0), 0);
         pipeNode.innerHTML = `
-          <div class="meta-grid">
-            <div><strong>Run ID:</strong> ${escapeHtml(String(pipelineSummary.run_id || "—"))}</div>
-            <div><strong>Cycle:</strong> ${escapeHtml(String(pipelineSummary.cycle_index || "—"))}</div>
-            <div><strong>Status:</strong> ${escapeHtml(String(pipelineSummary.status || "unknown"))}</div>
-            <div><strong>Impact profiles:</strong> ${escapeHtml(String((pipelineSummary.impact_profiles || []).length || 0))}</div>
+          <div class="step-output">
+            <h4>✓ Cycle Complete</h4>
+            <div class="meta-grid">
+              <div><strong>Run ID:</strong> <code>${escapeHtml(String(pipelineSummary.run_id || "—"))}</code></div>
+              <div><strong>Cycle:</strong> ${escapeHtml(String(pipelineSummary.cycle_index || "—"))}</div>
+              <div><strong>Status:</strong> ${escapeHtml(String(pipelineSummary.status || "unknown"))}</div>
+              <div><strong>Total duration:</strong> ${totalDuration.toFixed(1)}s</div>
+            </div>
           </div>
-          ${flowTable(engineFlow, "Core Engine Flow")}
-          ${flowTable(supportFlow, "Quality + Research Flow")}
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead>
-                <tr><th>Stage</th><th>Return code</th><th>Duration (s)</th></tr>
-              </thead>
-              <tbody>
-                ${stages.map((stage) => `
-                  <tr>
-                    <td>${escapeHtml(String(stage.stage || "unknown"))}</td>
-                    <td>${escapeHtml(String(stage.return_code ?? "—"))}</td>
-                    <td>${escapeHtml(String(Number(stage.duration_seconds || 0).toFixed(3)))}</td>
-                  </tr>
-                `).join("")}
-              </tbody>
-            </table>
-          </div>
+          ${flowTable(activeEngine, "Analysis Engine Stages")}
+          ${flowTable(activeSupport, "Support Stages")}
         `;
         if (rawWrap && rawNode) {
           rawNode.textContent = JSON.stringify(pipelineSummary, null, 2);
@@ -1516,6 +1989,13 @@
         detail: "Fallback intervention generated (LLM unavailable)",
       };
     }
+    if (low.includes("retrying once with network_jobs=1")) {
+      return {
+        componentId: "network_analysis",
+        status: "running",
+        detail: "Parallel network run failed; retrying with single worker",
+      };
+    }
     if (low.includes("worker error")) {
       return {
         componentId: state.activeJobKind === "pipeline_cycle" ? "pipeline_cycle_engine" : "step02_initial_model",
@@ -1700,7 +2180,7 @@
     } else {
       appendLog(`[frontend] Connected to job ${jobId}`);
       pushRuntimeEvent(`Connected to job ${jobId}`);
-      setLogsDrawerOpen(true);
+      if (typeof switchTab === 'function') switchTab('logs');
     }
 
     const streamUrl = seedCursor > 0
@@ -1774,8 +2254,31 @@
 
   async function launchJob(path, payload, triggerButtonId, processingLabel) {
     const kind = kindFromPath(path);
+    const summarizeLaunchPayload = (jobKind, body) => {
+      const p = body || {};
+      if (jobKind === "initial_model") {
+        return `model=${p.llm_model || "gpt-5-nano"} | workers=${p.max_workers || 12} | disable_llm=${Boolean(p.disable_llm)} | hard_ontology=${Boolean(p.hard_ontology_constraint)}`;
+      }
+      if (jobKind === "pipeline_cycle") {
+        return `model=${p.llm_model || "gpt-5-nano"} | net_jobs=${p.network_jobs || 1} | parallel=${Boolean(p.parallel_branches)} | intervention=${Boolean(p.include_intervention)} | communication=${Boolean(p.run_treatment_communication)} | disable_llm=${Boolean(p.disable_llm)}`;
+      }
+      if (jobKind === "synthesize_pseudodata") {
+        return `points=${p.n_points || 84} | missing_rate=${p.missing_rate ?? 0.1} | seed=${p.seed ?? 42}`;
+      }
+      if (jobKind === "full_cohort") {
+        return `patients=${p.patient_count || 10} | parallel_patients=${p.parallel_patients || 2} | cycles=${p.cycles || 1} | disable_llm=${Boolean(p.disable_llm)}`;
+      }
+      return "";
+    };
     appendLog(`[frontend] Launching job at ${path}`);
+    const payloadSummary = summarizeLaunchPayload(kind, payload);
+    if (payloadSummary) {
+      appendLog(`[frontend] Launch config: ${payloadSummary}`);
+    }
     pushRuntimeEvent(`Launching ${kind || "job"}`);
+    if (payloadSummary) {
+      pushRuntimeEvent(payloadSummary);
+    }
     showError("");
     if (kind) primeComponentsForJob(kind);
     state.activeTriggerButtonId = triggerButtonId || "";
@@ -1962,25 +2465,7 @@
       appendLog(`[frontend] ${next.label} has no executable action.`);
     });
 
-    UI.logsDrawerOpenBtn?.addEventListener("click", () => {
-      setControlDrawerOpen(false);
-      setLogsDrawerOpen(true);
-    });
-    UI.logsDrawerCloseBtn?.addEventListener("click", () => setLogsDrawerOpen(false));
-    UI.controlDrawerOpenBtn?.addEventListener("click", () => {
-      setLogsDrawerOpen(false);
-      setControlDrawerOpen(true);
-    });
-    UI.controlDrawerCloseBtn?.addEventListener("click", () => setControlDrawerOpen(false));
-    UI.openLogsFromControlBtn?.addEventListener("click", () => {
-      setControlDrawerOpen(false);
-      setLogsDrawerOpen(true);
-    });
-    UI.drawerBackdrop?.addEventListener("click", () => closeDrawers());
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeDrawers();
-    });
+    /* Drawer button bindings removed — replaced by tab-based layout */
   }
 
   initRuntimeMap();

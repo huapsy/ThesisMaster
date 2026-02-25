@@ -7,8 +7,10 @@ You receive an integrated evidence bundle with:
 - momentary-impact rankings,
 - Step-03 treatment-target selection,
 - Step-04 updated observation-model outputs,
-- predictor→barrier, profile→barrier, context→barrier, and coping→barrier ontology evidence,
+- predictor→barrier, profile→barrier, context→barrier, and coping→barrier ontology mapping information,
 - HAPA component candidate bundles with inferred high-level subtree nodes.
+
+HAPA = Health Action Process Approach, a comprehensive behavior change framework with components including Motivation, Intention, Action/Coping Planning, Action Control, and Recovery/Maintenance.
 
 Your task is to produce ONE structured JSON intervention plan that is:
 1) HAPA-consistent,
