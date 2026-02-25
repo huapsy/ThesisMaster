@@ -1,0 +1,160 @@
+{
+  "pseudoprofile_id": "CASE01_BackPainMoodOptimization",
+  "summary": "This plan proposes modifiable bio-psychological-social levers tailored to chronic back pain with mood disturbance. The levers target (1) pain experience and physical functioning (BIO), (2) cognitive-affective responses to pain (PSYCHO), and (3) social-context supports (SOCIAL), including their interactions (BIOxPSYCHO, PSYCHOxSOCIAL, BIOxSOCIAL, and BIOxPSYCHOxSOCIAL). By reducing catastrophizing, improving sleep and coping self-efficacy, increasing adaptive activity, enhancing social connectedness, and enabling data-guided feedback, the approach aims to lower baseline pain interference, decrease flare-related distress, and raise optimism and mood during flares.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "CBT-based Pain Coping Skills plus Graded Activity (behavioral activation)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement an 8–12 week integrated program combining pain coping skills training (cognitive restructuring of pain catastrophizing, reframing pain narratives) with a graded activity/pacing plan to safely increase functional activity.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Addresses catastrophic thinking (C03), mood during flares (C04), and perceived coping self-efficacy (C07) by teaching skills and gradually increasing activity to demonstrate that manageable progress is possible.",
+      "measurement": "PCS scores (catastrophizing), mood ratings (0–10), daily activity logs (steps/time spent active), pain intensity (0–10).",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for overexertion during graded activity; adjust pace to flare tolerance. If worsening mood or thoughts of self-harm emerge, escalate to professional care.",
+      "mapping_query": "Map S01 to C03 (catastrophizing), C04 (mood during flares), and C07 (coping self-efficacy)."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Sleep hygiene optimization (consistent schedule, wind-down routine, caffeine timing, light exposure)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Provide a personalized sleep optimization plan with regular bed/wake times, pre-sleep routines, caffeine management, light exposure during day, and a cool-dark sleep environment; reassess after 6–8 weeks.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Improved sleep quality and regularity can decrease pain sensitivity fluctuations, reduce negative mood during flares, and bolster optimistic outlook (C06) by stabilizing circadian-related mood regulation.",
+      "measurement": "Sleep efficiency (diary or wearable), time in bed vs. time asleep, WASO (wake after sleep onset), 0–10 mood rating.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "If insomnia worsens or daytime fatigue increases, reassess sleep plan and consult clinician.",
+      "mapping_query": "Map S02 to C04 (mood during flares) and C06 (optimism/hope)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness-Based Stress Reduction (MBSR) / ACT for pain distress",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver an 8-week MBCT/ACT-based program focusing on nonjudgmental awareness of pain, cognitive defusion, and values-based action to reduce reactivity to pain flare-ups.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Reduces cognitive reactivity to pain (C03), improves mood during flares (C04), sustains optimism via values-based action (C06), and enhances coping self-efficacy (C07) by fostering adaptable responses.",
+      "measurement": "Pain catastrophizing (PCS), mood ratings, acceptance scales, engagement in values-driven activities.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for emotional distress during mindfulness practice; provide support resources if distress increases.",
+      "mapping_query": "Map S03 to C03, C04, C06, and C07."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Pain flare management with pacing, ergonomic adjustments, and gentle mobilization",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Educate and coach on pacing during flares, implement ergonomic workspace/posture adjustments, and prescribe a gentle mobilization plan to minimize flare severity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C07"
+      ],
+      "mechanism_rationale": "Directly reduces baseline pain exposure (C01) and flare frequency/severity (C02), lowers distress (C04), reduces irritability from pain (C05), and supports coping self-efficacy (C07) through actionable strategies.",
+      "measurement": "Baseline pain (0–10), flare days/week, peak flare intensity, irritability rating (0–10), mood. ",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure adjustments are ergonomic and safe; avoid aggressive exercises during high-pain periods.",
+      "mapping_query": "Map S04 to C01, C02, C04, C05, and C07."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Pain self-efficacy enhancement program",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "A skills-based module to build confidence in managing pain in daily activities, using mastery experiences, problem-solving, and self-regulation strategies.",
+      "targets_criteria_ids": [
+        "C07",
+        "C04",
+        "C03"
+      ],
+      "mechanism_rationale": "Strengthens perceived control over pain (C07), reduces mood downturn during flares (C04), and decreases catastrophic thinking by fostering proactive coping (C03).",
+      "measurement": "PSEQ (pain self-efficacy), daily activity engagement, mood ratings.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for overgeneralization of control; ensure goals are realistic and pair with pacing.",
+      "mapping_query": "Map S05 to C07, C04, and C03."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Structured social support and community engagement (social prescribing)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Facilitate connections to community resources, support groups, or buddy systems to reduce isolation and bolster mood and resilience.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Social connectedness can buffer mood downturns (C04) and sustain optimistic outlook (C06) while enhancing coping resources (C07).",
+      "measurement": "Social support scale, loneliness index, mood, pain interference.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Screen for safety in social contexts; ensure privacy and voluntary participation.",
+      "mapping_query": "Map S06 to C04, C06, and C07."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Anti-inflammatory nutrition and hydration optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Adopt a whole-food anti-inflammatory dietary pattern (e.g., fruits/vegetables, fatty fish, fiber-rich foods) with adequate hydration and moderation of pro-inflammatory foods.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Dietary patterns can modulate systemic inflammation and mood states, potentially reducing pain-related distress and improving baseline mood (C04) and overall pain experience (C01).",
+      "measurement": "Diet quality index, daily mood logs, pain intensity trends.",
+      "time_horizon": "12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Consider allergies/intolerances and cultural dietary preferences; offer alternatives.",
+      "mapping_query": "Map S07 to C04 and C01."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Personalization monitoring and data feedback via wearables and self-assessment logs",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Set up a user-friendly dashboard aggregating pain, mood, sleep, activity, and coping logs with weekly feedback to adjust plans.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Frequent feedback and self-monitoring can help identify patterns, support timely coping, reduce catastrophizing, and optimize pacing.",
+      "measurement": "Adherence to logging, correlations between pain/mood/sleep, user-reported outcomes, trend analyses.",
+      "time_horizon": "12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Protect privacy; avoid over-reliance on data for clinical decisions without clinician input.",
+      "mapping_query": "Map S08 to C01, C02, C04, and C07."
+    }
+  ]
+}

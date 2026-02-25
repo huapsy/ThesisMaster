@@ -1,0 +1,190 @@
+{
+  "pseudoprofile_id": "CASEP-2026-01",
+  "summary": "Clinical picture centers on acute aversive reactivity to chewing noises, surge of anger, intrusive replay of trigger sounds, self-directed distress, and a parallel texture sensitivity. The following modifiable BIO-PSYCHO-SOCIAL levers span sensory integrity, autonomic regulation, cognitive-emotional processing, sleep, environment, social supports, and digital self-monitoring. Each lever targets specific criteria (C01-C05), proposes measurable outcomes, and notes feasibility and safety considerations to guide staged implementation without pharmacology or unsafe practices.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Auditory_trigger_reactivity_reduction_through_CBT_exposure_and_cognitive_reappraisal",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "CBT-based exposure to chewing noises with stimulus control, response-prevention, and cognitive reappraisal to reduce aversive reactivity and anger.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Graded exposure fosters inhibitory learning and habituation to triggers; cognitive reappraisal reduces automatic emotional reactivity; improved perceived controllability lowers distress.",
+      "measurement": "Trigger aversiveness rating (0-10) after sessions; frequency of anger episodes; daily exposure logs and perceived controllability.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns anticipated; monitor for distress spikes; ensure gradual, voluntary exposure; escalate to clinician if aggression or impairment emerges.",
+      "mapping_query": "S01 targets C01-C04 via exposure-based CBT protocols."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Mindfulness_practice_for_sensory_reactivity_reduction",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Mindfulness-based stress reduction with daily 15-20 minute practice (body scan and mindful listening) to increase nonjudgmental awareness of triggers and reduce automatic anger responses.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Enhanced nonjudgmental awareness improves cognitive control over automatic reactions and reduces perseverative attention to sounds; supports self-compassion.",
+      "measurement": "Five Facets Mindfulness Questionnaire score; momentary trigger anger rating; diary entries on attention to triggers.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "No special safety concerns; check in with facilitator if distress increases.",
+      "mapping_query": "S02 targets C02-C04; complements S01 for synergistic effects."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep_regularization_and_circadian_alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured sleep hygiene and circadian entrainment plan (consistent bed/wake times, light exposure management, caffeine timing) to support executive function and sensory processing.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Adequate sleep improves emotional regulation and cognitive control, reducing reactivity and intrusive cognitions associated with triggers.",
+      "measurement": "Sleep diary; actigraphy; morning mood/alertness; anger reactivity logs.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; screen for sleep disorders (e.g., sleep apnea) if high risk.",
+      "mapping_query": "S03 targets C02-C04 via sleep-related regulation of cognitive control."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sensory_environment_design_and_trigger_reduction",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Modify sensory environment to dampen trigger exposure: soundproofing, white noise masking of chewing noises, and surface texture adjustments to reduce tactile triggers; create a trigger-minimized space.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Reducing environmental salience of triggers lowers initial aversion and texture-related reactivity, facilitating habituation.",
+      "measurement": "Subjective comfort scores during triggers; frequency/duration of trigger exposure in environment; time to calm after exposure.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure accessibility; avoid over-masking that reduces necessary exposure; guard against avoidance patterns that impede adaptation.",
+      "mapping_query": "S04 targets C01 and C05 through environmental modifications."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Progressive_auditory_sensory_desensitization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Graded auditory desensitization with controlled chewing-noise stimuli plus coping strategies (breathing, grounding) to promote habituation and reduce intrusive replay.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Systematic exposure builds tolerance and reduces perseverative auditory attention; coping skills support distress tolerance during exposure.",
+      "measurement": "Discomfort threshold to chewing sounds; diaries of intrusive replay; self-rated loudness tolerance.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Proceed gradually; monitor distress spikes; provide clear exit strategies if triggers escalate.",
+      "mapping_query": "S05 targets C01 and C03 via habituation-based auditory desensitization."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Self_compassion_and_self-talk_training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive-behavioral self-compassion and non-judgmental self-talk module to reduce self-criticism and distress about sensory reactions.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Reducing self-directed distress improves distress tolerance and dampens shame-driven amplification of reactions.",
+      "measurement": "Self-Compassion Scale; distress ratings; frequency of self-critical thoughts during triggers.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; ensure cultural alignment; monitor for rumination.",
+      "mapping_query": "S06 targets C04 through compassion-focused cognitive strategies."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Texture_sensitivity_management_and_sensory_integration",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Texture-focused sensory integration strategies and coping routines to reduce tactile aversion that co-occurs with auditory triggers.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Improved tactile tolerance reduces overall sensory overwhelm, potentially lowering cross-modal reactivity and emotional lability.",
+      "measurement": "Texture aversion rating; daily tactile exposure tolerance; self-reported sensory overwhelm.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Progress gradually; avoid overstimulation; tailor to individual tactile preferences.",
+      "mapping_query": "S07 targets C05 via tactile-sensory integration strategies."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Social_support_network_development_and_social_prescribing",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Activate social support and community resources; involve trusted individuals to provide coping conversations during triggers; use social prescribing to access supportive groups.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Social support reduces self-directed distress and isolation, enhancing regulation and coping during triggers.",
+      "measurement": "Perceived social support scale; frequency of supportive interactions; distress during triggers.",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Maintain boundaries; avoid dependency; protect privacy within social networks.",
+      "mapping_query": "S08 targets C04 through enhanced social connectedness."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Autonomic_regulation_through_HRV_biofeedback_and_breathwork",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "HRV biofeedback-guided breathing and autonomic regulation to dampen physiological arousal during trigger exposure, reducing anger intensity and intrusive thoughts.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Improved autonomic flexibility supports top-down emotional control and reduces perseverative cognitive intrusion during triggers.",
+      "measurement": "HRV metrics (RMSSD); reported anger intensity; frequency of intrusive replay.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure proper guidance to avoid hyperventilation and dizziness; monitor for lightheadedness.",
+      "mapping_query": "S09 targets C02-C03 via autonomic regulation techniques."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Digital_self_monitoring_and_feedback_system",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Mobile app-based daily logs of trigger exposure, anger responses, and context with weekly automated feedback and adjustment prompts to tailor interventions.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Self-monitoring increases awareness and enables timely coping, enabling data-driven adjustments across all targets.",
+      "measurement": "Adherence rate; number of trigger events logged; changes in anger intensity; variability in responses.",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Protect data privacy; obtain consent; provide opt-out options; avoid exposing users to triggering content unintentionally.",
+      "mapping_query": "S10 targets all criteria through monitoring, feedback, and adaptive guidance."
+    }
+  ]
+}

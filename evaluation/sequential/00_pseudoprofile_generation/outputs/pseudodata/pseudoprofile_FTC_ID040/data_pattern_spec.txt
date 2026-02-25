@@ -1,0 +1,69 @@
+pseudoprofile_id: pseudoprofile_FTC_ID040
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID040/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.7204
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 1.00 * t + phase=2.59)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 4
+  * pulse_1: start_idx=38, length=5, amp=0.889
+  * pulse_2: start_idx=46, length=4, amp=0.328
+  * pulse_3: start_idx=43, length=5, amp=1.047
+  * pulse_4: start_idx=114, length=5, amp=0.957
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P05
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.133 | freq_hint=None
+  * P02: missing_rate=0.183 | freq_hint=None
+  * P03: missing_rate=0.172 | freq_hint=None
+  * P04: missing_rate=0.117 | freq_hint=None
+  * P05: missing_rate=0.211 | freq_hint=None
+  * C01: missing_rate=0.239 | freq_hint=None
+  * C02: missing_rate=0.072 | freq_hint=None
+  * C03: missing_rate=0.250 | freq_hint=None
+  * C04: missing_rate=0.239 | freq_hint=None
+  * C06: missing_rate=0.250 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Migraine self-management diary (Migraine log) | ontology_id=headache_migraine_log | conf=0.92 | freq_hint=None
+- P02 (PREDICTOR): Avoidance/reduction of plan-avoidant behavior | ontology_id=approach_behavior_planning | conf=0.78 | freq_hint=None
+- P03 (PREDICTOR): Goal management training / mastery planning | ontology_id=goal_management_training | conf=0.89 | freq_hint=None
+- P04 (PREDICTOR): Mindfulness-based stress regulation / uncertainty tolerance | ontology_id=mindful_response_to_stress_practice | conf=0.92 | freq_hint=None
+- P05 (PREDICTOR): Sleep circadian optimization / sleep routine adherence | ontology_id=consistent_morning_anchor_routine | conf=0.72 | freq_hint=None
+- C01 (CRITERION): Migraine unpredictability | ontology_id=circadian_rhythm_disturbance_headache | conf=0.62 | freq_hint=None
+- C02 (CRITERION): Migraine-related functional impact | ontology_id=functional_impairment_in_work_or_social_roles_due_to_pain | conf=0.82 | freq_hint=None
+- C03 (CRITERION): Inability to commit to plans / avoidance | ontology_id=avoiding | conf=0.92 | freq_hint=None
+- C04 (CRITERION): Anticipatory anxiety about migraine onset | ontology_id=anxiety_about_pain | conf=0.58 | freq_hint=None
+- C06 (CRITERION): Perceived anxiety-driven exacerbation of migraines | ontology_id=pain_related_anxiety_or_catastrophizing | conf=0.72 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

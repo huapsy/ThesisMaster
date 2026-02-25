@@ -1,0 +1,1257 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID007",
+  "model_summary": "Initial gVAR-ready observation model selecting 6 operational criteria capturing initiation, substitution, distraction, time perception, deadline anxiety, and uncertainty/self-blame, and 8 modifiable predictors spanning cognitive-behavioral strategies, environmental/digital controls, social support, and energy management. The design yields substantial within-person variance via 9-point EMA scales (1–9) at a 6-prompt-per-day cadence over a 14-day window, complemented by optional daily diaries and passive streams to stabilize missingness. The plan emphasizes nonredundant constructs, interpretable lag structures (0–6h, 0–24h), and scalable estimation for gVAR while preserving the complaint’s resolution.",
+  "variable_selection_notes": "Variables chosen to cover the primary experiential states described in the complaint: initiation difficulty (C01), task avoidance substitutions (C02), distractibility by digital stimuli (C03), time underestimation during off-task activity (C04), anxiety around deadlines (C05), and meta-cognition about causes (C06). Predictors emphasize: task-activation strategies (P01), focus-blocking routines (P02), distraction reduction (P03), time-perception calibration (P04), cognitive restructuring around deadlines (P05), self-compassion/uncertainty processing (P06), micro-task activation (P07), and social accountability (P08). The grid of predictor–criterion relevance is populated with evidence-informed estimates (higher relevance for initiation, focus, time perception, and sleep/energy pathways per the HyDe/LLM mappings). Bias/uncertainty notes: effects may be nonlinear for some digital-distraction and social-context levers; where uncertain, nonlinear marks are used in edges/predictor-criterion relations and explicitly documented in design notes.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:00-10:00",
+        "11:00-13:00",
+        "14:00-16:00",
+        "17:30-19:00",
+        "20:00-22:00",
+        "22:30-23:59"
+      ],
+      "recall_window": "past_2_hours",
+      "expected_total_prompts": 84,
+      "notes": "6 prompts/day over 14 days; ensure blocks align with participant daily routine."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "09:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Brief end-of-day mood/energy diary to anchor EMA variance."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "daily_aggregate",
+      "notes": "Collect passive screen-time, app-usage, and sensor-derived context where feasible."
+    },
+    "minimum_total_observations_target": 112,
+    "gvar_readiness_notes": "Moderate; 8 predictors × 6 criteria plus diary/passive data; ensure low missingness via reminders and flexible windows.",
+    "variance_support_notes": "9-point Likert scales maximize within-person variance; mixed with diary and passive data to stabilize variance.",
+    "missingness_risk_notes": "Schedule reminders; offer brief breaks if prompts cluster; plan missingness analyses and imputation strategy."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Failure to initiate intended task",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how difficult is it to initiate the planned task after sitting down? (1–9)",
+        "response_scale_or_unit": "9 point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "past_2_hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Substitution with low-effort rewarding activities",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 2 hours, to what extent did you engage in easier, immediately rewarding activities instead of the planned work? (1–9)",
+        "response_scale_or_unit": "9 point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "past_2_hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Susceptibility to distraction by digital/novel stimuli",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 2 hours, how often did digital distractions interrupt your focus? (1–9)",
+        "response_scale_or_unit": "9 point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "past_2_hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Loss of time awareness during off-task activity",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 2 hours, how often did you lose track of time while engaging in substitute activities? (1–9)",
+        "response_scale_or_unit": "9 point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "past_2_hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Acute panic/anxiety when deadlines are noticed",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 2 hours, how anxious would you say you feel when deadlines are mentioned? (1–9)",
+        "response_scale_or_unit": "9 point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "past_2_hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Uncertainty and self-blame about cause of difficulties",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how strongly do you doubt whether your behavior reflects laziness or a modifiable problem? (1–9)",
+        "response_scale_or_unit": "9 point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "current_time",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Implementation Intentions for Task Initiation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Cognitive_Behavioral_Therapies > Behavioral_Activation_and_Planning",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Explicit if-then planning increases the likelihood of initiating a task by reducing action-selection barriers.",
+      "intervention_examples_safe": "S1: Precommit to start; S2: Define micro-goals before task begins",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 2 hours, to what extent did you form an explicit plan to start the next task after sitting down? (1–9)",
+        "response_scale_or_unit": "9 point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "past_2_hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Stronger initiation plans should reduce initiation difficulty within the same task attempt window."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "High feasibility given simple EMA questions."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Structured Focus Blocks with Timers",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Cognitive_Capacity_Enhancement_and_Stimulation > Cognitive_offloading_and_external_aids > attention_support_systems",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Timed blocks create externalized structure, reducing decision fatigue and promoting sustained task engagement.",
+      "intervention_examples_safe": "S1: Use Pomodoro-like blocks; S2: Predefine micro-tasks",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 2 hours, did you follow a structured focus block with a timer? (1–9)",
+        "response_scale_or_unit": "9 point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "past_2_hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Focused blocks should reduce initiation delays by providing ready-to-start contexts."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.87,
+        "notes": "Requires timer tool integration."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Digital Distraction Reduction and Workspace Optimization",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Cognitive_Capacity_Enhancement_and_Stimulation > cognitive_offloading_and_external_aids > attention_support_systems",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.88,
+      "mechanism_rationale": "Environmental/digital controls reduce external interruption risk and preserve task focus.",
+      "intervention_examples_safe": "S1: Turn off nonessential notifications; S2: Declutter workspace",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 2 hours, how often did digital distractions interrupt your focus? (1–9)",
+        "response_scale_or_unit": "9 point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "past_2_hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Distraction reduction should improve task focus and initiation indirectly."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.93,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Passive tracking of notifications feasible on most devices."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Time-Perception Calibration and Time Awareness Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Cognitive_Capacity_Enhancement_and_Stimulation > Time_Perception_Skills",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.78,
+      "mechanism_rationale": "Time-perception cues train metacognition about elapsed time, reducing underestimation during off-task periods.",
+      "intervention_examples_safe": "S1: Time-tracking exercises; S2: Temporal cues in task setup",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 2 hours, rate your awareness of elapsed time while focusing on tasks. (1–9)",
+        "response_scale_or_unit": "9 point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "past_2_hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C01",
+        "C03",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Time-awareness training should help recalibrate perceived duration and reduce off-task drift."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Requires brief cognitive tasks embedded in prompts."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Deadline Anxiety Reduction via Cognitive Restructuring",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Cognitive_Behavioral_Therapies > Cognitive_Restructuring",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.82,
+      "mechanism_rationale": "Cognitive reframing reduces affective threat around deadlines, dampening panic responses.",
+      "intervention_examples_safe": "S1: Reframe deadlines as manageable steps; S2: Pre-emptive planning",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 2 hours, how anxious were you when deadlines were mentioned? (1–9)",
+        "response_scale_or_unit": "9 point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "past_2_hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C05",
+        "C01",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reducing deadline anxiety should lessen panic episodes."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Involves attitudinal items; suitable for EMA."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Self-Compassion and Uncertainty Processing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Core_Psychological_Skills_Toolkits > Compassionate_Self_Relating",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.88,
+      "mechanism_rationale": "Self-compassion reduces punitive self-talk and increases adaptive uncertainty processing.",
+      "intervention_examples_safe": "S1: Self-affirmation brief; S2: Uncertainty tolerance practice",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how compassionate are you toward yourself when tasks feel difficult? (1–9)",
+        "response_scale_or_unit": "9 point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "past_2_hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C06",
+        "C05",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increased self-compassion may reduce self-blame and improve initiation and task adjustment."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.86,
+        "notes": "Short compassionate prompts recommended."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "Behavioral Activation with Micro-Tasks",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Core_Psychological_Skills_Toolkits > Executive_Function_and_Self_Management > Task_Breakdown_Skill",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Activating small tasks reduces aversive activation and builds momentum.",
+      "intervention_examples_safe": "S1: Identify 1–3 micro-tasks; S2: Use 5-min tasks",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 2 hours, how many micro-tasks did you complete? (1–9 Likert; 1 = none, 9 = many)",
+        "response_scale_or_unit": "9 point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "past_2_hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Micro-task completion builds task activation momentum."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.84,
+        "notes": "Requires micro-task logging in EMA."
+      }
+    },
+    {
+      "var_id": "P08",
+      "label": "Social Accountability and Support Network",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] Interpersonal_Therapies > Social_Support_and_Belonging > Network_Building_And_Maintenance",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.78,
+      "mechanism_rationale": "Social accountability can constrain procrastination and provide encouragement.",
+      "intervention_examples_safe": "S1: Pair with a buddy; S2: Share progress with a goal group",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 2 hours, rate perceived accountability/support from a social contact. (1–9)",
+        "response_scale_or_unit": "9 point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "past_2_hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Social accountability can support initiation and persistence."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Leverages existing social contacts; ensure consent."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,62000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.9
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.25
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.45
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial mapping",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial_mapping",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial_mapping",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "initial_mapping",
+      "estimated_relevance_0_1": 0.62
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "C01-C02 potential multitrait overlap",
+      "P01-P02 overlap in initiation/focus domains"
+    ],
+    "expected_floor_ceiling_risks": [
+      "Low ceiling for C04 due to ceiling effects at high focus"
+    ],
+    "variance_enhancement_suggestions": [
+      "Increase prompts_per_day to 8 if missingness is high",
+      "Add occasional passive pass-through checks to stabilize variance"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "P09",
+      "P10"
+    ],
+    "gvar_feasibility_summary": "Feasible with 8 predictors and 6 criteria; 9-point scales and diary data support robust gVAR estimation; watch for missingness and ensure synchronization."
+  },
+  "safety_notes": "Not a diagnosis. No treatment recommendations or medication dosing. If acute risk is identified, advise clinical contact and safety planning."
+}

@@ -1,0 +1,74 @@
+pseudoprofile_id: pseudoprofile_FTC_ID004
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID004/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.4883
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 0.80 * t + phase=6.21)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 3
+  * pulse_1: start_idx=160, length=4, amp=0.558
+  * pulse_2: start_idx=99, length=7, amp=1.495
+  * pulse_3: start_idx=33, length=7, amp=0.944
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P01
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.061 | freq_hint=None
+  * P02: missing_rate=0.178 | freq_hint=None
+  * P03: missing_rate=0.167 | freq_hint=None
+  * P04: missing_rate=0.128 | freq_hint=None
+  * P05: missing_rate=0.139 | freq_hint=None
+  * P06: missing_rate=0.239 | freq_hint=None
+  * C01: missing_rate=0.222 | freq_hint=None
+  * C02: missing_rate=0.261 | freq_hint=None
+  * C03: missing_rate=0.239 | freq_hint=None
+  * C04: missing_rate=0.283 | freq_hint=None
+  * C05: missing_rate=0.244 | freq_hint=None
+  * C06: missing_rate=0.233 | freq_hint=None
+  * C07: missing_rate=0.111 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Emotion Regulation Skills Training (Broad) | ontology_id=emotion_intensity_rating_framework | conf=0.62 | freq_hint=None
+- P02 (PREDICTOR): Trigger/Environment Modification | ontology_id=reduce_exposure_to_triggering_contexts_strategy | conf=0.72 | freq_hint=None
+- P03 (PREDICTOR): Couple Communication Skills for Repair | ontology_id=repair_attempt_practice_for_couples | conf=0.85 | freq_hint=None
+- P04 (PREDICTOR): Self-Compassion & Distress Processing | ontology_id=self_criticism_to_care_reframe | conf=0.85 | freq_hint=None
+- P05 (PREDICTOR): Adaptive Self-Monitoring & Feedback | ontology_id=ema_perceived_coping_effectiveness | conf=0.82 | freq_hint=None
+- P06 (PREDICTOR): Mindfulness-Based Regulation & Distress Tolerance | ontology_id=mindful_response_to_stress_practice | conf=0.75 | freq_hint=None
+- C01 (CRITERION): Low frustration tolerance / irritability | ontology_id=irritable | conf=0.77 | freq_hint=None
+- C02 (CRITERION): Heightened sensitivity to specific triggers | ontology_id=distress_in_response_to_cues | conf=0.62 | freq_hint=None
+- C03 (CRITERION): Post-episode emotional collapse (crying) | ontology_id=emotional_numbing_or_detachment | conf=0.72 | freq_hint=None
+- C04 (CRITERION): Self-directed distress / loss of self-recognition | ontology_id=emotional_numbing_or_reduced_affect | conf=0.62 | freq_hint=None
+- C05 (CRITERION): Intention to be kind vs failure to enact it | ontology_id=kindness | conf=0.78 | freq_hint=None
+- C06 (CRITERION): Maladaptive immediate coping (withdrawal/crying) | ontology_id=emotional | conf=0.78 | freq_hint=None
+- C07 (CRITERION): Interpersonal strain / relationship impact | ontology_id=emotional | conf=0.62 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

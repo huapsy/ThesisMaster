@@ -1,0 +1,182 @@
+{
+  "pseudoprofile_id": "CASE-ANGR-001",
+  "summary": "The case shows recurrent, sudden anger spikes with strong whole-body arousal, high sensitivity to minor triggers, surprise at onset, post-episode shame, and a clear perceived identity–behavior mismatch. The optimal approach is to use modifiable bio/psycho/social levers that (a) lower baseline arousal and peak reactivity, (b) increase pre-emptive coping and inhibitory control at trigger onset, (c) repair the self‑image to align with desired identity, and (d) bolster social support and self-monitoring to sustain change. Solutions span sleep/exercise/nutrition (BIO), emotion regulation and cognitive strategies (PSYCHO), and social supports (SOCIAL), with explicit measurement plans and a stepwise horizon to enable measurement-based care and rapid iteration.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Regular aerobic exercise program (e.g., 150 minutes/week, 3–5 days/week)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a personalized aerobic regimen designed to reduce baseline autonomic arousal and enhance autonomic flexibility (lower peak bodily arousal during anger episodes) and improve cognitive control during stress.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Regular aerobic activity improves heart rate variability, reduces resting sympathetic bias, and strengthens emotion-regulation circuits, thereby decreasing frequency/intensity of sudden anger spikes and lessening post-episode shame via improved mood stability.",
+      "measurement": "Weekly total exercise minutes, adherence rate, diary-based peak SUDS during episodes, number of episodes per week, post-episode shame ratings.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Screen for medical contraindications; adjust intensity for fitness level; monitor for overtraining.",
+      "mapping_query": "CASE_PAYLOAD -> S01 mapping to C01..C05."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Sleep regularization and circadian alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Institute consistent bed/rise times, optimize sleep environment, and moderate caffeine later in the day to enhance emotional regulation and reduce arousal reactivity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Consistent sleep supports prefrontal control, reduces daytime arousal, and stabilizes affective responses, potentially lowering episode frequency and the unexpectedness of anger onsets and post-episode shame.",
+      "measurement": "Bedtime/wake-time consistency (hourly variance), sleep duration, nightly sleep quality rating, episode frequency, post-episode shame ratings.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Monitor for sleep disturbances; avoid sedatives without clinician guidance.",
+      "mapping_query": "CASE_PAYLOAD -> S02 mapping to C01, C02, C04, C05."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Trigger anticipation planning (implementation intentions) + pre-episode coping routines",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Develop concrete if-then plans for common minor triggers (e.g., traffic cut-off) with rapid pre-episode coping (paced breathing, urge surfing, brief pause) to reduce onset intensity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Planning and rehearsed responses enhance perceived control, reduce cognitive load at trigger onset, and strengthen inhibitory responses to prevent outward aggression.",
+      "measurement": "Trigger exposure logs, plan adherence rate, time to first response pause, self-rated arousal at onset.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.62,
+      "priority": "HIGH",
+      "safety_notes": "Ensure coping strategies are safe and non-avoidant; avoid strategies that disengage from emotions entirely.",
+      "mapping_query": "CASE_PAYLOAD -> S03 mapping to C01, C03, C04, C07."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Emotion regulation skills training (CBT/DBT style)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Engage in structured emotion regulation skills (e.g., cognitive reappraisal, distress tolerance, mindfulness) with regular practice and brief booster sessions.",
+      "targets_criteria_ids": [
+        "C04",
+        "C07",
+        "C08"
+      ],
+      "mechanism_rationale": "Enhanced emotion regulation reduces sudden reactivity, improves inhibitory control, and increases readiness to change by decoupling impulsive responses from self-critical post-episode emotions.",
+      "measurement": "Frequency of skill use per week, perceived arousal during episodes, episode count, readiness-to-change ratings.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.78,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Provide guided instruction; consider clinician-led or validated app-based programs.",
+      "mapping_query": "CASE_PAYLOAD -> S04 mapping to C04, C07, C08."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Self-compassion and self-identity repair exercises",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Incorporate post-episode self-compassion practices (brief compassionate self-talk, letter to self) to reduce shame and align self-image with desired identity.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06",
+        "C08"
+      ],
+      "mechanism_rationale": "Reducing self-criticism after anger episodes lowers internal moral incongruence and supports identity integration, thereby increasing motivation to change.",
+      "measurement": "Post-episode shame intensity, self-compassion scores, readiness-to-change measures.",
+      "time_horizon": "6–10 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Monitor for avoidance or rumination; emphasize healthy, constructive self-relations.",
+      "mapping_query": "CASE_PAYLOAD -> S05 mapping to C05, C06, C08."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Values-based identity consolidation and self-concept repair",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Facilitate values clarification and identity repair to reduce perceived mismatch between anger responses and the self-image; translate values into concrete actions that tolerate affect without self-judgment.",
+      "targets_criteria_ids": [
+        "C06",
+        "C08"
+      ],
+      "mechanism_rationale": "Clarifying values reduces conflict between emotion and self-concept, increasing willingness to engage in adaptive behaviors and sustain change.",
+      "measurement": "Identity alignment scores, value-congruent actions per week, readiness-to-change.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure values work is person-centered and non-shaming.",
+      "mapping_query": "CASE_PAYLOAD -> S06 mapping to C06, C08."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Inhibition and response-delay training (urge surfing)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach and practice delaying responses (e.g., 2–3 second pause, counting) during episodes and in high-risk simulations to strengthen inhibitory control.",
+      "targets_criteria_ids": [
+        "C07",
+        "C03"
+      ],
+      "mechanism_rationale": "Directly builds inhibitory control to prevent outward expressions and dampens the escalation triggered by minor provocations.",
+      "measurement": "Average response delay during episodes, verbal/physical outbursts frequency, self-reported urge intensity.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for suppression of emotions; provide safe outlets for emotion expression.",
+      "mapping_query": "CASE_PAYLOAD -> S07 mapping to C07, C03."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Enhanced social support and belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Strengthen social connectedness via structured supports (peer coaching, group sessions, family/couple check-ins) to buffer reactivity and sustain motivation to change.",
+      "targets_criteria_ids": [
+        "C08",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Social connectedness provides validation, reduces shame, and offers coping resources that lower episode frequency and intensity.",
+      "measurement": "Perceived social support scale, number of supportive interactions per week, episode occurrence rate.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Screen for unhealthy relationship dynamics; promote positive supports.",
+      "mapping_query": "CASE_PAYLOAD -> S08 mapping to C01, C05, C08."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Digital self-monitoring and feedback system",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Use a validated anger/self-regulation diary app with mood, trigger logs, arousal indicators (e.g., HRV if available) and automated feedback to guide adjustments across BIO/PSYCHO/SOCIAL domains.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C07",
+        "C08"
+      ],
+      "mechanism_rationale": "Frequent self-monitoring increases awareness of triggers and early warning signs, enabling timely coping and reinforcing progress across biological, cognitive, and social domains.",
+      "measurement": "Diary adherence rate, correlation between diary entries and episodes, changes in episode frequency/severity, engagement with feedback.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure data privacy; obtain informed consent; use secure platforms.",
+      "mapping_query": "CASE_PAYLOAD -> S09 mapping to C01..C08."
+    }
+  ]
+}

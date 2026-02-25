@@ -1202,18 +1202,19 @@ def enforce_step04_range_policy(
 
 def parse_args() -> argparse.Namespace:
     repo_root = Path(__file__).resolve().parents[4]
-    default_impact_root = repo_root / "evaluation/04_initial_observation_analysis/02_momentary_impact_coefficients"
-    default_output_root = repo_root / "evaluation/05_treatment_target_handoff"
-    default_readiness_root = repo_root / "evaluation/04_initial_observation_analysis/00_readiness_check"
-    default_network_root = repo_root / "evaluation/04_initial_observation_analysis/01_time_series_analysis/network"
-    default_model_runs = repo_root / "evaluation/03_construction_initial_observation_model/constructed_PC_models/runs"
-    default_free_text_root = repo_root / "evaluation/01_pseudoprofile(s)/free_text"
+    initial_model_assets_root = repo_root / "src/utils/agentic_core/others/initial_observation_model_assets"
+    default_impact_root = repo_root / "evaluation/sequential/05_momentary_impact_quantification/outputs"
+    default_output_root = repo_root / "evaluation/sequential/06_target_identification_and_model_update/outputs"
+    default_readiness_root = repo_root / "evaluation/sequential/03_readiness_check/outputs"
+    default_network_root = repo_root / "evaluation/sequential/04_network_time_series_analysis/outputs"
+    default_model_runs = repo_root / "evaluation/sequential/02_initial_observation_model/outputs/runs"
+    default_free_text_root = repo_root / "evaluation/sequential/free_text"
     default_mapping_ranks = (
-        repo_root
-        / "evaluation/03_construction_initial_observation_model/helpers/00_LLM_based_mapping_based_predictor_ranks/all_pseudoprofiles__predictor_ranks_dense.csv"
+        initial_model_assets_root
+        / "helpers/00_LLM_based_mapping_based_predictor_ranks/all_pseudoprofiles__predictor_ranks_dense.csv"
     )
     default_hyde_runs_root = (
-        repo_root / "evaluation/03_construction_initial_observation_model/helpers/00_HyDe_based_predictor_ranks/runs"
+        initial_model_assets_root / "helpers/00_HyDe_based_predictor_ranks/runs"
     )
     default_predictor_leaf_paths = (
         repo_root

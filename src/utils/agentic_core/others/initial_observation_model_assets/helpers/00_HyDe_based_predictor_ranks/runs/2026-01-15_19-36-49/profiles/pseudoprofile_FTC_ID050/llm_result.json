@@ -1,0 +1,198 @@
+{
+  "pseudoprofile_id": "CASE_2026_BIOPSYCHO_SOC_SUGGESTIONS_V1",
+  "summary": "The case reflects episodic word retrieval lapses with associated aging-related fear, social self-consciousness, reduced verbal engagement, and anticipatory worry. Optimal, modifiable predictors target (a) brain-health biology to support lexical access and arousal regulation, (b) psychoeducation and skills to reduce speaking-related anxiety and self-criticism, and (c) social-environmental levers to increase speaking opportunities and positive feedback. Levers are chosen for measurability, safety, and capacity to influence C01 (speech word retrieval), C02 (fear of aging/cognitive decline), C03 (self-consciousness in speaking), C04 (reduced verbal engagement), and C05 (anticipatory worry). An integrated plan combines sleep/physical health, cognitive supports, evidence-based talk-therapy skills, and structured social practice, with simple, repeatable metrics to track impact over 4–12 weeks.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep_Quality_and_Circadian_Synchronization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish and maintain a consistent sleep-wake schedule, optimize sleep environment (dark, cool, quiet), and align light exposure to promote circadian entrainment; limit late caffeine and screen time; seek clinician input if sleep disturbances persist.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Improved sleep enhances executive function, attention, and emotional regulation, facilitating lexical retrieval (C01) and reducing fatigue-related worry and social apprehension (C02/C04/C05).",
+      "measurement": "Sleep diary (bedtime, wake time, awakenings), sleep quality rating (0–10), weekly brief word retrieval task performance, self-rated speech ease (0–10)",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; assess for suspected sleep disorders (e.g., sleep apnea) and refer if indicated.",
+      "mapping_query": "CASE_PAYLOAD: maps to C01, C02, C04, C05 via Sleep optimization as a foundational biological lever."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Regular_Moderate_Aerobic_Exercise",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured moderate aerobic activity (e.g., 30 minutes, 3–5 days/week), with progressive intensity; use a pedometer or app to track activity; integrate enjoyable activities to boost adherence.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Aerobic activity enhances cerebrovascular health and neurotrophic factors, supporting attention/executive function (C01), mood, and reduced anticipatory anxiety about speaking (C02/C05).",
+      "measurement": "Weekly minutes of activity, average steps, pre/post-word retrieval brief task performance, anxiety rating before speaking (0–10)",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Consult with clinician if cardiovascular issues; start gradual and discontinue if adverse symptoms.",
+      "mapping_query": "CASE_PAYLOAD: links to C01, C02, C05 through cognitive/affective benefits of exercise."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "External_Word_Retrieval_Supports",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Provide external retrieval cues (word banks, cue cards, phrase templates, pre-planned conversational prompts) and practice routines to reduce lapses.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "External cues lower lexical search load, increasing speech fluency and reducing momentary blanks that trigger self-consciousness.",
+      "measurement": "Frequency of word retrieval lapses in brief conversational probes (per 20 minutes), objective retrieval time, user-rated ease of retrieval (0–10)",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "Usability considerations to avoid over-reliance on prompts; ensure natural conversation flow.",
+      "mapping_query": "CASE_PAYLOAD: S03 targets C01 via language/lexical retrieval support."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Cognitive_Behavioral_Speaking_Skills",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Brief CBT-based module focused on cognitive restructuring of aging/cognitive-decline fears, graded exposure to speaking tasks, and rehearsed scripts.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05",
+        "C03"
+      ],
+      "mechanism_rationale": "Reduces catastrophic thoughts about aging (C02), lowers anticipatory worry (C05), and mitigates self-consciousness (C03) through rehearsal and exposure.",
+      "measurement": "Pre/post speaking-anxiety ratings (0–10), number of speaking tasks completed, self-reported comfort during conversations (0–10)",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Monitor distress; adjust exposure rate to tolerance; provide opt-out if anxiety escalates.",
+      "mapping_query": "CASE_PAYLOAD: S04 maps to C02, C05, C03 via cognitive-behavioral exposure to speaking fears."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Mindfulness_Acceptance_of_Speech_Lapses",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "8-week mindfulness/acceptance-based practice focused on observing lapses nonjudgmentally, cognitive defusion, and reducing self-criticism during and after lapses.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces reactivity to lapses and negative self-evaluation, decreasing fear of aging implications and anticipatory worry; promotes decentered perspective during speaking.",
+      "measurement": "State mindfulness score (brief scale), self-criticism rating during speaking (0–10), lapses frequency",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "CASE_PAYLOAD: S05 targets C02, C03, C05 through mindfulness/acceptance to reduce reactivity."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Speaking_Opportunity_Activation",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured behavioral activation to increase speaking opportunities: with a graded plan (e.g., one new speaking task per week), script rehearsal, and reflection on experience.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C03"
+      ],
+      "mechanism_rationale": "Systematic exposure and social engagement improve confidence, reduce withdrawal, and lessen self-consciousness, while addressing anticipatory worry.",
+      "measurement": "Count of speaking opportunities completed; anxiety during/after speaking (0–10); self-rated speaking fluency",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Pace pacing to tolerance; allow opt-out if anxiety increases.",
+      "mapping_query": "CASE_PAYLOAD: S06 targets C04, C05, C03 via planned speaking exposure and activation."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Structured_Social_Practice_Groups",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Join small, supportive group conversation practice with feedback, modeling, and peer reinforcement.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Social practice normalizes lapses, provides constructive feedback, and increases engagement, reducing self-consciousness and anticipatory worry.",
+      "measurement": "Group attendance/frequency, perceived belonging (0–10), lapses during group activities",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Ensure inclusive, confidential group norms; monitor for social anxiety spikes.",
+      "mapping_query": "CASE_PAYLOAD: S07 maps to C03, C04, C05 via group practice and social belonging."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Interpersonal_Effectiveness_Skills_Training",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Role-play-based training in repair strategies, nonverbal communication, and supportive feedback to sustain engagement after lapses.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Improved conversational repair and relational skills reduce self-consciousness and withdrawal, supporting continued speaking.",
+      "measurement": "Use of repair strategies in conversations (observer-rated), speaking frequency, self-reported ease (0–10)",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.3,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "CASE_PAYLOAD: S08 targets C03 and C04 via interpersonal skills training to improve conversation quality."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Self_Assessment_and_Data_Feedback",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Digital self-monitoring app to log word-finding difficulty, anxiety levels, speaking activity, and provide weekly summaries; optionally integrate wearables for activity/睡眠 proxy.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Continual feedback supports self-awareness, accountability, and data-guided adjustments across cognitive, affective, and social domains.",
+      "measurement": "App engagement metrics, correlation between reports and lapses, changes in speaking frequency and anxiety",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.35,
+      "priority": "MED",
+      "safety_notes": "Ensure data privacy and user consent; allow opt-out of data sharing.",
+      "mapping_query": "CASE_PAYLOAD: S09 uses comprehensive self-monitoring to affect all C01–C05."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Medical_Evaluation_and_Neuro_Testing",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Referral for comprehensive medical assessment to identify language, cognitive, vascular, or neurological contributors; tailor interventions accordingly.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Rule-out or identify medical contributors that may underlie word retrieval lapses or anxiety about aging; informs targeted therapy.",
+      "measurement": "Neurocognitive screening results, hearing/vision status, medical recommendations",
+      "time_horizon": "1–3 months",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.3,
+      "priority": "MED",
+      "safety_notes": "Follow-up as indicated by findings; escalate if red flags (e.g., rapid decline) appear.",
+      "mapping_query": "CASE_PAYLOAD: S10 maps to all C01–C05 via medical/neuro assessment."
+    }
+  ]
+}

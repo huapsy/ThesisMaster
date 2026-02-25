@@ -1,0 +1,858 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID008",
+  "model_summary": "Initial gVAR-ready observation model that preserves the complaint-derived resolution (muscle tension in shoulders/jaw with headaches, anticipatory threat, and relaxation difficulty) while using a compact, modifiable predictor set. Six criteria (C01–C06) capture current muscle tension, interoceptive awareness, tension headaches, persistent threat anticipation, relaxation difficulty on low-stress days, and habitual bracing. Six predictors (P01–P06) target practical salutogenic levers: progressive muscle relaxation adherence, diaphragmatic breathing, interoceptive body-scan practice, sleep routine consistency, jaw-bruxism monitoring, and mindfulness-based self-regulation. Measurements rely on brief 1–9 Likert EMA items for select criteria (4 prompts/day) and discrete, safe behavioral indicators for predictors; one passive sensor (jaw clench) complements the plan. This configuration emphasizes within-person variance, minimizes redundancy, and supports a principled gVAR calibration using a 14-day window with 4 momentary prompts/day and daily diary data.",
+  "variable_selection_notes": "Selected six non-redundant, clinically plausible criteria anchored in C01–C06 to cover muscle tension, awareness, headaches, anticipatory threat, arousal regulation, and habitual bracing. Predictors were chosen for feasibility, safety, and likely causal pathways aligned with the HyDe and LLM mappings (PMR, breathwork, interoception, sleep, bruxism sensing, mindfulness). All measures favor 1–9 Likert or continuous signals to maximize within-person variance; predictors include one passive signal (jaw bruxism) and several brief self-reports, reducing multicollinearity risk. Clear documentation of data collection modes enables replicable gVAR modeling; acknowledge potential nonlinearity in some predictor effects (e.g., sleep and mindfulness in relation to threat) which is addressed via the edges and explicit sign spec.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:00-10:00",
+        "12:00-14:00",
+        "16:00-18:00",
+        "20:00-22:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 56,
+      "notes": "4 prompts/day during waking hours with slight jitter to avoid clock-like responses."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "22:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Evening diary to capture sleep, stress context, and arousal context."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Jaw clench/bruxism sensor (wearable) passively contributes to C01/C03/C06 in daily aggregates."
+    },
+    "minimum_total_observations_target": 336,
+    "gvar_readiness_notes": "Moderate-to-strong feasibility with 14 days and 56 EMA prompts; monitor adherence and missingness.",
+    "variance_support_notes": "Expect substantial within-person variance for C01–C06 across days and blocks; plan for per-person z-scoring or mixed-effects centering.",
+    "missingness_risk_notes": "Implement engagement reminders, device checks, and small participant compensation to mitigate data gaps."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Elevated resting muscle tension in shoulders and jaw",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Rate your current shoulder and jaw muscle tension on a 1–9 scale (1 = no tension, 9 = maximum tension).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "per_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Low moment-to-moment awareness of bodily tension",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how aware are you of your bodily tension on a 1–9 scale? (1 = not at all aware, 9 = highly aware).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "per_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Headaches triggered by muscular tension",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Rate current headache intensity on a 1–9 scale (1 = no headache, 9 = severe headache).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "per_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Persistent anticipatory threat expectation",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how strong is the sense that something bad might happen? (1 = not at all, 9 = extremely likely).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "per_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Difficulty relaxing on low-stress days",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "At this moment, how difficult is it to relax given the current (low-stress) context? (1 = very easy, 9 = very difficult).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "per_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Habitual anticipatory muscle bracing in absence of immediate threat",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, to what extent are you bracing/tensing posturally or facially? (1 = not at all, 9 = very strongly).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "per_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "PMR_adherence",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / core_psychological_skills_toolkits / stress_resilience_and_downregulation / physiological_downshift / breath_and_relaxation_skills / *progressive_muscle_relaxation_practice",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "PMR reduces peripheral muscle tension and ungulates overall arousal via progressive muscle relaxation.",
+      "intervention_examples_safe": "Daily PMR session (e.g., 20 minutes) focusing on shoulders, jaw, neck.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Minutes spent practicing PMR since last prompt",
+        "response_scale_or_unit": "minutes (0-30)",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "PMR reduces muscle tension which should lower C01 in the near term."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Relaxation reduces habitual bracing (C06) via reduced arousal."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Feasible with 56 EMA prompts + diary + passive data."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Breathing_practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / physiological_downshift / breath_and_relaxation_skills / *diaphragmatic_breathing_practice",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Slow diaphragmatic breathing reduces sympathetic arousal and muscle tension.",
+      "intervention_examples_safe": "Daily 5–10 minutes of diaphragmatic breathing.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Minutes spent on diaphragmatic breathing since last prompt",
+        "response_scale_or_unit": "minutes (0-30)",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C05",
+        "C03"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Breathing down-regulates arousal, potentially lowering muscle tension (C01)."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better breathing may reduce headache intensity by reducing muscle tension."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.86,
+        "notes": "Low-burden intervention with clear daily window."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Interoceptive_body_scan_training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / body_based_mindfulness / *body_scan_with_breath_integration",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.78,
+      "mechanism_rationale": "Body scan enhances interoceptive accuracy and regulation of arousal; may improve C02 and C04.",
+      "intervention_examples_safe": "Brief daily body-scan (5–15 minutes).",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Minutes spent on body scan training since last prompt",
+        "response_scale_or_unit": "minutes (0-30)",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C04"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better interoceptive awareness supports early tension detection and regulation."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Improved threat appraisal via mindful awareness may reduce anticipatory threat."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Moderate burden; ensure brief sessions."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Sleep_routine_consistency",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *progressive_muscle_relaxation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Regular sleep routines stabilize circadian arousal, reducing daytime tension and anticipatory threat.",
+      "intervention_examples_safe": "Maintain consistent bedtime and wind-down routine.",
+      "measurement": {
+        "mode": "behavioral_log",
+        "channel": "App-based sleep log",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Hours slept last night (0–12)",
+        "response_scale_or_unit": "hours",
+        "sampling_per_day": 1,
+        "recall_window": "last_night",
+        "expected_within_person_variability": "medium",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C04",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Improved sleep tends to reduce daily threat anticipation and arousal."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep reduces daytime muscle tension load."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Low burden if sleep log integrated with daily diary."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Jaw_bruxism_sensor",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / personalization_monitoring_and_data_feedback / wearables_and_home_monitoring / physiology / neurophysiology_and_stress_proxies / muscle_tension / *jaw_clench_bruxism_sensor",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Jaw clenching/bruxism captured passively reflects peripheral muscle tension and arousal load, informing C01/C03/C06.",
+      "intervention_examples_safe": "N/A (passive sensor)",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "Wearable jaw clench/bruxism sensor",
+        "assessment_type": "passive_continuous",
+        "item_or_signal": "Continuous jaw clench/bruxism signal (0-1)",
+        "response_scale_or_unit": "0-1",
+        "sampling_per_day": 24,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "logit",
+        "collinearity_risk": "low",
+        "distribution_hint": "bounded_0_1"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increased bruxism aligns with higher muscle tension in C01."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Bruxism associated with headaches risk/strength of headaches."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Bruxism may reflect habitual bracing (C06)."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Requires wearable integration; ensure battery life and compliance."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Mindfulness_interoception_training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / applied_mindfulness_for_stress_and_reactivity / *pre_event_centering_practice",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.82,
+      "mechanism_rationale": "Mindfulness and interoceptive training enhance present-moment regulation, potentially reducing threat sensitivity and improving relaxation.",
+      "intervention_examples_safe": "Brief pre-event centering, body scan, and mindful breathing (4–10 minutes).",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Minutes spent on mindfulness/interoception practice since last prompt",
+        "response_scale_or_unit": "minutes (0-25)",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C02",
+        "C01",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Mindfulness reduces threat reactivity and anticipatory arousal."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved interoceptive awareness supports proactive regulation."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Present-moment regulation may attenuate muscle tension."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindfulness may improve relaxation during low-stress contexts."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Combines brief EMA with existing passive data; low burden when integrated with activity data."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,42000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,48000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,56000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "PMR should reduce shoulder/jaw tension within hours.",
+      "estimated_relevance_0_1": 0.9
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Relaxation reduces habitual bracing; proximal effect.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Breathing reduces muscle tension.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Breathing may lessen headache intensity.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Body scan improves interoceptive awareness.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Enhanced interoception may moderate threat anticipation.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Regular sleep reduces daytime threat reactivity.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Bruxism proxies muscle tension intensity.",
+      "estimated_relevance_0_1": 0.9
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Bruxism linked to headache burden.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Bruxism reflects habitual muscle bracing.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness/interoception improves body awareness, possibly reducing misperception.",
+      "estimated_relevance_0_1": 0.9
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness lowers threat reactivity.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Present-moment regulation may reduce sustained tension.",
+      "estimated_relevance_0_1": 0.7
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "Low multicollinearity expected among EMA items and predictors due to distinct domains (BIO/PSYCHO)."
+    ],
+    "expected_floor_ceiling_risks": [],
+    "variance_enhancement_suggestions": [
+      "Standardize within-person scaling (z-scoring)",
+      "Include person-specific random effects in gVAR estimation"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "None at this stage"
+    ],
+    "gvar_feasibility_summary": "Feasible with 14-day data collection; anticipated moderate missingness mitigated by reminders and passive streams."
+  },
+  "safety_notes": "This is an observational/data-collection plan. No diagnosis or medication recommendations are provided. If acute risk emerges in any data stream, escalate to appropriate clinical care."
+}

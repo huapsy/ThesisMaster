@@ -1,0 +1,17 @@
+pseudoprofile_id: pseudoprofile_FTC_ID023
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: High-frequency intrusive financial worry -> NON-CLINICAL / AGE-GENERAL / emotional / negative emotions / anxiety / worry (conf=0.85)
+- C02: Catastrophic expectation about unexpected expenses -> UNMAPPED (reason=No operational leaf in CRITERION ontology for 'Catastrophic expectation about unexpected expenses'; closest financial items are emergency funds or budgeting, which do not encode the targeted cognitive distortion.)
+- C03: Chronic low-level physiological/affective arousal (panic) -> NON-CLINICAL / AGE-GENERAL / emotional / negative emotions / anxiety / panic (conf=0.66)
+- C04: Perceived inability to reliably meet basic expenses -> NON-CLINICAL / AGE-GENERAL / financial / financialwellbeing / abilitytomeetneeds / affordingnecessities / basic living expenses (conf=0.92)
+- C05: Low confidence in financial resilience despite current adequacy -> NON-CLINICAL / AGE-GENERAL / financial / financialwellbeing / economicindependence / financialempowerment / financial confidence building (conf=0.88)
+- C06: Future-oriented financial uncertainty -> CLINICAL / DSM-5TR / anxiety disorders / generalized anxiety disorder / with cognitive rumination / future_oriented_worry_rumination (conf=0.70)
+
+PREDICTORS:
+- P01: Worry management and planning (CBT-based) -> PSYCHO / cognitive_behavioral_therapies / perseverative_cognition_interventions / worry_management / contain_and_reorient / worry_to_planning_discrimination (conf=0.82)
+- P02: Budgeting support engagement (financial care navigation) -> SOCIAL / socioeconomic_and_material_resource_solutions / financial_and_benefits_support / financial_counseling_and_protection / budgeting_support_service (conf=0.92)
+- P03: Arousal regulation (breathing/mindfulness) -> PSYCHO / third_wave_and_contextual_therapies / act_contextual_behavioral_therapy / present_moment_awareness / mindfulness_of_breath (conf=0.78)
+- P04: Sleep circadian optimization (sleep routines) -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / sleep_quality_rating (conf=0.86)
+- P05: Social connection/safety plan (resources & support) -> SOCIAL / social_support_and_belonging / network_building_and_maintenance / mapping_and_assessment / support_needs_by_context_assessment (conf=0.72)

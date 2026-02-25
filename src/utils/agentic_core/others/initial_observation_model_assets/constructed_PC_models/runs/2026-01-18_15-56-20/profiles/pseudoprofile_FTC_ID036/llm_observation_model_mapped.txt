@@ -1,0 +1,15 @@
+pseudoprofile_id: pseudoprofile_FTC_ID036
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Attentional disengagement during conversations -> CLINICAL / DSM-5TR / bipolar and related disorders / unspecified bipolar and related disorder / distractibility (conf=0.62)
+- C03: Failure to register/recall key conversational content -> NON-CLINICAL / AGE-SPECIFIC / unspecified_stage / cognitive_development / thinking_and_reasoning / memory_skills / recall_abilities (conf=0.65)
+- C04: Negative self-evaluation after lapses -> CLINICAL / DSM-5TR / personality disorders / other personality disorders / depressive personality disorder / self_critical_rumination (conf=0.82)
+- C06: Ability to reorient attention and repair understanding -> CLINICAL / DSM-5TR / neurodevelopmental disorders / communication disorders / childhood-onset fluency disorder (stuttering) / cluttering / self_repair_within_utterances (conf=0.72)
+
+PREDICTORS:
+- P01: Sleep quality and circadian alignment -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / sleep_quality_rating (conf=0.88)
+- P02: Attention regulation practice -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / core_attentional_skills / sustained_attention_practice (conf=0.78)
+- P03: External cognitive supports during conversations -> PSYCHO / digital_and_tech_enabled_solutions / digital_tools_and_supports / ema_prompting_tool (conf=0.82)
+- P04: Distraction-minimized social environment during conversations -> SOCIAL / social_media_ecosystem / social_media_ecosystem_and_interventions / addiction_related_digital_use_and_supports / notification_and_interruption_control / quiet_mode_and_focus_mode_enablement_setup (conf=0.75)
+- P05: Aerobic exercise and hydration -> BIO / movement_physical_function_and_somatic_care / aerobic_and_cardiorespiratory_movement / water_based_aerobic / water_aerobics (conf=0.68)

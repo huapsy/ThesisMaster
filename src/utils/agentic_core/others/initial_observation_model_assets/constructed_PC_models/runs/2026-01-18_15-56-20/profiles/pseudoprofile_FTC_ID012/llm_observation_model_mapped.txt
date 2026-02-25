@@ -1,0 +1,18 @@
+pseudoprofile_id: pseudoprofile_FTC_ID012
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Appetite lability (no hunger vs intense hunger) -> NON-CLINICAL / AGE-GENERAL / emotional / arousal / wanting / desire / craving (conf=0.75)
+- C02: Nighttime uncontrolled eating episodes -> CLINICAL / DSM-5TR / feeding and eating disorders / binge-eating disorder / night eating variant (binge-focused) / loss_of_control_during_night_eating (conf=0.82)
+- C03: Post-eating negative self-evaluation and physical disgust -> CLINICAL / DSM-5TR / feeding and eating disorders / binge-eating disorder / with marked distress over binge eating / embarrassment_or_shame_about_binge_eating (conf=0.72)
+- C04: Rigid 'be good tomorrow' dieting intent -> CLINICAL / DSM-5TR / feeding and eating disorders / unspecified feeding or eating disorder (ufed) / dietary_restriction_or_food_rule_persistence (conf=0.78)
+- C05: Nighttime food accessibility -> CLINICAL / DSM-5TR / feeding and eating disorders / other specified feeding or eating disorder (osfed) / sleep-related eating disorder / kitchensorbedsidefoodaccessduringepisodes (conf=0.86)
+- C06: Late-night wakefulness/opportunity -> CLINICAL / DSM-5TR / sleep-wake disorders / circadian rhythm sleep–wake disorders / unspecified circadian rhythm sleep–wake disorder / awakenings_during_sleep (conf=0.72)
+
+PREDICTORS:
+- P01: Sleep Regularization and Circadian Alignment -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / consistent_morning_anchor_routine (conf=0.72)
+- P02: Meal Planning and Structure -> BIO / nutrition_hydration_and_metabolic_health / meal_planning_and_structure / planning_tools / recipe_rotation_system (conf=0.82)
+- P03: Mindful Eating Practice -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / informal_everyday_mindfulness / mindful_eating_practice (conf=0.78)
+- P04: Environmental Nighttime Access Reduction -> BIO / nutrition_hydration_and_metabolic_health / eating_behavior_and_satiety_skills / environment_design_for_eating (conf=0.62)
+- P05: Pre-Sleep Wind-Down and Screen Time Constraints -> PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / presleep_mental_skills / detachment_and_unloading / presleep_detachment_routine_design_psychological (conf=0.72)
+- P06: Self-Monitoring and Appetite/Satiety Logs -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / somatic_and_interoceptive_selfreports / appetite_and_satiety_log (conf=0.92)

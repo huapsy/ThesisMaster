@@ -1,0 +1,108 @@
+{
+  "pseudoprofile_id": "CASE_DOORLOCK_OCD_LEVERS_V1",
+  "summary": "Six modifiable BIO-PSYCHO-SOCIAL levers target the case-identified criteria of memory doubt after locking (C01), compulsive checking (C02), urge resistance (C03), time-cost of checking (C04), social embarrassment (C05), and self-criticism (C06). Each lever is implementable in brief sessions or daily routines, emphasizes non-harmful strategies, and leverages interactions across cognition, behavior, and environment to reduce door-checking cycles and associated distress. Measurement is straightforward via simple diaries and short scales, with a short time horizon (2–6 weeks) to gauge early impact and guide refinement.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "External_memory_cue_and_memory_confidence",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Reality-testing protocol with external memory cue: implement a brief post-lock affirmation and use a door-lock confirmation cue (e.g., app notification or tactile badge) to validate the lock action; practice a cognitive reframe that the memory is sufficient even if doubt arises.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Provides externalized, verifiable evidence of locking to counter lack of trust in memory, reducing post-lock doubt and unnecessary re-checks.",
+      "measurement": "Memory_confidence_rating after locking (0-10); number of post-lock checks per week; diary entries of leaving times.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "None beyond standard safety monitoring for obsessive-like checking patterns.",
+      "mapping_query": "Map C01 to S01: Reality-testing with external cues."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Compulsive_checking_reductions_via_exposure_and_response_prevention",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Exposure and Response Prevention (ERP) for door-checking: schedule a leave with a planned, brief delay before re-checking; gradually extend the delay while resisting the urge to re-check, using urge-surfing techniques.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "ERP targets the learning history of checking as a learned ritual, reducing frequency through inhibitory learning and controlled exposure.",
+      "measurement": "Number of checking episodes per leaving event; time to depart after initial lock; self-reported urge severity (0-10).",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.85,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for distress during exposure; provide therapist support if distress escalates.",
+      "mapping_query": "Map C02 to S02: ERP for door-checking."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Urge_resistance_and_delay_tolerance",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Urge-surfing and delay training: implement a 5-minute rule after doubt before any check; use cognitive defusion and a planned delay to blunt compulsive urges; reinforce with brief implementation intentions.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Improves inhibitory control over impulses by increasing delay tolerance and reducing automatic re-check responses.",
+      "measurement": "Peak urge intensity (0-10) at leaving; successful delay rate (proportion of times delaying >=5 minutes); frequency of re-checks.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.75,
+      "priority": "MED",
+      "safety_notes": "None beyond ongoing safety monitoring for anxiety escalation during delay training.",
+      "mapping_query": "Map C03 to S03: Urge-resistance training."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Time_cost_reduction_through_habit_and_environmental_design",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Environmental restructuring and habit formation: establish a leave-early buffer, use a single trusted check cue (e.g., a pre-departure checklist), and set social accountability (inform a trusted person of departure time).",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces time-cost by preventing cascading delays from repeated checks and leveraging social-context cues.",
+      "measurement": "Average lateness per day (minutes); number of missed or delayed departures; diary entries of departure times.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure that social accountability respects privacy and autonomy; avoid punitive monitoring.",
+      "mapping_query": "Map C04 to S04: time-management and environmental design."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Embarrassment_experience_and_social_evaluative_threat_processing",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Social-context exposure with cognitive defusion and self-compassion prompts: practice leaving on a strict schedule in low-stakes settings, paired with self-acceptance statements to reduce social embarrassment impact.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces sensitivity to social evaluation by reframing embarrassment as a common, manageable experience and strengthening self-compassion.",
+      "measurement": "Social discomfort rating after each leaving event (0-10); incidents of embarrassment per week; self-reported willingness to leave on time.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Monitor for avoidance behaviors that could limit engagement; promote gradual exposure.",
+      "mapping_query": "Map C05 to S05: social exposure with defusion/self-compassion."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Self_directed_irritation_and_negative_self_evaluation_reduction",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Self-compassion and values-based reframing: brief daily self-compassion prompts and values-aligned reflection to reduce harsh self-criticism after checking episodes.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Reduces maladaptive self-judgment, promoting adaptive coping and sustained behavior change after checking episodes.",
+      "measurement": "Self-criticism rating (0-10) and daily compassion score; frequency of self-berating thoughts after episodes.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; monitor for excessive reassurance seeking; encourage balanced self-talk.",
+      "mapping_query": "Map C06 to S06: self-compassion and self-criticism reduction."
+    }
+  ]
+}

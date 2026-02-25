@@ -1,0 +1,766 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID019",
+  "model_summary": "Initial gVAR-ready observation model selecting a compact, non-redundant set of 5 transdiagnostic criteria centered on hyperarousal, startle/reactivity, vigilance, emotional burden, and recovery beliefs, mapped to 4 modifiable predictors spanning biological (sleep), psychological (breathing, mindfulness), and social (belonging) levers. The plan emphasizes momentary variability with high within-person signal, balanced by end-of-day sleep measurement and diary entries to anchor nightly state. The design is intentionally parsimonious to enable simultaneous estimation of multiple lagged effects while minimizing collinearity (one broad construct per domain, with explicit transformation guidance). A 14-day data collection window with 84 EMA prompts plus daily sleep diary entries provides a realistic, estimable baseline for subsequent gVAR modeling, while preserving the complaint’s resolution in measurable, actionable terms.",
+  "variable_selection_notes": "Rationale: The complaint centers on acute hyperarousal (on-edge, startle), situational vigilance, affective burden, and a recovery expectancy gap after a past trauma. To maximize within-person variance and minimize redundant constructs, I selected five distinct criteria that map to a small, tractable set of predictors across biological, psychological, and social domains. Sleep quality and diaphragmatic breathing/mindfulness are chosen as well-supported, safe, scalable levers with established links to autonomic regulation and perceptual reactivity. Social belonging is included to bolster recovery-supportive contexts. All measures use 1–9 Likert scales where applicable to maximize variance and analytic tractability for gVAR. Potential biases: self-report bias in C01/C02/C04/C05/C06; mitigated via brief EMA and anchored prompts, and by including a sleep diary and passive data where possible. Trade-offs: a compact model reduces granularity of some niche mechanisms (e.g., conditioned reactivity pathways) but improves estimability and generalizability for salutogenic intervention planning.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:00-10:00",
+        "11:00-13:00",
+        "14:00-16:00",
+        "17:00-19:00",
+        "20:00-22:00",
+        "22:00-00:00"
+      ],
+      "recall_window": "since last prompt",
+      "expected_total_prompts": 84,
+      "notes": "6 prompts/day provides robust within-day variance without excessive burden."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "07:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "End-of-day sleep and symptom reflection to anchor nightly state."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Optional passive sensing (e.g., screen time proxies, ambient light) can be explored but not required for baseline."
+    },
+    "minimum_total_observations_target": 98,
+    "gvar_readiness_notes": "4 predictors across 5 criteria yield a manageable yet informative initial model; ready for iterative refinement after initial data.",
+    "variance_support_notes": "1–9 Likert scales yield good within-person variance; sleep diary anchors nocturnal state; passive streams provide complementary variance reduction.",
+    "missingness_risk_notes": "Reminders and brief training reduced burden; incentives and automated data transfer support high compliance over 14 days."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Exaggerated startle response to sudden cues",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the moment, rate the strength of your startle response to sudden noises or unexpected cues on a 1–9 scale (1 = no startle, 9 = very strong).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures real-time reactivity linked to recent cues."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Persistent subjective feeling 'on edge'",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate how tense or on edge you feel on a 1–9 scale (1 = not at all tense, 9 = extremely tense).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Direct index of subjective hyperarousal."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Situational hypervigilance for cues",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since your last prompt, rate how alert you are to approaching people or environmental noises on a 1–9 scale (1 = not alert, 9 = highly alert).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures fluctuating vigilance in daily environments."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Negative emotional reaction to ongoing symptoms",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate your distress or frustration about being jumpy/on edge on a 1–9 scale (1 = not distressed, 9 = extremely distressed).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Emotional burden linked to symptom state."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Expectation–reality mismatch about recovery",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Today, rate your perceived recovery from the past incident on a 1–9 scale (1 = not recovered, 9 = fully recovered). Also note any cognitive dissonance about recovery expectations in a brief free-text field (optional).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "today",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures cognitive-emotional discrepancy between recovery beliefs and bodily reactions."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Sleep Quality (last night)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Sleep_Circadian_and_Restoration > Sleep_Quality",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Sleep quality modulates daytime autonomic regulation and arousal, influencing reactivity to sudden cues and perceived threat.",
+      "intervention_examples_safe": "Sleep hygiene practices; consistent bed/wake times; dark, cool sleep environment.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Rate your sleep quality last night on a 1–9 scale (1 = very poor, 9 = excellent).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "last_night",
+        "expected_within_person_variability": "high",
+        "notes": "Anchors nightly baseline for daytime reactivity."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved sleep reduces acute startle responsivity."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better sleep dampens daytime hyperarousal."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Sleep quality decreases must remain vigilant in daytime."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Lowered distress with improved sleep."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Sleep supports congruence between recovery expectations and bodily state."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Scalable with mobile phones; no invasive data."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Diaphragmatic Breathing Practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Third_Wave_and_Contextual_Therapies > Breathing_and_Arousal_Modulation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Structured breathing reduces autonomic arousal and cue-reactivity.",
+      "intervention_examples_safe": "2–5 minutes diaphragmatic breathing 2–3x/day when arousal spikes.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, did you practice diaphragmatic breathing? If yes, rate perceived depth and calming effect on a 1–9 scale (1 = none, 9 = very deep/calming).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures engagement with a safe regulation strategy."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "minmax_normalization",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Breathing downshifts arousal affecting startle."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Calming effect lowers perceived on-edge."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Lower arousal reduces hypervigilance."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Immediate distress decreases with regulation practice."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Regulation aligns perceived recovery with bodily state."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Low time burden; easy to scale."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Mindfulness Body Scan / Grounding",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Mindfulness_Based_Interventions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.88,
+      "mechanism_rationale": "Mindfulness practices attenuate reactivity and enhance interoceptive awareness.",
+      "intervention_examples_safe": "5–10 minutes daily mindfulness or body-scan.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, did you engage in a mindfulness/body-scan practice? Rate perceived benefit and depth on a 1–9 scale.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Tests engagement with contemplative regulation."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindfulness linked to reduced startle reactivity."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Decreased perceived on-edge after practice."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Grounding lowers vigilance to cues."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Emotional reactivity dampened by mindfulness."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Enhanced recovery appraisal through nonjudgmental awareness."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Moderate burden; feasible with brief daily practice."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Social Belonging / Perceived Support",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] > Social_Support_and_Belonging > Network_Building_And_Maintenance",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Perceived support buffers stress responses and reduces arousal.",
+      "intervention_examples_safe": "Weekly buddy check-ins, group participation, or supportive messages.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the last 4 hours, rate perceived social support from friends/family on a 1–9 scale.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "past_4_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Captures daily social context as buffer against hyperarousal."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Social support dampens arousal in response to cues."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Support reduces perceived on-edge after stress."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Belonging lowers vigilance to ambiguous cues."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Support reduces distress about symptoms."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Social buffers support recovery expectations."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Requires social interaction prompts; feasible with reminders."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,74000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,86000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,84000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,73000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,71000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,74000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep quality reduction of startle reactivity expected.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep quality reduces daytime arousal.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Better sleep lowers vigilance.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep reduces distress about symptoms.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Sleep aids recovery expectancy alignment.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Breathing downshifts arousal affecting startle.",
+      "estimated_relevance_0_1": 0.79
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Breathing reduces current on-edge state.",
+      "estimated_relevance_0_1": 0.74
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Breathing reduces vigilance.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Arousal relief lowers distress.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Regulation supports recovery appraisal.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness linked to reduced startle reactivity.",
+      "estimated_relevance_0_1": 0.82
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness lowers current arousal.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness reduces vigilance.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Emotion regulation improves affect.",
+      "estimated_relevance_0_1": 0.86
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Enhanced recovery expectancy via mindful awareness.",
+      "estimated_relevance_0_1": 0.84
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Social support buffers startle responses.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Belonging reduces on-edge feelings.",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Support context reduces vigilance.",
+      "estimated_relevance_0_1": 0.74
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Social belonging mitigates distress about symptoms.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Belonging supports recovery expectations.",
+      "estimated_relevance_0_1": 0.7
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [],
+    "expected_floor_ceiling_risks": [],
+    "variance_enhancement_suggestions": [
+      "Consider z-scoring predictors before VAR; monitor for high cross-lag correlations between sleep and mindfulness",
+      "If needed, center predictors per person to improve interpretability"
+    ],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": "4 predictors, 5 criteria, low initial collinearity risk; feasible with 14-day EMA and daily sleep diary."
+  },
+  "safety_notes": "This plan is not a diagnosis or treatment recommendation. It does not involve medication dosing. If acute risk (self-harm, violent ideation, deteriorating mental state) arises, follow local safety protocols and seek urgent professional help."
+}

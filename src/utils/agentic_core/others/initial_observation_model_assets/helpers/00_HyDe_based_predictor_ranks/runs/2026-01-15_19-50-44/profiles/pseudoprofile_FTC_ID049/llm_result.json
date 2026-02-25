@@ -1,0 +1,110 @@
+{
+  "pseudoprofile_id": "CASE_2026-01-mh-predictors-6",
+  "summary": "The case describes episodic tingling (possible neuropathic/nerve etiology) that triggers rapid anxiety, which then amplifies sensory distress via a reciprocal reinforcement loop and catastrophic threat beliefs. Six modifiable predictors are proposed, spanning biological regulation, cognitive processing, and social/educational support. Each lever is atomic, changeable, and actionable, with explicit links to the targeted criteria (C01–C06), simple measurements, and feasible time horizons (4–8 weeks). The aim is to reduce (a) sensitivity of the body/brain to sensations, (b) acute anxiety responses, (c) the feedback loop between sensations and anxiety, (d) catastrophic interpretations, (e) medical-uncertainty distress, and (f) excessive bodily monitoring, through integrated BIO-PSYCHO-SOCIAL strategies.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "C01: Episodic tingling logging with neutral sensory exposure",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Structured self-monitoring plus low-threat, neutral sensory exposure tasks during episodes (e.g., light touch on skin, neutral vibrations) to calibrate sensation and reduce reactivity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "By documenting episodes and pairing exposure with nonjudgmental observation, perceived threat and interoceptive vigilance decrease, potentially reducing subjective intensity and monitoring bias.",
+      "measurement": "C01: frequency/duration/intensity logs (0-10); C06: interoceptive monitoring tendency (0-1 scale)",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; ensure medical follow-up continues to rule out organic causes.",
+      "mapping_query": "CASE_PAYLOAD mapping: S01 targets C01 (episodic tingling) and C06 (bodily monitoring)."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "C02: Paced breathing with brief interoceptive exposure",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Teach 4-6 breath rhythmic breathing with short, controlled exposure to sensations during episodes (e.g., tolerate mild tingling while maintaining calm posture); combine with brief anxiety labeling.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Arousal regulation reduces rapid-onset anxiety and may blunt amplification of sensations by lowering reactivity and maladaptive interpretations.",
+      "measurement": "C02: peak anxiety rating during episodes (0-10); HR and skin conductance if available; C03: episode escalation rate",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Safe; monitor dizziness or lightheadedness with prolonged breathing practice.",
+      "mapping_query": "CASE_PAYLOAD mapping: S02 targets C02 (acute anxiety) and C03 (amplification loop)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "C03: Distraction/problem-solving during episodes",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Pre-commit a brief, non-threatening coping plan (e.g., 2-minute distraction + 1 problem-solving step) to interrupt escalation when tingling starts.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Structured coping interrupts the anxiety-driven amplification of sensations by shifting attention and providing perceived control.",
+      "measurement": "C03: change in tingling intensity/frequency during episodes; usage rate of coping plan",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None beyond standard coping practice; ensure not to dismiss medical concerns.",
+      "mapping_query": "CASE_PAYLOAD mapping: S03 targets C03 (symptom–anxiety amplification loop)."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "C04: Cognitive restructuring of threat interpretations",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Daily cognitive-behavioral thought records focusing on challenging catastrophic beliefs (e.g., “this could be dangerous” to “this is uncomfortable but not dangerous”).",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Explicitly testing catastrophic beliefs reduces bias in danger appraisal and softens the emotional response to sensations.",
+      "measurement": "C04: catastrophizing/threat interpretation scores (pre/post)",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None; integrate with gradual exposure if needed.",
+      "mapping_query": "CASE_PAYLOAD mapping: S04 targets C04 (catastrophic/threat interpretation)."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "C05: Medical uncertainty management and education plan",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured plan for communicating uncertainty with clinicians (e.g., a 1-page symptom sheet, list of questions, agreed watchful-wait plan) and regular reassurance messages.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Clear medical communication reduces unresolved worry about cause and prognosis, lowering chronic threat appraisal and monitoring",
+      "measurement": "C05: uncertainty tolerance score; satisfaction with explanations; number of unnecessary tests requested",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Coordinate with treating clinician; avoid delaying necessary workups.",
+      "mapping_query": "CASE_PAYLOAD mapping: S05 targets C05 (uncertainty about medical cause)."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "C06: Mindfulness/interoceptive attentional retraining",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Short-form mindfulness-based interoceptive training to cultivate nonjudgmental awareness of body sensations and reduce monitoring bias.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Improved nonreactive attention to sensations reduces vigilance and the perceived threat of tingling, curbing the monitoring loop.",
+      "measurement": "C06: interoceptive awareness/monitoring index (0-1); daily mindfulness practice adherence",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Safe; monitor for any distress during initial mindfulness exercises.",
+      "mapping_query": "CASE_PAYLOAD mapping: S06 targets C06 (heightened bodily monitoring)."
+    }
+  ]
+}

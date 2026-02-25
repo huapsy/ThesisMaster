@@ -1,0 +1,127 @@
+{
+  "pseudoprofile_id": "CASE_MINDWANDER_OPTIMIZATION_01",
+  "summary": "The case reveals recurrent attentional disengagement during conversations (mind-wandering), social signaling without processing, missed content, negative self-evaluation, and embarrassment after lapses, with variable ability to reorient and repair understanding (C01–C06). The proposed modifiable levers span: (BIO) neural/auditory/physiological optimization and cognitive training to improve attention; (PSYCHO) cognitive-behavioral and self-regulation skills to reduce self-criticism and enhance reorientation; and (SOCIAL) communication strategies and support processes to improve social functioning and repair after lapses. Together, these predictors aim to reduce lapses, shorten repair time, improve perceived competence in conversations, and decrease distress associated with social slips.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Mindfulness-based Attention Regulation",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "8-week program focusing on present-moment listening and nonjudgmental awareness. Daily 10–15 minute practices with 2 guided sessions per week, emphasizing focused listening during conversations and gentle redirection when drift occurs.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Strengthens executive control and metacognitive monitoring, reducing mind-wandering, and improving in-sentence comprehension and the ability to repair when lapses occur.",
+      "measurement": "MAAS (mindfulness) scores; self-reported lapse frequency; post-conversation recall accuracy; rate of explicit repair attempts after lapses.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns. Monitor for initial increases in distress with mindfulness exercises; provide supervisor/referral if anxiety worsens.",
+      "mapping_query": "Link mindfulness training to reductions in C01–C03 and improved C06 reorientation during conversations."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Pause-and-Repair Conversation Routine",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Implement a simple 2-step repair protocol: after a lapse, pause and request repetition or paraphrase; then provide a brief spoken summary to confirm understanding.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Active engagement and structured repair reduce automatic nodding, improve comprehension, mitigate negative self-talk, and promote quicker social repair.",
+      "measurement": "Frequency of repair attempts per conversation; accuracy of comprehension; embarrassment ratings; self-efficacy in conversation.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Repairs target C01–C06 by creating explicit post-lapse engagement and verification steps."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep Hygiene and Caffeine Timing Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Regular, consistent sleep window (7–9 hours), fixed bed/wake times, wind-down routine, and caffeine cutoff in late afternoon to optimize daytime alertness.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Improved arousal and memory encoding/consolidation reduce daytime lapses and embarrassing social moments; better recall of conversational content.",
+      "measurement": "Sleep diary/actigraphy metrics; daytime alertness ratings; lapse frequency; post-conversation recall tests.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Sleep/caffeine optimization expected to reduce C01 and C03 lapses and C05 embarrassment via improved arousal and recall."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Attention Control Training via Computerized Cognitive Training",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Adaptive attention training tasks (sustained attention, processing speed, filtering) 15–30 minutes daily, with integrated practice in mindful listening and real-life conversational transfer.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Strengthens attention networks and executive control, promoting better in-sentence processing and easier reorientation after lapses.",
+      "measurement": "Computerized task performance (SART); lapse frequency; post-training conversational recall; self-reported focus in conversations.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "C01/C02/C03/C06 targeted via attention training with application to conversational tasks."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Self-Compassion and Cognitive Reframing after Lapses",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "3-minute micro-practices following lapses focusing on self-compassion; cognitive reframing to normalize lapses; journaling and guided prompts to reduce harsh self-judgment.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces shame and negative self-talk, fosters resilience, and decreases avoidance of future engagement due to embarrassment.",
+      "measurement": "Self-Compassion Scale (SCS); embarrassment ratings; mood ratings after conversations; perceived conversational competence.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Targets C04 and C05 with self-compassion and reframing after lapses."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Real-time Self-Monitoring with Digital Feedback",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Mobile-app prompts after conversations to log lapses, triggers, and reorientation steps with weekly feedback graphs; optional wearables; reminders to apply repair strategies.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C06",
+        "C05"
+      ],
+      "mechanism_rationale": "Increases situational awareness and timely regulation, reduces automatic inattention, and buffers self-criticism through objective feedback.",
+      "measurement": "Lapse logs per day; time-to-reorient metrics; embarrassment and self-efficacy ratings; engagement metrics.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Digital self-monitoring links to C01–C06 with feedback loops to enhance awareness and control."
+    }
+  ]
+}

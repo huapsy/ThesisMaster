@@ -1,0 +1,162 @@
+{
+  "pseudoprofile_id": "CASE_PAYLOAD_2026_BPS_PLAN_01",
+  "summary": "This plan targets the case's primary modifiable predictors of task initiation, distraction, time perception, self-criticism, and energy regulation by integrating nine BIO/PSYCHO/SOCIAL levers. The levers span sleep, physical activity, nutrition, environmental design, cognitive restructuring, social accountability, and digital tools to reduce initiation barriers, curb distracting substitutes, improve time-tracking, and lower deadline-related anxiety, without relying on pharmacological strategies. Each lever is actionable, measurable, and designed to produce synergistic effects on C01 (initiation), C02 (substitution with low-effort activities), C03 (distraction/attention), C04 (time-perception), and C06 (self-blame/self-regulation). The approach emphasizes feasibility, safety, and scalable monitoring over 4–8 weeks.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Implementation_Intentions_and_Time_Blocking",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Develop explicit if-then action plans (e.g., If seated to work, then start the task within 5 minutes) and schedule tasks in fixed time blocks with start cues.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Reduction of initiation barrier via precommitment and automatic cue to start; diminishes avoidance and decision paralysis.",
+      "measurement": "Start_latency_minutes; tasks_started_within_5_minutes_rate; plan_adherence_percentage",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.8,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns. If panic worsens, adjust task load and provide flexibility.",
+      "mapping_query": "S01 maps to C01"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Distraction_Environment_Modifications_and_DOCUS_Blockers",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Create a distraction-minimized work space: turn off nonessential notifications, use website/app blockers during focused blocks, and implement a dedicated 'work zone' physically.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Limits automatic attention capture by digital stimuli, promoting sustained attention during planned work periods.",
+      "measurement": "off_task_episodes_per_session; focus_durations_minutes; number_of_distractions_logged",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns. If user experiences withdrawal from devices, adjust approach gradually.",
+      "mapping_query": "S02 mapsto C03"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Time_Tracking_and_Pomodoro_Techniques",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Use timed work intervals (e.g., Pomodoro) with brief breaks and track actual time spent on the intended task; practice time estimation and correction.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Enhances time-awareness and reduces underestimation by external time cues and systematic logging.",
+      "measurement": "time_on_task_ratio; start_time_vs_planned_start_gap; time_estimation_accuracy",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "S03 -> C04"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Cognitive_Reframing_and_Self_Compassion_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Provide brief CBT-based reframing to distinguish laziness from modifiable difficulties and teach self-compassion scripts to reduce harsh self-judgment.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Alters appraisal patterns, reducing self-blame and increasing willingness to engage in corrective steps.",
+      "measurement": "self_blame_scale_ratings; adaptiveBeliefs_change; corrective_action_frequency",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "S04 -> C06"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep_Hygiene_Regularization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent sleep/wake times, optimize pre-sleep routines, and light/dark exposure to improve sleep quality and daytime cognitive control.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Improved sleep improves attention, self-regulation, and task initiation capacity.",
+      "measurement": "sleep_duration_hours; sleep_schedule_consistency_days; sleep_efficiency",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "S05 -> C03"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Regular_Short_Aerobic_Exercise",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Incorporate short daily aerobic activity (e.g., 15-20 minutes brisk walk) to boost executive function and reduce distractibility.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Physical activity improves prefrontal control and attention, aiding task initiation and sustained focus.",
+      "measurement": "days_with_≥15min_activity; pre/post_attention_measure (simple); self_reported_energy",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; adjust intensity if physical limitations.",
+      "mapping_query": "S06 -> C03"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Hydration_and_Nutrition_Stability",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Maintain steady hydration and balanced meals to stabilize energy and cognitive function throughout the day.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Energy availability supports task initiation/attention and reduces impulsive substitution with low-effort activities.",
+      "measurement": "daily_water_intake_ml; energy_level_ratings; number_of_unhealthy_snacking_episodes",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "S07 -> C02 & C03"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Social_Accountability_Group",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create a small accountability group or buddy system to check in on task initiation and progress weekly.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Social accountability increases commitment, reduces self-blame by shared challenge, and supports initiation.",
+      "measurement": "check-in_count_per_week; proportion_of_tasks_started_after_group_check-ins; self-blame_reduction_trend",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "S08 -> C01 & C06"
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Digital_Task_Management_Tools_and_Outlining",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Adopt a digital task management system (calendar + to-do list with visual cues) to offload cognitive load and provide start cues.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Externalizing tasks reduces cognitive load, improves initiation, and reduces susceptibility to distraction with external reminders.",
+      "measurement": "start_rate_after_viewing_toggle; task_start_latency; time_on_task_fraction",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "S09 -> C01 & C03"
+    }
+  ]
+}

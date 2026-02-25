@@ -1,0 +1,193 @@
+{
+  "pseudoprofile_id": "CASE01_PAYLOAD_V1",
+  "summary": "The presented pattern shows rapid irritability to minor interpersonal provocations, followed by a pronounced post-episode emotional collapse and distress about one’s own behavior. Key modifiable levers span sleep/biological regulation, emotion regulation skills, direct communication/repair with a partner, trigger mapping and response modification, and social support. A multi-domain plan combining these levers targets the core mechanisms of reactivity (C01), trigger sensitivity (C02), recovery from dysregulation (C03), self-identity distress (C04), intention-behavior gaps (C05), withdrawal coping (C06), and relationship impact (C07). The proposed predictors are actionable, measurable, and safe to implement in the near term, with clear metrics and short- to mid-term horizons.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep duration and sleep quality optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish a consistent sleep-wake schedule (7–9 hours/night), a wind-down routine, and reduce screen exposure 1 hour before bed; optimize sleep environment (dark, quiet, comfortable).",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Adequate sleep supports prefrontal regulation and emotional reactivity control, reducing irritability, rapid mood shifts, and poor post-conflict recovery.",
+      "measurement": "Nightly sleep duration (hours); sleep quality rating 0–5; time to return to baseline mood after episodes (minutes-to-hours).",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.25,
+      "priority": "HIGH",
+      "safety_notes": "If sleep-disordered breathing, snoring, or persistent fatigue emerge, seek medical evaluation.",
+      "mapping_query": "Sleep optimization mapped to C01/C03/C06; aligns with Sleep_Routines_and_Practices / Sleep_Environment; track via daily sleep diary."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Daily emotion regulation skills training (brief DBT/CBT-based practice)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach 2–3 minute micro-skills for early regulation (STOP, diaphragmatic breathing, four-square breathing, cognitive labeling) with a 5–10 minute daily practice; apply skills during or immediately after provocation.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C06",
+        "C05"
+      ],
+      "mechanism_rationale": "Improves cognitive control over impulsive reactions, enhances post-episode repair ability, and narrows the gap between intent and action.",
+      "measurement": "Daily 0–10 irritability rating; count of Dysregulated Episodes per week; frequency of skills use (yes/no or percentage of prompts followed).",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.92,
+      "expected_impact_0_1": 0.3,
+      "priority": "HIGH",
+      "safety_notes": "If distress escalates with practice, adjust intensity and seek clinician guidance.",
+      "mapping_query": "Emotion regulation skills targeting C01/C03/C06/C05; implement via brief daily practice; measure with EMA diaries."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Structured interpersonal communication and repair after conflicts",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Implement a simple repair protocol after conflicts (e.g., Check-in, I-statements, apology/repair attempt within 24 hours, planned discussion via 10–15 min window).",
+      "targets_criteria_ids": [
+        "C07",
+        "C05"
+      ],
+      "mechanism_rationale": "Directly reduces relational strain and aligns behaviors with intentions, promoting warmth and trust restoration.",
+      "measurement": "Partner-rated warmth/trust and frequency of repair attempts; weekly conflict frequency; self-reported repair success.",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.2,
+      "priority": "MED",
+      "safety_notes": "If conflicts become unsafe or escalate, pause and seek couples therapy or individual support.",
+      "mapping_query": "Repair-focused communication mapped to C07 and C05; track via partner feedback and incident logs."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Mindfulness-based interoceptive and cognitive awareness training",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Incorporate 10–15 minutes of daily mindfulness practice (body scan, mindful breathing, nonjudgmental observation) to increase nonreactivity and awareness of triggers.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Enhances present-moment awareness, reduces automatic reactivity to triggers, and supports quicker recovery after emotional surges.",
+      "measurement": "Daily mindfulness minutes; 0–10 scale of nonreactivity during provocation; time to mood normalization post-episode.",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.28,
+      "priority": "HIGH",
+      "safety_notes": "Mindfulness practices should be adapted if distress increases; consult guidance if needed.",
+      "mapping_query": "Mindfulness and interoceptive training targeting C01/C03/C06; measure via daily practice logs and self-report scales."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Values-based behavioral activation to align actions with intention",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Engage in values clarification and 1–2 daily acts of kindness or calm communication toward partner to close the gap between intent and behavior.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Strengthens alignment between stated intention (being kind) and actual behavior, reducing guilt and dissatisfaction after episodes.",
+      "measurement": "Frequency of proactive kind/repair actions toward partner; self-perceived alignment score (0–10).",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.22,
+      "priority": "MED",
+      "safety_notes": "Ensure acts of kindness are sincere and not coercive; monitor for burnout if overextended.",
+      "mapping_query": "Values-driven activation targeting C05; monitor action frequency and perceived alignment."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Trigger mapping and exposure modification to household cues",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create a small trigger map (e.g., dishes, tone cues) and implement brief ",
+      "targets_criteria_ids": [
+        "C02",
+        "C07"
+      ],
+      "mechanism_rationale": "Reducing cue salience and building coping responses to recurring triggers lowers reactivity and relationship stress.",
+      "measurement": "Number of identified triggers; weekly exposure/response practice; partner-reported trigger management effectiveness.",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.2,
+      "priority": "MED",
+      "safety_notes": "If exposure-based strategies increase distress, adjust pace and seek guidance.",
+      "mapping_query": "Trigger identification and cue-response modification mapped to C02 and C07; track trigger frequency and coping application."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Regular physical activity to support mood regulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Include moderate aerobic activity totaling ~150 minutes per week (e.g., brisk walking, cycling) and light strength work to improve mood and executive function.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Exercise enhances neurochemical regulation, sleep quality, and cognitive control, reducing irritability and improving recovery after conflicts.",
+      "measurement": "Weekly active minutes; mood rating before/after activity; time to baseline mood after episodes.",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.25,
+      "priority": "HIGH",
+      "safety_notes": "Choose activities appropriate to fitness; consult provider if new or cardiovascular risk factors emerge.",
+      "mapping_query": "Physical activity targeting C01/C03; monitor via activity logs and mood ratings."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Social support network strengthening and belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Enhance social connectedness via regular supportive contact (friends, family, support groups) to buffer stress and provide external appraisal.",
+      "targets_criteria_ids": [
+        "C07"
+      ],
+      "mechanism_rationale": "Increased social support reduces perceived interpersonal threat and improves resilience to conflicts.",
+      "measurement": "Weekly number of supportive contacts; perceived belonging scale (0–10); partner warmth ratings.",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.18,
+      "priority": "MED",
+      "safety_notes": "Ensure chosen supports are healthy and non-coercive; avoid overreliance on one source.",
+      "mapping_query": "Social belonging and support mapping to C07; track contacts and perceived support."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Nutrition and caffeine modulation to stabilize energy/mood",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Optimize dietary patterns (regular meals, balanced macros) and moderate caffeine intake to stabilize energy and arousal levels.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Nutritional stability supports neurochemical balance and energy for regulation and recovery.",
+      "measurement": "Daily meals pattern; caffeine intake (mg); mood/irritability ratings (0–10).",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.15,
+      "priority": "LOW",
+      "safety_notes": "If metabolic concerns arise, seek dietary guidance from a clinician or dietitian.",
+      "mapping_query": "Nutrition/caffeine modulation mapping to C01/C03; monitor via daily logs."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Digital self-monitoring and data-driven feedback loop",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Use a simple mobile diary to log triggers, intensity of irritability, post-episode distress, and repair attempts; receive brief weekly feedback to tailor next steps.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Continuous data enhances self-awareness, supports timely coping, and enables personalized adjustment of strategies across domains.",
+      "measurement": "Adherence rate to daily logs; correlation between prompt data and mood/behavior changes; weekly summaries.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.28,
+      "priority": "HIGH",
+      "safety_notes": "If data reveal escalating distress or self-harm risk, seek professional support immediately.",
+      "mapping_query": "Self-monitoring across C01–C07 with data-driven tailoring; track adherence and associations with mood/behavior."
+    }
+  ]
+}

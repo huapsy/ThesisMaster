@@ -1,0 +1,1105 @@
+{
+  "meta": {
+    "profile_id": "pseudoprofile_FTC_ID041",
+    "input_file": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/01_pseudoprofile(s)/time_series_data/pseudodata/pseudoprofile_FTC_ID041/pseudodata_wide.csv",
+    "generated_at": "2026-01-19T14:24:52",
+    "script": "apply_readiness_check.py",
+    "dependencies": {
+      "scipy": true,
+      "statsmodels": true,
+      "openai_new": true,
+      "openai_legacy": true
+    },
+    "lag_used": 1
+  },
+  "dataset_overview": {
+    "n_rows": 180,
+    "n_columns_raw": 16,
+    "time_info": {
+      "time_col": "t_index",
+      "date_col": "date",
+      "n_rows": 180,
+      "regularity": "regular_or_quasi_regular",
+      "modal_step": 86400.0,
+      "irregular_fraction": 0.0,
+      "duplicate_time_points": 0,
+      "duplicate_fraction": 0.0,
+      "notes": []
+    },
+    "ordering": {
+      "sorted": true,
+      "sort_key": "date",
+      "time_parse_ok_fraction": 1.0,
+      "notes": []
+    },
+    "excluded_columns": [
+      "date",
+      "t_index"
+    ],
+    "candidate_cols_count": 14,
+    "n_numeric_model_candidate_columns": 14,
+    "non_numeric_columns_excluded": [],
+    "corr_method_selected": "pearson"
+  },
+  "thresholds": {
+    "hard_drop_missing_pct": 0.7,
+    "soft_drop_missing_pct": 0.4,
+    "hard_drop_unique_values_max": 1,
+    "soft_drop_unique_values_max": 2,
+    "near_constant_std_epsilon": 1e-08,
+    "dominance_soft_drop_pct": 0.92,
+    "binary_rare_event_min_pct": 0.05,
+    "robust_z_outlier_threshold": 4.0,
+    "outlier_soft_drop_pct": 0.2,
+    "outlier_hard_drop_pct": 0.35,
+    "irregular_time_soft_threshold": 0.15,
+    "irregular_time_hard_threshold": 0.35,
+    "duplicate_time_soft_threshold": 0.02,
+    "duplicate_time_hard_threshold": 0.1,
+    "adf_alpha": 0.05,
+    "kpss_alpha": 0.05,
+    "high_corr_threshold": 0.95,
+    "moderate_corr_threshold": 0.85,
+    "tier3_static_min_n_eff_base": 50,
+    "tier3_static_min_n_eff_per_var": 8,
+    "tier3_static_min_n_eff_q25_floor": 35,
+    "max_var_to_n_ratio_tier3_static": 0.12,
+    "tier3_tv_min_n_eff_q25_floor": 60,
+    "tier3_tv_min_windows": 3,
+    "tier3_tv_window_min": 30,
+    "tier3_tv_window_per_var": 6,
+    "max_var_to_n_ratio_tier3_tv": 0.08,
+    "tier2_min_pairwise_n_q25": 20,
+    "tier2_min_pairwise_n_median": 25,
+    "tier1_min_pairwise_n_q25": 10,
+    "tier1_min_pairwise_n_median": 12,
+    "max_var_to_n_ratio_tier2": 0.25,
+    "tier3_min_k": 3,
+    "tier2_min_k": 3,
+    "tier1_min_k": 2
+  },
+  "score_weights": {
+    "sample_size": 0.3,
+    "missingness": 0.25,
+    "variable_quality": 0.25,
+    "time_regular": 0.1,
+    "model_assumptions": 0.1
+  },
+  "variables": {
+    "P01": {
+      "name": "P01",
+      "role": "predictor",
+      "coercion": {
+        "original_dtype": "float64",
+        "coerced": false,
+        "non_numeric_rate": null
+      },
+      "type_inferred": "proportion",
+      "n_total": 180,
+      "n_nonmissing": 163,
+      "missing_pct": 0.09444444444444444,
+      "n_unique_nonmissing": 155,
+      "dominance_pct": 0.05521472392638037,
+      "mean": 0.29200492243252163,
+      "std": 0.22203617533586692,
+      "median": 0.261323353073095,
+      "outlier_pct_robust_z": 0.0,
+      "max_consecutive_missing": 5,
+      "normality": {
+        "jarque_bera_p": 2.896656101016442e-06,
+        "shapiro_p": 6.31981147112407e-07,
+        "skew": 0.9159573865843633,
+        "kurtosis": 0.6318740149786786
+      },
+      "stationarity": {
+        "adf_p": 0.003096332521287484,
+        "kpss_p": 0.014252807542364557,
+        "stationary_flag": false,
+        "notes": []
+      },
+      "autocorr_lag1": 0.8418398133590145,
+      "ljung_box_p": 9.092230599843845e-90,
+      "rare_event_flag": null,
+      "zero_inflation_flag": null,
+      "drop_hard_reasons": [],
+      "drop_soft_reasons": [
+        "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high."
+      ],
+      "transform_suggestions": [
+        "Non-stationary suspected; static lagged VAR may need detrending/differencing; time-varying gVAR can be an alternative if N is high."
+      ]
+    },
+    "P02": {
+      "name": "P02",
+      "role": "predictor",
+      "coercion": {
+        "original_dtype": "float64",
+        "coerced": false,
+        "non_numeric_rate": null
+      },
+      "type_inferred": "proportion",
+      "n_total": 180,
+      "n_nonmissing": 150,
+      "missing_pct": 0.16666666666666663,
+      "n_unique_nonmissing": 139,
+      "dominance_pct": 0.08,
+      "mean": 0.4010792719824938,
+      "std": 0.2503140924329729,
+      "median": 0.3783655953148478,
+      "outlier_pct_robust_z": 0.0,
+      "max_consecutive_missing": 10,
+      "normality": {
+        "jarque_bera_p": 0.07155613658569208,
+        "shapiro_p": 0.0015905748656207849,
+        "skew": 0.07978824438131606,
+        "kurtosis": -0.9046892878317827
+      },
+      "stationarity": {
+        "adf_p": 0.20494377689040894,
+        "kpss_p": 0.01,
+        "stationary_flag": false,
+        "notes": []
+      },
+      "autocorr_lag1": 0.8829029091865177,
+      "ljung_box_p": 4.561719509553833e-131,
+      "rare_event_flag": null,
+      "zero_inflation_flag": null,
+      "drop_hard_reasons": [],
+      "drop_soft_reasons": [
+        "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high."
+      ],
+      "transform_suggestions": [
+        "Non-stationary suspected; static lagged VAR may need detrending/differencing; time-varying gVAR can be an alternative if N is high."
+      ]
+    },
+    "P03": {
+      "name": "P03",
+      "role": "predictor",
+      "coercion": {
+        "original_dtype": "float64",
+        "coerced": false,
+        "non_numeric_rate": null
+      },
+      "type_inferred": "proportion",
+      "n_total": 180,
+      "n_nonmissing": 148,
+      "missing_pct": 0.1777777777777778,
+      "n_unique_nonmissing": 130,
+      "dominance_pct": 0.12837837837837837,
+      "mean": 0.26166510479512717,
+      "std": 0.21506540760830511,
+      "median": 0.22396349113218275,
+      "outlier_pct_robust_z": 0.0,
+      "max_consecutive_missing": 3,
+      "normality": {
+        "jarque_bera_p": 0.001381134997962567,
+        "shapiro_p": 7.838091516334143e-07,
+        "skew": 0.7104430355929326,
+        "kurtosis": -0.34162799654906983
+      },
+      "stationarity": {
+        "adf_p": 0.02470280763630791,
+        "kpss_p": 0.09672918757157022,
+        "stationary_flag": true,
+        "notes": []
+      },
+      "autocorr_lag1": 0.8720355135653075,
+      "ljung_box_p": 2.480787685170207e-72,
+      "rare_event_flag": null,
+      "zero_inflation_flag": null,
+      "drop_hard_reasons": [],
+      "drop_soft_reasons": [],
+      "transform_suggestions": []
+    },
+    "P04": {
+      "name": "P04",
+      "role": "predictor",
+      "coercion": {
+        "original_dtype": "float64",
+        "coerced": false,
+        "non_numeric_rate": null
+      },
+      "type_inferred": "proportion",
+      "n_total": 180,
+      "n_nonmissing": 168,
+      "missing_pct": 0.06666666666666665,
+      "n_unique_nonmissing": 160,
+      "dominance_pct": 0.047619047619047616,
+      "mean": 0.5350491937946732,
+      "std": 0.2683535722980445,
+      "median": 0.5298460360047155,
+      "outlier_pct_robust_z": 0.0,
+      "max_consecutive_missing": 7,
+      "normality": {
+        "jarque_bera_p": 0.03294786176610684,
+        "shapiro_p": 0.0008702748405278922,
+        "skew": 0.04907896810388741,
+        "kurtosis": -0.9825777296605254
+      },
+      "stationarity": {
+        "adf_p": 0.0083175647919281,
+        "kpss_p": 0.010386740015064518,
+        "stationary_flag": false,
+        "notes": []
+      },
+      "autocorr_lag1": 0.8599765795573358,
+      "ljung_box_p": 3.2070073838173536e-74,
+      "rare_event_flag": null,
+      "zero_inflation_flag": null,
+      "drop_hard_reasons": [],
+      "drop_soft_reasons": [
+        "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high."
+      ],
+      "transform_suggestions": [
+        "Non-stationary suspected; static lagged VAR may need detrending/differencing; time-varying gVAR can be an alternative if N is high."
+      ]
+    },
+    "P05": {
+      "name": "P05",
+      "role": "predictor",
+      "coercion": {
+        "original_dtype": "float64",
+        "coerced": false,
+        "non_numeric_rate": null
+      },
+      "type_inferred": "proportion",
+      "n_total": 180,
+      "n_nonmissing": 149,
+      "missing_pct": 0.17222222222222228,
+      "n_unique_nonmissing": 141,
+      "dominance_pct": 0.053691275167785234,
+      "mean": 0.43201148781221776,
+      "std": 0.26672841684374143,
+      "median": 0.383976614657893,
+      "outlier_pct_robust_z": 0.0,
+      "max_consecutive_missing": 8,
+      "normality": {
+        "jarque_bera_p": 0.029589659757124798,
+        "shapiro_p": 0.00023977130246464372,
+        "skew": 0.32644947504098387,
+        "kurtosis": -0.841302027518477
+      },
+      "stationarity": {
+        "adf_p": 0.012106389048756844,
+        "kpss_p": 0.010967636683156682,
+        "stationary_flag": false,
+        "notes": []
+      },
+      "autocorr_lag1": 0.8668060792827985,
+      "ljung_box_p": 1.3192688504161977e-89,
+      "rare_event_flag": null,
+      "zero_inflation_flag": null,
+      "drop_hard_reasons": [],
+      "drop_soft_reasons": [
+        "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high."
+      ],
+      "transform_suggestions": [
+        "Non-stationary suspected; static lagged VAR may need detrending/differencing; time-varying gVAR can be an alternative if N is high."
+      ]
+    },
+    "P06": {
+      "name": "P06",
+      "role": "predictor",
+      "coercion": {
+        "original_dtype": "float64",
+        "coerced": false,
+        "non_numeric_rate": null
+      },
+      "type_inferred": "proportion",
+      "n_total": 180,
+      "n_nonmissing": 148,
+      "missing_pct": 0.1777777777777778,
+      "n_unique_nonmissing": 141,
+      "dominance_pct": 0.05405405405405406,
+      "mean": 0.3156523940315727,
+      "std": 0.2312476124106756,
+      "median": 0.29209797139171395,
+      "outlier_pct_robust_z": 0.0,
+      "max_consecutive_missing": 10,
+      "normality": {
+        "jarque_bera_p": 0.0028024217569008964,
+        "shapiro_p": 2.9591201962703538e-05,
+        "skew": 0.688782752600183,
+        "kurtosis": 0.09195286512352885
+      },
+      "stationarity": {
+        "adf_p": 0.010466253244177605,
+        "kpss_p": 0.01765646521881565,
+        "stationary_flag": false,
+        "notes": []
+      },
+      "autocorr_lag1": 0.8560508236967889,
+      "ljung_box_p": 1.4448530643966144e-82,
+      "rare_event_flag": null,
+      "zero_inflation_flag": null,
+      "drop_hard_reasons": [],
+      "drop_soft_reasons": [
+        "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high."
+      ],
+      "transform_suggestions": [
+        "Non-stationary suspected; static lagged VAR may need detrending/differencing; time-varying gVAR can be an alternative if N is high."
+      ]
+    },
+    "P07": {
+      "name": "P07",
+      "role": "predictor",
+      "coercion": {
+        "original_dtype": "float64",
+        "coerced": false,
+        "non_numeric_rate": null
+      },
+      "type_inferred": "proportion",
+      "n_total": 180,
+      "n_nonmissing": 141,
+      "missing_pct": 0.21666666666666667,
+      "n_unique_nonmissing": 131,
+      "dominance_pct": 0.07801418439716312,
+      "mean": 0.29888027612942986,
+      "std": 0.20358573258785018,
+      "median": 0.2740200001223801,
+      "outlier_pct_robust_z": 0.0,
+      "max_consecutive_missing": 9,
+      "normality": {
+        "jarque_bera_p": 0.10106950162090046,
+        "shapiro_p": 0.0008752479301788045,
+        "skew": 0.39660331936542287,
+        "kurtosis": -0.388664969542714
+      },
+      "stationarity": {
+        "adf_p": 0.00831529855934083,
+        "kpss_p": 0.1,
+        "stationary_flag": true,
+        "notes": []
+      },
+      "autocorr_lag1": 0.8190669881049085,
+      "ljung_box_p": 9.075346967403795e-51,
+      "rare_event_flag": null,
+      "zero_inflation_flag": null,
+      "drop_hard_reasons": [],
+      "drop_soft_reasons": [],
+      "transform_suggestions": []
+    },
+    "P08": {
+      "name": "P08",
+      "role": "predictor",
+      "coercion": {
+        "original_dtype": "float64",
+        "coerced": false,
+        "non_numeric_rate": null
+      },
+      "type_inferred": "proportion",
+      "n_total": 180,
+      "n_nonmissing": 152,
+      "missing_pct": 0.15555555555555556,
+      "n_unique_nonmissing": 124,
+      "dominance_pct": 0.19078947368421054,
+      "mean": 0.21706534303752473,
+      "std": 0.17403746934385167,
+      "median": 0.20915980673376905,
+      "outlier_pct_robust_z": 0.0,
+      "max_consecutive_missing": 5,
+      "normality": {
+        "jarque_bera_p": 0.028733406679128215,
+        "shapiro_p": 4.341738858515511e-06,
+        "skew": 0.5112925239309059,
+        "kurtosis": -0.2743648744181817
+      },
+      "stationarity": {
+        "adf_p": 0.22128078522091493,
+        "kpss_p": 0.01,
+        "stationary_flag": false,
+        "notes": []
+      },
+      "autocorr_lag1": 0.7905933931851927,
+      "ljung_box_p": 3.0885600916473744e-77,
+      "rare_event_flag": null,
+      "zero_inflation_flag": null,
+      "drop_hard_reasons": [],
+      "drop_soft_reasons": [
+        "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high."
+      ],
+      "transform_suggestions": [
+        "Non-stationary suspected; static lagged VAR may need detrending/differencing; time-varying gVAR can be an alternative if N is high."
+      ]
+    },
+    "C01": {
+      "name": "C01",
+      "role": "criterion",
+      "coercion": {
+        "original_dtype": "float64",
+        "coerced": false,
+        "non_numeric_rate": null
+      },
+      "type_inferred": "continuous",
+      "n_total": 180,
+      "n_nonmissing": 160,
+      "missing_pct": 0.11111111111111116,
+      "n_unique_nonmissing": 160,
+      "dominance_pct": 0.00625,
+      "mean": 4.589669398211217,
+      "std": 1.5506655633581996,
+      "median": 4.264106488981547,
+      "outlier_pct_robust_z": 0.00625,
+      "max_consecutive_missing": 8,
+      "normality": {
+        "jarque_bera_p": 9.3582987309758e-05,
+        "shapiro_p": 1.1974962577619674e-06,
+        "skew": 0.8247965362208611,
+        "kurtosis": 0.24867907130659406
+      },
+      "stationarity": {
+        "adf_p": 0.03661293769348801,
+        "kpss_p": 0.1,
+        "stationary_flag": true,
+        "notes": []
+      },
+      "autocorr_lag1": 0.8925627161372947,
+      "ljung_box_p": 2.68813447834212e-114,
+      "rare_event_flag": null,
+      "zero_inflation_flag": null,
+      "drop_hard_reasons": [],
+      "drop_soft_reasons": [],
+      "transform_suggestions": []
+    },
+    "C02": {
+      "name": "C02",
+      "role": "criterion",
+      "coercion": {
+        "original_dtype": "float64",
+        "coerced": false,
+        "non_numeric_rate": null
+      },
+      "type_inferred": "continuous",
+      "n_total": 180,
+      "n_nonmissing": 145,
+      "missing_pct": 0.19444444444444442,
+      "n_unique_nonmissing": 145,
+      "dominance_pct": 0.006896551724137931,
+      "mean": 3.8245874350410416,
+      "std": 1.3436601721609127,
+      "median": 3.849221803832248,
+      "outlier_pct_robust_z": 0.0,
+      "max_consecutive_missing": 7,
+      "normality": {
+        "jarque_bera_p": 0.41705258228714914,
+        "shapiro_p": 0.6300217379363737,
+        "skew": -0.16161897485765384,
+        "kurtosis": -0.43014079915578085
+      },
+      "stationarity": {
+        "adf_p": 0.03234675844601057,
+        "kpss_p": 0.1,
+        "stationary_flag": true,
+        "notes": []
+      },
+      "autocorr_lag1": 0.8358636334812523,
+      "ljung_box_p": 8.882864066760664e-62,
+      "rare_event_flag": null,
+      "zero_inflation_flag": null,
+      "drop_hard_reasons": [],
+      "drop_soft_reasons": [],
+      "transform_suggestions": []
+    },
+    "C03": {
+      "name": "C03",
+      "role": "criterion",
+      "coercion": {
+        "original_dtype": "float64",
+        "coerced": false,
+        "non_numeric_rate": null
+      },
+      "type_inferred": "continuous",
+      "n_total": 180,
+      "n_nonmissing": 140,
+      "missing_pct": 0.2222222222222222,
+      "n_unique_nonmissing": 136,
+      "dominance_pct": 0.03571428571428571,
+      "mean": 3.8138155345986573,
+      "std": 1.716354575838219,
+      "median": 3.823564761142003,
+      "outlier_pct_robust_z": 0.0,
+      "max_consecutive_missing": 4,
+      "normality": {
+        "jarque_bera_p": 0.6943834947452974,
+        "shapiro_p": 0.13241481947293984,
+        "skew": -0.16717825599864955,
+        "kurtosis": -0.115136058774298
+      },
+      "stationarity": {
+        "adf_p": 0.04992753167429967,
+        "kpss_p": 0.032252217414000486,
+        "stationary_flag": false,
+        "notes": []
+      },
+      "autocorr_lag1": 0.9110884593595577,
+      "ljung_box_p": 5.859148606597253e-86,
+      "rare_event_flag": null,
+      "zero_inflation_flag": null,
+      "drop_hard_reasons": [],
+      "drop_soft_reasons": [
+        "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high."
+      ],
+      "transform_suggestions": [
+        "Non-stationary suspected; static lagged VAR may need detrending/differencing; time-varying gVAR can be an alternative if N is high."
+      ]
+    },
+    "C04": {
+      "name": "C04",
+      "role": "criterion",
+      "coercion": {
+        "original_dtype": "float64",
+        "coerced": false,
+        "non_numeric_rate": null
+      },
+      "type_inferred": "continuous",
+      "n_total": 180,
+      "n_nonmissing": 142,
+      "missing_pct": 0.21111111111111114,
+      "n_unique_nonmissing": 142,
+      "dominance_pct": 0.007042253521126761,
+      "mean": 4.571084928246872,
+      "std": 1.3746632774533252,
+      "median": 4.720393150846963,
+      "outlier_pct_robust_z": 0.0,
+      "max_consecutive_missing": 5,
+      "normality": {
+        "jarque_bera_p": 0.1354087110434832,
+        "shapiro_p": 0.13031009454442807,
+        "skew": -0.4107270135249447,
+        "kurtosis": 0.03295857862982432
+      },
+      "stationarity": {
+        "adf_p": 0.0010692869081864297,
+        "kpss_p": 0.1,
+        "stationary_flag": true,
+        "notes": []
+      },
+      "autocorr_lag1": 0.7894341569507634,
+      "ljung_box_p": 4.2707299872843764e-42,
+      "rare_event_flag": null,
+      "zero_inflation_flag": null,
+      "drop_hard_reasons": [],
+      "drop_soft_reasons": [],
+      "transform_suggestions": []
+    },
+    "C05": {
+      "name": "C05",
+      "role": "criterion",
+      "coercion": {
+        "original_dtype": "float64",
+        "coerced": false,
+        "non_numeric_rate": null
+      },
+      "type_inferred": "continuous",
+      "n_total": 180,
+      "n_nonmissing": 115,
+      "missing_pct": 0.36111111111111116,
+      "n_unique_nonmissing": 115,
+      "dominance_pct": 0.008695652173913044,
+      "mean": 4.114354130062304,
+      "std": 1.4499923633314447,
+      "median": 3.793208562022985,
+      "outlier_pct_robust_z": 0.0,
+      "max_consecutive_missing": 9,
+      "normality": {
+        "jarque_bera_p": 0.004611400636336097,
+        "shapiro_p": 7.967801711890703e-05,
+        "skew": 0.7476837990030003,
+        "kurtosis": -0.09548256036865954
+      },
+      "stationarity": {
+        "adf_p": 0.04277547737466284,
+        "kpss_p": 0.09962855404602781,
+        "stationary_flag": true,
+        "notes": []
+      },
+      "autocorr_lag1": 0.8715548828315953,
+      "ljung_box_p": 1.5160545690696315e-69,
+      "rare_event_flag": null,
+      "zero_inflation_flag": null,
+      "drop_hard_reasons": [],
+      "drop_soft_reasons": [],
+      "transform_suggestions": []
+    },
+    "C06": {
+      "name": "C06",
+      "role": "criterion",
+      "coercion": {
+        "original_dtype": "float64",
+        "coerced": false,
+        "non_numeric_rate": null
+      },
+      "type_inferred": "continuous",
+      "n_total": 180,
+      "n_nonmissing": 140,
+      "missing_pct": 0.2222222222222222,
+      "n_unique_nonmissing": 140,
+      "dominance_pct": 0.007142857142857143,
+      "mean": 4.1158959831977775,
+      "std": 1.7590235577564155,
+      "median": 4.116507391650265,
+      "outlier_pct_robust_z": 0.0,
+      "max_consecutive_missing": 3,
+      "normality": {
+        "jarque_bera_p": 0.6039798453208467,
+        "shapiro_p": 0.7262663265168949,
+        "skew": 0.025421590677453126,
+        "kurtosis": -0.4126602679194691
+      },
+      "stationarity": {
+        "adf_p": 0.029822541903394388,
+        "kpss_p": 0.1,
+        "stationary_flag": true,
+        "notes": []
+      },
+      "autocorr_lag1": 0.9040465273955209,
+      "ljung_box_p": 7.983083744857103e-79,
+      "rare_event_flag": null,
+      "zero_inflation_flag": null,
+      "drop_hard_reasons": [],
+      "drop_soft_reasons": [],
+      "transform_suggestions": []
+    }
+  },
+  "drop_recommendations": {
+    "hard_drop": {},
+    "soft_drop": {
+      "P01": [
+        "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high."
+      ],
+      "P02": [
+        "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high."
+      ],
+      "P04": [
+        "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high."
+      ],
+      "P05": [
+        "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high."
+      ],
+      "P06": [
+        "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high."
+      ],
+      "P08": [
+        "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high."
+      ],
+      "C03": [
+        "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high."
+      ]
+    },
+    "tier_specific_dropped": {
+      "P01": {
+        "level": "soft_or_tier_exclusion",
+        "reasons": [
+          "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high.",
+          "Excluded for Tier 3 STATIC due to non-stationarity signals."
+        ]
+      },
+      "P02": {
+        "level": "soft_or_tier_exclusion",
+        "reasons": [
+          "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high.",
+          "Excluded for Tier 3 STATIC due to non-stationarity signals."
+        ]
+      },
+      "P04": {
+        "level": "soft_or_tier_exclusion",
+        "reasons": [
+          "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high.",
+          "Excluded for Tier 3 STATIC due to non-stationarity signals."
+        ]
+      },
+      "P05": {
+        "level": "soft_or_tier_exclusion",
+        "reasons": [
+          "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high.",
+          "Excluded for Tier 3 STATIC due to non-stationarity signals."
+        ]
+      },
+      "P06": {
+        "level": "soft_or_tier_exclusion",
+        "reasons": [
+          "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high.",
+          "Excluded for Tier 3 STATIC due to non-stationarity signals."
+        ]
+      },
+      "P08": {
+        "level": "soft_or_tier_exclusion",
+        "reasons": [
+          "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high.",
+          "Excluded for Tier 3 STATIC due to non-stationarity signals."
+        ]
+      },
+      "C03": {
+        "level": "soft_or_tier_exclusion",
+        "reasons": [
+          "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high.",
+          "Excluded for Tier 3 STATIC due to non-stationarity signals."
+        ]
+      }
+    },
+    "transform_suggestions": {
+      "P01": [
+        "Non-stationary suspected; static lagged VAR may need detrending/differencing; time-varying gVAR can be an alternative if N is high."
+      ],
+      "P02": [
+        "Non-stationary suspected; static lagged VAR may need detrending/differencing; time-varying gVAR can be an alternative if N is high."
+      ],
+      "P03": [],
+      "P04": [
+        "Non-stationary suspected; static lagged VAR may need detrending/differencing; time-varying gVAR can be an alternative if N is high."
+      ],
+      "P05": [
+        "Non-stationary suspected; static lagged VAR may need detrending/differencing; time-varying gVAR can be an alternative if N is high."
+      ],
+      "P06": [
+        "Non-stationary suspected; static lagged VAR may need detrending/differencing; time-varying gVAR can be an alternative if N is high."
+      ],
+      "P07": [],
+      "P08": [
+        "Non-stationary suspected; static lagged VAR may need detrending/differencing; time-varying gVAR can be an alternative if N is high."
+      ],
+      "C01": [],
+      "C02": [],
+      "C03": [
+        "Non-stationary suspected; static lagged VAR may need detrending/differencing; time-varying gVAR can be an alternative if N is high."
+      ],
+      "C04": [],
+      "C05": [],
+      "C06": []
+    },
+    "collinearity": {
+      "high_corr_pairs": [],
+      "collinearity_notes": [],
+      "proposed_collinearity_drops": {}
+    }
+  },
+  "tiers": {
+    "tier1": {
+      "name": "CorrelationMatrix",
+      "feasible": true,
+      "ready_variables": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "pairwise_n": {
+        "median": 121,
+        "q25": 114,
+        "min": 88
+      },
+      "min_pairwise_required": {
+        "median": 12,
+        "q25": 10
+      },
+      "recommended_corr_method": "pearson"
+    },
+    "tier2": {
+      "name": "ContemporaneousPartialCorrelation",
+      "feasible": true,
+      "ready_variables": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P08",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "pairwise_n": {
+        "median": 121,
+        "q25": 114,
+        "min": 88
+      },
+      "min_pairwise_required": {
+        "median": 25,
+        "q25": 20
+      }
+    },
+    "tier3": {
+      "name": "LaggedDynamicNetwork_gVAR_heuristic",
+      "variant_static": {
+        "feasible": true,
+        "candidate_variables": [
+          "P03",
+          "P07",
+          "C01",
+          "C02",
+          "C04",
+          "C05",
+          "C06"
+        ],
+        "n_eff_lagged": {
+          "strict_all_vars_complete": 15,
+          "per_variable": {
+            "P03": 125,
+            "P07": 116,
+            "C01": 150,
+            "C02": 120,
+            "C04": 111,
+            "C05": 80,
+            "C06": 109
+          },
+          "q25_per_variable": 110
+        },
+        "required_n_eff_heuristic": 98,
+        "stationarity_required": true
+      },
+      "variant_time_varying": {
+        "feasible": false,
+        "candidate_variables": [
+          "P01",
+          "P02",
+          "P03",
+          "P04",
+          "P05",
+          "P06",
+          "P07",
+          "P08",
+          "C01",
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06"
+        ],
+        "n_eff_lagged": {
+          "strict_all_vars_complete": 5,
+          "per_variable": {
+            "P01": 150,
+            "P02": 138,
+            "P03": 125,
+            "P04": 161,
+            "P05": 125,
+            "P06": 130,
+            "P07": 116,
+            "P08": 128,
+            "C01": 150,
+            "C02": 120,
+            "C03": 110,
+            "C04": 111,
+            "C05": 80,
+            "C06": 109
+          },
+          "q25_per_variable": 112
+        },
+        "tv_window_heuristic": 84,
+        "tv_required_points_heuristic": 252,
+        "stationarity_required": false,
+        "note": "Non-stationarity is acceptable under time-varying gVAR if the dataset is large enough to support smoothing/windows."
+      },
+      "time_regular_ok": true,
+      "time_notes": []
+    }
+  },
+  "overall": {
+    "recommended_tier": "Tier3_LaggedDynamicNetwork",
+    "tier3_variant": "STATIC_gVAR",
+    "ready_variables": [
+      "P03",
+      "P07",
+      "C01",
+      "C02",
+      "C04",
+      "C05",
+      "C06"
+    ],
+    "dropped_variables": {
+      "P01": {
+        "level": "soft_or_tier_exclusion",
+        "reasons": [
+          "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high.",
+          "Excluded for Tier 3 STATIC due to non-stationarity signals."
+        ]
+      },
+      "P02": {
+        "level": "soft_or_tier_exclusion",
+        "reasons": [
+          "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high.",
+          "Excluded for Tier 3 STATIC due to non-stationarity signals."
+        ]
+      },
+      "P04": {
+        "level": "soft_or_tier_exclusion",
+        "reasons": [
+          "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high.",
+          "Excluded for Tier 3 STATIC due to non-stationarity signals."
+        ]
+      },
+      "P05": {
+        "level": "soft_or_tier_exclusion",
+        "reasons": [
+          "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high.",
+          "Excluded for Tier 3 STATIC due to non-stationarity signals."
+        ]
+      },
+      "P06": {
+        "level": "soft_or_tier_exclusion",
+        "reasons": [
+          "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high.",
+          "Excluded for Tier 3 STATIC due to non-stationarity signals."
+        ]
+      },
+      "P08": {
+        "level": "soft_or_tier_exclusion",
+        "reasons": [
+          "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high.",
+          "Excluded for Tier 3 STATIC due to non-stationarity signals."
+        ]
+      },
+      "C03": {
+        "level": "soft_or_tier_exclusion",
+        "reasons": [
+          "Non-stationary by tests: concern for STATIC lagged VAR; acceptable under TIME-VARYING gVAR if other readiness is high.",
+          "Excluded for Tier 3 STATIC due to non-stationarity signals."
+        ]
+      }
+    },
+    "readiness_score_0_100": 94.64037698412699,
+    "readiness_label": "FullyReady",
+    "score_breakdown": {
+      "components": {
+        "sample_score": 100.0,
+        "missing_score": 78.65079365079364,
+        "variable_quality_score": 99.91071428571429,
+        "time_score": 100.0,
+        "assumptions_score": 100.0
+      },
+      "weights": {
+        "sample_size": 0.3,
+        "missingness": 0.25,
+        "variable_quality": 0.25,
+        "time_regular": 0.1,
+        "model_assumptions": 0.1
+      },
+      "tier_gates": [],
+      "evidence": {
+        "n_ref_used": 110.0,
+        "n_req_used": 98.0,
+        "mean_missingness_base": 0.21349206349206348,
+        "irregular_fraction": 0.0,
+        "duplicate_fraction": 0.0,
+        "stationarity_fraction": 1.0,
+        "stationarity_required": true,
+        "high_collinearity_rate": 0.0,
+        "tier3_tv_window": 84,
+        "tier3_tv_required_points": 252
+      }
+    },
+    "why": [
+      "Recommended tier: Tier3_LaggedDynamicNetwork",
+      "Tier3 variant: STATIC_gVAR (stationarity_required=True)",
+      "Ready variables: 7 / model candidates: 14",
+      "Time regularity: regular_or_quasi_regular (irregular_fraction=0.00, dup_fraction=0.00)",
+      "Tier3 TV feasible=False; n_eff_q25_tv=112 vs required≈252 (tv_window≈84)",
+      "Tier3 STATIC feasible=True; n_eff_q25_static=110 vs required≈98",
+      "Non-stationarity is not a blocker if TIME_VARYING_gVAR is feasible; it mainly affects STATIC feasibility.",
+      "Mean missingness (base set): 21.3%"
+    ],
+    "technical_summary": "Tier3_LaggedDynamicNetwork chosen with STATIC_gVAR due to stationarity requirement. Overall readiness 94.6/100 (FullyReady). 7 ready vars out of 14 candidates; 0 hard drops, 7 soft drops due to non-stationarity signals. STATIC gVAR n_eff_q25=110 (≥≈98 required); TV option not feasible (n_eff_q25_tv=112, required≈252; window≈84). Time regularity is good (regular_or_quasi_regular, no irregulars/duplicates). Mean missingness ~21.3%. Non-stationarity signals drive exclusion of several vars from STATIC; nonstationarity is a blocker for STATIC but acceptable for TIME_VARYING gVAR if data suffices for smoothing/windowing. Overall, current evidence supports consolidating with STATIC_gVAR tier while maintaining data collection to improve TV viability in the future.",
+    "client_friendly_summary": "Your data looks ready for a solid dynamic network model, but some variables show non-stationary behavior. For now, we’ll use a stable,STATIC lagged model with 7 ready indicators. Time-varying analysis isn’t yet feasible with current data. To keep improving, collect more data and keep timing regular to reduce missing values and unlock the option of a fully time-varying model later.",
+    "next_steps": [
+      "Increase data completeness to reduce missingness.",
+      "Focus on the 7 ready variables to stabilize the model; consider reevaluating the dropped ones after preprocessing.",
+      "Maintain strict time regularity to avoid irregular samples.",
+      "If possible, collect more observations to approach the time-varying gVAR feasibility threshold (252 points).",
+      "Assess and address non-stationarity in dropped variables (e.g., detrending, normalization) to potentially reintroduce them.",
+      "Re-run readiness checks after data updates to monitor changes in n_eff and missingness."
+    ],
+    "caveats": [
+      "Non-stationarity concerns limit STATIC_gVAR readiness for several variables.",
+      "TIME_VARYING_gVAR remains infeasible at current sample size/window requirements.",
+      "Mean missingness around 21% can bias static estimates if not addressed.",
+      "Only 7 of 14 candidate variables are currently ready; generalization should be cautious.",
+      "Even with low collinearity observed, small sample size relative to variables can threaten stability.",
+      "Data smoothing/window choices will impact time-varying model feasibility once enough data exist.",
+      "Soft-excluded variables may hold domain-specific information; revisit if preprocessing changes.",
+      "Dependence on stationarity assumptions means future model updates should include thorough diagnostics."
+    ],
+    "nonstationarity_handling": {
+      "statement": "Non-stationarity is not a problem if TIME_VARYING_gVAR is feasible; it mainly limits STATIC_gVAR feasibility.",
+      "recommended_variant": "STATIC_gVAR",
+      "stationarity_required_for_recommended": true
+    },
+    "readiness_score_0_100_raw": 94.64037698412699,
+    "readiness_label_raw": "FullyReady",
+    "recommended_tier_raw": "Tier3_LaggedDynamicNetwork",
+    "tier3_variant_raw": "STATIC_gVAR",
+    "key_evidence": [
+      "Recommended tier: Tier3_LaggedDynamicNetwork with STATIC_gVAR (stationarity_required=true).",
+      "Tier3 STATIC feasible: n_eff_q25_static=110, required≈98; feasible=True.",
+      "Tier3 TV feasible: False; n_eff_q25_tv=112, tv_required≈252; tv_window≈84.",
+      "Ready variables: 7 / model candidates: 14.",
+      "Mean missingness base: 0.2135 (≈21.3%); time_regular_ok is true; irregular and duplicates are 0%.",
+      "Non-stationarity flagged for several vars (e.g., P01, P04, P05, P06, P08, C03); STATIC gVAR is therefore chosen over TIME_VARYING gVAR given current data.",
+      "Stationarity_fraction in evidence: 1.0; stationarity_required is true."
+    ]
+  },
+  "llm_finalization": {
+    "enabled": true,
+    "model": "gpt-5-nano",
+    "applied_at": "2026-01-19T14:25:15",
+    "outputs": {
+      "tier_override": null,
+      "tier3_variant_override": null,
+      "score_adjustment": 0,
+      "final_readiness_label": "FullyReady",
+      "key_evidence": [
+        "Recommended tier: Tier3_LaggedDynamicNetwork with STATIC_gVAR (stationarity_required=true).",
+        "Tier3 STATIC feasible: n_eff_q25_static=110, required≈98; feasible=True.",
+        "Tier3 TV feasible: False; n_eff_q25_tv=112, tv_required≈252; tv_window≈84.",
+        "Ready variables: 7 / model candidates: 14.",
+        "Mean missingness base: 0.2135 (≈21.3%); time_regular_ok is true; irregular and duplicates are 0%.",
+        "Non-stationarity flagged for several vars (e.g., P01, P04, P05, P06, P08, C03); STATIC gVAR is therefore chosen over TIME_VARYING gVAR given current data.",
+        "Stationarity_fraction in evidence: 1.0; stationarity_required is true."
+      ],
+      "technical_summary": "Tier3_LaggedDynamicNetwork chosen with STATIC_gVAR due to stationarity requirement. Overall readiness 94.6/100 (FullyReady). 7 ready vars out of 14 candidates; 0 hard drops, 7 soft drops due to non-stationarity signals. STATIC gVAR n_eff_q25=110 (≥≈98 required); TV option not feasible (n_eff_q25_tv=112, required≈252; window≈84). Time regularity is good (regular_or_quasi_regular, no irregulars/duplicates). Mean missingness ~21.3%. Non-stationarity signals drive exclusion of several vars from STATIC; nonstationarity is a blocker for STATIC but acceptable for TIME_VARYING gVAR if data suffices for smoothing/windowing. Overall, current evidence supports consolidating with STATIC_gVAR tier while maintaining data collection to improve TV viability in the future.",
+      "client_friendly_summary": "Your data looks ready for a solid dynamic network model, but some variables show non-stationary behavior. For now, we’ll use a stable,STATIC lagged model with 7 ready indicators. Time-varying analysis isn’t yet feasible with current data. To keep improving, collect more data and keep timing regular to reduce missing values and unlock the option of a fully time-varying model later.",
+      "next_steps": [
+        "Increase data completeness to reduce missingness.",
+        "Focus on the 7 ready variables to stabilize the model; consider reevaluating the dropped ones after preprocessing.",
+        "Maintain strict time regularity to avoid irregular samples.",
+        "If possible, collect more observations to approach the time-varying gVAR feasibility threshold (252 points).",
+        "Assess and address non-stationarity in dropped variables (e.g., detrending, normalization) to potentially reintroduce them.",
+        "Re-run readiness checks after data updates to monitor changes in n_eff and missingness."
+      ],
+      "caveats": [
+        "Non-stationarity concerns limit STATIC_gVAR readiness for several variables.",
+        "TIME_VARYING_gVAR remains infeasible at current sample size/window requirements.",
+        "Mean missingness around 21% can bias static estimates if not addressed.",
+        "Only 7 of 14 candidate variables are currently ready; generalization should be cautious.",
+        "Even with low collinearity observed, small sample size relative to variables can threaten stability.",
+        "Data smoothing/window choices will impact time-varying model feasibility once enough data exist.",
+        "Soft-excluded variables may hold domain-specific information; revisit if preprocessing changes.",
+        "Dependence on stationarity assumptions means future model updates should include thorough diagnostics."
+      ]
+    },
+    "applied": {
+      "score_adjustment": 0,
+      "final_score": 94.64037698412699,
+      "tier_override": null,
+      "final_tier": "Tier3_LaggedDynamicNetwork",
+      "tier3_variant_override": null,
+      "final_tier3_variant": "STATIC_gVAR",
+      "final_label": "FullyReady",
+      "notes": []
+    }
+  }
+}

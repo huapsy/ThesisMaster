@@ -1,0 +1,97 @@
+{
+  "pseudoprofile_id": "CASE_SLEEP_MORN_WAKE_v1",
+  "summary": "The case shows persistent 4:30am awakenings with rapid cognitive arousal, doomscrolling, and daytime impairment by lunchtime. Five modifiable BIO/PSYCHO/SOCIAL levers are proposed to target (a) sleep maintenance and circadian alignment, (b) pre-awakening arousal regulation, (c) in-bed digital hygiene to curb doomscrolling, (d) daytime energy restoration, and (e) measurement-based care with feedback. Each lever is atomic, actionable, and designed to interact (e.g., better sleep improves daytime energy, which supports reduced evening rumination). All suggestions avoid unsafe substances and focus on changeable predictors rather than symptoms. Safety notes are included where relevant.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep maintenance circadian alignment & sleep-environment optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a structured sleep-maintenance plan: fixed 10pm-6am target window, consistent weekend/weekday wake times, morning light exposure within 30 minutes of waking, dim-light/eWarm lighting 1-2 hours before bed, cooler sleep environment, and a non-stimulating pre-bed routine (no screens, 1-page journaling or reading). Consider blackout curtains and white-noise if needed to minimize awakenings around the original wake time (04:30).",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Strengthening circadian entrainment and reducing environmental disruptions lowers nocturnal awakenings and supports sustained sleep across the intended period, addressing the core driver of early awakenings.",
+      "measurement": "Sleep diary (bedtime, wake time, number/duration of awakenings), actigraphy wearables, morning energy/mood rating.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; standard sleep hygiene. Monitor for any adverse reaction to new lighting or sleep schedule and adjust gradually to minimize daytime sleepiness.",
+      "mapping_query": "MAP S01 -> C01: Sleep maintenance; integrate circadian cues and sleep environment; assess interplay with daytime function."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Pre-sleep arousal regulation and cognitive reset",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce a pre-sleep winding-down protocol: 10 minutes of diaphragmatic breathing or guided PMR, 5 minutes of cognitive offloading (e.g., journaling about worries for 3 minutes) and a brief grounding exercise upon awakening (if needed) to reduce rapid arousal. Limit stimulating activities 60 minutes before target sleep, and create a consistent post-wake calming routine if feasible.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Targeting immediate cognitive and physiological arousal at awakening can shorten the time to settle back to rest and reduce the escalation of doomscrolling triggered by high arousal.",
+      "measurement": "Awakening arousal rating (0-10), time to return to sleep after awakening, frequency of pre-sleep relaxation use.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Non-pharmacological strategies only; monitor for any increase in anxiety with exposure to worry journaling; adjust content to non-distressing topics.",
+      "mapping_query": "MAP S02 -> C03: Arousal at awakening; implement relaxation + grounding protocol; track arousal and sleep re-entry latency."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "In-bed digital hygiene & awakening doomscrolling reduction",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Establish an awakening protocol: keep the phone out of reach from the bed; set a 60-90 minute doomscrolling-free window post-awakening; substitute with passive, non-stimulating activities (stretching, slow breathing, light journaling or listening to calm audio). Use app-based restrictions or hardware settings to enforce screen-off period during the post-awakening window; progressively shorten doomscrolling episodes.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reducing device-mediated cognitive activation and exposure to distressing content during the vulnerable early-morning window diminishes negative affect, rumination, and subsequent daytime impairment.",
+      "measurement": "Screen-time logs during the first 90 minutes after awakening; self-reported doomscrolling episodes; time to first calm/restful state; morning mood.",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Privacy and data-use considerations; ensure instructions are optional and customizable; escalate if distress worsens.",
+      "mapping_query": "MAP S03 -> C04+C05: Reduce in-bed device engagement and doomscrolling; apply digital hygiene protocols; assess impact on affect and sleep continuity."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Daytime energy restoration & functioning optimization",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a structured daytime routine designed to buffer sleep disruption: 15-20 minutes of morning light exposure or light therapy when natural light is limited, 5-10 minutes of light physical activity after waking, regular hydration and balanced meals with steady glucose; plan short, incremental tasks to promote daytime energy and reduce midday crash; limit caffeine to mid-morning only if eaten early.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Enhancing daytime energy and functioning counters the downstream impairment caused by disturbed sleep, supporting better mood, cognition, and decision-making during the day.",
+      "measurement": "Daily energy/woopiness rating (0-10), minutes of physical activity, hydration, and meals; objective activity via wearable steps; midday cognitive function self-rating.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "No stimulant dosing instructions; monitor caffeine effect on sleep if late-day consumption persists.",
+      "mapping_query": "MAP S04 -> C06: Target daytime impairment; implement energy restoration protocol; monitor energy, activity, and mood."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Measurement-based care, feedback, and adaptive planning",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Set up a minimal Measurement-Based Care (MBC) framework: daily brief sleep/mood logs, weekly review, and an adaptable plan that adjusts sleep routines based on integrated data. Use simple charts to visualize trends, share insights with the individual, and adjust levers (S01-S04) accordingly to maximize sleep continuity and daytime functioning.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Continuous feedback accelerates learning about what is effective in the person's life, enabling timely adaptations and improving adherence across all sleep-related levers.",
+      "measurement": "Daily entries (sleep duration, awakenings, mood, energy), weekly trend summaries, adherence metrics (e.g., completion of routines), and goal progress.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure data privacy; provide opt-out options for data sharing; escalate if suicidal ideation or acute risk emerges.",
+      "mapping_query": "MAP S05 -> All criteria: implement MBC to monitor, guide, and adapt S01-S04; use feedback to optimize plan."
+    }
+  ]
+}

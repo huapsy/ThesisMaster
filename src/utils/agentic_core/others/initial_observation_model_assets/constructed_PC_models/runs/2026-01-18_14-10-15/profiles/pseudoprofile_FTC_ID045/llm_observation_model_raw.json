@@ -1,0 +1,904 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID045",
+  "model_summary": "This initial observation model targets a work-related error–anxiety–overwork–fatigue loop using five criterions (errors, catastrophic job-loss fear, compensatory overwork, daytime fatigue, and fatigue-linked attention decline) sampled via momentary EMA across the workday plus a morning diary for sleep. Six modifiable predictors span BIO, PSYCHO, and SOCIAL levers with strong support from ranking signals: sleep routines/regularity (BIO), microbreaks/energy pacing (PSYCHO), cognitive restructuring of catastrophic beliefs (PSYCHO), boundary-setting to cap overtime (SOCIAL), task checklists and single-task context (PSYCHO cognitive offloading), and reducing threat monitoring/checking (PSYCHO metacognitive). The schedule uses 4 EMA prompts/day with since-last-prompt recall to capture within-day dynamics and a morning diary for last-night sleep. This configuration balances coverage of the full cycle with minimal redundancy and adequate within-person variance for gVAR.",
+  "variable_selection_notes": "Chosen criterions mirror the user-reported cycle and preserve causal resolution: C01 (small errors), C02 (firing fear/panic), C03 (overwork), C04 (fatigue), C05 (fatigue-linked attention decline). Predictors were selected from highly ranked PSYCHO/BIO/SOCIAL levers with clear mechanisms and daily modifiability: P01 sleep routines (BIO: Sleep & Circadian), P02 microbreaks/energy pacing (PSYCHO: Executive/self-management), P03 cognitive restructuring of catastrophic beliefs (PSYCHO: CBT), P04 boundary-setting for overtime (SOCIAL: Work solutions), P05 task checklist/single-task context (PSYCHO: cognitive offloading/external aids), P06 reduce threat monitoring/checking (PSYCHO: metacognitive/attention). Redundancy trimmed by consolidating attention/distraction protection within P05 (single-task + checklist) and reserving P06 for threat-monitoring reduction (distinct from generic distraction control). Counts were avoided where feasible; 1–9 Likert ratings maximize variance and gVAR suitability. Bias/uncertainty: self-report may inflate shared-method variance; panic/fear (C02) may co-vary with fatigue (C04). To mitigate, timing-fixed prompts, morning diary separation, and optional passive sleep data are used. Trade-offs: we prioritized feasibility and mechanism clarity over broader but redundant constructs (e.g., general mindfulness, caffeine modulation).",
+  "design_recommendations": {
+    "study_days": 21,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:30",
+        "12:30",
+        "15:30",
+        "20:00"
+      ],
+      "recall_window": "since last prompt",
+      "expected_total_prompts": 84,
+      "notes": "Jitter ±20 minutes per block. If not working that day, prompts still occur but EMA allows 'not working this block' skip-logic while capturing C02 and C04 (fear/fatigue)."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "07:30"
+      ],
+      "expected_total_entries": 21,
+      "notes": "Morning diary captures last-night sleep sufficiency for P01 and brief context (bed/wake times optional text fields for user memory aid)."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "continuous then aggregate",
+      "notes": "Optional wearable (Apple HealthKit/Google Fit/Fitbit) to aggregate nightly sleep duration and midpoint; optional Android Digital Wellbeing/iOS Screen Time to summarize screen minutes 18:00–23:59 as an overtime proxy. Not used as primary variables initially; supports diagnostics and future iterations."
+    },
+    "minimum_total_observations_target": 100,
+    "gvar_readiness_notes": "4 EMA prompts/day over 21 days yields 84 timepoints for within-day dynamics; morning diary adds 21 daily points for P01, suitable for mixed-lag models (0–6h, 0–24h). Likert 1–9 improves quasi-continuity. Stationarity supported by short study duration and detrending if linear drift appears.",
+    "variance_support_notes": "Workday-focused blocks maximize variance in errors, fear, overwork, attention. Morning diary separates sleep from daytime states. Anchored 1–9 scales reduce floor/ceiling risk vs. binary. Weekend/workday variation expected.",
+    "missingness_risk_notes": "Risk: missed evening prompts on late-work days (C03 high). Mitigation: gentle reminders, 2-hour completion window, and brief items (<45 sec). Morning diary is low burden. Consider weekend-only reduced item set if burden noted."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "C01",
+      "label": "Rate of small work errors",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how often did you make small mistakes (missed details, slips) during tasks?",
+        "response_scale_or_unit": "1–9 Likert (1=not at all, 9=very often)",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Focus on perceived frequency across the block to reduce zero-inflation while preserving directionality."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score within-person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "C02",
+      "label": "Catastrophic job-loss expectation (anticipatory fear)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how strong is the fear that recent mistakes will get you fired?",
+        "response_scale_or_unit": "1–9 Likert (1=none, 9=extremely strong)",
+        "sampling_per_day": 4,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": "Captures threat appraisal intensity; momentary format aligns with rapid shifts post-error."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score within-person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "C03",
+      "label": "Compensatory overwork (working late)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how much did you work beyond plan (e.g., stayed late, skipped breaks) to prevent/correct mistakes?",
+        "response_scale_or_unit": "1–9 Likert (1=not at all, 9=a great deal)",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Evening block typically shows highest variance; interpret alongside P04 (boundary-setting)."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score within-person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "C04",
+      "label": "Daytime tiredness/fatigue from extra work",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How tired/sleepy do you feel right now?",
+        "response_scale_or_unit": "1–9 Likert (1=not at all, 9=extremely)",
+        "sampling_per_day": 4,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": "Momentary fatigue is sensitive to both prior sleep and in-day pacing/microbreaks."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score within-person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "C05",
+      "label": "Attention/cognitive performance decline linked to fatigue",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how often did you have attention lapses or slowed thinking during tasks?",
+        "response_scale_or_unit": "1–9 Likert (1=not at all, 9=very often)",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Conceptually related to C04; retain both to model fatigue→attention pathway."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score within-person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Sleep routines and regularity (prior night)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Sleep_Circadian_and_Restoration / Sleep_Routines_and_Practices",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Consistent sleep timing and sufficient duration improve next-day alertness and executive control, reducing fatigue-driven lapses and errors.",
+      "intervention_examples_safe": "Consistent bedtime/wake time (±30 min), wind-down routine, dim lights late evening, limit caffeine after early afternoon.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "How sufficient and regular was your sleep last night (consider duration and timing)?",
+        "response_scale_or_unit": "1–9 Likert (1=very poor/irregular, 9=excellent/regular)",
+        "sampling_per_day": 1,
+        "recall_window": "last night",
+        "expected_within_person_variability": "medium",
+        "notes": "Optional wearable sleep duration/midpoint can later validate this self-report."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score within-person; consider 24h-lag alignment",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep reduces next-day fatigue."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Improved alertness supports attention and working memory."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Reduced fatigue/attention lapses likely lower small errors."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better energy reduces compensatory overwork pressure."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Rested state may lower anxiety reappraisal thresholds."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "No medical dosing guidance. If chronic insomnia or severe sleep disorder suspected, consult a clinician.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Simple morning rating; high adherence expected."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Microbreaks and energy pacing (planned resets)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Core_Psychological_Skills_Toolkits / Executive_Function_and_Self_Management",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Short planned breaks reduce cumulative mental fatigue and improve sustained attention, lowering error risk.",
+      "intervention_examples_safe": "1–3 minute microbreaks per 45–60 minutes; brief movement, hydration, eye rest, or breathing reset.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how consistently did you take brief restorative breaks as planned?",
+        "response_scale_or_unit": "1–9 Likert (1=not at all, 9=very consistently)",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "High intra-day fluctuation expected; immediate effects on fatigue and attention."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score within-person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Breaks acutely reduce tiredness."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Resets support attention and processing speed."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Fewer lapses lead to fewer small errors."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Less depletion reduces need to stay late."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Physiologic downregulation can blunt fear intensity."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Work context may limit break opportunities; encourage micro-resets that fit role demands.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Brief adherence rating per block; low burden."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Cognitive restructuring of firing-related catastrophizing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Cognitive_Behavioral_Therapies / Cognitive_Restructuring",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Reframing catastrophe predictions reduces threat appraisal and downstream safety behaviors (overwork), indirectly improving fatigue and performance.",
+      "intervention_examples_safe": "Probability re-estimation, evidence-for/against worksheets, time-projection reappraisal, self-compassionate reframe.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, to what extent did you use a cognitive reframe when fear of being fired arose?",
+        "response_scale_or_unit": "1–9 Likert (1=not at all, 9=extensively)",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Pairing with C02 enables within-person links between skill use and fear intensity."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score within-person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Directly targets catastrophic fear."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Lower fear reduces safety behavior (overwork)."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Reduced anxiety improves task accuracy."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 48,
+          "rationale": "Less overwork leads to less next-day fatigue."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Reduced cognitive load supports attention."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Non-pathologizing coaching stance; if severe panic attacks occur, recommend professional support.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Skill-use ratings are brief but require minimal training; provide in-app micro-instruction."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Boundary-setting to cap overtime",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "SOCIAL / Work_Education_and_Role_Functioning / Work_and_Occupational_Solutions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Protected stop times and workload boundaries reduce compensatory overwork, enabling recovery and better next-day performance.",
+      "intervention_examples_safe": "Plan a stop time and communicate it; schedule handoff; negotiate priorities; use calendar guardrails.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how well did you protect your planned stop time and avoid extra hours?",
+        "response_scale_or_unit": "1–9 Likert (1=not at all, 9=fully protected)",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Higher adherence expected to reduce evening overwork (C03) and next-day fatigue (C04)."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score within-person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Directly reduces working late."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 12,
+          "typical_lag_hours_max": 48,
+          "rationale": "Less overwork allows recovery and lowers next-day fatigue."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 12,
+          "typical_lag_hours_max": 48,
+          "rationale": "Better rest improves attention the following day."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 12,
+          "typical_lag_hours_max": 48,
+          "rationale": "Reduced fatigue and better focus lower small errors."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Increased control and predictability can reduce fear."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Workplace context matters; encourage respectful communication and alignment with role expectations.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Simple adherence rating; may vary by shift schedule."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Task checklists and single-task context",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Cognitive_Capacity_Enhancement_and_Stimulation / Cognitive_Offloading_and_External_Aids",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Checklists and distraction-free single-tasking reduce cognitive load and slips, improving accuracy and attention stability.",
+      "intervention_examples_safe": "Pre-task checklist, capture-then-clarify routine, do-not-disturb window during deep work, one-task-at-a-time rule.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how much did you use a checklist or single-task setup for your main task?",
+        "response_scale_or_unit": "1–9 Likert (1=not at all, 9=extensively)",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures both offloading and distraction control in one construct to reduce redundancy."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score within-person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Error-proofing lowers small mistakes during the work block."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Offloading and single-tasking support attention consistency."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Greater sense of control can reduce firing-related fear."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Fewer errors reduce pressure to stay late."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Lower cognitive load may reduce later-day exhaustion."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Ensure checklists respect organizational policies; no proprietary data capture in app.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Users can rate usage quickly; strong immediate signal expected."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Reduce threat monitoring and repeated checking",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Cognitive_and_Metacognitive_Interventions / Metacognitive_and_Attention_Based_Interventions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Limiting repetitive checking and threat scanning reduces anxiety load and frees attention for task execution, reducing overwork.",
+      "intervention_examples_safe": "Delay/reduce checks with a rule (e.g., one deliberate review, then move on); set a brief worry/plan window and return to task.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how much did you avoid repeated checking or threat scanning beyond one planned review?",
+        "response_scale_or_unit": "1–9 Likert (1=not at all, 9=very much)",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Distinct from P05 by specifically targeting threat-driven checking rather than general distraction."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score within-person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Directly reduces fear-amplifying monitoring."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Less checking reduces time costs and overwork."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Less attentional capture improves focus."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Improved attention and less anxiety can reduce mistakes."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 12,
+          "typical_lag_hours_max": 48,
+          "rationale": "Less overtime from checking reduces next-day fatigue."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "If checking is safety-critical in the role, ensure any reduction aligns with job requirements.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Brief adherence rating; provide clear examples to avoid ambiguity with legitimate QA."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Checklists/single-tasking reduce slips during the same work block.",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Microbreaks acutely lower fatigue.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Better prior-night sleep reduces next-day tiredness.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Boundary adherence directly reduces working late.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reappraisal reduces catastrophic firing fears.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Offloading supports attention stability.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Less threat monitoring reduces fear amplification.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Sleep sufficiency improves attention/working memory.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Breaks reduce lapses leading to fewer errors.",
+      "estimated_relevance_0_1": 0.45
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "24-48h",
+      "notes": "Less overtime permits recovery; fatigue reduces next day.",
+      "estimated_relevance_0_1": 0.65
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "C04 (fatigue) and C05 (attention decline) moderately correlated; retain both for directional modeling.",
+      "P05 (checklist/single-task) and P06 (reduce checking) partially overlap on attention control; distinct mechanisms but monitor VIF."
+    ],
+    "expected_floor_ceiling_risks": [
+      "C03 overwork may floor on true off-days; evening block variance should mitigate.",
+      "C01 small errors may show occasional floor; using frequency Likert reduces zero-inflation."
+    ],
+    "variance_enhancement_suggestions": [
+      "Ensure prompts align with active work periods when possible.",
+      "Use brief in-app examples to standardize rating anchors.",
+      "Optional passive sleep to validate P01 variance and reduce noise."
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "General mindfulness practice (broad/overlapping with multiple mechanisms).",
+      "Caffeine timing modulation (can be embedded in P01 notes; not tracked initially).",
+      "Generic social support variables (less proximal to the identified loop).",
+      "Detailed wearable-based metrics (kept optional to reduce burden)."
+    ],
+    "gvar_feasibility_summary": "11 variables (5 criteria, 6 predictors) with 4 EMA/day over 21 days is estimable for gVAR at block-level resolution; morning diary aligns with daily-lag edges. Likert scaling supports approximately continuous distributions."
+  },
+  "safety_notes": "This model is not a diagnosis or medical advice. If panic becomes overwhelming, if you experience severe insomnia, or if work-related distress escalates (e.g., panic attacks, inability to function), seek timely support from a qualified professional or occupational health. Align boundary-setting and checking reductions with role safety requirements."
+}

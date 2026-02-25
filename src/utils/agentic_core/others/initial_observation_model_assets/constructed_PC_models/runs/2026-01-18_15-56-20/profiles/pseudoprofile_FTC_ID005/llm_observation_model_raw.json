@@ -1,0 +1,1033 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID005",
+  "model_summary": "Initial gVAR-ready observation model selecting six transdiagnostic grief-related criteria (C01–C06) that capture the current, changeable grief-related state described in the complaint, and a compact set of seven modifiable predictors (P01–P07) designed to salutogenically optimize the future state across biological, psychological, and social domains. The design emphasizes momentary EMA sampling (4 prompts/day) plus a daily diary and passive streams to maximize within-person variance while limiting redundancy. The predictor set covers grief processing engagement, arousal regulation, sleep, social validation, meaning-making, self-monitoring feedback, and group-based social supports. The sampling plan is coherent with gVAR needs (timely, variably-timed data; bounded scales; attention to missingness).",
+  "variable_selection_notes": "Criteria (C01–C06) were chosen to preserve the complaint's resolution: numbness, cue-triggered distress, rapid affective shifts, work concentration impairment, perceived social invalidation, and limited active processing of the loss. Predictors (P01–P07) were selected to provide non-redundant, modifiable targets across key salutogenic mechanisms: grief processing engagement; mindfulness/affect regulation; sleep/circadian alignment; social validation; meaning/purpose; self-monitoring/data feedback; and grief-group participation. All measures use 0–9 Likert-type scales when self-reported to maximize within-person variance and enable gVAR analysis. Where effects are well-supported, signs are set to reflect salutogenic improvement; where uncertainty exists, nonlinear or unknown signs are indicated in the predictor-criterion relevance grid.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:00-10:00",
+        "12:00-14:00",
+        "16:00-18:00",
+        "20:00-22:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 56,
+      "notes": "Prompts sample current state across waking day to maximize within-person variance."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "22:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Evening diary focused on summarizing day functioning and meaning-making."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "continuous_then_aggregate",
+      "notes": "Sleep proxies, activity, and screen-use indicators collected passively and aggregated daily/during blocks."
+    },
+    "minimum_total_observations_target": 100,
+    "gvar_readiness_notes": "Initial readiness is high given 7 predictors and 6 criteria; expect manageable missingness with reminders and brief screens.",
+    "variance_support_notes": "Likely substantial within-person variance due to grief fluctuations and work functioning across days.",
+    "missingness_risk_notes": "Provide reminders, consider weekend re-scheduling and adaptive prompting to maintain data density."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Emotional numbness / detachment",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the current moment, rate your emotional numbness or sense of detachment on a 0-9 scale (0 = not numb/detached, 9 = extremely numb/detached).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Sensory-cued acute distress episodes",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the current moment, rate the intensity of distress triggered by sensory cues (e.g., smells, songs) on a 0-9 scale (0 = no distress, 9 = extreme distress).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Rapid emotional fluctuations",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Rate the moment-to-moment variability in your mood (feeling okay to distressed) on a 0-9 scale in the last prompt.",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Work-related concentration impairment",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the current moment, rate your difficulty concentrating on work tasks due to distress on a 0-9 scale (0 = no difficulty, 9 = extreme difficulty).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Perceived social minimization / unhelpful responses",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the current moment, rate how much social responses to your loss feel minimising or invalidating on a 0-9 scale (0 = not minimising, 9 = extremely minimising).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Limited active processing of the loss",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the current moment, rate your engagement in active processing of the loss (e.g., emotional processing, coping) on a 0-9 scale (0 = minimal processing, 9 = full processing).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Grief_Processing_Engagement",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Cognitive_Behavioral_Therapies > Behavioral_Experiments_and_Learning",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Promotes active processing and behavioral experimentation to reduce avoidance and numbness.",
+      "intervention_examples_safe": "Grief-focused activation tasks; journaling; behavioral experiments.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the current moment, rate your engagement in grief processing activities (0-9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Engagement in grief processing reduces numbness."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Processing reduces cue-triggered distress frequency."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Active processing dampens rapid affective fluctuations."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Processing supports concentration by reducing intrusive distress."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Engagement may buffer perceived social minimization by increasing coping efficacy."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Increased processing reduces cognitive avoidance in grief."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "High feasibility; noninvasive."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Mindfulness_and_Affective_Regulation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Third_Wave_and_Contextual_Therapies > Mindfulness_Based_Interventions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Enhances nonjudgmental awareness and reduces reactivity to distress cues.",
+      "intervention_examples_safe": "Mindfulness of emotions; urge surfing; self-compassion practices.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the current moment, rate your perceived ability to observe and regulate emotions (0-9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better affect regulation lowers numbness in moments."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Emotion regulation reduces distress episodes from cues."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Emotional reactivity decreases over time with mindfulness."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Regulated affect supports task focus."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Mindfulness fosters perceived social validation through present-moment clarity."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Improved emotion regulation facilitates active grief processing."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "High feasibility; requires brief prompts and guidance."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Sleep_Regulation_and_Circadian_Alignment",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Sleep_and_Circadian > Circadian_Entrained_Sleep_Schedules",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Healthy sleep supports emotional regulation, arousal modulation, and daytime functioning.",
+      "intervention_examples_safe": "Maintain regular bed/wake times; minimize evening screen exposure.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Last night’s sleep quality on a 0-9 scale (0 = very poor, 9 = excellent).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 1,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep reduces numbness by stabilizing affect."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Improved sleep lowers cue-induced distress risk."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Sleep regularity dampens mood swings."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Restorative sleep supports daytime concentration."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Stable sleep improves social energy and responsiveness."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Sleep health facilitates engagement in grief processing."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "End-of-day sleep rating is low-burden but critical for circadian alignment."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Social_Support_Validation_and_Affirmation",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] > Social_Support_and_Belonging > Network_Building_And_Maintenance",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Perceived validation from social ties buffers grief-related distress and fosters engagement.",
+      "intervention_examples_safe": "Scheduled calls with supportive friends; validation-focused conversations; social prescribing exercises.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the current moment, rate perceived social support from others (0-9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Social validation reduces numbness via emotion sharing."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Validation reduces distress from cues through reassurance."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Supportive interactions stabilize mood swings."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Social support improves concentration indirectly via reduced distress."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Perceived validation may attenuate social invalidation feelings."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Validation experiences may enhance active processing of loss."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Requires some participant comfort with sharing social experiences."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Meaning_Making_and_Purpose_Reorientation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Positive_Psychology_and_Wellbeing > Meaning_Purpose_and_Future_Orientation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Finding meaning/purpose supports resilience and engagement in daily tasks.",
+      "intervention_examples_safe": "Reflective journaling; values clarification exercises; goal-setting.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the current moment, rate the sense of meaning or purpose you feel (0-9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Greater meaning reduces numbness via belonging and purpose."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Finding meaning reduces distress triggered by cues."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Purpose-oriented thinking stabilizes mood shifts."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Purpose-driven goals improve work concentration."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Meaning can buffer perceived social invalidation by reframing loss."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Meaning-making facilitates engagement in processing the loss."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": "High feasibility with structured prompts and brief reflection tasks."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Self_Monitoring_and_Data_Feedback",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] > Measurement_Based_Care_and_Feedback > Measurement_and_Feedback_Systems",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Regular self-monitoring increases awareness and supports adaptive behavior change.",
+      "intervention_examples_safe": "Personal dashboards; weekly feedback summaries.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the current moment, rate how actively you are monitoring and reviewing your mood/work functioning (0-9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Frequent self-monitoring reduces numbness via heightened awareness."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Tracking of distress cues helps dampen bursts."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Awareness narrows rapid mood swings."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Self-monitoring supports work focus through better coping planning."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Increased self-monitoring may improve perceived validation by articulating needs."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Regular data review reduces passive processing weakness via feedback loops."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.86,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Moderate burden; mitigated by simple dashboards."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "Grief_Group_Participation_and_Social_Prescribing",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] > Community_Participation_and_Social_Prescribing > Social_Prescribing_and_Community_Linkage",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Group-based processing and shared experience can reduce isolation and improve meaning.",
+      "intervention_examples_safe": "Join bereavement support group; caregiver-focused peer sessions; structured group check-ins.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the current moment, rate your participation in grief-group activities or the perceived benefit of group engagement (0-9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Group participation may reduce numbness via social processing."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Support groups can lessen cue-triggered distress."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Shared experiences stabilize affect."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Group support reduces cognitive load at work."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Social integration reduces perceived invalidation."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Group resources support active processing of loss."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.75,
+        "gvar_feasibility_0_1": 0.7,
+        "notes": "Group participation depends on access and willingness; offer virtual options."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,92000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,87000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,84000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,76000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,86000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,79000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,79000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,76000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,83000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,77000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,83000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,79000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,77000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,81000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,86000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,79000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,83000"
+    }
+  ],
+  "edges": [],
+  "diagnostics": {
+    "expected_collinearity_risks": [],
+    "expected_floor_ceiling_risks": [],
+    "variance_enhancement_suggestions": [
+      "Center variables within-person (z-score) prior to modeling.",
+      "Apply linear or nonlinear mixed models to capture within-person dynamics.",
+      "Monitor for overfitting with a compact predictor set."
+    ],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": "A 7-predictor, 6-criterion model is feasible for gVAR with 14-day sampling, 56 EMA prompts, daily diary, and passive streams. Slight risk of missing prompts can be mitigated with reminders and flexible windows."
+  },
+  "safety_notes": "Not a diagnosis. No medication dosing. Monitor for escalation in risk (e.g., self-harm) and provide safety resources if indicated."
+}

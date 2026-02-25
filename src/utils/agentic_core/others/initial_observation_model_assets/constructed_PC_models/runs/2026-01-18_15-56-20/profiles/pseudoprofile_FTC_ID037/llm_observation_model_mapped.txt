@@ -1,0 +1,22 @@
+pseudoprofile_id: pseudoprofile_FTC_ID037
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Frequency of arriving late to commitments -> NON-CLINICAL / AGE-GENERAL / psychological / temporal perspective / time management / meeting deadlines / ensuring promptness (conf=0.85)
+- C02: Systematic underestimation of task durations -> NON-CLINICAL / AGE-GENERAL / psychological / temporal perspective / time management / scheduling / allocating time efficiently (conf=0.68)
+- C03: Pre-departure organizational state (availability of essentials) -> NON-CLINICAL / AGE-GENERAL / psychological / environmental mastery / ability to manage environment / organizational skills / task organization (conf=0.85)
+- C04: Built-in buffer time before commitments -> NON-CLINICAL / AGE-GENERAL / psychological / autonomy / boundary setting / protecting personal time / time management (conf=0.66)
+- C05: Variability in durations of routine tasks -> NON-CLINICAL / AGE-GENERAL / psychological / temporal perspective / time management / scheduling / creating schedules (conf=0.57)
+- C06: Negative self-evaluation related to lateness -> CLINICAL / DSM-5TR / personality disorders / other personality disorders / depressive personality disorder / self_critical_rumination (conf=0.72)
+
+PREDICTORS:
+- P01: Time-Estimation Training with External Time Cues -> PSYCHO / cognitive_and_metacognitive_interventions / cognitive_remediation_and_rehabilitation / time_estimation_strategy_training (conf=0.85)
+- P02: Pre-Departure Organizational Cue System (Door-ready cues) -> PSYCHO / cognitive_capacity_enhancement_and_stimulation / learning_and_memory_strategies / prospective_memory / remember_to_do / environmental_cue_placement_strategy (conf=0.78)
+- P03: Built-in Buffer Time Scheduling -> SOCIAL / family_parenting_and_household_systems / family_and_household_services / household_systems_and_routines / shared_calendar_and_task_management_setup (conf=0.58)
+- P04: Routine Task Standardization Templates (Checklists) -> PSYCHO / cognitive_capacity_enhancement_and_stimulation / processing_speed_and_efficiency / efficiency_strategies / reduce_cognitive_load / template_use_for_repeated_tasks (conf=0.85)
+- P05: Self-Compassion and Cognitive Reframing Training -> PSYCHO / third_wave_and_contextual_therapies / compassion_focused_interventions / self_criticism_to_compassion_reframe (conf=0.82)
+- P06: Self-Monitoring and Feedback System -> PSYCHO / measurement_based_care_and_feedback / measurement_and_feedback_systems / personalized_outcome_monitoring (conf=0.78)
+- P07: Sleep Regularity and Morning Light Exposure (passive sensor) -> BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / morning_stabilization / morning_daylight_exposure (conf=0.85)
+- P08: Pre-Departure Light Physical Activation -> BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / morning_stabilization / gentle_mobility_on_waking (conf=0.72)
+- P09: Social Accountability Partner -> SOCIAL / social_support_and_belonging / support_network_development / mentorship_and_buddying / accountability_partner_matching (conf=0.72)
+- P10: Digital Tools for Reminders and External Offloading -> PSYCHO / cognitive_capacity_enhancement_and_stimulation / cognitive_offloading_and_external_aids / external_memory_systems / design_and_use / prospective_memory_cue_system_design (conf=0.78)

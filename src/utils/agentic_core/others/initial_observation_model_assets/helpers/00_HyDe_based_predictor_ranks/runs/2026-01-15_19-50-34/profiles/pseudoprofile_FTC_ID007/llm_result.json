@@ -1,0 +1,185 @@
+{
+  "pseudoprofile_id": "CASE-PSYBIO-SOC-001",
+  "summary": "The case shows difficulty initiating a simple task, substitution with low-effort activities, distractibility by digital stimuli, distorted time perception, panic around deadlines, and self-doubt about causation. Modifiable predictors span cognitive-behavioral strategies, environmental/digital controls, social support, and bio-psycho-social energy management. The proposed levers aim to convert vague intention into concrete action, reduce susceptibility to distractions, recalibrate time perception, lessen deadline-related anxiety, and reduce self-blame by offering observable, trackable changes across initiation, focus, and stress responses.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Implementation Intentions for Task Initiation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Develop specific if-then plans for starting tasks, breaking tasks into micro-steps, and scheduling a concrete start time (e.g., 'If it is 3:15 PM, I will start Task A by opening the document and writing the first bullet').",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Transforms initiation from vague motivation into concrete cue-response action, reducing initiation delay and decreasing self-blame by making start behavior observable and controllable.",
+      "measurement": "Start latency after seating (minutes); proportion of tasks started within 5 minutes of scheduled start; daily task-initiated count.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "MAP:S01 -> C01/C06"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Structured Focus Blocks with Timers and Micro-Tasks",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use 25-minute focus blocks with a timer, followed by 5-minute breaks; each block begins with one discrete micro-task to reduce overwhelm (e.g., draft intro sentence).",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "External time structure and micro-tasking reduce cognitive load, decrease distraction, and improve initiation speed while preserving accuracy; supports executive functioning and reduces time-awareness distortions.",
+      "measurement": "Number of focus blocks completed per day; start latency; percent of blocks completed without derailment.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "MAP:S02 -> C01/C03/C04"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Digital Distraction Reduction and Workspace Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Install distraction-blocking tools, silence non-essential notifications, and set up a dedicated focus workspace free of non-task stimuli.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces brief attentional captures by digital stimuli, increasing sustained focus and more accurate time-tracking during task attempts.",
+      "measurement": "Distraction episodes per task; self-rated focus 0-10 during work; proportion of uninterrupted work periods.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "MAP:S03 -> C03/C04"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Time-Perception Calibration and Time Awareness Training",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Engage in time-perception exercises and brief mindfulness cues that improve estimation of elapsed time during activities.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Improves metacognitive timing accuracy, reducing underestimation of elapsed time during off-task episodes and decreasing panic when deadlines loom.",
+      "measurement": "Accuracy of short-term time estimates during tasks (error in minutes); correlation between estimated vs. actual task duration.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "MAP:S04 -> C04"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Deadline Anxiety Reduction via Cognitive Restructuring",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Provide cognitive restructuring around deadlines (e.g., reframe deadlines as cues for progress, not threats) and gradual exposure to deadline cues with supportive coaching.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Directly targets acute panic responses to deadlines and uncertainty/self-blame, promoting adaptive appraisal and coping strategies.",
+      "measurement": "Self-reported deadline-related anxiety on 0-10 scale; frequency of deadline-avoidant thoughts.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "MAP:S05 -> C05/C06"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Self-Compassion and Uncertainty Processing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach self-compassion exercises and values-based inquiry to address uncertainty about causes and reduce self-judgment (lazy vs off), with brief daily practice.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Reduces harsh self-criticism and improves openness to modifiable strategies, thereby increasing willingness to engage in corrective steps.",
+      "measurement": "Self-criticism rating; belief stability about 'lazy vs off' using brief daily check-ins (0-10 scale).",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "MAP:S06 -> C06"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Behavioral Activation with Micro-Tasks",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Schedule and perform one-minute micro-tasks aligned with personal goals; track completion and reflect on outcomes to counter avoidance.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Activates approach behavior through small, achievable actions, reducing avoidance and substitution with low-effort activities.",
+      "measurement": "Number of micro-tasks started/completed per day; time to completion per micro-task.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "MAP:S07 -> C01/C02"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Social Accountability and Support Network",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Pair with an accountability partner; set up daily check-ins to share task progress and receive quick feedback.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Leverages social forces to reduce avoidance, normalize effort, and provide timely support during deadline-related stress.",
+      "measurement": "Days with partner check-in; share of tasks started after accountability prompt; perceived accountability rating.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "MAP:S08 -> C02/C05"
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Sleep and Energy Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent sleep-wake schedule, morning light exposure, and energy-optimizing routines to support cognitive control and task initiation.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Improved sleep and daytime energy enhance attentional control, reduce distractibility, and lessen panic reactivity to deadlines.",
+      "measurement": "Average nightly sleep duration; sleep efficiency; morning energy rating (0-10).",
+      "time_horizon": "2-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "MAP:S09 -> C03/C05"
+    },
+    {
+      "solution_id": "S010",
+      "predictor_variable": "External Cognitive Offloading Tools and Checklists",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Introduce task checklists, external prompts, and automation (e.g., reminders, templates) to reduce working-memory demands.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Externalizing memory and steps reduces cognitive load, improving initiation and time-tracking accuracy during task work.",
+      "measurement": "Checklist usage rate; proportion of tasks started via prompts; alignment between planned and actual start times.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "MAP:S010 -> C01/C04"
+    }
+  ]
+}

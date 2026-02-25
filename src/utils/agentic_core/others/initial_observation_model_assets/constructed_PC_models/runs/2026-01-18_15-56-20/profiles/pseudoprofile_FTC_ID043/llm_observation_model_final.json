@@ -1,0 +1,1209 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID043",
+  "model_summary": "Initial gVAR-ready observation model pairing six clinically framed cognitive‑state criteria (C01–C06) with six modifiable predictors (P01–P06). The criterion set targets dynamic, internally generated cognitive states (rapid thought flux, attention slippage, task-unrelated thought, perceived thought loudness, thought noise, and engagement) while predictors cover attention training, mindfulness, sleep regulation, behavioral activation, aerobic activity, and social-belonging supports. The plan emphasizes high within-person variance via frequent momentary EMA probes (4 prompts/day) plus a lightweight daily diary and passive streams to augment data richness. A compact predictor set minimizes redundancy and supports stable gVAR estimation while preserving the complaint’s resolution.",
+  "variable_selection_notes": "Selected six criterion constructs (C01–C06) directly mapping the complaint’s core cognitive states: racing thoughts, sustained attention, passive-task mind-wandering, volitional thought quietness, internal mental noise, and engagement. Predictors include evidence‑aligned salutogenic levers with broad mechanism coverage: attention training (BIO), mindfulness (PSYCHO), sleep regulation (BIO), behavioral activation/CBT skills (PSYCHO), aerobic exercise (BIO), and social belonging/support (SOCIAL). Variables were chosen to maximize within-person variance and interpretability, while keeping collinearity manageable by avoiding multiple near-duplicate self-regulation constructs. Custom notes flag potential nonlinearities (e.g., social media) and emphasize per-person centering to stabilize gVAR estimates.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:00-10:00",
+        "12:00-14:00",
+        "16:00-18:00",
+        "20:00-22:00"
+      ],
+      "recall_window": "since last prompt",
+      "expected_total_prompts": 56,
+      "notes": "EMA prompts target C01–C06 and P01–P06; balance across dayparts to maximize within-person variance."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "21:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Evening diary to capture sleep context, fatigue, and overall day experience."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt",
+      "notes": "Incorporate passive sleep metrics and activity signals to complement EMA data without overburdening the user."
+    },
+    "minimum_total_observations_target": 70,
+    "gvar_readiness_notes": "Baseline readiness: six predictors, six criteria; requires robust within-person centering and careful lag handling.",
+    "variance_support_notes": "Favor continuous/near-continuous measurements (1–9 Likert or continuous time) to maximize within-person variance; avoid binary-only signals where possible.",
+    "missingness_risk_notes": "Prompts may induce fatigue; implement optional late-prompt catch-ups and data-quality checks; impute cautiously at analysis stage."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "High frequency of spontaneous thoughts (racing thoughts)",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate how many distinct thoughts you are experiencing in the last minute on a scale from 1 (very few) to 9 (very many).",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z_score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Reduced sustained attention on a single activity",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate your ability to sustain attention on one ongoing task (e.g., watching a show) on a 1–9 scale (1 = very poor, 9 = excellent).",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z_score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "High frequency of task-unrelated thoughts during passive tasks",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate the proportion of time during a low-demand/passive task that thoughts unrelated to the activity occupy (1 = none, 9 = all).",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z_score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Perceived inability to volitionally quiet thoughts",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate how easily you can quiet or stop the flow of thoughts (1 = very difficult, 9 = very easy).",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z_score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Subjective internal mental 'noise' or buzzing",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate the felt mental 'buzzing' or noise that interferes with thought clarity (1 = none, 9 = extreme).",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z_score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Negative impact on enjoyment/engagement due to mental chatter",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate how engaged you are with your current activity (e.g., watching a show) on a 1–9 scale (1 = not engaged at all, 9 = fully engaged).",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z_score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Attention_Systems_Training (BIO)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Attention_Systems_Training",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Enhances top-down attentional control to reduce cognitive load and racing thoughts.",
+      "intervention_examples_safe": "Attention training exercises",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the last 6 hours, rate your engagement with attention training exercises on a 1–9 scale.",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 4,
+        "recall_window": "past 6 hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Higher attention training practice should reduce racing thoughts in near term."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better attentional control should support sustained attention on tasks."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Enhanced attention regulation should reduce task-unrelated thoughts during passive tasks."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved cognitive control may increase perceived ability to quiet thoughts."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Attentional stabilization can reduce mental noise intensity."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Bottom-up clarity and task engagement may improve with focused training."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Mindfulness_Based_Interventions (PSYCHO)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Mindfulness_Based_Interventions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Cultivates nonjudgmental awareness of thoughts, reducing rumination and reactivity.",
+      "intervention_examples_safe": "Mindfulness meditation, breath-focused practice",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the last 6 hours, rate your mindfulness practice engagement on a 1–9 scale.",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 4,
+        "recall_window": "past 6 hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindfulness decouples cognitive noise, reducing racing thoughts."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Nonjudgmental awareness supports sustained attention."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Decentering to thoughts reduces task-unrelated thinking."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Awareness practice supports volitional quieting of thoughts."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindfulness can reduce perceived internal noise."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindfulness fosters engagement with present tasks."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Sleep_Routines_and_Practices (BIO)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Sleep_and_Circadian > Sleep_Routines_and_Practices",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.88,
+      "mechanism_rationale": "Regular circadian entrainment improves cognitive clarity and reduces cognitive noise at night/day transitions.",
+      "intervention_examples_safe": "Consistent bed/wake times",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "Smartphone/Health app",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Total nightly sleep duration (hours) from last night.",
+        "response_scale_or_unit": "hours",
+        "sampling_per_day": 1,
+        "recall_window": "last night",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Longer or more regular sleep may reduce morning cognitive buzzing and racing thoughts."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved sleep supports daytime attention stability."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better sleep reduces cognitive wandering during low-demand tasks."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Sleep regularity may increase perceived ability to quiet thoughts."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Sleep quality relates to perceived mental noise."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "More restful sleep can improve daytime engagement."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Behavioral_Activation_and_CBT_Skills (PSYCHO)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Cognitive_Behavioral_Therapies > Behavioral_Activation_and_CBT_Skills",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.88,
+      "mechanism_rationale": "Activates approach behaviors, reduces avoidance and cognitive load, potentially lowering racing thoughts and improving task engagement.",
+      "intervention_examples_safe": "Activity scheduling, CBT skills practice",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the last 6 hours, rate your engagement with activation/cognitive-behavioral tasks on a 1–9 scale.",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 4,
+        "recall_window": "past 6 hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Activation increases task focus and reduces racing thoughts."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Structured activities support sustained attention."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Engagement in activities reduces passive-task mind wandering."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Active strategies may aid quieting thoughts."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Engagement reduces internal cognitive noise."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Activation fosters daytime engagement."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Aerobic_Cardiorespiratory_Exercise (BIO)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Movement_and_Bodywork > Aerobic_Movement_Modalities",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Exercise improves cerebrovascular function and neurodynamic efficiency, supporting attention and reducing rumination.",
+      "intervention_examples_safe": "Brisk walking, cycling, or other MVPA",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "Wearable/Health app",
+        "assessment_type": "passive_continuous",
+        "item_or_signal": "Daily minutes of moderate-to-vigorous physical activity (MVPA) detected by wearable.",
+        "response_scale_or_unit": "minutes per day",
+        "sampling_per_day": 1,
+        "recall_window": "past 24 hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "robust_z_score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Regular MVPA reduces cognitive buzzing and racing thoughts."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Aerobic activity supports attention regulation."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Physical activity can decrease mind-wandering during passive tasks."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Exercise-associated fatigue/relief can quiet intrusive thoughts."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Physical activity modulates mental noise via arousal stabilization."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better energy and mood from exercise can boost engagement."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.84,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Structured_Social_Support_and_Belonging (SOCIAL)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] > Social_Support_and_Belonging",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Perceived support and belonging can buffer cognitive load and reduce rumination.",
+      "intervention_examples_safe": "Regular contact with supportive peers/family",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the last 6 hours, rate perceived social support and sense of belonging on a 1–9 scale.",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 4,
+        "recall_window": "past 6 hours",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Social support can dampen cognitive hyperactivity."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Belonging may stabilize attention via regulatory cues."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Positive social context reduces task-unrelated thoughts."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Supportive contexts may bolster perceived control over thoughts."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Social connectedness can reduce subjective mental noise."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Belonging increases overall engagement with activities."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.78,
+        "notes": ""
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,86000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,86000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,76000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,83000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,76000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,89000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,83000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,86000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,94000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,77000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,82000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Attention training should reduce racing thoughts quickly.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Improved attention control supports task focus.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Better attention regulation reduces mind-wandering.",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Cognitive-control gains may aid perceived quieting of thoughts.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Attentional stabilization may lower subjective mental noise.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Sharper attention could improve day engagement.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness reduces reactivity and racing thoughts.",
+      "estimated_relevance_0_1": 0.92
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Decentering supports sustained attention.",
+      "estimated_relevance_0_1": 0.9
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Nonjudgmental awareness reduces task-irrelevant thoughts.",
+      "estimated_relevance_0_1": 0.88
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness supports quieting of thoughts.",
+      "estimated_relevance_0_1": 0.84
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reduced cognitive noise with mindful practice.",
+      "estimated_relevance_0_1": 0.86
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness may support engagement with activities.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Regular sleep improves cognitive clarity, reducing racing thoughts.",
+      "estimated_relevance_0_1": 0.9
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Sleep better supports daytime attention stability.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Sleep quality reduces passive-task mind-wandering.",
+      "estimated_relevance_0_1": 0.82
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Sleep regularity increases perceived control over thoughts.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Sleep influences subjective mental noise via arousal regulation.",
+      "estimated_relevance_0_1": 0.83
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Regular sleep improves daytime engagement.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Behavioral activation reduces racing thoughts via engagement.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Activation can stabilize attention through task initiation.",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Active engagement reduces passive task wandering.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Structured tasks may aid thought quieting.",
+      "estimated_relevance_0_1": 0.89
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Activation tends to reduce internal mental noise via mood elevation.",
+      "estimated_relevance_0_1": 0.82
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Activation increases day-to-day engagement.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Exercise lowers cognitive buzzing and racing thoughts.",
+      "estimated_relevance_0_1": 0.88
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Aerobic activity stabilizes attention systems.",
+      "estimated_relevance_0_1": 0.82
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Exercise reduces mind-wandering during passive tasks.",
+      "estimated_relevance_0_1": 0.83
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Energy balance and fatigue from exercise may quiet thoughts.",
+      "estimated_relevance_0_1": 0.82
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Mood/arousal modulation from exercise reduces mental noise.",
+      "estimated_relevance_0_1": 0.86
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Physical activity tends to boost daytime engagement.",
+      "estimated_relevance_0_1": 0.9
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Belonging reduces cognitive hyperactivity via social buffering.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Social support stabilizes attentional regulation.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Belonging reduces task-unrelated thoughts in passive contexts.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Supportive social context may enhance perceived thought quieting.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Social belonging can dampen perceived mental noise.",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Belonging supports overall engagement with activities.",
+      "estimated_relevance_0_1": 0.8
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "Sleep-related predictors (P03) may covary with mood/activation predictors (P02, P04). Center per-person and consider orthogonalization if needed."
+    ],
+    "expected_floor_ceiling_risks": [
+      "Potential ceiling effects on 9-point scales for highly practiced skills; monitor distributions and apply transformations if needed."
+    ],
+    "variance_enhancement_suggestions": [
+      "Center/standardize predictors per participant; consider 1–2 hemilines for very high correlation predictors to reduce redundancy."
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "If fatigue persists, consider temporarily dropping P06 in early analyses to reduce burden."
+    ],
+    "gvar_feasibility_summary": "Feasible with 6 predictors and 6 criteria; require careful centering and lag handling; 14 days of data collection is adequate for a stable initial gVAR estimation."
+  },
+  "safety_notes": "Not a diagnosis. No medication dosing recommended. If acute risk or mania is detected, follow safety protocol and escalate to appropriate clinical care."
+}

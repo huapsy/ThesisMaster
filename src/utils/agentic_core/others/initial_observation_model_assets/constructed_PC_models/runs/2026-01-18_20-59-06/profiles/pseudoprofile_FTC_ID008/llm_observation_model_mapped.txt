@@ -1,0 +1,20 @@
+pseudoprofile_id: pseudoprofile_FTC_ID008
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Elevated resting muscle tension in shoulders and jaw -> CLINICAL / ICD-10 / pain disorders / orofacial pain disorders / temporomandibular joint disorders / neck_muscle_tension_associated_with_tmjd (conf=0.78)
+- C02: Low moment-to-moment awareness of bodily tension -> CLINICAL / DSM-5TR / neurocognitive disorders / delirium / due to another medical condition / reduced_level_of_awareness (conf=0.63)
+- C03: Headaches triggered by muscular tension -> CLINICAL / ICD-10 / headache disorders / primary headache disorders / tension-type headache / mild_to_moderate_intensity (conf=0.72)
+- C04: Persistent anticipatory threat expectation -> CLINICAL / DSM-5TR / depressive disorders / major depressive disorder (unipolar depression) / single episode / anxious distress type / fear_of_something_bad_may_happen (conf=0.78)
+- C05: Difficulty relaxing on low-stress days -> NON-CLINICAL / AGE-GENERAL / emotional / positive emotions / contentment / relaxation / emotional relaxation (conf=0.65)
+- C06: Habitual anticipatory muscle bracing in absence of immediate threat -> NON-CLINICAL / AGE-GENERAL / environmental / worklifeenvironment / ergonomicworkspaces / postureawareness / posture monitoring devices (conf=0.58)
+
+PREDICTORS:
+- P01: Progressive muscle relaxation (PMR) practice intensity since last prompt -> PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / physiological_downshift / breath_and_relaxation_skills / progressive_muscle_relaxation_practice (conf=0.95)
+- P02: Interoceptive awareness/body-scan practice (mindfulness) since last prompt -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / body_based_mindfulness / interoceptive_awareness_practice (conf=0.72)
+- P03: Diaphragmatic/soothing breathing micro-practices since last prompt -> PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / physiological_downshift / breath_and_relaxation_skills / diaphragmatic_breathing_practice (conf=0.88)
+- P04: Sleep quality last night (morning diary) -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / sleep_quality_rating (conf=0.92)
+- P05: Ergonomic/posture adjustments and mindful posture checks since last prompt -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / body_based_mindfulness / mindful_posture_checkin (conf=0.82)
+- P06: Passive jaw-clench/bruxism sensor event count (per EMA window) -> BIO / personalization_monitoring_and_data_feedback / wearables_and_home_monitoring / physiology / neurophysiology_and_stress_proxies / muscle_tension / jaw_clench_bruxism_sensor (conf=0.82)
+- P07: Hourly micro-breaks with movement since last prompt -> PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / recovery_design / restoration_and_self_care / micro_restoration_routines (conf=0.72)
+- P08: Threat reappraisal / cognitive reframing practice since last prompt -> PSYCHO / third_wave_and_contextual_therapies / dbt_skills_based_therapy / emotion_regulation_skills / reality_based_appraisal_and_reappraisal / check_the_facts / threat_appraisal_reframe_practice (conf=0.84)

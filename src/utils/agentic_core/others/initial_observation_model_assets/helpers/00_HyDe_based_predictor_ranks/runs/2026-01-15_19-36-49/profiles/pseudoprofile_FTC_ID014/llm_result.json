@@ -1,0 +1,91 @@
+{
+  "pseudoprofile_id": "CASE_PROFILE_A_INTRUSIVE_REPLAY_01",
+  "summary": "The presented case shows five modifiable predictors linked to a fear-activated response to social evaluation: intrusive visual replay (C01), persistent rumination (C02), acute physiological reactivity to evaluative cues (C03), anticipatory fear of humiliation (C04), and heightened sensitivity to criticism (C05). The proposed levers span BIO/PSYCHO/SOCIAL domains and their interactions, with a focus on: (S01) imagery-based interventions to reduce involuntary re-experiencing; (S02) cognitive-behavioral strategies to curb rumination; (S03) physiological regulation to dampen autonomic arousal; (S04) graded social-evaluative exposure with cognitive reframing; and (S05) cognitive reappraisal of feedback cues. Each lever is a changeable predictor, mapped to its target criterion, with practical measurement, a feasible time horizon, and expected impact to guide implementation and evaluation.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Intrusive visual replay - Imagery-based modulation (IRT/imagery rescripting)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Imagery Rescripting and Imagery-based Exposure (IRT/IE) to rewrite the intrusive clip, with brief physiological grounding (breathing/grounding) before/after recall.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Reduces involuntary sensory re-experiencing by updating memory representations and strengthening non-threat associations through dual-representation and inhibitory learning; lowers perceptual vividness and emotional intensity of the replay.",
+      "measurement": "Daily intrusion diary (frequency and vividness 0-10); brief post-recall rating of emotional intensity (0-100 VAS).",
+      "time_horizon": "0-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor distress during memory recall; provide optional guidance and crisis resources if distress escalates.",
+      "mapping_query": "CASE: Address C01 via Imagery Rescripting/Imagery Exposure; track intrusion frequency/vividness; adjust exposure plan based on response."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Persistent rumination about the event",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "CBT-based rumination reduction: scheduled worry time, attention training, cognitive defusion techniques, and activity scheduling to reduce dwelling on the event.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Decreases cognitive load from perseverative thinking, disrupts negative reinforcement cycles, and improves cognitive control over intrusive narratives.",
+      "measurement": "Ruminative Thought Questionnaire items; daily time spent ruminating (mins); diary-based worry episodes (0/1) per day.",
+      "time_horizon": "0-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "CASE: Apply CBT-based rumination reduction; monitor changes in C02; adjust interventions per response."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Acute physiological reaction to feedback",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Physiological regulation during evaluative moments: paced breathing (4-6 breaths/min), diaphragmatic breathing, brief HRV biofeedback, and progressive muscle relaxation; include interoceptive exposure to evaluative cues.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Dampens autonomic arousal and interoceptive sensitivity to evaluative cues, increasing tolerance to feedback and reducing stomach-dropping sensations.",
+      "measurement": "Self-report distress during feedback (0-10) and HRV metrics during feedback sessions; frequency of autonomic episodes per week.",
+      "time_horizon": "0-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Breathing exercises should be paced to avoid dizziness; discontinue if vertigo or chest discomfort occurs.",
+      "mapping_query": "CASE: Implement physiological regulation during evaluative moments; monitor C03 responses; adjust intensity."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Anticipatory fear of humiliation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Graded social-evaluative exposure with cognitive reframing: create a hierarchy of evaluative scenarios, combine exposure with self-compassion and mindfulness strategies, and reinforce successful encounters.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Exposure-based learning reduces threat expectancy; cognitive reframing mitigates catastrophic predictions and shame sensitivity.",
+      "measurement": "Pre- and post-exposure anticipatory fear ratings (0-10); number of avoided scenarios; task completion rate from hierarchy.",
+      "time_horizon": "0-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "If avoidance leads to significant impairment, pair with therapist-guided exposure or consider safety planning.",
+      "mapping_query": "CASE: Address C04 with graded social-evaluative exposure plus cognitive reframing; track anticipatory fear and avoidance."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Lowered threshold for perceiving criticism",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive reappraisal and interpretation bias modification for feedback cues: train flexible re-interpretation of neutral/minor critique as non-threatening; incorporate self-compassion and corrective feedback logs.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces automatic threat appraisals, enhances emotional regulation during feedback, and broadens tolerance to everyday critique.",
+      "measurement": "Feedback interpretation task scores (initial vs. reinterpreted); daily self-reported threat level to feedback (0-10); frequency of positive feedback acknowledgment.",
+      "time_horizon": "0-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "CASE: Apply cognitive reappraisal to feedback cues; monitor C05 changes; adjust strategies as needed."
+    }
+  ]
+}

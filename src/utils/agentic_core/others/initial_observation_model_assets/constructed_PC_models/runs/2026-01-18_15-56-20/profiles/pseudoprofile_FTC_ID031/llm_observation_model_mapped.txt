@@ -1,0 +1,20 @@
+pseudoprofile_id: pseudoprofile_FTC_ID031
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Occurrence of sudden anger episodes -> CLINICAL / DSM-5TR / trauma- and stressor-related disorders / unspecified trauma- and stressor-related disorder / irritability_or_anger_outbursts (conf=0.58)
+- C02: Intensity of bodily rage/arousal during episodes -> CLINICAL / DSM-5TR / disruptive, impulse-control, and conduct disorders / anger or aggression outburst disorders / intermittent explosive disorder / harm profile / without injury or property destruction / autonomic_arousal_during_outbursts (conf=0.78)
+- C03: Sensitivity to minor external triggers -> NON-CLINICAL / AGE-GENERAL / emotional / emotional awareness / self-recognition / trigger awareness / identifying triggers (conf=0.78)
+- C04: Unexpectedness of emotional response -> NON-CLINICAL / AGE-GENERAL / emotional / negative emotions / surprise (conf=0.83)
+- C05: Post-episode shame/embarrassment -> NON-CLINICAL / AGE-GENERAL / emotional / affective process / emotion process / shame (conf=0.77)
+- C06: Perceived mismatch between behavior and self-identity -> NON-CLINICAL / AGE-GENERAL / existential / authenticity / personalintegrity / consistencyinactionsandbeliefs / behavioralalignment (conf=0.78)
+- C07: Ability to inhibit outward aggressive behavior -> NON-CLINICAL / AGE-GENERAL / emotional / emotional regulation / emotional stability / anger control / reducing aggression (conf=0.66)
+- C08: Motivation/readiness to change reactive anger -> NON-CLINICAL / AGE-GENERAL / emotional / arousal / alertness / mental readiness / preparedness for action (conf=0.72)
+
+PREDICTORS:
+- P01: Sleep quality and circadian regularity (biological driver) -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / consistent_morning_anchor_routine (conf=0.72)
+- P02: Acute emotion regulation practice during triggers -> PSYCHO / change_process_and_therapeutic_phases / skill_acquisition / foundational_self_regulation_skills / arousal_labeling_and_reappraisal_practice (conf=0.72)
+- P03: CBT-based anger regulation skills (pause/plan, behavioral experiments) -> PSYCHO / cognitive_behavioral_therapies / cbt_foundations / case_conceptualization_and_targeting / models_and_maps / cbt_cycle_thought_emotion_behavior_map (conf=0.72)
+- P04: Identity alignment and compassionate self-relating -> PSYCHO / third_wave_and_contextual_therapies / compassion_focused_interventions / compassionate_self_identity_work (conf=0.72)
+- P05: Environmental/trigger-context modification -> PSYCHO / substance_use_recovery_and_behavior_change / cue_and_context_management / stimulus_control_principles / reduce_exposure_to_triggering_contexts_strategy (conf=0.78)
+- P06: Motivation/readiness to change reactive anger -> PSYCHO / brief_and_motivational_approaches / motivational_interviewing_approach / confidence_ruler (conf=0.72)

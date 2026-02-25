@@ -1,0 +1,1123 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID041",
+  "model_summary": "This initial gVAR-ready observation model centers on six sleep/nightmare-related criteria (nightmare awakenings, nightmare vividness, anticipatory sleep fear, autonomic arousal on awakening, prolonged post-awakening activation, and difficulty resuming sleep) and a compact set of seven modifiable predictors designed to salutogenically optimize future sleep and arousal states. The predictor set emphasizes sleep-circadian optimization, cognitive-behavioral strategies for sleep, autonomic regulation, mindfulness, post-awakening grounding, sleep-environment improvements, and wearable-feedback augmentation. Together, they provide broad yet parsimonious leverage on core mechanisms while maintaining manageable data collection and minimizing redundancy for early gVAR estimation.",
+  "variable_selection_notes": "Criteria selected reflect the complaint’s resolution surface: recurrent nightmares with vivid content driving fear and arousal that disrupt sleep continuity. Predictors were chosen to cover (1) cognitive-behavioral and educational approaches (CBT-I-related), (2) physiological regulation (HRV/breathing), (3) mindfulness/interoception, (4) sleep-environment optimization, and (5) wearable-informed feedback. We avoided duplicative self-regulation constructs and prioritized measures with clear, safe, non-pharmacological interventions. Within-person variance is targeted via 4 daily momentary prompts plus daily diary entries; passive streams provide complementary physiological context. Potential collinearity is mitigated by selecting one broad set of sleep-regulation constructs and by planning lagged edges in gVAR. Uncertain or nonlinear effects (e.g., complex interactions of wearables with behavior) are handled by flagging nonlinear/unknown where appropriate and reserving refinement in subsequent iterations.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:00",
+        "12:00",
+        "16:00",
+        "20:00"
+      ],
+      "recall_window": "since last prompt",
+      "expected_total_prompts": 56,
+      "notes": "All six criterion measurements incorporated within the four daily prompts; prompts align with user routines to maximize engagement."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "07:30"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Morning diary capturing C01–C06 values and overall sleep experience."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Wearable HRV/physiological signals and environmental sensors aggregated for occasional cross-checks with EMA data."
+    },
+    "minimum_total_observations_target": 200,
+    "gvar_readiness_notes": "Initial design targets a modest panel to enable estimation of primary edges; plan for iterative refinement after initial data.",
+    "variance_support_notes": "Choose Likert-like scales (1–9) for most criteria to maximize within-person variance; passive signals provide supplementary variance.",
+    "missingness_risk_notes": "Build reminder schedules and simple automated quality checks to minimize missingness; impute missingness when appropriate in modeling."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Nightmare-triggered awakenings (occurrence)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "How many times did you wake from nightmares during the past night? (0-9)",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": "End-of-night recall to capture nightmare-induced awakenings."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Nightmare vividness/intensity",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "Rate the vividness of last night’s nightmare on a 1 (not vivid) to 9 (extremely vivid) scale.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": "Capture subjective intensity of nightmare content."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Anticipatory fear of sleep / reluctance to go to bed",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "How fearful or dread-filled did you feel about going to sleep tonight? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": "Bedtime fear is a key trigger for avoidance and sleep disruption."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Acute autonomic arousal on awakening",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "wearable_sensor",
+        "channel": "wearable (HR/skin sensors)",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Mean heart rate and skin conductance in the 5 minutes following nightmare awakenings",
+        "response_scale_or_unit": "bpm / conductance index",
+        "sampling_per_day": 1,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": " objective arousal signal around awakenings."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "bounded_0_1"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Prolonged post-awakening activation",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "wearable_sensor",
+        "channel": "wearable",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Time (minutes) to calm down back to baseline after awakening (estimated from HRV recovery)",
+        "response_scale_or_unit": "minutes",
+        "sampling_per_day": 1,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": "Captures persistence of arousal after awakenings."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "low",
+        "distribution_hint": "count"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Difficulty resuming sleep after nightmare awakenings",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "How difficult was it to fall back asleep after your last nightmare awakening? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": "Captures post-awakening sleep maintenance difficulty."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Imagery Rehearsal Therapy training in bedtime routine",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "Sleep_Cognition_and_Arousal_Structures > Nightmare_Reduction",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.92,
+      "mechanism_rationale": "Disrupts nightmare content and reduces conditioned arousal; supports adaptive fear extinction at bedtime.",
+      "intervention_examples_safe": "Imagery rehearsal before sleep to modify nightmare content; integrate with a consistent bedtime routine.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Did you practice imagery rehearsal before bed tonight? If yes, rate engagement intensity (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": "Non-pharmacological cognitive technique."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Imagery rehearsal reduces nightmare occurrence via cognitive restructuring."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Ensure safety if distress worsens; no medical dosing.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Requires adherence to nightly practice; feasible with brief sessions."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "CBT-I components + sleep environment optimization",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "Sleep_Circadian_and_Restoration > CBT_I_Components",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.88,
+      "mechanism_rationale": "Addresses sleep restriction, stimulus control, and environmental factors to improve sleep initiation and continuity.",
+      "intervention_examples_safe": "Regular sleep window; dark, cool, quiet room; consistent pre-sleep routine.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "How consistently did you implement CBT-I components and sleep-environment optimization tonight? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": "Core CBT-I behaviors."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better sleep onset/maintenance reduces nightmare recurrence indirectly."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Non-pharmacological; minimal risk.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Requires daily adherence to CBT-I practices."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "HRV biofeedback training before sleep",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "Sleep_Regulation_and_Autonomic_Control > HRV_Biofeedback",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Breathing regulation lowers autonomic arousal, facilitating sleep onset.",
+      "intervention_examples_safe": "5–7 minutes paced breathing with HRV cues.",
+      "measurement": {
+        "mode": "wearable_sensor",
+        "channel": "wearable",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Mean HR and HRV during the 5 minutes before sleep (HRV index)",
+        "response_scale_or_unit": "ms (HRV)",
+        "sampling_per_day": 1,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": "Non-invasive autonomic regulation."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "standardize_by_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "binary"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved autonomic regulation reduces post-awakening arousal."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Non-pharmacological intervention; monitor if discomfort occurs.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Requires access to compatible wearables."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Mindfulness sleep-related interoceptive awareness training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "Mindfulness_Skills > Sleep_Onset_Interoception",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Enhances nonjudgmental awareness of sleep-related sensations, reducing reactivity to nocturnal cues.",
+      "intervention_examples_safe": "5–10 minutes daily mindfulness or body scan before bed.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "How much mindfulness practice did you perform before bed tonight? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": "Interoceptive-awareness training."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindfulness may reduce nightmare vividness via reduced arousal."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Safe practice; ensure it does not replace medical advice.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Mindfulness modules can be delivered via app."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Post awakening grounding and paced breathing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "Arousal_Regulation_After_Waking > Grounding_Breathing",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.82,
+      "mechanism_rationale": "Reduces lingering arousal after awakenings and supports resuming sleep.",
+      "intervention_examples_safe": "2–3 minutes grounding and paced breathing after awakening.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Did you perform grounding and paced breathing after awakening tonight? If yes, rate engagement intensity (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": "Arousal-downshift practice."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Grounding may blunt post-awakening arousal."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Standard safety checks; no risk.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Requires quick post-awakening prompts."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Sleep environment optimization (bedroom factors)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "Sleep_Environment_Bedroom > Temperature, Light, Noise",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.86,
+      "mechanism_rationale": "Environmental optimization improves sleep onset and continuity by reducing external arousal cues.",
+      "intervention_examples_safe": "Temperature control, dark curtains, noise minimization.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "How effectively did you optimize the bedroom environment tonight? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": "Environment-based sleep-support."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "A calmer environment reduces nocturnal awakenings."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Non-pharmacological; safe with basic sleep hygiene.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Moderate setup; simple devices suffice."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "Wearable sleep and arousal monitoring with feedback",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "Wearables_Data_Driven_Sleep_Feedback",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Continuous data feedback enables adaptive bedtime adjustments; may reduce arousal and improve sleep.",
+      "intervention_examples_safe": "Use wearable metrics to guide bedtime adjustments.",
+      "measurement": {
+        "mode": "wearable_sensor",
+        "channel": "wearable",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Daily wearable feedback usage and engagement level (0-1 scale)",
+        "response_scale_or_unit": "0-1",
+        "sampling_per_day": 1,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "low",
+        "notes": "Passive data with feedback; non-interventional in itself."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "low",
+        "distribution_hint": "binary"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Continuous feedback supports timely adjustments to sleep routines reducing awakenings."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Data-driven feedback; privacy considerations for wearables.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Requires access to wearable data streams."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,67000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,75000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Nightmare-focused training is expected to reduce awakenings.",
+      "estimated_relevance_0_1": 0.92
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Imagery rehearsal may attenuate nightmare vividness.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Improved bedtime cognition may reduce fear prior to sleep.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reduced arousal at awakenings anticipated.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Lower post-awakening activation projected.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Less residual arousal facilitates resuming sleep.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Adherence to CBT-I and environment improves awakenings.",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Sleep environment effects reduce nightmare intensity indirectly.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "CBT-I components may reduce bedtime fear.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Environment supports smoother arousal regulation.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Environmental stability reduces post-awakening activation time.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "CBT-I integration improves sleep maintenance after awakenings.",
+      "estimated_relevance_0_1": 0.67
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "HRV breathing reduces nightly arousal across nights.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Autonomic regulation may lower nightmare intensity.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Lower nocturnal arousal may lessen anticipatory fear.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Lower arousal at awakening expected.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Faster HRV recovery reduces post-awakening activation.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Better autonomic control supports easier resumption.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Mindfulness may reduce nightmare frequency indirectly via arousal.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Interoceptive awareness may lessen nightmare vividness.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Less bedtime reactivity reduces anticipatory fear.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Mindfulness reduces autonomic arousal at awakenings.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Lower lingering arousal post-awakening.",
+      "estimated_relevance_0_1": 0.62
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Improved bedtime regulation aids resumption.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Grounding after awakenings may reduce subsequent awakenings.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Potential indirect reduction in nightmare vividness via lowered arousal.",
+      "estimated_relevance_0_1": 0.45
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Calming strategies may ease bedtime-related fear.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Lower arousal improves awakening physiology.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Quicker arousal downshift after awakenings.",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "A calmer post-awakening state supports resuming sleep.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Bedroom improvements reduce nocturnal awakenings.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Better sleep environment may lessen nightmare intensity.",
+      "estimated_relevance_0_1": 0.62
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Calm sleep environment reduces bedtime fear.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Environmental stability supports autonomic regulation.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Reduced environmental arousal facilitates quicker calm post-awakening.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Environment contributes to ease of resumption of sleep.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Wearable feedback supports adaptive bedtime adjustments reducing awakenings.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Continuous feedback may diminish nightmare intensity.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Feedback may reduce bedtime fear via perceived control.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Wearable data can help downshift arousal patterns.",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Guided feedback supports faster post-awakening recovery.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Data-informed adjustments may ease resuming sleep.",
+      "estimated_relevance_0_1": 0.75
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "P01–P02 may covary on CBT-I related behaviors",
+      "P04–P03 both target arousal pathways"
+    ],
+    "expected_floor_ceiling_risks": [
+      "C02 and C04 scales may show ceiling effects if distress is low",
+      "P03 HRV data may cluster at normal range in some users"
+    ],
+    "variance_enhancement_suggestions": [
+      "Increase prompts per day during initial weeks to boost variance",
+      "Include a brief weekly check-in to recalibrate prompts and anchors"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "No clear deprioritization at this stage; retain all seven predictors for exploration"
+    ],
+    "gvar_feasibility_summary": "Overall feasible; wearable data adds complexity but is tractable with proper consent and data pipelines."
+  },
+  "safety_notes": "This is NOT a diagnosis. No medications or dosing guidance. Monitor for worsening distress; provide escalation guidance if user expresses harm risk or severe sleep disturbance requiring clinical evaluation."
+}

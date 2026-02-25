@@ -1,0 +1,151 @@
+{
+  "pseudoprofile_id": "CASE HealthAnxiety Optimization v1",
+  "summary": "The case presents health-focused anxiety with rapid catastrophic interpretation of minor bodily sensations, compulsive internet health-searching, inability to inhibit checking despite insight, and acute fear (panic-type responses) to symptoms. Ideal lever implementations target (a) cognitive defusion and acceptance to reduce reactivity (bio-psycho), (b) concrete cognitive-behavioral strategies to challenge catastrophic interpretations and test beliefs (psycho), (c) disruption of compulsive checking habits and implementation intentions (psycho-social), (d) environmental and digital boundary setting to limit information-seeking triggers (social/digital ecology), (e) targeted interoceptive/panic exposure to reduce panic reactivity (bio), (f) sleep and circadian optimization to improve regulation and cognitive control (bio), and (g) enhanced social support and care navigation to buffer reassurance seeking and loss of control (social). The eight proposed, modifiable predictors are designed to move the core criteria C01–C06 by altering cognitive load, behavioral patterns, and emotional regulation without relying on diagnostic labeling or pharmacology.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Mindfulness/ACT-based present-mocus and acceptance practice frequency",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Regular brief mindfulness/acceptance practice (e.g., 5–10 minutes daily; 2–3 guided sessions weekly) to cultivate cognitive defusion, reduce experiential avoidance, and dampen immediate emotional reactivity to health-related sensations.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Enhances nonjudgmental noticing of bodily sensations, reduces over-identification with sensations, and weakens the urge to catastrophize or engage in compulsive checking by promoting acceptance and cognitive distance from symptoms.",
+      "measurement": "Practice adherence (days/week with ≥5 minutes), self-rated urge to check (0–10), weekly worry intensity (0–10).",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Generally safe; monitor for initial distress if focusing on health worries intensifies, then expect gradual reduction.",
+      "mapping_query": "CASE_PAYLOAD_MAP: S01 maps to criteria C01 (worry frequency/intensity), C02 (catastrophic interpretation), C05 (loss of control)."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Cognitive-behavioral therapy (CBT) - cognitive restructuring and behavioral experiments",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured CBT modules focusing on cognitive restructuring of health-threat beliefs and behavioral experiments to disconfirm catastrophic predictions (e.g., test whether minor symptoms predict imminent death).",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Explicitly targets maladaptive beliefs about symptoms and strengthens inhibitory learning by testing predictions, reducing both worry frequency and the compulsive checking drive.",
+      "measurement": "Number of completed behavioral experiments; change in catastrophic belief strength (0–10 scale); weekly symptom diary (0–10).",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.68,
+      "priority": "HIGH",
+      "safety_notes": "Ensure experiments are safe and ethically supervised; avoid exposure to dangerous situations.",
+      "mapping_query": "CASE_PAYLOAD_MAP: S02 maps to C01, C02, C04."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Urge-delay implementation and checking disruption (habit disruption) with automated pause before health-search",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Implement  alternative response strategy: 1) pause for 10 minutes before any health-search; 2) use a pre-scripted 'urge-not-now' implementation intention; 3) log urges and delays.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "By inserting a delay and cueing alternative behavior, automatic checking is weakened, reducing time spent on searches and improving inhibitory control.",
+      "measurement": "Proportion of symptom episodes paused; average delay duration; self-reported urge strength (0–10).",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.58,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; ensure plans are feasible and do not increase distress.",
+      "mapping_query": "CASE_PAYLOAD_MAP: S03 maps to C03, C04."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Digital health-information environment controls (browser blockers; scheduled check times)",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Set up technical boundaries to limit real-time health information seeking (e.g., blocking tools, pre-scheduled search windows, and auto-redirects to neutral content).",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Reduces reinforcement of health-anxiety via compulsive online searches by limiting exposure triggers.",
+      "measurement": "Daily health-search duration; number of health-search sessions; self-reported urge to search (0–10).",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure accessibility to essential information when needed; avoid excessive restriction.",
+      "mapping_query": "CASE_PAYLOAD_MAP: S04 maps to C03."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Interoceptive/panic exposure to bodily sensations",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "A graded interoceptive exposure plan (e.g., controlled breathing, mild dizziness simulations) to reduce fear response to bodily sensations and the perceived threat of symptoms.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Tolerized panic-like sensations via repeated exposure, reducing sudden panic and the urge to catastrophize on symptom onset.",
+      "measurement": "Subjective fear during exposures (0–10); frequency of symptom-avoidance behaviors; number of panic-like episodes.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Conduct under supervision if history of severe panic or medical concerns; start with low-intensity sensations.",
+      "mapping_query": "CASE_PAYLOAD_MAP: S05 maps to C06."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep and circadian regularity optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent sleep schedule, optimize sleep environment, and align light exposure to stabilize affect regulation and cognitive control.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Improved sleep supports executive control and emotional regulation, reducing health-worry intensity and distress about loss of control.",
+      "measurement": "Sleep duration/quality (prior week), sleep diary consistency, daily worry/distress ratings (0–10).",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Monitor for sleep disorders; consult clinician if sleep disturbances persist.",
+      "mapping_query": "CASE_PAYLOAD_MAP: S06 maps to C01, C05."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Metacognitive worry beliefs modification (MCT-style)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Interventions targeting metacognitive beliefs about worry (e.g., beliefs about controllability and threat), with practice in detached mindfulness and cognitive-tracking.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces excessive worry about worry and improves ability to inhibit irrational checking, thereby lowering overall worry load and compulsive checking drive.",
+      "measurement": "Metacognitive beliefs questionnaire scores; weekly worry count; adherence to worry-management exercises (days/week).",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None beyond standard CBT-based approaches; monitor for distress during belief challenges.",
+      "mapping_query": "CASE_PAYLOAD_MAP: S07 maps to C01, C04."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Enhanced social support and care navigation (social prescribing)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage social-support resources and care-navigation to reduce isolation, provide reassurance within safe networks, and facilitate access to appropriate medical evaluation if needed.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Strengthened social buffers lessen dependence on uncontrolled reassurance-seeking and improve emotional regulation, indirectly reducing worry and loss of control.",
+      "measurement": "Perceived social support (scale), frequency of reassurance seeking, distress rating (0–10).",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure boundaries and privacy; connect to credible community resources.",
+      "mapping_query": "CASE_PAYLOAD_MAP: S08 maps to C01, C04, C05."
+    }
+  ]
+}

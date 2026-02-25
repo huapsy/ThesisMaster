@@ -15,4 +15,5 @@ Requirements:
   - regulatory_ethical_alignment
   - intervention_feasibility
 - Provide concrete feedback_for_revision when pass_decision is REVISE.
+- Check that each major HAPA component in the plan is grounded by relevant `hapa_component_candidates`.
 - Keep all scores in [0,1].

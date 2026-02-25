@@ -1,0 +1,873 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID016",
+  "model_summary": "Updated gVAR-ready observation model: seven core criteria map to somatic symptom experience, distress from unpredictability, threat interpretation of bodily sensations, medical reassurance responsiveness, avoidance behavior, interoceptive attention, and functional impact. A compact set of five modifiable predictors (P01–P05) influence these criteria via momentary EMA signals. The design expands to a 14-day, multi-prompt sampling plan with a light daily-diary add-on to increase within-person variance while maintaining estimable gVAR structure.",
+  "variable_selection_notes": "Selected seven operationalized criteria from C01–C07 to capture core phenomenology: acute somatic episodes, distress from unpredictability, threat interpretation, medical reassurance response, avoidance behavior, interoceptive attention, and functional impact. The five predictors target cognitive appraisal, interoceptive calibration, reassurance integration, exposure/activation, and coping skills. To preserve variance and reduce collinearity, each predictor is measured once per prompt (6 prompts/day). A 14-day plan increases observation count to support a robust gVAR grid. C01 and C02 were updated to explicit EMA questions to address prior validation warnings; overall, sampling remains spaced to support coherent lag relationships.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:00-11:00",
+        "11:00-13:00",
+        "15:00-17:00",
+        "17:00-19:00",
+        "19:00-21:00",
+        "21:00-23:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 84,
+      "notes": "6 EMA prompts/day across waking hours with mild jitter to reduce predictability and balance coverage."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 2,
+      "anchor_times_local": [
+        "08:00",
+        "20:00"
+      ],
+      "expected_total_entries": 28,
+      "notes": "Two brief daily reflections to complement EMA (morning mood/check-in and evening impact)."
+    },
+    "passive_streams": {
+      "enabled": false,
+      "aggregation_strategy": "",
+      "notes": "No passive data collection used in this initial model."
+    },
+    "minimum_total_observations_target": 112,
+    "gvar_readiness_notes": "With 14 study days, T=84; K=12 (7 criteria + 5 predictors). Ratio T/K=7, improving feasibility. Maintain single-measurement-per-prompt strategy and consider within-person centering to further reduce residual variance.",
+    "variance_support_notes": "EMA and daily diary provide varied signals across time; predictors chosen to minimize collinearity and maximize detectable within-person change.",
+    "missingness_risk_notes": "Prompt fatigue risk; mitigations include reminders and flexible completion windows; plan for lightweight imputation if needed."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "",
+      "label": "Acute somatic symptom intensity and frequency",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, how frequently have you experienced bodily symptoms and how intense were their peak symptoms?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Primary somatic symptom index for daily living impairment potential."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "",
+      "label": "Distress from symptom unpredictability",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, how distressed did you feel when symptoms occurred without identifiable triggers?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Uncertainty-related distress; gauges tolerance and reactivity."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "logit_if_bounded_0_1",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "",
+      "label": "Threat interpretation of bodily sensations",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Do you interpret the current bodily sensations as dangerous or catastrophic?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Core cognitive appraisal variable."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "",
+      "label": "Low acceptance of medical reassurance / perceived invalidation",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How reassuring were medical test results/clinician assurances just now?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures trust/credibility of medical reassurance."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "",
+      "label": "Avoidance of leaving home / travel avoidance",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, to what extent did you avoid leaving home or traveling away from it due to fear of symptoms?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Behavioral avoidance marker."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "",
+      "label": "Interoceptive hypervigilance (attention to bodily sensations)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How focused are you on internal bodily signals right now?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures monitoring bias; closely linked to C01."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C07",
+      "source_variable_id": "",
+      "label": "Functional and emotional impact (annoyance, fear-driven interference)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Overall, today how much have symptoms and related fears interfered with daily functioning (e.g., work, social activities) or caused emotional distress?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Functional impact marker."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Threat interpretation reframing (cognitive appraisal target)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Cognitive_Behavioral_Therapies > Cognitive_Restructuring",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Reframes danger associations in bodily sensations to reduce catastrophic responding; targets C03.",
+      "intervention_examples_safe": "Brief EMA-guided cognitive reframing; 2–3 minute thought records.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "To what extent are you interpreting your current bodily sensations as dangerous or threatening?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Primary cognitive target."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C03"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reducing threat interpretation should lower current fear response to bodily sensations."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Potential indirect effect on somatic intensity via reduced catastrophizing."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Uncertainty distress may decrease with reframed interpretations."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Trust in medical reassurance may be reinforced indirectly."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Avoidance behaviors may be influenced by threat perception."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Attention to bodily sensations may shift with reframing."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Functional impact could be moderated via reduced threat perception."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "None beyond standard psychotherapeutic consent; no pharmacology.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.82,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "High feasibility for dose-appropriate EMA."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Interoceptive exposure engagement / interoceptive calibration",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Exposure_and_Inhibitory_Learning > Interoceptive_Exposure_Framework",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Calibrates sensitivity to internal signals, promoting habituation and reducing hypervigilance (C06).",
+      "intervention_examples_safe": "Short, graded interoceptive exercises (e.g., controlled breathing, light hyperventilation) paired with psychoeducation.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How engaged have you been in interoceptive exposure or calibration exercises today?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Directly targets interoceptive processing (C06) and somatic sensation modulation (C01)."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Habitual exposure may reduce peak somatic intensity over time."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Less threat appraisal with habituation to sensations."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Directly reduces interoceptive hypervigilance."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Distress from unpredictability may shift as exposure increases."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Trust in reassurance could be influenced indirectly."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Behavioral avoidance may change with exposure intensity."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Functional impact may improve with exposure."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Interoceptive exposure practices must be paced to avoid panic; provide safety instructions.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.78,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Moderate feasibility; requires careful scripting and safety checks."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Medical reassurance integration",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Foundations_and_Common_Factors > Psychoeducation_Modules > Medical_Reassurance_Integration",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Enhances acceptance of medical reassurance by linking test results to everyday relevance and reducing invalidation.",
+      "intervention_examples_safe": "Brief post-evaluation talking points; 2–3 minute reflections on what test results mean for daily life.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How much did today’s medical reassurance reduce your concern about symptoms?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Addresses C04 via acceptance of reassurance."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C03",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Higher acceptance of reassurance should lower ongoing concern."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Threat appraisal may be indirectly influenced."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Functional impact could improve with reduced mistrust."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Somatic symptom amplification may decrease with reassurance."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Unpredictability distress may attenuate as reassurance stabilizes interpretation."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "No pharmacology; standard medical reassurance protocols.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "High feasibility; reassurance items are straightforward."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Avoidance/activation engagement (graded exposure)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Behavioral_Activation_and_Exposure > Graded_Exposure_Planning",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Promotes gradual exposure to avoided contexts, reducing alarm when far from home.",
+      "intervention_examples_safe": "2–3 minute planned small-outing prompts; graded homework tasks.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "To what extent did you engage in an outing or outside activity today despite symptoms?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Behavioral activation/exposure lever (C05)."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C05",
+        "C07",
+        "C02"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Graded exposure reduces avoidance."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Improved functioning with exposure may reduce distress."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Distance from home under controlled exposure can decrease unpredictability distress."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Somatic intensity could change with activity leveling."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Threat interpretation may adjust with successful exposures."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Exposure tasks must be safety-planned; provide safety signals and dosing for distress.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.79,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": "Feasible with brief, supervised guidance; monitor distress."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Distress tolerance coping engagement",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Third_Wave_and_Contextual_Therapies > DBT_Skills_Based_Therapy > Distress_Tolerance",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.78,
+      "mechanism_rationale": "Engagement with coping strategies reduces reactivity to symptoms across contexts.",
+      "intervention_examples_safe": "5–10 minute mindfulness/breathing/grounding practice; self-soothing with five senses.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How much did you use distress-tolerance coping today (e.g., grounding, breathing, self-soothing skills)?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Supports C02 and C07 through coping. Current state may influence avoidance."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C07",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increased coping reduces distress related to unpredictability."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Enhanced coping reduces functional interference and emotional impact."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Coping supports engagement despite symptoms, reducing avoidance."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Somatic intensity could be indirectly affected via arousal regulation."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Threat appraisal may shift with improved coping."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Skills training should avoid encouraging risky behaviors; ensure safety guidance.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.84,
+        "gvar_feasibility_0_1": 0.86,
+        "notes": "High feasibility; coping strategies are well-suited to EMA."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,42000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,36000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,38000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,24000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,41000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,42000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,42000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,48000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,41000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,83000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,42000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,42000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,36000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,42000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,44000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,42000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,95000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,42000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,42000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,42000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,42000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,54000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,60000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Threat reinterpretation reduces threat appraisal; direct link to C03.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Interoceptive exposure can lower somatic intensity.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Better integration of reassurance reduces perceived invalidation.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Graded exposure reduces avoidance.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Distress tolerance lowers distress from unpredictability.",
+      "estimated_relevance_0_1": 0.7
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [],
+    "expected_floor_ceiling_risks": [
+      "C05 may dominate due to high loading with avoidance"
+    ],
+    "variance_enhancement_suggestions": [
+      "Standardize prompts",
+      "Within-person centering of predictors"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "P06+ (not included in this initial model)"
+    ],
+    "gvar_feasibility_summary": "Overall feasible with 5 predictors; moderate collinearity risk mitigated by single-measurement per prompt."
+  },
+  "safety_notes": "Not a diagnosis or treatment plan. No medication dosing or medical interventions recommended. If self-harm or acute deterioration emerges, immediate clinical contact is advised."
+}

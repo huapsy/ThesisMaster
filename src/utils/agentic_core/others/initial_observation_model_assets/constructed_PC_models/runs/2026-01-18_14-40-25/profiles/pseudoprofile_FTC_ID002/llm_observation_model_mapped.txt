@@ -1,0 +1,20 @@
+pseudoprofile_id: pseudoprofile_FTC_ID002
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Diminished positive emotional response to pleasant events -> CLINICAL / DSM-5TR / depressive disorders / major depressive disorder (unipolar depression) / recurrent episode / melancholic type / anhedonia_nonreactive_to_pleasure (conf=0.92)
+- C02: Guilt about not enjoying positive experiences -> CLINICAL / DSM-5TR / depressive disorders / other specified depressive disorder / recurrent brief depression / guilt_present (conf=0.82)
+- C03: Behavioral autopilot / low moment-to-moment engagement -> CLINICAL / DSM-5TR / sleep-wake disorders / central disorders of hypersomnolence / narcolepsy / medication or substance-related narcolepsy-like disorder / automatic_behaviors_during_wakefulness (conf=0.62)
+- C04: General emotional blunting (low affect intensity) -> CLINICAL / DSM-5TR / movement disorders and other side effects of medication / other (secondary) side effects of medication / organ-system effects / psychiatric or behavioral / emotional blunting / flat_affect (conf=0.78)
+- C05: External presentation of being 'fine' despite internal disengagement -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / body dysmorphic disorder / behavior patterns / camouflaging or comparing or seeking reassurance / camouflaging_public_appearance (conf=0.92)
+- C06: Reduced motivation/interest to pursue non-routine pleasurable activities -> NON-CLINICAL / AGE-GENERAL / emotional / emotional intelligence / motivation / intrinsic motivation / self-motivated goals (conf=0.72)
+
+PREDICTORS:
+- P01: Behavioral activation (intentional pleasurable activity engagement) -> PSYCHO / change_process_and_therapeutic_phases / skill_acquisition / behavioral_planning_and_execution_skills / behavioral_activation_scheduling (conf=0.78)
+- P02: Savoring / positive-event noticing -> PSYCHO / positive_psychology_and_wellbeing / gratitude_and_savoring / savoring_positive_moments_practice (conf=0.85)
+- P03: Self-compassion / reduced self-criticism -> PSYCHO / core_psychological_skills_toolkits / emotion_regulation_and_affective_mastery / difficult_emotion_modules / shame_guilt_anger_jealousy_grief / self_compassion_in_shame_moment (conf=0.92)
+- P04: Momentary present-moment awareness (mindfulness) -> PSYCHO / third_wave_and_contextual_therapies / act_contextual_behavioral_therapy / present_moment_awareness / mindfulness_of_thoughts (conf=0.65)
+- P05: Micro-activation (5-minute energizers / small wins) -> PSYCHO / cognitive_behavioral_therapies / behavior_change_and_activation / skill_shaping_and_routine / building_momentum / small_wins_protocol (conf=0.92)
+- P06: Sleep quality / last-night restoration (morning diary) -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / sleep_quality_rating (conf=0.82)
+- P07: Social connection / brief social contact -> SOCIAL / social_support_and_belonging / belonging_isolation_and_meaning / loneliness_reduction_planning / micro_connection_opportunities_plan (conf=0.62)
+- P08: Phone screen-time minutes (passive) — proxy for autopilot/distracted behavior -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / context_and_behavioral_context_logs / screen_time_selfreport (conf=0.52)

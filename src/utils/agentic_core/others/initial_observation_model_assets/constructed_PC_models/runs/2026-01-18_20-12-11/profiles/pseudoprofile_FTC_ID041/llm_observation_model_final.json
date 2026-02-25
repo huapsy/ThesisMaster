@@ -1,0 +1,1621 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID041",
+  "model_summary": "REPAIRED gVAR-compatible observation model with 6 criterion variables representing nightmare-related sleep disruption and 6 predictor variables spanning cognitive-behavioral sleep strategies and physiological/environmental supports. Adjusted for momentary sampling consistency, top-edge sparsity alignment with dense grids, and updated edge-optimization to reflect higher-valued incoming connections where appropriate.",
+  "variable_selection_notes": "Case focuses on nightmare frequency/intensity, anticipatory fear of sleep, autonomic arousal on awakening, post-awakening activation, and difficulty resuming sleep. Predictor set covers sleep routines, sleep environment, presleep downshift, breathing/relaxation, CBT sleep skills, and imagery rescripting. All variables are non-pharmacological and suitable for digital data capture.",
+  "design_recommendations": {
+    "study_days": 21,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "uniform",
+      "time_blocks_local": [
+        "07:00",
+        "11:00",
+        "15:00",
+        "19:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 84,
+      "notes": "Momentary assessments for all six criteria during daytime and evening prompts; align with sleep-wake cycle."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "21:30"
+      ],
+      "expected_total_entries": 21,
+      "notes": "Evening diary capturing perceived sleep quality and nightmare-related stress."
+    },
+    "passive_streams": {
+      "enabled": false,
+      "aggregation_strategy": "per_prompt_for_momentary_streams_and_daily_for_daily_streams",
+      "notes": "No passive streams enabled in initial iteration."
+    },
+    "minimum_total_observations_target": 50,
+    "gvar_readiness_notes": "Initial readiness moderate; ensure high compliance with EMA prompts.",
+    "variance_support_notes": "Expect high within-person variability in nightmare frequency and arousal; plan for detrending if needed.",
+    "missingness_risk_notes": "Implement reminder prompts and fallback diary entries to mitigate missing data."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "CASE_SOURCE_C01",
+      "label": "Nightmare-triggered awakenings (occurrence)",
+      "criterion_path": "Sleep_Disruption/Nightmare_Awakening",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "C01_event",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Prompt user to indicate number of nightmare-triggered awakenings since last prompt; scale reflects frequency."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "CASE_SOURCE_C02",
+      "label": "Nightmare vividness/intensity",
+      "criterion_path": "Sleep_Disruption/Nightmare_Vividness",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "C02_intensity",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Capture subjective vividness of dream content per awakening."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "CASE_SOURCE_C03",
+      "label": "Anticipatory fear of sleep / reluctance to go to bed",
+      "criterion_path": "Sleep_Disruption/Anticipatory_Fear",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "C03_thoughts",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assess fear/dread before attempting sleep."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "CASE_SOURCE_C04",
+      "label": "Acute autonomic arousal on awakening",
+      "criterion_path": "Sleep_Disruption/Autonomic_Arousal_Awakening",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "C04_arousal",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Subjective arousal indicators (sweating, heart rate) at awakening."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "CASE_SOURCE_C05",
+      "label": "Prolonged post-awakening physiological/psychological activation",
+      "criterion_path": "Sleep_Disruption/Post_Awakening_Activation",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "C05_activation",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Time-to-calm-down after nightmare; perceived persistence."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "CASE_SOURCE_C06",
+      "label": "Difficulty resuming sleep after nightmare awakenings",
+      "criterion_path": "Sleep_Disruption/Difficulty_Resuming_Sleep",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "C06_resumption",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Self-reported difficulty returning to sleep after awakenings."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Sleep Routine/CBT-like bedtime structuring",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / sleep_related_behaviors / sleep_routines",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Structured routines reduce sleep-associated conditioned arousal and improve sleep onset.",
+      "intervention_examples_safe": "Imagery rehearsal, fixed wind-down, consistent bed time.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "P01_routine_quality",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": " assesses adherence to bedtime routine and perceived effectiveness."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "monotonic_positive",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Structured bedtime reduces awakenings."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Sleep Environment Optimization (sleep-conducive room factors)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Sleep_Environment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Air quality, temperature, light, and noise influence sleep onset and nocturnal arousal.",
+      "intervention_examples_safe": "Optimize lighting, reduce noise, cool dark room.",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "phone",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "P02_environment_index",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 1,
+        "recall_window": "daily",
+        "expected_within_person_variability": "medium",
+        "notes": "Aggregated daily environment quality score."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "identity",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "monotonic_positive",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Improved environment reduces sleep-onset arousal."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.78,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Presleep Downshift/Rituals (downshift from wakefulness to sleep)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / presleep_downshift",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.88,
+      "mechanism_rationale": "Relaxation and mental unloading reduce pre-sleep arousal and nightmare anticipation.",
+      "intervention_examples_safe": "Breathing, progressive muscle relaxation, sensory downshift.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "P03_downshift_effort",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assess perceived effectiveness of presleep downshift."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "monotonic_positive",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better presleep routine reduces anticipatory fear."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.82,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Breathing/Detachment during pre-sleep for arousal downshift",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / presleep_breathing_detachment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Slow breathing and detachment reduce cognitive arousal before sleep.",
+      "intervention_examples_safe": " paced breathing, body scan, cognitive detachment.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "P04_breathing_effort",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Capture perceived effectiveness of calming breathing sequences."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "monotonic_positive",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Relaxed presleep reduces awakening arousal."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.7,
+        "gvar_feasibility_0_1": 0.78,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Sleep-related CBT skills training / sleep appraisals",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / CBT_sleep_skills",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.82,
+      "mechanism_rationale": "Cognitive restructuring and behavioral experiments reduce sleep-related worry and nightmare threat beliefs.",
+      "intervention_examples_safe": "CBT-I components: stimulus control, cognitive restructuring, sleep restriction.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "P05_cbti_practice",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assess engagement and perceived efficacy of CBT sleep strategies."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "monotonic_positive",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Enhanced sleep preparation and reduced sleep anxiety."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Nightmare imagery rehearsal / rescripting techniques",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / nightmare_imagery_rehearsal",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.77,
+      "mechanism_rationale": "Imagery rehearsal reduces nightmare frequency/intensity through cognitive rehearsal and mastery.",
+      "intervention_examples_safe": "rescripting, imagined outcomes, dream rewriting.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "P06_imagery_practice",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assess frequency and perceived efficacy of imagery rehearsal."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "monotonic_positive",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Aids in reducing nightmare vividness via rehearsal exposure."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.75,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": ""
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,63000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,64000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,57000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,62000"
+    }
+  ],
+  "predictor_predictor_relevance": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,42000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,48000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,51000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,64000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,63000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,64000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,00000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,57000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,58000"
+    }
+  ],
+  "criterion_criterion_relevance": [
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,42000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,46000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,39000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,42000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,48000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,47000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,38000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,43000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,41000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,56000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,47000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,54000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,53000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,49000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,58000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.75,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.68,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.62,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.72,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.68,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.66,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.63,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.66,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.62,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.64,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.58,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.58,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.62,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "high",
+      "notes": "dense-grid"
+    }
+  ],
+  "edges_pp": [
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P01",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.68,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.62,
+      "estimated_relevance_tier": "high",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P02",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.72,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P02",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.68,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P02",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.66,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P03",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.62,
+      "estimated_relevance_tier": "high",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P03",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P04",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.66,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P04",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.64,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.63,
+      "estimated_relevance_tier": "high",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.58,
+      "estimated_relevance_tier": "high",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P05",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.58,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P06",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.64,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P06",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P06",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.51,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    }
+  ],
+  "edges_cc": [
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.53,
+      "estimated_relevance_tier": "medium",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.62,
+      "estimated_relevance_tier": "high",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.52,
+      "estimated_relevance_tier": "medium",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.49,
+      "estimated_relevance_tier": "medium",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "high",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.54,
+      "estimated_relevance_tier": "medium",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.58,
+      "estimated_relevance_tier": "high",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.52,
+      "estimated_relevance_tier": "medium",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.58,
+      "estimated_relevance_tier": "high",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.56,
+      "estimated_relevance_tier": "high",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.48,
+      "estimated_relevance_tier": "medium",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.47,
+      "estimated_relevance_tier": "medium",
+      "notes": "sparse-edge"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "sparse-edge"
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "Possible collinearity between C01 and C02 when reporting frequent awakenings and high intensity",
+      "Overlap between C04 and C05 arousal items if not time-anchored"
+    ],
+    "expected_floor_ceiling_risks": [
+      "C03/C05 may saturate at high values if anticipatory fear dominates"
+    ],
+    "variance_enhancement_suggestions": [
+      "Include alternating day-of-week prompts to capture weekly variation",
+      "Apply within-person centering during analysis"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "No pharmacological predictors included in initial model"
+    ],
+    "gvar_feasibility_summary": "Feasible with 12 nodes; EMA-based criterion measures and a mix of predictor modalities supported."
+  },
+  "safety_notes": "This is not a diagnosis or treatment recommendation. If distress worsens or there are safety concerns (e.g., suicidality, intensified nightmares with self-harm risk), seek immediate professional help. Provide crisis resources and escalation pathways in the app."
+}

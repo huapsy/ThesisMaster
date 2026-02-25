@@ -1,0 +1,17 @@
+pseudoprofile_id: pseudoprofile_FTC_ID009
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Social avoidance behavior -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / olfactory reference syndrome / behavior patterns / social avoidance / social_avoidance_behavior (conf=0.92)
+- C02: Belief 'I am annoying' -> CLINICAL / DSM-5TR / personality disorders / other personality disorders / self-defeating personality disorder / chronic_self_criticism (conf=0.72)
+- C03: Post-event rumination about social remarks -> CLINICAL / DSM-5TR / anxiety disorders / social anxiety disorder / generalized / fear of negative evaluation / excessive_rumination_about_others_judgments (conf=0.72)
+- C04: Plan cancellation frequency/impact -> CLINICAL / DSM-5TR / trauma- and stressor-related disorders / other specified trauma- and stressor-related disorders / secondary traumatic stress (vicarious trauma) / social_withdrawal_or_interpersonal_detachment (conf=0.62)
+- C05: Experienced loneliness from reduced social contact -> NON-CLINICAL / AGE-GENERAL / emotional / self-compassion / common humanity / isolation reduction / combatting loneliness (conf=0.72)
+- C06: Self-critical reaction to loneliness -> CLINICAL / DSM-5TR / personality disorders / other personality disorders / depressive personality disorder / self_critical_rumination (conf=0.72)
+
+PREDICTORS:
+- P01: Loneliness reduction action plan adherence -> SOCIAL / social_support_and_belonging / belonging_isolation_and_meaning / loneliness_reduction_planning / loneliness_reduction_action_plan (conf=0.92)
+- P02: Post-interaction rumination reduction coaching engagement -> PSYCHO / cognitive_and_metacognitive_interventions / metacognitive_and_attention_based_interventions / rumination_interrupt_routines (conf=0.72)
+- P03: Reengagement after isolation progress -> SOCIAL / social_support_and_belonging / belonging_isolation_and_meaning / loneliness_reduction_planning / reengagement_after_isolation_plan (conf=0.82)
+- P04: Sleep quality and circadian alignment -> BIO / medical_assessment_and_physiology_testing / sleep_and_respiratory_testing / circadian_and_sleep_tracking / sleep_diary (conf=0.69)
+- P05: Self-monitoring goals and feedback loop -> PSYCHO / change_process_and_therapeutic_phases / behavior_change_theories_and_modern_protocol_arcs / social_cognitive_theory_solutions / sct_self_monitoring_goals_and_feedback_loop (conf=0.78)

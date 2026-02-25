@@ -1,0 +1,136 @@
+{
+  "pseudoprofile_id": "CASEP-001",
+  "summary": "The case shows episodic tingling sensations that trigger rapid anxiety and a reinforcing loop whereby anxiety amplifies the sensations, reinforced by catastrophic threat beliefs, medical uncertainty, and heightened bodily monitoring. To optimize mental health state without diagnosing, propose modifiable BIO-PSYCHO-SOCIAL levers aimed at (a) dampening threat appraisals and arousal, (b) decoupling anxiety from somatic sensations, (c) clarifying medical uncertainty, (d) reducing maladaptive monitoring, and (e) strengthening social support and healthy sleep/physiology. Interventions span cognitive-behavioral, interoceptive/mindfulness, communication, relaxation, behavior change, social, and sleep domains, with clear measurement and feasible timelines. Safety: no acute risk indicated; continue standard care and monitor for worsening symptoms or new risk signals.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Cognitive-behavioral restructuring of threat interpretations about tingling",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive-behavioral therapy–based cognitive restructuring to reframe sensations as non-threatening and test predictions through behavioral experiments.",
+      "targets_criteria_ids": [
+        "C04",
+        "C03",
+        "C02"
+      ],
+      "mechanism_rationale": "Reduces catastrophic threat appraisals and the anxiety-evoked amplification loop, thereby lowering immediate fear responses and improving tolerance of uncertainty.",
+      "measurement": "Threat interpretation rating (0-10) during episodes; weekly frequency of tingling; average anxiety (0-10) during episodes.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; standard CBT protocol; ensure clinician qualification.",
+      "mapping_query": "MAP_C04_C03_C02_CBT"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Interoceptive exposure with mindfulness to reduce bodily monitoring",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Structured interoceptive exposure combined with mindfulness to observe sensations nonjudgmentally and reduce vigilance to bodily cues.",
+      "targets_criteria_ids": [
+        "C06",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Diminishes hypervigilance to internal cues and weakens the physiology–anxiety feedback loop.",
+      "measurement": "Interoceptive awareness score; number of checks per day; episode-related anxiety (0-10); weekly tingling intensity.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Monitor distress during exposure; tailor intensity to tolerance.",
+      "mapping_query": "MAP_C06_C02_C03_INTERO"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Uncertainty reduction through structured medical communication",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create a plan for shared decision-making and clearer explanations about possible nerve concerns, including a questions-to-ask checklist and scheduled follow-ups.",
+      "targets_criteria_ids": [
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Directly targets ongoing medical uncertainty and threat interpretation by increasing predictable information and reassurance.",
+      "measurement": "Medical uncertainty tolerance scale; satisfaction with explanations; worry about cause (0-10).",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; ensure medical accuracy and documentation.",
+      "mapping_query": "MAP_C05_C04_MED_COMM"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Diaphragmatic breathing and paced respiration",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Teach diaphragmatic breathing and paced respiration with progressive muscle relaxation to reduce acute autonomic arousal during episodes.",
+      "targets_criteria_ids": [
+        "C02",
+        "C06"
+      ],
+      "mechanism_rationale": "Lowers sympathetic arousal and interrupts immediate anxiety response to tingling, reducing monitoring and distress.",
+      "measurement": "Respiratory rate during episodes; self-rated anxiety (0-10); tingling intensity; episode frequency.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Safe; no pharmacologic guidance.",
+      "mapping_query": "MAP_C02_C06_RELAX"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Behavioral activation and reduction of bodily-monitoring",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured schedule of rewarding activities with reduced body-scan checking; gradual exposure to non-body-focused tasks.",
+      "targets_criteria_ids": [
+        "C06",
+        "C02"
+      ],
+      "mechanism_rationale": "Disrupts habitual bodily checking and lowers anxiety reactivity by increasing engagement in meaningful activity.",
+      "measurement": "Number of body checks per day; daily activity engagement; episode-related anxiety (0-10).",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Monitor for avoidance patterns; ensure balanced activity.",
+      "mapping_query": "MAP_C06_BEHAV_ACTIV"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Strengthened social support and sense of belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured plan to increase supportive social interactions (in-person or meaningful online connections) and involvement in group activities.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Social support buffers anxiety, reduces threat appraisal, and provides reassurance, thereby weakening the symptom-anxiety cycle.",
+      "measurement": "Social support index; weekly supportive interactions; episode anxiety and tingling intensity.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Promote healthy, validating social connections; avoid maladaptive online environments.",
+      "mapping_query": "MAP_C02_C03_C04_C05_SOCIAL"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Sleep optimization and circadian regularity",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene program with consistent sleep-wake times, light exposure, and wind-down routines to support neurophysiological regulation.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Improved sleep reduces baseline anxiety and enhances sensory processing, potentially decreasing episode frequency/severity.",
+      "measurement": "Sleep quality (PSQI) score; sleep duration; tingling episodes per week; daytime alertness.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Consider medical sleep evaluation if symptoms persist or worsen.",
+      "mapping_query": "MAP_SLEEP_C02_C01"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+pseudoprofile_id: pseudoprofile_FTC_ID003
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Sudden intense anxiety episodes -> CLINICAL / DSM-5TR / anxiety disorders / panic disorder / without agoraphobia / recurrent_panic_attacks_present (conf=0.65)
+- C02: Acute chest tightness during episodes -> CLINICAL / ICD-10 / pain disorders / visceral pain disorders / non-cardiac chest pain / chest_pain_anxiety (conf=0.72)
+- C03: Belief of imminent fainting in public -> CLINICAL / DSM-5TR / anxiety disorders / agoraphobia / fear of public transportation / fear_of_entrapment_or_loss_of_control_in_public_transport (conf=0.58)
+- C04: Social-evaluative embarrassment concern -> CLINICAL / DSM-5TR / anxiety disorders / social anxiety disorder / generalized / fear of negative evaluation / anticipatory_anxiety_in_social_evaluative_contexts (conf=0.92)
+- C05: Immediate safety-checking behavior (pulse checking) -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / obsessive-compulsive disorder / thematic subtypes / somatic or health obsessions (sensorimotor or body-focus) / repetitive_health_checking_behaviors (conf=0.82)
+- C06: Immediate escape/exit planning -> NON-CLINICAL / AGE-GENERAL / physical / physical safety / personal security / safety planning / creating safety plans (conf=0.72)
+- C07: Perceived unpredictability/lack of control over episodes -> NON-CLINICAL / AGE-GENERAL / existential / existentialsecurity / senseofcoherence / findingorderinchaos / predictabilityestablishment (conf=0.62)
+- C08: Attention shift to internal bodily sensations -> CLINICAL / ICD-10 / pain disorders / visceral pain disorders / non-cardiac chest pain / interoceptive_hypervigilance_to_thoracic_signals (conf=0.72)
+
+PREDICTORS:
+- P01: Panic-onset breathing regulation and autonomic arousal control -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / ecological_momentary_assessment_ema / momentary_somatic_and_physiological_perception / ema_breathing_ease (conf=0.82)
+- P02: Pulse/heart rate monitoring urge -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / ecological_momentary_assessment_ema / momentary_coping_and_response / ema_urge_intensity (conf=0.92)
+- P03: Interoceptive attention focus -> PSYCHO / integrative_creative_and_body_oriented_interventions / somatic_and_body_oriented_psychotherapies / interoceptive_awareness_training (conf=0.82)
+- P04: Social evaluative context sensitivity -> PSYCHO / cognitive_behavioral_therapies / exposure_and_inhibitory_learning / exposure_modalities / in_vivo / social_evaluation_exposure (conf=0.72)
+- P05: Escape-urge tolerance and safety-planning -> PSYCHO / foundations_and_common_factors / case_formulation_and_treatment_planning / avoidance_safety_behavior_map (conf=0.72)
+- P06: Attention control and grounding techniques -> PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / mindfulness_for_stress / orient_and_ground / five_senses_grounding_practice (conf=0.72)

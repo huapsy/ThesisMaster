@@ -1,0 +1,75 @@
+pseudoprofile_id: pseudoprofile_FTC_ID024
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID024/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.6375
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 1.00 * t + phase=1.72)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 4
+  * pulse_1: start_idx=26, length=5, amp=0.898
+  * pulse_2: start_idx=14, length=3, amp=1.058
+  * pulse_3: start_idx=122, length=2, amp=0.798
+  * pulse_4: start_idx=55, length=4, amp=1.307
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P06
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.217 | freq_hint=None
+  * P02: missing_rate=0.133 | freq_hint=None
+  * P03: missing_rate=0.217 | freq_hint=None
+  * P04: missing_rate=0.094 | freq_hint=None
+  * P05: missing_rate=0.122 | freq_hint=None
+  * P06: missing_rate=0.228 | freq_hint=None
+  * C01: missing_rate=0.250 | freq_hint=None
+  * C02: missing_rate=0.394 | freq_hint=None
+  * C03: missing_rate=0.244 | freq_hint=None
+  * C04: missing_rate=0.150 | freq_hint=None
+  * C05: missing_rate=0.144 | freq_hint=None
+  * C06: missing_rate=0.261 | freq_hint=None
+  * C07: missing_rate=0.233 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Sleep circadian entrainment | ontology_id=morning_bright_light_exposure | conf=0.72 | freq_hint=None
+- P02 (PREDICTOR): Arousal regulation / distress tolerance | ontology_id=breathing_to_downshift_arousal | conf=0.82 | freq_hint=None
+- P03 (PREDICTOR): Exposure-based noise tolerance planning | ontology_id=exposure_hierarchy_construction | conf=0.62 | freq_hint=None
+- P04 (PREDICTOR): Environmental sensory accommodations use | ontology_id=noise_reduction_measures | conf=0.68 | freq_hint=None
+- P05 (PREDICTOR): Social support / accommodation planning | ontology_id=social_support_mobilization | conf=0.72 | freq_hint=None
+- P06 (PREDICTOR): Mindfulness-based sensory grounding | ontology_id=grounding_five_senses_practice | conf=0.74 | freq_hint=None
+- C01 (CRITERION): Reduced tolerance for ambient noise | ontology_id=self_reported_distress_to_sound | conf=0.72 | freq_hint=None
+- C02 (CRITERION): Acute urge to escape noisy situations | ontology_id=urge_to_escape_trigger_sounds | conf=0.92 | freq_hint=None
+- C03 (CRITERION): Avoidance of common noisy contexts | ontology_id=avoidance_of_noise_exposure | conf=0.72 | freq_hint=None
+- C04 (CRITERION): Physiological hyperarousal when exposed | ontology_id=physiological_arousal_to_trigger_sounds | conf=0.76 | freq_hint=None
+- C05 (CRITERION): Cognitive overwhelm / difficulty processing | ontology_id=cognitive_load_management | conf=0.62 | freq_hint=None
+- C06 (CRITERION): Perceived social invalidation | ontology_id=interpersonal_rejection_sensitivity | conf=0.78 | freq_hint=None
+- C07 (CRITERION): Functional interference with daily tasks and social participation | ontology_id=functional_impairment_in_social_or_professional_domains_due_to_sound | conf=0.82 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

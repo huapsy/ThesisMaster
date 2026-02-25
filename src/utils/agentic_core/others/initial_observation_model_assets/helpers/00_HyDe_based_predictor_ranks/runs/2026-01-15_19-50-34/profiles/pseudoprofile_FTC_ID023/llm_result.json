@@ -1,0 +1,196 @@
+{
+  "pseudoprofile_id": "CASE-2026-01-15-financial-worry",
+  "summary": "This case shows persistent high-frequency financial worry with catastrophizing about expenses, accompanied by chronic low-level arousal and perceived inability to reliably meet basic needs, despite objective adequacy. The target is to reduce intrusive worry (C01), soften catastrophic expectations (C02), lower arousal (C03), and improve perceived/resource security (C04, C05, C06) via an integrated set of modifiable BIO/PSYCHO/SOCIAL levers. Interventions combine cognitive-behavioral skills, physiological regulation, practical resource access, and social supports, with clear measurement milestones and feasible timelines to move the specified criteria.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Emergency financial buffer creation + automatic budgeting and bill-pay setup",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Set up a small automatic savings buffer (e.g., $100–$300) with automatic transfers; implement a simple monthly budget; establish automatic bill-pay and expense monitoring.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "By increasing actual and perceived resource security, the buffer reduces fear around impending bills, strengthens coping beliefs, and lessens the trigger for future-oriented panic (C04 → C05 → C06 and C01 indirectly).",
+      "measurement": "Buffer size; frequency of missed/late payments; self-reported financial security; worry frequency (EMA)",
+      "time_horizon": "0-3 months",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure debt levels remain manageable; coordinate with a financial counselor if debt risk is imminent; protect privacy of financial data.",
+      "mapping_query": "Targets C04 (basic-expenses worry) and C05 (financial resilience); potential downstream impact on C01 via reduced threat salience of bills."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Cognitive restructuring + worry scheduling (CBT-based)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Weekly cognitive-behavioral sessions focusing on challenging catastrophizing about money, plus a structured worry schedule (designated worry window) and problem-solving training.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Directly reduces intrusive financial thoughts (C01) and catastrophizing (C02); improved cognitive control lowers arousal (C03) and reduces future-oriented insecurity (C06.",
+      "measurement": "Worry frequency diary; Catastrophizing scale; GAD-7 or PSWQ scores; perceived control",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for distress during exposure to worries; provide escalation pathway if anxiety escalates.",
+      "mapping_query": "Directly targets C01 and C02; potential ripple effects on C03 and C06."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Arousal regulation via paced breathing + brief mindfulness",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Daily 10-minute paced breathing practice plus brief mindfulness to reduce baseline anxious arousal; optional sleep and energy regulation.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Lower baseline arousal reduces reactivity to financial stress cues, improving cognitive control over worry (C01) and dampening chronic arousal (C03).",
+      "measurement": "Physiological arousal self-rating; breathing rate; worry frequency; sleep quality",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "No breathing contraindications; adjust for hyperventilation risk; provide guidance if dizziness occurs.",
+      "mapping_query": "Affects C03 (arousal) with downstream effects on C01."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Benefits navigation and social resource access",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Systematic review and application for eligible social benefits (housing, food, utilities); connect with a social worker or benefits navigator.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C05"
+      ],
+      "mechanism_rationale": "Increasing actual financial resources and social support reduces worry and improves perceived security (C04, C05), which in turn lowers long-term uncertainty (C06).",
+      "measurement": "Number of benefits applied/approved; monthly net income; perceived security; worry frequency",
+      "time_horizon": "1-3 months",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Respect privacy; ensure consent; verify program eligibility to avoid misinformation.",
+      "mapping_query": "Directly improves C04 and C06; supports C05 via resource enhancement."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Digital self-monitoring with feedback loop (bio-psycho-social)",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Daily app-based logs for worries, sleep, and expenses; weekly feedback summary with adaptive plan adjustments; optional clinician review.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Increases awareness of triggers and patterns, enabling timely coping strategies and resource adjustments; strengthens self-regulation and perceived control.",
+      "measurement": "App engagement rate; correlation of worry with expenses; changes in worry frequency and sleep metrics",
+      "time_horizon": "2-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Data privacy; ensure secure data handling; avoid over-reliance on tech.",
+      "mapping_query": "Addresses all criteria with a feedback loop that informs adjustments; strongest link to C01/C04/C05/C06."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "External cognitive aids: budgeting apps + automatic reminders",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Use a budgeting/mobile app with automated reminders for due bills and essential expenses; set personal finance routines.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Reduces cognitive load and anticipatory worry by ensuring predictable, timely financial actions, improving perceived control (C04) and lowering intrusive thoughts (C01).",
+      "measurement": "App usage metrics; rate of on-time payments; worry frequency",
+      "time_horizon": "1-2 months",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Privacy settings; ensure data security; compatibility with accounts.",
+      "mapping_query": "Directly reduces C04; indirect effect on C01 via predictability."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Behavioral activation for financial task mastery",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Schedule small, achievable financial tasks (e.g., verify bills, update budget) with rewards; gradual increase in task complexity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Increases mastery and reduces avoidance, decreasing worry frequency (C01) and improving ability to meet expenses (C04).",
+      "measurement": "Task completion rate; self-efficacy for finances; worry diary",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Tailor tasks to energy and time; avoid overwhelm; pace appropriately.",
+      "mapping_query": "Targets C01 and C04 by building concrete financial task competence."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Social support and community resource linkage (social prescribing)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage with social support networks; join money-management or stress-reduction groups; link to community resources.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Social belonging and support buffer anxiety, enhance access to resources, and improve perceived security, reducing worry and future uncertainty.",
+      "measurement": "Number of supportive contacts; perceived social support scores; worry and financial security ratings",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Respect boundaries; screen for safety in relationships; avoid overloading networks.",
+      "mapping_query": "Addresses C01/C04 via social buffering; enhances C05 and C06 through social/resource supports."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Sleep circadian optimization for arousal reduction",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent sleep/wake times, optimize sleep environment, limit caffeine later in day; align light exposure.",
+      "targets_criteria_ids": [
+        "C03",
+        "C06",
+        "C01"
+      ],
+      "mechanism_rationale": "Improved sleep reduces daytime arousal/reactivity, supporting cognitive control over worries (C03) and may indirectly reduce future-oriented worry (C06) and C01.",
+      "measurement": "Sleep duration/quality (sleep diary or PSQI); daytime alertness; worry frequency",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "If sleep issues persist, consider clinical sleep assessment; avoid unsafe sleep aids.",
+      "mapping_query": "Primarily targets C03; potential downstream effects on C01 and C06."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Regular moderate physical activity to modulate anxiety",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Engage in 150 minutes/week of moderate exercise (e.g., brisk walking, cycling) with a consistent schedule.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Exercise reduces physiological arousal and improves mood, diminishing chronic worry (C01) and arousal (C03).",
+      "measurement": " Weekly exercise minutes; anxiety/worry ratings; sleep impact",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Medical clearance if needed; tailor to fitness level.",
+      "mapping_query": "Affects C03 with downstream reduction in C01."
+    }
+  ]
+}

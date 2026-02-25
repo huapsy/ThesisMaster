@@ -1,0 +1,117 @@
+{
+  "pseudoprofile_id": "CaseNightmareSleep_01",
+  "summary": "The six modifiable predictors target nightmares at multiple levels: reducing nightmare frequency and vividness (C01, C02) and anticipatory sleep fear (C03) via imagery rehearsal and cognitive strategies; dampening acute autonomic arousal on awakening (C04) and easing post-nightmare recovery (C05); and improving sleep continuity and resumption by stabilizing circadian rhythms and sleep environment (C06). The levers combine psychological therapies (IRT, CBT strategies), physiological regulation (relaxation, HRV/breathing, circadian entrainment), and environmental/behavioral adjustments to create a synergistic, safety-forward plan that is feasible in typical clinical or coaching settings. Measurements rely on simple, self-reported diaries and brief physiological metrics to track progress over weeks.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Imagery_Rehearsal_Therapy_for_nightmares",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured nightly imagery rehearsal therapy (IRT) to rewrite nightmare content and rehearse a positive ending, with 15–20 minutes of daytime rehearsal and nightly practice. Aims to reduce nightmare frequency and vividness and lessen anticipatory sleep fear by increasing perceived control over dream content.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "IRT changes the dream memory representation, reducing recurrence and vividness, which in turn lowers fear and avoidance around sleep. By practicing an alternative ending, the individual gains mastery over nightmare experiences, which dampens nocturnal arousal triggers.",
+      "measurement": "Weekly diary: nightmare frequency (nights with nightmares per week), nightmare vividness (0–10 scale), and pre-sleep fear rating (0–10)",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No pharmacological risk; monitor for distress when recalling nightmares; involve clinician if trauma symptoms worsen.",
+      "mapping_query": "Nightmare-specific imagery rehearsal therapy measurement and outcomes"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Breathing_and_PMR_with_HRV_Biofeedback",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Diaphragmatic/breathing retraining (e.g., paced breathing 4–7–8), combined with progressive muscle relaxation (PMR) and optional low-cost HRV biofeedback to steady autonomic arousal during sleep transitions.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Slow, controlled breathing and PMR reduce sympathetic activation and promote parasympathetic tone, decreasing autonomic arousal on awakening and shortening the time to calm after a nightmare.",
+      "measurement": "HRV metrics (e.g., RMSSD) during practice, self-reported calmness after awakenings (0–10), and time to return to baseline (minutes)",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Risk of lightheadedness if hyperventilating; adjust instructions for comfort.",
+      "mapping_query": "HRV/breathing/relaxation interventions for nightmare arousal"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep_Fear_Cognitive_Reconstruction",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive-behavioral strategies targeting sleep-related dread: identify catastrophic sleep beliefs, test them with behavioral experiments, and develop adaptive sleep plans to reduce anticipatory worry.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Reducing sleep-related catastrophizing lowers avoidance and anticipatory anxiety, improving willingness to initiate sleep and reducing pre-sleep arousal that can fuel nightmares.",
+      "measurement": "Pre-sleep worry rating (0–10), sleep avoidance days per week, and self-reported sleep initiation timing",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.78,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Standard CBT-CBT-I framework; monitor for treatment distress during reframing.",
+      "mapping_query": "Cognitive restructuring for sleep-related fear and avoidance"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "PostNightmare_Arousal_Reduction_Routine",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "A brief post-awakening routine (grounding, 4-4-4 breathing, PMR, journaling) within 2–5 minutes to rapidly downregulate arousal and facilitate return to sleep.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Immediate arousal dampening reduces lingering physiological activation, enabling faster calm and easier resumption of sleep after nightmare awakenings.",
+      "measurement": "Time to calm after awakening (minutes), time to resume sleep (minutes), subjective post-awakening calmness (0–10)",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.82,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None beyond standard grounding; ensure practice is brief and not triggering.",
+      "mapping_query": "Post-awakening grounding and relaxation interventions"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Regular_Sleep_Schedule_and_Morning_Light_Exposure",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Establish and maintain consistent bed and wake times, limit daytime naps, and incorporate morning light exposure (outdoor or bright indoor light) to entrain circadian rhythms.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Circadian stabilization reduces bedtime resistance, improves sleep onset and efficiency, and supports quicker stabilization after arousals, indirectly reducing nightmare-triggered awakenings.",
+      "measurement": "Sleep diary logs (bedtime, wake time, total sleep time), minutes of morning light exposure, and sleep efficiency",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Sun exposure should be moderated for photosensitivity and skin issues.",
+      "mapping_query": "Circadian entrainment via schedule and light exposure outcomes"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep_Environment_Optimization_and_Aerobic_Exercise",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Create an optimal sleep environment (dark, cool, quiet; 18–20°C; minimize noise and light) and engage in regular aerobic activity (e.g., 150 minutes/week) with daylight exposure to improve sleep quality and reduce nocturnal arousal.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "A stable environment plus regular exercise improves sleep depth and reduces nocturnal awakenings, while daylight and physical activity support circadian alignment and lower baseline arousal.",
+      "measurement": "Environmental comfort rating, nightly sleep latency, number of awakenings per night, weekly exercise minutes",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Exercise safety considerations; adjust intensity to fitness level.",
+      "mapping_query": "Sleep environment optimization and exercise effects on nightmares and sleep continuity"
+    }
+  ]
+}

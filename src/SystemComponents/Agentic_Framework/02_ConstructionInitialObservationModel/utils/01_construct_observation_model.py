@@ -233,17 +233,20 @@ def _find_repo_root() -> Path:
 
 
 REPO_ROOT = _find_repo_root()
+INITIAL_MODEL_ASSETS_ROOT = (
+    REPO_ROOT / "src/utils/agentic_core/others/initial_observation_model_assets"
+)
 
 DEFAULT_MAPPED_CRITERIONS_PATH = str(
-    REPO_ROOT / "evaluation/02_mental_health_issue_operationalization/mapped_criterions.csv"
+    REPO_ROOT / "evaluation/sequential/01_operationalization/outputs/mapped_criterions.csv"
 )
 
 DEFAULT_HYDE_DENSE_PROFILES_PATH = str(
-    REPO_ROOT / "evaluation/03_construction_initial_observation_model/helpers/00_HyDe_based_predictor_ranks/runs/2026-01-15_19-50-34/dense_profiles.csv"
+    INITIAL_MODEL_ASSETS_ROOT / "helpers/00_HyDe_based_predictor_ranks/runs/2026-01-15_19-51-47/dense_profiles.csv"
 )
 
 DEFAULT_LLM_MAPPING_RANKS_PATH = str(
-    REPO_ROOT / "evaluation/03_construction_initial_observation_model/helpers/00_LLM_based_mapping_based_predictor_ranks/all_pseudoprofiles__predictor_ranks_dense.csv"
+    INITIAL_MODEL_ASSETS_ROOT / "helpers/00_LLM_based_mapping_based_predictor_ranks/all_pseudoprofiles__predictor_ranks_dense.csv"
 )
 
 DEFAULT_HIGH_LEVEL_ONTOLOGY_PATH = str(
@@ -256,7 +259,7 @@ DEFAULT_PREDICTOR_FEASIBILITY_CSV = str(
 )
 
 DEFAULT_RESULTS_DIR = str(
-    REPO_ROOT / "evaluation/03_construction_initial_observation_model/constructed_PC_models"
+    REPO_ROOT / "evaluation/sequential/02_initial_observation_model/outputs"
 )
 
 # LLM model (per your request)
@@ -3312,8 +3315,13 @@ def _parse_args() -> argparse.Namespace:
 def main() -> None:
     args = _parse_args()
 
-    if not os.getenv("OPENAI_API_KEY"):
-        raise RuntimeError("OPENAI_API_KEY is not set. Export it before running: export OPENAI_API_KEY='...'")
+    openrouter_api_key = str(os.getenv("OPENROUTER_API_KEY") or "").strip()
+    if openrouter_api_key:
+        os.environ["OPENAI_API_KEY"] = openrouter_api_key
+        if not str(os.getenv("OPENAI_BASE_URL") or "").strip():
+            os.environ["OPENAI_BASE_URL"] = "https://openrouter.ai/api/v1"
+    if not str(os.getenv("OPENAI_API_KEY") or "").strip():
+        raise RuntimeError("Missing API key. Set OPENROUTER_API_KEY (preferred) or OPENAI_API_KEY.")
 
     run_id = _safe_filename(args.run_id.strip()) if args.run_id.strip() else _now_stamp()
 

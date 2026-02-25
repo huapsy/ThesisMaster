@@ -1,0 +1,1203 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID026",
+  "model_summary": "An initial gVAR-ready observation model targeting six core (non-)clinical criteria derived from the presented complaint: repetitive checking, anticipatory social-evaluative fear, delayed responses, perceived social cost, uncertain send-threshold, and social-time impact. Six modifiable predictors are selected to address these mechanisms via practical, safe, and measurable levers (message drafting templates, cognitive reframing with feedback, structured scripts, cognitive offloading aids, pre-message relaxation, and assertiveness training). The design emphasizes within-person variance with EMA-based momentary assessments and a light daily diary to anchor context, enabling estimation of dynamic, lagged relationships for a first-pass gVAR implementation while avoiding excessive burden.",
+  "variable_selection_notes": "Criteria C01–C06 capture the most salient, changeable cognitive-emotional-behavioral factors described in the complaint. Predictors P01–P06 map to discrete, actionable levers with low redundancy. The six predictors are designed to be measurable with 0–8 Likert-type scales (continuous-ish) and EMA sampling to preserve within-person variance. Passive data is minimized to reduce noise and burden; daily diary complements EMA for context. Stationarity and potential nonlinearity are acknowledged in predictor_handling and edges. The sampling plan yields a manageable total prompt load (168 EMA prompts across 14 days for 6 predictors at 2 prompts/day per predictor) while ensuring sufficient data for initial VAR estimation.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 2,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "10:00-10:15",
+        "19:00-19:15"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 28,
+      "notes": "Two prompts per predictor per day over 14 days; blocks chosen to cover daytime/evening windows with slight jitter to avoid predictability."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "12:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "One brief daily diary entry to anchor context (e.g., current stress, recent communication context)."
+    },
+    "passive_streams": {
+      "enabled": false,
+      "aggregation_strategy": "",
+      "notes": "No passive sensing integrated in this initial model to reduce noise and burden."
+    },
+    "minimum_total_observations_target": 182,
+    "gvar_readiness_notes": "Initial variable set is designed for estimability in a gVAR framework with moderate dimensionality; expect some nonlinearity in predictor effects (documented in edges).",
+    "variance_support_notes": "Center within-person (z-score) and consider per-participant normalization to handle between-person differences in scale use; expect valid within-person variance from EMA; use 0–8 scales to maximize granularity.",
+    "missingness_risk_notes": "Anticipate occasional missing EMA responses; implement reminder prompts and include missingness flags; avoid imputing with last observation as default."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "",
+      "label": "Repetitive proofreading/checking of outgoing messages",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "behavioral_log",
+        "channel": "self-report",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "When composing your last outgoing message, to what extent did you re-read or edit it before sending? (0 = none, 8 = extreme, with higher values indicating more frequent/lengthy checking)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Derived from complaint example: 'rereading messages like 20 times'."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_participant",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "",
+      "label": "Fear of sounding stupid or rude when messaging",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right before composing a message, how anxious are you about sounding stupid or rude to the recipient? (0 = not anxious, 8 = extremely anxious)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures anticipatory social-evaluative fear."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_participant",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "",
+      "label": "Delayed responses to messages (slow reply)",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since your last message, how long did you take to reply compared with typical response times for your relationships? (0 = very fast, 8 = very slow)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures time cost from the composing/checking process."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_participant",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "",
+      "label": "Perceived social consequence: others interpret delay as ignoring",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Do you believe others interpret your delayed replies as you are ignoring them? (0 = not at all, 8 = very much)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Links to interpersonal distress."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_participant",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "",
+      "label": "Uncertain threshold for 'good enough' message content",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Before sending a message, to what extent do you feel uncertain about being 'good enough' and revise? (0 = not uncertain, 8 = extremely uncertain)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures decision threshold uncertainty."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_participant",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "",
+      "label": "Functional/time impact on communication",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How much does the checking and delay disrupt your typical communication speed or social functioning right now? (0 = not disruptive, 8 = severely disruptive)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Direct link to functional impairment."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_participant",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Drafting boundary/template protocol for messages",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Skills_Libraries > Interpersonal_and_Communication_Skills > boundary_setting_and_template_use",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Provides external structure to reduce ambiguity around 'good enough messaging (C05)' and reduces unnecessary checking (C01).",
+      "intervention_examples_safe": "Use a short, pre-approved boundary sentence; draft in a template with placeholders.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since your last message, to what extent did you rely on a drafted boundary/template to compose your reply? (0 = not at all, 8 = very much)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Targets C05, with ripple effects on C01/C03/C04."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_participant",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Templates reduce need for repeated checking."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Boundary use may indirectly modulate fear of evaluation."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Structured drafting may shorten reply construction time."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Clear boundaries may alter perceived social cost."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "External templates anchor 'good enough' standard."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Paced sends may reduce disruption."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Cognitive reframing and social feedback experiments",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Cognitive_Behavioral_Therapies > Cognitive_Reframing_and_Feedback_Experiments",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Targets anticipatory fear (C02) and perceived social cost (C04) by reframing thoughts and testing feedback in safe scripts.",
+      "intervention_examples_safe": "Practice reframe statements before sending; seek brief, non-judgmental feedback on messages.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Before composing your last message, did you attempt a cognitive reframing or seek quick feedback? (0-8)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures cognitive-offloading via reframing/feedback."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_participant",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Reframing may lower need to check."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Explicit reframing aims to reduce anticipatory anxiety."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Feelings of delay may decrease as confidence improves."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better clarity may reduce misinterpretation by others."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Cognitive reframing reduces indecision."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Quicker decisions may ease overall communication pace."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Structured social script and response pacing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > CBT_Skills_Training_Libraries > Conversation_Skills_Scripts",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.88,
+      "mechanism_rationale": "Directly addresses C03 (delay) and C06 (time impact) via rehearsed scripts and pacing, reducing response latency and anxiety at send-off.",
+      "intervention_examples_safe": "Use a short i-statements script; pre-plan message length and pacing.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the current messaging moment, did you follow a pre-planned script or pacing strategy? (0 = not at all, 8 = fully)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Targets C03/C06 by structuring replies."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_participant",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Scripts reduce need for checking."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Scripts may influence fear variably."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Predictable pacing reduces delays."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Clear scripts may mitigate misinterpretation."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Structuring messages reduces uncertainty."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Paced responses may decrease perceived disruption."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Cognitive offloading and external aids for message composition",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Tools_and_Aids > External_Cognitive_Offloading_Supports",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.92,
+      "mechanism_rationale": "External aids reduce uncertainty (C05) and lower repetitive checking (C01) by distributing cognitive load.",
+      "intervention_examples_safe": "Use short checklists, pre-written phrases, and content templates.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the current drafting moment, did you use an external aid (checklist/template/phrases) to compose your reply? (0 = not at all, 8 = extensively)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Externalizing tools aimed at reducing cognitive load."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_participant",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Templates encourage fewer checks."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Impact on fear may vary by user."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Offloading may speed drafting."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Clear content aids may alter interpretation."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "External aids reduce send-threshold ambiguity."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Lower cognitive load may speed replies."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.92,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Pre-message relaxation and mindfulness practices",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Mindfulness_Based_Interventions > Applied_Mindfulness_for_Stress_and_Reactivity",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.86,
+      "mechanism_rationale": "Reduces physiological arousal and distress (C02) and may lower urgency for rapid replies (C03) by stabilizing cognitive-emotional state.",
+      "intervention_examples_safe": "2–5 minutes of diaphragmatic breathing or brief body-scan before messaging.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right before composing a message, did you engage in a brief relaxation or mindfulness practice? (0 = no, 8 = yes, intensity)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Targets arousal-related mechanisms (C02)."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_participant",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Calm state reduces urge to re-check."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Calm state may lower anticipatory fear."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Relaxation may quicken drafting."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Impact on social interpretation uncertain."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Mindful pause may clarify send-threshold."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Lower arousal may improve pacing."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Assertiveness communication skills training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Core_Psychological_Skills_Toolkits > Interpersonal_Effectiveness_and_Relational_Repair",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Enhances boundary-setting and clear expression (C04), supports targeted communication (C03) and reduces uncertainty around 'good enough' (C05).",
+      "intervention_examples_safe": "Practice i-statements; rehearse boundary-setting phrases; use 'I' language.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Have you used assertive communication skills in your message preparation (e.g., 'I-statements') this moment? (0 = not at all, 8 = fully)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Targets C04 and C05 through clearer send criteria."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_participant",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Clear phrasing reduces need to re-check."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Assertiveness reduces perceived threat."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Direct communication may speed sends."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Clearer messages reduce misinterpretation."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Boundaries clarify send-threshold."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Enhanced skills may reduce overall time burden."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": ""
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,42000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Templates likely reduce checking frequency.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "Uncertain direct impact on fear of evaluation.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Draft templates may shorten reply construction.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Clear templates may reduce perceived ignoring risk.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "Boundary templates may set send-threshold.",
+      "estimated_relevance_0_1": 0.3
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "External templates may speed replies.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reframing reduces checking drive.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Affective shift reduces anticipatory anxiety.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Better confidence may shorten response times.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Feedback reduces misinterpretation risk.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "Cognitive reframing affects uncertainty variably.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reduced hesitation may lower disruption.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Structured scripts limit checking.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "Impact on fear depends on content.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Predictable pacing reduces delays.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "Clarity may reduce misinterpretation.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "Stated send-threshold may be clearer.",
+      "estimated_relevance_0_1": 0.35
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Paced sends may reduce disruption.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "External offloading reduces checking.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Lower anxiety may follow from clarity.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Fewer checks speed drafting.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Externalizing may reduce perceived ignoring.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reduces uncertainty about 'good enough'.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Lower cognitive load may speed replies.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Relaxation reduces checking urge.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Lower arousal may reduce fear.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Calm state can speed drafting.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "Impact on social interpretation uncertain.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Pause may clarify send-threshold.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Relaxation may ease pacing.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Assertiveness may reduce checking.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Clear boundaries may reduce evaluation fear.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Directness may speed replies.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Clear communication reduces misinterpretation.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Boundaries clarify send-threshold.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Skillful communication may reduce time burden.",
+      "estimated_relevance_0_1": 0.55
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [],
+    "expected_floor_ceiling_risks": [],
+    "variance_enhancement_suggestions": [
+      "Within-person centering (z-score) per participant.",
+      "Per-criterion standardization prior to VAR modeling.",
+      "Check for nonlinearities in P02–P06 with C02/C04 edges; consider nonlinear terms if indicated."
+    ],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": "Six predictors with six criteria yields 36 predictor-criterion pairs; expected variance among within-person fluctuations is adequate given 2 prompts/day for 14 days. Nonlinearities noted for several edges; plan to test in initial VAR with potential nonlinear terms if warranted."
+  },
+  "safety_notes": "No diagnosis or medical dosing guidance is provided. If acute risk is detected, escalate to professional care per local guidelines."
+}

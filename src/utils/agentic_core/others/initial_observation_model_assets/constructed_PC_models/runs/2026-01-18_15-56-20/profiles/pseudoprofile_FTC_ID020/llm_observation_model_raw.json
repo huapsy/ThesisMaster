@@ -1,0 +1,911 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID020",
+  "model_summary": "Initial gVAR-ready observation model targeting eight operationalized perceived-life-competence criteria (C01–C08) with a compact set of modifiable predictors (P01–P07) designed to enhance salutogenic functioning. The criteria cover practical knowledge gaps, financial and household backlogs, social maintenance, health self-management, time management, self-worth, and preserved functioning. Predictors emphasize time-management scaffolds, financial coaching, household-task systems, social accountability, health self-management, self-compassion/cognitive reframing, and mastery framing. Measurement is designed to maximize within-person variance via momentary EMA, complemented by brief daily diaries and passive streams where feasible. The grid of predictor-to-criterion relevance is populated to enable initial gVAR specification while minimizing redundancy and collinearity.",
+  "variable_selection_notes": "Eight criteria (C01–C08) preserve the complaint’s resolution by spanning daily life domains (knowledge, finances, chores, social ties, health, time management, self-worth, functioning). To avoid redundancy, a single broad self-regulation construct is initially captured via predictor P01–P07 focusing on planning, initiation, task-breakdown, self-monitoring, and mastery experiences. All criteria are measured with momentary EMA (4 prompts/day) to maximize within-person variance; C08 is kept as a relatively stable functioning anchor but still captured as momentary. Predictors are chosen for modifiability and coherence with HyDe rankings, with nonlinear/unknown effects flagged where applicable.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:00-10:00",
+        "13:00-14:00",
+        "17:00-18:00",
+        "21:00-22:00"
+      ],
+      "recall_window": "since last prompt",
+      "expected_total_prompts": 56,
+      "notes": "Prompts capture all eight criteria (C01–C08) across daily life; blocks spaced to sample mornings, midday, afternoon, and evening."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 2,
+      "anchor_times_local": [
+        "08:00",
+        "20:00"
+      ],
+      "expected_total_entries": 28,
+      "notes": "2 short diaries per day to complement EMA (health, sleep, fatigue, or functioning anchor)."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Optionally incorporate wearables/sensors to contextualize variance (e.g., activity, sleep, HRV proxies)."
+    },
+    "minimum_total_observations_target": 100,
+    "gvar_readiness_notes": "Initial variable set supports within-person variance and interpretable lag structures; scalable to additional predictors later.",
+    "variance_support_notes": "Expect substantial within-person variance in C01–C07; C08 may be more stable but still fluctuates with fatigue and health state.",
+    "missingness_risk_notes": "Moderate risk of missing prompts; employ reminders, brief incentive structure, and flexible recall windows."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Perceived lack of practical life knowledge",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, to what extent do you feel you lack clear procedural knowledge or 'how-to' guidance for managing everyday responsibilities and routines? (1 = no lack, 9 = a lot of lack)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Grounds complaint’s perceived knowledge gap (instruction manual analogy)."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Financial-management backlog",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, to what extent do you feel you have a backlog in money management tasks (bills, budgeting, saving)? (1 = no backlog, 9 = large backlog)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Directly reflects financial-domain backlog."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Household task completion backlog",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, to what extent do you feel you are behind on household chores and maintenance tasks? (1 = no backlog, 9 = large backlog)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures daily-life task backlog in the home domain."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Social-maintenance deficit",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, to what extent do you feel you are behind on maintaining friendships or social commitments? (1 = not behind, 9 = very behind)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Social domain backlog mapped to relationships."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Health self-management gap",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, to what extent are you behind on health-related behaviors or care (appointments, exercise, medications, preventive care)? (1 = not behind, 9 = very behind)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Health-management backlog aligns with complaint’s health domain."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Time-management and organizational skills deficit",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, to what extent do you feel you have deficits in time-management, planning, prioritization, or organization? (1 = no deficit, 9 = severe deficit)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Central self-regulation domain linked to catch-up experiences."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C07",
+      "source_variable_id": "custom",
+      "label": "Negative self-evaluation / shame about life progress",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, to what extent do you feel negative about your life progress or experience shame related to normal life expectations? (1 = none, 9 = a lot)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures self-worth reflections tied to perceived life trajectory."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C08",
+      "source_variable_id": "custom",
+      "label": "Preserved basic functional capacity",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how well are you able to carry out essential daily tasks (e.g., self-care, chores) given how you feel today? (1 = not well at all, 9 = very well)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Anchor for functioning in the presence of perceived backlog."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "External time-management scaffolds and routines",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / core_psychological_skills_toolkits / executive_function_and_self_management / planning_and_prioritization / goal_structuring / *plan_do_review_self_management",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.95,
+      "mechanism_rationale": "Directly enhances planning, scheduling and task initiation; reduces backlog",
+      "intervention_examples_safe": "calendar reminders, batch planning, task automation",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 3 hours, to what extent did you use external time-management scaffolds (calendar reminders, to-do lists, automation) to plan tasks? (1-9)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "past_3_hours",
+        "expected_within_person_variability": "high",
+        "notes": "S04 S01 in HYDE mapping."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "High feasibility; EMA taps directly into planning behavior."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Financial management automation and coaching",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / cognitive_based_therapies / financial_mails_and_budgeting_support",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Reduces financial backlog via automation and coaching; improves adherence to budgets",
+      "intervention_examples_safe": "digital budgeting tools, automated bill-pay coaching",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 3 hours, to what extent did you use financial automation or coaching tools to manage money tasks? (1-9)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "past_3_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Financial-domain lever with moderate modifiability."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Moderate feasibility; calendar/coaching apps vary by user."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Household task management system",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / cognitive_capacity_enhancement_and_stimulation / program_setup_and_transfer / assessment_goals_and_task_selection / personalization / *task_breakdown_skill",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Breaks down chores into small steps; reduces backlog accumulation",
+      "intervention_examples_safe": "task templates, checklists, micro-steps",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since your last prompt, how effectively did you break down household chores into small actionable steps? (1-9)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "past_3_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Targets daily task breakdown behaviors."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Good feasibility; relies on self-report of task-breakdown behavior."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Social accountability platform",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] / interpersonal_therapeutic_solutions / accountability_and_support / *group_or_social_tracking",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Prompts social accountability, supports maintenance of social commitments",
+      "intervention_examples_safe": "peer-support check-ins, shared task lists",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 3 hours, to what extent did you engage with a social accountability platform to track tasks or commitments? (1-9)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "past_3_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Leverages social support to reduce backlog."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Moderate feasibility; depends on user adoption of social tools."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Health self-management optimization",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] / health_optimization / self_management_tools",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Promotes adherence to health behaviors and appointment keeping",
+      "intervention_examples_safe": "reminders, habit-formation cues, exercise prompts",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 3 hours, to what extent did you engage in health self-management behaviors (e.g., exercise, medication, appointments)? (1-9)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "past_3_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Links health behaviors to backlog reduction."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Reasonable feasibility; varies with health routines."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Self-compassion and cognitive reframing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / core_psychological_skills_toolkits / emotion_regulation_and_affect_skills",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Reduces harsh self-judgments and supports adaptive appraisal",
+      "intervention_examples_safe": "brief self-compassion exercises, cognitive reframing practice",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 3 hours, to what extent did you engage in self-compassion or cognitive reframing practices? (1-9)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "past_3_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Targets internal emotion regulation processes."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Moderate feasibility; relies on participant engagement with self-compassion tasks."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "Mastery experiences and strength-based framing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / third_wave_and_contextual_therapies / dbt_skills_based_therapy / emotion_regulation_skills / build_mastery_and_efficacy / *graded_task_mastery_planning",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Enhances self-efficacy through small-win mastery; supports persistence",
+      "intervention_examples_safe": "graded task ladders, strengths-spotting",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 3 hours, to what extent did you notice mastery or efficacy growth from completing tasks? (1-9)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "past_3_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Captures perceived mastery and efficacy shifts."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.78,
+        "gvar_feasibility_0_1": 0.78,
+        "notes": "Feasible; focuses on internal beliefs and self-efficacy perception."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,60000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Time-management scaffolds should reduce deficits in planning-related tasks within hours.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Scaffolds reduce perceived lack of practical knowledge by structure.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Financial coaching lowers backlog in money tasks.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Financial tools may indirectly ease household task backlog.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Clear task breakdown reduces household backlog.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Social accountability improves social maintenance.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Accountability may support practical knowledge adherence.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Health self-management supports health-related behavior adherence.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Health engagement can free cognitive bandwidth and improve time use.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Self-compassion reduces shame and negative self-evaluation.",
+      "estimated_relevance_0_1": 0.82
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mastery experiences lower self-criticism.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C08",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Self-compassion and regulation may sustain functioning.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C08",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mastery framing supports perceived functioning.",
+      "estimated_relevance_0_1": 0.5
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [],
+    "expected_floor_ceiling_risks": [],
+    "variance_enhancement_suggestions": [
+      "Maintain 4 EMA prompts/day to maximize variance; consider occasional adaptive prompts if missingness rises.",
+      "Apply per-person z-scoring to predictors and criteria for initial VAR stability.",
+      "Review C08 variance across days; if too stable, consider increasing sampling window or adding an anchor diary item."
+    ],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": "Feasible with 7 predictors and 8 criteria across 14 days; PROMPT cadence supports estimable lagged relationships; monitor missingness and adjust as needed."
+  },
+  "safety_notes": "Not a diagnosis. No medication dosing or treatment recommendations. If acute risk emerges, refer to appropriate clinical resources immediately."
+}

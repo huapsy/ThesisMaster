@@ -1,0 +1,159 @@
+{
+  "pseudoprofile_id": "CASE_PAYLOAD_001_BIOPSYCHO_SOCIAL_SOLUTION_SET",
+  "summary": "For episodes characterized by transient unreal/film-like experiences triggered by stress, a modifiable, multi-domain plan is proposed across biological, psychological, and social levers that plausibly reduce episode frequency, distress, and the sense of derealization, while enhancing presence and daily functioning. Levers emphasize sleep and circadian regulation, stress management, in-the-moment grounding, physical activity, social support, nutrition, and data-informed self-monitoring. Each lever targets specific operational criteria (C01–C08) with concrete measurement methods, feasible implementation steps, and defined time horizons.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep_Hygiene_and_Circadian_Rhythm_Regularization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish a consistent sleep-wake schedule, optimize sleep environment (dark/quiet, cool), limit caffeine/stimulants after noon, and implement a wind-down routine to stabilize sleep/activity rhythms.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C08"
+      ],
+      "mechanism_rationale": "Improved sleep quality and stable circadian signaling reduce stress reactivity, perceptual noise, and dissociative experiences by supporting brain energy, sensory processing, and emotional regulation. Regular sleep can lower baseline arousal, making episodes less likely and less distressing.",
+      "measurement": "Sleep diary (bedtime, wake time, awakenings), PSQI score, weekly self-rated stress (0-10)",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "CASE_PAYLOAD:C02,C03,C04,C08"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Mindfulness_and_Grounding_Skills_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach and practice through short daily sessions (breathing, grounding, tempo-synchrony, body scan) with in-episode grounding routines to anchor presence during episodes.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Grounding and present-moment attention can buffer the distress response and restore a sense of presence during episodes, reducing alarm and avoidance behaviors.",
+      "measurement": "Self-reported presence during episodes (0-10 scale), distress level during episodes (0-10), daily mindfulness practice log",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "CASE_PAYLOAD:C03,C04"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Stress_Reduction_and_Coping_Skills_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": " introduce evidence-based stress management (diaphragmatic breathing, PMR, activity scheduling, cognitive coping) and problem-solving strategies to reduce the frequency of triggering stress.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C08"
+      ],
+      "mechanism_rationale": "Lower baseline stress and improved coping reduce the likelihood and intensity of episodes and the distress they cause, improving overall functioning.",
+      "measurement": "Perceived Stress Scale (PSS-10) or short form, weekly episode log (frequency, perceived intensity), coping skill use checklist",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "CASE_PAYLOAD:C02,C04,C08"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Regular_Aerobic_Exercise_Program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a structured, progressive aerobic program (e.g., brisk walking 150 minutes/week) with a run/heel-toe cadence to improve neurovascular health, mood, and stress tolerance.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C08"
+      ],
+      "mechanism_rationale": "Aerobic activity enhances brain-derived neurotrophic factors, sleep quality, and stress regulation, which can decrease episode susceptibility and distress.",
+      "measurement": "Weekly exercise minutes, heart rate zones, and activity logs; self-reported episode frequency and distress",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Gradual progression; medical clearance if cardiometabolic risk; adjust for symptoms",
+      "mapping_query": "CASE_PAYLOAD:C02,C04,C08"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "In-the-moment_Grounding_Techniques",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Provide a pack of quick grounding techniques (5-4-3-2-1 sensory exercise, box breathing) for real-time use at onset of episodes.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Immediate stabilization of arousal and sensory integration can prevent escalation, maintaining presence and reducing fear/distress.",
+      "measurement": "Frequency of use per episode, perceived efficacy (0-10), presence rating during episodes",
+      "time_horizon": "Ongoing with initial 2-4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "CASE_PAYLOAD:C03,C04,C01"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Structured_Social_Support_and_Belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create a low-burden social support plan: weekly check-ins with a trusted person, and a peer group or online community for shared experiences and accountability.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C08"
+      ],
+      "mechanism_rationale": "Social connectedness buffers stress reactivity, improves coping, and can reduce distress during episodes by providing external regulation and reassurance.",
+      "measurement": "Number of social contacts per week, perceived support scale, episode distress and frequency",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "CASE_PAYLOAD:C02,C04,C08"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Dietary_Patterns_and_Metabolic_Support",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Adopt regular meals with balanced macronutrients, hydration tracking, and potential omega-3 intake to support brain energy and mood.",
+      "targets_criteria_ids": [
+        "C08",
+        "C04"
+      ],
+      "mechanism_rationale": "Stable nutrition supports brain energy metabolism and membrane function, reducing fluctuations that may heighten episode risk or distress.",
+      "measurement": "Daily dietary logging, hydration, and estimated caloric balance; episode frequency/distress logs",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "LOW",
+      "safety_notes": "None",
+      "mapping_query": "CASE_PAYLOAD:C08,C04"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Wearables_and_Self_Monitoring_with_Feedback",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use a wearable (HRV, sleep, activity) with a simple feedback dashboard to identify stress patterns and trigger-prevention opportunities, enabling rapid adjustments and self-awareness.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C08"
+      ],
+      "mechanism_rationale": "Continuous data reduce ambiguity about triggers, help correlate episode onset with physiological states, and support timely self-regulation.",
+      "measurement": "HRV trends, sleep metrics, daily stress ratings, episode counts, and presence scores; dashboard usage metrics",
+      "time_horizon": "Ongoing with weekly reviews (initial 4-6 weeks to establish patterns)",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure data privacy; obtain informed consent; provide clear data-use boundaries",
+      "mapping_query": "CASE_PAYLOAD:C01,C02,C03,C04,C08"
+    }
+  ]
+}

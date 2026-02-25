@@ -1,0 +1,1228 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID010",
+  "model_summary": "Initial gVAR-ready observation model selecting seven clinically-grounded, modifiable predictors (P01–P07) to track a rapid-cycling activation-crash pattern described in the complaint. Criteria (C01–C07) operationalize discrete high-activation episodes, ensuing social withdrawal, and follow-through challenges. Predictors target Sleep/Circadian regulation, Activation management, Spending precommitment, Social boundaries, Routine anchoring, Implementation intentions, and External accountability. Measurement emphasizes momentary EMA (3 prompts/day over 14 days) complemented by short daily diaries and passive streams, designed to maximize within-person variance while preserving parsimonious modeling and reducing collinearity for gVAR analyses.",
+  "variable_selection_notes": "Seven criteria were chosen to cover the core phenomenology (activation phases, social/communication impact, spending behavior, and functional follow-through) while avoiding redundancy across self-regulation constructs. Predictors were selected from the HyDe and LLN-mapped rankings as high-signal, actionable levers with clear mechanisms (sleep regularity, precommitment, boundaries, routines, accountability). Within-person variance is promoted via multi-domain (BIO/PSYCHO/SOCIAL) and multi-method measurements (EMA, diaries, passive signals). Some predictor-criterion relationships are explicitly marked as nonlinear/unknown where evidence is ambiguous to avoid forcing monotonic effects. Trade-offs include modest EMA burden (3 prompts/day) balanced with a daily check-in diary to anchor routines and reduce missingness.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 3,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:00",
+        "13:00",
+        "20:00"
+      ],
+      "recall_window": "past 24 hours",
+      "expected_total_prompts": 42,
+      "notes": "3 prompts/day across 14 days to capture day-to-day variability in activation and regulation."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "07:30"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Morning diary to anchor routines and energy levels."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Complement EMA with passive data (where available) to stabilize estimates and reduce respondent burden."
+    },
+    "minimum_total_observations_target": 56,
+    "gvar_readiness_notes": "Moderate-to-high expected within-person variance across sleep, activation, and boundary-setting levers. Transformations (within-person z-scoring) advised; plan for missingness with prompts and reminders.",
+    "variance_support_notes": "Includes non-redundant constructs across BIO/PSYCHO/SOCIAL; Likert-1–9 scales chosen to maximize within-person variance and model sensitivity.",
+    "missingness_risk_notes": "Risk of drop-off in manic-episode phases; mitigate with reminders, clear prompts, and short daily diary anchors."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Burst of project initiation",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "How many new projects or tasks did you initiate today? (Rate on a 1–9 Likert scale; 1 = none today, 9 = many)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "past 24 hours",
+        "expected_within_person_variability": "high",
+        "notes": "End-of-day capture of initiation bursts."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Marked increase in talkativeness",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how talkative are you compared with your baseline? (1–9 scale, higher = more talkative)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 3,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Momentary cue for elevated communication."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Impulsive/unsafe spending",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Did you spend beyond your planned budget today? (1–9 scale; 1 = none beyond plan, 9 = substantial overspending)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "past 24 hours",
+        "expected_within_person_variability": "high",
+        "notes": "Captures spending impulses during elevated periods."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Rapid alternation of high and low energy/mood",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Over the past 24 hours, how would you describe the pattern of energy/mood (e.g., active then exhausted) on days with highs and crashes? (1–9 scale)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "past 24 hours",
+        "expected_within_person_variability": "high",
+        "notes": "Monitors cycle amplitude across days."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_z",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Low-energy crash with social withdrawal",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Today, how much did you withdraw socially or fail to engage (text replies, messages) compared with your usual level? (1–9 scale)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "past 24 hours",
+        "expected_within_person_variability": "high",
+        "notes": "Captures social withdrawal during crashes."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Exhaustion and disruption of routines",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Today, how exhausted were you and how disrupted were your routines due to highs/crashes? (1–9 scale)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "past 24 hours",
+        "expected_within_person_variability": "high",
+        "notes": "Subjective energy and routine disruption."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C07",
+      "source_variable_id": "custom",
+      "label": "High initiation with likely poor follow-through",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Today, did you initiate many tasks that you later did not sustain or complete? (1–9 scale)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "past 24 hours",
+        "expected_within_person_variability": "high",
+        "notes": "Captures initiation vs. follow-through gap."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Sleep regularization / circadian alignment",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Sleep_and_Circadian > Circadian_Entrainment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Stabilizes energy, mood, and executive functioning by reducing circadian misalignment; improves sleep-wake consolidation.",
+      "intervention_examples_safe": "consistent bed/wake times; morning light exposure; wind-down routine",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, how regular were your bed and wake times (1–9 scale) relative to your usual schedule?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 3,
+        "recall_window": "past 24 hours",
+        "expected_within_person_variability": "high",
+        "notes": "May be complemented with passive circadian data if available."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep regularity reduces initiation bursts next day."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Consistent sleep reduces daytime talkativeness driven by activation."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Stable sleep buffers impulsive spending by reducing disinhibition."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Aligned circadian rhythm dampens rapid energy fluctuations."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Regular sleep reduces crash-related withdrawal symptoms."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Sleep regularity supports energy restoration and routine adherence."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Improved sleep may enhance follow-through by stabilizing motivation."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "High feasibility with 3 daily EMA prompts; diary anchor supports data richness."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Activation management / time-blocked initiation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Behavioral_Activation_and_Routine_Structuring > Activation_Management",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Directly targets excessive initiation by constraining opportunities to start new tasks; supports precommitment.",
+      "intervention_examples_safe": "set 2–3 high-priority tasks per day; use an 'if-then' rule to limit new starts",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, are you actively restricting new task starts today (1–9 scale)?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 3,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures proactive activation control."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C07",
+        "C06",
+        "C03"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "More controlled activation reduces bursts."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Bounded activation lowers talkativeness when not scheduled."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 12,
+          "typical_lag_hours_max": 24,
+          "rationale": "Fewer impulsive starts lowers spending risk."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Stabilized initiation reduces energy cycling."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Less reckless initiation supports social engagement consistency."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better activation control improves routine resilience."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Improved follow-through via planned initiation."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "High feasibility; relies on self-imposed constraints and brief daily reflection."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Spending precommitment / budget discipline",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Behavioral_Economics_and_Impulse_Control > Spending_Control",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.92,
+      "mechanism_rationale": "Directly reduces impulsive expenditures during elevated episodes, aiding financial regulation across cycles.",
+      "intervention_examples_safe": "set automatic transfers; precommit to a weekly budget; use a simple spending rule",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, did you adhere to a pre-set spending plan (1–9 scale)?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 3,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses immediate spending discipline."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05",
+        "C07",
+        "C02",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Budget discipline can dampen bursts and impulsive starts."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Controlled spending relates to reduced talkativeness driven by activation."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Direct spending control reduces impulsive purchases."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Economic decisions may interact with energy cycling in non-linear ways."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Spending discipline supports social engagement consistency."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better follow-through when spending is controlled."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Spending discipline reduces cognitive load and over-commitment."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": "Moderate burden due to budgeting prompts; offset by simplicity of rules."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Social boundaries & communication boundaries",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] > Boundary_Setting_and_Communication_Skills",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.88,
+      "mechanism_rationale": "Structured boundaries reduce social overload during high-activation periods, mitigating withdrawal and miscommunication.",
+      "intervention_examples_safe": "set no-text-while-working rule; schedule fixed social slots; use out-of-office messages",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, did you set any social communication boundaries (e.g., limits on texting or calls)?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 3,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures boundary setting during activation cycles."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Boundaries limit initiation in overflow periods."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Boundaries may reduce excessive talking in peak days."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Boundaries reduce impulsive spending by limiting social temptations."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Less social overload may stabilize energy cycling."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Boundaries support sustained social engagement."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better boundary management enhances routine stability."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Boundaries improve follow-through by reducing overload."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.86,
+        "gvar_feasibility_0_1": 0.84,
+        "notes": "Moderate burden; straightforward boundary prompts; can be integrated with daily routine checks."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Routine anchoring and energy restoration",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Habit_Formation_and_Systems_Solutions > Routine_Anchoring",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.92,
+      "mechanism_rationale": "Anchoring routines and energy-restoration practices enhance stability across activation cycles and improve day-to-day functioning.",
+      "intervention_examples_safe": "establish a fixed morning stability ritual; energy-restorative breaks; consistent wind-down",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, how anchored were your morning/evening routines and energy restoration efforts (1–9 scale)?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 3,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures routine anchoring and energy management."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C02",
+        "C03"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Anchored routines reduce initiation bursts and maintain steady engagement."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Energy restoration routines damp rapid energy cycling."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Energy-restoration supports social engagement post-episode."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Stable routines reduce exhaustion and disruption."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Anchored routines improve follow-through."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Routine anchoring can blunt talkativeness spikes."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Structured routines can curb impulsive spending through planned actions."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.86,
+        "notes": "Moderate burden; diary anchors help calibration."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Implementation intentions and progress monitoring",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Cognitive_Behavioral_Therapies > Behavior_Change_and_Activation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "If–then plans bridge activation-growth with routine execution, improving follow-through across cycles.",
+      "intervention_examples_safe": "write/clarify 2–3 concrete steps; schedule weekly review; use checklists",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, to what extent did you use implementation intentions (if-then plans) for tasks? (1–9 scale)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 3,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures use of concrete plans to guide actions."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C07",
+        "C04",
+        "C06",
+        "C05",
+        "C02",
+        "C03"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "If–then plans reduce failed follow-through."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Structured plans damp bursts by guiding actions."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Planning supports energy stabilization."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Progress monitoring reduces fatigue from overcommitment."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Intentional planning limits social-expenditure cycles."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Plans reduce talkativeness when not aligned with goals."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Clear steps limit impulsive behaviors."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.87,
+        "notes": "High feasibility; plans are low-burden and actionable."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "External accountability / social support",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] > Interpersonal_Therapeutic_Solutions > Accountability_and_Support_Structures",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.87,
+      "mechanism_rationale": "External accountability supports sustained engagement and reduces withdrawal during low energy phases.",
+      "intervention_examples_safe": "regular check-ins with a trusted person; progress sharing; accountability app buddy",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, did you have an accountability check-in or share progress with someone? (1–9 scale)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 3,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures social accountability moments."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Accountability reduces initiation bursts via social constraints."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "External check-ins support follow-through."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Social accountability dampens talkativeness when not goal-aligned."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Accountability fosters routine stability."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Social support buffers withdrawal."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Accountability reduces exhaustion by monitoring progress."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Accountability helps suppress impulsive spending."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.83,
+        "notes": "Moderate burden; social prompts may require coordination with another person."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,70000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep regularity likely delays energy cycling into next day.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Regular sleep supports energy restoration.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Activation management reduces initiation bursts.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Spending precommitment should reduce impulsive spending.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Boundaries help prevent impulsive spending via social prompts.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Routine anchoring dampens energy swings.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Energy restoration supports social engagement.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "-",
+      "lag_spec": "6-24h",
+      "notes": "Implementation intentions improve follow-through.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "-",
+      "lag_spec": "6-24h",
+      "notes": "External accountability improves completion.",
+      "estimated_relevance_0_1": 0.7
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "low",
+      "moderate_due_to four predictors measuring routine activation"
+    ],
+    "expected_floor_ceiling_risks": [
+      "0,0 to 1,0 range for Likert scales",
+      "rare extreme values in spending measure"
+    ],
+    "variance_enhancement_suggestions": [
+      "Person-mean centering",
+      "z-scoring within-person per variable",
+      "check for time-of-day effects"
+    ],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": "All predictors have feasibility scores >0.8 with EMA-based capture; diary anchor mitigates missingness."
+  },
+  "safety_notes": "This model is not a diagnosis or treatment plan. It is a data-collection framework for digital phenotyping and gVAR analyses. If you experience acute mania/hypomania with risk to self or others, or severe depressive symptoms, seek immediate clinical support."
+}

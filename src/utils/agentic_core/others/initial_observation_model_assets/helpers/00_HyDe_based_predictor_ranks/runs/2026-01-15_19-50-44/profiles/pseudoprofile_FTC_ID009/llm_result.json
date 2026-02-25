@@ -1,0 +1,108 @@
+{
+  "pseudoprofile_id": "CASE01_BIOPSYCHO_SOCIAL_SOCIALANX",
+  "summary": "The case describes a pattern of social avoidance driven by a belief of being annoying, followed by post-event rumination, loneliness, and self-criticism. Targeted, modifiable levers span social-psychological processes and social environment: reducing avoidance through graded social activation, reframing beliefs about social evaluation, interrupting rumination, securing reliable social contact, boosting meaningful connection, and cultivating self-compassion. Each lever is designed to be observable, measurable, and feasible in typical outpatient or coaching-supported settings, with clear metrics to track impact on social engagement, negative beliefs, rumination, loneliness, and self-criticism.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "C01 Social avoidance behavior",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Implement graded social activation with behavioral activation (BA) and exposure planning. Create an action plan to accept invitations or initiate low-friction social engagements (e.g., 2 small social contacts per week), document attendance, and gradually increase challenge level. Use a simple activity calendar and post-activity reflection to reinforce progress.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "BA reduces avoidance by building rewarding social experiences, increases self-efficacy in social contexts, and disrupts the reinforcement cycle maintaining withdrawal.",
+      "measurement": "Weekly count of social engagements accepted/attended; avoidance incidents; self-reported comfort in social settings (0-1 scale).",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for increased anxiety or overwhelm during early exposures; provide rapid access to support if distress escalates.",
+      "mapping_query": "MAP C01 to BA activation and graded exposure plan; track attendance and comfort levels."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "C02 Belief 'I am annoying'",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive restructuring targeting the core belief of being 'annoying.' Use thought records, evidence gathering, and behavioral experiments to test belief in real social interactions; create alternative, balanced appraisals and validate through tiny social experiments.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Cognitive restructuring reduces the perceived threat of social evaluation and shifts automatic attributions toward more accurate appraisals, enabling more flexible social behavior.",
+      "measurement": "Belief conviction rating (0-1) pre/post; frequency of automatic negative social attributions; number of cognitive re‑attributions recorded.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.8,
+      "priority": "HIGH",
+      "safety_notes": "Ensure exercises are person-centered and not harsh; provide corrective feedback if self-criticism intensifies.",
+      "mapping_query": "MAP C02 to cognitive restructuring and belief testing interventions."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "C03 Post-event rumination about social remarks",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce rumination-reduction protocol: STOP technique, scheduled worry time, cognitive defusion, and brief mindfulness after social interactions. Provide a one-page cue card and a 2-week practice plan.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Reducing post-event rumination interrupts prolonged negative mood and prevents escalation into loneliness and self-criticism.",
+      "measurement": "Average duration of post-event rumination episodes; number of rumination episodes per week; distress level after social events (0-1 scale).",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.75,
+      "priority": "MED",
+      "safety_notes": "If rumination intensifies or triggers distress, adjust practice and consider clinician-guided support.",
+      "mapping_query": "MAP C03 to rumination interruption and mindfulness-based strategies."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "C04 Plan cancellation frequency/impact",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Introduce implementation intentions to reduce plan cancellations: pre-commit to a minimum number of social engagements per week; prepare flexible backup options; use small, low-pressure commitments first; track cancellations and attendance.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Structured commitment and contingency planning lowers the likelihood of canceling plans and protects social connectedness.",
+      "measurement": "Cancellation rate vs. planned engagements; attendance rate; weekly social contact hours.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Ensure commitments are realistic to avoid further self-criticism if occasional cancellations occur; adjust pace as needed.",
+      "mapping_query": "MAP C04 to implementation intentions and commitment strategies in social planning."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "C05 Experienced loneliness from reduced social contact",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Enhance structured social connection and meaningful contact: schedule regular, low-pressure social interactions (e.g., weekly check-in with a friend, small group activity) and track perceived belonging and loneliness; add social-prescribing elements if available (community activities, clubs).",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Increasing reliable social contact reduces loneliness and improves mood, breaking the negative feedback loop with avoidance.",
+      "measurement": "Loneliness rating (0-1) and perceived belonging; number of meaningful social interactions per week; self-reported satisfaction with social connections.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.8,
+      "priority": "MED",
+      "safety_notes": "Monitor for social fatigue; adjust activity load to sustainable levels; encourage gradual increase.",
+      "mapping_query": "MAP C05 to structured social engagement and belonging interventions."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "C06 Self-critical reaction to loneliness",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Self-compassion training to reduce self-criticism and shame around loneliness: mindful self-compassion exercises, compassionate self-talk scripts, and letter-writing; integrate short daily practice with journaling.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Reducing self-criticism fosters adaptive mood, increases help-seeking, and improves resilience in social setbacks.",
+      "measurement": "Self-criticism frequency/intensity (0-1); mood ratings; help-seeking steps taken per week.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "MED",
+      "safety_notes": "Be attentive to triggering vulnerable feelings; provide supportive resources if distress increases.",
+      "mapping_query": "MAP C06 to self-compassion and self-relating interventions."
+    }
+  ]
+}

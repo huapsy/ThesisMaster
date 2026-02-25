@@ -1,0 +1,161 @@
+{
+  "pseudoprofile_id": "case_case01_bips",
+  "summary": "Integrated Bio-Psycho-Social levers are proposed to address the eight changeable backlog domains (practical knowledge gaps, financial, household tasks, social maintenance, health self-management, time management, negative self-evaluation, and preserved baseline functioning) by combining skills training, environmental supports, social accountability, health behavior strategies, and measurement-based feedback to tailor progress and reduce the sense of falling behind.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Time-management and organizational skills deficit (C06)",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Structured daily planning with time-blocking, external task loading to a shared to-do system, and weekly accountability check-ins (coaching) to reduce backlog.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Improved planning reduces task accumulation, increases task completion, and enhances self-efficacy, mitigating the feeling of being permanently behind.",
+      "measurement": "Weekly on-time task completion rate; backlog days; schedule consistency (variance in wake times).",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns. Monitor for frustration; adjust pace if needed.",
+      "mapping_query": "Map predictor to C06; implement with calendar/tasks app; track adherence to planned routines."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Perceived lack of practical life knowledge (C01)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Practical life skills micro-education with just-in-time checklists and quick-start guides; role-play rehearsals for common tasks (bills, cooking, scheduling).",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Providing procedural guidance reduces uncertainty and builds confidence in daily task execution.",
+      "measurement": "Checklist completion rate; self-efficacy ratings; tasks completed independently.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Address C01 with micro-education modules; monitor confidence improvements."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Financial-management backlog (C02)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Automated budgeting with a user-friendly app + weekly money-management check-in with a coach or accountability buddy; automated reminders for bills.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Clear budgeting routines and social accountability reduce financial backlog, financial stress, and cognitive load.",
+      "measurement": "On-time bill payments; monthly budget variance; savings rate.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Tie C02 to budgeting tools and buddy support; monitor adherence and payment timing."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Household task completion backlog (C03)",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Household routine redesign with time-blocked chores and a shared digital task board; assign small roles to household members; use reminders.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Structured routines reduce backlog, improve perceived control, and lessen cognitive load from scattered tasks.",
+      "measurement": "Chore completion rate; backlog days; satisfaction with home environment.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Support C03 through routine design and social delegation; track backlog reduction."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Social-maintenance deficit (C04)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured social plan with regular check-ins (friend or support group), calendar invites, and small rituals to maintain connections.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Increased regular social contact reduces loneliness and improves mood, supporting overall functioning.",
+      "measurement": "Number of social interactions per week; perceived connectedness; loneliness scale.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Address C04 via social routines; monitor social engagement and perceived connectedness."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Health self-management gap (C05)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Integrated health-behavior plan: scheduled appointments, simple exercise micro-routines (5-10 min), reminders, and lightweight health-tracker with easy onboarding.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Regular health behaviors improve energy, mood, and daily functioning, reducing downstream backlog.",
+      "measurement": "Appointment adherence; days with exercise; self-rated health.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Pair health behavior plan with reminders and tracking; monitor adherence and health outcomes."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Sleep quality and circadian regulation (Sleep/Circadian restoration)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene optimization: consistent bed/wake times, reduce evening light exposure, limit caffeine after noon; wind-down routine; address nocturnal awakenings.",
+      "targets_criteria_ids": [
+        "C08"
+      ],
+      "mechanism_rationale": "Better sleep supports executive function, mood, and energy, enabling greater daily functioning and reduced backlog.",
+      "measurement": "Sleep duration consistency; sleep onset latency; next-day energy/mood scale.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Sleep supports functioning; monitor sleep metrics and adjust routines to protect C08."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Negative self-evaluation / shame about life progress (C07)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "CBT-based cognitive restructuring plus self-compassion training; daily journaling focusing on evidence for progress; affect labeling.",
+      "targets_criteria_ids": [
+        "C07"
+      ],
+      "mechanism_rationale": "Reducing self-criticism enhances motivation, persistence, and engagement with daily tasks.",
+      "measurement": "Self-criticism scale; daily mood; perceived progress.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Target C07 with CBT and self-compassion exercises."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Measurement-Based Care and Data Feedback (Self-monitoring)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Daily 2-minute self-check-ins (mood, energy, backlog index) with a simple dashboard; automated feedback to adjust plan; optional wearables for objective signals.",
+      "targets_criteria_ids": [
+        "C06",
+        "C07",
+        "C08"
+      ],
+      "mechanism_rationale": "Quantified feedback enhances self-regulation and allows dynamic tailoring of interventions; backlog sensitivity can be monitored alongside mood and functioning.",
+      "measurement": "Composite backlog score; mood rating; adherence to plan; weekly trend.",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Ensure data privacy; provide opt-out if overwhelmed.",
+      "mapping_query": "Use self-monitoring to inform multiple criteria (C06/C07/C08) and adjust plans accordingly."
+    }
+  ]
+}

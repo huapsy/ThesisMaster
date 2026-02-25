@@ -1,0 +1,20 @@
+pseudoprofile_id: pseudoprofile_FTC_ID010
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Burst of project initiation -> NON-CLINICAL / AGE-GENERAL / social / social contribution / contribution to community / social initiatives / initiating community projects (conf=0.62)
+- C02: Marked increase in talkativeness -> CLINICAL / DSM-5TR / bipolar and related disorders / bipolar i disorder / current or most recent episode / manic / severity / moderate / pressured_speech (conf=0.74)
+- C03: Impulsive/unsafe spending -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / hoarding disorder / acquisition patterns / with excessive acquisition / purchasing_despite_budget_constraint (conf=0.72)
+- C04: Rapid alternation of high and low energy/mood -> CLINICAL / DSM-5TR / bipolar and related disorders / bipolar ii disorder / course or remission / episodic course / mood_lability_present (conf=0.78)
+- C05: Low-energy crash with social withdrawal -> CLINICAL / DSM-5TR / depressive disorders / other specified depressive disorder / depressive episode with insufficient symptoms / social_withdrawal_present (conf=0.52)
+- C06: Exhaustion and disruption of routines -> CLINICAL / DSM-5TR / trauma- and stressor-related disorders / other specified trauma- and stressor-related disorders / cultural trauma-related syndromes / amok / rapid_post_episode_fatigue_exhaustion (conf=0.78)
+- C07: High initiation with likely poor follow-through -> CLINICAL / DSM-5TR / neurodevelopmental disorders / attention-deficit or hyperactivity disorder (adhd) / unspecified adhd / follow_through_difficulty (conf=0.70)
+
+PREDICTORS:
+- P01: Sleep regularization / circadian alignment -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / consistent_morning_anchor_routine (conf=0.68)
+- P02: Activation management / time-blocked initiation -> PSYCHO / change_process_and_therapeutic_phases / behavioral_integration / implementation_and_routine_building / time_blocking_for_valued_actions (conf=0.85)
+- P03: Spending precommitment / budget discipline -> PSYCHO / cognitive_behavioral_therapies / behavior_change_and_activation / contingency_and_environment / reinforcement_and_design / precommitment_to_remove_temptations (conf=0.72)
+- P04: Social boundaries & communication boundaries -> PSYCHO / third_wave_and_contextual_therapies / dbt_skills_based_therapy / interpersonal_effectiveness_skills / boundary_setting_practice (conf=0.72)
+- P05: Routine anchoring and energy restoration -> PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / recovery_design / restoration_and_self_care / micro_restoration_routines (conf=0.72)
+- P06: Implementation intentions and progress monitoring -> PSYCHO / foundations_and_common_factors / goals_values_and_maintenance_planning / implementation_intention_ifthen_plans (conf=0.88)
+- P07: External accountability / social support -> SOCIAL / social_support_and_belonging / support_network_development / mentorship_and_buddying / accountability_partner_matching (conf=0.62)

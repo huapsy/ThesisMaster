@@ -1,0 +1,131 @@
+{
+  "pseudoprofile_id": "CASE_PROFILE_001",
+  "summary": "The case shows rapid cycling between elevated activation (initiating many projects, increased talkativeness, impulsive spending) followed by crashes with fatigue and social withdrawal, disrupting routines. Modifiable predictors span bio (sleep/energy regulation), psycho (activation planning, impulse control, goal pursuit), and social/environmental factors (boundaries, accountability). Proposing seven targeted, actionable levers across BIO/PSYCHO/SOCIAL domains (and their interactions) with simple metrics enables tracking and iterative optimization to reduce cycle severity, improve follow-through, and stabilize daily functioning.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep regularization and circadian alignment (consistent bed/wake times, light exposure, wind-down routine)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a fixed daily sleep-wake schedule with a structured wind-down, morning light exposure, and screens-off window 1 hour before bed. Use a wearable/app to monitor sleep duration and onset/offset consistency; adjust bedtime gradually to stabilize daytime energy and reduce activation spikes.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Regular sleep supports neuroenergetics, mood stability, and executive functioning, reducing abrupt shifts in energy/activation and easing social engagement rhythms.",
+      "measurement": "Sleep duration and bed/wake time consistency (hours, SD); daily energy/rating (0-10); number of elevated-activation episodes per week; daytime functioning index",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "S01 maps to C04/C05/C06; measure sleep logs and energy patterns"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Activation management through time-blocking and precommitment (limit initiation, one-in/one-out rule)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Adopt daily planning with calendar blocks that cap new project initiation (e.g., 1–2 new projects per day). Implement a rule to pause initiation unless a concrete plan is formed. Track adherence and outcome.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Constraining initiation reduces fragmentation, lowers cognitive load during elevated states, and promotes deliberate activation and sustainable follow-through.",
+      "measurement": "Number of new projects started per week; proportion of initiated tasks that reach completion; adherence rate to time-blocking rules",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "S02 maps to C01; measurement via initiation rate"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Spending precommitment and automation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Set a weekly discretionary budget with automatic transfers to savings. Enable alert-based controls and friction (e.g., require multiple confirmations for large purchases). Eliminate spontaneous purchases beyond budget.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Environmental and cognitive friction reduces impulsive spending during elevated moods, preserving resources and reducing regret that disrupts routines.",
+      "measurement": "Discretionary purchases ratio; weekly spend vs. budget; number of unplanned purchases avoided",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "S03 maps to C03; measurement via budget logs"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Social communication boundaries and scheduling",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Establish dedicated communication windows (e.g., 3 blocks per day) and a Do Not Disturb period to protect recovery after elevated episodes. Use planned social interactions and assertive communication to manage talkativeness and withdrawal tendencies.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Structured boundaries prevent overload during high-activation periods and allow energy recovery, reducing withdrawal severity and preserving social functioning.",
+      "measurement": "Response latency and frequency in messaging; daily talk time; mood stability after episodes; perceived social connectedness",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "S04 maps to C02 and C05; measurement via communication logs and mood diaries"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Routine anchoring and energy restoration (morning/evening routines; energy-aware planning)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Create two fixed anchor routines (morning and evening) with simple, scalable steps. Use habit stacking to add tasks gradually. Track adherence and energy changes.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Stable routines provide predictability, regulate arousal, and support social engagement, reducing exhaustion and disruption.",
+      "measurement": "Routine adherence rate; morning energy level; days with routine disruption",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "S05 maps to C06; measurement via routine logs"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Implementation intentions and progress monitoring (SMART plans, weekly reviews, checklists)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Develop explicit if-then plans for follow-through on initiated projects. Schedule weekly progress reviews with a accountability partner; maintain task checklists and feedback loops.",
+      "targets_criteria_ids": [
+        "C07"
+      ],
+      "mechanism_rationale": "Explicit plans and regular review reduce ambiguity, increase commitment, and boost completion rates during volatile activation cycles.",
+      "measurement": "Task completion rate; time to completion; proportion of planned steps completed weekly",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "S06 maps to C07; measurement via completion metrics"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "External accountability and social support network",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage a coach or accountability partner; set up weekly check-ins; share goals with a trusted network to sustain commitment and provide feedback during cycles.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05",
+        "C07"
+      ],
+      "mechanism_rationale": "Social accountability distributes cognitive load, stabilizes activation patterns, and supports follow-through across cycles by providing feedback and motivation.",
+      "measurement": "Number of check-ins completed; adherence to commitments; mood stability across cycles; project completion rate",
+      "time_horizon": "8-16 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "S07 maps to C01/C04/C05/C07; measurement via accountability logs and progress reports"
+    }
+  ]
+}

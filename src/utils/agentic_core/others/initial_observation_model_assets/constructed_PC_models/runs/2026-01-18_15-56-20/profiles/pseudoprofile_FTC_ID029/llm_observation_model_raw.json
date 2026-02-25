@@ -1,0 +1,945 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID029",
+  "model_summary": "Initial gVAR-ready observation model focused on six operationalized criteria of resting-related guilt and productivity beliefs (C01–C06) and five modifiable predictors (P01–P05) that proximate salutogenic shifts in rest, self-compassion, urge tolerance, sleep, and time management. Measurements rely on brief, six daily EMA prompts over a 14-day window to maximize within-person variance while avoiding redundancy; a one-time-daily diary anchors nocturnal states. The predictor-criterion set emphasizes nonredundant, actionable levers with plausible lag structures (0–6h, 0–24h) suitable for graphical VAR (gVAR) modeling. Measurement scales are primarily 0–9 Likert to enhance variance; passive data is reserved for future expansion to preserve feasibility and safety. The plan aligns with the complaint decomposition while incorporating HyDe and LLM-informed relevance signals to prioritize levers with greatest expected impact on the salutogenic mental state.",
+  "variable_selection_notes": "Selected six criteria (C01–C06) directly reflecting guilt, beliefs about productivity, time pressure, intrusive self-talk, action urges, and restoration avoidance. To minimize redundancy and collinearity, five predictors (P01–P05) were chosen to cover rest structuring, self-compassion/mindfulness, urge tolerance, sleep hygiene, and time-blocking. This yields a compact, estimable design with strong within-person variance and interpretable lag structure. All variables are operationalized for momentary EMA; predictors are intentionally actionable levers with safe, well-established behavioral targets. Potential biases include self-report bias and day-to-day variability; plan includes centering/scaling and planned missingness strategies to mitigate these. ” ,{",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:00-10:00",
+        "11:00-12:00",
+        "14:00-15:00",
+        "16:00-17:00",
+        "19:00-20:00",
+        "21:00-22:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 84,
+      "notes": "Six prompts per day to capture fluctuations in criteria and predictors; blocks spread across wake periods with jitter to reduce anticipation bias."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "21:30"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Optional nightly diary to anchor sleep timing and pre-sleep mood."
+    },
+    "passive_streams": {
+      "enabled": false,
+      "aggregation_strategy": "N/A",
+      "notes": "No passive data collection in this initial model to minimize burden."
+    },
+    "minimum_total_observations_target": 100,
+    "gvar_readiness_notes": "Initial variable set is designed for standard multilevel modeling and gVAR estimation; aims for stable lag estimation with 5 predictors x 6 criteria.",
+    "variance_support_notes": "Utilizes 1–9 Likert scales for most constructs to maximize within-person variance; plan includes centering (z-scoring) during analyses.",
+    "missingness_risk_notes": "Prompt reminders and flexible reminder timing to mitigate missingness; multiple imputation or ML-based handling planned if missingness is non-ignorable."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "",
+      "label": "Guilt when resting",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Experiences guilt or self-blame specifically when attempting to rest or engage in non-task activity.",
+        "response_scale_or_unit": "0-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures current guilt intensity during rest periods."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "",
+      "label": "Belief that non-productivity equals wasting time",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Holds a rule/belief that time not spent on productive tasks is wasted or a negative use of time.",
+        "response_scale_or_unit": "0-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses belief strength during daily rest/productive boundaries."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "",
+      "label": "Sense of falling behind/time scarcity",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Perceives that not using time productively causes being behind schedule/peers or losing progress toward goals.",
+        "response_scale_or_unit": "0-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures perceived time pressure and progress concerns."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "",
+      "label": "Intrusive self-critical thoughts during leisure",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Experiences frequent intrusive self-criticism during weekends/leisure that interrupt rest.",
+        "response_scale_or_unit": "0-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses cognitive intrusion during leisure."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "",
+      "label": "Urge/drive to act rather than rest",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Feels a strong urge or compulsion to engage in productive actions instead of downtime.",
+        "response_scale_or_unit": "0-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Measures urge intensity and readiness-to-act during rest periods."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "",
+      "label": "Difficulty engaging in restorative activities",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Avoids or shortens restorative activities due to guilt or intrusive thoughts.",
+        "response_scale_or_unit": "0-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures restorative engagement during rest periods."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Structured Rest Blocks with Restorative Cueing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / brief_and_motivational_approaches / coaching_and_behavior_change_support / *time_and_energy_prioritization",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Deliberate rest periods reduce guilt when resting and reframe rest as productive for restoration.",
+      "intervention_examples_safe": "Scheduled 5–10 min breaks; short mindful breathing; light stretching.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today I completed a planned rest block; to what extent did you engage in that rest block (0-9)?",
+        "response_scale_or_unit": "0-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses adherence to planned rest blocks."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Rest adherence reduces guilt during rest."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Rest blocks may soften beliefs about wasted time."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Structured rest can reduce perceived time scarcity."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Rest blocks may decrease intrusive self-criticism during leisure."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Urge to act may attenuate as rest becomes structured."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Rest structure supports restorative activity engagement."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "None beyond standard EMA burden.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "High feasibility with short, scheduled prompts."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Self-Compassion and Mindfulness for Leisure",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / third_wave_and_contextual_therapies / mindfulness_based_interventions / mbct_mbsr_core_practices / *relating_differently_to_thoughts_practice",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Enhances self-kindness during leisure, reducing self-criticism and guilt that arise in rest contexts.",
+      "intervention_examples_safe": "Brief compassion-focused self-talk, MBCT/MBSR-inspired practices.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "During the last leisure period, rate your level of self-compassion toward yourself (0-9).",
+        "response_scale_or_unit": "0-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses compassionate response during leisure."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increased self-compassion reduces guilt about rest."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindfulness reduces intrusive self-criticism during leisure."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Compassion practices may facilitate engagement in restorative activities."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Minimal risk; standard EMA burden.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.92,
+        "notes": "High feasibility with short, targeted prompts."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Urge/Delay Tolerance Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / cognitive_behavioral_therapies / exposure_and_inhibitory_learning / response_prevention_and_urge_work / urge_tolerance_and_surfing / *compassionate_self_talk_during_urge",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Builds tolerance to urges to act, reducing impulsive rest avoidance.",
+      "intervention_examples_safe": "Urge surfing, delay strategies, compassionate self-talk.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate your urge to engage in productive action and your ability to delay acting (0-9).",
+        "response_scale_or_unit": "0-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses urge strength and delay capacity in real-time."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Urge tolerance training lowers immediate drive to act during rest periods."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "No pharmacological guidance; behavioral strategies only.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.92,
+        "notes": "High feasibility with standard EMA prompts."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Sleep Hygiene & Circadian Regulation",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] / Sleep_Circadian_and_Restoration / Sleep_Routines_and_Practices",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Improved sleep routines support restoration and reduce nocturnal cognitive arousal that feeds guilt.",
+      "intervention_examples_safe": "Regular bedtimes, dim-light exposure in evening, wind-down routine.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Last night’s sleep quality (0-9) and consistency of bedtime (0-9 on a 0-9 scale).",
+        "response_scale_or_unit": "0-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures sleep quality and consistency responsively."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better sleep reduces evening guilt about resting."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Stable circadian routine may soften beliefs about wasting time."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved sleep reduces perceived time scarcity."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Sleep quality supports lower intrusive thoughts in leisure."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Sleep supports restorative engagement."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Standard sleep assessment; no clinical intervention.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Sleep items feasible with short EMA questions."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Time-Blocking for Valued Actions",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / change_process_and_therapeutic_phases / behavioral_integration / time_blocking_for_valued_actions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Structured time-blocking aligns behavior with values, reducing time-based guilt and enhancing task-focused rest.",
+      "intervention_examples_safe": "Daily schedule blocks for 60–90 min; buffer time; clear prioritized tasks.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, how well did you implement time-blocking for valued actions? (0-9)",
+        "response_scale_or_unit": "0-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses practical execution of time-blocking strategies."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Time-blocking should reduce perceived time scarcity."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Structured time use may lessen beliefs of wasted time."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Clear blocks can reduce urges to act impulsively."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "No safety concerns beyond standard EMA burden.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "6 prompts/day to capture daily scheduling practice."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,95000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "P01 adherence reduces guilt during rest.",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Rest planning may soften beliefs about wasting time.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Structured rest can reduce time pressure.",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Rest blocks may lower self-criticism during leisure.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Urge to act may decrease as rest is planned.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Rest structuring supports restorative engagement.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Self-compassion reduces guilt during rest.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness may soften productivity beliefs.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Compassion practices may reduce perceived time scarcity.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness reduces intrusive thoughts.",
+      "estimated_relevance_0_1": 0.9
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Self-compassion may dampen urges to act reflexively.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Compassion practices facilitate restorative activity engagement.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Urge tolerance training reduces guilt via urge control.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Delaying gratification can shift beliefs about productivity.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Urge control reduces time-pressure sensations.",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Urge-related distress reduced by adaptive strategies.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Urge tolerance reduces immediate action urges.",
+      "estimated_relevance_0_1": 0.82
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Urge management supports restorative engagement.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep quality improves mood and reduces guilt.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Circadian regularity may shift beliefs about wasted time.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Better sleep reduces time-scarcity perceptions.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep improves cognitive control over intrusive thoughts.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep quality can dampen urge intensity.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep supports restorative activity engagement.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Time-blocking reduces guilt about rest.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Efficient scheduling may shift beliefs about time waste.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Structured time use reduces time scarcity.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Time-blocking reconsolidates leisure with rest expectations.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Clear blocks may reduce impulsive acting urges.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Time-blocking supports restorative activity engagement.",
+      "estimated_relevance_0_1": 0.6
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [],
+    "expected_floor_ceiling_risks": [],
+    "variance_enhancement_suggestions": [],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": " Five predictors x six criteria yields 30 edges; estimated to be manageable with standard ML-based VAR and/or Bayesian dynamic modeling given six prompts/day and 14-day window."
+  },
+  "safety_notes": "Not a diagnosis. No dosing or pharmacological guidance. If acute risk emerges, advise clinical evaluation per standard care. This model is for data collection only and aims to support salutogenic state optimization within ethical guidelines."
+}

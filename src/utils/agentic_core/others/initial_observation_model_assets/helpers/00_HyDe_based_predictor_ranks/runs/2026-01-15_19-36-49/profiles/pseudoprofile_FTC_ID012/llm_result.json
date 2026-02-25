@@ -1,0 +1,138 @@
+{
+  "pseudoprofile_id": "CASE01_NOCTURNAL_EATING_PLAN",
+  "summary": "The case presents appetite lability with nocturnal eating, post-eating shame, and all-or-nothing dieting thoughts. A modifiable, multi-domain plan is proposed across bio, psycho, and social levers that target nighttime eating episodes (C02), appetite swings (C01), post-eating affect (C03), and dieting rigidity (C04). Each lever is actionable, feasibility-rated, and coupled with simple measurements to track short-term change over 2–4 weeks.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Nighttime sleep regularization and circadian alignment",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a structured sleep-wake schedule (fixed bedtime and wake time within ±30 minutes), reduce screen exposure 1 hour before bed, and develop a wind-down routine (quiet activity, dim lighting). This lever aims to reduce late-night wakefulness (C06) and stabilize appetite/hunger cycles (C01, C02) through circadian regulation.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C06"
+      ],
+      "mechanism_rationale": "Stable sleep improves executive control over cravings, modulates hunger hormones, and strengthens circadian cues that regulate meal timing and impulsive eating.",
+      "measurement": "Sleep diary: bedtime/wake time consistency; average nightly duration; number of nights with >1 wake; count of nighttime eating episodes per week.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No major safety concerns beyond standard sleep hygiene; monitor mood/energy for fatigue if sleep changes transiently.",
+      "mapping_query": "What sleep routine adjustments most effectively reduce nocturnal eating and appetite swings in this nocturnal-eating pattern?"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Evening environmental control of food access (reduced pantry access at night)",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Move or lock away high-sugar snacks after dinner; remove large quantities of food from kitchen at night; establish a post-dinner 'fridge-free' window and a planned snack alternative if needed. This lever reduces nighttime food availability (C05) and lowers opportunities for nighttime overeating (C02).",
+      "targets_criteria_ids": [
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Limiting nocturnal food accessibility decreases automatic binge opportunities and helps retrain nocturnal eating patterns via reduced cue exposure.",
+      "measurement": "Daily diary of nighttime eating episodes; pantry/fridge inventory audit; time of last ingestion before bed.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure safety and emotional safety; avoid triggering scarcity concerns; maintain balanced meals earlier in the day.",
+      "mapping_query": "How does restricting late-night food access influence frequency and size of nighttime eating episodes in this case?"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Structured evening routine with planned meals and last-eating cutoff",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Create a 60–90 minute pre-sleep routine: fixed dinner time with portion-controlled plate, 20–30 minutes of mindful eating, cognitive reframing of 'be good tomorrow' into flexible self-talk, and a written plan for the next day. Targets C01 (hunger regulation), C02 (nighttime eating), and C04 (dieting rigidity).",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "A consistent routine aligns circadian signals, reduces impulsivity at night, and converts all-or-nothing dieting language into adaptive self-regulation.",
+      "measurement": "Adherence checklist for routine components; frequency of planned meals; last bite time before bed; self-report of dieting rigidity.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Ensure meals are balanced and not overly restrictive; monitor mood/energy fluctuations.",
+      "mapping_query": "What components of an evening routine most effectively reduce late-night binges and dieting rigidity in this case?"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Flexible self-regulation and pre-commitment messaging (reduce 'be good tomorrow' mindset)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce compassion-focused reframing and implementation intentions: replace 'be good tomorrow' with a flexible plan for today (e.g., 'if craving at night, have a planned portion and a 30-second pause'), and log cravings and responses. This lever targets C04 and dampens C01/C02 by reducing all-or-nothing dieting pressure.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Cognitive reappraisal and concrete coping plans enhance adaptive self-regulation, reduce guilt, and provide actionable steps during cravings to lower nocturnal eating.",
+      "measurement": "Frequency of dieting-promising statements; diary entries for cravings and coping responses; perceived control scale.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for any mood worsening with reframing; provide supportive coaching.",
+      "mapping_query": "How might flexible pre-commitment strategies reduce nighttime ingestive impulses and dieting rigidity in this case?"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Hunger/satiety cue tracking with feedback loop",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use a simple hunger-satiety scale (0–10) before and after meals and log cravings/eating episodes via a smartphone app or diary. Pair with prompts to eat for hunger cues and to stop when comfortably full. This lever targets C01, C02 and may indirectly influence C03 by promoting mindful post-eating reflection.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Linking eating to internal cues reduces impulsive intake and promotes reflective processing after meals, mitigating post-eating shame.",
+      "measurement": "Average pre-meal hunger score; number of episodes; post-eating satisfaction; diary completion rate.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Use non-judgmental language in monitoring to avoid increasing shame.",
+      "mapping_query": "What effect does hunger-satiety tracking have on nocturnal eating and post-eating affect in this case?"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep hygiene optimization with caffeine timing",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Institute standard sleep hygiene: consistent bedtimes, limit screens before bed, optimize sleep environment (dark, quiet), and adjust caffeine intake to earlier in the day (avoid after 2pm). This lever targets C06 and may indirectly influence C01 via appetite regulation.",
+      "targets_criteria_ids": [
+        "C06",
+        "C01"
+      ],
+      "mechanism_rationale": "Better sleep quality and circadian alignment reduce nocturnal arousals and hunger spikes, stabilizing appetite and reducing midnight eating episodes.",
+      "measurement": "Sleep diary metrics; caffeine timing log; number of nighttime eating episodes per week.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.58,
+      "priority": "MED",
+      "safety_notes": "Caffeine reduction may affect daytime energy; monitor fatigue and energy balance.",
+      "mapping_query": "How does sleep hygiene and caffeine timing influence nocturnal eating frequency in this case?"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social support and accountability mechanisms",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage an accountability partner, group check-ins, or brief coaching calls to review appetite patterns, cravings, and plan adherence. Include social framing to reduce shame and promote flexible dieting. This lever targets C01-C04 and C02 by providing social reinforcement and problem-solving support.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C03"
+      ],
+      "mechanism_rationale": "Social support enhances adherence, reduces isolation, and provides timely problem-solving to mitigate nocturnal binges and negative post-eating affect.",
+      "measurement": "Number of accountability interactions; self-reported adherence; perceived support scale; mood after episodes.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Maintaining boundaries; avoid stigma; respect autonomy and confidentiality.",
+      "mapping_query": "What is the impact of social accountability on nighttime eating and dieting rigidity in this scenario?"
+    }
+  ]
+}

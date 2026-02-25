@@ -1,0 +1,159 @@
+{
+  "pseudoprofile_id": "CASE_BEES_BRAIN_001",
+  "summary": "The presented state is dominated by rapid, uncontrollable streams of thoughts with difficulty sustaining attention, perceived internal noise, and reduced engagement in passive tasks. Modifiable levers span three domains (bio, psycho, social) and include attention training, cognitive control strategies, sleep/arousal management, cognitive offloading, mindfulness/CBT-informed skills, and social support. The plan emphasizes non-pharmacological, scalable predictors designed to (a) strengthen top-down control to suppress task-unrelated thoughts, (b) reduce internal sensory noise and arousal, (c) improve sleep and daytime functioning, and (d) enhance meaningful social engagement to buffer cognitive load. Interventions should be piloted for 4–12 weeks with objective and subjective progress checks and safety monitoring as needed.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Attention_Systems_Training",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured attention training program using computerized tasks (e.g., CPT/SART with adaptive difficulty), 15–20 minutes daily, + weekly coaching/app-based reflection to apply focus in real-life tasks.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Strengthens executive control networks, reduces susceptibility to mind-wandering, and enhances ability to reorient attention away from habitual internal chatter.",
+      "measurement": "CPT accuracy and reaction-time variability; daily self-report focus rating (0–10); task engagement diaries during activities.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; monitor for frustration or fatigue.",
+      "mapping_query": "MATCH C02,C03,C04 to S01"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Mindfulness_Based_Interventions",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "8-week mindfulness program (guided practices, 10–20 minutes daily) with weekly check-ins to cultivate nonjudgmental awareness of thoughts and reduce reactivity to internal noise.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Metacognitive decentering reduces identification with racing thoughts, decreases task-unrelated thought intrusion during activities, and improves engagement.",
+      "measurement": "State mindfulness (MAAS/FFMQ), perceived stress (PSS), self-reported engagement during tasks (0–10); diary entries noting thought frequency during passive tasks.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "None; seek help if distress escalates.",
+      "mapping_query": "MATCH C01,C03,C04,C06 to S02"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep_Routines_and_Patterns",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent sleep-wake times, wind-down routine, reduce blue-light exposure after 7–8 pm; optimize sleep environment (dark, cool, quiet).",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Regular sleep supports cognitive control, reduces nocturnal cognitive arousal, and lowers the subjective buzzing by stabilizing neurophysiology.",
+      "measurement": "Sleep diary with time-in-bed and wake-times; actigraphy where available; next-day cognitive alertness/mood ratings; episode duration of racing thoughts.",
+      "time_horizon": "6–10 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.62,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for sleep onset latency issues; escalate if insomnia persists.",
+      "mapping_query": "MATCH C01,C04,C05,C06 to S03"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Caffeine_Intake_Modulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured reduction of caffeine and stimulants (especially later in the day); track intake and correlate with daytime alertness and sleep quality.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Stimulant load increases arousal and can amplify racing thoughts and internal noise; reducing intake may decrease physiological and cognitive jitter.",
+      "measurement": "Caffeine diary (timing/amount); sleep quality ratings; morning alertness; subjective reporting of buzzing intensity.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "If using other medications or conditions, consult clinician before major changes.",
+      "mapping_query": "MATCH C01,C05,C06 to S04"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Cognitive_Remediation_and_Rehabilitation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured cognitive remediation focusing on working memory updating and inhibitory control (e.g., computer-based tasks with metacognitive reflection).",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Enhances cognitive flexibility and interference control to reduce frequency of task-unrelated thoughts and improve volitional control over thought flow.",
+      "measurement": "Working memory/update tasks performance; inhibitory control measures; self-reported ability to quiet thoughts (0–10); daily task focus notes.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None.",
+      "mapping_query": "MATCH C02,C03,C04 to S05"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "CBT_Skills_for_Attentional_Control",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive-behavioral skills training library emphasizing attention control, cognitive restructuring for perseverative thoughts, and brief behavioral experiments.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Structured CBT techniques reduce internal chatter through deliberate focus, reappraisal, and exposure to task-relevant stimuli.",
+      "measurement": "CBT skill utilization checklist; cognitive flexibility tasks; self-report quieting ability (0–10); diary of persistent thoughts.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "MATCH C02,C03,C04 to S06"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social_Support_and_Belonging_Mechanisms",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured social engagement plan (peer-support groups, community activities) to enhance belonging and offload cognitive load through shared attention and reciprocity.",
+      "targets_criteria_ids": [
+        "C06",
+        "C01"
+      ],
+      "mechanism_rationale": "Social belonging reduces cognitive fragmentation by providing off-task cognitive bandwidth, improving mood, and supporting sustained engagement in activities.",
+      "measurement": "Social support scale (e.g., MSPSS), frequency of social interactions, engagement during activities (0–10), perceived enjoyment during tasks.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Monitor for social anxiety or turnover in groups.",
+      "mapping_query": "MATCH C06,C01 to S07"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "External_Cognitive_Offloading_Aids",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Use of external aids (checklists, timers, note-taking apps) to reduce cognitive load and offload memory demands during tasks and passive activities.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "External supports decrease internal cognitive load, reducing the rate of racing thoughts and improving task focus.",
+      "measurement": "Frequency of aid usage; task performance with/without aids; self-reported ease of thought quieting (0–10).",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.38,
+      "priority": "LOW",
+      "safety_notes": "None.",
+      "mapping_query": "MATCH C02,C03,C04 to S08"
+    }
+  ]
+}

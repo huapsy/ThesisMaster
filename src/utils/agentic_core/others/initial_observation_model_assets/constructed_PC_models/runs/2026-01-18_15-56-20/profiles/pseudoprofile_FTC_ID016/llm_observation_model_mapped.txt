@@ -1,0 +1,18 @@
+pseudoprofile_id: pseudoprofile_FTC_ID016
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Acute somatic symptom intensity and frequency -> CLINICAL / ICD-10 / pain disorders / visceral pain disorders / functional biliary pain / somatic_symptom_severity_elevated (conf=0.72)
+- C02: Distress from symptom unpredictability -> CLINICAL / DSM-5TR / somatic symptom and related disorders / somatic symptom disorder / catastrophizing_thoughts_about_symptoms (conf=0.62)
+- C03: Threat interpretation of bodily sensations -> CLINICAL / DSM-5TR / somatic symptom and related disorders / somatic symptom disorder / catastrophizing_thoughts_about_symptoms (conf=0.85)
+- C04: Low acceptance of medical reassurance / perceived invalidation -> NON-CLINICAL / AGE-GENERAL / physical / physical self-care / medical check-ups / medical relationship building / doctor-patient trust (conf=0.75)
+- C05: Avoidance of leaving home / travel avoidance -> CLINICAL / DSM-5TR / anxiety disorders / agoraphobia / fear of being outside alone / avoidance_of_public_transport_outdoors_without_company (conf=0.72)
+- C06: Interoceptive hypervigilance (attention to bodily sensations) -> CLINICAL / DSM-5TR / somatic symptom and related disorders / somatic symptom disorder / hypervigilance_to_body_sensations (conf=0.88)
+- C07: Functional and emotional impact (annoyance, fear-driven interference) -> CLINICAL / DSM-5TR / somatic symptom and related disorders / somatic symptom disorder / distress_or_impairment_from_somatic_symptom (conf=0.72)
+
+PREDICTORS:
+- P01: Threat interpretation reframing (cognitive appraisal target) -> PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / emotion_linked_reappraisal / threat_and_anxiety / threat_appraisal_reframe (conf=0.92)
+- P02: Interoceptive exposure engagement / interoceptive calibration -> PSYCHO / cognitive_behavioral_therapies / exposure_and_inhibitory_learning / exposure_modalities / interoceptive / interoceptive_exposure_framework (conf=0.92)
+- P03: Medical reassurance integration -> PSYCHO / cognitive_behavioral_therapies / perseverative_cognition_interventions / metacognitive_beliefs / challenge_meta_beliefs / reduce_reassurance_seeking_and_checking (conf=0.46)
+- P04: Avoidance/activation engagement (graded exposure) -> PSYCHO / cognitive_behavioral_therapies / exposure_and_inhibitory_learning / design_and_rationale / hierarchy_and_targeting / graduated_exposure_principles (conf=0.85)
+- P05: Distress tolerance coping engagement -> PSYCHO / core_psychological_skills_toolkits / emotion_regulation_and_affective_mastery / tolerance_and_surfing / affect_tolerance / distress_tolerance_toolkit (conf=0.66)

@@ -1,0 +1,114 @@
+{
+  "pseudoprofile_id": "CASE01_BPSS_CDT01",
+  "summary": "The case features persistent door-checking driven by memory-doubt and urge-driven repetition (C01–C03), with downstream effects on punctuality (C04), social discomfort (C05), and self-criticism (C06). Modifiable levers span cognitive (reality-testing and metacognition), behavioral (urge-delay, habit disruption), environmental/technological supports, and social/environmental planning. The proposed solutions aim to (1) strengthen memory trust and reduce compulsive checking, (2) increase time-delay before checking to weaken impulse strength, (3) provide external objective feedback to verify lock status, (4) optimize departure routines to minimize lateness, (5) reduce negative self-evaluation after episodes, and (6) reshape cues and routines to prevent relapse of checking behavior. Each lever is designed as a changeable predictor with measurable targets, feasible implementation, and explicit links to the targeted criteria (C01–C06).",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Reality_Testing_and_Metacognitive_Doubt_Reduction",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Brief, structured metacognitive exercises to calibrate memory-based certainty after locking. Includes: (a) a 60-second post-lock check to confirm observation rather than inference, (b) a rapid 'data check' cue (e.g., note “Lock confirmed” on leaving) that normalizes acceptance of memory, and (c) a daily 2-item diary item tracking memory confidence vs. actual lock status.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "By reconciling perceived certainty with actual action, this lever reduces belief-instability about memory (C01) and weakens the motivational pull of the urge to re-check (C03).",
+      "measurement": "Daily diary items: memory_confidence_after_lock (0–100), number_of_checks_per_leaving_episode; time between leaving and acceptance of lock status.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No safety risks anticipated. Monitor for escalation of OCD-spectrum symptoms; escalate to specialized care if new compulsions or distress intensify.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING: target C01 and C03 via Reality_Testing_and_Metacognitive_Doubt_Reduction; measure memory confidence and urge to check."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Urge_Delay_Training_for_Checking",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Delay-based response inhibition strategy: (a) implement a 5-minute delay before any door-check after reaching the leave threshold; (b) progressively increase delay by 2-minute increments as tolerance improves; (c) parallel urge rating (0–10) during delay. Encourage use of a coping statement and a plan to carry the delay through multiple leaving attempts.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Rationale: delaying the response strengthens inhibitory control and reduces automatic checking, decreasing compulsive repetition (C02) and the urge to check (C03).",
+      "measurement": "Latency to first check per leaving episode; number of checks per leaving episode; urge_intensity_ratings (0–10).",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Delay strategies may increase short-term anxiety; provide supportive coaching and ensure non-emergency access to help if distress spikes.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING: target C02 and C03 via Urge_Delay_Training_for_Checking; track latency, frequency, and urge intensity."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Smart_Lock_Status_Logging_and_Automated_Alerts",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Tech-enabled environmental feedback: integrate a smart lock or logging device that records lock/unlock events with automated leave-time alerts and a simple visual confirmation (e.g., a green check) on departure. Use device logs to verify lock status and reduce need for personal re-checks.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "External, objective feedback reduces subjective uncertainty about locking (C01) and lowers the behavioral frequency of checks (C02) by shifting verification to a reliable external source.",
+      "measurement": "Number of checks saved per day; time-to-depart after decision; lock-event_log_count; proportion of days with successful one-check leaving.",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure data privacy and device security; avoid dependency on tech that could fail and lead to unsafe assumptions if the device malfunctions.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING: target C01 and C02 via Smart_Lock_Status_Logging_and_Automated_Alerts; monitor check counts and log reliability."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Pre-Departure_Protocol_with_Buffers",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured leaving protocol: (a) implement a fixed pre-departure checklist (e.g., keys, wallet, lock status, coat) with a built-in time buffer (e.g., +10 minutes), (b) practice weekly runs to build automaticity, (c) involve a supportive accountability partner when feasible. ",
+      "targets_criteria_ids": [
+        "C04",
+        "C02"
+      ],
+      "mechanism_rationale": "Ariticulated routine reduces time-cost (C04) and decreases the likelihood or duration of post-lock checks by creating a reliable, externally buffered process that minimizes hesitation.",
+      "measurement": "On-time departure rate; total leaving duration; leaving_delay_minutes; checks during departure with and without protocol.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Time buffers may occasionally cause schedule pressures; ensure adaptation fits individual routines; adjust as needed.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING: target C04 and C02 via Pre-Departure_Protocol_with_Buffers; assess on-time departure and checking frequency."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Self_Compassion_and_Self_Evaluation_Mindset",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive-behavioral self-compassion program: (a) brief daily self-kindness exercises, (b) reframing post-episode self-talk from self-criticism to self-support, (c) paced reflective journaling focusing on learning from episodes rather than blame. ",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Reduces negative self-evaluation and rumination after episodes, thereby decreasing the affective impact of checking and its social/self-evaluative consequences (C06).",
+      "measurement": "Self-criticism/compassion ratings (0–10) after episodes; minutes of self-compassion practice per day; post-episode distress level.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Ensure practices are supportive and non-shaming; monitor for distress if past trauma triggers occur; refer to clinician if needed.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING: target C06 via Self_Compassion_and_Self_Evaluation_Mindset; track self-criticism and post-episode distress."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Environmental_Cue_Modification_and_Habit_Disruption",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Habit-disruption through cue control: (a) reposition or minimize door-related cues in the environment (e.g., place lock in a less salient position), (b) add an explicit “one-check” cue (e.g., a visible sticker that reinforces one-time verification), (c) pair with a social accountability partner for routine adherence. ",
+      "targets_criteria_ids": [
+        "C02",
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Reconfiguring triggering cues and inserting single-verification anchors reduces repetition (C02) and strengthens confident acceptance of locking (C01) while reducing impulsive checking (C03).",
+      "measurement": "Frequency of door-checks per leaving event; proportion of days with single-check policy honored; self-reported urge levels.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure changes do not inadvertently compromise safety; verify that hygiene/ergonomics are preserved; maintain ability to verify lock in critical situations.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING: target C02, C01, C03 via Environmental_Cue_Modification_and_Habit_Disruption; monitor check frequency and cue adherence."
+    }
+  ]
+}

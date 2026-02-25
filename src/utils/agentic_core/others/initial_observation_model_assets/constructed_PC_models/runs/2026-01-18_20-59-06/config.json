@@ -1,0 +1,33 @@
+{
+  "run_id": "2026-01-18_20-59-06",
+  "created_at_local": "2026-01-18T20:59:06",
+  "llm_model": "gpt-5-mini",
+  "paths": {
+    "mapped_criterions_path": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/02_mental_health_issue_operationalization/mapped_criterions.csv",
+    "hyde_dense_profiles_path": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/03_construction_initial_observation_model/helpers/00_HyDe_based_predictor_ranks/runs/2026-01-15_19-50-34/dense_profiles.csv",
+    "llm_mapping_ranks_path": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/03_construction_initial_observation_model/helpers/00_LLM_based_mapping_based_predictor_ranks/all_pseudoprofiles__predictor_ranks_dense.csv",
+    "ontology_path": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/utils/official/ontology_mappings/CRITERION/predictor_to_criterion/input_lists/predictors_list.txt",
+    "results_dir": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/03_construction_initial_observation_model/constructed_PC_models",
+    "run_root": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_20-59-06",
+    "profiles_dir": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_20-59-06/profiles"
+  },
+  "params": {
+    "pseudoprofile_id": "",
+    "n_criteria": "choice",
+    "n_predictors": "choice",
+    "prompt_top_hyde": 60,
+    "prompt_top_mapping_global": 60,
+    "prompt_top_mapping_per_criterion": 10,
+    "max_workers": 60,
+    "max_ontology_chars": 120000,
+    "enable_sampling": true,
+    "sample_n": 3,
+    "sample_seed": 42,
+    "use_cache": true,
+    "auto_repair": true,
+    "max_repair_attempts": 3,
+    "deterministic_fix": true,
+    "max_fix_passes": 5,
+    "print_summary": false
+  }
+}

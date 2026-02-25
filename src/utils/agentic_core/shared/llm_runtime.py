@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import time
 from dataclasses import dataclass
 from typing import Any, Dict, Optional, Type
@@ -36,12 +37,39 @@ class StructuredLLMClient:
         self.repair_attempts = int(max(0, repair_attempts))
         self.base_backoff_seconds = 0.7
 
+    @staticmethod
+    def _resolve_provider_config() -> tuple[str, Optional[str], str]:
+        openrouter_api_key = str(os.environ.get("OPENROUTER_API_KEY") or "").strip()
+        openai_api_key = str(os.environ.get("OPENAI_API_KEY") or "").strip()
+        openai_base_url = str(os.environ.get("OPENAI_BASE_URL") or "").strip()
+
+        if openrouter_api_key:
+            base_url = openai_base_url or "https://openrouter.ai/api/v1"
+            return openrouter_api_key, base_url, "openrouter_responses_api"
+        if openai_api_key:
+            return openai_api_key, (openai_base_url or None), "openai_responses_api"
+        raise RuntimeError("Missing API key: set OPENROUTER_API_KEY (preferred) or OPENAI_API_KEY.")
+
+    @staticmethod
+    def _resolve_model_for_provider(provider: str, model: str) -> str:
+        token = str(model).strip() or "gpt-5-nano"
+        if provider == "openrouter_responses_api" and "/" not in token and token.startswith("gpt-"):
+            return f"openai/{token}"
+        return token
+
     def _get_client(self):
         try:
             from openai import OpenAI  # type: ignore
         except Exception as exc:
             raise RuntimeError(f"openai package is not available: {repr(exc)}")
-        return OpenAI(timeout=self.timeout_seconds)
+        api_key, base_url, provider = self._resolve_provider_config()
+        kwargs: Dict[str, Any] = {
+            "api_key": api_key,
+            "timeout": self.timeout_seconds,
+        }
+        if base_url:
+            kwargs["base_url"] = base_url
+        return OpenAI(**kwargs), provider
 
     def _extract_response_text(self, response: Any) -> str:
         output_text = getattr(response, "output_text", None)
@@ -89,9 +117,10 @@ class StructuredLLMClient:
         user_prompt: str,
         schema: Dict[str, Any],
     ) -> StructuredLLMResult:
-        client = self._get_client()
+        client, provider = self._get_client()
+        resolved_model = self._resolve_model_for_provider(provider, self.model)
         response = client.responses.create(
-            model=self.model,
+            model=resolved_model,
             input=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
@@ -108,8 +137,8 @@ class StructuredLLMClient:
         raw_text = self._extract_response_text(response)
         return StructuredLLMResult(
             success=True,
-            provider="openai_responses_api",
-            model=self.model,
+            provider=provider,
+            model=resolved_model,
             parsed=None,
             raw_text=raw_text,
             validation_error=None,
@@ -206,7 +235,7 @@ class StructuredLLMClient:
             except Exception as exc:
                 last_error = StructuredLLMResult(
                     success=False,
-                    provider="openai_responses_api",
+                    provider="responses_api",
                     model=self.model,
                     parsed=None,
                     raw_text="",

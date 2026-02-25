@@ -1,0 +1,20 @@
+pseudoprofile_id: pseudoprofile_FTC_ID049
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Episodic tingling in hands/feet -> CLINICAL / ICD-10 / diseases of the nervous system / polyneuropathies and other disorders of the peripheral nervous system / other polyneuropathies / paresthesias_distal_extremities (conf=0.87)
+- C02: Acute anxiety when sensations occur -> CLINICAL / DSM-5TR / somatic symptom and related disorders / illness anxiety disorder (hypochondriasis) / alarm_response_to_normal_bodily_signs (conf=0.75)
+- C03: Symptom–anxiety amplification loop -> CLINICAL / DSM-5TR / somatic symptom and related disorders / illness anxiety disorder (hypochondriasis) / alarm_response_to_normal_bodily_signs (conf=0.81)
+- C04: Catastrophic/threat interpretation of sensations -> CLINICAL / DSM-5TR / somatic symptom and related disorders / somatic symptom disorder / hypervigilance_to_body_sensations (conf=0.72)
+- C05: Uncertainty about medical cause -> CLINICAL / DSM-5TR / somatic symptom and related disorders / illness anxiety disorder (hypochondriasis) / misinterpretation_of_bodily_sensations (conf=0.72)
+- C06: Heightened bodily monitoring/interoceptive focus -> CLINICAL / DSM-5TR / somatic symptom and related disorders / somatic symptom disorder / hypervigilance_to_body_sensations (conf=0.72)
+
+PREDICTORS:
+- P01: Threat reinterpretation via cognitive reappraisal (CBT) usage -> PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / emotion_linked_reappraisal / threat_and_anxiety / threat_appraisal_reframe (conf=0.82)
+- P02: Interoceptive mindfulness engagement -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / body_based_mindfulness / interoceptive_awareness_practice (conf=0.89)
+- P03: Structured medical communication clarity -> PSYCHO / foundations_and_common_factors / ethics_consent_and_safety / informed_consent_clarity (conf=0.72)
+- P04: Diaphragmatic breathing and paced respiration -> PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / physiological_downshift / breath_and_relaxation_skills / diaphragmatic_breathing_practice (conf=0.85)
+- P05: Behavioral activation and reduction of bodily monitoring -> PSYCHO / cognitive_behavioral_therapies / behavior_change_and_activation / planning_and_grading / activation_design / behavioral_activity_planning_system (conf=0.72)
+- P06: Social support and sense of belonging -> SOCIAL / social_support_and_belonging / belonging_isolation_and_meaning / safety_and_trust_in_support / boundary_setting_with_support_network (conf=0.72)
+- P07: Sleep optimization and circadian regularity -> BIO / medical_assessment_and_physiology_testing / sleep_and_respiratory_testing / circadian_and_sleep_tracking / sleep_diary (conf=0.76)
+- P08: Digital tools usage for well-being (Care_Delivery_Formats) -> PSYCHO / digital_and_tech_enabled_solutions / digital_tools_and_supports / mood_and_context_tracking_tool (conf=0.72)

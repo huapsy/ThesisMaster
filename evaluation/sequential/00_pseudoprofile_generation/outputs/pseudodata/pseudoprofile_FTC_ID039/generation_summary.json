@@ -1,0 +1,580 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID039",
+  "source_raw_model": "llm_observation_model_raw.json",
+  "mapped_file": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID039/llm_observation_model_mapped.txt",
+  "n_timepoints": 180,
+  "freq": "D",
+  "start_date": "2025-01-01",
+  "regime_center_t_norm": 0.5822202642559161,
+  "driver_predictor_code": "P02",
+  "shared_osc_frequency": 1.0,
+  "shared_osc_phase": 1.2001646955218181,
+  "pulse_specs": [
+    {
+      "start_idx": 83,
+      "length": 3,
+      "amp": 1.1363824613077493
+    },
+    {
+      "start_idx": 122,
+      "length": 2,
+      "amp": 1.064994672476541
+    },
+    {
+      "start_idx": 114,
+      "length": 3,
+      "amp": 1.0398848124343423
+    }
+  ],
+  "missing_rate_by_code": {
+    "P01": 0.13333333333333333,
+    "P02": 0.13333333333333333,
+    "P03": 0.11666666666666667,
+    "P04": 0.1388888888888889,
+    "P05": 0.14444444444444443,
+    "P06": 0.2,
+    "C01": 0.25,
+    "C02": 0.15,
+    "C03": 0.13333333333333333,
+    "C04": 0.07777777777777778,
+    "C05": 0.12777777777777777,
+    "C06": 0.23333333333333334,
+    "C07": 0.29444444444444445
+  },
+  "missing_rate_overall": 0.1641025641025641,
+  "predictor_generation_meta": {
+    "P01": {
+      "template": "generic",
+      "phi": 0.8501051791230463,
+      "noise_sd_mean": 0.10542336913203912,
+      "dropout": {
+        "start_idx": 91,
+        "length": 3,
+        "multiplier": 0.34402732338498654
+      }
+    },
+    "P02": {
+      "template": "generic",
+      "phi": 0.8069201469344945,
+      "noise_sd_mean": 0.10542336913203912,
+      "dropout": null
+    },
+    "P03": {
+      "template": "generic",
+      "phi": 0.8709874308481169,
+      "noise_sd_mean": 0.10542336913203912,
+      "dropout": null
+    },
+    "P04": {
+      "template": "sleep_light",
+      "phi": 0.9298335675153281,
+      "noise_sd_mean": 0.10542336913203912,
+      "dropout": {
+        "start_idx": 58,
+        "length": 6,
+        "multiplier": 0.4278234871728372
+      }
+    },
+    "P05": {
+      "template": "social_support",
+      "phi": 0.8476090485483125,
+      "noise_sd_mean": 0.10542336913203912,
+      "dropout": null
+    },
+    "P06": {
+      "template": "generic",
+      "phi": 0.8724641492085513,
+      "noise_sd_mean": 0.10542336913203912,
+      "dropout": null
+    }
+  },
+  "criterion_generation_meta": {
+    "C01": {
+      "phi": 0.8196678338237373,
+      "noise_sd_mean": 0.5606471347142203,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.1666666666665873,
+        "P02": 0.1666666666665873,
+        "P03": 0.1666666666665873,
+        "P04": 0.1666666666665873,
+        "P05": 0.1666666666665873,
+        "P06": 0.1666666666665873
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": null,
+      "outlier_indices": [
+        179,
+        155,
+        20
+      ]
+    },
+    "C02": {
+      "phi": 0.8253151550015404,
+      "noise_sd_mean": 0.5606471347142203,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.1666666666665873,
+        "P02": 0.1666666666665873,
+        "P03": 0.1666666666665873,
+        "P04": 0.1666666666665873,
+        "P05": 0.1666666666665873,
+        "P06": 0.1666666666665873
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P02",
+        "a1_pre": 0.30502408993705865,
+        "a2_post": -0.9180703954690375
+      },
+      "outlier_indices": [
+        164,
+        107
+      ]
+    },
+    "C03": {
+      "phi": 0.65,
+      "noise_sd_mean": 0.5606471347142203,
+      "uses_shared_osc": false,
+      "predictor_weights": {
+        "P05": 0.99999999999875
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P02",
+        "a1_pre": -1.085014649543036,
+        "a2_post": 0.5662646530684539
+      },
+      "outlier_indices": []
+    },
+    "C04": {
+      "phi": 0.7839647554538779,
+      "noise_sd_mean": 0.5606471347142203,
+      "uses_shared_osc": false,
+      "predictor_weights": {
+        "P01": 0.1666666666665873,
+        "P02": 0.1666666666665873,
+        "P03": 0.1666666666665873,
+        "P04": 0.1666666666665873,
+        "P05": 0.1666666666665873,
+        "P06": 0.1666666666665873
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P02",
+        "a1_pre": -0.38260123165604576,
+        "a2_post": -1.7532870114480645
+      },
+      "outlier_indices": [
+        134,
+        177,
+        119
+      ]
+    },
+    "C05": {
+      "phi": 0.8296795909105186,
+      "noise_sd_mean": 0.5606471347142203,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.1666666666665873,
+        "P02": 0.1666666666665873,
+        "P03": 0.1666666666665873,
+        "P04": 0.1666666666665873,
+        "P05": 0.1666666666665873,
+        "P06": 0.1666666666665873
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P02",
+        "a1_pre": -1.1714891036300399,
+        "a2_post": -1.7143916539490862
+      },
+      "outlier_indices": [
+        109
+      ]
+    },
+    "C06": {
+      "phi": 0.7226023276317948,
+      "noise_sd_mean": 0.5606471347142203,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P05": 0.99999999999875
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P02",
+        "a1_pre": -1.0622919615716666,
+        "a2_post": 0.870538576657581
+      },
+      "outlier_indices": []
+    },
+    "C07": {
+      "phi": 0.8033807387198565,
+      "noise_sd_mean": 0.5606471347142203,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.1666666666665873,
+        "P02": 0.1666666666665873,
+        "P03": 0.1666666666665873,
+        "P04": 0.1666666666665873,
+        "P05": 0.1666666666665873,
+        "P06": 0.1666666666665873
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": null,
+      "outlier_indices": []
+    }
+  },
+  "missingness_meta": {
+    "P01": {
+      "base_target": 0.15866387948585375,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [],
+      "mcar_fraction": 0.09444444444444444,
+      "mar_fraction": 0.03888888888888889
+    },
+    "P02": {
+      "base_target": 0.058297110184817764,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 24,
+          "length": 6
+        },
+        {
+          "start_idx": 30,
+          "length": 8
+        }
+      ],
+      "mcar_fraction": 0.03888888888888889,
+      "mar_fraction": 0.016666666666666666
+    },
+    "P03": {
+      "base_target": 0.0629431640089419,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 83,
+          "length": 3
+        },
+        {
+          "start_idx": 137,
+          "length": 7
+        }
+      ],
+      "mcar_fraction": 0.05555555555555555,
+      "mar_fraction": 0.016666666666666666
+    },
+    "P04": {
+      "base_target": 0.08217241679050258,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 47,
+          "length": 10
+        }
+      ],
+      "mcar_fraction": 0.044444444444444446,
+      "mar_fraction": 0.05
+    },
+    "P05": {
+      "base_target": 0.1295159438356064,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 131,
+          "length": 6
+        },
+        {
+          "start_idx": 7,
+          "length": 3
+        }
+      ],
+      "mcar_fraction": 0.06666666666666667,
+      "mar_fraction": 0.027777777777777776
+    },
+    "P06": {
+      "base_target": 0.20976304647368893,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [],
+      "mcar_fraction": 0.14444444444444443,
+      "mar_fraction": 0.06666666666666667
+    },
+    "C01": {
+      "base_target": 0.31334992624742203,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 62,
+          "length": 3
+        },
+        {
+          "start_idx": 12,
+          "length": 7
+        }
+      ],
+      "mcar_fraction": 0.11666666666666667,
+      "mar_fraction": 0.08888888888888889
+    },
+    "C02": {
+      "base_target": 0.11247864391022168,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 42,
+          "length": 8
+        }
+      ],
+      "mcar_fraction": 0.06111111111111111,
+      "mar_fraction": 0.05
+    },
+    "C03": {
+      "base_target": 0.09294598547035993,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 74,
+          "length": 3
+        },
+        {
+          "start_idx": 80,
+          "length": 10
+        }
+      ],
+      "mcar_fraction": 0.05555555555555555,
+      "mar_fraction": 0.005555555555555556
+    },
+    "C04": {
+      "base_target": 0.12095860051678506,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [],
+      "mcar_fraction": 0.044444444444444446,
+      "mar_fraction": 0.03333333333333333
+    },
+    "C05": {
+      "base_target": 0.09680051671606672,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 89,
+          "length": 6
+        }
+      ],
+      "mcar_fraction": 0.06111111111111111,
+      "mar_fraction": 0.03888888888888889
+    },
+    "C06": {
+      "base_target": 0.316850993294541,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [],
+      "mcar_fraction": 0.12777777777777777,
+      "mar_fraction": 0.11666666666666667
+    },
+    "C07": {
+      "base_target": 0.32550020434412735,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 119,
+          "length": 8
+        }
+      ],
+      "mcar_fraction": 0.18888888888888888,
+      "mar_fraction": 0.08888888888888889
+    }
+  },
+  "patterns": [
+    "AR(1) inertia",
+    "weekly seasonality",
+    "slow drift trend",
+    "abrupt step change",
+    "smooth sigmoid transition",
+    "shared latent sinusoidal co-fluctuation",
+    "lagged predictor->criterion effects",
+    "bursts/pulses + decay",
+    "outliers/shocks",
+    "missingness: MCAR+MAR+block+schedule"
+  ],
+  "variables": [
+    {
+      "code": "P01",
+      "role": "PREDICTOR",
+      "label": "Emotion Regulation Skills Training (CBT/DBT-based)",
+      "ontology_id": "cognitive_reappraisal_emotion",
+      "conf": 0.72,
+      "freq_hint": null
+    },
+    {
+      "code": "P02",
+      "role": "PREDICTOR",
+      "label": "Attribution Uncertainty (internal vs external cause)",
+      "ontology_id": "alternative_attribution_generation",
+      "conf": 0.72,
+      "freq_hint": null
+    },
+    {
+      "code": "P03",
+      "role": "PREDICTOR",
+      "label": "Romantic Relationship Communication Skills",
+      "ontology_id": "active_listening_practice_as_couple",
+      "conf": 0.72,
+      "freq_hint": null
+    },
+    {
+      "code": "P04",
+      "role": "PREDICTOR",
+      "label": "Sleep Quality (Last Night)",
+      "ontology_id": "sleep_quality_rating",
+      "conf": 0.88,
+      "freq_hint": null
+    },
+    {
+      "code": "P05",
+      "role": "PREDICTOR",
+      "label": "Social Support & Belonging Engagement",
+      "ontology_id": "belonging_and_community_fit_assessment",
+      "conf": 0.78,
+      "freq_hint": null
+    },
+    {
+      "code": "P06",
+      "role": "PREDICTOR",
+      "label": "Moderate Physical Activity (wearable)",
+      "ontology_id": "activity_tracker_wearable",
+      "conf": 0.72,
+      "freq_hint": null
+    },
+    {
+      "code": "C01",
+      "role": "CRITERION",
+      "label": "Romantic relationship doubt",
+      "ontology_id": "relationship_ambiguity_navigation",
+      "conf": 0.92,
+      "freq_hint": null
+    },
+    {
+      "code": "C02",
+      "role": "CRITERION",
+      "label": "Short-term mood variability",
+      "ontology_id": "depressed_mood",
+      "conf": 0.72,
+      "freq_hint": null
+    },
+    {
+      "code": "C03",
+      "role": "CRITERION",
+      "label": "State-dependent emotional connection to partner",
+      "ontology_id": "emotional",
+      "conf": 0.72,
+      "freq_hint": null
+    },
+    {
+      "code": "C04",
+      "role": "CRITERION",
+      "label": "Attribution uncertainty (internal vs external cause)",
+      "ontology_id": "relationship_ambiguity_navigation",
+      "conf": 0.62,
+      "freq_hint": null
+    },
+    {
+      "code": "C05",
+      "role": "CRITERION",
+      "label": "Acute panic/catastrophic self-evaluation",
+      "ontology_id": "chronic_self_criticism",
+      "conf": 0.72,
+      "freq_hint": null
+    },
+    {
+      "code": "C06",
+      "role": "CRITERION",
+      "label": "Emotion regulation / coping capacity in moments of doubt",
+      "ontology_id": "regulating",
+      "conf": 0.83,
+      "freq_hint": null
+    },
+    {
+      "code": "C07",
+      "role": "CRITERION",
+      "label": "Impact on relationship decision-making and behavior",
+      "ontology_id": "relationship_commitment",
+      "conf": 0.66,
+      "freq_hint": null
+    }
+  ]
+}

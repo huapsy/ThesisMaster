@@ -1,0 +1,15 @@
+pseudoprofile_id: pseudoprofile_FTC_ID019
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Exaggerated startle response to sudden cues -> CLINICAL / DSM-5TR / trauma- and stressor-related disorders / unspecified trauma- and stressor-related disorder / exaggerated_startle_response (conf=0.72)
+- C02: Persistent subjective feeling 'on edge' -> CLINICAL / DSM-5TR / depressive disorders / major depressive disorder (unipolar depression) / single episode / anxious distress type / feeling_nervous_or_on_edge (conf=0.82)
+- C04: Situational hypervigilance for cues -> NON-CLINICAL / AGE-GENERAL / emotional / arousal / vigilance / threat detection / identifying hazards (conf=0.82)
+- C05: Negative emotional reaction to ongoing symptoms -> CLINICAL / DSM-5TR / depressive disorders / major depressive disorder (unipolar depression) / single episode / anxious distress type / feeling_nervous_or_on_edge (conf=0.72)
+- C06: Expectation–reality mismatch about recovery -> NON-CLINICAL / AGE-GENERAL / emotional / positive emotions / optimism / expectancy / realistic expectancy (conf=0.62)
+
+PREDICTORS:
+- P01: Sleep Quality (last night) -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / sleep_quality_rating (conf=0.85)
+- P02: Diaphragmatic Breathing Practice -> PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / physiological_downshift / breath_and_relaxation_skills / diaphragmatic_breathing_practice (conf=0.92)
+- P03: Mindfulness Body Scan / Grounding -> PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / mindfulness_for_stress / orient_and_ground / body_scan_grounding (conf=0.82)
+- P04: Social Belonging / Perceived Support -> SOCIAL / social_support_and_belonging / network_building_and_maintenance / mapping_and_assessment / belonging_and_community_fit_assessment (conf=0.78)

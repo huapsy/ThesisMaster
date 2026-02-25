@@ -1,0 +1,630 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID013",
+  "model_summary": "This initial gVAR-ready observation model targets a salutogenic rebalancing of drinking behavior by operationalizing six core criteria from the complaint (C01–C06) as outcome state indicators and coupling them with a compact, modifiable set of five predictor levers (P01–P05) that map to psychological, behavioral, and sleep-related pathways. The predictor set emphasizes distinct mechanisms (mindful drinking practice, alcohol-free social planning, coping-skill engagement, sleep-routine regularity, and wearable-derived sleep metrics) to yield sufficient within-person variance via multi-instance EMA and compatible passive data. The design aims for short- to mid-term changes (2–8 weeks) while maintaining feasibility (3 momentary prompts/day for EMA predictors; 1 daily diary entry; passive wearables data). Nonlinear or uncertain effects are noted where applicable, and the plan minimizes redundancy and collinearity across constructs to enable robust gVAR estimation.",
+  "variable_selection_notes": "Variables were chosen to reflect the complaint’s changeable factors (consumption level, urges, perceived control, coping motives, morning impact, and worry) while ensuring actionable targets for salutogenic change. C01–C06 cover drinking quantity/frequency relative to plan, anticipatory urges, perceived control, coping-motivated drinking, morning impairment, and worry. Predictors were picked to span cognitive-behavioral regulation (P01–P03), sleep-related pathways (P04), and objective sleep metrics (P05). We minimize overlap by selecting one broad self-regulation construct (mindfulness-based self-regulation via P01) plus complementary levers. Expect modest within-person variability for sleep-based predictors; EMA items are designed with 0–8 Likert scales to maximize variance. Trade-offs include balancing measurement burden with statistical power; we mitigate missingness via 63 prompts over 21 days and a daily diary.",
+  "design_recommendations": {
+    "study_days": 21,
+    "momentary_ema": {
+      "prompts_per_day": 3,
+      "schedule_type": "randomized_within_blocks",
+      "time_blocks_local": [
+        "09:00-11:00",
+        "14:00-16:00",
+        "19:00-21:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 63,
+      "notes": "Blocks capture post-work and daytime periods with a later evening prompt to cover typical drinking opportunities."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "07:00"
+      ],
+      "expected_total_entries": 21,
+      "notes": "Morning diary to capture prior-night sleep, morning mood, and functioning."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Wearables/phones provide sleep duration/quality and activity proxies; data are aggregated per prompt where feasible."
+    },
+    "minimum_total_observations_target": 60,
+    "gvar_readiness_notes": "Initial plan uses 5 predictors with 6 criteria; strong face validity and measurable within-person variance. Monitor missingness; plan for imputation and reasonable transformations (e.g., z-scoring of 0–8 scales).",
+    "variance_support_notes": "1–9 Likert scales ensure variance; use z-scoring or ordinal-to-continuous approximations for gVAR compatibility.",
+    "missingness_risk_notes": "EMA burden may lead to missing prompts; mitigate with reminders and flexible scheduling."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "",
+      "label": "Increased alcohol use beyond intended",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, have you consumed drinks beyond what you had planned? (0-8)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 3,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Direct EMA item mapping to C01."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "",
+      "label": "Anticipatory urges/ preoccupation about drinking",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, how often did you think about drinking or anticipate the next opportunity? (0-8)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 3,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures craving preoccupation."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "",
+      "label": "Perceived loss of voluntary control over drinking",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Do you feel drinking is a choice in this moment? rate (0-8)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 3,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures momentary perceived lack of control."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "",
+      "label": "Alcohol used as post-work coping/relaxation",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, to what extent did you use alcohol to unwind after work? (0-8)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 3,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses usage as coping in evenings."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "",
+      "label": "Morning mood/energy impairment linked to drinking",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "How much did drinking yesterday affect your morning mood/energy? (0-8)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 1,
+        "recall_window": "yesterday",
+        "expected_within_person_variability": "high",
+        "notes": "Direct morning impact assessment."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "",
+      "label": "Worry/concern about current drinking",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how worried are you about your drinking pattern? (0-8)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 3,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Motivation to change captured via worry/concern."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C01_C02_C03_C04_C05_C06_targets",
+      "source_variable_id": "",
+      "label": "Targets for C01–C06",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "other",
+        "channel": "n/a",
+        "assessment_type": "other",
+        "item_or_signal": "Mapping across criteria for gVAR design",
+        "response_scale_or_unit": "n/a",
+        "sampling_per_day": 1,
+        "recall_window": "n/a",
+        "expected_within_person_variability": "unknown",
+        "notes": "Explicitly links predictors to all criteria for the predictor–criterion relevance grid."
+      },
+      "include_priority": "LOW",
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "low",
+        "distribution_hint": "unknown"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Mindful drinking practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Third_Wave_and_Contextual_Therapies > Mindfulness_Based_Interventions > Mindful_Drinking_Practice",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Increases momentary attentional control and response substitution to reduce impulsive drinking.",
+      "intervention_examples_safe": "Mindfulness meditation; mindful sipping; pausing before pouring",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, how mindful were you during your last drinking opportunity? (0-8)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 3,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures fluctuating mindfulness related to drinking moments."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "None beyond standard EMA data collection.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "High feasibility with brief EMA items."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Alcohol-free social plan",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > nutrition_hydration_and_metabolic_health > alcohol_and_other_intake_modulation > *alcohol_free_social_plan",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Prevents drinking by structuring social contexts away from alcohol.",
+      "intervention_examples_safe": "Plan alcohol-free events; decline cues; use non-alcoholic beverages",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, did you participate in an alcohol-free social plan? (0-8)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 3,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures contextual preventive strategy."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Standard EMA; ensure plan safety in social contexts.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.92,
+        "notes": "High practicality in daily social contexts."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Coping_skills_training_use",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > CBT_based_recovery_skills > coping_skills_training > *coping_with_social_pressure_without_use",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.88,
+      "mechanism_rationale": "Increases use of adaptive coping to handle urges and social pressure.",
+      "intervention_examples_safe": "CBT-based coping skills practice; urge-surfing; reframing",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, did you use a coping skill trained in CBT to resist drinking? (0-8)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 3,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Measures immediate uptake of coping skills."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "CBT-based strategies are standard; no contraindicated actions.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.87,
+        "gvar_feasibility_0_1": 0.87,
+        "notes": "Moderate burden due to multiple skills per day."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Sleep routine regularity",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Sleep_Circadian_and_Restoration > Sleep_Routines_and_Practices",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Regular sleep routines stabilize morning functioning and mood, affecting C05/C06.",
+      "intervention_examples_safe": "Consistent bed/wake times; wind-down routine",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "Did you follow a regular sleep routine last night? (0-8)",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 1,
+        "recall_window": "yesterday",
+        "expected_within_person_variability": "high",
+        "notes": "Daily diary of sleep regularity."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Simple diary item; no risk.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Requires user entry each morning."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Wearable-derived sleep quality",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Personalization_and_Monitoring > Wearables_and_Home_Monitoring",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Objective sleep metrics complement subjective sleep diaries and link to morning impairment (C05).",
+      "intervention_examples_safe": "N/A (passive data)",
+      "measurement": {
+        "mode": "wearable_sensor",
+        "channel": "Wearable device",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Nightly sleep duration/quality (0-8) derived from wearable sensors",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 1,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": "Passive sleep-quality signal from wearable sensors."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Passive data use; ensure consent and data security.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Relies on device availability; potential data gaps if device not worn."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01_C02_C03_C04_C05_C06_targets",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01_C02_C03_C04_C05_C06_targets",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01_C02_C03_C04_C05_C06_targets",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01_C02_C03_C04_C05_C06_targets",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01_C02_C03_C04_C05_C06_targets",
+      "relevance_score_0_1_comma5": "0,50000"
+    }
+  ],
+  "edges": [],
+  "diagnostics": {
+    "expected_collinearity_risks": [],
+    "expected_floor_ceiling_risks": [],
+    "variance_enhancement_suggestions": [],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": "Feasible with current predictor/criterion set; monitor potential collinearity and missingness during data collection."
+  },
+  "safety_notes": "Not a diagnosis. No medication dosing or safety interventions recommended. If you observe acute risk indicators, escalate to clinical care per local guidelines."
+}

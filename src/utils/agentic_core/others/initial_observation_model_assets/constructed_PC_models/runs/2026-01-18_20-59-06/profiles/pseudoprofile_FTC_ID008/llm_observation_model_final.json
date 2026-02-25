@@ -1,0 +1,1966 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID008",
+  "model_summary": "Initial gVAR-ready observation model for chronic shoulder/jaw tension with low interoceptive awareness and tension-triggered headaches. Preserves 6 criterion nodes (C01–C06) and 8 modifiable predictors (P01–P08). Design: 28-day EMA with 6 momentary prompts/day + 1 morning diary; passive jaw-clench sensor aggregated per prompt. Variables chosen to maximize within-person variability and coverage of BIO-PSYCHO-SOCIAL levers (PMR, interoception/mindfulness, breathing, sleep, posture/ergonomics, passive bruxism signal, microbreaks, cognitive reappraisal). Dense plausibility matrices provided for P->C, P->P and C->C. Sparse directed edges select the top incoming relations per target (2–4 for P->C; 1–3 for P->P and C->C) and copy the dense values exactly.",
+  "variable_selection_notes": "Kept all 6 clinically-relevant criteria from the case. Selected 8 predictors prioritized by the hyde signals (mindfulness/interoception, PMR, breathing, wearable jaw sensor, sleep, posture cues, micro-breaks, cognitive reappraisal). All momentary self-report items use 1–9 anchored Likert where feasible (to increase variance). Sleep is measured as a morning diary (last-night). Passive jaw-clench count is aggregated per EMA prompt. Total nodes = 14 (<= 18).",
+  "design_recommendations": {
+    "study_days": 28,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "time_blocks_fixed",
+      "time_blocks_local": [
+        "early_morning",
+        "mid_morning",
+        "noon",
+        "mid_afternoon",
+        "late_afternoon",
+        "evening"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 168,
+      "notes": "6 daily prompts provide dense within-day resolution consistent with expected short lags (0–6h). Use push notifications with 15-minute response window."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "08:00"
+      ],
+      "expected_total_entries": 28,
+      "notes": "Morning diary captures last-night sleep quality and other 24h summary items."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "passive_aggregated_per_prompt",
+      "notes": "Jaw clench/bruxism sensor events aggregated into count per EMA window; wearable HRV optional but not included to limit nodes."
+    },
+    "minimum_total_observations_target": 120,
+    "gvar_readiness_notes": "Design provides sufficient repeated measures per node (>=168 prompts, 28 diaries). Momentary constructs likely to show within-person variance; passive jaw-count will provide additional objective variance. Expect to detrend daily cycles (time-of-day) during preprocessing.",
+    "variance_support_notes": "Most momentary self-report items expected high within-person variability (tension, threat expectation, awareness). Sleep (morning) provides between-day variance. Passive jaw sensor expected high-resolution variability.",
+    "missingness_risk_notes": "6 prompts/day is moderate burden; expect 60–80% compliance. Prioritize PMR and sleep adherence reminders to reduce biased missingness; include passive sensor to mitigate self-report gaps."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "C01",
+      "label": "Elevated resting muscle tension in shoulders and jaw",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Self-rated shoulder and jaw tension right now",
+        "response_scale_or_unit": "1-9 Likert (1=not at all tense, 9=extremely tense)",
+        "sampling_per_day": 6,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": "Primary momentary symptom; anchors emphasize shoulders and jaw."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "none (use raw 1-9); center per-person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "C02",
+      "label": "Low moment-to-moment awareness of bodily tension",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since last prompt, how much have you noticed bodily tension or tightness before it led to another symptom?",
+        "response_scale_or_unit": "1-9 Likert (1=very high awareness, 9=very low awareness)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Scale reversed purposely (higher=lower awareness) to match criterion framing."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "invert or recode if needed; center per-person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "C03",
+      "label": "Headaches triggered by muscular tension",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since last prompt, have you experienced a headache and its intensity?",
+        "response_scale_or_unit": "Two parts: (A) Headache flag (yes/no) optional; (B) Intensity 1-9 Likert (1=none, 9=very severe). Use intensity as node.",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Headache intensity used as the continuous criterion; flag can be recorded separately but not a node."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "use raw intensity; zero-inflation expected",
+        "collinearity_risk": "low",
+        "distribution_hint": "bounded_0_1"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "C04",
+      "label": "Persistent anticipatory threat expectation",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how much do you expect that something bad is about to happen?",
+        "response_scale_or_unit": "1-9 Likert (1=not at all, 9=extremely)",
+        "sampling_per_day": 6,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": "Key cognitive-affective criterion tied to bracing."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "center per-person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "C05",
+      "label": "Difficulty relaxing on low-stress days",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since last prompt, how difficult has it been to relax given the current context?",
+        "response_scale_or_unit": "1-9 Likert (1=easy to relax, 9=very difficult)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Collect perceived objective contextual stress as a separate optional item (not a node) if needed."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "center",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "C06",
+      "label": "Habitual anticipatory muscle bracing in absence of immediate threat",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since last prompt, to what extent did you find yourself automatically bracing/tensing (posture/face)?",
+        "response_scale_or_unit": "1-9 Likert (1=not at all, 9=constantly)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Complemented by passive jaw sensor count for objective bracing signal."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "center",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Progressive muscle relaxation (PMR) practice intensity since last prompt",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / breath_and_relaxation_skills / *progressive_muscle_relaxation_practice",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.95,
+      "mechanism_rationale": "PMR directly reduces peripheral muscle tension and may lower headache likelihood and general arousal.",
+      "intervention_examples_safe": "Guided PMR focusing on shoulders, neck, jaw; 10–20 min sessions.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "How much PMR practice (short guided or self) did you do since last prompt?",
+        "response_scale_or_unit": "1-9 Likert (1=none, 9=full 15+ min session)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Encourages reporting minutes via categorical anchors; expected to fluctuate with routine."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none; center per-person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Immediate downregulation of peripheral muscle tension after PMR."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Regular PMR reduces headache-triggering muscle tension over hours to days."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Self-report feasible; may need reminders for adherence."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Interoceptive awareness/body-scan practice (mindfulness) since last prompt",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / body_based_mindfulness / *body_scan_with_breath_integration",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Enhances early detection of tension and reduces delay until corrective action.",
+      "intervention_examples_safe": "Brief 1–5 minute body-scan reminders, noticing jaw/shoulder tension.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since last prompt, how much did you practice body-focused interoception (body-scan/notice tension)?",
+        "response_scale_or_unit": "1-9 Likert (1=none, 9=frequent/detailed body-scan)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Key modifiable predictor to address low awareness (C02)."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "center",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C01",
+        "C04"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improves awareness quickly after short practices."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Short practices easy to record; likely high within-person variability."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Diaphragmatic/soothing breathing micro-practices since last prompt",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / breath_and_relaxation_skills / *diaphragmatic_breathing_practice",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.95,
+      "mechanism_rationale": "Quick autonomic downshift that transiently lowers muscle tension and threat-related arousal.",
+      "intervention_examples_safe": "30s–2min paced breathing exercises.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since last prompt, how much breathing practice did you do?",
+        "response_scale_or_unit": "1-9 Likert (1=none, 9=frequent/extended)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Short-lived effects but frequent practice expected to reduce momentary tension."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "center",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 2,
+          "rationale": "Breathing has immediate short-lag impact on perceived threat/arousal."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Very feasible, low burden."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Sleep quality last night (morning diary)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Sleep_Circadian_and_Restoration / Sleep_Routines_and_Practices",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Poor sleep increases baseline arousal and muscle tension and reduces ability to downregulate.",
+      "intervention_examples_safe": "Sleep hygiene adjustments, consistent bedtime.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "Last-night sleep quality",
+        "response_scale_or_unit": "1-9 Likert (1=very poor, 9=very good)",
+        "sampling_per_day": 1,
+        "recall_window": "last_night",
+        "expected_within_person_variability": "medium",
+        "notes": "Morning diary anchored to prior night; used as daily-level predictor."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "use as day-level covariate (lag 0-24h)",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C05",
+        "C04"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep reduces baseline tension and arousal across the day."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "High compliance expected for morning diary."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Ergonomic/posture adjustments and mindful posture checks since last prompt",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "ontology_path": "BIO / Movement_Physical_Function_and_Somatic_Care / Ergonomics_Posture_and_Work_Capacity / *posture_and_embodiment_setup",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Posture adjustments reduce mechanical load and local muscle tension in shoulders/jaw.",
+      "intervention_examples_safe": "Seat setup, posture cue prompts, neck/shoulder stretches.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since last prompt, how much did you do posture/ergonomic adjustments or posture checks?",
+        "response_scale_or_unit": "1-9 Likert (1=none, 9=frequent/corrective)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures both behavior and environmental adjustments."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "center",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Immediate mechanical relief reduces tension."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Self-report feasible; objective ergonomic metrics not included to limit nodes."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Passive jaw-clench/bruxism sensor event count (per EMA window)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / personalization_monitoring_and_data_feedback / wearables_and_home_monitoring / physiology / muscle_tension / *jaw_clench_bruxism_sensor",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.3,
+      "mechanism_rationale": "Objective proxy for jaw/face muscle activation; indicates covert bracing and can trigger interventions.",
+      "intervention_examples_safe": "Use as passive feed; optionally enable biofeedback prompts.",
+      "measurement": {
+        "mode": "wearable_sensor",
+        "channel": "paired_sensor_api",
+        "assessment_type": "passive_aggregated_per_prompt",
+        "item_or_signal": "Jaw clench/bruxism event count in last EMA window",
+        "response_scale_or_unit": "count (events)",
+        "sampling_per_day": 6,
+        "recall_window": "aggregated over EMA window (since_last_prompt)",
+        "expected_within_person_variability": "high",
+        "notes": "Objective measure; may complement self-report bracing (C06)."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "log(count+1) or standardize per-person",
+        "collinearity_risk": "low",
+        "distribution_hint": "count"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "monotonic_positive",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Higher bruxism counts are strongly associated with tension-type headaches in short lags."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.6,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Requires user device/sensor; provides objective variance to support gVAR estimation."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "Hourly micro-breaks with movement since last prompt",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "ontology_path": "PSYCHO / change_process_and_therapeutic_phases / behavioral_integration / flexible_skill_selection_in_context / *early_warning_signs_to_action_routine",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Frequent micro-breaks reduce posture-related load and transient tension accumulation.",
+      "intervention_examples_safe": "1–2 minute stretch/movement breaks.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since last prompt, how many micro-breaks with movement did you take?",
+        "response_scale_or_unit": "1-9 Likert (1=none, 9=frequent/many)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures brief behavioral interruptions of prolonged posture."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "center",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Breaks interrupt tension accumulation."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Simple self-report; subject to recall bias but frequent sampling mitigates."
+      }
+    },
+    {
+      "var_id": "P08",
+      "label": "Threat reappraisal / cognitive reframing practice since last prompt",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / emotion_linked_reappraisal / threat_and_anxiety / *reattribute_threat_to_arousal_sensitivity",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Cognitive reappraisal reduces anticipatory threat expectation and consequent bracing.",
+      "intervention_examples_safe": "Brief reappraisal prompts or reframing exercises.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since last prompt, how much did you use cognitive reappraisal/ threat reappraisal strategies?",
+        "response_scale_or_unit": "1-9 Likert (1=none, 9=extensive use)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Targets cognitive processes sustaining bracing and threat expectation."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "center",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reappraisal lowers immediate threat expectation."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Self-report of skill use; training may be needed prior to measurement."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,40000"
+    }
+  ],
+  "predictor_predictor_relevance": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,25000"
+    }
+  ],
+  "criterion_criterion_relevance": [
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.82,
+      "estimated_relevance_tier": "very_high",
+      "notes": "PMR practice expected to rapidly reduce momentary muscle tension."
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.75,
+      "estimated_relevance_tier": "high",
+      "notes": "Objective jaw-clench events indicate increased momentary tension."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-2h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "Breathing micro-practices expected to reduce momentary muscle tension acutely."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.88,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Interoceptive practice should increase momentary awareness (reduce low-awareness score)."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-2h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Breathing may modestly increase bodily awareness in short lags."
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.4,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.9,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Objective jaw-clench events strongly predict tension-type headache intensity in short lags."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_indirect_or_mediated",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "PMR practice can reduce headache intensity over hours to days."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Better sleep quality last night associated with lower headache likelihood/intensity across the day."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.82,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Cognitive reappraisal is expected to reduce anticipatory threat expectation in short lags."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_indirect_or_mediated",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Interoceptive practice may reduce threat expectation indirectly by increasing detection and corrective action."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-2h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "high",
+      "notes": "Breathing exercises can acutely lower arousal and perceived threat."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.8,
+      "estimated_relevance_tier": "very_high",
+      "notes": "PMR practice expected to make relaxation easier on short timescales."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-2h",
+      "estimated_relevance_0_1": 0.75,
+      "estimated_relevance_tier": "high",
+      "notes": "Breathing micro-practices reduce difficulty relaxing, especially acutely."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "Interoceptive practice may support relaxation indirectly."
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.88,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Passive jaw-clench counts strongly index habitual bracing."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Ergonomic/posture adjustments expected to reduce habitual bracing over short periods."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_indirect_or_mediated",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "PMR may reduce general bracing tendency indirectly through lowering baseline tension."
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    }
+  ],
+  "edges_pp": [
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "high",
+      "notes": "Interoception practice and PMR may co-occur or facilitate one another."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P01",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P01",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P02",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P02",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Passive jaw sensor events (with biofeedback) can increase interoceptive practice; otherwise association may reflect detection opportunities."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P02",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "PMR and breathing practices may co-occur or PMR sessions may include breathing components."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P03",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P03",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.3,
+      "estimated_relevance_tier": "medium",
+      "notes": "PMR sessions may relate to sleep quality indirectly; weak association expected."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P04",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.3,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P04",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.3,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "high",
+      "notes": "Micro-breaks often lead to better posture/ergonomics over the short term."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P05",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P05",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P06",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Posture adjustments may co-occur with changes in jaw clenching events (association may be behavioral/contextual)."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P06",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.2,
+      "estimated_relevance_tier": "low",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P06",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.2,
+      "estimated_relevance_tier": "low",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P07",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.4,
+      "estimated_relevance_tier": "medium",
+      "notes": "PMR practice may modestly associate with taking micro-breaks in the short term."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P07",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.4,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P07",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.4,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P08",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Interoceptive practice can facilitate cognitive reappraisal (noting signals enables reappraisal)."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P08",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.4,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P08",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.35,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    }
+  ],
+  "edges_cc": [
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.85,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Anticipatory threat expectation strongly drives muscular bracing and tension."
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.75,
+      "estimated_relevance_tier": "high",
+      "notes": "Difficulty relaxing is associated with elevated baseline tension."
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.8,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Experiencing headache may change attention/awareness dynamics in subsequent windows."
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "Higher muscle tension may reduce momentary awareness or shift attentional resources."
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.4,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.9,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Elevated muscle tension is the proximate driver of tension-type headache intensity."
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.8,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Low awareness may allow tension to build into headache over subsequent windows."
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.8,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Habitual bracing may sustain or elevate perceived threat/anticipation in short lags."
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "Difficulty relaxing can amplify threat expectation in the short term."
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "Higher threat expectation makes relaxation more difficult."
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Elevated tension can interfere with relaxation processes."
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.8,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Threat expectation drives anticipatory bracing/habitual tensing."
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "Elevated muscle tension reinforces habitual bracing patterns."
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "P01 (PMR), P03 (breathing) and P02 (interoception) may correlate closely (downregulation cluster).",
+      "P05 (posture) and P07 (micro-breaks) may be correlated because breaks often entail posture change."
+    ],
+    "expected_floor_ceiling_risks": [
+      "C04 (anticipatory threat) and C01 (tension) may show elevated baseline (ceiling) in some participants.",
+      "P06 (jaw sensor) may have many zeros for some users (floor) if device not worn or no events."
+    ],
+    "variance_enhancement_suggestions": [
+      "Use momentary 1-9 scales to increase variance for subjective states.",
+      "Encourage wearing of passive sensor to avoid floor effects; consider log-transform for counts.",
+      "Include time-of-day covariates and day-of-week to model diurnal cycles (detrending)."
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "Caffeine/hydration nodes (excluded to limit node count).",
+      "Detailed medication/pharmacotherapy variables (excluded due to scope and safety)."
+    ],
+    "gvar_feasibility_summary": "With 14 nodes and 168 momentary prompts + 28 diaries, gVAR estimation should be feasible for pairwise VAR with regularization. Preprocessing should include per-person centering, detrending (time-of-day), and handling zero-inflation for passive counts."
+  },
+  "safety_notes": "No diagnostic claims. If headaches are severe, frequent, or accompanied by neurological signs (visual change, weakness, confusion), advise seeking urgent medical evaluation. If anticipatory threat or anxiety is disabling, recommend contacting a mental health professional. Passive sensor deployment must follow privacy/consent procedures."
+}

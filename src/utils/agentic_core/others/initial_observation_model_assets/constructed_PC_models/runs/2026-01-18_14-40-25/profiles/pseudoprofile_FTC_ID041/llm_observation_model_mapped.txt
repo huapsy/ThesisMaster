@@ -1,0 +1,19 @@
+pseudoprofile_id: pseudoprofile_FTC_ID041
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Nightmare-triggered awakenings (occurrence) -> CLINICAL / DSM-5TR / sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced parasomnias / medication-associated nightmare disorder / nocturnal_awakenings_due_to_nightmares (conf=0.75)
+- C02: Nightmare vividness/intensity -> CLINICAL / DSM-5TR / sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced insomnia / glucocorticoid-induced insomnia / nightmares_or_vivid_dreams (conf=0.82)
+- C03: Anticipatory fear of sleep / reluctance to go to bed -> CLINICAL / DSM-5TR / sleep-wake disorders / insomnia disorders / chronic insomnia disorder / sleep-onset insomnia / bedtime_anxiety_present (conf=0.72)
+- C04: Acute autonomic arousal on awakening -> CLINICAL / DSM-5TR / sleep-wake disorders / parasomnias / non–rapid eye movement (nrem) arousal disorders / confusional arousals / autonomic_activation_during_arousal (conf=0.82)
+- C05: Prolonged post-awakening physiological/psychological activation -> CLINICAL / DSM-5TR / sleep-wake disorders / insomnia disorders / chronic insomnia disorder / early-morning awakening insomnia / morning_hyperarousal_signs_post_awakening (conf=0.85)
+- C06: Difficulty resuming sleep after nightmare awakenings -> CLINICAL / DSM-5TR / sleep-wake disorders / insomnia disorders / chronic insomnia disorder / mixed pattern / wake_after_sleep_onset (conf=0.72)
+
+PREDICTORS:
+- P01: Imagery Rehearsal (nightmare imagery rescripting) practice -> PSYCHO / trauma_memory_imagery_and_narrative_work / imagery_and_rescripting_interventions / nightmare_imagery_rehearsal (conf=0.92)
+- P02: Presleep wind-down / sleep routine adherence -> BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / wind_down_routine (conf=0.82)
+- P03: Post-awakening grounding and paced-breathing practice -> PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / physiological_downshift / breath_and_relaxation_skills / paced_breathing_practice (conf=0.72)
+- P04: Sleep environment optimization (light/noise/temperature/comfort) -> BIO / environmental_exposures_and_built_environment_optimization / thermal_comfort_and_shelter_integrity / indoor_sleep_comfort_environment / bedding_thermal_optimization (conf=0.76)
+- P05: HRV / slow-breathing biofeedback practice and passive HRV monitoring -> BIO / personalization_monitoring_and_data_feedback / wearables_and_home_monitoring / physiology / autonomic_and_cardiovascular / heart_rate_and_hrv / hrv_biofeedback_device (conf=0.78)
+- P06: Stimulus-control / non-clock-checking and bed association -> PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / conditioning_and_associations / relearning / stimulus_control_bed_association_relearning (conf=0.85)
+- P07: Wearable sleep/arousal monitoring with feedback -> BIO / personalization_monitoring_and_data_feedback / wearables_and_home_monitoring / physiology / sleep_and_circadian / wearables / sleep_tracker_wrist_wearable (conf=0.78)

@@ -1,0 +1,71 @@
+pseudoprofile_id: pseudoprofile_FTC_ID016
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID016/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.6376
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 0.80 * t + phase=5.69)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 2
+  * pulse_1: start_idx=39, length=7, amp=0.983
+  * pulse_2: start_idx=68, length=7, amp=0.907
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P04
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.194 | freq_hint=None
+  * P02: missing_rate=0.150 | freq_hint=None
+  * P03: missing_rate=0.139 | freq_hint=None
+  * P04: missing_rate=0.194 | freq_hint=None
+  * P05: missing_rate=0.044 | freq_hint=None
+  * C01: missing_rate=0.306 | freq_hint=None
+  * C02: missing_rate=0.106 | freq_hint=None
+  * C03: missing_rate=0.244 | freq_hint=None
+  * C04: missing_rate=0.267 | freq_hint=None
+  * C05: missing_rate=0.161 | freq_hint=None
+  * C06: missing_rate=0.239 | freq_hint=None
+  * C07: missing_rate=0.278 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Threat interpretation reframing (cognitive appraisal target) | ontology_id=threat_appraisal_reframe | conf=0.92 | freq_hint=None
+- P02 (PREDICTOR): Interoceptive exposure engagement / interoceptive calibration | ontology_id=interoceptive_exposure_framework | conf=0.92 | freq_hint=None
+- P03 (PREDICTOR): Medical reassurance integration | ontology_id=reduce_reassurance_seeking_and_checking | conf=0.46 | freq_hint=None
+- P04 (PREDICTOR): Avoidance/activation engagement (graded exposure) | ontology_id=graduated_exposure_principles | conf=0.85 | freq_hint=None
+- P05 (PREDICTOR): Distress tolerance coping engagement | ontology_id=distress_tolerance_toolkit | conf=0.66 | freq_hint=None
+- C01 (CRITERION): Acute somatic symptom intensity and frequency | ontology_id=somatic_symptom_severity_elevated | conf=0.72 | freq_hint=None
+- C02 (CRITERION): Distress from symptom unpredictability | ontology_id=catastrophizing_thoughts_about_symptoms | conf=0.62 | freq_hint=None
+- C03 (CRITERION): Threat interpretation of bodily sensations | ontology_id=catastrophizing_thoughts_about_symptoms | conf=0.85 | freq_hint=None
+- C04 (CRITERION): Low acceptance of medical reassurance / perceived invalidation | ontology_id=doctor | conf=0.75 | freq_hint=None
+- C05 (CRITERION): Avoidance of leaving home / travel avoidance | ontology_id=avoidance_of_public_transport_outdoors_without_company | conf=0.72 | freq_hint=None
+- C06 (CRITERION): Interoceptive hypervigilance (attention to bodily sensations) | ontology_id=hypervigilance_to_body_sensations | conf=0.88 | freq_hint=None
+- C07 (CRITERION): Functional and emotional impact (annoyance, fear-driven interference) | ontology_id=distress_or_impairment_from_somatic_symptom | conf=0.72 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

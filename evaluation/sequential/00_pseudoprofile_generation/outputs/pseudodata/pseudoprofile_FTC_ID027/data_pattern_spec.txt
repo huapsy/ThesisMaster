@@ -1,0 +1,74 @@
+pseudoprofile_id: pseudoprofile_FTC_ID027
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID027/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.5912
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 1.30 * t + phase=2.63)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 3
+  * pulse_1: start_idx=110, length=4, amp=0.941
+  * pulse_2: start_idx=139, length=6, amp=0.751
+  * pulse_3: start_idx=103, length=5, amp=0.760
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P02
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.172 | freq_hint=None
+  * P02: missing_rate=0.178 | freq_hint=None
+  * P03: missing_rate=0.144 | freq_hint=None
+  * P04: missing_rate=0.150 | freq_hint=None
+  * P05: missing_rate=0.111 | freq_hint=None
+  * P06: missing_rate=0.211 | freq_hint=None
+  * C01: missing_rate=0.333 | freq_hint=None
+  * C02: missing_rate=0.211 | freq_hint=None
+  * C03: missing_rate=0.272 | freq_hint=None
+  * C04: missing_rate=0.233 | freq_hint=None
+  * C05: missing_rate=0.206 | freq_hint=None
+  * C06: missing_rate=0.289 | freq_hint=None
+  * C07: missing_rate=0.228 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Behavioral Activation (structured scheduling + micro-goals) | ontology_id=behavioral_activation_scheduling | conf=0.85 | freq_hint=None
+- P02 (PREDICTOR): Task initiation cues (start rituals) | ontology_id=task_initiation_cues | conf=0.92 | freq_hint=None
+- P03 (PREDICTOR): Self-monitoring, feedback loop (progress monitoring) | ontology_id=sct_self_monitoring_goals_and_feedback_loop | conf=0.9 | freq_hint=None
+- P04 (PREDICTOR): Implementation intentions/self-management priming | ontology_id=implementation_intention_ifthen_plans | conf=0.92 | freq_hint=None
+- P05 (PREDICTOR): Sleep circadian entrainment (circadian alignment) | ontology_id=dawn_simulation_alarm | conf=0.75 | freq_hint=None
+- P06 (PREDICTOR): Brief daily movement (neurochemical activation) | ontology_id=walking_meetings_framework | conf=0.72 | freq_hint=None
+- C01 (CRITERION): Low task-directed motivation | ontology_id=goal | conf=0.72 | freq_hint=None
+- C02 (CRITERION): Elevated anticipatory anxiety | ontology_id=anticipatory_anxiety_before_performance | conf=0.88 | freq_hint=None
+- C03 (CRITERION): Difficulty initiating tasks (action initiation deficit) | ontology_id=loss_of_items_needed_for_tasks | conf=0.75 | freq_hint=None
+- C04 (CRITERION): Perseverative feedback loop between anxiety and inaction | ontology_id=repetitive_negative_rumination_cycles | conf=0.92 | freq_hint=None
+- C05 (CRITERION): Behavioral avoidance/inactivity | ontology_id=activity_avoidance_due_to_pain | conf=0.52 | freq_hint=None
+- C06 (CRITERION): Negative emotional state (feeling awful) | ontology_id=feeling | conf=0.85 | freq_hint=None
+- C07 (CRITERION): Self-critical interpretation of the situation | ontology_id=self_critical_rumination | conf=0.78 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

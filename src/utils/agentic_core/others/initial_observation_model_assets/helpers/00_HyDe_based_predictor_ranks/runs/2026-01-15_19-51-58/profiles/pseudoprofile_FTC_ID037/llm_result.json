@@ -1,0 +1,177 @@
+{
+  "pseudoprofile_id": "CASE-01-LEVER-PROPOSALS",
+  "summary": "The case describes persistent lateness with underestimation of routine task durations, pre-departure disorganization, and negative self-evaluation. The proposed modifiable BIO/PSYCHO/SOCIAL levers span cognitive offloading, planning skills, sleep and arousal, environmental design, habit formation, self-compassion, and social accountability. Each lever targets specific operational criteria (C01-C06) and emphasizes practical, replaceable predictors with measurable outcomes. The plan includes multi-domain interventions with feasible implementation, a clear mechanism for expected change, and a 4–12 week horizon to observe meaningful shifts in punctuality, task duration estimates, organization, and self-perception while minimizing risk.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Pre-departure checklist + auto-added buffer time (e.g., 20–30 minutes) to calendar events, with door/entrance reminders",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "External cognitive load reduction via pre-departure checklists and calendar buffers",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Externalizes planning and adds time margin to accommodate variability in task duration; reduces risk of missed steps and supports reliable departure states.",
+      "measurement": "Proportion of events on time; average buffer utilized per event; reduction in time-estimation error; frequency of items missing at departure",
+      "time_horizon": "0-8 weeks (initial), with 8–12-week follow-up",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Mapping for S01: C01/C03/C04/C05 indicators; evaluate weekly adherence to checklist and buffer use."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Time estimation training + planning skills via CBT-based scheduling module with practice tasks and feedback",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Psychoeducational time estimation and planning skills training",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Improves accuracy of duration estimates and planning, reducing underestimation and enabling reliable pacing for departures.",
+      "measurement": "Mean error between estimated vs actual task durations; percentage adherence to planned start times; lateness rate",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Mapping for S02: C02, with spillover to C03/C04/C01 through improved planning."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep regularization and circadian alignment: fixed bed/wake times, light exposure management, caffeine timing",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep optimization for executive function and self-regulation",
+      "targets_criteria_ids": [
+        "C01",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Improved sleep supports daytime attention, flexibility, and mood; reduces lateness, duration variability, and negative self-evaluation.",
+      "measurement": "Average nightly sleep duration; bedtime/wake-time consistency; timing of awakenings; daily mood ratings; lateness frequency",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Mapping for S03: C01/C05/C06 impacted by sleep quality."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Organized pre-departure station: labeled pockets for keys/phone/wallet/clothes, with a dedicated cue-based prep area",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Pre-departure essential-item organization and cue-based preparation",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Reduces time spent searching for essentials and scaffolds a reliable routine prior to departure.",
+      "measurement": "Frequency of items found immediately; minutes spent searching; lateness rate",
+      "time_horizon": "0-6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.3,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Mapping for S04: C03/C04/C01."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Self-compassion training and cognitive reframing to reduce self-criticism (daily micro-practices; thought logs)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Self-compassion and cognitive restructuring to reduce negative self-evaluation",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Decreases shame and rumination after lateness, fostering resilience and willingness to engage in other strategies.",
+      "measurement": "Daily self-criticism scores; mood ratings; frequency of ruminative thoughts",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.35,
+      "priority": "MED",
+      "safety_notes": "Monitor for mood shifts; escalate if depressive symptoms worsen.",
+      "mapping_query": "Mapping for S05: C06."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Habit-based pre-departure routine: 60-second cue-based sequence (gather items, outfit, keys), tracked with a simple checklist",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Pre-departure habit cue and micro-ritual",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "A repeatable cue-driven sequence reduces variability and improves predictability of departure.",
+      "measurement": "Adherence to routine; lateness rate; time saved per departure",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.3,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Mapping for S06: C03/C04/C01."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Environmental design: minimize interruptions via a dedicated quiet workspace and notification controls",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Environment optimization to reduce disruptions and improve flow",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Fewer interruptions lowers cognitive load and speeds task transitions; supports more consistent task durations and punctuality.",
+      "measurement": "Number of interruptions per work period; time-on-task reliability; lateness frequency",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.25,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Mapping for S07: C01/C05."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Digital time-tracking tools with automated prompts and external clocking to calibrate duration estimates",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Digital time-tracking and reminder system to calibrate duration estimates",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Objective feedback on durations provides corrective information to adjust estimates and pacing; supports better planning and fewer delays.",
+      "measurement": "Estimation error across tasks; on-time rate; buffer usage",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Mapping for S08: C02/C04/C01/C05."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Accountability partner or coach check-ins (weekly) to review punctuality and strategy use",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Accountability-based coaching/peer support",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Social reinforcement and external accountability increase commitment and reduce self-criticism through supportive feedback.",
+      "measurement": "Number of commitments fulfilled; perceived accountability; lateness frequency",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.3,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Mapping for S09: C01/C04/C06."
+    }
+  ]
+}

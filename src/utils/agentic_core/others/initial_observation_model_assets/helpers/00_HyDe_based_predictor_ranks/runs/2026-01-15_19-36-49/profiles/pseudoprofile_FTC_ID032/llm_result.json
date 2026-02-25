@@ -1,0 +1,116 @@
+{
+  "pseudoprofile_id": "CASE_PAYLOAD_MH_OPTIMIZER_V1",
+  "summary": "This plan targets six modifiable predictors derived from the case: external emotional demands, help-seeking difficulty, emotion suppression, delayed breakdowns after suppression, boundary fatigue/resentment, and social support. Each lever operates across BIO/PSYCHO/SOCIAL domains or their interactions to reduce burnout risk, improve help-seeking efficacy, enhance emotional processing, prevent crash episodes, and strengthen a sustainable support system. The solutions emphasize practical skills (boundaries, scripts, emotion expression), behavioral routines (sleep/energy management, reflection), cognitive-shift approaches (values-based renegotiation), and social infrastructure (support networks), with clear measurement, feasible feasibility estimates, and safety considerations.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Boundary_setting_routines_and_decline_skills_practice (C06)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured boundary-setting training with weekly decline scripts and boundary renegotiation plans; implement a personal boundary map and a 1-week boundary experiment (e.g., no unsolicited listening after 8pm).",
+      "targets_criteria_ids": [
+        "C01",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Reduces chronic external emotional demands and role fatigue by creating predictable limits, which can lower resentment (C05) and the frequency/intensity of others' demands (C01). Improves capacity to respond to distress without internal collapse.",
+      "measurement": "Boundaries practiced per week (count); self-rated boundary effectiveness (0-10); days with boundary failures (0-7); perceived workload balance.",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for relationship strain if boundaries are set abruptly; emphasize compassionate communication when declining requests.",
+      "mapping_query": "Do regular boundary-setting practices reduce external demands (C01) and improve feelings of fatigue/resentment (C05) without compromising relationships?"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Help-seeking_self-efficacy_and_support_scripts (C02)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach brief, scripted requests for help and supportive language; practice with role-plays; implement a ‘help-asking trigger’ (e.g., when distressed, share a one-sentence need and one-minute guidance request).",
+      "targets_criteria_ids": [
+        "C02",
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Improves ability to seek support during distress, increasing perceived social support, reducing isolation, and decreasing the likelihood of suppression-driven strain and resentment.",
+      "measurement": "Number of help-asks per week; self-efficacy in asking for help (0-10); perceived available support (0-10).",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Requests should be within personal capacity; ensure alignment with boundaries to prevent overburdening others.",
+      "mapping_query": "Does increasing help-seeking self-efficacy increase help-asking frequency and perceived support, attenuating C01 and C05?"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Emotion_expression_capability_and_processing_practice (C03)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement daily emotion labeling and brief expressive-writing or venting with a trusted listener; 5-minute end-of-day check-in focusing on what felt difficult and why.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Reducing habitual suppression improves emotional processing, decreases the buildup of negative affect, and lowers crash likelihood after suppression (C04).",
+      "measurement": "Frequency of emotional disclosure (per week); suppression scale score (0-10); daily mood variability.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Encourage disclosure with safe, non-judgmental listener; escalate if distress increases.",
+      "mapping_query": "Will increasing emotional expression reduce suppression (C03) and subsequent crashes (C04)?"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Energy_and_sleep_quality_practices (C04)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured energy budget with regular breaks, consistent light-dark cues, and sleep hygiene routines; daily energy and mood logging with a 2-week pre/post crash monitoring.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "By stabilizing arousal and restoration processes, the likelihood of delayed breakdowns after suppression decreases and daytime functioning improves.",
+      "measurement": "Crashes per week; sleep quality rating (0-10); daily energy score (0-10).",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.82,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Adjust sleep goals if nighttime sleep worsens; avoid aggressive caffeine use late in day.",
+      "mapping_query": "Does energy/sleep stabilization reduce frequency/severity of crashes after suppression (C04)?"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Values-aligned_role_identity_and_boundaries (C05)",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Values clarification session followed by a renegotiation plan with key others; translate values into concrete boundary and delegation choices; implement a weekly reflection to monitor alignment.",
+      "targets_criteria_ids": [
+        "C05",
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Aligning caregiving/strong-role expectations with personal values reduces resentment and fatigue from over-responsibility; smoother boundary renegotiation lowers external demands pressure.",
+      "measurement": "Resentment score (0-10); proportion of self-initiated vs others-initiated support tasks; boundary adherence rating.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for relational conflict during renegotiation; ensure open, respectful communication.",
+      "mapping_query": "Does values-aligned renegotiation reduce resentment (C05) and improve boundary functioning (C06) and perceived demands (C01)?"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Structured_social_support_building_and_belonging_plan (C01)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create a support-network map (3–5 reliable contacts), schedule regular check-ins, and pilot a brief social-prescribing approach (community groups, peer support).",
+      "targets_criteria_ids": [
+        "C01",
+        "C06",
+        "C05"
+      ],
+      "mechanism_rationale": "Expanding the social buffer reduces sole reliance on self, distributes emotional labor, and buffers stress, reducing perceived demand and fatigue.",
+      "measurement": "Number of active supportive connections; weekly check-in frequency; satisfaction with support (0-10).",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Screen for toxic or draining relationships; promote healthy, reciprocal support.",
+      "mapping_query": "Will expanding and maintaining a supportive network decrease external demand burden (C01) and related fatigue (C05)?"
+    }
+  ]
+}

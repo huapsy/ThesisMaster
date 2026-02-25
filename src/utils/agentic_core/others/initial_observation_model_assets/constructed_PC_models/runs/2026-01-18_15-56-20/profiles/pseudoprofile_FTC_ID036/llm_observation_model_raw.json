@@ -1,0 +1,785 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID036",
+  "model_summary": "Initial gVAR-ready observation model focusing on situational cognitive-behavioral-emotional factors described in the complaint: attentional disengagement during conversations (C01), lapses in registering/recalling conversational content (C03), post-lapse negative self-evaluation (C04), and reorientation/repair of understanding (C06). Modifiable predictors emphasize sleep/circadian health (P01), attention regulation practice (P02), use of external cognitive supports (P03), distraction-reduced social environments (P04), and daytime physical activity/hydration (P05). This setup provides non-diagnostic, within-person variability-rich data to support subsequent gVAR modeling while balancing brevity and interpretability.",
+  "variable_selection_notes": "Rationale: The complaint maps cleanly to four core, substantially distinct yet interrelated processes (attention during social exchange, immediate comprehension/recall, affective appraisal after lapses, and repair capacity). This reduces redundancy from multiple near-duplicate self-regulation constructs while preserving mechanism coverage across cognitive, affective, and behavioral domains. Predictors are chosen for measurable, safe, and modifiable influence on the core criteria; sleep and physical activity are known to modulate attention and affect, while explicit cognitive supports and environmental distraction controls offer actionable levers. Variance considerations: Likely within-person fluctuations are expected on 6-time-daily EMA prompts for momentary predictors/criteria, plus a single nightly diary for sleep-related predictors. Potential biases are mitigated by centering within-person and employing z-score transformations in analyses; monitor missingness and use imputation if needed. Trade-offs: a small, high-signal set reduces collinearity risk and improves estimability for early gVAR iterations, at the cost of potentially missing more granular subcomponents of self-regulation; planned re-selection after initial pilot will address this.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:00-10:00",
+        "12:00-14:00",
+        "16:00-18:00",
+        "20:00-22:00"
+      ],
+      "recall_window": "since last prompt",
+      "expected_total_prompts": 84,
+      "notes": "Distribute six prompts across four blocks with minor jitter to reduce predictability and promote coverage across morning/afternoon/evening."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "21:30"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Evening diary capturing sleep quality and daily activity context."
+    },
+    "passive_streams": {
+      "enabled": false,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Not used in this initial plan to minimize data processing complexity."
+    },
+    "minimum_total_observations_target": 98,
+    "gvar_readiness_notes": "Initial variable set is designed for straightforward gVAR estimation with 4 criteria and 5 predictors; low collinearity expected due to broad constructs and careful selection.",
+    "variance_support_notes": "Center within-person data, apply z-scoring for predictors and criterion scores, consider log1p or other bounded transformations if skew emerges; expect high within-person variance given daily life fluctuations.",
+    "missingness_risk_notes": "Prompts fatigue risk; implement reminders and a brief catch-up window; if prompts are missed, use last-observation-carried-forward imputation for short gaps; ensure diary entries maintain daily completion."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Attentional disengagement during conversations",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how distracted or mind-wandering are you during the current conversation? Rate from 1 (completely focused) to 9 (completely distracted).",
+        "response_scale_or_unit": "9-point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Mind-wandering during conversations."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Failure to register/recall key conversational content",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how well did you understand and register what was said in the most recent part of the conversation? Rate from 1 (fully understood) to 9 (not understood).",
+        "response_scale_or_unit": "9-point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "In-the-moment comprehension."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Negative self-evaluation after lapses",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, how much did you judge yourself negatively for attentional lapses? Rate from 1 (not at all) to 9 (very strongly).",
+        "response_scale_or_unit": "9-point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Self-criticism after lapses."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Ability to reorient attention and repair understanding",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Capacity to notice the lapse, refocus on the speaker, and recover or clarify missed information (e.g., ask for repetition, summarize aloud). Rate from 1 (not capable) to 9 (highly capable).",
+        "response_scale_or_unit": "9-point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Repair after lapses."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Sleep quality and circadian alignment",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Sleep_and_Circadian > Sleep_Routines_and_Practices",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Adequate sleep supports attention and cognitive processing.",
+      "intervention_examples_safe": "maintain regular sleep-wake times; limit late caffeine",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "How well did you sleep last night? Rate 1 (very poor) to 9 (excellent).",
+        "response_scale_or_unit": "9-point Likert",
+        "sampling_per_day": 1,
+        "recall_window": "last night",
+        "expected_within_person_variability": "high",
+        "notes": "Nightly sleep quality."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better sleep is expected to reduce in-conversation distraction."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved sleep supports comprehension/recall in conversations."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Sleep improves mood regulation, reducing self-criticism after lapses."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Rested state facilitates rapid reorientation and repair."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Feasible with standard mobile EMA."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Attention regulation practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Cognitive_Capacity_Enhancement_and_Stimulation > Attention_Systems_Training",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Regular practice strengthens attentional control.",
+      "intervention_examples_safe": "daily 5–10 minute focus/attention drills",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, I completed a 5–10 minute attention/awareness practice. On a scale 1-9, how true is this for you right now? (1 = not at all, 9 = completely).",
+        "response_scale_or_unit": "9-point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Attentional training engagement."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "More practice reduces in-conversation disengagement."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Training improves moment-to-moment comprehension."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved self-regulation lowers negative self-evaluation after lapses."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Enhanced regulation supports repair after lapses."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": "Feasible with 6 prompts/day; requires brief practice entry."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "External cognitive supports during conversations",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Digital_and_Tech_Enabled_Solutions > Care_Delivery_Formats",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Notes/prompts reduce cognitive load, aiding comprehension and recall.",
+      "intervention_examples_safe": "keep a compact notes prompt within reach",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In this moment, are you using notes or prompts to help you understand or remember what's being said? Rate 1-9.",
+        "response_scale_or_unit": "9-point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Use of external aids during conversations."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Supportive prompts reduce disengagement."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Cues improve uptake of content."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Perceived support reduces negative self-evaluation after lapses."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Aid in reorientation and repair."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.79,
+        "notes": "Feasible with quick prompts; ensure accessibility of supports."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Distraction-minimized social environment during conversations",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] > Digital_Social_Environment > Digital_Tools_and_Supports",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Lower external distractions support sustained attention.",
+      "intervention_examples_safe": "phone on silent; quiet physical environment; background noise control",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In this moment, are you in a distraction-reduced setting during the conversation (e.g., phone on silent, quiet environment)? Rate 1-9.",
+        "response_scale_or_unit": "9-point Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Contextual distraction control."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Less distraction reduces disengagement in real time."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Less distraction supports comprehension in the moment."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Calm environments may reduce self-criticism after lapses."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Fewer distractions facilitate reorientation."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.87,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Moderate feasibility; ensure user comfort with environmental adjustments."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Aerobic exercise and hydration",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Movement_and_Bodywork > Aerobic_Movement_Modalities",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Exercise and hydration boost brain function and alertness.",
+      "intervention_examples_safe": "daily walk; water intake goals",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Today I engaged in aerobic exercise and stayed hydrated. Rate 1-9 (1 = not at all, 9 = fully).",
+        "response_scale_or_unit": "9-point Likert",
+        "sampling_per_day": 1,
+        "recall_window": "today",
+        "expected_within_person_variability": "high",
+        "notes": "End-of-day activity and hydration check."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Regular exercise relates to better attention and reduced disengagement."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved cognitive function supports recall."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Exercise-related mood stability reduces self-judgment after lapses."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Physical fitness facilitates reorientation and repair."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Daily diary acceptable; potential missing days due to schedule."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,64000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,76000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,72000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep quality inversely related to disengagement in conversations.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep quality linked to in-the-moment comprehension.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep quality affects mood/self-criticism.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep quality supports repair capacity.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Attention practice reduces in-conversation disengagement.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Attention training improves uptake of content.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Better self-regulation lowers self-criticism after lapses.",
+      "estimated_relevance_0_1": 0.62
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Attentional control supports repair after lapses.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "External supports reduce disengagement.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Prompts aid in registering content.",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "External support lowers negative self-evaluation after lapses.",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Supports repair capacity via cues.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Distraction reduction linked to less disengagement.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Quiet environment supports comprehension.",
+      "estimated_relevance_0_1": 0.64
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Lower distractions may reduce self-criticism after lapses.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Distraction control aids reorientation/repair.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Exercise/hydration improves attention stability.",
+      "estimated_relevance_0_1": 0.76
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Exercise/care supports recall.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mood/motivation improves with activity/hydration.",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Physical fitness aids capacity for repair.",
+      "estimated_relevance_0_1": 0.72
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "Low expected collinearity among C01–C04–C06 with the five predictors due to broad domains.",
+      "note: possible minor overlap between C01 and C03 as attention and comprehension co-vary."
+    ],
+    "expected_floor_ceiling_risks": [
+      "Possible ceiling effects on 9-point scales if participants are highly engaged; monitor distributions and apply bounded transforms if needed."
+    ],
+    "variance_enhancement_suggestions": [
+      "Within-person centering (person-mean centering) of predictors and criteria.",
+      "Z-score standardization for cross-variable comparability.",
+      "Consider cubic or interaction terms if pilot indicates nonlinearity."
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "C02 (Automatic social responding despite inattention) omitted to reduce redundancy with C01 and to preserve model parsimony in initial iteration."
+    ],
+    "gvar_feasibility_summary": "Feasible with 4 criteria and 5 predictors; momentary EMA (6 prompts/day) provides adequate within-person variance; nightly sleep diary adds sleep dimension; watch missingness and ensure reminders."
+  },
+  "safety_notes": "This is not a diagnosis or treatment guidance. If any emerging safety risk is detected during collection (e.g., self-harm ideation, severe distress), follow your standard safety protocol and contact appropriate professionals."
+}

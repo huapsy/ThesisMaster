@@ -1,36 +1,50 @@
 # Evaluation Workspace
 
-This directory contains orchestration, synthetic inputs, run artifacts, QA suites, and research communication outputs.
+Canonical execution and validation workspace for the PHOENIX engine.
 
-## Core Directories
+## Directory Map
 
-- `00_pipeline_orchestration/`: integrated pipeline entrypoints and run control.
-- `01_pseudoprofile(s)/`: synthetic free-text and time-series profile inputs.
-- `02_mental_health_issue_operationalization/`: operationalization-stage outputs.
-- `03_construction_initial_observation_model/`: initial model construction outputs/helpers.
-- `04_initial_observation_analysis/`: legacy/manual analysis artifacts.
-- `05_integrated_pipeline_runs/`: standardized run-scoped outputs.
-- `06_quality_assurance/`: unit/integration/smoke-oriented validation framework.
-- `07_research_communication/`: report-generation utilities.
+- `integrated_pipeline/`: end-to-end runner (`run_pipeline.py`, `run_engine_pipeline.py`) and stage wiring.
+- `sequential/`: manually runnable stage modules (`run_step.py` per stage).
+- `quality_and_research/quality_assurance/`: pytest suites + contract validation.
+- `quality_and_research/research_communication/`: research report generation utilities.
+- `integrated_pipeline/runs/`: run-scoped engine outputs and iterative cycle artifacts.
+- `artifacts/`: migrated legacy outputs retained for traceability.
+
+## PHOENIX Core Engine Flow (Canonical)
+
+1. `00` pseudoprofile generation / ingestion (free-text source)
+2. `01` operationalization
+3. `02` initial observation model
+4. `03` readiness check
+5. `04` network time-series analysis
+6. `05` momentary impact quantification
+7. `06` target identification + updated observation model (Step-03 + Step-04)
+8. `07` HAPA digital intervention (Step-05)
+9. `08` treatment translation communication
+10. iterative update packaging for next cycle input
+
+## Quality + Research Flow (Support, Not Core Engine)
+
+1. `09` impact visualization export
+2. `10` research report generation
+3. QA/CI validation suites
 
 ## Standard Run Output Layout
 
-`evaluation/05_integrated_pipeline_runs/<run_id>/`
-- `00_readiness_check/`
-- `01_time_series_analysis/network/`
-- `02_momentary_impact_coefficients/`
-- `03_treatment_target_handoff/`
-- `03b_translation_digital_intervention/`
-- `04_impact_visualizations/`
-- `05_research_reports/`
+`evaluation/integrated_pipeline/runs/<run_id>/`
+
+- `00_operationalization/`
+- `01_initial_observation_model/`
+- `02_pseudodata_generation/`
+- `03_readiness_check/`
+- `04_time_series_analysis/network/`
+- `05_momentary_impact_coefficients/`
+- `06_target_identification_and_model_update/`
+- `07_hapa_digital_intervention/`
+- `08_treatment_translation_communication/`
+- `09_impact_visualizations/` (support)
+- `10_research_reports/` (support)
 - `logs/`
 - `pipeline_summary.json`
-
-## Sequential Flow (Current Scope)
-
-1. synthetic profile input
-2. readiness and method-path decision
-3. network and impact estimation
-4. target-selection and updated-model handoff
-5. HAPA intervention translation
-6. visualization and research reporting
+- `cycles/cycle_<NN>/` (same stage layout; cycle 2+ typically skips `00/01` via iterative start-from-pseudodata, with explicit skip manifests)

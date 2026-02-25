@@ -1,0 +1,912 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID021",
+  "model_summary": "Initial gVAR-ready observation model tailored to a sleep-maintenance complaint with early-morning awakening and subsequent daytime impairment. Six criteria capture nightly events (C01–C06) centered on waking at ~04:30, sleep initiation, arousal, in-bed doomscrolling, distress/rumination, and lunch-time functioning. Six parsimonious, modifiable predictors (P01–P06) target circadian entrainment (morning light), evening screen exposure, pre-sleep cognitive load, bedtime routine adherence, sleep-environment quality, and daytime energy. Measurements combine end-of-day and momentary EMA with a passive-signal (light) stream to maximize within-person variance while maintaining feasibility. A 14-day window with 4 momentary EMA probes/day plus a daily diary provides estimable, non-redundant signals suitable for initial gVAR modeling. The plan preserves the complaint’s resolution trajectory and supports iterated predictor refinement as data accrue.",
+  "variable_selection_notes": "Selected criteria focus on the nocturnal onset pattern, nocturnal cognitive/behavioral arousal, in-bed engagement, morning rumination, and daytime impairment. Predictors emphasize modifiable salutogenic levers with high within-person variance potential: circadian entrainment (P01), evening screen behavior (P02), pre-sleep cognitive load (P03), sleep routines (P04), sleep environment (P05), and daytime energy (P06). To minimize redundancy, each predictor targets a distinct mechanism; no overlapping self-regulation constructs beyond necessary control variables. Some predictors (P01) leverage passive data (light exposure) to complement self-reports. The recall windows emphasize “since last prompt” for momentary items and “past night” for sleep-night composites. Stationarity and nonlinearity considerations are noted in gVAR-handling hints; nonlinear effects are acknowledged in the predicted_signs/expected_effects where appropriate.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:00-10:00",
+        "12:00-14:00",
+        "16:00-18:00",
+        "20:00-22:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 56,
+      "notes": "Prompts distributed across daytime blocks with slight jitter to reduce predictability; avoid sleep windows."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "21:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "End-of-day diary capturing last-night sleep and current-day functioning."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "daily_aggregate",
+      "notes": "Passive signals (morning light, environment proxies) complement EMA signals."
+    },
+    "minimum_total_observations_target": 70,
+    "gvar_readiness_notes": "Atomic criteria with distinct mechanisms; passive signal augments self-reports; variance is expected to be adequate for gVAR estimation.",
+    "variance_support_notes": "Prefer 1–9 Likert scales for EMA measures to maximize within-person variance; apply within-person standardization (z-scoring) where appropriate.",
+    "missingness_risk_notes": "Plan reminders; allow small windows for late responses; document missingness with a brief follow-up."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Early-morning awakening (sleep maintenance)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "On the last night, how much did you wake around 04:30 and have trouble maintaining sleep? Rate from 1 (not at all) to 9 (severe) on your usual night.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": "Captures sleep-maintenance difficulty around the reported wake time."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Sleep onset ability",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Did you fall asleep at your intended bedtime with minimal difficulty yesterday? Rate 1-9 on how easily you initiated sleep.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses sleep-onset success, a core insomnia-shaped symptom."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Immediate cognitive/physiological arousal on awakening",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Upon waking around 04:30 today, rate your mental activation right after waking (0-9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 1,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures rapid cognitive arousal immediately after awakening."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "In-bed/device-mediated engagement during attempted rest",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "During the attempted rest after awakening, how much did you engage with a device/content (doomscroll) instead of passive rest? Rate 1-9.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses passive vs. active engagement during wake windows."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Exposure to distressing/ruminative content",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "During early-morning awakenings, rate the extent of doomscrolling-related distress or rumination (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures cognitive-affective load from online content after waking."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Daytime functional impairment by midday",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "By lunchtime today, rate your daytime functioning compared to a typical day (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "today",
+        "expected_within_person_variability": "high",
+        "notes": "Links nocturnal disturbance to daytime impairment."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Morning light exposure (circadian entrainment)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] Sleep_and_Circadian > Circadian_Entrainment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Morning light strengthens circadian entrainment, promotes wakefulness during the day, and reduces nocturnal arousal that contributes to early awakenings.",
+      "intervention_examples_safe": "S01: morning outdoor light; S02: safe light-therapy device usage",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "Phone ambient light sensor",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Ambient light exposure in the 60 minutes after waking (lux)",
+        "response_scale_or_unit": "lux",
+        "sampling_per_day": 1,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Utilizes device sensors to quantify circadian entrainment signal strength."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increased daylight exposure after waking is expected to improve sleep maintenance."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Daylight cues can support earlier sleep initiation when combined with stable routines."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Strong morning light may reduce early-morning arousal; effect is moderating."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Direct link to doomscroll engagement is uncertain from morning light alone."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Indirect mood/rumination pathways not fully specified here."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Enhanced circadian stability supports daytime functioning."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Evening screen exposure before bed",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Sleep-related cognitive-behavioral interventions > conditioning_and_associations",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Evening screen exposure can shift sleep pressure and circadian timing, potentially increasing wakefulness and arousal at night.",
+      "intervention_examples_safe": "S01: screen-curfew; S02: use of blue-light filters; S03: alternative pre-sleep activities",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the two hours before your planned bedtime, how stimulating was your screen use? Rate 1 (not stimulating) to 9 (highly stimulating).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "past_2_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Captures pre-sleep cognitive arousal tendencies."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Evening screen curtailment improves sleep maintenance if implemented consistently."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reduced pre-sleep stimulation supports smoother sleep onset."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Lower pre-sleep arousal with less stimulation may reduce awakening arousal."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Direct link to in-bed doomscrolling is uncertain."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Less distress after evening screen use may reduce morning rumination."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Reduced late-evening stimulation can improve daytime energy."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Pre-sleep cognitive load and rumination",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Sleep-related cognitive-behavioral interventions > cognitive_work",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Higher pre-sleep cognitive load and rumination prolong sleep latency and elevate nocturnal arousal.",
+      "intervention_examples_safe": "S01: narrative detachment and unloading; S02: worry management strategies",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the last hour before bed, rate your cognitive load and rumination about worries on a 1-9 scale.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "past_1_hour",
+        "expected_within_person_variability": "high",
+        "notes": "Captures cognitive load and rumination pre-sleep."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Lower pre-sleep cognitive load may improve sleep maintenance."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Lower cognitive load can ease sleep onset."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reducing cognitive arousal at night may lower awakening arousal."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Less cognitive engagement may reduce late-night doomscroll risk."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Lower rumination reduces morning distress."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Lower pre-sleep cognitive load supports better daytime energy."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.87,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Sleep routine adherence (stimulus-control bed setup)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Change_process_and_therapeutic_phases > behavioral_integration",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Consistent sleep routines (stimulus control) reduce sleep latency and wake after sleep onset, improving maintenance and daytime energy.",
+      "intervention_examples_safe": "S01: protocolized pre-sleep routine; S02: cue-control strategy",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How closely did you follow your planned pre-sleep routine tonight? Rate 1-9.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses adherence to stimulus-control behaviors."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better adherence reduces risk of premature wake and maintenance problems."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Consistent routine supports sleep initiation."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Regular routines may reduce nocturnal arousal."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Less in-bed doomscrolling with a steady routine."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Lower post-sleep rumination due to structured routines."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Improved daytime energy with stable pre-sleep practices."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Bedroom sleep environment quality",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] Sleep_and_Circadian > Sleep_Environment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.78,
+      "mechanism_rationale": "A dark, cool, quiet room improves sleep initiation and maintenance; improves circadian signaling and comfort.",
+      "intervention_examples_safe": "S01: blackout curtains; S02: white-noise or earplugs; S03: maintain cool room temperature",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Rate current sleep environment quality tonight (darkness, quiet, temperature) on a 1-9 scale.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": "Captures environmental conditions related to sleep."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better environment supports sleep maintenance."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved sleep onset with optimal room conditions."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Lower arousal with better environment."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Less doomscrolling tied to environment stability."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Calm environment reduces rumination risk."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Better bedroom quality supports daytime functioning."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.86,
+        "gvar_feasibility_0_1": 0.84,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Midday energy / daytime functioning cue",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] Sleep_and_Circadian > Sleep_Routines_and_Practices",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.74,
+      "mechanism_rationale": "Daytime energy reflects circadian alignment and sleep quality; higher energy signals salutogenic functioning.",
+      "intervention_examples_safe": "S01: light exposure; S02: short aerobic activity",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Rate your energy level at lunchtime today on a 1-9 scale.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "today",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses daytime energy as a downstream outcome of sleep processes."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better nighttime sleep translates to higher daytime energy."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Smooth sleep onset can improve day performance."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Lower nocturnal arousal supports daytime energy."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reduced night-time reactivity may improve next-day energy."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Less distress can improve daytime functioning."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Higher energy reflects salutogenic state."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": ""
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,92000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,88000"
+    }
+  ],
+  "edges": [],
+  "diagnostics": {
+    "expected_collinearity_risks": [],
+    "expected_floor_ceiling_risks": [],
+    "variance_enhancement_suggestions": [],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": ""
+  },
+  "safety_notes": "Not a diagnosis. Do not provide medication dosing. If acute risk is identified, seek professional help."
+}

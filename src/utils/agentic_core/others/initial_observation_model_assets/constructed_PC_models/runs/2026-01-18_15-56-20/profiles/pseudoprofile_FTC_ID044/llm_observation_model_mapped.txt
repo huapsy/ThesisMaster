@@ -1,0 +1,16 @@
+pseudoprofile_id: pseudoprofile_FTC_ID044
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Frequency of 'what if'/hypothetical thoughts -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / primarily obsessional ocd (explicit listing) / rumination or neutralizing or covert checking / intrusive_rumination_frequency (conf=0.70)
+- C02: Difficulty disengaging/rumination persistence -> CLINICAL / DSM-5TR / anxiety disorders / generalized anxiety disorder / with cognitive rumination / difficulty_disengaging_from_ruminative_thoughts (conf=0.85)
+- C03: Breadth of worry topics (multiple life domains) -> UNMAPPED (reason=No candidate leaf captures a cross-domain breadth measure (domain_count) for worry topics. Closest leaves address rumination content or domain-specific worries but not breadth across multiple life domains.)
+- C04: Perceived usefulness of worry as preparation -> NON-CLINICAL / AGE-GENERAL / psychological / temporal perspective / future orientation / preparedness / proactive future preparation (conf=0.72)
+- C05: Emotional distress caused by the worry -> NON-CLINICAL / AGE-GENERAL / emotional / negative emotions / anxiety / worry (conf=0.72)
+
+PREDICTORS:
+- P01: Mindfulness/defusion practices -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / cognitive_mindfulness_and_decentering / cognitive_defusion_mindfulness (conf=0.82)
+- P02: Metacognitive beliefs modification for worry -> PSYCHO / cognitive_and_metacognitive_interventions / metacognitive_and_attention_based_interventions / metacognitive_belief_modification (conf=0.82)
+- P03: Worry scheduling and behavioral activation -> PSYCHO / change_process_and_therapeutic_phases / meaning_update / metacognitive_and_attentional_meaning_updating / worry_postponement_scheduling_practice (conf=0.85)
+- P04: Sleep routines and circadian regularity -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / consistent_morning_anchor_routine (conf=0.72)
+- P05: Aerobic exercise frequency -> BIO / movement_physical_function_and_somatic_care / aerobic_and_cardiorespiratory_movement / continuous_locomotion / walking (conf=0.62)

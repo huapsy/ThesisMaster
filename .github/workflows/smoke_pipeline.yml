@@ -28,7 +28,7 @@ jobs:
           MPLBACKEND: "Agg"
           PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
         run: |
-          python evaluation/00_pipeline_orchestration/run_pipeline.py \
+          python evaluation/integrated_pipeline/run_pipeline.py \
             --mode synthetic_v1 \
             --pattern pseudoprofile_FTC_ID002 \
             --max-profiles 1 \

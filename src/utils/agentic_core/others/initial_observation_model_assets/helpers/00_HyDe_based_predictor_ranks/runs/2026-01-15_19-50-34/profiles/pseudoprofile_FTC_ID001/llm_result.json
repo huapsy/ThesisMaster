@@ -1,0 +1,145 @@
+{
+  "pseudoprofile_id": "CASE_SLEEPFOG_RUMINATION_V1",
+  "summary": "This case presents: non-restorative sleep on waking (C01), sustained daytime fatigue/low alertness (C02), episodic cognitive lapses (C03), immediate self-criticism after lapses (C04), and ruminative escalation about functioning (C05). The following modifiable BIO-PSYCHO-SOCIAL levers target these interrelated processes through sleep circadian optimization, cognitive support, emotion regulation, and social context to improve daytime functioning and reduce self-criticism and rumination. Solutions emphasize practical, scalable changes with clear measurements and safety considerations.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Regularized Sleep-Wake Schedule (Circadian Alignment)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent bed and wake times daily, including weekends; limit naps to <30 minutes if needed and avoid late-evening screen exposure; create a calming pre-sleep routine (dim lights, cool room, silence/white noise) to promote sleep restoration.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "A stable sleep-wake pattern improves sleep efficiency and perceived restorativeness, reducing nocturnal fragmentation that contributes to morning fatigue and cognitive fog, thereby lowering susceptibility to self-criticism and rumination.",
+      "measurement": "Sleep diary metrics: bedtime, wake time, sleep duration, time to fall asleep, awakenings; morning energy rating (0–10); weekly average sleep efficiency.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for schedule conflict with work/childcare; if shift-work or irregular shifts are involved, tailor timing to minimize misalignment.",
+      "mapping_query": "CASE_PAYLOAD mapping: S01 targets C01; uses sleep diaries and circadian regularization concepts."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Sleep Environment Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Upgrade sleep environment: blackout curtains, cool room (60–67°F/15–19°C), quiet/white-noise device, comfortable bedding, and remove stimulating electronics from bedroom; minimize caffeine after 2 pm.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "A sleep-friendly environment reduces physiological arousal and sensory disruption, supporting restorative sleep and lowering morning fatigue and cognitive fog.",
+      "measurement": "Bedroom environment checklist; subjective sleep restoration score; nocturnal awakenings; environmental noise/light measurements as feasible; sleep diary sleep efficiency.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "Ensure room temperature comfort and safety (avoid overheating/cooling that could cause discomfort).",
+      "mapping_query": "CASE_PAYLOAD mapping: S02 targets C01; environmental optimization metrics captured via diary and simple checks."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Morning Light Exposure + Evening Light Dimming (Circadian Entrainment)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Incorporate 20–30 minutes of bright light exposure within 30 minutes of waking; reduce bright/blue-light exposure 2–3 hours before bedtime; consider outdoor light exposure when possible.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Bright morning light advances circadian phase improving morning alertness and daytime energy; reducing evening light supports sleep onset and restoration.",
+      "measurement": "Time-in-bright-light (minutes) via logs or wearable; self-reported morning energy; sleep onset latency.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Limit if light sensitivity or mood destabilization occurs; screen-exposure management should be gradual.",
+      "mapping_query": "CASE_PAYLOAD mapping: S03 targets C01; circadian entrainment measurements."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "External Cognitive Aids and Offloading (Attention/Memory Support)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Use checklists, reminders, post-it cues, task-fragmentation, and digital prompts to reduce lapses in daily activities; batch similar tasks to minimize switching costs. Train micro-breaks after lapses.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "External cognitive supports reduce subjective cognitive lapses, improving task completion and reducing the need for harsh self-criticism after errors.",
+      "measurement": "Frequency of forgetful moments (self-report); task completion rate; app/notes usage frequency; Prospective memory task success.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "None expected beyond device use; ensure privacy and data security for digital prompts.",
+      "mapping_query": "CASE_PAYLOAD mapping: S04 targets C03 via cognitive offloading and external aids."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "CBT-based Lapse/Rumination Interruption (Cognitive Restructuring)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement brief cognitive restructuring (evidence-informed): identify lapse, label automatic thought, generate balanced alternatives, and schedule a short cognitive refocus practice after errors; include a plan for when self-critical thoughts arise (e.g., stop-step-refocus).",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Directly targets negative self-appraisal and perseverative thinking, reducing reactive anger after lapses and the escalation of worry about functioning.",
+      "measurement": "Self-report of automatic thoughts post-lapse; rumination frequency/severity (brief scales); distress level after lapses.",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Provide crisis plan if distress worsens; offer escalation to clinician if self-criticism intensifies or self-harm risk emerges.",
+      "mapping_query": "CASE_PAYLOAD mapping: S05 targets C04 and C05 via CBT-based rumination interruption."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Mindfulness & Compassion-Focused Interventions (Self-Relation & Regulation)",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Practice brief mindfulness and self-compassion routines; cultivate compassionate self-talk after lapses; integrate simple acceptance-based strategies to reduce reactivity.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Enhances emotion regulation, reduces automatic self-criticism, and dampens rumination spikes following cognitive lapses.",
+      "measurement": "State mindfulness (brief scale) and self-compassion ratings; daily rumination diary.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "No known safety concerns; ensure practice fits user’s cultural and personal preferences.",
+      "mapping_query": "CASE_PAYLOAD mapping: S06 targets C04 and C05 via mindfulness and self-compassion approaches."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social Support & Belonging Enhancement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Increase meaningful social interactions and supportive connections; engage in brief daily check-ins with a trusted person; consider social prescribing or structured group activities to reduce rumination burden.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Social support buffers stress, decreases rumination, and improves mood, indirectly improving alertness and cognitive functioning.",
+      "measurement": "Frequency/quality of supportive interactions; perceived belonging scale; mood ratings.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.3,
+      "priority": "MED",
+      "safety_notes": "Encourage healthy social engagement; avoid triggering environments; respect boundaries and privacy.",
+      "mapping_query": "CASE_PAYLOAD mapping: S07 targets C05 through social support and belonging enhancements."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Regular Aerobic Exercise to Improve Sleep and Energy",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Incorporate moderate aerobic activity (e.g., brisk walking/jogging) 3–4 times weekly, 20–45 minutes per session; gradual progression with rest days.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Exercise improves sleep quality and daytime energy, reduces fatigue, and enhances cognitive function, thereby addressing C01 and C02.",
+      "measurement": "Weekly exercise minutes; resting heart rate; next-day energy ratings; sleep diary indicators.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Screen for cardiovascular issues; start slowly if deconditioned; adjust based on exertion response.",
+      "mapping_query": "CASE_PAYLOAD mapping: S08 targets C02 (fatigue) and C01 (sleep restoration) via aerobic activity."
+    }
+  ]
+}

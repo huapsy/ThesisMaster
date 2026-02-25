@@ -1,0 +1,160 @@
+{
+  "pseudoprofile_id": "CASE_SLEEPFOG_01",
+  "summary": "The case presents non-restorative sleep with daytime fatigue, episodic cognitive lapses, immediate self-criticism after mistakes, and rumination. The proposed levers target sleep restoration and circadian alignment (BIO), cognitive capacity support and emotion regulation (PSYCHO), and social engagement factors (SOCIAL). Each lever is a changeable predictor designed to improve sleep quality, daytime alertness, cognitive stability, and adaptive self-talk, thereby reducing the cascading cycle of lapses, negative self-appraisal, and rumination. Interventions include sleep routine regularization, sleep-environment optimization, cognitive offloading strategies, emotion regulation and self-compassion training, rumination reduction via mindfulness, morning light exposure, physical activity, nutrition adequacy, and structured social support. Measurements focus on simple, repeatable metrics (diary entries, scales, and logs) to track incremental changes in C01–C05 criteria over 2–6 weeks, with escalation to professional care if safety concerns arise.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep Routine Regularization and Circadian Entrainment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish a consistent sleep-wake schedule (same bedtime and wake time daily) with a structured wind-down, limit screens 1 hour before bed, and align wake time with morning light to strengthen circadian entrainment.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Stabilizing sleep timing reduces misalignment, improves perceived restoration, and decreases nocturnal awakenings leading to morning fatigue.",
+      "measurement": "Sleep diary tracking bedtime, wake time, perceived restfulness (0–10), and number of awakenings; optional actigraphy for sleep efficiency.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "If sleep disturbances worsen or daytime sleepiness increases, consult a clinician.",
+      "mapping_query": "MAP:S01 -> C01 Sleep restoration via regular sleep schedule."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Sleep Environment Optimization (Bedroom conditions)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Enhance sleep environment: cool, dark, quiet room; comfortable bedding; limit ambient noise; consider blackout curtains and white noise if needed.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "A conducive sleep environment reduces awakenings and improves sleep continuity, supporting restoration.",
+      "measurement": "Environment quality checklist (0–10); nightly sleep restoration rating; reported awakenings.",
+      "time_horizon": "1–2 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "If snoring or breathing difficulties are suspected, seek clinical evaluation.",
+      "mapping_query": "MAP:S02 -> C01 Sleep restoration via environment optimization."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Attention/Memory Support via External Aids and Task Design",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Incorporate external memory cues (checklists, reminders) and schedule short focused work bursts with planned micro-breaks to reduce cognitive lapses.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "External aids reduce reliance on transient memory and help maintain task flow, lowering episodic lapses.",
+      "measurement": "Frequency of forgotten intentions; task completion rate; subjective cognitive clarity (0–10).",
+      "time_horizon": "1–3 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "MAP:S03 -> C03"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Emotion Regulation and Self-Compassion Skills Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach rapid reappraisal, distress tolerance for lapse moments, and compassionate self-talk to replace harsh self-criticism after errors.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Improved emotion regulation and self-compassion lessen reactive anger and self-blame, stabilizing affect around lapses.",
+      "measurement": "Frequency of self-criticism episodes; use of compassionate self-talk; mood after lapses (0–10).",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "If self-harm thoughts arise, seek immediate professional help; monitor for safety.",
+      "mapping_query": "MAP:S04 -> C04"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Rumination Reduction via Mindfulness and Metacognitive Techniques",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement brief daily mindfulness practice and worry postponement with cognitive defusion to interrupt rumination cycles.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Mindfulness and metacognitive strategies reduce perseverative thinking and escalation into global functioning concerns.",
+      "measurement": "Daily rumination diary; worry severity ratings; use of defusion techniques (yes/no).",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "MAP:S05 -> C05"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Morning Light Exposure / Circadian Entrainment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Schedule 20–30 minutes of morning light exposure (outdoors or light box) within 1 hour of waking to strengthen circadian signaling and morning alertness.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Morning light improves circadian alignment and daytime energy, aiding restoration and alertness.",
+      "measurement": "Minutes of morning light exposure; self-reported morning alertness; next-day fatigue levels.",
+      "time_horizon": "1–2 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "Limit exposure if photosensitivity or ocular issues; consult if eye problems.",
+      "mapping_query": "MAP:S06 -> C01"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Regular Moderate Aerobic Activity",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Engage in 20–30 minutes of moderate aerobic activity most days (e.g., brisk walk, cycling) to boost energy and cognitive function.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Physical activity enhances energy, mood, and alertness, reducing daytime fatigue and cognitive fog.",
+      "measurement": "Daily activity minutes or steps; fatigue ratings; perceived energy.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Screen for cardiac symptoms; progress gradually.",
+      "mapping_query": "MAP:S07 -> C02"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Balanced Nutrition and Micronutrient Adequacy",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Adopt a balanced eating pattern with emphasis on hydration and micronutrient adequacy; discuss lab checks if deficiencies suspected.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Adequate nutrition supports sleep regulation and energy metabolism, improving restoration and daytime functioning.",
+      "measurement": "Dietary recall; self-reported energy/stability; optional micronutrient labs if available.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Avoid supplements without professional guidance; address known deficiencies with clinician.",
+      "mapping_query": "MAP:S08 -> C01,C02"
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Social Support and Accountability",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Establish brief daily or weekly social check-ins for accountability and support; join a small supportive community or buddy system.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Social connectedness reduces rumination and distress, promoting adaptive coping after lapses.",
+      "measurement": "Frequency of social interactions; loneliness scale; perceived support.",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.3,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "MAP:S09 -> C05"
+    }
+  ]
+}

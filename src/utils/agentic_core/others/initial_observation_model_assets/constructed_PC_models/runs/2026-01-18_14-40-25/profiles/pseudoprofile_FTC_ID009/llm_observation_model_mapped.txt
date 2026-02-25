@@ -1,0 +1,20 @@
+pseudoprofile_id: pseudoprofile_FTC_ID009
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Social avoidance behavior -> CLINICAL / DSM-5TR / anxiety disorders / social anxiety disorder / generalized / fear of negative evaluation / anticipatory_anxiety_in_social_evaluative_contexts (conf=0.62)
+- C02: Belief 'I am annoying' -> CLINICAL / DSM-5TR / trauma- and stressor-related disorders / posttraumatic stress spectrum / posttraumatic stress disorder / adult or adolescent ptsd / negative_beliefs_about_self_others_world (conf=0.72)
+- C03: Post-event rumination about social remarks -> CLINICAL / DSM-5TR / anxiety disorders / social anxiety disorder / generalized / fear of negative evaluation / excessive_rumination_about_others_judgments (conf=0.82)
+- C04: Plan cancellation frequency/impact -> NON-CLINICAL / AGE-GENERAL / psychological / environmental mastery / adaptability / flexibility in plans / adjusting plans as needed (conf=0.70)
+- C05: Experienced loneliness from reduced social contact -> NON-CLINICAL / AGE-GENERAL / emotional / self-compassion / common humanity / isolation reduction / combatting loneliness (conf=0.72)
+- C06: Self-critical reaction to loneliness -> CLINICAL / DSM-5TR / personality disorders / other personality disorders / depressive personality disorder / self_critical_rumination (conf=0.78)
+
+PREDICTORS:
+- P01: Behavioral activation / social exposure (behavioral experiments) -> PSYCHO / change_process_and_therapeutic_phases / behavior_change_theories_and_modern_protocol_arcs / modern_clinical_protocol_arcs_solutions / pe_invivo_exposure_implementation (conf=0.78)
+- P02: Cognitive restructuring / thought-challenging for 'I'm annoying' -> PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / restructure_and_install / alternative_thinking / cognitive_reappraisal_practice (conf=0.92)
+- P03: Rumination-interruption / mindfulness-decentering (post-event decompression) -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / cognitive_mindfulness_and_decentering / rumination_noticing_and_disengaging (conf=0.86)
+- P04: Micro-connection planning (stepwise reengagement / social-prescribing micro-contacts) -> SOCIAL / social_support_and_belonging / belonging_isolation_and_meaning / loneliness_reduction_planning / micro_connection_opportunities_plan (conf=0.92)
+- P05: Self-compassion practice (response to self-criticism) -> PSYCHO / self_and_identity_work / perfectionism_and_standards_work / compassionate_response_to_inner_critic (conf=0.78)
+- P06: Sleep quality / circadian alignment (last night) -> BIO / medical_assessment_and_physiology_testing / sleep_and_respiratory_testing / circadian_and_sleep_tracking / sleep_diary (conf=0.72)
+- P07: Social support mobilization (asking for help / confiding) -> PSYCHO / change_process_and_therapeutic_phases / behavioral_integration / environmental_and_social_system_design / social_support_mobilization_plan (conf=0.86)
+- P08: Passive social-activity (outgoing contacts / social app minutes) — daily aggregate -> PSYCHO / measurement_based_care_and_feedback / measurement_and_feedback_systems / activity_engagement_tracking (conf=0.68)

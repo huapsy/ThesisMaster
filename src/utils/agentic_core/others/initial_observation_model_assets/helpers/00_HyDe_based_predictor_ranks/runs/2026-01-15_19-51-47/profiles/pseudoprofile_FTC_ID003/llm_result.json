@@ -1,0 +1,159 @@
+{
+  "pseudoprofile_id": "paniccase_profile_001",
+  "summary": "Five modifiable BIO/PSYCHO/SOCIAL levers target the core drivers of public panic episodes, chest tightness, misinterpretation of arousal, safety behaviors, social evaluative concerns, and perceived lack of control. The set includes interoceptive-exposure based CBT, autonomic regulation strategies, safety-behavior reduction, real-world social exposure, mindfulness/acceptance approaches, lifestyle/biomedical tweaks, and digital self-monitoring with feedback to create scalable, measurable shifts in trigger-evoked symptoms and distress across the brain-body-social system.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Interoceptive_Exposure_with_Cognitive_Reinterpretation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured CBT-based interoceptive exposure to panic-relevant bodily sensations (e.g., controlled breath cues, mild physical arousal tasks) coupled with cognitive reappraisal to reinterpret chest sensations and prevent catastrophic labeling of arousal as danger.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C07",
+        "C08"
+      ],
+      "mechanism_rationale": "Repeated pairing of somatic sensations with non-threatening outcomes reduces sensitivity to arousal, lowers catastrophic beliefs about fainting, improves tolerance of uncertainty, and shifts attention away from internal hyper-salience.",
+      "measurement": "Panic episode frequency/intensity diary; panic-specific distress scale; belief in imminent fainting rating; frequency of internal attention to sensations (self-report).",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "No safety risks anticipated. If panic escalates or you experience chest pain with exertion, seek medical evaluation.",
+      "mapping_query": "Maps to C01 (sudden spikes), C03 (fainting belief), C07 (unpredictability), C08 (attention to sensations). Probe: Can exposure tasks be safely implemented in-clinic and in-vivo? How does this shift distress trajectory?"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Diaphragmatic_Breathing_and_Cardiac_Autonomic_Regulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Breathwork protocol (diaphragmatic/paced breathing) paired with autonomic pacing to reduce sympathetic arousal and chest tightness during episodes; incorporate gentle aerobic activity to enhance autonomic balance.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Improved vagal tone and paced breathing dampen rapid arousal, reducing chest constriction and the likelihood of escalation into panic.",
+      "measurement": "Heart rate and HRV during episodes; self-reported chest tightness intensity; episode duration; breath-rate during episodes.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.92,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Breathwork should be performed within comfortable limits; stop if dizziness or hyperventilation occurs.",
+      "mapping_query": "Targets C01 (sudden spikes) and C02 (chest tightness) via autonomic regulation. Evaluate changes in arousal markers and subjective chest symptoms."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Safety_Behavior_Reduction_and_Response_Prevision",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Safety behavior modification with response prevention (reducing pulse-checking and escape planning), plus introduction of alternative coping strategies (grounding, neutral self-talk) during episodes.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06",
+        "C04"
+      ],
+      "mechanism_rationale": "Decreasing reliance on safety checks and escape plans reduces reinforcement of fear-based patterns and promotes corrective learning in social contexts.",
+      "measurement": "Frequency of pulse checks; frequency and intensity of escape/exit plans; social embarrassment worry ratings.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "May temporarily increase distress during exposure; ensure supports and safe containment strategies.",
+      "mapping_query": "Addresses C05 (safety checks) and C06 (escape planning); also touches C04 via reduced embarrassment responses. How does reduced checking alter avoidance behaviors?"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "In_Vivo_Social_Exposure_with_Support",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured, gradual in-vivo exposure to public settings with therapist/coach support; cultivate approach behaviors and normalize symptom presence without catastrophic interpretation.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Habituation to social contexts reduces fear of being judged during episodes and dampens novelty-related panic triggers in real-world environments.",
+      "measurement": "Number of approached social situations; self-rated anxiety in public; embarrassment concern intensity.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.78,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Exposure should be paced and client-led; stop when overwhelmed and reconnect with coping plans.",
+      "mapping_query": "Targets C01 and C04 by reducing public panic and perceived social judgment; assess how real-world exposure shifts avoidance."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Mindfulness_Acceptance_and_Uncertainty_Tolerance_Training",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Mindfulness-based and acceptance-based strategies to increase tolerance of uncertainty, reduce attachment to internal sensations, and decrease social evaluative worry.",
+      "targets_criteria_ids": [
+        "C04",
+        "C07",
+        "C01",
+        "C08"
+      ],
+      "mechanism_rationale": "Acceptance reduces experiential avoidance and diminishes threat appraisal of bodily sensations, lowering both social anxiety and unpredictability perceptions.",
+      "measurement": "Acceptance scale; Uncertainty Tolerance Questionnaire; social embarrassment ratings; episode frequency/intensity.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.68,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; ensure practice is within comfort boundaries.",
+      "mapping_query": "Links to social embarrassment (C04), unpredictability (C07), and arousal (C01/C08) via acceptance-based mechanisms."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Nutrition_Sleep_and_Caffeine_Modulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Modulate stimulant intake (e.g., caffeine), optimize sleep hygiene and hydration to reduce baseline arousal and improve resilience to panic triggers.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C07",
+        "C08"
+      ],
+      "mechanism_rationale": "Lower baseline arousal and better sleep support reduce susceptibility to abrupt panic surges and misinterpretation of arousal.",
+      "measurement": "Caffeine intake; sleep duration/quality; daytime alertness; episode frequency/intensity.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "If medical conditions or medications exist, coordinate with healthcare providers for safe adjustments.",
+      "mapping_query": "Aims to blunt arousal and arousal-driven misinterpretations (C01, C02, C08) via lifestyle modifications that influence unpredictability (C07)."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Real-time_Panic_Detection_and_Feedback_with_Wearables",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use wearable sensors and digital feedback to detect early autonomic changes and prompt coping strategies before full-blown panic; integrate self-monitoring with brief cognitive reframing tasks.",
+      "targets_criteria_ids": [
+        "C01",
+        "C08",
+        "C07",
+        "C05"
+      ],
+      "mechanism_rationale": "Early feedback allows timely deployment of coping skills, reducing symptom escalation and internal focus on sensations.",
+      "measurement": "Physiological markers (HRV, heart rate) around episodes; adherence to coping prompts; reduction in episode severity.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Data privacy and comfort with wearables; ensure opt-in and data security.",
+      "mapping_query": "Leverages objective arousal cues to curb abrupt episode onset (C01) and attention to sensations (C08); tracks tolerance and response."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Social_Support_Belonging_and_Communication_Skills_Training",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Enhance social connectedness and communication literacy to buffer embarrassment concerns and facilitate public exposure.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Strengthened social support networks and better communication reduce fear of negative evaluation and increase resilience during episodes.",
+      "measurement": "Social support scale; frequency of social interactions; embarrassment ratings during episodes.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; monitor for social overload or distress in new environments.",
+      "mapping_query": "Addresses social-evaluative concern (C04) and panic susceptibility (C01) via support networks and communication skills."
+    }
+  ]
+}

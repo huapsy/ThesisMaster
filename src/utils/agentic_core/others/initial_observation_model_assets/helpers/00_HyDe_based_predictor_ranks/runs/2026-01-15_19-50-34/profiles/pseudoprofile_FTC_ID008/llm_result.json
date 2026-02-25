@@ -1,0 +1,156 @@
+{
+  "pseudoprofile_id": "CASE-PSY-OPT-01",
+  "summary": "The case portrays chronic baseline muscle tension (shoulders/jaw), low interoceptive awareness, tension-linked headaches, persistent anticipatory threat, difficulty relaxing even on low-stress days, and habitual bracing. Optimal intervention here leverages a coordinated BIO-PSYCHO-SOCIAL strategy that (1) reduces peripheral muscle tension and arousal (bio), (2) enhances early tension detection and adaptive cognitive regulation (psycho/bio), and (3) broadens social-environmental supports and ergonomic context to sustain change. Levers are designed as modifiable predictors, not symptom labels, with clear measurement, feasible implementation, and targeted impact on the specified criteria (C01–C06). An integrated mix of relaxation training, mindfulness-based interoception, sleep/ergonomics optimization, cognitive reappraisal, habit change, and social support forms a scalable, low-risk plan that can be tracked via simple daily diaries and brief scales.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Daily progressive muscle relaxation (PMR) routine focusing on shoulders, jaw, and neck with 20 minutes twice daily",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a structured PMR protocol (audio-guided or instructor-led) practiced twice daily for 20 minutes, with a brief post-session check-in on perceived muscle tension.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "PMR reduces tonic muscle activation and autonomic arousal, lowering baseline shoulder/jaw tension (C01) and facilitating downregulation (C05). Habitual bracing (C06) is disrupted as voluntary release becomes the default state.",
+      "measurement": "Daily 0–1 self-report of shoulder/jaw tension (brief scale); weekly headache days; brief check-in on perceived ability to relax. Optional posture observation by partner/coach. ",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Map S01 pre/post PMR diaries to changes in C01/C05/C06 severity and frequency; track adherence via session logs."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Interoceptive awareness enhancement with brief mindfulness and body-scan",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Train interoceptive awareness through 5–10 minute daily body scans focusing on detecting subtle tension cues, paired with psychoeducation about tension–headache link.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Improves moment-to-moment bodily awareness (C02), enabling earlier regulation of arousal before pain triggers (C03) or anticipatory worry (C04). Supports downregulation of arousal (C05).",
+      "measurement": "Interoceptive awareness scale (0–1) administered weekly; headache days tracked; self-report of tension onset relative to awareness.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Link increases in interoceptive awareness to reductions in C02 and C05; correlate with headache onset timing."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep optimization and circadian alignment",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Establish consistent bed/wake times, reduce screen exposure before bed, optimize sleep environment, and monitor sleep duration/quality.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Improved sleep quality reduces central/cranial headache susceptibility (C03) and daytime arousal, supporting easier relaxation (C05) and reducing baseline muscle tension (C01) via restorative processes.",
+      "measurement": "Sleep diary (duration, latency, awakenings); wearable sleep data if available; weekly headache frequency.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Assess relation of sleep metrics to headache days and tension levels; adjust bedtime routines accordingly."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Structured social support engagement (weekly check-ins with supportive others)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Schedule regular social interactions (in person or virtual) with a trusted support person to provide validation, reduce anticipatory threat, and model relaxed behavior.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Social support attenuates threat appraisal (C04) and reduces arousal, facilitating easier relaxation (C05) and lowering muscle tension via social facilitation and accountability (C01).",
+      "measurement": "Frequency of supportive interactions per week; perceived social support scale; tense muscle rating.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Track changes in threat expectancy (C04) and relaxation capacity (C05) in relation to social engagement frequency."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Hourly micro-breaks with gentle movement and diaphragmatic breathing",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Institute 1–2 minute micro-breaks every hour consisting of gentle shoulder mobility, jaw release, and 4–6 breaths to downregulate arousal.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Short, frequent resets disrupt habitual bracing (C06) and gradually reduce resting muscle tension (C01) while promoting rapid autonomic downregulation (C05).",
+      "measurement": "Log of breaks per workday; short self-rating of tension pre/post-break; headache incidence.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Examine reduction in C01 and C05 after implementation of regular micro-breaks; correlate with headache days."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Threat reappraisal and cognitive reframing training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver brief cognitive-behavioral reframing exercises targeting anticipatory threat (C04): identify automatic thoughts, test accuracy, and generate balanced appraisals.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces persistent anticipatory threat (C04) and lowers overall arousal, thereby easing difficulty relaxing (C05).",
+      "measurement": "Threat appraisal ratings; frequency of tension episodes; pre/post cognitive distortion checklists.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Assess change in threat expectations (C04) and relaxation capacity (C05) after CBT reframing exercises."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Ergonomic and postural optimization with cue-based reminders",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Assess workstation ergonomics; implement ergonomic adjustments and real-time posture cues (e.g., reminders, chair adjustments) to reduce shoulder/jaw load.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Improved posture reduces sustained muscle tension (C01) and lowers baseline arousal, facilitating easier relaxation (C05) and reducing bracing habit (C06) indirectly.",
+      "measurement": "Posture quality score; self-reported shoulder/jaw tension; headache days.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Link ergonomic improvements to reductions in C01 and C05; monitor influence on C06 via habitual bracing trends."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Hydration optimization and caffeine intake management",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Encourage regular hydration and reduce excessive caffeine intake to stabilize autonomic arousal and sleep quality.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Hydration and moderated caffeine can lessen headaches (C03) and daytime arousal, aiding relaxation (C05) and reducing anticipatory arousal (C04).",
+      "measurement": "Daily water intake; caffeine intake diary; headache days; sleep quality proxy.",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.35,
+      "priority": "LOW",
+      "safety_notes": "None",
+      "mapping_query": "Correlate hydration/caffeine changes with headache days (C03) and arousal/relaxation measures (C05/C04)."
+    }
+  ]
+}

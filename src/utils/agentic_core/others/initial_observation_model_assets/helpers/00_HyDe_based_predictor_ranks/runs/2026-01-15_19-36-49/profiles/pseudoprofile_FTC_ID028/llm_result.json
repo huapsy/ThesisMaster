@@ -1,0 +1,144 @@
+{
+  "pseudoprofile_id": "CASE_CONCUSSION_ATTENTION_IRRITABILITY_SENSORY_BELIEF_PLAN",
+  "summary": "The case shows post-concussive cognitive vulnerability (sustained attention), sensory provocation (screen-nausea), emotional reactivity (irritability), and maladaptive beliefs about permanence and causality after a concussion months prior, with measurable daily-life impact. A multi-domain, modifiable-lever strategy is proposed across bio, psycho, and social factors (and their interactions) to reduce objective concentration lapses, decrease sensory-provoked symptoms, improve emotion regulation, recalibrate permanent-belief assumptions, and restore functional participation, using measurable, actionable predictors rather than symptom labels alone.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Attention_Systems_Training_and_Cognitive_Remediation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured attention training and cognitive remediation program (targeted computerized tasks plus real-world strategy coaching) to improve sustained attention and reduce task-related lapses.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Direct development of executive attention networks and compensatory strategies reduces sustained attention lapses, with transfer to work/study and screen-based tasks.",
+      "measurement": "Pre/post objective attention metrics (e.g., continuous performance task indices), task completion rates, and self-reported concentration during typical activities.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "C01 -> S01"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Visual_Sensory_Intolerance_Management_and_Screen_Exposure_Gradual_Ramp",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Environmental adjustments and graded screen exposure plan (brightness filters, blue-light reduction, breaks, and a stepwise reintroduction protocol).",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Reducing sensory load and gradually re-training tolerance lowers nausea and allows for more stable concentration during screen-based tasks.",
+      "measurement": "Nausea ratings during screen use (0-10), daily screen time, and task efficiency on screen-based work.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "If nausea worsens or dizziness occurs, slow exposure and consult clinician; consider ophthalmology if persistent.",
+      "mapping_query": "C02 -> S02"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Emotion_Regulation_Skills_Training_and_Irritability_Modulation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Emotion regulation skills training (DBT-inspired and mindfulness-based techniques) to reduce irritability thresholds and improve frustration tolerance.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Enhanced regulatory repertoire decreases emotional reactivity to cognitive load and stressors, reducing irritability in daily interactions.",
+      "measurement": "Daily irritability ratings (0-10), frequency of irritable episodes, and persistence on challenging tasks.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.68,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "C03 -> S03"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Belief_Adjustment_and_Psychoeducation_about_Concussion_Recovery",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Psychoeducation and cognitive restructuring addressing permanence fears and predominant concussion attribution, with collaborative medical context.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reframing catastrophic beliefs and attributions fosters engagement with rehabilitation and reduces distress.",
+      "measurement": "Belief about permanence scale; recovery expectations; treatment engagement indicators.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.63,
+      "priority": "HIGH",
+      "safety_notes": "Careful to validate concerns and coordinate with medical follow-up; monitor for rising distress.",
+      "mapping_query": "C04, C05 -> S04"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Daily_Functional_Structure_and_Accommodation_Strategies",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured accommodations for daily tasks (task breakdowns, calendars, checklists, and workload pacing) with workplace/school support.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Externalizing task structure reduces cognitive load and reduces stress-related irritability, enabling better concentration in daily activities.",
+      "measurement": "Functional impairment ratings; daily task completion; self-reported productivity at work/study/leisure.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for over-reliance on external aids; promote gradual independence.",
+      "mapping_query": "C06 -> S05"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep_Circadian_Restoration_and_Glymphatic_Support",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep optimization plan (consistent schedule, pre-bed wind-down, limiting screens before bed, daytime light exposure) to support brain recovery.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Improved sleep enhances attention, reduces sensory sensitivity, and supports emotional regulation; better sleep may dampen irritability and improve task performance.",
+      "measurement": "Sleep duration/quality (sleep logs/actigraphy), daytime alertness, and self-reported screen tolerance.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "If sleep disturbances persist, refer to sleep specialist.",
+      "mapping_query": "C01, C02 -> S06"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "External_Cognitive_Offloading_and_Cognitive_Aids",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use of external aids (calendars, reminders, checklists, voice notes) and training in offloading strategies to minimize cognitive load.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Externalizing cognitive demands reduces mental load and supports sustained attention and task completion in everyday life.",
+      "measurement": "Daily task success rate; self-reported concentration during activities; usage analytics of digital aids.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.62,
+      "priority": "MED",
+      "safety_notes": "Ensure privacy and data security for digital tools.",
+      "mapping_query": "C01 -> S07"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Social_Support_and_Participation_Engagement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured social engagement and participation plans (peer check-ins, meaningful activities) to reduce isolation and improve functional participation.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Social connectedness buffers stress, supports motivation, and improves adherence to rehabilitation and daily functioning.",
+      "measurement": "Social connectedness scale; participation frequency; self-rated functional engagement.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Monitor for social overload and ensure consent/ boundaries.",
+      "mapping_query": "C06 -> S08"
+    }
+  ]
+}

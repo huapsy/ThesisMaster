@@ -1,0 +1,16 @@
+pseudoprofile_id: pseudoprofile_FTC_ID014
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Intrusive visual replay of the incident -> CLINICAL / DSM-5TR / trauma- and stressor-related disorders / acute stress responses / acute stress reaction / intrusive_reexperiencing_of_traumatic_event (conf=0.78)
+- C02: Persistent thinking/rumination about the event -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / primarily obsessional ocd (explicit listing) / rumination or neutralizing or covert checking / intrusive_rumination_frequency (conf=0.72)
+- C03: Acute physiological reaction to feedback -> NON-CLINICAL / AGE-GENERAL / emotional / arousal / orgasm / physical release / bodily sensations (conf=0.58)
+- C04: Anticipatory fear of humiliation -> CLINICAL / DSM-5TR / anxiety disorders / social anxiety disorder / generalized / fear of negative evaluation / anticipatory_anxiety_in_social_evaluative_contexts (conf=0.75)
+- C05: Lowered threshold for perceiving criticism -> CLINICAL / DSM-5TR / anxiety disorders / social anxiety disorder / generalized / fear of negative evaluation / catastrophizing_neutral_feedback_as_criticism (conf=0.82)
+
+PREDICTORS:
+- P01: Sleep_Circadian_Entraining_Behavior -> BIO / sleep_circadian_and_restoration / circadian_entrainment / activity_and_meal_cues / exercise_timing_circadian_cue (conf=0.82)
+- P02: Digital_Tools_and_Supports_Usage -> PSYCHO / digital_and_tech_enabled_solutions / digital_tools_and_supports / guided_journaling_app (conf=0.58)
+- P03: Mindfulness_Practices_and_Decentering -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / open_monitoring_and_meta_awareness / decentering_practice (conf=0.72)
+- P04: Exposure_Practice_and_Social_Feedback_Safety -> PSYCHO / cognitive_behavioral_therapies / exposure_and_inhibitory_learning / exposure_modalities / in_vivo / social_evaluation_exposure (conf=0.92)
+- P05: Social_Support_and_Belonging_Engagement -> SOCIAL / social_support_and_belonging / support_network_development / befriending_and_outreach / social_isolation_outreach_service (conf=0.58)

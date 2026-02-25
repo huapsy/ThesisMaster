@@ -1,0 +1,20 @@
+pseudoprofile_id: pseudoprofile_FTC_ID015
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Altered sense of self since childbirth -> NON-CLINICAL / AGE-SPECIFIC / early_adulthood / emotional_development / identity_consolidation / role_integration / parental_role_acceptance (conf=0.75)
+- C02: Positive emotional bond with the baby -> NON-CLINICAL / AGE-GENERAL / social / positive relationships / intimacy / emotional closeness / emotional synchrony (conf=0.82)
+- C03: Perceived entrapment / loss of autonomy -> NON-CLINICAL / AGE-GENERAL / emotional / subjective affective feeling / feeling out of control (conf=0.85)
+- C04: Excessive guilt about feelings/parenting -> CLINICAL / DSM-5TR / depressive disorders / reproductive hormone–related depressive disorders / peripartum (antenatal or postpartum) depression / excessive_guilt_or_worthlessness (conf=0.78)
+- C05: Subjective overwhelm / low coping capacity -> NON-CLINICAL / AGE-GENERAL / emotional / subjective affective feeling / feeling out of control (conf=0.65)
+- C06: Low frustration tolerance / frequent tearfulness -> CLINICAL / DSM-5TR / depressive disorders / reproductive hormone–related depressive disorders / peripartum (antenatal or postpartum) depression / tearfulness_or_emotional_lability (conf=0.88)
+- C07: Self-criticism after emotional episodes -> CLINICAL / DSM-5TR / personality disorders / other personality disorders / depressive personality disorder / self_critical_rumination (conf=0.78)
+- C08: Perceived minimization / lack of validation from others -> NON-CLINICAL / AGE-GENERAL / social / social integration / acceptance by others / validation / emotional validation (conf=0.78)
+
+PREDICTORS:
+- P01: Sleep quality and circadian alignment -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / sleep_quality_rating (conf=0.88)
+- P02: Emotion regulation skills training -> PSYCHO / third_wave_and_contextual_therapies / dbt_skills_based_therapy / mindfulness_skills / mindfulness_of_current_emotion (conf=0.62)
+- P03: Self-compassion and compassionate self-relating -> PSYCHO / core_psychological_skills_toolkits / compassionate_self_relating_and_inner_support / self_compassion_practices / warmth_and_common_humanity / self_compassion_break_practice (conf=0.82)
+- P04: Identity consolidation / meaning update -> PSYCHO / change_process_and_therapeutic_phases / identity_consolidation / identity_evidence_and_story_stabilization / meaning_making_from_change_effort_practice (conf=0.72)
+- P05: Social support and respite planning -> SOCIAL / social_support_and_belonging / belonging_isolation_and_meaning / loneliness_reduction_planning / loneliness_reduction_action_plan (conf=0.58)
+- P06: CBT-based cognitive restructuring and behavioral activation -> PSYCHO / cognitive_behavioral_therapies / cbt_foundations / case_conceptualization_and_targeting / models_and_maps / cbt_cycle_thought_emotion_behavior_map (conf=0.72)

@@ -1,0 +1,858 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID024",
+  "model_summary": "Initial gVAR-ready observation model targeting seven atomic, modifiable, noise-triggered states (C01–C07) and six practical predictors (P01–P06). The criterion set captures sensory, cognitive, physiological, social, and functional impact of noisy environments, preserving resolution for later causal/influence analysis while remaining estimable via a compact predictor–criterion grid. Predictors focus on sleep/circadian regulation, arousal/ distress tolerance, graded exposure to noise, environmental sensorial supports, social accommodation, and mindfulness grounding. Measurements rely on frequent momentary EMAs (1–9 Likert-scale responses) plus a daily diary, with passive streams enabling supplementary context. The sampling plan emphasizes steady within-person variance (6 EMAs per day across ~14 days) and minimizes redundancy by grouping related regulation constructs into broad, modifiable levers. The predictor–criterion relevance grid and edge specifications guide subsequent model refinement for gVAR.",
+  "variable_selection_notes": "Variables chosen for their direct relevance to the complaint and their modifiability in real-world settings. Seven criteria (C01–C07) reflect core experiential domains: sensory threshold, urge to escape, avoidance, physiological arousal, cognitive load, perceived social judgment, and functional interference. Six predictors (P01–P06) target sleep regularity, arousal regulation, noise-exposure management, environmental supports, social accommodations, and mindfulness grounding. Selection aims to maximize within-person variance and signal-to-noise at a 1–9 Likert scale, while avoiding near-duplicate constructs (e.g., multiple self-regulation scales). Ambiguous or potentially nonlinear effects (e.g., heavy social media use) are not forced; nonlinear/unknown designations are used where appropriate. Evidence is drawn from HyDe and LLM-mapping rankings indicating emphasis on exposure, sleep, cognitive-behavioral strategies, and environmental adjustments as high-value levers.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:00",
+        "11:30",
+        "14:00",
+        "16:30",
+        "19:00",
+        "21:30"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 84,
+      "notes": "6 prompts/day across waking hours; adjust for participant schedule to maintain engagement."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "09:00",
+        "21:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Optional brief mood/energy snapshot; can be expanded if participant agrees."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Ambient noise exposure, sleep/wake metrics, and device usage can be passively captured if consented."
+    },
+    "minimum_total_observations_target": 98,
+    "gvar_readiness_notes": "Moderate",
+    "variance_support_notes": "Within-person variance is expected to be substantial given sensation-based and affective prompts; consider z-score normalization per participant.",
+    "missingness_risk_notes": "Potential EMA fatigue; implement brief reminders and allow reasonable offline catch-up windows."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "C01",
+      "label": "Reduced tolerance for ambient noise",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Has your tolerance for ambient noise in public/social settings been unusually low right now, producing distress?",
+        "response_scale_or_unit": "1-9 Likert scale",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_participant",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "C02",
+      "label": "Acute urge to escape noisy situations",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how strong is the urge to leave this noisy environment?",
+        "response_scale_or_unit": "1-9 Likert scale",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p_if_needed",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "C03",
+      "label": "Avoidance of common noisy contexts",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the next moments, how likely are you to attend a noisy place (e.g., supermarket, cafe) in the next 1–2 hours?",
+        "response_scale_or_unit": "1-9 Likert scale",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "C04",
+      "label": "Physiological hyperarousal when exposed",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate bodily arousal (e.g., racing heartbeat, sweating) in response to noise.",
+        "response_scale_or_unit": "1-9 Likert scale",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "C05",
+      "label": "Cognitive overwhelm / difficulty processing",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate the sense that your brain is overloaded and processing is difficult in noisy settings.",
+        "response_scale_or_unit": "1-9 Likert scale",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "C06",
+      "label": "Perceived social invalidation",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, do you feel that others view your reaction as exaggerated or dramatic?",
+        "response_scale_or_unit": "1-9 Likert scale",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C07",
+      "source_variable_id": "C07",
+      "label": "Functional interference with daily tasks and social participation",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how much is noise interfering with your ability to complete routine tasks or participate socially?",
+        "response_scale_or_unit": "1-9 Likert scale",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Sleep circadian entrainment",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] Sleep_and_Circadian > Circadian_Entrainment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Regular sleep-wake timing stabilizes arousal and sensory gating, reducing noise reactivity and cognitive load.",
+      "intervention_examples_safe": "Light exposure in morning, consistent bed/wake times, wind-down routine",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Tonight, how well did you regulate your sleep-wake timing and achieve adequate sleep?",
+        "response_scale_or_unit": "1-9 Likert scale",
+        "sampling_per_day": 1,
+        "recall_window": "end_of_day",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_participant",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved sleep lowers physiological arousal to noise."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Arousal regulation / distress tolerance",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Third_Wave_and_Contextual_Therapies > Distress_Tolerance",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Arousal-regulation skills dampen reactivity to noise, enabling safer exposure and cognitive processing.",
+      "intervention_examples_safe": " diaphragmatic breathing, grounding, affect regulation strategies",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate your ability to regulate arousal using diaphragmatic breathing or grounding (1-9).",
+        "response_scale_or_unit": "1-9 Likert scale",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C05",
+        "C01",
+        "C02",
+        "C07",
+        "C03",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Arousal regulation reduces hyperarousal during noisy exposure."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Exposure-based noise tolerance planning",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Cognitive_Behavioral_Therapies > Exposure_and_Inhibitory_Learning",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.78,
+      "mechanism_rationale": "Graded exposure to noise contexts reduces avoidance, cognitive load, and hypersensitivity over time.",
+      "intervention_examples_safe": "In vivo exposure to controlled noise in safe settings with response prevention",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In this moment, how prepared or willing are you to encounter a noisy environment without avoidance (1-9)?",
+        "response_scale_or_unit": "1-9 Likert scale",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Exposure reduces impulse to escape during exposure."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.86,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Environmental sensory accommodations use",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] Sensory_Environment > Noise_Reduction_Tools",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Use of noise-reduction tools and optimized environments lowers effective noise exposure and arousal.",
+      "intervention_examples_safe": "Earplugs, noise-canceling headphones, quiet zones",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "At this moment, are you using any noise-reduction tools or in a quieter environment? (1 if not, 9 if yes)",
+        "response_scale_or_unit": "1-9 Likert scale",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "binary_to_ordinal?",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C04",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Noise-reduction tools reduce ambient noise distress."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Social support / accommodation planning",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] Interpersonal_Therapeutic_Solutions > Social_Support_Mobilization",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.82,
+      "mechanism_rationale": "Structured social support reduces perceived invalidation and functional impairment by enabling adaptive communication and practical help.",
+      "intervention_examples_safe": "Coaching, caregiver planning, social-prescribing supports",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate the usefulness or availability of social support in managing the noise-related distress (1-9).",
+        "response_scale_or_unit": "1-9 Likert scale",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C06",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better social support reduces perceived invalidation and distress during exposure."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Mindfulness-based sensory grounding",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Third_Wave_and_Contextual_Therapies > Mindfulness_Based_Interventions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.78,
+      "mechanism_rationale": "Mindfulness grounding reduces reactivity to sensory input, aiding arousal regulation and cognitive processing.",
+      "intervention_examples_safe": "Brief mindful breathing, body scan, grounding with ambient cues",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate your use of mindfulness grounding or body-scan techniques (1-9) in response to noise.",
+        "response_scale_or_unit": "1-9 Likert scale",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C05",
+        "C01",
+        "C02"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindfulness reduces physiological arousal and cognitive load in noise exposure."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": ""
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,58000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep quality inversely related to arousal during noise exposure",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep stabilizes cognitive processing",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Arousal regulation reduces physiological reactivity",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Arousal control improves cognitive processing",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Graded exposure reduces urge/impulse to escape",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Exposure reduces avoidance behaviors",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Noise-reduction tools lower distress from ambient noise",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reduced exposure to noise reduces arousal",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Social support buffers perceived invalidation",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Social accommodation improves daily functioning",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness lowers physiological arousal",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness reduces cognitive load",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Grounding reduces noise distress",
+      "estimated_relevance_0_1": 0.65
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [],
+    "expected_floor_ceiling_risks": [],
+    "variance_enhancement_suggestions": [],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": "Overall feasible with 6 prompts/day; some predictors near-collinear under continuous sampling; variance acceptable with within-person scaling."
+  },
+  "safety_notes": "Not a diagnosis. No medication dosing. If acute risk is identified (self-harm, mania, severe deterioration), escalate to professional care."
+}

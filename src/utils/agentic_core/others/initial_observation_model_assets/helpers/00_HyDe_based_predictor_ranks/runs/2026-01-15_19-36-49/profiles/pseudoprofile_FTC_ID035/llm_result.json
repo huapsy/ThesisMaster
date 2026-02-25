@@ -1,0 +1,118 @@
+{
+  "pseudoprofile_id": "CASE_HealthAnxiety_Solutions_01",
+  "summary": "The case reflects health-related anxiety driven by rapid catastrophic interpretation of minor symptoms, automatic internet health-checking, and poor inhibitory control amid high arousal. Key modifiable levers span cognitive (biases and uncertainty intolerance), behavioral (checking and response inhibition), physiological (sleep, arousal regulation, and activity), and digital/social supports. Effective interventions should couple cognitive-behavioral strategies with brief lifestyle adjustments and digital self-regulation to reduce symptom-triggered panic, decrease checking reinforcement, and restore sense of control, while monitoring safety and escalation triggers.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Worry_Time_Scheduling_and_Cognitive_Reappraisal",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured CBT-based cognitive reappraisal and worry-time scheduling: establish a daily 15–20 minute 'worry period' during which health concerns are explored with a thought-record log, followed by deliberate return to task; use evidence-based challenge techniques to test catastrophic beliefs about symptoms.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Directly reduces baseline health worry frequency/intensity and attenuates catastrophic appraisals by enforcing time-limited processing and fact-based reframing; lowers distress related to perceived loss of control.",
+      "measurement": "Daily worry frequency (0-10), average worry intensity (0-10), proportion of thought-records completed, frequency of catastrophic interpretations per day.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns anticipated; monitor for distress spikes; escalate if suicidal ideation emerges.",
+      "mapping_query": "Targets C01 and C02 with cognitive restructuring and worry scheduling to reduce health worry and catastrophic interpretation; also supports C05 via improved perceived control."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Symptom_Cue_Exposure_with_Response_Prevention",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Behavioral experiments to resist health-checking: delay checking after symptom onset (start with 10 minutes, extend as tolerated), and perform neutral symptom exposure without seeking reassurance; document urge strength and outcome.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Disrupts compulsive checking reinforcement and strengthens inhibitory control through exposure and response prevention; reduces panic-like reactions by depriving the checking cycle of its safety-seeking payoff.",
+      "measurement": "Time from symptom onset to first check (minutes), total checking duration per episode (minutes), urge-to-check rating (0-10), number of checks per day.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "If symptom exacerbation occurs, implement safety plan and revert to baseline routines; medical evaluation if new red-flag symptoms occur.",
+      "mapping_query": "Directly targets C03 (compulsive checking) and C04 (inhibition failure); also impacts C06 by reducing panic-driven checking."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness_and_Interoceptive_Awareness_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "8-week mindfulness-based stress reduction focusing on nonjudgmental awareness of bodily sensations; urge surfing to observe symptoms without automatic interpretation; periodic home practice.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Reduces emotional reactivity to bodily sensations and interrupts rapid escalation into panic and catastrophic interpretation; enhances regulatory capacity over health anxiety.",
+      "measurement": "State anxiety after symptom cue (0-10), frequency of intense fear episodes (0-10), mindfulness practice adherence (days/week).",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.35,
+      "priority": "MED",
+      "safety_notes": "Initial distress during mindfulness is possible; provide supportive guidance and optional shortened practices.",
+      "mapping_query": "Addresses C05 distress and C06 panic reactions via increased interoceptive awareness and nonreactivity."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sleep_Hygiene_and_Circadian_Alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured sleep-wake scheduling with morning light exposure, wind-down routines, and caffeine/alc intake modulation; optimize sleep environment to reduce baseline arousal.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Improved sleep reduces physiological arousal and cognitive irritability, lowering susceptibility to health-related panic and catastrophic interpretations.",
+      "measurement": "Sleep duration and efficiency (minutes, 0-100%), sleep onset latency, morning alertness (0-10), nocturnal awakenings.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "Adjust for shift-work or medical conditions affecting sleep; monitor for persistent insomnia.",
+      "mapping_query": "Biological regulation of arousal to reduce C05 distress and C06 panic reactivity via improved sleep."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Regular_Aerobic_Exercise_Program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Moderate-intensity aerobic exercise 3–4 times/week for 30–45 minutes (walking, cycling, or swimming); track activity with simple logs; gradual progression.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Exercise lowers baseline anxiety, enhances autonomic regulation, and builds resilience against symptom-triggered fear; supports cognitive control and reduces worry frequency.",
+      "measurement": "Weekly exercise minutes, average heart rate during activity, resting heart rate, self-reported anxiety (0-10).",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Medical clearance if previously inactive; tailor intensity to fitness level.",
+      "mapping_query": "Biological arousal regulation via aerobic activity to reduce C01, C05, and C06."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Digital_health_checking_limits_and_social_support",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "App- or device-assisted limiter for health-related searches: set daily caps, automatic prompts to pause, guided cognitive exercises after limit hits; optionally pair with a health-focused accountability buddy.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Constrains reinforcement of checking behavior, enhances inhibitory control, and leverages social accountability to reduce distress related to health anxiety.",
+      "measurement": "Daily search time (minutes), number of prompts used, adherence rate, self-reported urge-to-check (0-10).",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Ensure medical information access isn’t blocked; provide safe-use guidelines and allow exception for urgent concerns.",
+      "mapping_query": "Digital self-regulation to limit C03 and C04 with supportive social scaffolding affecting C05."
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "pseudoprofile_id": "CASE_HEALTH_ANXIETY_S01",
+  "summary": "This case features persistent health anxiety driven by catastrophic interpretations of minor bodily sensations, compulsive online health-checking, failure to inhibit checking despite insight, a perceived loss of control, and intense panic when symptoms arise. The proposed levers span BIO, PSYCHO, and SOCIAL domains (and their interactions) and are designed as modifiable predictors (levers) rather than symptom labels. Each lever targets one or more of the core processes (C01–C06), with practical measurement plans, feasible short- to mid-term horizons, and a clear path to reducing health-related distress and incapacitation by changing thinking patterns, behavior, arousal, and social supports. Safety considerations are included where relevant, with a emphasis on evidence-based, non-pharmacologic strategies.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Cognitive restructuring and probabilistic thinking skills practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured CBT-based cognitive restructuring with thought monitoring, probabilistic thinking about symptom likelihood, and scheduled worry time; weekly coaching with home practice (short daily thought records).",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Addresses elevated baseline worry (C01) and catastrophic interpretation (C02) by replacing certainty of harm with likelihood-based appraisal and controlled worry processing.",
+      "measurement": "Weekly average health-worry rating (0-10) and catastrophe-interpretation score (0-100-ish scale) measured at baseline, week 4, week 8.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.72,
+      "priority": "HIGH",
+      "safety_notes": "Standard CBT safety; no pharmacology. Monitor for escalating medical anxiety; escalate to clinician if suicidality or medical risk is suspected.",
+      "mapping_query": "Map S01 to C01 and C02; track changes in worry frequency/intensity and catastrophizing ratings across 0-8 weeks."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Health-checking impulse control and scheduled information seeking",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implementation intention and response-prevention for health-checking: establish limited daily time window (e.g., 15-20 minutes) for online health information only; use a substitute behavior (e.g., 5-minute grounding) when urge arises.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Reduces compulsive internet health-searching (C03) and improves ability to inhibit reassurance-seeking despite irrational worry (C04); indirectly lowers overall health-worry load (C01).",
+      "measurement": "Daily minutes spent on health-information searching; number of urge episodes with successful delay; self-reported urge strength.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.8,
+      "priority": "HIGH",
+      "safety_notes": "If symptoms worsen or medical concerns arise, allow brief, supervised checks; ensure access to valid medical advice channels.",
+      "mapping_query": "Map S02 to C03 and C04 (and C01); monitor daily search time and urge-delay success over 4-6 weeks."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Interoceptive exposure to feared bodily sensations",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "A structured interoceptive exposure protocol targeting sensations like palpitations, dizziness, and shortness of breath to reduce panic response to symptoms.",
+      "targets_criteria_ids": [
+        "C06",
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Targets acute panic-level fear on symptom onset (C06) and catastrophic interpretation (C02) by disconfirming feared consequences through controlled exposure; reduces overall health worry load (C01).",
+      "measurement": "Fear ratings during exposures (0-100), frequency of avoidance of symptoms, and self-reported panic episodes per week.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.85,
+      "priority": "HIGH",
+      "safety_notes": "Conduct under clinician guidance or with a trained therapist; screen for contraindications (e.g., unmanaged cardiac conditions).",
+      "mapping_query": "Map S03 to C06 and C02 (and C01); track fear during exposures and frequency of panic episodes over 6-8 weeks."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Mindfulness/Acceptance and distress tolerance skills",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Mindfulness-based stress reduction or ACT-inspired skills focusing on nonjudgmental observation of symptoms and value-based action; daily short practice with weekly coaching.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces reactivity to bodily sensations and distress, dampening the sense of loss of control (C05) and panic reactivity (C06), while lowering sustained health worry (C01).",
+      "measurement": "Mindfulness facet scores (e.g., need for self-compassion); distress tolerance ratings; self-reported health worry.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "No acute safety concerns; standard psychological skill-building.",
+      "mapping_query": "Map S04 to C01 and C06 (and C05); assess mindfulness and distress tolerance before/after 6-8 weeks."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Executive function/inhibition training to curb checking behavior",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Digital inhibitory control training (Go/No-Go tasks) coupled with habit-replacement scaffolds (urge-surfing, tactile grounding) to reduce compulsive checking.",
+      "targets_criteria_ids": [
+        "C04",
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Strengthens inhibitory control over checking impulses (C04) and reduces time spent on online health checks (C03), decreasing overall health worry (C01).",
+      "measurement": "Go/No-Go task metrics; self-reported urge intensity; daily time spent checking.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Routine monitoring for distress; incorporate rest periods to prevent fatigue-related errors.",
+      "mapping_query": "Map S05 to C04, C03; monitor inhibitory control performance and checking urge over 4-6 weeks."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Psychoeducation and digital hygiene plan",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured psychoeducation about health anxiety and a concrete digital hygiene protocol (trusted sources, debunking myths, scheduled searches) with a daily log.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces irrational reassurance seeking (C04) and lowers baseline health worry (C01) through informed, safe information practices.",
+      "measurement": "Number of sources consulted; time spent online for health info; perceived confidence in information accessed.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Provide guidelines to avoid medical misinformation; encourage medical consultation for new or worsening symptoms.",
+      "mapping_query": "Map S06 to C01 and C04; track source quality and online time over 2-4 weeks."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Sleep and circadian rhythm stabilization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene program including consistent sleep-wake times, caffeine management, and environmental sleep optimization to reduce arousal and panic reactivity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Improves overall arousal regulation and reduces health-worry amplification and distress related to symptoms (C01, C05).",
+      "measurement": "Sleep diary metrics (sleep onset latency, wake after sleep, total sleep time) and distress when symptoms occur.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Standard sleep hygiene; escalate if sleep disorders suspected.",
+      "mapping_query": "Map S07 to C01 and C05; monitor sleep parameters and distress linked to symptoms over 4-6 weeks."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Social support and accountability mechanisms",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured social support via peer coaching or small support group; regular check-ins to discuss worries and coping strategies.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Enhances belonging and accountability, reducing overall health worry and distress related to perceived loss of control (C05) and worry frequency (C01).",
+      "measurement": "Frequency of support contacts; perceived social support scales; self-reported health-worry intensity.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Ensure confidentiality; connect to appropriate community resources.",
+      "mapping_query": "Map S08 to C01 and C05; track social contact frequency and perceived support over 6-8 weeks."
+    }
+  ]
+}

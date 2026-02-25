@@ -1,0 +1,921 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID044",
+  "model_summary": "Initial gVAR-ready observation model targeting five modifiable cognitive-emotional criteria of worry ('what if' rumination) with five complementary, modifiable predictors chosen for salience, tractability, and within-person variance: (C01) frequency of hypothetical worry episodes, (C02) difficulty disengaging/rumination persistence, (C03) breadth of worry topics, (C04) perceived usefulness of worry as preparation, (C05) distress from worry. Predictors emphasize metacognitive and behavioral strategies (mindfulness/defusion, metacognitive belief modification, worry scheduling with activation), plus sleep and aerobic activity as buffering resources. Measurements rely primarily on short-interval EMA self-reports (1–9 Likert scales where appropriate) to maximize within-person variance, with a light daily diary and optional passive streams to augment contextual information. The sampling plan supports 0–6h lags for predictor-to-criterion effects, uses fixed-block-with-jitter EMA prompts, and includes a simple daily diary to anchor end-of-day states, over a 14-day window to establish initial VAR estimates and feasibility for gVAR.”",
+  "variable_selection_notes": "Variables chosen to cover core cognitive-emotional processes described in the complaint (recurring what-if thoughts, rumination, breadth, perceived benefit, distress) while emphasizing modifiable behavioral and sleep-related resources. The five criteria preserve resolution of the complaint while keeping redundancy low (no multiple near-duplicate self-regulation constructs). Predictors focus on evidence-backed levers with high modifiability and expected within-person variance (mindfulness/defusion, metacognitive beliefs, worry scheduling/activation, sleep routines, aerobic activity). All measures use Likert-type scales or single-item intensity scales to maximize variance and estimability in a gVAR framework. Potential nonlinearities are acknowledged in edges where effects might plateau or reverse (e.g., sleep-related factors), and such cases are labeled in edges as nonlinear/unknown where applicable.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 5,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:30-09:30",
+        "11:30-12:20",
+        "15:30-16:20",
+        "19:30-20:20",
+        "21:30-22:15"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 70,
+      "notes": "Jitter within blocks to avoid predictability; reminders should be concise (<20s)."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "07:00",
+        "22:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Optional end-of-day check-in for sleep/mood alignment."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Optional passive data (screen usage, sleep duration, activity) to enrich context while prioritizing EMA data."
+    },
+    "minimum_total_observations_target": 80,
+    "gvar_readiness_notes": "Design balances a compact variable set with enough observations to support early gVAR estimation. Passive streams enhance signal while EMA drives primary variance.",
+    "variance_support_notes": "1–9 Likert scales for all key variables (0–9 range for episode counts where appropriate) to maximize within-person variance; z-scoring within-subject recommended in analysis phase.",
+    "missingness_risk_notes": "Device/engagement risk; plan prompts with reminders and brief check-ins; consider compensation and debrief to mitigate dropout."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "",
+      "label": "Frequency of 'what if'/hypothetical thoughts",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 24 hours, how many separate episodes of sustained hypothetical 'what if' thinking about future adverse events did you have? An episode is a chain of thoughts lasting more than 2 minutes.",
+        "response_scale_or_unit": "0-9 scale (0 = none, 9 = many)",
+        "sampling_per_day": 4,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Episode count provides a discrete, bounded measure aligned with the described criterion."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z_score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "",
+      "label": "Difficulty disengaging/rumination persistence",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 24 hours, to what extent were you unable to stop or redirect your attention away from the hypothetical worry thoughts once they started? (1 = not at all, 9 = extremely unable)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 5,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Captures subjective control over attention during worry."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z_score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "",
+      "label": "Breadth of worry topics (multiple life domains)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How many distinct life domains were referenced in spontaneous worry in the past 24 hours? (1–9 domains)",
+        "response_scale_or_unit": "1-9 Likert-like count",
+        "sampling_per_day": 4,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Domain count reflects breadth; useful for targeting cognitive boundary expansion."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z_score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "",
+      "label": "Perceived usefulness of worry as preparation",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "To what extent do you believe running through worst-case scenarios helps you prepare or avoid negative outcomes? (1 = not at all, 9 = very much)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Captures perceived utility of worry as a cognitive strategy."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z_score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "",
+      "label": "Emotional distress caused by the worry",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Intensity of negative mood or distress directly attributed to engaging in the 'what if' thoughts (self-rated unpleasantness or misery while worrying).",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Direct mood consequence of worry episodes."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z_score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Mindfulness/defusion practices",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / cognitive_and_metacognitive_interventions / metacognitive_and_attention_based_interventions / *worry_rumination_postponement",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Directly targets cognitive defusion and attention) control to reduce rumination and distress.",
+      "intervention_examples_safe": "Brief mindfulness/defusion exercises (2–5 minutes) during the day; labels thoughts non-judgmentally; observe them without engagement.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, how often did you intentionally practice a mindfulness or cognitive defusion technique (e.g., observing thoughts, defusion, labeling)?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "High variance expected with daily practice."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z_score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindfulness reduces frequency of worry episodes; expect earlier improvements."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved attentional control should reduce persistence."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Defusion may limit breadth by reducing elaboration."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindfulness may lower perceived usefulness of worry as preparation."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Less rumination -> reduced distress."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "High feasibility with brief EMA slots."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Metacognitive beliefs modification for worry",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / cognitive_behavioral_therapies / perseverative_cognition_interventions / metacognitive_beliefs / challenge_meta_beliefs / *meta_worry_challenge",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Alters beliefs about worry (e.g., worry as cognitive avoidance), reducing worry engagement.",
+      "intervention_examples_safe": "Psychoeducation about worry; cognitive-behavioral exercises to challenge meta-worry beliefs; structured reflection.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, to what extent did you notice and challenge beliefs about worry (e.g., 'worrying helps me prepare')?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Targets metacognitive layer of worry."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z_score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C03"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Challenging meta-worry beliefs should reduce episode frequency."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better control beliefs reduce disengagement."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Less tendency to catastrophize domains."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Belief change lowers perceived usefulness of worry."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Less worry metacognition reduces distress."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Moderate complexity; maintain short, focused tasks."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Worry scheduling and behavioral activation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / change_process_and_therapeutic_phases / skill_acquisition / cognitive_and_attentional_skill_building / *worry_rumination_discrimination_practice",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Structured worry timing and activation tasks redirect rumination into goal-directed behavior.",
+      "intervention_examples_safe": "Set a fixed worry window; schedule 15–20 minutes; perform a small activation task (e.g., short walk) after.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, did you schedule a specific worry period or engage in a worry-related activation task? (0/1)",
+        "response_scale_or_unit": "1-9 Likert (0 = none, 9 = multiple)",
+        "sampling_per_day": 4,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Captures practical implementation of worry management."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z_score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Worry scheduling reduces episodes."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Scheduled structure improves redirecting thought."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Activation reduces domain-specific worry."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Less reliance on worry for preparation."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Engagement in activation reduces distress."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Integrates behavioral activation with worry management; feasible in daily EMA."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Sleep routines and circadian regularity",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Sleep_Circadian_and_Restoration / Sleep_Routines_and_Practices",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Regular sleep-wake patterns support cognitive control and mood regulation, buffering worry effects.",
+      "intervention_examples_safe": "Maintain consistent bed/wake times; reduce screen exposure before bed; consider wind-down routine.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone morning_diary",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "How consistent was your sleep-wake schedule yesterday and last night? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "yesterday_night",
+        "expected_within_person_variability": "high",
+        "notes": "Sleep regularity often fluctuates daily; morning diary captures it."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z_score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C05",
+        "C04",
+        "C03"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better sleep reduces cognitive load and worry frequency."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Predictable sleep improves disengagement control."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Sleep regularity reduces breadth of worry topics via steadier mood."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Sleep quality decreases perceived need to rehearse worst-case scenarios."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved mood from sleep stability lowers distress."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Sleep diaries are commonly feasible; may require onboarding."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Aerobic exercise frequency",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Movement_Physical_Function_and_Somatic_Care / Aerobic_and_Cardiorespiratory_Movement",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Regular aerobic activity supports neurocognitive regulation and mood, buffering worry impact.",
+      "intervention_examples_safe": "Moderate-intensity walking 3–4 times/week; light jogs; cycling sessions.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, how many minutes did you engage in aerobic exercise (roughly)? (0–60+ minutes; report in 1–9 scale by adherence)",
+        "response_scale_or_unit": "1-9 (adherence proxy for minutes)",
+        "sampling_per_day": 2,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Single daily minute count standardized to 1–9 scale for tractability."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z_score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C03"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Exercise can interrupt rumination cycles and reduce episode likelihood."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Post-exercise arousal regulation supports disengagement control."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Physical activity improves mood stability, narrowing worry domain spread."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Regular exercise reduces perceived need to plan worst-case outcomes."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better mood reduces distress after worry."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Activity prompts may require device compatibility; feasible in most settings."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,86000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,87000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,83000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,77000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,86000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,79000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,86000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,86000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,81000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,86000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,87000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,76000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,84000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,79000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness reduces frequency of worry episodes.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Improved attentional control should reduce persistence.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Defusion may limit breadth of worry.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Lower perceived usefulness of worry post-intervention.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Distress expected to drop with reduced rumination.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Challenging meta-worry beliefs reduces episode initiation.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Belief modification supports disengagement.",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Belief change may reduce breadth.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reduces perceived worry utility.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Distress decreases as meta-worry beliefs shift.",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Worry scheduling reduces episodes.",
+      "estimated_relevance_0_1": 0.88
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Structured worry management aids disengagement.",
+      "estimated_relevance_0_1": 0.86
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Activation may suppress breadth of worry.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Less need to prepare via worry.",
+      "estimated_relevance_0_1": 0.86
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Distress decreases with better worry management.",
+      "estimated_relevance_0_1": 0.81
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Regular sleep supports cognitive control.",
+      "estimated_relevance_0_1": 0.86
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep regularity improves disengagement.",
+      "estimated_relevance_0_1": 0.82
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Regulated sleep mood reduces breadth.",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep improves perceived worry utility.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mood stabilization lowers distress.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Exercise disrupts rumination cycles.",
+      "estimated_relevance_0_1": 0.74
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Post-exercise regulation supports disengagement.",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mood stability reduces breadth.",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Exercise reduces worry utility.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Better mood lowers distress after worry.",
+      "estimated_relevance_0_1": 0.65
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "low_between_P01-P04",
+      "low_between_P02-P03",
+      "low_between_P01-P02"
+    ],
+    "expected_floor_ceiling_risks": [
+      "minimal_floor_effect_on_C01",
+      "low_ceiling_on_C05"
+    ],
+    "variance_enhancement_suggestions": [
+      "standardize_within_subject",
+      "center_variables",
+      "verify_temporal_alignment"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "[PSYCHO] > Sleep_and_Ccircadian_Solutions (sleep pharmacology not included)",
+      "[BIO] > Implanted_neuromodulation_variants (not included)"
+    ],
+    "gvar_feasibility_summary": "Compact predictor set with high within-person variance. EMA-driven iteratively refined by initial data; passive streams optional."
+  },
+  "safety_notes": "Not a diagnosis. No medication dosing or risky recommendations. If acute risk signs emerge (self-harm, severe deterioration), provide safety guidance and connect with professional help."
+}

@@ -1,0 +1,161 @@
+{
+  "pseudoprofile_id": "CASE_6_FACTOR_SOCIAL_STATE_PSEUDO_PROFILE_001",
+  "summary": "From the six changeable factors (social avoidance C01, belief I’m annoying C02, post-event rumination C03, plan cancellations C04, loneliness C05, self-criticism C06), propose a set of modifiable BIO/PSYCHO/SOCIAL levers that target both specific criteria and their interactions. Each lever is a discrete predictor that can be adjusted, measured, and combined with other levers. Interventions include behavioral activation for social exposure, cognitive restructuring with social experiments, mindfulness-based rumination reduction, social-prescribing to reduce isolation, self-compassion practices, sleep and nutrition optimization, and data-driven personalization. Together they aim to (1) increase social engagement, (2) modify maladaptive beliefs, (3) reduce rumination, (4) build belonging, (5) lessen self-criticism, and (6) improve energy/mood facilitating sustained change. Safety notes emphasize monitoring for acute anxiety or distress and ensuring pacing and professional escalation if risk emerges.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "C01_social_avoidance_frequency",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Structured, graded social exposure plan with behavioral activation: start with small, low-stakes social tasks (e.g., brief check-ins, short call), progressively increasing complexity; incorporate a brief pre-event energizing activity (e.g., 10–15 minutes of light movement) to boost readiness; schedule consistent weekly social engagements and track attendance and distress.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Reducing avoidance increases actual social contact, which can reduce loneliness (C05) and provides social feedback that may lessen post-event rumination (C03) and challenge beliefs about being annoying (C02) over time.",
+      "measurement": "Weekly count of social engagements attended; self-rated avoidance level; loneliness measure (e.g., short loneliness scale); post-event distress ratings.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for escalating social anxiety; pace exposure to prevent overwhelm; adjust pace if distress becomes excessive.",
+      "mapping_query": "CASE_S01_social_avoidance_exposure_S01"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "C02_belief_annoying_reduction",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Cognitive restructuring paired with behavioral experiments to test and modify the belief 'I am annoying'; implement guided thought records, evidence gathering, and low-stakes social experiments; integrate self-compassion techniques to reduce harsh self-judgments.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01",
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Directly targets the core belief driving avoidance; reducing conviction of being 'annoying' should increase willingness to engage socially, decrease rumination, and lessen loneliness.",
+      "measurement": "Belief conviction/intensity scale; frequency of intrusive social thoughts; number of invitations accepted; loneliness scores.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure tasks are proportionate to current functioning; adjust pace if distress increases; consider clinician input if beliefs become highly rigid.",
+      "mapping_query": "CASE_S02_belief_restructuring_S02"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "C03_post_event_rumination_reduction_mindfulness",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Mindfulness-based strategies to reduce post-event rumination: brief post-event grounding (30–60 seconds), cognitive defusion, and acceptance practices; weekly check-ins on rumination duration and distress; integrate as part of daily routine.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Lowering rumination after social remarks reduces distress, increases likelihood of re-engaging socially, and mitigates loneliness.",
+      "measurement": "Average rumination duration after social events; post-event distress rating; time-to-return-to-planned activities.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Low risk; monitor for heightened anxiety during practice; provide support if rumination intensifies.",
+      "mapping_query": "CASE_S03_rumination_mindfulness_S03"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "C05_loneliness_reduction_through_structured_social_connections",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Social-prescribing and community-based engagement: link with community groups, clubs, or volunteering; establish a weekly commitment with a buddy system; address access barriers (transport, schedule); track belonging and connectedness.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Structured social connections create reliable opportunities for belonging, reducing loneliness and enabling more consistent social engagement.",
+      "measurement": "Weekly number of social contacts; loneliness scale; cancellation frequency (C04) counts.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Assess accessibility and safety in group settings; arrange alternative options if transport is an issue.",
+      "mapping_query": "CASE_S04_social_prescribing_S04"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "C06_self_criticism_reduction_self_compassion",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Self-compassion training and compassionate self-talk: daily brief self-compassion prompts, compassionate letter to self, and cognitive defusion techniques to lessen harsh self-criticism; include reflective journaling about lonely moments.",
+      "targets_criteria_ids": [
+        "C06",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Reducing self-criticism can improve mood, increase willingness to seek/accept social support, and lessen loneliness by buffering negative mood after social setbacks.",
+      "measurement": "Self-criticism scale scores; mood ratings; help-seeking behavior frequency; social engagement attempts.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Monitor for shame triggers; provide supportive framing to avoid triggering defensiveness.",
+      "mapping_query": "CASE_S05_self_compassion_S05"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "C03_sleep_quality_and_circadian_alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep optimization: maintain consistent bedtime/wake time; optimize sleep environment; morning light exposure; limit caffeine late in day; monitor sleep via diary.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Improved sleep supports mood regulation and executive control, reducing rumination and increasing energy for social engagement, thereby reducing avoidance and loneliness.",
+      "measurement": "Sleep duration/quality (sleep diary); next-day mood; number of social engagements; avoidance rating.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Caffeine and sleep hygiene considerations; adjust if sleep disturbances persist.",
+      "mapping_query": "CASE_S06_sleep_optimization_S06"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Nutritional_and_energy_stability_for_mood",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Nutrition and hydration optimization: regular balanced meals, consistent hydration, consider omega-3 or micronutrient supplementation if indicated (in consultation); monitor energy and mood to support social functioning.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Stable energy and mood from nutrition supports willingness to engage socially and reduces rumination and loneliness driven by fatigue or irritability.",
+      "measurement": "Dietary logs; energy/mood ratings; attendance at social activities.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "LOW",
+      "safety_notes": "Avoid unsupervised supplementation; consider medical guidance for micronutrients.",
+      "mapping_query": "CASE_S07_nutrition_mood_S07"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Personalization_Monitoring_and_Data_Feedback",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Measurement-based care and data-driven optimization: daily self-monitoring (mood, loneliness, rumination, social activity) via an app; weekly feedback to adjust the plan; optionally add wearables for activity and sleep to refine levers.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Data-driven adjustments enable rapid fine-tuning of levers, promoting adherence and identifying which predictors most impact the individual's state.",
+      "measurement": "Daily composite scores; weekly trend reports; engagement metrics; plan adjustments.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Ensure privacy and consent; verify data security; provide opt-out options for sensitive metrics.",
+      "mapping_query": "CASE_S08_measurement_based_care_S08"
+    }
+  ]
+}

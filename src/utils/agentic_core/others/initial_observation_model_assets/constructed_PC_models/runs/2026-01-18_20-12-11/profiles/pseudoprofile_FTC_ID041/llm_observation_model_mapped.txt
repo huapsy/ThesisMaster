@@ -1,0 +1,18 @@
+pseudoprofile_id: pseudoprofile_FTC_ID041
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Nightmare-triggered awakenings (occurrence) -> CLINICAL / DSM-5TR / sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced parasomnias / medication-associated nightmare disorder / nocturnal_awakenings_due_to_nightmares (conf=0.78)
+- C02: Nightmare vividness/intensity -> CLINICAL / DSM-5TR / substance-related and addictive disorders / substance-induced disorders / substance withdrawal / stimulant withdrawal / amphetamine or methamphetamine withdrawal / vivid_dreams (conf=0.42)
+- C03: Anticipatory fear of sleep / reluctance to go to bed -> CLINICAL / DSM-5TR / sleep-wake disorders / insomnia disorders / chronic insomnia disorder / sleep-onset insomnia / bedtime_anxiety_present (conf=0.72)
+- C04: Acute autonomic arousal on awakening -> CLINICAL / DSM-5TR / sleep-wake disorders / insomnia disorders / chronic insomnia disorder / early-morning awakening insomnia / morning_hyperarousal_signs_post_awakening (conf=0.72)
+- C05: Prolonged post-awakening physiological/psychological activation -> CLINICAL / DSM-5TR / sleep-wake disorders / insomnia disorders / chronic insomnia disorder / early-morning awakening insomnia / morning_hyperarousal_signs_post_awakening (conf=0.72)
+- C06: Difficulty resuming sleep after nightmare awakenings -> CLINICAL / DSM-5TR / sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / nightmare_induced_sleep_fragmentation (conf=0.72)
+
+PREDICTORS:
+- P01: Sleep Routine/CBT-like bedtime structuring -> PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / presleep_mental_skills / detachment_and_unloading / presleep_detachment_routine_design_psychological (conf=0.82)
+- P02: Sleep Environment Optimization (sleep-conducive room factors) -> BIO / sleep_circadian_and_restoration / sleep_environment / air_allergen_and_irritant_control / ventilation_improvement (conf=0.72)
+- P03: Presleep Downshift/Rituals (downshift from wakefulness to sleep) -> BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / breathwork_relaxation (conf=0.72)
+- P04: Breathing/Detachment during pre-sleep for arousal downshift -> PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / presleep_mental_skills / detachment_and_unloading / presleep_detachment_routine_design_psychological (conf=0.65)
+- P05: Sleep-related CBT skills training / sleep appraisals -> PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / cognitive_work / sleep_appraisals / cognitive_reframe_sleep_threat_appraisals (conf=0.85)
+- P06: Nightmare imagery rehearsal / rescripting techniques -> PSYCHO / trauma_memory_imagery_and_narrative_work / imagery_and_rescripting_interventions / nightmare_imagery_rehearsal (conf=0.85)

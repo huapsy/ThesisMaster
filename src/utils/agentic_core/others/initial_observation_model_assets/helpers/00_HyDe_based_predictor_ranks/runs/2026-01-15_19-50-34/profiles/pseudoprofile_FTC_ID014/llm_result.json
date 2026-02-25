@@ -1,0 +1,146 @@
+{
+  "pseudoprofile_id": "CASE_01_INTRUSIVE_REPLAY",
+  "summary": "The case shows five modifiable levers driving distress: intrusive visual replay (C01), persistent rumination (C02), acute physiological reactivity to evaluative cues (C03), anticipatory fear of humiliation (C04), and a lowered threshold for perceiving criticism (C05). The proposed BIO-PSYCHO-SOCIAL levers span cognitive-behavioral techniques, autonomic regulation, social exposure, cognitive bias modification, sleep and mindfulness, and social support to reduce re-experiencing, worry, arousal, and threat appraisals. Interventions are designed as changeable predictors (levers) with concrete measurement, feasible delivery, and a clear path to cross-domain gains (e.g., improved cognitive control via sleep + mindfulness can dampen rumination and reactivity; social exposure can reduce anticipatory fear while improving tolerance to feedback). A multi-pronged, 6–8 week rollout with consistent measurement is recommended, prioritizing high-impact, high-feasibility interventions first.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "C01",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Imagery-based CBT with imagery rescripting to re-contextualize the boss-yelling memory and reduce involuntary re-experiencing. Includes a brief, guided daily practice (15–20 minutes) and 2–3 weekly therapist-assisted or self-guided sessions focusing on reframing the scene, decreasing vividness, and creating alternative non-humiliating appraisals.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Modifies the memory representation via reconsolidation-like processes and inhibitory learning, reducing vividness and emotional intensity of the intrusive clip.",
+      "measurement": "Daily intrusion diary (frequency 0–4+), imagery vividness rating (0–100), distress during recall (0–10); weekly composite score.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns anticipated.",
+      "mapping_query": "CASE01.C01 -> Imagery_Rescripting; PSYCHO"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "C02",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured rumination management using scheduled cognitive-behavioral strategies: fixed worry periods (e.g., 3x/day for 10 minutes), cognitive defusion, and problem-solving training to redirect attention away from unproductive dwelling.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Reduces perseverative cognition by design, improving cognitive flexibility and reducing time spent in repetitive verbal rehearsal.",
+      "measurement": "Ruminative Responses Scale (RRS) scores; daily diary of time spent ruminating (minutes); distress during rumination (0–10).",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "CASE01.C02 -> RuminationMgmt; PSYCHO"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "C03",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Autonomic regulation via paced breathing with optional HRV biofeedback and brief mindfulness cues to normalize physiological responses to evaluative feedback.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Enhances autonomic balance (vagal tone) reducing stomach drop and arousal in response to feedback cues.",
+      "measurement": "Self-reported arousal during feedback (0–10); HRV metrics (RMSSD) during tasks; resting HRV baseline.",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "CASE01.C03 -> Autonomic_Regulation; BIO"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "C04",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Graded social exposure with cognitive reappraisal: start with low-stakes feedback encounters, gradually increase complexity while practicing reframe strategies to reduce anticipatory fear of humiliation.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Habituation to evaluative situations and corrective learning reduces anticipatory anxiety and perceived threat from social feedback.",
+      "measurement": " anticipatory anxiety ratings (0–10) before exposures; social functioning questionnaire; exposure task success rate.",
+      "time_horizon": "8–10 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "Normal safety planning for exposure tasks in case of distress; therapist supervision recommended.",
+      "mapping_query": "CASE01.C04 -> Graded_Exposure_with_Cognitive_Reappraisal; PSYCHOxSOCIAL"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "C05",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Interpretation bias modification and threat-interpretation retraining using computerized tasks and therapist-guided reflections to reduce hypervigilance to criticism.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Recalibrates threat appraisal to neutral/benign cues, reducing perceived aggressiveness of subtle feedback.",
+      "measurement": "Interpretation bias task scores; self-reported threat perception during mild feedback (0–10); reaction time biases.",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "None.",
+      "mapping_query": "CASE01.C05 -> BiasModification; PSYCHO"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "C03_and_C02_interaction_sleep",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep optimization program to improve overall cognitive control and emotional regulation: consistent bed/wake times, morning light exposure, caffeine reduction after noon, and a brief wind-down routine.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Better sleep supports executive function and emotional regulation, attenuating rumination and physiological reactivity.",
+      "measurement": "Sleep diaries (bed/wake times, duration); PSQI score; subjective alertness (0–10) daily.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "CASE01.SleepOptimization; C02+C03"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "C02_and_C03_and_C01",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Mindfulness-based strategies (8-week program or 4-week abbreviated MBCT) to cultivate nonjudgmental awareness of thoughts and bodily sensations, reducing reactivity, rumination, and intrusive imagery.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Enhances metacognitive awareness and autonomic regulation, decreasing automatic reactivity to intrusive imagery and feedback.",
+      "measurement": "MAAS/FFMQ scores; daily distress during exposure to feedback; intrusion vividness (0–100).",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "CASE01.Mindfulness; C01+C02+C03"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "C04_and_C05_and_social_support",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured social support and feedback safety-net: pairing with a trusted colleague or coach for weekly check-ins, feedback debriefs, and peer modeling to reduce humiliation fear and sensitivity to criticism.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Social support reduces social threat salience, provides corrective feedback in a safe space, and improves interpretation of feedback cues.",
+      "measurement": "Perceived social support scale; frequency of supportive interactions; self-rated threat from feedback (0–10).",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "None.",
+      "mapping_query": "CASE01.Social_Support_and_feedback"
+    }
+  ]
+}

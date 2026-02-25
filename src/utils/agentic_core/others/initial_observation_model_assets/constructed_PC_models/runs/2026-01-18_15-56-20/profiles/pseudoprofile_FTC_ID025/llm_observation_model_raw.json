@@ -1,0 +1,1512 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID025",
+  "model_summary": "An initial gVAR-ready observation model comprising eight state-trigger criteria (C01–C08) capturing automatic social comparison dynamics, triggers, rapid shifts in self-evaluation, self-worth, jealousy, rumination, affect maintenance, and motivation to change. A compact set of eight modifiable predictors (P01–P08) targets these criteria via present-state, nonpharmacological levers (self-compassion, metacognitive monitoring, mindfulness, emotion regulation, sleep–circadian alignment, social belonging, cognitive reframing, and activation/values-based action). The plan emphasizes within-person variance, momentary assessment, and safe, scalable interventions suitable for real-world data collection and downstream gVAR modeling. Predictor–criterion mappings are explicitly quantified to seed the causal-like network; data collection modalities balance self-report with passive signals where appropriate, while preserving measurement density to enable robust lagged and cross-lag analyses.",
+  "variable_selection_notes": "Criteria were chosen to cover the core loop described in the complaint: frequent automatic social comparisons (C01), triggers from others' achievements (C02), rapid negative self-evaluation after exposure (C03), intensity of lowered self-worth (C04), jealousy/aversion (C05), looping negative thoughts (C06), capacity to sustain initial positive affect (C07), and expressed motivation to change (C08). Predictors emphasize salutogenic mechanisms with broad, tractable targets for behavioral/psychological interventions. HyDe and LLM-guided rankings support prioritizing self-compassion, self-monitoring, mindfulness, cognitive reframing, and social support as high-signal levers, with sleep and activation as important modulators. Trade-offs: we avoid duplicative self-regulation constructs by selecting one broad construct per domain (e.g., self-compassion as a primary self-regulation lever) and rely on higher-level constructs (mindfulness, emotion regulation) to reduce collinearity. Within-person variance is maximized by multi-occasion EMA (1–9 Likert scales) and occasional passive signals (sleep). Safety and ethics notes emphasize non-pharmacological, safe techniques; no dosing or medical advice is provided.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:00-10:30",
+        "12:00-13:30",
+        "16:00-17:30"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 84,
+      "notes": "Spread across daytime blocks with mild jitter to reduce anticipation effects."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "07:00",
+        "21:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Evening reflection focused on day’s social comparisons, affect, and coping."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "daily_aggregate",
+      "notes": "Sleep-wake metrics via passive sensing; optional wearable-derived activity can supplement self-report."
+    },
+    "minimum_total_observations_target": 150,
+    "gvar_readiness_notes": "Atomic, present-state levers with clear measurement; baseline variance expected across days; plan for missingness with within-person centering.",
+    "variance_support_notes": "Likely high within-person variance for C01–C06; Sleep and activation may show diurnal patterns; plan z-scoring within-person.",
+    "missingness_risk_notes": "Introduce reminders; allow a brief grace window; impute if necessary with person-mean or model-based methods."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "",
+      "label": "Frequency of automatic social comparisons",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, how frequently did you automatically compare yourself to others in daily situations? Rate from 1 (Not at all) to 9 (Very frequently).",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Atomic target of the jealous/comparative pattern; high variance expected."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "",
+      "label": "Specific triggers: others' achievements",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, when you observed peers' achievements (e.g., promotions), how intense were your reactions (1-9 scale)?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures situational triggering events; nonlinear potential but directionality not assumed."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "",
+      "label": "Speed of negative self-evaluation after a trigger",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "When exposed to a trigger, how quickly do you shift from positive to negative self-evaluation (within seconds is 1; slower responses higher)?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Measures cognitive-linguistic latency to negative appraisal."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "",
+      "label": "Intensity of lowered self-worth (feeling like a failure)",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate how strongly you feel like a failure after comparisons (1-9).",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures self-worth fluctuation post-comparison."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "",
+      "label": "Jealousy/envious emotional response",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "When others succeed, how strong is your jealousy/envious feeling (1-9)?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Subjective aversiveness of envy; influences motivation to change."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "",
+      "label": "Repetitive thinking/rumination loop",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate the extent to which you are caught in repetitive negative thoughts about yourself (1-9).",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Key cognitive process linked to self-criticism and relapse-like thinking patterns."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C07",
+      "source_variable_id": "",
+      "label": "Capacity to maintain initial positive affect",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "When you hear about others' good news, rate your ability to sustain the initial positive feeling (1-9; 1 = cannot sustain, 9 = sustains easily).",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Indices regulatory strength of positive affect after social information."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C08",
+      "source_variable_id": "",
+      "label": "Motivation and intent to change",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the moment, how motivated are you to stop the jealous/comparative pattern and to change your response (1-9)?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Indicator of readiness and potential engagement with interventions."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Self-Compassion_Practice (failure-related)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / self_and_identity_work / self_esteem_and_self_worth_work / *self_compassion_practice",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Increases soothing appraisal of mistakes, reduces harsh self-judgment after failure.",
+      "intervention_examples_safe": "brief compassionate self-talk, self-forgiveness prompts, compassionate journaling",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate how strongly you treated yourself with kindness or understanding when you felt inadequate (1-9).",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures salutogenic self-relating style."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Self-compassion dampens automatic comparisons by reducing self-criticism drive."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "High feasibility for brief daily prompts."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Self-Monitoring_Goals_and_Feedback_Loop",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / change_process_and_therapeutic_phases / behavioral_integration / *self_monitoring_goals_and_feedback_loop",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Increases awareness of patterns, provides timely adjustments to behavior before automatic responding escalates.",
+      "intervention_examples_safe": "brief self-monitoring worksheets, goal-setting prompts, feedback prompts",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate how often you set a short-term goal or received feedback on your response to social comparison (1-9).",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Anchors self-regulation behaviors to context."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C06",
+        "C07",
+        "C08"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Self-monitoring reduces frequency of automatic comparisons."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Requires consistent prompt timing; feasible with app-based prompts."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Mindfulness_Based_Interventions",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / *mindfulness_practices",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.82,
+      "mechanism_rationale": "Metacognitive decentering reduces reactivity to triggers and rumination.",
+      "intervention_examples_safe": "brief mindful breathing, mindful noticing of thoughts, short meditation.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate your level of mindful awareness or nonjudgmental noticing of thoughts (1-9).",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures state mindfulness as a proximal regulator."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C06",
+        "C07",
+        "C08",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindfulness interrupts rumination cycles."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Widely used in digital-phenotyping; good feasibility via brief prompts."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Emotion_Regulation_Skills",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Core_Psychological_Skills_Toolkits / Emotion_Regulation_and_Affective_Mastery",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.79,
+      "mechanism_rationale": "Enhances ability to regulate negative affect following social comparisons, reducing rapid negative shifts.",
+      "intervention_examples_safe": "emotion labeling, reappraisal, distress tolerance techniques",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate how effectively you regulated your emotions in response to a triggering event (1-9).",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Target reduces the impact of triggers on self-worth."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C06",
+        "C07",
+        "C08",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better emotion regulation reduces rumination loops."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Commonly taught; feasible with short exercises."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Sleep_Rhythm_and_Circadian_Entrainment",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Sleep_Circadian_and_Restoration / Circadian_Entrainment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Sleep regularity reduces daytime emotional reactivity and improves regulation capacity.",
+      "intervention_examples_safe": "consistent bed routines, light exposure management, sleep hygiene practices",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "Phone sleep sensors",
+        "assessment_type": "passive_continuous",
+        "item_or_signal": "Sleep duration (minutes) last night; sleep quality (1-9) in the past 24h.",
+        "response_scale_or_unit": "minutes + 1-9 scale",
+        "sampling_per_day": 1,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Sleep signals buffered for circadian rhythm effects."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "minmax_scale",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C07",
+        "C08"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep supports resilience to social comparisons."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Passive data feasible with consent; variability aligns with circadian patterns."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Social_Support_and_Belonging_Network",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "SOCIAL / Social_Support_and_Belonging / Network_Building_And_Maintenance",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.78,
+      "mechanism_rationale": "Stronger belonging buffers social threat cues and reduces social comparison salience.",
+      "intervention_examples_safe": "regular check-ins with trusted friend, small support actions",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate perceived social support and sense of belonging (1-9).",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Social context as buffer against negative comparison effects."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C05",
+        "C07",
+        "C08"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Perceived belonging dampens automatic comparison salience."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.82,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": "Leverages existing social contexts; feasible with brief prompts."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "Cognitive_Reframing_and_Beliefs",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Cognitive_Behavioral_Therapies / Cognitive_Reframing",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Reframing intent and beliefs about self-worth reduces automatic negative appraisal after triggers.",
+      "intervention_examples_safe": "cognitive reappraisal scripts, value-based reframing",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate how effectively you reframe your interpretation of others’ success (1-9).",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Targets cognitive changes driving affective responses."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C08",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Reframing self-judgments reduces perceived self-worth dips."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Cognitive-behavioral reframing is well-suited to EMA prompts."
+      }
+    },
+    {
+      "var_id": "P08",
+      "label": "Activation_and_Values-Based_Action",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Movement_Physical_Function_and_Somatic_Care / Recovery_and_Regeneration_Supports / Behavior_Activation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.76,
+      "mechanism_rationale": "Engagement in meaningful activity and values-congruent actions builds self-efficacy and reduces rumination salience.",
+      "intervention_examples_safe": "brief daily actions aligned with values; small commitments",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate your engagement in activation/values-based actions (1-9).",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Links behavior to perceived self-worth changes."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C08",
+        "C01",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Active engagement can reduce passive comparison salience over time."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Feasible with brief daily actions; ensure adherence support."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,84000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,57000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,74000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,56000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,74000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,80000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.82
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.84
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C08",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.57
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C08",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.74
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C08",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.62
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C08",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.52
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C08",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.56
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C08",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.74
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C08",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "nonlinear",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "nonlinear",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C08",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "",
+      "estimated_relevance_0_1": 0.8
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "Moderate collinearity between P01 and P07 (self-compassion and cognitive reframing) may emerge; monitor with VIF in analyses.",
+      "Some overlap in sleep-related predictors (P05) with circadian indicators; use residualized/within-person transforms."
+    ],
+    "expected_floor_ceiling_risks": [
+      "C01 and C06 both capture attention to self-referential content; ensure orthogonalized composites or rely on lagged structures.",
+      "C04 and C05 both reflect self-worth affect; consider constraining cross-effects or testing interaction."
+    ],
+    "variance_enhancement_suggestions": [
+      "Center predictors within-person; consider random intercepts per participant.",
+      "Include a short daily diary to capture end-of-day reflections that may stabilize variance."
+    ],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": "Feasible with 8 predictors and 8 criteria; expected challenges include participant burden due to six EMA prompts/day; mitigation via scheduling blocks and passive sleep data to supplement."
+  },
+  "safety_notes": "Not a diagnosis. No medication suggestions. If acute risk emerges, advise seeking professional help and provide crisis resources as needed."
+}

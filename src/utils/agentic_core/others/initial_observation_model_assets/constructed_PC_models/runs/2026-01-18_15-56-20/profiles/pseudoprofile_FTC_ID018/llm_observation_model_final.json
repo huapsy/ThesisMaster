@@ -1,0 +1,598 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID018",
+  "model_summary": "Criterion set -> 5 evening-focused mental state criteria (C01–C05) capturing subjective bleakness, reduced emotional expression, evening smartphone heaviness, energy barriers, and avoidance via phone use. Predictor set -> 5 modifiable, salutogenic levers (P01–P05) designed to target these criteria through behavioral activation, digital boundaries, circadian/sleep optimization, and social/motivational supports. Data collection combines short duration momentary EMA in the evenings for C01–C03 and C05, plus end-of-day diary for C04, and a lightweight diary/therapeutic-mapping for P01–P05. The initial gVAR-ready plan emphasizes within-person variance, minimizes redundancy, and maintains a feasible sampling design across a 4-week window with ~2 EMA prompts per day in evenings and daily passive signals where appropriate. This is not a diagnosis or medical dosing, but a structured observation model for salutogenic optimization.",
+  "variable_selection_notes": "Variables chosen to reflect atomic, targetable states from the complaint: evenings are most salient; C01–C05 capture affective tone, expression, activity engagement, energy barriers, and avoidance via phone use. Predictors map to evidence-based levers (behavioral activation, boundary management, sleep/circadian regulation, social engagement, meaning/motivation, mindfulness). Trade-offs: limited number of criteria to ensure estimability and reduce collinearity; some nonlinearities (e.g., phone use) are acknowledged with non-monotonic expectations and transformed analyses. Within-person variance is maximized by momentary and end-of-day measurements; all measures are anchored to evenings to reflect diurnal patterns.",
+  "design_recommendations": {
+    "study_days": 28,
+    "momentary_ema": {
+      "prompts_per_day": 2,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "18:30-19:30",
+        "21:00-22:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 56,
+      "notes": "Two evening prompts to capture fluctuating affect and behavior; each prompt uses 1–9 Likert scales."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "22:00"
+      ],
+      "expected_total_entries": 28,
+      "notes": "End-of-day diary to capture sleep routine, perceived energy, and overall mood context."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "daily_aggregate",
+      "notes": "Passive data include evening screen time (P02 signal) and morning light exposure/sleep-wake indicators (P03 signal) where feasible."
+    },
+    "minimum_total_observations_target": 84,
+    "gvar_readiness_notes": "Moderate predictor set with straightforward within-person variance; plan allows future pruning if collinearity or noise undermines estimability.",
+    "variance_support_notes": "Use z-score normalization within-subject for continuous/ordinal scales; consider log1p for highly right-skewed signals (e.g., screen time).",
+    "missingness_risk_notes": "Anticipate occasional missing prompts; implement timely reminders and flexible reminder rules; impute missing EMA with person-mean if necessary for gVAR steps."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Evening-onset persistent bleak/empty mood",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, in this evening moment, how strongly are you feeling empty or heavy/bleak? (1=not at all, 9=extremely)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Evening-focused affect capture; anchors reflect subjective bleakness vs. neutral mood."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Low outward emotional expression (non-crying distress)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how distressed do you feel without outward signs like crying or breakdown? (1=not at all, 9=extremely)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures internal distress without obvious external signals."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Prolonged passive smartphone use in evenings",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "Smartphone screen time logs",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Total minutes of passive scrolling on device during evening window (e.g., 6pm–10pm)",
+        "response_scale_or_unit": "minutes",
+        "sampling_per_day": 1,
+        "recall_window": "past_day",
+        "expected_within_person_variability": "medium",
+        "notes": "Objective proxy of avoidance/dissociation/rumination through phone use; balance with EMA for interpretation."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "low",
+        "distribution_hint": "count"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Perceived low energy / high effort barrier to other activities",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Today, rate how hard it felt to start or do other activities this evening (1=not at all hard, 9=extremely hard)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "today",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures perceived energy and effort barriers in the evening."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Avoidant coping function of phone use",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Today, to what extent did you use phone scrolling primarily to avoid or escape evening feelings? (1=not at all, 9=very much)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "today",
+        "expected_within_person_variability": "medium",
+        "notes": "Assesses avoidance coping via phone use."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Evening_Behavioral_Activation_Schedule",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Behavioral Activation / Evening Activation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.92,
+      "mechanism_rationale": "Structured evening activities counteract avoidance and low energy, promoting engagement and mood elevation.",
+      "intervention_examples_safe": "1) short walk after dinner, 2) brief household activity, 3) scheduled 20-min hobby",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the last 2 hours, how engaged were you in your planned evening activities? (1-9)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures day-to-day engagement with planned evening activities."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Evening_ScreenTime_Reduction",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "BIO / Sleep circadian & restoration / Sleep routines",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Reducing evening screen exposure supports circadian alignment and reduces rumination/avoidance triggers.",
+      "intervention_examples_safe": "1) set screen-off window after 9pm, 2) substitute with reading or stretching",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "Smartphone screen time logs",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Total minutes of screen time during the evening window (6pm–10pm)",
+        "response_scale_or_unit": "minutes",
+        "sampling_per_day": 1,
+        "recall_window": "past_day",
+        "expected_within_person_variability": "medium",
+        "notes": "Objective proxy for evening avoidance via screens."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "low",
+        "distribution_hint": "count"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C05",
+        "C01"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Depends on device permissions."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Morning_Light_Exposure_and_Sleep_Wake_Stability",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Sleep circadian & restoration / Circadian entrainment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.88,
+      "mechanism_rationale": "Morning light exposure supports circadian alignment, improves alertness, and may raise energy later in the evening.",
+      "intervention_examples_safe": "1) 15–30 min morning light exposure, 2) consistent wake times",
+      "measurement": {
+        "mode": "wearable_sensor",
+        "channel": "Wearable light sensor or phone ambient light (morning window)",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Morning ambient light exposure minutes (light-detection window)",
+        "response_scale_or_unit": "minutes",
+        "sampling_per_day": 1,
+        "recall_window": "past_day",
+        "expected_within_person_variability": "medium",
+        "notes": "Objective circadian cue exposure."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C04",
+        "C02"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Requires wearable access."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Sleep_Routine_Consistency",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Sleep circadian & restoration / Sleep routines",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Regular bed times and stable sleep environment mitigate diurnal mood variation and fatigue.",
+      "intervention_examples_safe": "1) fixed bed/wake times, 2) consistent pre-sleep routines",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Did you keep to your regular sleep schedule today? (1-9 Likert)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "today",
+        "expected_within_person_variability": "medium",
+        "notes": "End-of-day diary capturing sleep routine consistency."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C04",
+        "C03"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Depends on user adherence to diary."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Evening_Social_Engagement",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Social / Evening engagement",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.86,
+      "mechanism_rationale": "Evening social engagement can buffer loneliness and reduce avoidance-driven phone use; supports activation.",
+      "intervention_examples_safe": "1) brief video call with a friend, 2) text check-ins, 3) short in-person chat",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the last 2 hours, how engaged were you socially (in person or online)? (1-9)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures social engagement as a proximal lever."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C05",
+        "C02"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.87,
+        "gvar_feasibility_0_1": 0.87,
+        "notes": "Phone permission and prompt timing considerations."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Immediate engagement predicts mood relief in same evening window",
+      "estimated_relevance_0_1": 0.82
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Activation may reduce perceived energy barrier",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Less screen time should reduce evening scrolling",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Stable sleep routine lowers evening effort barrier",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Social engagement supports mood",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Morning light supports daytime energy and mood",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Circadian cues relate to affect expression tendencies",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Lowered screen time reduces avoidance via phone use",
+      "estimated_relevance_0_1": 0.45
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Sleep regularity buffers diurnal mood variation",
+      "estimated_relevance_0_1": 0.6
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "Low collinearity among EMA criteria",
+      "Moderate collinearity between evening activation and sleep routine measures"
+    ],
+    "expected_floor_ceiling_risks": [
+      "Potential floor on end_of_day mood ratings for high baseline mood",
+      "Ceiling effects on 9-point scales in highly engaged days"
+    ],
+    "variance_enhancement_suggestions": [
+      "Use subject-mean centering per variable",
+      "Consider within-person z-scoring across days"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "None at this stage; all chosen predictors are retained in initial model"
+    ],
+    "gvar_feasibility_summary": "Initial predictor set shows feasible data collection with expected 0.8–0.9 data completeness given 28 days and 2 prompts/day; passive data adds minimal burden if device permissions granted."
+  },
+  "safety_notes": "No diagnosis or treatment recommendations provided. If risk signals (e.g., self-harm) arise, escalate to appropriate safety protocols."
+}

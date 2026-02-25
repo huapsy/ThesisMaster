@@ -1,0 +1,796 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID048",
+  "model_summary": "Compact, gVAR-ready observation model selecting four core, complaint-derived criteria (C01: Persistent low-intensity grief/longing; C02: Repetitive checking of ex's social media; C04: Acute somatic distress triggered by checking; C05: Difficulty inhibiting checking despite harm) and five modifiable predictors (P01: Digital social environment blockers; P02: Urge surfing/delay strategies; P03: Self-compassion training; P04: Sleep regulation; P05: Structured social support). Measurements are designed to maximize within-person variance via brief momentary EMA (with 5 prompts/day for P01, P02, P03, P05) and a single daily sleep diary entry (P04), plus optional passive streams. The plan yields a coherent, estimable gVAR with an explicit predictor–criterion relevance grid for iterative refinement across phases.",
+  "variable_selection_notes": "Selected four nonredundant, high-signal criteria that map directly to the complaint (grief-related affect, compulsive checking, somatic triggers, and self-regulation around checking). Chosen predictors are practical, actionable levers with well-supported mechanisms (digital boundary setting, urge regulation, self-compassion, sleep rhythm, and social support). This minimizes collinearity, preserves within-person variance, and supports staged model refinement. Potential biases: reliance on self-report EMA for affective and cognitive processes; responses could be influenced by social desirability or daytime stressors. All prediction paths assume salutogenic directionality unless evidence suggests nonlinear effects (noted in edges/prediction mappings when applicable).",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 5,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:00-10:30",
+        "13:00-15:00",
+        "19:00-21:00",
+        "22:00-23:30",
+        "07:30-08:30"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 70,
+      "notes": "Prompts collect P01, P02, P03, P05; P04 uses the daily diary pathway."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "07:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Sleep quality/duration items captured via daily diary pathway."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "continuous_then_daily_aggregate",
+      "notes": "Optional passive data (screen time, app usage proxies) to contextualize EMA responses."
+    },
+    "minimum_total_observations_target": 200,
+    "gvar_readiness_notes": "Variables chosen to balance estimability with within-person variance; plan for z-scoring within-subject prior to modeling.",
+    "variance_support_notes": "Rationale: 0–8 scales yield robust within-person variance; daily sleep diary adds non-overlapping variance with EMA blocks.",
+    "missingness_risk_notes": "Implement reminder prompts, automatic time-stamping, and conservative imputation strategies (e.g., multivariate imputation or model-based approaches) if data are missing."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Persistent low-intensity grief/longing",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate your ongoing emotional pain or longing related to the breakup on a scale from 0 (none) to 8 (extreme).",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures dynamic fluctuations in grief intensity."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Repetitive checking of ex's social media",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, how often did you visit your ex's social media in a way you later regretted? Rate on a 0-8 scale.",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures frequency/intensity of checking behavior."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p_or_zscore",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Acute somatic distress triggered by checking",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right after checking the ex's social media, rate the intensity of physical symptoms (e.g., nausea, 'sick' feeling) on a 0-8 scale.",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses immediate somatic response to social-media triggers."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Difficulty inhibiting checking despite harm",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, how difficult was it to refrain from checking your ex's social media, even when you knew it increased distress? Rate on a 0-8 scale.",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Direct index of behavioral self-regulation around triggers."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Upward social comparison/rumination about ex",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "During or after checking, rate the extent of social comparison/rumination about the ex on a 0-8 scale.",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures cognitive-evaluative indirect distress."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Digital_Social_Environment_Structure_and_Blockers",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "SOCIAL > digital_social_environment > boundaries_and_wellbeing",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Strengthened digital boundaries reduce exposure to ex-related triggers and emotional arousal, lowering urge to check.",
+      "intervention_examples_safe": "Block ex on platforms, mute stories, schedule deliberate tech-breaks.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, how strong were your boundaries against checking your ex on social media today? Rate 0-8.",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Boundary strength is a proximal lever for reducing checking."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C05",
+        "C01",
+        "C04"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Stronger boundary control should reduce checking frequency soon after prompts."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Boundaries support inhibition of checking when urges arise."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Reduced exposure contributes to slower accumulation of grief reactivity across the day."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Less triggering exposure should dampen immediate somatic distress."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "High feasibility with EMA; privacy-preserving prompts."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Urge_Surfing_and_Delay_Strategy_for_Checking",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO > cognitive_behavioral_therapies > exposure_and_inhibitory_learning",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Training to delay or reframe urges reduces immediate checking and attenuates distress cascades.",
+      "intervention_examples_safe": "Urge-surfing, delay-tasting, delay-commitment strategies.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate the strength of urge to check your ex's social media on a 0-8 scale.",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Urge intensity as proximal predictor of checking."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Urge regulation should immediately reduce checking episodes."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reducing urges should lessen somatic distress triggered by checking."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Delay strategies bolster inhibitory control around triggers."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Less frequent checking reduces daily grief reactivity."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Reliable with high engagement; potential burden if prompts too frequent."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Self_Compassion_Training_to_Reduce_Shame",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO > core_psychological_skills_toolkits > emotion_regulation_and_affective_mastery",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Self-compassion reduces self-criticism and shame, buffering reactivity to social comparison/anxiety after checking.",
+      "intervention_examples_safe": "Compassionate self-talk, perspective-taking, brief self-care routines.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate how kind and supportive you were to yourself on a 0-8 scale.",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures intra-individual shifts in self-compassion."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "More self-compassion reduces ongoing grief intensity over hours to a day."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Compassionate self-talk supports self-regulation around checking urges."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "High feasibility with brief, scalar EMA items."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Sleep_Regulation_and_Rhythm_Building",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO > Sleep_Circadian_and_Restoration > Sleep_Routines_and_Practices",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Regular sleep and circadian entrainment stabilize affect and executive function, reducing reactivity to triggers.",
+      "intervention_examples_safe": "Consistent bed/wake times, caffeine modulation, light exposure routines.",
+      "measurement": {
+        "mode": "behavioral_log",
+        "channel": "Mobile App Diary",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Yesterday, how many hours did you sleep? Rate your overall sleep quality yesterday on a 0-8 scale.",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 1,
+        "recall_window": "yesterday",
+        "expected_within_person_variability": "high",
+        "notes": "End-of-day assessment aligned with daily diary anchor."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Better sleep quality reduces daytime grief amplification."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Improved sleep may dampen urge-to-check episodes."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Sleep health reduces somatic distress reactivity to triggers."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Sleep stability supports inhibitory control around checking."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.92,
+        "notes": "Daily diary sleep items are well-tolerated with proper reminders."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Structured_Social_Support_and_Connections",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "SOCIAL > social_support_and_belonging > network_building_and_maintenance",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Meaningful social engagement and perceived support buffers grief, reduces rumination and urges.",
+      "intervention_examples_safe": "Scheduled calls/texts with supportive friend, peer check-ins.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, how supported did you feel by your social network? Rate 0-8.",
+        "response_scale_or_unit": "0-8",
+        "sampling_per_day": 3,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures perceived social support in real time."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_subject",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Social support may reduce checking frequency in the short term."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Supportive interactions lessen grief trajectory across the day."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Positive social engagement buffers somatic distress after triggers."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Social support improves inhibitory control in risky moments."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.92,
+        "notes": "Social-connect prompts are generally acceptable; privacy considerations applied."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,54000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,58000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Boundary strength may reduce long-term grief magnitude.",
+      "estimated_relevance_0_1": 0.62
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Stronger boundaries likely reduce checking bursts soon after introduction.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Boundaries reduce trigger frequency and acute distress.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Boundary use supports inhibitory control around urges.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Urge reduction may lower grief reactivity over the day.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Urge regulation expected to cut checking frequency shortly after prompts.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Urge management reduces somatic distress triggered by checking.",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Delaying checks strengthens inhibitory capacity soon after urges.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "6-24h",
+      "notes": "Self-compassion dampens grief resurgence across the day.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "6-24h",
+      "notes": "Compassion reduces ruminative checking tendencies indirectly.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "6-24h",
+      "notes": "Emotional regulation via self-compassion lowers somatic reactivity.",
+      "estimated_relevance_0_1": 0.54
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "6-24h",
+      "notes": "Compassionate self-talk supports inhibitory control around urges.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Sleep health attenuates daytime grief amplification.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep supports regulation of checking urges.",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Better sleep reduces somatic distress reactivity to triggers.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Sleep stability enhances inhibitory control around urges.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Perceived social support lowers grief intensity over the day.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Social support may cut urge-driven checking bursts.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Supportive connections buffer somatic distress.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Social support strengthens self-regulation around triggers.",
+      "estimated_relevance_0_1": 0.58
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "Moderate collinearity anticipated between P02 and P04 due to shared emotional regulation mechanisms",
+      "Potential overlap between P01 and P05 regarding boundary/belonging constructs"
+    ],
+    "expected_floor_ceiling_risks": [
+      "Possible ceiling effects on 0-8 scales during high-stress days",
+      "Low floor effects when boundary adherence is minimal"
+    ],
+    "variance_enhancement_suggestions": [
+      "Standardize within-subject (z-scoring) for all EMA predictors",
+      "Include random intercepts and random slopes for key predictors in gVAR modeling"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "Could deprioritize C03 and C06 in this initial wave due to redundancy with chosen constructs"
+    ],
+    "gvar_feasibility_summary": "Feasible with 14-day data collection; EMA burden balanced by 4 momentary predictors + 1 daily diary predictor; strong signal-to-noise via multiple prompts."
+  },
+  "safety_notes": "Not a diagnosis. Do not provide medication or dosing guidance. If acute risk of self-harm or deterioration emerges, seek urgent professional help."
+}

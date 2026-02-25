@@ -1,0 +1,189 @@
+{
+  "pseudoprofile_id": "case-workcycle-bio-psycho-social-v1",
+  "summary": "The case describes a self-reinforcing workplace cycle: small errors trigger panic about being fired, leading to overwork and fatigue, which in turn worsens attention and errors. The ten candidate predictors span biological (sleep, fatigue, ergonomics, hydration/caffeine), psychological (threat appraisal, anxiety management, cognitive strategies), and social/environmental (breaks, supervisor/peer support, role clarity, task aids) domains, with cross-domain interactions (e.g., sleep and cognitive load reduction improve performance; external task aids lessen fatigue-related errors; social supports dampen threat responses). Each lever is modifiable, measurable, and feasible within typical workplace contexts, and collectively they target the core variables C01–C05 to break the feedback loop and stabilize performance and well-being over 4–12 weeks.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Pre-submission task-checklists with mandatory prompts",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Implement electronic/printable task-checklists with mandatory two-step verification before task submission; use automated prompts that require confirming critical steps; integrate with existing project management tools; keep prompts concise and task-specific.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Enforces consistent task steps to reduce minor errors (C01) and lowers cognitive load, which can reduce anxiety about mistakes and stabilize attention (C05) under fatigue.",
+      "measurement": "Errors per shift; checklist completion rate; self-reported cognitive strain (brief scale)",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for checklist fatigue; ensure it supports autonomy and does not replace essential quality controls.",
+      "mapping_query": "S01 -> C01, C05"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Structured Sleep Routine + Circadian Alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent bed and wake times, a wind-down routine, caffeine timing limits, and optimize sleep environment; educate on sleep hygiene and incorporate light exposure strategies if feasible.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Improved sleep reduces daytime fatigue (C04) and attentional fluctuations (C05), which lowers error propensity (C01) and fatigue-driven performance decrements.",
+      "measurement": "Sleep duration (hours), sleep efficiency, next-day fatigue rating",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Screen for possible sleep disorders; refer for evaluation if persistent sleep disturbance or snoring occurs.",
+      "mapping_query": "S02 -> C04, C05"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Brief CBT-based Anxiety Reduction & Threat Reappraisal",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver two-minute pre-task cognitive reappraisal scripts and weekly micro-training in problem-solving; guided journaling for automatic thoughts; if necessary, escalate concerns to supervisor.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Reduces catastrophic job-loss thoughts (C02) and reduces compensatory overwork (C03) by decreasing perceived threat and improving planning under stress.",
+      "measurement": "Frequency/severity of job-loss thoughts; overtime hours; self-reported anxiety",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "If panic escalates, escalate to supervisor/mental health professional.",
+      "mapping_query": "S03 -> C02, C03"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Structured Breaks, Time-Blocking, and Boundaries",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Introduce scheduled micro-breaks (e.g., every 60–90 minutes), implement a no-work-after-hours policy on designated days, and align calendars across employee, supervisor, and team.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Restorative breaks reduce fatigue-related errors (C01) and mitigate daytime fatigue (C04), supporting sustained performance.",
+      "measurement": "Break frequency per shift; overtime hours; fatigue ratings; rate of errors per task",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure workload coverage and deadlines; avoid creating bottlenecks.",
+      "mapping_query": "S04 -> C01, C04"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "External Cognitive Aids & Reduced Cognitive Load",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Provide external memory aids and visual prompts (color-coded checklists, stepwise prompts, minimized context switches); reduce internal working memory demands through design changes.",
+      "targets_criteria_ids": [
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Offloading cognitive load lowers fatigue-related attention lapses (C05) and reduces reliance on memory, thereby decreasing minor errors (C01).",
+      "measurement": "Usage frequency of aids; errors due to memory lapses; subjective cognitive load ratings",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Train use to avoid overreliance; monitor for privacy in case of monitoring usage.",
+      "mapping_query": "S05 -> C05, C01"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Ergonomic/Work Design Optimizations",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Conduct ergonomic assessment and implement workstation adjustments (chair, desk height, monitor placement, lighting); introduce task rotation and scheduled micro-variations.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Reduced physical fatigue and improved comfort lessen fatigue-driven cognitive decline and error risk (C04, C01).",
+      "measurement": "Fatigue ratings; time-on-task; error rate; posture/ergonomics checks",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure compliance with safety standards; budget considerations for equipment.",
+      "mapping_query": "S06 -> C04, C01"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Supervisor & Peer Support Feedback",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Establish regular supportive check-ins, peer mentoring, and positive feedback loops; cultivate a non-punitive, constructive feedback culture.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Social support reduces threat perception (C02) and improves performance accuracy (C01) through guidance and reinforcement.",
+      "measurement": "Perceived support scale; number of check-ins; errors per shift; frequency of job-loss thoughts",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for excessive monitoring; maintain supportive climate.",
+      "mapping_query": "S07 -> C02, C01"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Caffeine & Hydration Modulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Provide guidelines for caffeine timing, promote regular hydration, and maintain stable nutrition patterns to support energy levels.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Hydration and moderated caffeine can stabilize energy and attention, reducing fatigue (C04) and attentional fluctuations (C05).",
+      "measurement": "Caffeine intake log; hydration metrics; fatigue and attention ratings",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "LOW",
+      "safety_notes": "Monitor for sleep disturbance or jitter; adjust as needed.",
+      "mapping_query": "S08 -> C04, C05"
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Measurement-Based Care & Self-Monitoring",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement daily self-monitoring logs for errors, fatigue, and sleep; weekly data review with data-informed adjustments; provide feedback loops.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Ongoing measurement accelerates identification of effective levers and maintains accountability, promoting rapid adjustments across C01–C05.",
+      "measurement": "Adherence to logging; trends in errors, fatigue, sleep; weekly plan adjustments",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Ensure data privacy and consent; protect sensitive information.",
+      "mapping_query": "S09 -> C01, C02, C04, C05"
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Role Clarity Training & Task Structuring",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Deliver role clarity training, standard operating procedures, and task structuring; provide cross-training to reduce ambiguity and support proactive planning.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Clear roles and procedures reduce error likelihood (C01) and fear of firing (C02) while improving planning and reducing overwork (C03).",
+      "measurement": "Role clarity assessments; error rate; job-loss thoughts; overtime",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure training materials are accessible and not overwhelming; monitor for information overload.",
+      "mapping_query": "S10 -> C01, C02, C03"
+    }
+  ]
+}

@@ -1,0 +1,1121 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID008",
+  "model_summary": "Initial gVAR-compatible observation model to operationalize 6 criteria (C01–C06) describing muscle tension, interoceptive awareness, tension-linked headaches, anticipatory threat, relaxation capacity, and habitual bracing, plus 5 modifiable predictors (P01–P05) targeting behavioral, cognitive, and sleep/ Social domains. Designed for daily EMAs and brief diaries with consistent sampling_per_day to enable within-person gVAR analyses. Dense P→C, P→P, and C→C relation grids are provided to support data-driven predictor selection and subsequent causal-network estimation.",
+  "variable_selection_notes": "C01–C06 cover physiological arousal, somatic awareness, headache linkage, cognitive threat processing, relaxation, and habitual postural bracing. Predictors (P01–P05) emphasize: PMR adherence, interoception training, sleep optimization, social support, and mindfulness practice. All variables are designed for short, periodic self-report entries (1–9 Likert scales) to maximize ecological validity and reduce respondent burden.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "time_block",
+      "time_blocks_local": [
+        "09:00-11:00",
+        "13:00-15:00",
+        "17:00-19:00",
+        "21:00-23:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 56,
+      "notes": "Prompts distributed across daytime blocks to capture within-day fluctuations in tension and anticipatory states."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 2,
+      "anchor_times_local": [
+        "08:00",
+        "20:00"
+      ],
+      "expected_total_entries": 28,
+      "notes": "End-of-day reflections on relaxation and threat appraisal."
+    },
+    "passive_streams": {
+      "enabled": false,
+      "aggregation_strategy": "none",
+      "notes": "No passive sensing in initial design."
+    },
+    "minimum_total_observations_target": 100,
+    "gvar_readiness_notes": "11-node configuration is feasible; plan for moderate missingness and simple imputation.",
+    "variance_support_notes": "Expect moderate within-person variance; include diurnal controls where feasible.",
+    "missingness_risk_notes": "Prompt reminders and brief check-ins to mitigate missingness."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "S01",
+      "label": "Elevated resting muscle tension in shoulders and jaw",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "criterion_presence_intensity",
+        "response_scale_or_unit": "0-1",
+        "sampling_per_day": 3,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Self-reported intensity of shoulder/jaw tension; corroborate with headaches."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "unknown",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "S02",
+      "label": "Low moment-to-moment awareness of bodily tension",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "interoceptive_awareness_level",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "low",
+        "notes": "Higher scores indicate greater unawareness of tension."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "logit",
+        "collinearity_risk": "unknown",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "S03",
+      "label": "Headaches triggered by muscular tension",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "headache_presence_and_tension_link",
+        "response_scale_or_unit": "0-1",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Record headaches and alignment with tension episodes."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "unknown",
+        "distribution_hint": "binary"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "S04",
+      "label": "Persistent anticipatory threat expectation",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "anticipatory_threat_experience",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Subjective expectation of threat across contexts."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "log",
+        "collinearity_risk": "unknown",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "S05",
+      "label": "Difficulty relaxing on low-stress days",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "relaxation_capacity_in_chill",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 3,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Perceived ability to downregulate arousal in calm contexts."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "unknown",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "S06",
+      "label": "Habitual anticipatory muscle bracing in absence of immediate threat",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "muscle_bracing_frequency",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 3,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Capture habitual bracing via prompts."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "unknown",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Daily progressive muscle relaxation (PMR) adherence",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / physiological_downshift / breath_and_relaxation_skills",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Directly reduces muscular arousal and somatic tension.",
+      "intervention_examples_safe": "PMR practice sessions; safe breathing.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "pmr_adherence",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "low",
+        "notes": "Adherence intensity to PMR."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "unknown",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 1,
+        "gvar_feasibility_0_1": 1,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Interoceptive awareness training uptake",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / mindfulness_and_bodily_sensations / interoception_training",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Improves detection of bodily cues, enabling timely regulation.",
+      "intervention_examples_safe": "Brief mindfulness body-scan; safe participation.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "interoception_training_uptake",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "low",
+        "notes": "Engagement in interoceptive practice."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "unknown",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 1,
+        "gvar_feasibility_0_1": 1,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Sleep optimization adherence and circadian alignment",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Sleep_Circadian_and_Restoration / Circadian_Entrainment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Aligns arousal regulation with restorative sleep.",
+      "intervention_examples_safe": "Sleep schedule regularization; light exposure strategies.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "sleep_routine_adherence",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "previous_night",
+        "expected_within_person_variability": "low",
+        "notes": "Daily sleep routine quality."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "log",
+        "collinearity_risk": "unknown",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 1,
+        "gvar_feasibility_0_1": 1,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Social support engagement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "SOCIAL / social_support_and_coherence / engagement",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Buffers stress; reduces overall arousal.",
+      "intervention_examples_safe": "Weekly check-in with supportive person.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "social_support_engagement",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "low",
+        "notes": "Quality of social support interactions."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "unknown",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 1,
+        "gvar_feasibility_0_1": 1,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Mindfulness/Attention regulation practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / body_based_mindfulness",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Enhances attentional control and reduces threat reactivity.",
+      "intervention_examples_safe": "Brief body-scan; focus on present moment.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "mindfulness_practice_engagement",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "low",
+        "notes": "Engagement in mindfulness exercises."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "unknown",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 1,
+        "gvar_feasibility_0_1": 1,
+        "notes": ""
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,64000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,54000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,48000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,56000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,54000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,56000"
+    }
+  ],
+  "predictor_predictor_relevance": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,48000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,50000"
+    }
+  ],
+  "criterion_criterion_relevance": [
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "PMR adherence inversely related to shoulder/jaw tension."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Higher PMR adherence reduces tension awareness."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "PMR may reduce headaches via tension reduction."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "PMR reduces anticipatory threat via arousal downshift."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.4,
+      "estimated_relevance_tier": "medium",
+      "notes": "Lower arousal allows relaxation."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "high",
+      "notes": "PMR may reduce habitual bracing."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Interoceptive training improves detection of tension."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "Better interoception reduces unawareness."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Headache linkage improved detection."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Noticing tension reduces threat anticipation."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Interoception aids regulation."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Increase in awareness may reduce bracing."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.4,
+      "estimated_relevance_tier": "medium",
+      "notes": "Better sleep reduces muscle tension."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Sleep quality improves interoception."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.64,
+      "estimated_relevance_tier": "high",
+      "notes": "Sleep disturbance relates to headaches."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Sleep supports threat regulation."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Sleep improves relaxation capacity."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Sleep reduces habitual bracing."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "high",
+      "notes": "Social support lowers tension."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.54,
+      "estimated_relevance_tier": "high",
+      "notes": "Social context improves interoception."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.48,
+      "estimated_relevance_tier": "medium",
+      "notes": "Less stress reduces headaches."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Social support dampens threat anticipation."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.556,
+      "estimated_relevance_tier": "high",
+      "notes": "Supports arousal downregulation."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.52,
+      "estimated_relevance_tier": "high",
+      "notes": "Bracing reduces with social integration."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "high",
+      "notes": "Mindful attention reduces muscle tension."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.52,
+      "estimated_relevance_tier": "high",
+      "notes": "Mindfulness improves interoception."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.54,
+      "estimated_relevance_tier": "high",
+      "notes": "Mindfulness reduces headaches."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Mindfulness supports threat regulation."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.58,
+      "estimated_relevance_tier": "high",
+      "notes": "Mindfulness improves relaxation."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.56,
+      "estimated_relevance_tier": "high",
+      "notes": "Mindfulness may reduce bracing."
+    }
+  ],
+  "edges_pp": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P02",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.4,
+      "estimated_relevance_tier": "medium",
+      "notes": "PMR adherence may boost interoception practice."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.3,
+      "estimated_relevance_tier": "low",
+      "notes": "PMR adherence supports better sleep routines."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.35,
+      "estimated_relevance_tier": "low",
+      "notes": "PMR may improve mood, enabling social engagement."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.25,
+      "estimated_relevance_tier": "low",
+      "notes": "PMR fosters overall regulation."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.35,
+      "estimated_relevance_tier": "low",
+      "notes": "Interoception practices may improve sleep."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.4,
+      "estimated_relevance_tier": "medium",
+      "notes": "Interoception fosters social engagement."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "Interoception supports mindfulness practice."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Sleep improves social engagement."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.48,
+      "estimated_relevance_tier": "medium",
+      "notes": "Sleep enhances mindfulness practice."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Social support fosters mindfulness practice."
+    }
+  ],
+  "edges_cc": [
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.25,
+      "estimated_relevance_tier": "low",
+      "notes": "Tension and interoception changes may co-occur."
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_indirect_or_mediated",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.2,
+      "estimated_relevance_tier": "low",
+      "notes": "Tension linked headache pattern."
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_indirect_or_mediated",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.3,
+      "estimated_relevance_tier": "low",
+      "notes": "Tension and threat expectancy may interact."
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.35,
+      "estimated_relevance_tier": "low",
+      "notes": "Interoception linked headaches."
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.4,
+      "estimated_relevance_tier": "low",
+      "notes": "Headache severity linked to threat anticipation."
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "high",
+      "notes": "Threat anticipation reduces relaxation ability."
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Arousal and bracing interplay."
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "low_to_moderate",
+      "potential_tautological_measurements"
+    ],
+    "expected_floor_ceiling_risks": [
+      "low_variance_in_end_of_day_measurements"
+    ],
+    "variance_enhancement_suggestions": [
+      "include_diurnal_variation_controls",
+      "include_salience_adjusted_scales"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "P06",
+      "P07"
+    ],
+    "gvar_feasibility_summary": "Feasible with 11 nodes; moderate missingness tolerated."
+  },
+  "safety_notes": "This is not a clinical diagnosis. If acute risk is suspected, seek immediate professional help."
+}

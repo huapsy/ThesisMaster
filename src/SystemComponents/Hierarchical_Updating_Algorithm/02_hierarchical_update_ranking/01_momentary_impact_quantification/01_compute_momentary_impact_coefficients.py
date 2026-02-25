@@ -97,10 +97,10 @@ def _find_repo_root() -> Path:
 REPO_ROOT = _find_repo_root()
 
 DEFAULT_INPUT_ROOT = str(
-    REPO_ROOT / "evaluation/04_initial_observation_analysis/01_time_series_analysis/network"
+    REPO_ROOT / "evaluation/sequential/04_network_time_series_analysis/outputs"
 )
 DEFAULT_OUTPUT_ROOT = str(
-    REPO_ROOT / "evaluation/04_initial_observation_analysis/02_momentary_impact_coefficients"
+    REPO_ROOT / "evaluation/sequential/05_momentary_impact_quantification/outputs"
 )
 
 

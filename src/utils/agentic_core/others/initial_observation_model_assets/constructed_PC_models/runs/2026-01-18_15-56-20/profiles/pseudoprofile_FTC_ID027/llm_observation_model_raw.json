@@ -1,0 +1,870 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID027",
+  "model_summary": "This is a compact, gVAR-ready initial observation model capturing seven target criteria derived from the complaint (motivation, anticipatory anxiety, initiation difficulty, anxiety-inaction loop, behavioral avoidance, negative mood, and self-criticism) and six modifiable predictors designed to disrupt the avoidance-inhibition cycle via activation, cueing, monitoring, planning, sleep regulation, and light motor activity. Predictors are linked to multiple criteria to enable cross-domain modulation, with momentary EMA as the primary data source and selective passive sleep/movement signals to enrich within-person variance. The plan emphasizes feasible prompts/day, minimal redundancy, and clear measurement semantics to support subsequent gVAR modeling over an estimated 28-day window.",
+  "variable_selection_notes": "Rationale: The seven criteria C01–C07 cover the salient, explicit cognitive-emotional-behavioral factors described in the complaint, while avoiding near-duplicate self-regulation constructs. Predictors were chosen to map to the HyDe and LLM-derived priorities (activation/behavioral change, start-up cues, self-monitoring, implementation intentions, sleep-wake regulation, and light daily movement) with high modifiability and safety. We balance momentary EMA for within-person variance with limited passive data to reduce burden and collinearity. Potential biases include self-report biases in motivation/anxiety ratings and potential nonlinearity in response to sleep-related shifts; we mitigate by including multiple predictors and by planning transformations (within-person z-scores) in analysis. Acknowledged uncertainties: nonlinear effects (e.g., social factors) are not the focus in this initial model and are noted in the predictor definitions.",
+  "design_recommendations": {
+    "study_days": 28,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:00-11:00",
+        "13:00-15:00",
+        "17:00-19:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 168,
+      "notes": "6 prompts/day balances variance with participant burden; prompts spread across day to capture diurnal variation."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "20:00"
+      ],
+      "expected_total_entries": 28,
+      "notes": "Optional 10-minute evening diary if participant desires; supports nightly mood/motivation context."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Sleep/passive actigraphy signals to support P05 and mood-related variability; optional wearable data if available."
+    },
+    "minimum_total_observations_target": 420,
+    "gvar_readiness_notes": "Initial plan targets moderate within-person variance with 6 predictors × 7 criteria; transformer-ready for z-scoring and lagged effects.",
+    "variance_support_notes": "EMA Likert 1–9 scales provide adequate variance; passive sleep/movement signals augment variance without excessive burden.",
+    "missingness_risk_notes": "Risk of missed prompts; mitigated by fixed blocks with jitter and reminder notifications; daily_diary optional; passive data mitigate some gaps."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Low task-directed motivation",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How motivated are you to start a typical routine task right now?",
+        "response_scale_or_unit": "1-9 (1 = not at all motivated, 9 = highly motivated)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Represents current motivational state relevant to initiation."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Elevated anticipatory anxiety",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right before starting a task, how anxious do you feel?",
+        "response_scale_or_unit": "1-9 (1 = not anxious, 9 = extremely anxious)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures state anxiety related to task initiation."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Difficulty initiating tasks (action initiation deficit)",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how easy is it for you to start a simple task (e.g., make a phone call, write an email)?",
+        "response_scale_or_unit": "1-9 (1 = very hard, 9 = very easy)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Direct index of initiation capability."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Perseverative feedback loop between anxiety and inaction",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Are you caught in a loop where worry about starting tasks makes you avoid them, which in turn increases worry?",
+        "response_scale_or_unit": "1-9 (1 = never, 9 = always)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures dynamic rumination/loop effects."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Behavioral avoidance/inactivity",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, to what extent are you avoiding tasks and staying inactive?",
+        "response_scale_or_unit": "1-9 (1 = not at all, 9 = entirely)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Active avoidance indicator during distress."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Negative emotional state (feeling awful)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how negative or distressed do you feel?",
+        "response_scale_or_unit": "1-9 (1 = not at all, 9 = extremely)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures momentary mood during inactivity."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C07",
+      "source_variable_id": "custom",
+      "label": "Self-critical interpretation of the situation",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Are you being harsh or sarcastic about your own response to the situation?",
+        "response_scale_or_unit": "1-9 (1 = not at all, 9 = very harsh)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Index of self-criticism; supports self-relational constructs."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Behavioral Activation (structured scheduling + micro-goals)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / Behavior_Change_and_Activation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Activates approach systems to disrupt avoidance and elevate initiation.",
+      "intervention_examples_safe": "5-min task scheduling, micro-goals per day, explicit start ritual.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Have you scheduled a specific small task for today? If yes, how many micro-goals did you set/achieve?",
+        "response_scale_or_unit": "0-9 (0 = none scheduled/achieved, 9 = many goals)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Aligns with S01/S02 top-predictor signals."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Scheduling increases immediate task readiness."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better prep reduces anticipatory anxiety."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Clear start plan improves initiation ease."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Micro-goals may reduce rumination loop."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Active start reduces avoidance episodes."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 12,
+          "typical_lag_hours_max": 48,
+          "rationale": "Early activation improves mood stabilization."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Positive self-relations during task start."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "No pharmacology or risky interventions; safe behavioral activation strategies.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "High feasibility with standard EMA apps; minimal burden."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Task initiation cues (start rituals)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / Behavioral_Change_and_Activation / Planning_and_Grading / Activation_design",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Provide concrete initiation prompts to trigger action onset.",
+      "intervention_examples_safe": "Create a visible cue to begin a 2-minute task; use a start ritual.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Have you used a start cue or ritual before beginning a task today?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Directly linked to C03 initiation."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Start cues lower initiation threshold."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Motivation increases with clear action plan."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Anxiety may reduce as start rituals stabilize."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Predictable cues reduce avoidance."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Safe behavioral prompts; no dosing or exposure to risk.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "High feasibility with cue-based prompts."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Self-monitoring, feedback loop (progress monitoring)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / Cognitive_Behavioral_Therapies / Behavior_Change_and_Activation / Monitoring",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Frequent self-monitoring enhances self-regulation and adjustments to avoid relapse into avoidance.",
+      "intervention_examples_safe": "Daily quick self-check of action steps; adjust plan based on feedback.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Have you checked your action plan and tracked progress today?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Supports self-monitoring in gVAR."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Regular monitoring boosts motivation via feedback."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Increased monitoring may reduce rumination when paired with values-aligned action."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Progress visibility reduces avoidance."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Awareness of initiation improves early start."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Standard self-monitoring carries minimal risk; ensure privacy.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Common in digital phenotyping; low burden."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Implementation intentions/self-management priming",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / Change_Process_and_Therapeutic_Phases / Behavioral_Integration / Implementation_Intention",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.88,
+      "mechanism_rationale": "Structured intentions link beliefs to action; strengthens initiation/persistence.",
+      "intervention_examples_safe": "Set 2-step daily plan (if-then) for small tasks.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Did you set an if-then plan for starting a task today?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Targets initiation and persistence."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 8,
+          "rationale": "Concrete plans increase motivation."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 8,
+          "rationale": "Plans reduce initiation delay."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Clear intentions may reduce rumination."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Safe planning prompts; no pharmacology.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "High feasibility; common in activation protocols."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Sleep circadian entrainment (circadian alignment)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] / Sleep_Circadian_and_Restoration / Circadian_Entrainment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Circadian alignment improves energy, mood, and anxiety regulation.",
+      "intervention_examples_safe": "Regular bed/wake times; light-dark exposure; wind-down routines.",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "Smartphone + wearable signals",
+        "assessment_type": "passive_continuous",
+        "item_or_signal": "N/A",
+        "response_scale_or_unit": "N/A",
+        "sampling_per_day": 1,
+        "recall_window": "continuous",
+        "expected_within_person_variability": "high",
+        "notes": "Sleep proxy signals (sleep duration, fragmentation, circadian regularity)."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "bounded_0_1"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C06",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep reduces anticipatory anxiety."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 48,
+          "rationale": "Improved mood with better sleep."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 12,
+          "typical_lag_hours_max": 48,
+          "rationale": "Energy/activation improves with circadian alignment."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Passive data collection; ensure privacy and consent.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.75,
+        "notes": "Moderate feasibility due to sensor/data-sharing requirements."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Brief daily movement (neurochemical activation)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] / Movement_Physical_Function_and_Somatic_Care / Aerobic_and_Cardiorespiratory_Movement",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Light daily activity increases energy and mood via neurochemical changes, supports initiation.",
+      "intervention_examples_safe": "2–5 minutes of brisk movement after prompts; short 10-minute walk.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Have you completed a brief movement session today? (0 = no, 9 = completed with high intensity)",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Direct activation of energy and wakefulness systems."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C06",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Movement improves mood shortly after activity."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Increased activity reduces avoidance tendencies."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Safe physical activity; tailor to fitness level.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Very feasible with standard EMA surveys; optional wearables."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,74000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,77000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,73000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,70000"
+    }
+  ],
+  "edges": [],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "Low between predictors (P01–P06) and criteria (C01–C07) given distinct constructs",
+      "Some moderate overlap between initiation and motivation domains possible"
+    ],
+    "expected_floor_ceiling_risks": [
+      "Limited ceiling effects on 1–9 scales for high-motivation cases",
+      "Potential floor effects for avoidance in highly distressed states"
+    ],
+    "variance_enhancement_suggestions": [
+      "Ensure within-person centering",
+      "Consider alternative transformations (logit for bounded scales) if distributions skew"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "None at this stage; included 6 predictors with principled linkage"
+    ],
+    "gvar_feasibility_summary": "Overall feasible with six predictors; expect standard errors manageable with 28-day window"
+  },
+  "safety_notes": "Not a diagnosis. No medication dosing. If acute risk emerges, follow safety protocols and escalate to professional care if needed."
+}

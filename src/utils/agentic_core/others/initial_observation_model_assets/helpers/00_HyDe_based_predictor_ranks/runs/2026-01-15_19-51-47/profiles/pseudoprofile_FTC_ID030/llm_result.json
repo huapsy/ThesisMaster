@@ -1,0 +1,173 @@
+{
+  "pseudoprofile_id": "CASE-UNREAL-PERCEPT-2026-01",
+  "summary": "The case shows episodic perceptual/experiential alterations (unreal feel) that are time-linked to stress, with a subjective sense of not being fully present and notable distress during episodes. The goal is to reduce episode frequency and distress while increasing presence and functioning, using modifiable BIO-PSYCHO-SOCIAL levers. Proposed levers span stress management, mindfulness, somatic regulation, sleep, physical activity, nutrition, social connectedness, psychoeducation, and digital monitoring. Each lever maps to specific criteria (C01–C08), includes a mechanism rationale, concrete measurement ideas, and a realistic implementation horizon, with attention to feasibility, impact, and safety.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Proximal-stress coping skills training (CBT-based stress management)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured stress-management program delivering CBT-based coping skills (cognitive reframing, problem solving, activity scheduling) and a brief behavioral activation module; aims to reduce the likelihood that stress triggers the unreal episodes and to dampen distress during episodes.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C08"
+      ],
+      "mechanism_rationale": "By reducing perceived stress intensity and improving coping, episodes become less frequent and less distressing; improved regulation reduces arousal-related dissociative-like experiences.",
+      "measurement": "Perceived Stress Scale (PSS-10) scores; episode frequency per week; average distress during episodes (0-10); presence rating during episodes (0-10).",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No specific safety concerns.",
+      "mapping_query": "C02|C04|C08"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Mindfulness-based stress reduction practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "8-week mindfulness-based intervention with daily 10-20 minute practices and weekly group sessions; aims to reduce reactivity to stress and improve present-moment awareness during episodes.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Mindfulness reduces cognitive and emotional reactivity to stress, enhances grounding, and increases sense of presence, lowering distress during episodes.",
+      "measurement": "Mindfulness Questionnaire (FFMQ) or MAAS scores; presence rating during episodes (0-10); distress during episodes (0-10); episode frequency.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "C02|C03|C04"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Somatic grounding and breath regulation during episodes",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Teach grounding statements, 4-7-8 breathing, and progressive muscle relaxation; implement during or before episodes to reduce dissociation and distress.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Arousal regulation reduces detachment and fear, stabilizes sensorimotor experience, and reinforces presence.",
+      "measurement": "Self-rated presence during episodes (0-10); distress during episodes (0-10); optional self-reported peak arousal; episode frequency.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "C02|C03|C04"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sleep quality optimization protocol",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene protocol: fixed wake time, regular bedtime window, caffeine reduction, comfortable sleep environment; maintain a sleep diary.",
+      "targets_criteria_ids": [
+        "C08"
+      ],
+      "mechanism_rationale": "Improved sleep reduces baseline stress reactivity and episodic susceptibility. Better circadian alignment supports cognitive and sensory processing.",
+      "measurement": "Pittsburgh Sleep Quality Index (PSQI) or sleep diary metrics; episodes per week; distress during episodes.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "C08"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Regular aerobic exercise regimen",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Moderate-intensity aerobic exercise 3x/week with progressive goals; track weekly minutes and session adherence.",
+      "targets_criteria_ids": [
+        "C08",
+        "C02"
+      ],
+      "mechanism_rationale": "Physical activity reduces stress reactivity, improves mood and sleep, and supports neural resilience, lowering episode likelihood and distress.",
+      "measurement": "Weekly exercise minutes; episode frequency; presence and distress ratings during episodes.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "C02|C08"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Nutrition/micronutrient optimization and hydration",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Dietary optimization emphasizing anti-inflammatory patterns and nutrient-rich foods (omega-3s, B-vitamins, magnesium via food) and adequate hydration; monitor for intolerances/allergies.",
+      "targets_criteria_ids": [
+        "C08"
+      ],
+      "mechanism_rationale": "Nutrition supports neural function and stress regulation; balanced meals stabilize energy and reduce irritability that may contribute to episodes.",
+      "measurement": "Dietary intake questionnaire; PSQI; episode frequency; distress during episodes.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "No safety concerns beyond standard dietary guidance.",
+      "mapping_query": "C08"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Structured social engagement and belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Weekly social engagement plan with supportive group activities; social prescribing to connect with community resources and meaningful relationships.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C08"
+      ],
+      "mechanism_rationale": "Increased social connectedness buffers stress reactivity and reduces distress, potentially lowering episode risk and improving presence.",
+      "measurement": "Social connectedness scale (e.g., MSPSS); number of meaningful social interactions; episode frequency; distress during episodes.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for boundary setting; avoid over-commitment.",
+      "mapping_query": "C02|C04|C08"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Psychoeducation about episodic experiences",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Psychoeducation module describing dissociation-like experiences, triggers, and safety planning; normalizes experiences and enhances coping.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Normalize experiences to reduce fear and distress, clarify that episodes can be managed, and empower self-help strategies.",
+      "measurement": "Pre/post knowledge quiz; distress during episodes; presence during episodes.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "None.",
+      "mapping_query": "C01|C04"
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Digital self-monitoring and feedback system",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Digital self-monitoring with journaling app and optional wearable data (sleep, stress, episodes) plus automated feedback and prompts; maintain privacy controls.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C08",
+        "C01"
+      ],
+      "mechanism_rationale": "Continuous data enhance self-awareness, enable timely coping, and provide objective feedback on trigger patterns and episode dynamics.",
+      "measurement": "Daily check-ins: presence (0-10), distress (0-10); episode count; sleep quality; adherence to plan.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Ensure data privacy and informed consent; allow opt-out and data-sharing preferences.",
+      "mapping_query": "C01|C02|C03|C04|C08"
+    }
+  ]
+}

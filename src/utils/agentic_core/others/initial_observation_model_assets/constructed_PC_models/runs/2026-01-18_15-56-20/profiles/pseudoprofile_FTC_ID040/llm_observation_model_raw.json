@@ -1,0 +1,851 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID040",
+  "model_summary": "Compact, gVAR-ready observation model targeting migraine unpredictability and its downstream behavioral/anxiety consequences via a single, coherent self-regulation mechanism (cognitive-emotional self-regulation) using five core migraine-related criteria (C01, C02, C03, C04, C06) and five modifiable predictors (P01–P05). Measurements rely on brief momentary EMAs (4 prompts/day) to maximize within-person variance for dynamic modeling, plus one daily sleep diary via passive sensors to anchor circadian fluctuations implicated in migraine timing and anxiety. The design avoids redundant self-regulation constructs by collapsing to one broad regulatory construct initially, while enabling nonlinear or unknown effects for certain domains (e.g., sleep’s impact). Lead-lag edges are specified with plausible lags (0–6h for most EMAs; up to 24h for planning/self-efficacy links) to support early gVAR estimation, with explicit handling of missingness and transformations recommended. The plan preserves the complaint’s resolution (unpredictable migraines, planning disruption, anticipatory anxiety, perceived anxiety-migraine feedback, and low migraine self-efficacy) while staying estimable in a 4-week window.",
+  "variable_selection_notes": "Variables chosen to cover: (a) migraine timing uncertainty (C01) and its functional impact (C02); (b) avoidance/commitment behavior (C03); (c) anticipatory anxiety (C04); (d) perceived anxiety-driven migraine amplification (C06). These five criteria are distinct enough to minimize redundancy yet collectively capture the core mechanism driving unpredictable migraine-related impairment. Predictors emphasize a single salutogenic pathway (cognitive-emotional self-regulation) with: migraine self-monitoring (P01), avoidance/commitment planning (P02), goal management/planning confidence (P03), mindfulness-based regulation (P04), and sleep-circadian optimization (P05). within-person variance is maximized via multiple EMAs and daily sleep data; potential collinearity is monitored via gVAR-ready transformations (z-score within-person). Bias/uncertainty acknowledges that sleep and anticipatory anxiety may interact nonlinearly; these are annotated in edges and expected_effects.",
+  "design_recommendations": {
+    "study_days": 28,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:30",
+        "12:30",
+        "16:30",
+        "20:30"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 112,
+      "notes": "Distributed across daytime hours with light jitter to avoid predictability."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "21:00"
+      ],
+      "expected_total_entries": 28,
+      "notes": "End-of-day summary of migraine impact and plan-related decisions."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "daily_aggregate",
+      "notes": "Sleep duration/quality from phone sensors; optional activity metrics from accelerometer."
+    },
+    "minimum_total_observations_target": 120,
+    "gvar_readiness_notes": "Initial plan emphasizes short-term EMA variance with modest passive data; straightforward transformations (z-scoring within-person) recommended for model stability.",
+    "variance_support_notes": "Multiple sources of within-person variation anticipated (unpredictability, planning, anxiety, sleep).",
+    "missingness_risk_notes": "EMA prompts may be skipped on migraine days; daily diary/ Sleep data should be used to impute; consider time-of-day effects."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "C01",
+      "label": "Migraine unpredictability",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Mobile_EMA_App",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the next 6–12 hours, how unpredictable is your migraine timing? Rate 1 (not at all unpredictable) to 9 (extremely unpredictable).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures immediate planning horizon uncertainty."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "C02",
+      "label": "Migraine-related functional impact",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Mobile_EMA_App",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the next 6–12 hours, how much will migraines disrupt your daily activities? Rate 1 (not at all) to 9 (completely disrupts).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Sensitivity to short-term functional disruption."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "C03",
+      "label": "Inability to commit to plans / avoidance",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Mobile_EMA_App",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the next 24 hours, how likely are you to commit to your planned social/other activities? Rate 1 (not at all likely) to 9 (very likely).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses behavioral avoidance in real-time."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "C04",
+      "label": "Anticipatory anxiety about migraine onset",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Mobile_EMA_App",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how anxious are you about a possible migraine onset in planning and daily activities? Rate 1 (not anxious) to 9 (extremely anxious).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures spike in distress before migraine onset."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "C06",
+      "label": "Perceived anxiety-driven exacerbation of migraines",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Mobile_EMA_App",
+        "assessment_type": "momentary",
+        "item_or_signal": "How much do you believe your anxiety worsens migraines right now? Rate 1 (not at all) to 9 (extremely).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Addresses perceived feedback loop."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Migraine self-management diary (Migraine log)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "'[BIO] > personalization_monitoring_and_data_feedback > self_assessment_and_logs > somatic_and_interoceptive_selfreports > *headache_migraine_log'",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Self-monitoring enhances pattern recognition and planning reliability, reducing unexplained timing variance.",
+      "intervention_examples_safe": "Daily migraine diary entries; track intensity, triggers, and surrounding context.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Mobile_EMA_App",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate how predictable migraine timing feels in the near future (6–12 hours) on a 1–9 scale, where higher indicates greater unpredictability.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Anchored to migraine diary use."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increased self-monitoring is expected to reduce perceived unpredictability; effects likely within 0–6 hours."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Awareness of migraine patterns should lessen functional disruption through planning adjustments."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better monitoring supports commitment to plans by clarifying near-term migraine risk."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Knowledge of timing may reduce anticipatory anxiety via predictability."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Enhanced self-monitoring can increase perceived control and self-efficacy."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Promising feasibility given brief EMAs and passive sleep sensing."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Avoidance/reduction of plan-avoidant behavior",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "'[PSYCHO] / cognitive_behavioral_therapies / behavior_change_activation / assessment_and_functional_analysis / monitoring / *avoidance_reduction_plan'",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Targeting avoidance reduces planning penalties and improves daily functioning.",
+      "intervention_examples_safe": "Monitoring commitment likelihood and rehearsing contingency plans.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Mobile_EMA_App",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the next 12–24 hours, how likely are you to follow through with planned activities? 1-9 scale.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C04",
+        "C06",
+        "C01",
+        "C02"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "More reliable commitment reduces avoidance-related planning disruption."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Predictable engagement lowers anticipatory anxiety about migraine onset."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increased self-efficacy through planning improves perceived control."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Clear commitments may reduce perceived unpredictability via external scaffolding."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Structured engagement can reduce functional disruption by proactive management."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Requires coaching on commitment strategies; feasible with EMA prompts."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Goal management training / mastery planning",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "'[PSYCHO] / cognitive_and_metacognitive_interventions / cognitive_remediation_and_rehabilitation / *goal_management_training'",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Goal management improves planning reliability and reduces cognitive load during migraine risk.",
+      "intervention_examples_safe": "Structured task-planning routines; graded task sequencing.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Mobile_EMA_App",
+        "assessment_type": "momentary",
+        "item_or_signal": "How confident are you in planning and initiating planned activities in the next few hours? 1-9 scale.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C04",
+        "C06",
+        "C01",
+        "C02"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better task management enhances perceived control and reduces worry about failure."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Clear goals can reduce anticipatory anxiety by reducing ambiguity."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Structured goals may support planned engagement in a migraine-prone day."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Predictable planning reduces perceived unpredictability."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Better planning reduces functional disruption."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Requires user training in task structuring; feasible with EMA prompts."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Mindfulness-based stress regulation / uncertainty tolerance",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "'[PSYCHO] / third_wave_and_contextual_therapies / mindfulness_based_interventions / applied_mindfulness_for_stress_and_reactivity / *mindful_response_to_stress_practice'",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Mindfulness reduces reactivity to uncertainty, dampening anticipatory anxiety and emotional arousal linked to migraines.",
+      "intervention_examples_safe": "Brief daily mindfulness practice (3–5 min); acceptance-based exercises.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Mobile_EMA_App",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the last hour, how would you rate your engagement with a brief mindfulness/acceptance practice? 1-9 (1 = none, 9 = full engagement).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C06",
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindfulness reduces anticipatory anxiety in the short term."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Improved self-regulation can enhance perceived control."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Lower reactivity may reduce perceived unpredictability."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Reduced reactivity can lessen functional disruption."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Calm planning improves commitment to activities."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Requires minimal training; feasible via EMA prompts."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Sleep circadian optimization / sleep routine adherence",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "'[BIO] > Sleep_Circadian_and_Restoration > Circadian_Entrainment'",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Stable circadian rhythms improve migraine timing predictability and anxiety regulation.",
+      "intervention_examples_safe": "Consistent bed/wake times, light exposure management, caffeine timing.",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "Phone_sleep_sensors",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Sleep onset time; wake time; sleep efficiency (derived from device sensors).",
+        "response_scale_or_unit": "minutes; minutes; percent",
+        "sampling_per_day": 1,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Derived sleep metrics via phone sensors."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "bounded_0_1"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C06",
+        "C03"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Regular sleep improves migraine timing predictability."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep reduces functional disruption from migraines."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Improved sleep reduces anticipatory anxiety about migraine onset."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Stable sleep enhances perceived control and self-efficacy."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Consistent sleep supports planned activity engagement."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Passive sleep data is feasible with common devices."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,69000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,43000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,44000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,46000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,54000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,64000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,62000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "P01 predicts reduced unpredictability via monitoring.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Diary engagement aligns with less functional disruption.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Monitoring boosts planning commitment.",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Increased predictability may reduce anticipatory anxiety.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Greater self-monitoring relates to improved perceived control.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Commitment likelihood reduces avoidance.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Planning more likely to reduce anticipatory anxiety.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Better planning/supports perceived control.",
+      "estimated_relevance_0_1": 0.69
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Goal management training strengthens self-efficacy.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness practice dampens anticipatory anxiety.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-12h",
+      "notes": "Enhanced regulation improves perceived control.",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Lower reactivity may reduce perceived unpredictability.",
+      "estimated_relevance_0_1": 0.52
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-12h",
+      "notes": "Mindfulness supports functional engagement.",
+      "estimated_relevance_0_1": 0.54
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Sleep regularity reduces migraine timing uncertainty.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Circadian stability lowers functional disruption.",
+      "estimated_relevance_0_1": 0.64
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Better sleep reduces anticipatory anxiety.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Sleep health boosts perceived control.",
+      "estimated_relevance_0_1": 0.62
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "C01-C04 overlap in anxiety-related constructs",
+      "P01-C01 and P02-C03 may share variance through planning context"
+    ],
+    "expected_floor_ceiling_risks": [
+      "Predictor P04 may saturate at high engagement"
+    ],
+    "variance_enhancement_suggestions": [
+      "Standardize on within-person z-scores",
+      "consider time-varying covariates (time-of-day)"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "P06+ (not included in this initial set)"
+    ],
+    "gvar_feasibility_summary": "Initial set is small (5 predictors × 5 criteria) with clear measurement paths; expected to estimable barring excessive missingness."
+  },
+  "safety_notes": "Not a diagnosis. No medication dosing or medical advice. If acute risk emerges, seek professional help."
+}

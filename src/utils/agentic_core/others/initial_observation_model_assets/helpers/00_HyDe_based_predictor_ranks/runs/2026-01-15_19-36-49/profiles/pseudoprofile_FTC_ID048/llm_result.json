@@ -1,0 +1,139 @@
+{
+  "pseudoprofile_id": "CASE_PAYLOAD_MHOPT_v1",
+  "summary": "The case presents persistent grief with compulsive ex-social media checking that triggers transient somatic distress and negative self-evaluation. Modifiable levers span the social-ecological environment (digital boundary and social support), psychoeducational and experiential strategies (grief processing, cognitive-behavioral skills, mindfulness), and biological arousal regulation (sleep, somatic regulation). The proposed solutions aim to reduce cue-driven checking, mitigate distress and rumination, enhance supportive connectedness, and improve emotion regulation, using measurable, feasible, short-to-mid-term interventions across BIO/PSYCHO/SOCIAL domains and their interactions.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Digital boundary management to reduce ex-social exposure",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Implement a structured digital boundary protocol: unfollow/delete ex from feeds, mute notifications from ex-related content, set a daily social media check window (e.g., 2 x 10-minute periods), and use screen-time monitoring to enforce limits.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Reduces cue-induced craving and affective reactivity triggered by ex-content, lowers immediate physiological arousal, and weakens habit loop of checking.",
+      "measurement": "Daily log of ex-social checks (times/day), urge intensity (0-10), nausea/somatic distress (0-10) during checks, and end-of-day mood rating.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "Map to C02, C04, C05, C06; Social boundary and digital-exposure reduction lever."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Grief processing with acceptance and meaning-making (ACT-inspired)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver a brief ACT-based module focusing on accepting grief emotions, reducing experiential avoidance, clarifying personal values, and identifying committed actions aligned with social connection and self-worth.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06",
+        "C03"
+      ],
+      "mechanism_rationale": "Acceptance and values-driven action reduce avoidance and rumination, normalize grief, and improve self-appraisal through purposeful activity.",
+      "measurement": "Grief intensity (ICG-Short Form or similar), daily mood, rumination frequency, and self-criticism ratings.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "Map to C01, C06, C03; ACT-based grief processing."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Cognitive restructuring plus behavioral activation for self-evaluation",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Teach deliberate cognitive reframing to challenge automatic negative self-beliefs post-checking and to counter social comparison; pair with schedule-driven behavioral activation to build meaningful activities.",
+      "targets_criteria_ids": [
+        "C03",
+        "C06",
+        "C02"
+      ],
+      "mechanism_rationale": "Alters neural and cognitive processing of self-evaluation and comparison; reduces rumination and reliance on checking as coping,",
+      "measurement": "Self-criticism scale, rumination frequency (daily), activity engagement log.",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "Map to C03, C06, C02; cognitive-behavioral restructuring with activation."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Somatic distress regulation during distress episodes",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Teach diaphragmatic breathing, grounding, and brief autonomic stabilization techniques to mitigate nausea and autonomic arousal when exposed to triggering content.",
+      "targets_criteria_ids": [
+        "C04",
+        "C02"
+      ],
+      "mechanism_rationale": "Lower physiological arousal reduces immediate distress and the likelihood of turning to checking as a coping strategy.",
+      "measurement": "Nausea/distress intensity (0-10) during distress episodes; frequency of checking during distress; self-reported relaxation before/after techniques.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "Map to C04; somatic regulation as coping with distress."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep hygiene and circadian alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish regular sleep-wake times, limit screens 1 hour before bed, increase morning light exposure, and create a wind-down routine to stabilize mood and reduce rumination.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Improved sleep supports emotion regulation and reduces daytime reactivity to triggers, lowering rumination and distress.",
+      "measurement": "Sleep diary (duration, quality), next-day mood, rumination frequency.",
+      "time_horizon": "3-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "Map to C01, C04, C06; sleep optimization as biobehavioral lever."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Enhanced social support and belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Facilitate regular contact with trusted friends/family, engage in brief social activities, and create a small supportive accountability network.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06",
+        "C02"
+      ],
+      "mechanism_rationale": "Social connectedness buffers grief, reduces rumination, and provides external validation that diminishes self-criticism and checking impulses.",
+      "measurement": "Perceived social support scale, frequency of supportive interactions, mood ratings.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "Map to C01, C06, C02; social support enhancement."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Mindfulness-based distress tolerance practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a daily short mindfulness practice (present-moment awareness, urge surfacing) to reduce reactivity to social media cues and self-criticism.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Mindfulness reduces automatic reactivity to distress and diminishes rumination and negative self-appraisal.",
+      "measurement": "Mindfulness scale (e.g., FFMQ), momentary distress/urge logs, daily check-frequency.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "Map to C01, C04, C06; mindfulness-based distress tolerance."
+    }
+  ]
+}

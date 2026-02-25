@@ -1,0 +1,866 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID049",
+  "model_summary": "Compact, gVAR-ready initial observation model capturing six core criteria derived from the complaint (episodic tingling with anxiety and a reinforcing loop, catastrophic interpretation, medical uncertainty, and interoceptive monitoring) and eight modifiable predictors spanning cognitive-behavioral, mindfulness/interoceptive, sleep, social, and digital-solution domains. The plan uses high-variance momentary EMA (6 prompts/day for 14 days) plus a daily diary, keeps measures on 1–9 Likert-type scales to maximize within-person variance, and minimizes redundancy to support estimability and interpretable lagged effects. A full predictor–criterion relevance grid is provided to seed gVAR parameterization, with conservative assumptions where effects are nonlinear or uncertain.",
+  "variable_selection_notes": "Rationale: The six criteria (C01–C06) cover the somatic sensation, immediate affective response, reinforcing feedback loop, threat interpretation, medical uncertainty, and heightened monitoring—capturing the core dynamics described in the complaint. The eight predictors (P01–P08) target cognitive reappraisal, interoceptive mindfulness, medical-communication clarity, paced breathing, behavioral activation, social support, sleep regularity, and digital-tool engagement. This set aims to maximize within-person variance while limiting redundancy across self-regulation constructs. Potential biases: self-report measures may inflate perceived threat during episodes; mitigate via brief, standardized prompts and explicit anchors; missingness risk is moderated by reminders and user-friendly interfaces.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:00",
+        "11:00",
+        "13:30",
+        "16:00",
+        "18:30",
+        "21:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 84,
+      "notes": "Distribute prompts across waking hours with mild jitter to reduce predictability; ensure prompts do not intrude during sleep."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "20:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Evening diary for sleep quality and day-context; optional add-ons if user is willing."
+    },
+    "passive_streams": {
+      "enabled": false,
+      "aggregation_strategy": "",
+      "notes": "Not implemented in this initial design."
+    },
+    "minimum_total_observations_target": 60,
+    "gvar_readiness_notes": "All chosen variables are measurable with standard smartphone-based EMA; plan data-quality checks and imputation for sporadic missingness.",
+    "variance_support_notes": "Expect substantial within-person variability due to episodic tingling and arousal; plan z-scoring per participant and per-variable to stabilize cross-person comparisons.",
+    "missingness_risk_notes": "Moderate risk due to participant burden; mitigate with reminders, brief prompts, and optional skip with auto-fill options."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Episodic tingling in hands/feet",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the moment, rate your tingling in hands/feet on a 1–9 scale (1 = none, 9 = severe).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score per-person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Acute anxiety when sensations occur",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, when tingling occurs, rate your anxiety level on a 1–9 scale (1 = not anxious, 9 = extremely anxious).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score per-person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Symptom–anxiety amplification loop",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, to what extent did anxiety amplify the tingling sensation (1–9)?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score per-person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Catastrophic/threat interpretation of sensations",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how dangerous or threatening do you consider the tingling? (1 = not dangerous at all, 9 = extremely dangerous).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score per-person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Uncertainty about medical cause",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Rate your uncertainty about the medical cause of tingling (1 = completely certain, 9 = completely uncertain).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Heightened bodily monitoring/interoceptive focus",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, to what extent are you actively monitoring your body sensations? (1 = not at all, 9 = extremely).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "past_1_hour",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Threat reinterpretation via cognitive reappraisal (CBT) usage",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Cognitive_Behavioral_Therapies > Behavior_Change_and_Activation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Cognitive reappraisal reduces threat appraisal and arousal, facilitating decoupling of anxiety from somatic sensations.",
+      "intervention_examples_safe": "Brief cognitive-reframing prompts; structured thought records; in-the-mMoment app cues",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "To what extent are you using cognitive reappraisal to view the tingling as less dangerous? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C02",
+        "C03",
+        "C01",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increases threat reappraisal, reduces catastrophizing about sensations."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "None",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "CBT-relevant items are brief and scalable."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Interoceptive mindfulness engagement",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Third_Wave_and_Contextual_Therapies > Mindfulness_Based_Interventions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Mindfulness reduces interoceptive hypervigilance and improves nonjudgmental body awareness.",
+      "intervention_examples_safe": "Brief body-scan, mindful breathing, 3-minute interoception prompts",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, to what extent are you practicing body-focused mindfulness or interoceptive awareness? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C06",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increased interoceptive awareness supports nonreactivity, reducing acute anxiety."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "None",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Mindfulness prompts are brief and well-tolerated."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Structured medical communication clarity",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Foundations_and_Common_Factors > Psychoeducation_Modules > Clarity_of_medical_information",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Clear medical communication reduces uncertainty and threat about etiologies.",
+      "intervention_examples_safe": "Scheduled brief patient-provider questions; summary handouts; follow-up video explainer",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, how clear did medical information feel about the tingling cause? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C05",
+        "C04",
+        "C02",
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better clarity reduces medical uncertainty and threat appraisal."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "None",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Provider communication prompts are feasible with simple UI."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Diaphragmatic breathing and paced respiration",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Sleep_Circadian_and_Restoration > Breathing_and_ARousal_Management",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.78,
+      "mechanism_rationale": "Breathing regulation reduces arousal and informs interoceptive processing.",
+      "intervention_examples_safe": "3-minute paced-breathing, diaphragmatic breathing before/after sensations",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, are you using paced breathing or diaphragmatic breathing? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C06",
+        "C01",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Breathing regulation lowers momentary anxiety and arousal."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "None",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.92,
+        "notes": "Breathing prompts are quick and safe."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Behavioral activation and reduction of bodily monitoring",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Movement_Physical_Function_and_Somatic_Care > Behavioral_Activation_and_Engagement",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.72,
+      "mechanism_rationale": "Engagement in non-somatic activities reduces focus on bodily cues and disrupts the amplification loop.",
+      "intervention_examples_safe": "Plan 1 short activity per day; schedule non-body-related tasks",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, have you engaged in an activity away from body monitoring? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C03",
+        "C06",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Active engagement distracts from interoceptive focus and reduces anxiety."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "None",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Easy to implement with daily prompts."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Social support and sense of belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] > Social_Support_and_Belonging > Belonging_and_Support",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Perceived social support buffers anxiety and reduces vigilance toward sensations.",
+      "intervention_examples_safe": "Brief check-in prompts with a friend/family; supportive text; group-related activities",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how supported do you feel by your social network? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C03",
+        "C05",
+        "C04",
+        "C01",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Perceived support reduces anxiety reactivity to sensations."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "None",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Social prompts may depend on participants' networks."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "Sleep optimization and circadian regularity",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Sleep_Circadian_and_Restoration > Circadian_Entrainment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Sleep quality and circadian stability influence arousal and interoceptive sensitivity.",
+      "intervention_examples_safe": "Regular sleep-wake schedule; limit late-night screen time",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Last night’s sleep quality (1-9) and wake time regularity today (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "past_1_day",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C04",
+        "C05",
+        "C03",
+        "C06",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Better sleep reduces daytime anxiety and interoceptive sensitivity."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "None",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Sleep questions feasible; may require daily diary input."
+      }
+    },
+    {
+      "var_id": "P08",
+      "label": "Digital tools usage for well-being (Care_Delivery_Formats)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Digital_and_Tech_Enabled_Solutions > Digital_Tools_and_Supports",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.65,
+      "mechanism_rationale": "Use of digital tools can support CBT, mindfulness, and tracking; acts as an enabler of salutogenic routines.",
+      "intervention_examples_safe": "Using a mood-tracking orBreathing app; guided prompts; online psychoeducation modules",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Are you actively using a digital tool for well-being right now? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Digital tools can support coping strategies that reduce anxiety."
+        }
+      ],
+      "include_priority": "LOW",
+      "risk_ethics_notes": "None",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.82,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": "Digital-tools usage varies; track both exposure and engagement."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,92000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,40000"
+    }
+  ],
+  "edges": [],
+  "diagnostics": {
+    "expected_collinearity_risks": [],
+    "expected_floor_ceiling_risks": [],
+    "variance_enhancement_suggestions": [],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": "Overall feasibility favorable; plan to monitor missingness and apply person-mean centering."
+  },
+  "safety_notes": "Not a diagnosis. No medication dosing or medical procedures advised. If new acute risk signs emerge (self-harm, mania, severe deterioration), seek professional care and implement safety protocol."
+}

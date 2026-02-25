@@ -1,0 +1,137 @@
+{
+  "pseudoprofile_id": "CASE_WORKCYCLE_OPTIM_001",
+  "summary": "The case reveals a self-perpetuating work-cycle: minor errors trigger threat-related anxiety, prompting compensatory overwork, which increases fatigue and further errors. The proposed BIO-PSYCHO-SOCIAL levers are modifiable predictors designed to (a) reduce fatigue and cognitive decline (bio), (b) dampen catastrophic thinking and enhance task-focused coping (psycho), and (c) adjust work practices and social-environment supports (social). Each lever targets specific criteria (C01–C05) and includes practical measurement ideas to track impact over 2–6 weeks, with feasibility and safety considerations appropriate for a non-acute case. The aim is to disrupt the cycle by improving alertness, reducing error susceptibility, stabilizing mood arousal, and promoting sustainable work pacing.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Structured sleep-wake regularization and circadian alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a consistent sleep-wake schedule (same bedtime and wake time seven days a week), a 30–60 minute wind-down routine, and exposure to natural light each morning to stabilize circadian rhythm and improve daytime alertness.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C02"
+      ],
+      "mechanism_rationale": "Improved sleep quality and circadian stability enhance daytime energy and cognitive vigilance, reducing fatigue-related attention lapses (C05) and the rate of subtle mistakes (C01) indirectly by lowering arousal-driven catastrophizing (C02).",
+      "measurement": "Sleep diary and/or actigraphy (bedtime, wake time, total sleep), PSQI score, self-rated energy (0–10), errors per shift (C01).",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "If sleep disturbance suggests possible insomnia or sleep apnea, refer for clinical assessment.",
+      "mapping_query": "S01 Sleep circadian alignment mapping to C04/C05/C02"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Error-proofing via task checklists and two-pass review",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce standardized checklists before task submission and a mandatory second-pass review for high-risk tasks; train briefly on cognitive aids and error-proofing routines.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "External cognitive aids reduce reliance on working memory and decrease rate of minor errors; systematic reviews of work reduce cognitive load and fatigue-induced lapses (C05).",
+      "measurement": "Errors per shift (C01 rate) and checklist completion rate; time to task completion",
+      "time_horizon": "1–3 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Ensure checklists are streamlined to avoid added burden; update as needed.",
+      "mapping_query": "S02 Checklists & error-proofing mapping to C01/C05"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Cognitive restructuring for post-mistake anxiety and threat appraisal",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Provide a brief CBT-informed intervention focusing on reframing mistakes as information for learning; introduce worry monitoring and brief imaginal rehearsal to reduce catastrophic thinking.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Reducing catastrophic threat appraisal lowers arousal and impulsive overcompensation, improving task focus and reducing subsequent errors.",
+      "measurement": "Post-mistake worry intensity (0–10) and frequency; errors per shift; response time on tasks",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "If anxiety escalates or impairment occurs, consider referral to clinician for further evaluation.",
+      "mapping_query": "S03 CBT micro-interventions mapping to C02/C01"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Structured boundary setting and workload management (no after-hours work)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Implement explicit work-hour boundaries, scheduled downtime, and supervisor-aligned planning to cap overtime; establish a quick-boss-check to flag unsustainable workloads.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Reducing compensatory overtime (C03) lowers fatigue (C04) and mitigates fatigue-related performance decrement (C05) indirectly by stabilizing recovery.",
+      "measurement": "Overtime hours per week; self-rated fatigue; errors per shift",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor backlog and ensure workload remains achievable; adjust expectations as needed.",
+      "mapping_query": "S04 Boundaries mapping to C03/C04"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Regular micro-breaks and light movement to sustain alertness",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Schedule 2–3 minute movement breaks every 60–90 minutes (stretching, short walks); encourage posture variation and brief energizers.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Frequent movement increases arousal and cerebral perfusion, reducing fatigue and attentional lapses that contribute to errors.",
+      "measurement": "Break frequency per shift; steps per shift; fatigue rating; errors per shift",
+      "time_horizon": "1–3 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "S05 Movement breaks mapping to C04/C05/C01"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Moderated caffeine and hydration strategy for daytime alertness",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Plan caffeine timing and dose to support vigilance without crashing; pair with a hydration schedule to stabilize energy",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Steady energy supports sustained attention and fewer processing errors linked to fatigue.",
+      "measurement": "Caffeine intake logs; hydration logs; energy/fatigue 0–10; errors per shift",
+      "time_horizon": "1–2 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Be mindful of caffeine sensitivity and sleep impact; adjust if insomnia occurs.",
+      "mapping_query": "S06 caffeine/hydration mapping to C04/C05/C01"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Self-monitoring and data feedback system for errors and fatigue",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Use a simple app to log errors, fatigue, and workload; provide weekly feedback and trend analysis to support self-regulation.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05",
+        "C02"
+      ],
+      "mechanism_rationale": "Increased self-awareness and feedback loops foster adaptive adjustments, reducing cycle propagation.",
+      "measurement": "Logging completion rate; correlation of fatigue with errors; weekly trend summaries",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "S07 Self-monitoring mapping to C01/C04/C05/C02"
+    }
+  ]
+}

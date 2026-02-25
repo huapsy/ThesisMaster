@@ -1,0 +1,134 @@
+{
+  "pseudoprofile_id": "case-2026-01-15-01",
+  "summary": "The case reflects active relationship doubt intertwined with episodic mood variability and panic about being 'broken.' A bio-psycho-social approach that targets (a) mood regulation and uncertainty tolerance, (b) clearer attribution between mood and relationship cues, (c) healthier relationship communication, and (d) supportive social/sleep/physiological foundations can plausibly reduce the intensity and frequency of panic, improve mood stability, and promote more informed relationship decisions. Interventions are designed as modifiable levers across BIO, PSYCHO, and SOCIAL domains (and their interactions), with measurable short- to mid-term outcomes over several weeks.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Emotion Regulation Skills Training (CBT/DBT-based)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured emotion regulation program including cognitive reappraisal, distress tolerance, and affect labeling with daily practice and weekly coaching.",
+      "targets_criteria_ids": [
+        "C02",
+        "C06"
+      ],
+      "mechanism_rationale": "Strengthens top-down control over emotional responses, reducing mood variability and reactivity to numb/doubt states; dampens panic triggers when uncertainty arises (also supports coping with ambivalence).",
+      "measurement": "Daily mood rating (0-10); number of mood-shift days per week; weekly counting of panic-like thoughts; brief affect labeling check-ins.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; monitor for escalation of panic; seek professional help if self-harm thoughts arise.",
+      "mapping_query": "CASE_PAYLOAD_S01"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Cognitive Attribution Reframing & Panic Response Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Psychoeducation on distinguishing mood-driven affect from objective cues; cognitive reappraisal exercises; panic planning for moments of numbness/doubt.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces attribution uncertainty between mood and real relationship cues and lowers catastrophic thoughts during numbness, decreasing panic episodes and paranoia about being 'broken.'",
+      "measurement": "Days with clear attribution (0–1); panic episodes per week; diary of thoughts and triggers.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Standard monitoring; escalate if mood worsens or self-harm thoughts appear.",
+      "mapping_query": "CASE_PAYLOAD_S02"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Romantic Relationship Communication Skills Training",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured coaching on expressing needs, giving/receiving feedback, active listening, and repair strategies to reduce ambiguity about relationship quality.",
+      "targets_criteria_ids": [
+        "C01",
+        "C07"
+      ],
+      "mechanism_rationale": "Improved communication clarifies relationship status and reduces reliance on mood-driven interpretations when deciding about commitment; supports healthier decision-making under uncertainty.",
+      "measurement": "Number of meaningful relational conversations per week; relationship satisfaction rating; days with avoidance or withdrawal.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Standard safety monitoring; encourage partner-involved sessions if feasible.",
+      "mapping_query": "CASE_PAYLOAD_S03"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Structured Social Support & Belonging Engagement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Plan regular social interactions with trusted friends/relatives; join a small supportive group; track sense of belonging.",
+      "targets_criteria_ids": [
+        "C07",
+        "C01"
+      ],
+      "mechanism_rationale": "External social reinforcement reduces over-reliance on a single partner for validation, diminishes rumination about relationship status, and stabilizes mood by enhancing social buffers.",
+      "measurement": "Number of social interactions per week; belonging scale scores; days with doubt reduced.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Monitor for social overwhelm; balance with personal time.",
+      "mapping_query": "CASE_PAYLOAD_S04"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Mindfulness-Based Stress Reduction / Acceptance & Commitment Techniques",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Mindfulness practices to observe thoughts/feelings non-judgmentally; values-based action planning; distress tolerance skills.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Reduces reactivity to uncertain mood states, improves cognitive flexibility, and lowers catastrophic thinking, thereby stabilizing both mood and attribution processes.",
+      "measurement": "Weekly minutes of mindfulness practice; rumination frequency; anxiety/panic frequency; mood variability index.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None specific; monitor for increased distress in early phases; seek guidance if panic escalates.",
+      "mapping_query": "CASE_PAYLOAD_S05"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep Hygiene & Circadian Alignment Program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent bed/wake times, optimize sleep environment, reduce screen time before bed, and regularize sleep-wake routines.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Better sleep quality reduces daytime mood volatility and enhances emotion regulation, supporting more stable interpretation of relationship cues.",
+      "measurement": "Sleep duration; sleep efficiency; morning mood; wake time consistency.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Screen for sleep disorders; refer for evaluation if persistent insomnia.",
+      "mapping_query": "CASE_PAYLOAD_S06"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Moderate Physical Activity Program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Incorporate 150 minutes/week of aerobic activity with progressive intensity; choose enjoyable activities; track adherence.",
+      "targets_criteria_ids": [
+        "C02",
+        "C06"
+      ],
+      "mechanism_rationale": "Exercise enhances neurochemical regulation of mood, supports cognitive control, and reduces anxiety/panic reactivity, stabilizing mood fluctuations and improving coping.",
+      "measurement": "Weekly minutes of moderate activity; daily mood ratings; perceived energy levels.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Consult with clinician before starting; tailor intensity to capacity.",
+      "mapping_query": "CASE_PAYLOAD_S07"
+    }
+  ]
+}

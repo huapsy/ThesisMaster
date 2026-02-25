@@ -1,0 +1,141 @@
+{
+  "pseudoprofile_id": "CASE_WORRY_MANAGEMENT_001",
+  "summary": "The case shows perseverative, multi-domain worry ('what if' thoughts) with rumination, belief that worry is protective, and notable emotional distress. Modifiable levers span cognitive (defusion, metacognition, mindfulness), behavioral (worry scheduling, cognitive offloading, activity engagement), and social/ environmental domains (sleep, exercise, social support). A multi-pronged set of predictors targets the frequency, persistence, breadth, perceived usefulness of worry, and distress, with practical measurement via daily diaries and brief scales. The plan emphasizes short-to-mid term horizons (4-8 weeks) to produce measurable shifts in C01–C05 while remaining safe and feasible in non-clinical to subclinical contexts.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Structured worry scheduling with cognitive defusion (Worry-Time technique)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a daily 20-minute 'worry time' block during which the client allows worry about future adverse events. Outside this block, practice nonjudgmental observation and cognitive defusion (label the worry, distance from thought, and redirect attention). Maintain a brief worry diary to identify triggers and overlap with topics.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Constrains uncontrolled worry (reduces frequency and persistence), promotes cognitive distancing from thoughts (reduces rumination), challenges belief that worry is protective by offering a structured alternative coping strategy, and lowers distress by limiting unbounded mental review.",
+      "measurement": "Daily diary capturing: (a) number of worry episodes (>2 minutes) per day, (b) perceived ability to interrupt/redirect thoughts (0-10), (c) perceived usefulness of worry (0-10), (d) distress during/after worrying (0-10).",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No inherent safety concerns; monitor for worsening distress or compulsive checking. Escalate to clinician if self-harm risk emerges.",
+      "mapping_query": "Map to C01-C05; implement Worry-Time with structured self-monitoring; assess changes in worry frequency, disengagement, belief about worry usefulness, and distress."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Metacognitive therapy targeting worry beliefs",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Interventions emphasizing belief modification about worry (e.g., 'worry is unhelpful' vs. 'worry is protective') with cognitive-behavioral techniques to reduce rumination and promote adaptive problem-solving. Include brief psychoeducation and guided worry defusion.",
+      "targets_criteria_ids": [
+        "C04",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Directly targets the core belief (C04) that worrying is useful, which can reduce persistence (C02) and emotional distress (C05); creates downstream reductions in worry frequency (C01) via updated appraisal.",
+      "measurement": "Belief about usefulness of worry (0-10 scale) and duration/frequency of rumination (minutes/day); distress rating (0-10).",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None beyond standard CBT safety; monitor for retaliation of resistant beliefs; offer clinicians consultation if stuck.",
+      "mapping_query": "Apply metacognitive reframing to reduce perceived usefulness of worry; monitor C04 and downstream effects on C02/C05."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness-Based Attention and Nonjudgmental Awareness training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce a structured mindfulness program (e.g., 8-week basic MBCT/MBSR elements) with daily short practices (5-10 minutes) and weekly group sessions focused on observing thoughts nonreactively and letting them pass.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Enhances cognitive control over attention, reduces habitual rumination, diminishes the emotional reactivity to worry, and can indirectly reduce the frequency and distress of worry episodes.",
+      "measurement": "State mindfulness (brief 4-item scale before/after practice), worry episode count, distress ratings (0-10).",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Safe for general population; monitor hypnotic or distress reactions if unprocessed trauma; escalate if necessary.",
+      "mapping_query": "Use MBCT/MBSR elements to reduce C02/C05 and potentially lower C01 via improved attentional control."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sleep optimization and circadian regularity",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement sleep hygiene and circadian regularity plan: fixed bedtime/wake time, minimize screen exposure before bed, limit caffeine after midday, optimize sleep environment; track sleep quality and duration.",
+      "targets_criteria_ids": [
+        "C05",
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Sleep disruption worsens cognitive control and mood, increasing rumination and distress; better sleep improves executive function and emotional regulation, reducing worry frequency and intensity.",
+      "measurement": "Sleep duration and quality (sleep diary, 0-10 sleep quality rating), next-day distress (0-10), worry episodes (count).",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "None beyond standard sleep guidance; monitor for sleep disorders requiring evaluation.",
+      "mapping_query": "Map to Sleep_Circadian_and_Restoration domain; assess impact on C02 and C05 through sleep quality and duration."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Regular aerobic exercise and physical activity modulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Introduce a graded aerobic exercise program (e.g., 3x/week, 25-35 minutes) with progression, plus light daily movement goals. Track mood and distress pre/post exercise.",
+      "targets_criteria_ids": [
+        "C05",
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Exercise improves mood and cognitive flexibility, reduces rumination, and can indirectly reduce perceived usefulness and frequency of worry by increasing baseline positive affect and stress resilience.",
+      "measurement": "Weekly minutes of aerobic activity, pre/post mood ratings, daily worry frequency and distress (0-10).",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Standard exercise precautions; screen for contraindications; adjust intensity as needed.",
+      "mapping_query": "Link to BIO domain; monitor effects on C05 and C02 via mood and cognitive control changes."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Cognitive offloading via external journaling and digital aids",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use structured worry journaling and external cognitive aids (e.g., app-based prompts, topic tagging) to offload frequent worry content from working memory and support later reflection; encourage replacement with problem-solving notes when feasible.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Externalizing worry reduces cognitive load, weakens automatic chain reactions, and shifts focus toward constructive processing. Supports reappraisal of worry usefulness by providing evidence of coping steps.",
+      "measurement": "Frequency of worry offloading events, diary-based count of worry episodes, changes in usefulness belief (0-10).",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure data privacy of journaling tools; monitor for increased distress or compulsive journaling.",
+      "mapping_query": "Employ external cognitive aids to reduce C01/C02 and influence C04 through structured reflection."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Structured social support and problem-solving skills training",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage in regular, brief social check-ins with a supportive person and train in collaborative problem-solving for one or two major worry themes per week; enhance perceived social safety and coping resources.",
+      "targets_criteria_ids": [
+        "C05",
+        "C03",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Social support buffers stress, expands problem-solving resources, and can reduce breadth of worry topics (C03) and distress (C05). Improved coping reduces reliance on worry as a primary strategy (C04).",
+      "measurement": "Weekly supportive interactions (frequency), number of worry topics identified (C03), distress (0-10), perceived problem-solving efficacy (0-10).",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Standard social support considerations; ensure boundaries and healthy relationship dynamics; monitor for increased stress in unsupportive networks.",
+      "mapping_query": "Leverage social network supports to impact C03-C05; monitor downstream effects on C01 and C04."
+    }
+  ]
+}

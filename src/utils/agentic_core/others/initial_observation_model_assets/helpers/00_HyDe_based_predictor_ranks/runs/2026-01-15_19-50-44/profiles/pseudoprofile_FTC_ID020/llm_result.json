@@ -1,0 +1,171 @@
+{
+  "pseudoprofile_id": "CASE2026-PSYBIOSOCIAL-01",
+  "summary": "The case centers on perceived practical knowledge gaps, accumulating backlogs across money, chores, social life, and health, plus a harsh self-evaluation about life progress. The proposed levers span bio, psycho, and social domains (and their interactions) to reduce cognitive load, improve planning and self-management, strengthen social and financial supports, and enhance sleep and personal feedback. Each predictor is a modifiable lever with clear mechanisms, feasible implementation, simple measurements, and prioritized impact to move the targeted mental health-related criteria forward without relying on pharmacology or risky methods.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Digital task offloading and external memory aids",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Implement a structured external system using calendar integrations, reminders, checklists, and automated bill-pay to track tasks across finances, chores, health, and social commitments.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Reduces working-memory load and clarifies actionable steps, facilitating initiation, reducing backlog, and improving timing of tasks.",
+      "measurement": "Weekly percent of tasks completed on time; backlog size (overdue tasks); app usage frequency; days with at least one completed task.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Protect privacy; avoid platform dependency; ensure data security; provide opt-out options.",
+      "mapping_query": "MAP to C01/C03/C06 via digital offloading tools (ID 94)."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Structured time-management and planning training",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Weekly planning sessions with explicit micro-actions and implementation intentions; use small, starting tasks to bootstrap routine formation.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Strengthens planning habits and start-initiation, reducing chronic catch-up behavior.",
+      "measurement": "Number of planned tasks started within 24 hours; weekly task completion rate; planning accuracy self-report.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None identified",
+      "mapping_query": "MAP to C06 via EF training and planning support (ID 95/78)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Budgeting coaching with automated payments and social accountability",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Provide budgeting education, automatic bill-pay setup, savings plan, and assign a financial buddy for accountability.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Directly reduces financial backlog and stress, improves on-time payments, and uses social accountability to sustain adherence.",
+      "measurement": "Bills paid on time rate; savings rate; financial stress scale.",
+      "time_horizon": "8-16 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Data privacy; confirm consent for automated payments; monitor for penalties.",
+      "mapping_query": "MAP to C02 via financial management supports (ID 201)."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Social maintenance scaffolding and structured commitments",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create structured social routines such as regular check-ins, group activities, and use social-prescribing pathways to connect with community supports.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Enhances social connectedness and accountability, reducing neglect of friendships and improving mood.",
+      "measurement": "Number of social interactions per week; perceived connectedness score; satisfaction with friendships.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Respect boundaries; ensure activities are voluntary.",
+      "mapping_query": "MAP to C04 via social supports (IDs 182/185)."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Health self-management habit formation with reminders",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Habit stacking for health behaviors including appointments, exercise, and preventive care with digital reminders and a health coach.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Builds routine consistency in health tasks, reducing backlog; improves self-efficacy and reduces self-criticism through tangible progress.",
+      "measurement": "Appointment adherence; days exercised per week; health self-efficacy; daily self-criticism rating.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Data privacy; ensure accessibility; screen for medical contraindications.",
+      "mapping_query": "MAP to C05/C06 via health behaviors and scheduling supports (IDs 26/43)."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Self-compassion and cognitive reframing skills training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured self-compassion exercises and CBT-based self-worth work to reduce harsh self-judgments about life progress.",
+      "targets_criteria_ids": [
+        "C07"
+      ],
+      "mechanism_rationale": "Directly targets negative self-evaluation by shifting from self-criticism to compassionate self-relating, increasing motivation to act.",
+      "measurement": "Self-Compassion Scale scores; daily self-criticism rating; life-progress satisfaction.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Monitor mood; assess for unintended mood elevations or lull; no self-harm risk expected.",
+      "mapping_query": "MAP to C07 via self-compassion and cognitive restructuring (ID 106/84)."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Sleep hygiene and circadian alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish fixed wake time, consistent bedtime, light exposure, and sleep environment optimization.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06",
+        "C08"
+      ],
+      "mechanism_rationale": "Improved sleep supports cognitive function, mood, and energy, enabling better planning and task initiation.",
+      "measurement": "Sleep duration; sleep onset latency; subjective sleep quality; daytime alertness.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None identified",
+      "mapping_query": "MAP to C05/C06/C08 via Sleep and Rest components (IDs 60/64/61)."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Measurement-based care and data-driven personalization",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Weekly self-assessments and data feedback; adjust plan based on progress; use wearables or logs to optimize multiple criteria.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06",
+        "C07",
+        "C08"
+      ],
+      "mechanism_rationale": "Objective feedback increases insight, guides adaptive planning, and supports simultaneous improvement across cognitive, behavioral, and social domains.",
+      "measurement": "Adherence to self-assessment; progress toward goals; engagement metrics; objective metrics (steps, activity minutes).",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Data privacy; consent for wearables; ensure not burdensome.",
+      "mapping_query": "MAP to C01/C06/C07/C08 via measurement and feedback tools (IDs 50/51/143)."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Care navigation and resource access facilitation",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Assign a care navigator to coordinate financial, health, and housing resources and reduce barriers to services.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05",
+        "C04",
+        "C08"
+      ],
+      "mechanism_rationale": "Reduces systemic backlog by enabling access to needed supports, easing cognitive load, and improving overall functioning.",
+      "measurement": "Number of services accessed; backlog changes in finances and health; user satisfaction with navigation.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Privacy and data-sharing consent; ensure appropriate boundaries.",
+      "mapping_query": "MAP to C02/C04/C05 via navigation and resource linking (IDs 180/181/205)."
+    }
+  ]
+}

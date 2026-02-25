@@ -1,0 +1,1957 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID041",
+  "model_summary": "Initial gVAR-ready observation model for recurrent nightmare-related awakenings with vivid nightmares, anticipatory sleep fear/avoidance, acute autonomic arousal on awakening, prolonged post-awakening activation, and difficulty resuming sleep. Design combines nightly morning diary (night-specific events and ratings), evening momentary EMA (pre-sleep anticipatory fear, bedtime routine adherence), and passive wearable HR/HRV continuous collection aggregated nightly. Predictors target modifiable behavioral and physiological levers: Imagery Rehearsal Therapy (IRT) practice, presleep wind-down adherence, paced breathing/grounding use, sleep-environment quality, wearable HRV arousal index, nonengagement with clock-checking, mindfulness/acceptance practice, and bedtime/return-to-bed settling routine adherence. Sparse directed edges (P->C, P->P, C->C) select strongest incoming relations; dense plausibility matrices provided for full pairwise estimation. Total nodes: 14 (6 criteria + 8 predictors).",
+  "variable_selection_notes": "Kept all six decomposed criteria from the complaint (C01–C06). Selected 8 high-signal, modifiable predictors prioritized from the provided hyde signals (IRT, routines, breathing/grounding, environment, HRV monitoring, clock-checking, mindfulness, settling routine). Avoided near-duplicate predictors (e.g., combined multiple 'winddown' elements into one presleep_winddown construct). Chosen measurement modes and sampling frequencies favor within-person fluctuation detection at nightly and pre-sleep timescales to support gVAR estimation.",
+  "design_recommendations": {
+    "study_days": 28,
+    "momentary_ema": {
+      "prompts_per_day": 2,
+      "schedule_type": "anchored+random",
+      "time_blocks_local": [
+        "evening_prebed (30-60min before typical bedtime)",
+        "daytime_random (09:00-20:00 window to sample baseline mood/arousal)"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 56,
+      "notes": "Evening pre-bed EMA anchors anticipatory fear, wind-down adherence, and bedside routine variables. One daytime random prompt improves variability estimates and helps deconfound diurnal effects."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "morning_on_waking"
+      ],
+      "expected_total_entries": 28,
+      "notes": "Morning diary captures last-night nightmare occurrences, vividness, acute autonomic signs on awakening, duration to calm down, and difficulty resuming sleep. Use event-contingent follow-up prompts if awakening detected."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "nightly_aggregate (00:00-08:00 local) + event_flagging for transient awakenings",
+      "notes": "Continuous heart rate and derived HRV (RMSSD) aggregated nightly (mean nocturnal HR, min HR, nocturnal RMSSD), with timestamped transient arousal peaks flagged for night-awakening windows."
+    },
+    "minimum_total_observations_target": 84,
+    "gvar_readiness_notes": "28 days with 1 daily diary and 2 EMAs/day yields ~84 EMA readings + 28 diaries; passive nightly aggregates provide 28 additional observations per passive feature. Target >200 within-person observations per person for stable gVAR estimation; multi-subject pooled gVAR will improve inference.",
+    "variance_support_notes": "Use 1–9 Likert scales for subjective ratings (increase variance). Passive HRV provides continuous variance. Event-contingent numeric durations (minutes) should be winsorized for outliers; consider log-transform for skewed duration variables.",
+    "missingness_risk_notes": "Morning diary nonresponse likely if participant avoids mornings; include short push reminders. Passive stream dropouts expected with wearable nonwear — monitor and impute conservatively. Keep items short to preserve adherence."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "C01",
+      "label": "Nightmare-triggered awakenings (occurrence)",
+      "criterion_path": "complaint_decomposition/nightmare_awakening_occurrence",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "morning_diary",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "Last-night: Did you awaken due to a nightmare? (0=no, 1=yes) If yes: number_of_awakenings_last_night (integer) and primary_awakening_time (timestamp).",
+        "response_scale_or_unit": "event_flag + count",
+        "sampling_per_day": 1,
+        "recall_window": "last_night (since bedtime)",
+        "expected_within_person_variability": "medium",
+        "notes": "Primary event flag is binary for occurrence; count helps examine frequency. For gVAR use binary+count or convert to intensity scale (0–3+)."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "use count or binary as-is; consider person-mean centering and, for counts, log(1+count) if skewed",
+        "collinearity_risk": "low",
+        "distribution_hint": "binary"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "C02",
+      "label": "Nightmare vividness/intensity",
+      "criterion_path": "complaint_decomposition/nightmare_vividness",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "morning_diary",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "If awakened by nightmare: How vivid/real did the dream feel? (1=not vivid at all to 9=extremely vivid)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "last_night_specific",
+        "expected_within_person_variability": "high",
+        "notes": "Only asked when an awakening due to nightmare is reported; otherwise set to NA. High expected within-person variability."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering; keep ordinal as approx_continuous",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "C03",
+      "label": "Anticipatory fear of sleep / reluctance to go to bed",
+      "criterion_path": "complaint_decomposition/anticipatory_sleep_fear",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "evening_prebed",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Right now (pre-bed): How afraid or worried are you about going to sleep because of nightmares? (1=not at all to 9=extremely)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Measured each evening pre-bed to capture anticipatory fear; supports within-night lag analyses."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "person-mean centering",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "C04",
+      "label": "Acute autonomic arousal on awakening",
+      "criterion_path": "complaint_decomposition/acute_autonomic_arousal",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "morning_diary + passive_phone_sensor/wearable_sensor",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "Morning report: On awakening from the nightmare, did you feel sweating/heart racing? Rate peak arousal 1-9. Passive: timestamped nocturnal HR spike (beats per minute) and HRV nadir (RMSSD ms) during flagged awakening.",
+        "response_scale_or_unit": "1-9 Likert + bpm / ms",
+        "sampling_per_day": 1,
+        "recall_window": "awakening_event_window (timestamped)",
+        "expected_within_person_variability": "high",
+        "notes": "Combine subjective peak arousal rating with passive HR/HRV indicators. For gVAR, use subjective 1-9 as primary criterion node and passive HRV as predictor node."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "subjective rating person-mean centered; passive HR features standardized and person-centered",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "C05",
+      "label": "Prolonged post-awakening physiological/psychological activation",
+      "criterion_path": "complaint_decomposition/prolonged_post_awakening_activation",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "morning_diary",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "How long did it take you to feel calm/settled after the awakening? (minutes) and subjective difficulty calming (1=very quick/easy to 9=very prolonged/difficult)",
+        "response_scale_or_unit": "duration_minutes + 1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "since_awakening_last_night",
+        "expected_within_person_variability": "medium",
+        "notes": "Use both duration and Likert for redundancy; consider log transformation of duration for gVAR if heavily skewed."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "log(1+minutes) for duration; person-mean centering for Likert",
+        "collinearity_risk": "low",
+        "distribution_hint": "other"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "C06",
+      "label": "Difficulty resuming sleep after nightmare awakenings",
+      "criterion_path": "complaint_decomposition/difficulty_resuming_sleep",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "morning_diary",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "After the awakening, how difficult was it for you to fall back asleep? (1=not difficult to 9=extremely difficult) and estimated minutes to fall back asleep.",
+        "response_scale_or_unit": "1-9 Likert + minutes",
+        "sampling_per_day": 1,
+        "recall_window": "since_awakening_last_night",
+        "expected_within_person_variability": "medium",
+        "notes": "Primary node is subjective difficulty 1-9; minutes secondary. Use person-centering."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "log(1+minutes) if skewed; center Likert",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Imagery Rehearsal Therapy (IRT) practice adherence",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / trauma_memory_imagery_and_narrative_work / imagery_and_rescripting_interventions / nightmare_imagery_rehearsal",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "IRT targets nightmare content and reduces nightmare frequency/vividness by rehearsing alternative, non-threatening imagery.",
+      "intervention_examples_safe": "Daily 5-10min imagery rehearsal session replacing nightmare script with practiced alternative imagery (non-pharmacological).",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "morning_diary",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "Did you practice IRT last night or today? (1-9 adherence/intensity scale; 0=no practice event)",
+        "response_scale_or_unit": "1-9 Likert + event flag",
+        "sampling_per_day": 1,
+        "recall_window": "last_day",
+        "expected_within_person_variability": "medium",
+        "notes": "Use intensity/adherence rating rather than binary to increase variance."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 24,
+          "typical_lag_hours_max": 72,
+          "rationale": "IRT expected to reduce nightmare vividness over days to weeks."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 24,
+          "typical_lag_hours_max": 168,
+          "rationale": "IRT reduces recurrence of nightmare awakenings over days/weeks."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Avoid prompting imagery rehearsal if severe trauma without clinical support; include safety escalation wording.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Self-report feasible; adherence likely variable."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Presleep wind-down / detachment routine adherence",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "ontology_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / wind_down_routine",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Consistent wind-down routines decrease pre-sleep arousal and cognitive activation, reducing anticipatory fear and difficulty falling back asleep.",
+      "intervention_examples_safe": "30–60min pre-bed low-stimulation routine (reading, warm shower, no screens).",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "evening_prebed",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Did you follow your wind-down routine? Rate adherence 1-9.",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Evening EMA captures immediate pre-sleep behaviors; complement with nightly diary adherence indicator."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C06",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Immediate reduction in anticipatory fear via pre-sleep downshift."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "High feasibility; evening EMA alignment ensures coherence."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Paced breathing / grounding practice (post-awakening)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / breath_and_relaxation_skills / soothing_rhythm_breathing",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Brief paced breathing and grounding reduce autonomic arousal and speed recovery after awakening.",
+      "intervention_examples_safe": "3-5 minute paced-breathing (4-6 breaths/min) or grounding exercise performed on awakening.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "morning_diary",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "If awakened: Did you use paced breathing/grounding? Rate effectiveness 1-9 and duration minutes.",
+        "response_scale_or_unit": "1-9 Likert + minutes",
+        "sampling_per_day": 1,
+        "recall_window": "since_awakening",
+        "expected_within_person_variability": "medium",
+        "notes": "Event-contingent; pair with passive HR change detection if possible."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "minutes log-transform if skewed; center Likert",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Immediate downregulation reduces prolonged activation."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Ensure instructions avoid hyperventilation; recommend slow-guided protocols.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Event-dependent missingness possible if no awakening."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Sleep environment quality (comfort, light, temperature, noise)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / sleep_circadian_and_restoration / sleep_environment / bedroom_physical_factors",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Higher sleep environment quality reduces nocturnal disturbances, supports return-to-sleep, and lowers baseline arousal.",
+      "intervention_examples_safe": "Adjust temperature, blackout curtains, low-light bathroom path, reduce noise; declutter bedroom.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "morning_diary",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "Rate overall sleep environment quality last night (1=very poor to 9=excellent). Indicate notable disturbances (noise/light).",
+        "response_scale_or_unit": "1-9 Likert + checklist",
+        "sampling_per_day": 1,
+        "recall_window": "last_night",
+        "expected_within_person_variability": "low",
+        "notes": "Relatively stable but can vary night-to-night (guests, windows open)."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering; may be low-variance",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better environment supports faster return to sleep."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.7,
+        "notes": "Self-report feasible but low within-person variance may reduce predictive power."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Nightly wearable HR/HRV arousal index (passive)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / personalization_monitoring_and_data_feedback / wearables_and_home_monitoring",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.3,
+      "mechanism_rationale": "Objective autonomic arousal markers (nocturnal HR spikes, RMSSD reductions) index physiological activation during nightmares and recovery.",
+      "intervention_examples_safe": "Provide biofeedback/training but measurement-only node is passive.",
+      "measurement": {
+        "mode": "wearable_sensor",
+        "channel": "wearable_watch",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Nightly mean nocturnal HR, nocturnal RMSSD (ms), count of HR spikes above threshold within night-awakening windows; aggregated 00:00-08:00",
+        "response_scale_or_unit": "bpm, ms, count",
+        "sampling_per_day": 1,
+        "recall_window": "night_aggregate",
+        "expected_within_person_variability": "high",
+        "notes": "Passive continuous stream offers objective complement to subjective arousal; requires consistent wear."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "standardize nightly values per person; consider smoothing short gaps",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "monotonic_positive",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "HR spikes temporally aligned with subjective acute arousal on awakening."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Privacy: ensure secure handling of wearable data.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.7,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Requires participant wearable and compliance; passive data rich for gVAR."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Nonengagement with clock-checking (nighttime checking behavior)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / nonengagement_with_clock_checking",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Checking the clock can maintain arousal and frustrate return to sleep; nonengagement reduces conditioned arousal.",
+      "intervention_examples_safe": "Place clock out of view or use nonengagement strategy on awakening.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "morning_diary",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "Did you check the time/clock during the night or after awakening? (count or yes/no + impact rating 1-9)",
+        "response_scale_or_unit": "count or 1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "last_night",
+        "expected_within_person_variability": "medium",
+        "notes": "Count provides richer info but may be noisy; use binary+impact rating for simplicity."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "use binary or small-count coding; center",
+        "collinearity_risk": "low",
+        "distribution_hint": "binary"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "monotonic_positive",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Clock-checking likely increases time to resume sleep."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.6,
+        "notes": "Simple self-report, low burden."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "Mindfulness/acceptance practice (in-bed or pre-sleep)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / mindful_labeling_of_thoughts",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Mindfulness and acceptance reduce anticipatory worry and support faster emotional downregulation after arousing events.",
+      "intervention_examples_safe": "Short body-scan, labeling thoughts practice at bedtime or on awakening.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "evening_prebed + morning_diary",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Did you use a mindfulness/acceptance practice pre-bed or after awakening? Rate helpfulness 1-9.",
+        "response_scale_or_unit": "1-9 Likert + event flag",
+        "sampling_per_day": 2,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Measure both pre-sleep and post-awakening usage if possible; combine into single daily intensity score."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "center",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Mindfulness reduces anticipatory fear."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.75,
+        "notes": "Practices must be brief to ensure adherence."
+      }
+    },
+    {
+      "var_id": "P08",
+      "label": "Bedtime/return-to-bed settling routine adherence (settling routine)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "ontology_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / return_to_bed_settling_routine",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "A structured settling routine after awakenings (neutral audio, non-engaging actions, low light path) reduces conditioned arousal and supports faster return to sleep.",
+      "intervention_examples_safe": "Pre-agreed neutral activities and settling scripts; avoid screens and clock-checking.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "morning_diary",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "If awakened: Did you use your return-to-bed settling routine? Rate adherence/effectiveness 1-9.",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "since_awakening_last_night",
+        "expected_within_person_variability": "medium",
+        "notes": "Key behavior to measure because of strong hyde signal for return-to-bed practices."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "center",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C06",
+        "C01",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Settling routine directly reduces difficulty resuming sleep."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Simple nightly self-report tied to awakenings."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,74000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,36000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,34000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,33000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,28000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,28000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,80000"
+    }
+  ],
+  "predictor_predictor_relevance": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,12000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,12000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,12000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,50000"
+    }
+  ],
+  "criterion_criterion_relevance": [
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.78,
+      "estimated_relevance_tier": "high",
+      "notes": "Return-to-bed settling routine adherence expected to reduce likelihood of nightmare-triggered awakenings the same night or following."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "24-168h",
+      "estimated_relevance_0_1": 0.74,
+      "estimated_relevance_tier": "high",
+      "notes": "IRT practice expected to reduce recurrence of nightmare awakenings over days to weeks."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Better sleep environment plausibly reduces awakenings; effect may be indirect."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.58,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "24-72h",
+      "estimated_relevance_0_1": 0.82,
+      "estimated_relevance_tier": "very_high",
+      "notes": "IRT expected to reduce nightmare vividness over days to weeks."
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Mindfulness use may modestly reduce nightmare intensity or recall."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.36,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.34,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.78,
+      "estimated_relevance_tier": "high",
+      "notes": "Mindfulness/acceptance practice expected to lower anticipatory anxiety about sleep."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.72,
+      "estimated_relevance_tier": "high",
+      "notes": "Presleep wind-down reduces anticipatory fear immediately before bedtime."
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "proxy_or_indicator",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.8,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Passive HR/HRV is primarily an objective index of acute autonomic arousal on awakening (proxy)."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "Paced breathing/grounding may reduce subjective acute arousal on awakening."
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.4,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.78,
+      "estimated_relevance_tier": "high",
+      "notes": "Paced breathing/grounding expected to reduce duration of post-awakening activation."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "proxy_or_indicator",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.72,
+      "estimated_relevance_tier": "high",
+      "notes": "Higher nocturnal HR/low HRV indexes prolonged activation; may predict longer recovery."
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.8,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Settling routine adherence strongly expected to shorten time to resume sleep."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.75,
+      "estimated_relevance_tier": "high",
+      "notes": "Wind-down decreases baseline arousal and supports resuming sleep."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    }
+  ],
+  "edges_pp": [
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-72h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "high",
+      "notes": "Consistent settling routines may increase opportunities/adherence for daytime IRT practice (supportive relation)."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P01",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P01",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.35,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P02",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P02",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "bidirectional_feedback_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Bedtime routine adherence and presleep wind-down are mutually reinforcing."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P02",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "proxy_or_indicator",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Higher nocturnal arousal (passive) may trigger increased use of paced breathing (reactive relation)."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P03",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P03",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.35,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "bidirectional_feedback_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Better settling routines may co-occur with improved sleep environment practices."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P04",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P04",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.3,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Use of paced breathing may follow nights with higher physiological arousal; reactive association."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P05",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.3,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P05",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.25,
+      "estimated_relevance_tier": "low",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P06",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.15,
+      "estimated_relevance_tier": "low",
+      "notes": "Weak association between breathing practice and clock-checking behavior."
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P06",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.15,
+      "estimated_relevance_tier": "low",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P06",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.12,
+      "estimated_relevance_tier": "low",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P07",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Presleep wind-down routines often include mindfulness elements and may increase mindfulness practice adherence."
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P07",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P07",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.35,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P08",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.75,
+      "estimated_relevance_tier": "high",
+      "notes": "Good presleep wind-down supports consistent bedtime/settling routines."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P08",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P08",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    }
+  ],
+  "edges_cc": [
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "Higher nightmare vividness is associated with higher chance of awakening and recall; direction may be bidirectional."
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "high",
+      "notes": "Higher acute autonomic arousal may be associated with stronger dream recall/vividness."
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Having awakened may increase anticipatory fear about future sleep (next-night anticipatory worry)."
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.85,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.8,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Nightmare-triggered awakenings are tightly coupled with acute autonomic arousal on awakening."
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.85,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Acute autonomic arousal on awakening strongly drives prolonged post-awakening activation."
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.75,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.75,
+      "estimated_relevance_tier": "high",
+      "notes": "Longer prolonged activation predicts greater difficulty resuming sleep."
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "unknown",
+      "relation_interpretation": "unknown",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "high",
+      "notes": "Auto-selected top incoming edge from dense grid (deterministic fix)."
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "P02 (presleep wind-down) and P08 (settling routine) may show moderate collinearity; monitor variance inflation and consider combining if necessary.",
+      "P07 (mindfulness) and P02 (wind-down) may correlate; center variables and inspect cross-correlations."
+    ],
+    "expected_floor_ceiling_risks": [
+      "P04 (environment) may show low within-person variance (ceiling) if environment is stable; consider measuring discrete disturbances to increase variance.",
+      "P05 (wearable HRV) may have missingness (nonwear) leading to apparent floor effects; monitor wear compliance."
+    ],
+    "variance_enhancement_suggestions": [
+      "Use 1-9 Likert scales for subjective variables (already applied) to maximize within-person variance.",
+      "Capture counts/durations (minutes) for awakening-related constructs to add continuous variance.",
+      "Encourage daily short interventions (IRT, breathing) to increase variability in predictor adherence."
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "Pharmacotherapy and device-based somatic interventions were deprioritized (out of scope for non-pharmacological initial collection).",
+      "Many lower-ranked hyde leaf nodes (audiobook, aromatherapy) omitted to keep node count under cap."
+    ],
+    "gvar_feasibility_summary": "With 14 nodes and a 28-day design (2 EMAs/day + daily diaries + nightly passive), the dataset will include sufficient repeated measures per node for within-person gVAR estimation if adherence is moderate. Passive HRV increases objective signal strength. Monitor missingness and address via within-person imputation and sensitivity analyses."
+  },
+  "safety_notes": "This model is not a diagnostic tool. The complaint suggests significant nocturnal distress and physiologic arousal; if the participant reports severe daytime impairment, increasing panic, suicidal ideation, or risk behaviors, escalate to professional mental health services urgently. Provide crisis resources and clear instructions for seeking emergency care if acute risk emerges."
+}

@@ -1,0 +1,166 @@
+{
+  "pseudoprofile_id": "CASE01_NOISE_OVERLOAD_V1",
+  "summary": "This plan derives eight modifiable BIO-PSYCHO-SOCIAL levers aimed at reducing noise-triggered sensory overwhelm and its downstream impacts (rapid urge to escape, avoidance, cognitive load, and perceived invalidation). Interventions span sensory buffering (BIO), autonomic regulation and mindfulness (PSYCHO), assertive social strategies (SOCIAL), and environmental/sleep optimization (BIOxSOCIAL). Each lever targets specific criteria (C01–C07) with concrete, measurable actions, short- to medium-term horizons, and explicit feasibility/impact estimates to guide iterative, personalized implementation.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Personalized Sensory Buffering Toolkit (noise-cancelling headphones, earplugs, portable white-noise/light-masking device) plus access to quiet spaces with advance planning",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement and normalize use of personal sensory buffer tools during public outings, plus ready access to quiet zones (e.g., quiet carts, back rooms, or designated quiet hours). Pair with a brief in-session plan to prepare for noisy contexts and a 2-4 item pre-exposure checklist.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "By lowering sensory input load and shielding peripheral stimuli, autonomic arousal (C04) decreases; cognitive load (C05) eases; urge to escape (C02) and avoidance (C03) are reduced; tolerance for ambient noise (C01) improves through controlled exposure.",
+      "measurement": "Daily diary of distress on 0-10 scale during outings; log of buffer-tool usage (yes/no, duration); number of noisy contexts attended per week; self-rated tolerance progression.",
+      "time_horizon": "0-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.8,
+      "priority": "HIGH",
+      "safety_notes": "Ensure safe use of hearing devices in traffic or situationally demanding environments; monitor for eardrum discomfort or overstimulation; avoid reliance on buffers in potentially unsafe settings (e.g., crossing streets).",
+      "mapping_query": "C01: Reduced tolerance for ambient noise; C02: Acute urge to escape; C03: Avoidance; C04: Physiological hyperarousal; C05: Cognitive overwhelm."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "In-the-moment autonomic regulation and grounding skills (box breathing, 4-7-8, rapid grounding cues) during exposure",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach a brief, structured autonomic regulation protocol to deploy in real time when distress starts in noisy contexts, with a 2-minute practice routine and cue reminders.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Enhances parasympathetic modulation to dampen hyperarousal (C04) and cognitive load (C05); reduces impulsive escape reactions (C02) and supports gradual tolerance (C01) through self-regulation.",
+      "measurement": "Post-exposure distress rating (0-10); frequency of use per outing; heart rate or SBP if available; self-reported sense of control.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.75,
+      "priority": "MED",
+      "safety_notes": "If dizziness or faintness occurs, pause and reassess; ensure breathing techniques are performed safely (avoid hyperventilation).",
+      "mapping_query": "C04: Hyperarousal; C05: Cognitive overwhelm; C02: Urge to escape; C01: Noise tolerance."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Graded noise exposure with inhibitory learning in a structured hierarchy",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Develop a therapist-guided, gradual exposure plan starting with moderately noisy environments and progressively increasing difficulty, incorporating inhibitory learning strategies and coping skills training.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Systematic exposure reduces sensitivity to noise over time via inhibitory learning, enlarging the tolerance threshold (C01), decreasing urge to escape (C02), reducing avoidance (C03), and lowering hyperarousal/cognitive load (C04/C05).",
+      "measurement": "Session-by-session distress (0-10) and avoidance data; number of contexts attended per week; self-reported mastery level after each step.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "Exposures should be collaboratively planned and stopped if severe distress or safety concerns arise; monitor for retraumatization and ensure supportive environment.",
+      "mapping_query": "C01: Noise tolerance; C02: Escape urge; C03: Avoidance; C04: Hyperarousal; C05: Cognitive overwhelm."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Assertive communication for accommodations in noisy social settings",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Provide communication scripts and role-plays to request quieter spaces, timing adjustments (e.g., early dining hours), or breaks during social meals or shopping trips.",
+      "targets_criteria_ids": [
+        "C06",
+        "C07",
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Addressing perceived social invalidation (C06) and enabling participation reduces social withdrawal and functional impairment (C07); reducing exposure duration and distress can indirectly improve noise tolerance (C01) and arousal (C04).",
+      "measurement": "Frequency of requests made; perceived validity of responses (0-5); participation rate in social activities; distress during events (0-10).",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Provide non-confrontational scripts; consider safety planning if boundary setting risks conflict or escalation.",
+      "mapping_query": "C06: Perceived social invalidation; C07: Functional interference; C01: Noise tolerance; C04: Hyperarousal."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sensory-environment design adjustments in daily contexts (home, work, stores) to reduce sensory load",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Implement environmental tweaks (lighting, acoustics, clutter reduction, predictable noise patterns) and guide selections of sensory-friendly venues; establish a personal sensory-friendly routine.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Lower sensory input and predictable environments reduce sensory overwhelm (C01), context-driven cognitive load (C05 indirectly), and arousal (C04); improved participation enhances daily functioning (C07).",
+      "measurement": "Number of sensory-friendly adjustments adopted; time spent in sensory-friendly settings; self-reported distress during exposure.",
+      "time_horizon": "8-16 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.7,
+      "priority": "MED",
+      "safety_notes": "Ensure environmental changes do not create unsafe situations (alarm visibility, emergency access).",
+      "mapping_query": "C01: Noise tolerance; C03: Avoidance; C04: Hyperarousal; C07: Daily functioning."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep optimization to reduce baseline arousal and sensory sensitivity",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish a regular sleep-wake schedule, optimize daytime light exposure, wind-down routines, and limit caffeine late in the day; track sleep quality and its relation to daytime noise experiences.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Improved sleep reduces baseline autonomic arousal (C04) and cognitive burden (C05), which in turn can raise noise tolerance (C01).",
+      "measurement": "Sleep diary metrics (bedtime, wake time, duration, awakenings); reported daytime distress during noisy contexts; self-rated alertness.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Monitor for sleep disorders; refer for assessment if snoring, apneas, or excessive daytime sleepiness arise.",
+      "mapping_query": "C04: Hyperarousal; C05: Cognitive overwhelm; C01: Noise tolerance."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Mindfulness-based interoceptive training to rebalance cue reactivity",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce a mindfulness program emphasizing interoceptive awareness and nonjudgmental observation of sensations in noisy contexts (e.g., body scan, breath-focused practices, brief exposure with nonreactivity).",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Cultivates nonreactivity to bodily sensations, reducing hyperarousal (C04) and cognitive overwhelm (C05) while progressively broadening tolerance to sensory input (C01); can lessen perceived invalidation (C06) by improving self-regulation.",
+      "measurement": "Practice minutes per week; in-session distress during simulated noise; 0-10 distress during real exposures; perceived social reactions.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.7,
+      "priority": "MED",
+      "safety_notes": "Mindfulness practices should be initiated with guidance to avoid frustration if progress is slow; adjust pace to tolerance.",
+      "mapping_query": "C01: Noise tolerance; C04: Hyperarousal; C05: Cognitive overwhelm; C06: Perceived invalidation."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Structured social support and belonging interventions to reduce isolation and stigma",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create a brief program that builds a supportive network (peers with similar sensitivities, family education, and social-prescribing links) with regular low-stimulus activities.",
+      "targets_criteria_ids": [
+        "C06",
+        "C07",
+        "C01"
+      ],
+      "mechanism_rationale": "Enhances belonging and reduces stigma-related distress (C06), supports continued participation (C07), and indirectly stabilizes arousal (C04) by improving social context and predictability.",
+      "measurement": "Number of supportive contacts; participation in group activities; self-reported validation and belonging (0-5); distress during noisy events.",
+      "time_horizon": "8-16 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Screen for social dynamics that could increase distress; provide opt-out options and professional facilitation if needed.",
+      "mapping_query": "C06: Perceived social invalidation; C07: Social participation; C01: Noise tolerance."
+    }
+  ]
+}

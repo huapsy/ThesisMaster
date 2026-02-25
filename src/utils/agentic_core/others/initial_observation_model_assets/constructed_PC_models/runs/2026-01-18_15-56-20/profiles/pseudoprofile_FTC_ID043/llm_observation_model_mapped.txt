@@ -1,0 +1,18 @@
+pseudoprofile_id: pseudoprofile_FTC_ID043
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: High frequency of spontaneous thoughts (racing thoughts) -> CLINICAL / DSM-5TR / bipolar and related disorders / other specified bipolar and related disorder / short-duration cyclothymic symptoms (<24 months) / racing_thoughts (conf=0.72)
+- C02: Reduced sustained attention on a single activity -> NON-CLINICAL / AGE-GENERAL / intellectual / mentalagility / concentration / focusedattention / sustainedattention (conf=0.78)
+- C03: High frequency of task-unrelated thoughts during passive tasks -> NON-CLINICAL / AGE-SPECIFIC / unspecified_stage / cognitive_development / thinking_and_reasoning / attention_span / sustained_attention (conf=0.66)
+- C04: Perceived inability to volitionally quiet thoughts -> NON-CLINICAL / AGE-GENERAL / spiritual / innerpeace / tranquility / quietmind / thoughtquieting (conf=0.92)
+- C05: Subjective internal mental 'noise' or buzzing -> CLINICAL / DSM-5TR / anxiety disorders / generalized anxiety disorder / with cognitive rumination / rumination_impairs_concentration_or_task_performance (conf=0.62)
+- C06: Negative impact on enjoyment/engagement due to mental chatter -> NON-CLINICAL / AGE-GENERAL / intellectual / mentalagility / concentration / taskengagement / engagingtasks (conf=0.75)
+
+PREDICTORS:
+- P01: Attention_Systems_Training (BIO) -> UNMAPPED (reason=No explicit BIO predictor leaf for Attention_Systems_Training or attention_training in the provided ontology leaf set. Closest matches are BIO EMA measurement leaves (e.g., ema_attention_quality / attention_quality_rating) or PSYCHO-domain attention interventions, which do not precisely map to the BIO predictor concept.)
+- P02: Mindfulness_Based_Interventions (PSYCHO) -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / open_monitoring_and_meta_awareness / noting_practice_basic (conf=0.72)
+- P03: Sleep_Routines_and_Practices (BIO) -> BIO / sleep_circadian_and_restoration / sleep_devices_and_technologies / tracking_and_feedback / sleep_tracker_wearable (conf=0.65)
+- P04: Behavioral_Activation_and_CBT_Skills (PSYCHO) -> PSYCHO / change_process_and_therapeutic_phases / skill_acquisition / behavioral_planning_and_execution_skills / behavioral_activation_scheduling (conf=0.82)
+- P05: Aerobic_Cardiorespiratory_Exercise (BIO) -> BIO / movement_physical_function_and_somatic_care / aerobic_and_cardiorespiratory_movement / continuous_locomotion / walking (conf=0.66)
+- P06: Structured_Social_Support_and_Belonging (SOCIAL) -> SOCIAL / social_support_and_belonging / network_building_and_maintenance / mapping_and_assessment / belonging_and_community_fit_assessment (conf=0.72)

@@ -1,0 +1,562 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID050",
+  "model_summary": "This initial gVAR-ready observation model aligns five clinically meaningful speech–related criteria (C01–C05) with a compact, modifiable set of five psycho-cognitive predictors (P01–P05). The plan prioritizes momentary (EMA) assessments to maximize within-person variance while minimizing redundancy. Measurement emphasizes 0–9 Likert-like scales (with 0 allowed to capture absence) to support continuous-time VAR estimation. A 14-day EMAs-plus-diary design with four prompts per day provides estimable temporal dynamics, while passive sensing is reserved for future iterations to reduce burden. The selected predictors target word retrieval, cueing strategies, self-talk monitoring, urge-delay tactics, and spaced retrieval training—each anchored to a criterion to enable mechanistic inference about salutogenic shifts in speech engagement and anxiety during speaking. The plan remains non-diagnostic and excludes pharmacological or unsafe suggestions.",
+  "variable_selection_notes": "Criteria C01–C05 were chosen to cover observable speech lapses, aging-related fear, self-consciousness, withdrawal from speaking, and anticipatory worry. The predictor set focuses on concise, high-signal, modifiable cognitive-behavioral and metacognitive strategies with established empirical relevance in linguistic fluency and anxiety regulation. To minimize collinearity, predictors emphasize distinct mechanisms (retrieval facilitation, cue-based practice, self-talk monitoring, urge management, and memory-training). Potential within-person variability is supported by four daily EMA prompts plus a daily diary. Risks include missing prompts and possible measurement fatigue; these are mitigated by concise items, clear anchors, and anchored reminder logic.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:30-10:30",
+        "12:30-13:30",
+        "16:00-17:00",
+        "20:00-21:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 56,
+      "notes": "Four brief, standardized EMA prompts/day capturing each criterion and predictor usage in real-time contexts."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "08:00",
+        "21:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Evening diary captures perceived daily speech engagement, worry, and social exposure."
+    },
+    "passive_streams": {
+      "enabled": false,
+      "aggregation_strategy": "",
+      "notes": "Passive streams not used in this initial model to reduce burden; may be added in a subsequent iteration."
+    },
+    "minimum_total_observations_target": 70,
+    "gvar_readiness_notes": "EMA-based, self-reported predictors and criteria are designed for straightforward alignment with gVAR; no heavy passive sensing required in this initial pass.",
+    "variance_support_notes": "Variables are anchored to within-day fluctuations (speech lapses, affective states, self-consciousness, and engagement) with four daily prompts to maximize within-person variance.",
+    "missingness_risk_notes": "Reminder prompts and brief item design reduce missingness; implement period-specific backfill rules and simple imputation guidelines as a plan B."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Speech-related word-retrieval lapses",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the last speaking moment, did you experience a word retrieval lapse (a momentary blank where you couldn't retrieve a word)?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "0 indicates no lapse; higher values indicate greater lapse severity."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Fear about aging/cognitive decline",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, are you distressed by the thought that speech lapses indicate aging or cognitive decline?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Higher values indicate greater aging-related distress."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Self‑consciousness during conversation",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how self-conscious or embarrassed do you feel about your speech in this moment?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Reduction in verbal engagement",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, to what extent did you speak less than usual in conversations?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Anticipatory worry about speaking",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how worried are you about upcoming speaking opportunities?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Word retrieval strategy practice (cued retrieval strategies during conversation)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / language_and_verbal_cognition / lexical_and_semantic_fluency / access_and_retrieve_words",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Directly reduces retrieval failures by improving lexical access under cognitive load.",
+      "intervention_examples_safe": "Cue-based word retrieval prompts, sentence starters, semantic clustering.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, did you actively practice word retrieval strategies (e.g., cued retrieval, sentence starters) during speaking?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01"
+      ],
+      "expected_effects": [],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Feasible with four prompts/day over 14 days."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Lexical and semantic fluency training (word retrieval practice)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / language_and_verbal_cognition / lexical_and_semantic_fluency",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Shifts lexical access efficiency under cognitive load; builds fluency.",
+      "intervention_examples_safe": "Weekly bitesize drills, semantic category naming.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, did you practice word retrieval training (e.g., letter cue or semantic cue) before or during speaking?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01"
+      ],
+      "expected_effects": [],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.82,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Practical with brief, structured drills."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Self-talk transcription practice (monitoring)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / metacognition_and_attention_based_interventions / self_talk_transcription_practice",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.68,
+      "mechanism_rationale": "Increases awareness of speech patterns; supports cognitive control.",
+      "intervention_examples_safe": "Keep a brief log of self-talk during speaking, then rephrase.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, did you notice and transcribe your self-talk during speaking (e.g., 'I can't remember that word' to 'I can find another word')?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C03"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Moderate burden; keep prompts concise."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Self-talk for delay and choice (urge management)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / cognitive_behavioral_therapies / exposure_and_inhibitory_learning",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.66,
+      "mechanism_rationale": "Inhibits impulsive speech and supports deliberate responding.",
+      "intervention_examples_safe": "Inner cueing to pause before speaking; rephrase.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, did you use self-talk to delay or reframe upcoming speech opportunities?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.78,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": "Slightly higher burden due to dual target influence."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Spaced retrieval practice (memory retrieval strategy)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / cognitive_capacity_enhancement_and_stimulation / cognitive_remediation_and_rehabilitation / *spaced_retrieval_practice",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.72,
+      "mechanism_rationale": "Strengthens memory retrieval under speech load; supports word-finding.",
+      "intervention_examples_safe": "Short spaced-retrieval drills, cue sequences.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, did you engage in spaced retrieval practice for word retrieval (brief retrieval training)?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.83,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Low burden; fits within four prompts/day."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,21000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,18000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,28000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,22000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,28000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,16000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,18000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Word retrieval strategy coaching expected to reduce lapses; short lag.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Fluent retrieval practice expected to reduce lapses.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Self-talk transcription may reduce self-consciousness.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Self-talk for delay may sustain engagement; reduce withdrawal.",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Delay strategies may reduce anticipatory worry.",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Spaced retrieval strengthens word retrieval.",
+      "estimated_relevance_0_1": 0.7
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "low"
+    ],
+    "expected_floor_ceiling_risks": [
+      "moderate"
+    ],
+    "variance_enhancement_suggestions": [
+      "center/scale predictors",
+      "z-score within-person"
+    ],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": "Feasible with 4 EMA prompts/day over 14 days; predictors map to major criteria; risk of missingness moderate."
+  },
+  "safety_notes": "Not a diagnosis. Do not provide medication dosing. If acute risk appears (self-harm, mania/psychosis, severe deterioration), seek immediate professional help."
+}

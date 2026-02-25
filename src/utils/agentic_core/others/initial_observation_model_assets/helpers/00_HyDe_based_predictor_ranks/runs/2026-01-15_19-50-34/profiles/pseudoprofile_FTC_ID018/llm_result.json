@@ -1,0 +1,161 @@
+{
+  "pseudoprofile_id": "CASE-001-PSYCHO_SOCIAL-OUTPUT",
+  "summary": "Case presents an evening-onset state of bleakness with high perceived effort to engage (C01, C04), frequent passive phone use (C03) and avoidance (C05). The following modifiable levers target (1) behavioral activation and structured evening routines to counteract low energy and avoidance, (2) digital boundary management to reduce rumination and reinforce engagement, (3) circadian/sleep optimization to improve energy and mood, (4) social connectedness to counter loneliness, (5) meaning/motivation to increase willingness to engage, (6) mindfulness-based coping to reduce avoidance, and (7) measurement-feedback to drive adaptive pacing. Each lever maps to the relevant criteria and includes simple, feasible metrics for progress over 4–8 weeks.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Evening_Behavioral_Activation_Schedule",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a 2-4 step, low-effort evening activation plan (e.g., 15–25 min walk, 10 min chore, 15 min reading) at a consistent start time, followed by a short reflection. Start with 3 nights per week, then increase gradually. Use a simple checklist to reduce decision fatigue.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05",
+        "C03"
+      ],
+      "mechanism_rationale": "Structured, low-barrier activities provide immediate mood-boosting reinforcement, reduce perceived effort for engagement, and decrease reliance on passive phone scrolling.",
+      "measurement": "Evening activity completion count; self-rated mood (0–10) before/after activities; evening smartphone usage (minutes) captured via phonewidgt or self-report.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Leverage behavioral activation to improve mood in evenings and reduce avoidance; monitor correlations between activity completion, mood, and phone use."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Evening_ScreenTime_Reduction_and_Substitution",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Institute a 60-minute screen-free window before the usual evening mood drop, replacing scrolling with a structured alternative (short puzzle, audiobook, brief social call). Use app timers and a visible “doorway rule” (phone stays outside bedroom).",
+      "targets_criteria_ids": [
+        "C03",
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Reducing cue-induced scrolling lowers distraction and avoidance patterns, creating space for alternative engaging activities and reducing energy barriers.",
+      "measurement": "Daily Evening Screen Time (minutes); number of substitution activities used; post-window mood rating.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Assess impact of screen-time reduction on mood and avoidance behaviors; compare to baseline."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Morning_Light_Exposure_and_Sleep_Wake_Stability",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Promote consistent wake times with 15–30 minutes of morning bright-light exposure or equivalent light therapy when available; limit bright light 1–2 hours before bedtime; aim for consistent bed/wake times across 5–7 days.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C03"
+      ],
+      "mechanism_rationale": "Circadian alignment improves daytime energy and mood, reducing evening heaviness and the perceived need for avoidance-driven scrolling.",
+      "measurement": "Wake time consistency (hours) across 7 days; minutes of morning light exposure; next-day mood (0–10).",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Track circadian markers and mood to evaluate circadian-based mood improvements."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Consistent_Sleep_Routine_and_Sleep_Environment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish fixed 10–15 minute pre-sleep wind-down with dim lighting, reduced caffeine after 2pm, cool room, and a comfortable sleep setup; maintain same bedtime + wake time on at least 5 days/week.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C03"
+      ],
+      "mechanism_rationale": "Improved sleep quality and regularity reduces evening distress and energy barriers, supporting engagement in non-screen activities.",
+      "measurement": "Bedtime/wake-time consistency; sleep duration and sleep onset latency (subjective or via device); evening mood.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Monitor sleep metrics and mood to assess impact of sleep routine optimization."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Evening_Social_Engagement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Schedule 1–2 short, meaningful social interactions per week (e.g., phone call, walk with a friend, or family chat); consider a weekly small group activity or co-creative task to foster belonging.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Social connectedness provides positive reinforcement, reduces isolation, and lowers perceived energy cost by sharing plans with others.",
+      "measurement": "Number of evening social interactions; perceived social support; post-interaction mood (0–10).",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Evaluate link between evening social engagement and mood/avoidance."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Meaning_Motivation_Enhancement",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Weekly values exploration and small meaning-driven tasks in evenings (e.g., writing a brief future-oriented note, planning a small helpful act); align nightly activities with personal values.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Meaning-making increases intrinsic motivation and willingness to engage, reducing perceived effort and avoidance in the evenings.",
+      "measurement": "Frequency of meaning-driven tasks; value-clarity rating; evening mood (0–10).",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Assess whether value-aligned activities boost mood and reduce avoidance tendencies."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Mindfulness_Acceptance_and_Coping_Skills",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach 5–7 minute daily mindfulness/ACT-informed practices to cultivate nonjudgmental awareness of evening distress; practice could be paired with light stretching or breathwork.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Acceptance-based coping reduces experiential avoidance and improves cognitive flexibility, making it easier to initiate actions despite distress.",
+      "measurement": "Daily mindfulness practice adherence; momentary distress tolerance; mood after practice.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Examine how mindfulness/ACT skills influence evening mood and avoidance patterns."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Self_Monitoring_and_Feedback_System",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Implement a simple daily log (mood, energy, activities, and phone time) with a weekly feedback session or automated summaries; share progress with a trusted supporter if possible.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Regular feedback supports self-regulation, helps identify patterns, and allows timely adjustment of strategies.",
+      "measurement": "Daily mood and energy scores; evening activity count; screen-time metrics; weekly summary change.",
+      "time_horizon": "4–12 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Use objective feedback to adapt intervention plan and track mood-behavior relationships."
+    }
+  ]
+}

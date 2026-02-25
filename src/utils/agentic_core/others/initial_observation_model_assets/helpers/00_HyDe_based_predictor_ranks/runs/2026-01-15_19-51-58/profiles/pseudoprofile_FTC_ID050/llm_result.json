@@ -1,0 +1,131 @@
+{
+  "pseudoprofile_id": "CASE-PROFILE-001",
+  "summary": "The case presents five modifiable levers in a sequence: speech word-retrieval lapses (C01) trigger aging-related fear (C02), which heightens self-consciousness during talking (C03) and reduces spoken engagement (C04), with anticipatory worry (C05) maintaining a cycle. Targeting BIO-level cognitive resources, psycho-emotional regulation, and social-environmental supports can plausibly reduce lapses, lower distress about aging, and restore speaking engagement. Interventions are chosen as changeable predictors (levers) across Bio/Psycho/Social domains and their interactions, with practical measurement approaches and clear links to the specified criteria. Safety monitoring is included but no high-risk signals are evident in the payload.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Cognitive_Offloading_External_Aids_Usage",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Introduce and train in-use of external language aids and cue banks (pre-constructed word banks, topic cue cards, and phrase banks) activated in real time during conversation to reduce retrieval lapses and moments of blanking.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "External aids reduce cognitive load during speech, decreasing episode frequency of word retrieval failures and associated stress, which in turn lessens self-monitoring and avoidance.",
+      "measurement": "Frequency of word retrieval lapses per 20-minute conversation; usage logs of cue banks; self-rated ease of conversation on a 0-10 scale.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "Low-risk; ensure comfortable integration to avoid over-reliance on aids in social contexts; monitor for reduced spontaneous speech.",
+      "mapping_query": "Link predictor to C01: reduce word retrieval lapses via external language aids."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Verbal_Fluency_Training_Program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured verbal fluency and word-finding training (short daily drills, semantic/phonemic cueing, and rapid-retrieval exercises) delivered 3–5 times weekly.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Targeted practice strengthens lexical access and speech fluency, lowering lapse frequency and related distress.",
+      "measurement": "Pre/post 2–3 standardized word-finding tasks; self-reported lapse frequency in daily conversations; clinician-rated speech fluency.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "No pharmacology; monitor frustration or fatigue from practice; adjust intensity as needed.",
+      "mapping_query": "Link predictor to C01: improve word retrieval through fluency training."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness_Speech_Anxiety_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Mindfulness-based stress reduction and acceptance-based communication strategies (breathing, labels for worry, nonjudgmental monitoring) during speaking situations.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Regulates anticipatory worry (C05) and reduces negative self-evaluation (C03) by decoupling lapses from personal worth, lowering distress about aging (C02).",
+      "measurement": "State anxiety during speaking tasks (VAS or STAI-S); self-consciousness ratings post-speech; frequency of speaking in social tasks.",
+      "time_horizon": "6–10 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Proceed with standard mindfulness safety guidance; monitor for dissociation in some individuals.",
+      "mapping_query": "Link predictor to C02 and C03: reduce aging-related fear and self-consciousness via mindfulness."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Graded_Speaking_Exposure_and_Behavioral_Activation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "A structured exposure plan: short speaking tasks with gradual difficulty in safe social contexts, paired with behavioral activation to restore speaking routine.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Incremental exposure reduces avoidance (C04) and lowers anticipatory worry (C05) by proving safety and competence in speaking.",
+      "measurement": "Number of speaking opportunities completed weekly; self-efficacy in speaking scale; lapse rate during exposure tasks.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Ensure gradual pacing; monitor for increased distress during early exposures; have coping plans.",
+      "mapping_query": "Link predictor to C04 and C05: reduce withdrawal and anticipatory worry via graded exposure."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep_Quality_and_Circadian_Synchronization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene optimization (consistent bedtimes, light exposure in morning, reducing screens before bed) to support cognitive function and speech retrieval.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Improved sleep supports cognitive retrieval and emotional regulation, reducing lapses and aging-related distress.",
+      "measurement": "Sleep diary metrics (sleep duration, efficiency); daytime sleepiness scale; lapses per conversation.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Screen for sleep disorders; coordinate with healthcare providers if persistent sleep problems arise.",
+      "mapping_query": "Link predictor to C01 and C02: enhance retrieval and mood via sleep quality."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Social_Support_and_Belonging_Enhancement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Strengthen belonging and reduce social isolation through regular social connections, supportive conversations about aging, and structured speaking-partner activities.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Social encouragement and feedback reduce self-monitoring, increase willingness to speak, and blunt aging-related fears.",
+      "measurement": "Frequency of speaking in social contexts; perceived social support scale; self-consciousness ratings after conversations.",
+      "time_horizon": "4–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Assess for boundary setting and privacy; ensure inclusive, non-judgmental social environments.",
+      "mapping_query": "Link predictor to C03, C04, C05: boost engagement and reduce self-consciousness via social support."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Micronutrient_Status_Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Evaluate and optimize micronutrient status (e.g., vitamin B12/D, omega-3 fatty acids, iron) through dietary adjustments and safe supplementation per guidelines.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Adequate micronutrient status supports cognitive function and mood regulation, potentially reducing lapses and aging-related distress.",
+      "measurement": "Baseline and follow-up blood markers (as available), dietary intake logs, lapses in speech.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "LOW",
+      "safety_notes": "Do not self-prescribe; coordinate with medical professional for testing and personalization.",
+      "mapping_query": "Link predictor to C01 and C02: optimize cognition and mood via micronutrient balance."
+    }
+  ]
+}

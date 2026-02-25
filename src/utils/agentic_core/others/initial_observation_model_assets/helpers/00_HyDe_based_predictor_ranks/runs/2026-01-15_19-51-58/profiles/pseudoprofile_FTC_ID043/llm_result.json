@@ -1,0 +1,134 @@
+{
+  "pseudoprofile_id": "CASEBeeBees_Brain_RacingThoughts_Profile001",
+  "summary": "The case presents rapid, continuous cognitive activity with difficulty sustaining attention, high task-unrelated thought, and distress from mental noise. Seven modifiable BIO-PSYCHO-SOCIAL levers are proposed, each designed as a changeable predictor to target C01–C06 individually or in combination. Levers span attention training (BIO), cognitive offloading (BIOxPSYCHO), mindfulness (PSYCHO), CBT-based thought management (PSYCHO), sleep and circadian optimization (BIO), aerobic exercise (BIO), and structured social engagement (SOCIAL). Each lever maps to specific criteria, includes simple metrics, a feasible time horizon, and an estimated impact to support prioritization while remaining safe and practical.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Attention_Systems_Training",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Daily 10–15 minute attention-control training using graded tasks and focus cues to improve sustained attention and reduce mind-wandering during ongoing activities.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Strengthens top-down executive attention networks, reducing rapid attentional shifts and improving the ability to maintain focus on a single task.",
+      "measurement": "On-task duration during a standard 15-minute viewing task; self-rated focus 0–10; optional brief SART-like task performance change.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; monitor for fatigue and adjust session length if needed.",
+      "mapping_query": "Map S01 to C02 using Attention_Systems_Training (BIO). Evaluate changes in sustained attention during tasks."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "External_Thought_Logging_and_Offloading",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a simple thought-recording routine (brain-dump journaling or voice memo) 3 times daily and during passive tasks to externalize mental content.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Externalizing thoughts reduces internal cognitive load, lowers perceived noise, and decreases task-unrelated thinking by providing a cognitive offload for racing thoughts and distracting content.",
+      "measurement": "Number of thoughts logged per day; self-rated cognitive noise 0–10; proportion of time spent on task during short passive tasks (self-report).",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Targets C01, C03, C04; utilizes External_thought_logging and_offloading (BIOxPSYCHO) to reduce internal cognitive load."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness_and_Attentional_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Daily brief mindfulness practice (5–10 minutes) focusing on nonjudgmental awareness of thoughts to reduce rumination and improve cognitive clarity.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Mindfulness reduces automatic mental chatter and enhances cognitive control and regulation, facilitating better engagement with activities.",
+      "measurement": "Daily mindfulness rating 0–10; brief cognitive flexibility/rigidity check; self-reported engagement during activities 0–10.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Targets C03, C04; implemented via Mindfulness_Based_Interventions (ID170) to reduce mental chatter and enhance engagement."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Cognitive_Behavioral_Skills_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured CBT-based skills: cognitive restructuring to challenge racing thoughts and behavioral activation to re-engage with meaningful activities.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Alteration of thought patterns reduces frequency and distress of racing thoughts; behavioral activation improves task engagement and reduces distress-related rumination.",
+      "measurement": "Frequency of cognitive restructuring use per day; BA log completeness (days with planned activities); self-rated distress 0–10.",
+      "time_horizon": "6–10 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.58,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Targets C01, C04, C06; CBT Foundations (ID81–82) applied to modulate thought content and activity engagement."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep_Hygiene_and_Circadian_Regularity",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured sleep hygiene plan with consistent bed/wake times, reduced evening screen exposure, and optimized sleep environment; track with a simple diary.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Improved sleep quality and regular circadian rhythm enhance daytime attention control and reduce cognitive noise, improving overall cognitive clarity.",
+      "measurement": "Sleep duration and efficiency (daily diary); subjective sleep quality 0–10; post-sleep on-task time and cognitive noise rating.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.92,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Targets C02, C03; Sleep_Circadian_and_Restoration (ID60–64) implemented to improve daytime cognition."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Regular_Aerobic_Exercise_Program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Begin a progressive aerobic program (e.g., 150 minutes/week) with wearable-tracked activity and gradual intensity increases.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Aerobic exercise enhances executive functioning and metabolic efficiency, reducing cognitive noise and improving sustained attention.",
+      "measurement": "Weekly exercise minutes; self-reported on-task focus during tasks; subjective cognitive noise 0–10.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Medical clearance recommended if indicated; tailor intensity to fitness level.",
+      "mapping_query": "Targets C02, C05; Movement_Physical_Function_and_Somatic_Care (ID27) used to support cognitive improvements."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social_Support_and_Belonging_Engagement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured weekly social interactions with a trusted person or group, plus accountability partnerships to reduce rumination and enhance engagement in daily activities.",
+      "targets_criteria_ids": [
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Social engagement provides cognitive and emotional support, provides alternative cognitive load, and enhances motivation and engagement with activities.",
+      "measurement": "Weekly count of social interactions; perceived social support scale; self-rated engagement during activities 0–10.",
+      "time_horizon": "4–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Targets C03, C06; aligns with Social_Support_and_Belonging (ID198–200) to reduce cognitive chatter through social engagement."
+    }
+  ]
+}

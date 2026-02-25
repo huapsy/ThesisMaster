@@ -1,0 +1,154 @@
+{
+  "pseudoprofile_id": "CASE_ALC_COMPLAINT_2026_01",
+  "summary": "The case shows a pattern of elevated drinking (C01) driven by anticipatory urges (C02), perceived loss of voluntary control (C03), use as evening coping (C04), morning functioning impact (C05), and worry about drinking (C06). Interventions should target (1) urge awareness and delay tactics, (2) precommitment and boundary setting around drinking, (3) replacement coping strategies for evenings, (4) skills to sustain control over urges, (5) sleep/morning restoration to improve mornings, (6) motivational addressing of worry about patterns, (7) social accountability and support, and (8) data-driven personalization with feedback. Solutions span psycho- and social-based levers with some bio-psychosocial interactions, emphasizing modifiability, safety, and measurable outcomes over a 4–24 week horizon. Each lever maps to specific criteria (C01–C06) and uses simple, implementable metrics to track impact.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Urge_and_Consumption_Self_Monitoring",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured self-monitoring of drinking, urge intensity, and impulse-control cues with a daily plan to delay first drink and substitute with a low-/non-alcoholic option.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Increased awareness of triggers and cravings reduces automaticity of drinking; recording urges creates a cognitive separation between impulse and action, enabling early choice and activation of coping strategies.",
+      "measurement": "Daily logs of drinks, urge intensity (0–10), time to first drink; weekly average drinks; urge frequency per day.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "No specific safety concerns; provide crisis/support contact if cravings become overwhelming or withdrawal symptoms emerge.",
+      "mapping_query": "Targets C01 and C02 via self-monitoring and urge logging (S01)."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Precommitment_and_Plan_Implementation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Precommitment to a fixed drinking limit and scheduled drink-free evenings, with required adherence checks and automatic reminders.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Precommitment reduces automatic drinking by creating external constraints and increasing readiness to choose alternatives before cravings arise.",
+      "measurement": "Adherence rate to limit on planned days; number of days with any drinking; weekly average drinks.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for withdrawal or compensatory behaviors; offer support if adherence becomes burdensome.",
+      "mapping_query": "S02 targets C01 through precommitment and boundary-setting."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Evening_Coping_Strategy_Training",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Training in alternative evening coping strategies (relaxation, mindfulness, non-alcoholic beverages) to unwind after work, reducing reliance on alcohol for relaxation.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Providing physiological and psychological coping alternatives lowers the perceived need to use alcohol as a post-work coping mechanism.",
+      "measurement": "Usage frequency of coping strategies after work; number of alcohol-free evenings; self-reported stress reduction.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure practices are accessible and safe (avoid triggering anxiety without support).",
+      "mapping_query": "S03 targets C04 via replacement coping strategies."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Urge_Surfing_and_Coping_Skills_Training",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Skill-building in urge surfing, cognitive coping, and inhibitory control to tolerate urges and prevent impulsive drinking episodes.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Enhancing cognitive and physiological tolerance to cravings strengthens voluntary control during high-risk moments and reduces perceived loss of choice.",
+      "measurement": "Craving intensity and duration during attempts to delay; frequency of impulsive drinking episodes; perceived control scale.",
+      "time_horizon": "4–10 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Provide rapid access to support if cravings escalate; may require booster sessions.",
+      "mapping_query": "S04 targets C02 and C03 through urge surfing and coping skills."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep_Hygiene_and_Morning_Energy_Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Improve sleep quality and morning energy via sleep hygiene, hydration, and light exposure to lessen morning heaviness linked to drinking.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Better sleep and hydration improve morning functioning and reduce perceived heaviness after drinking nights.",
+      "measurement": "Morning energy/alertness score; sleep duration/quality (brief sleep diary); next-day functioning indicators.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.52,
+      "priority": "MED",
+      "safety_notes": "Monitor for sleep disorders; if persistent insomnia consult clinician.",
+      "mapping_query": "S05 targets C05 via sleep/hydration strategies."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Motivational_Interviewing_for_Drinking_Concerns",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Brief Motivational Interviewing to address worry about drinking and enhance readiness for change.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Exploration of ambivalence and strengthening intrinsic motivation reduces worry-driven avoidance and supports proactive change.",
+      "measurement": "Change talk frequency; readiness ruler scores; reported concern about drinking over time.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Standard MI safety considerations; ensure supportive, non-judgmental delivery.",
+      "mapping_query": "S06 targets C06 via motivational interviewing."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social_Support_Accountability_and_Partnerships",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage a trusted accountability partner or group for regular check-ins, supportive feedback, and shared non-drinking activities.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Social accountability reduces drinking opportunities and strengthens adherence to planned strategies; social norms support change and help manage urges.",
+      "measurement": "Frequency of accountability contacts; participation in alternative social activities; days with alcohol use; subjective support rating.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure accountability partners respect boundaries and provide non-judgmental support.",
+      "mapping_query": "S07 targets all criteria via social support and accountability."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Personalization_Monitoring_and_Data_Feedback",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Digital self-monitoring with feedback loops (logs, wearable data when available) to tailor interventions and provide real-time adjustments.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Personalized feedback enhances insight and engagement, enabling timely adjustments across domains.",
+      "measurement": "Adherence to monitoring; trend changes in drinks, urges, mood, sleep, and functioning; user feedback on usefulness.",
+      "time_horizon": "8–24 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Ensure data privacy; provide opt-out options and guard against over-monitoring stress.",
+      "mapping_query": "S08 targets all criteria via data-driven personalization and feedback."
+    }
+  ]
+}

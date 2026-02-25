@@ -1,0 +1,200 @@
+{
+  "pseudoprofile_id": "CASE_SLEEP_RUMINATION_PROFILE_001",
+  "summary": "The case presents nighttime cognitive arousal with content-specific replay and anticipatory worry, leading to delayed sleep onset and morning irritability. A set of modifiable levers across biological, psychological, and social/environmental domains (and their interactions) is proposed to reduce nocturnal hyperarousal, reframe pre-sleep cognition, regularize sleep timing, and improve morning mood. Each lever targets one or more of the operationalized criteria (C01–C05) and includes feasible implementation, measurable outcomes, and a clear mechanism of change.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Fixed, structured wind-down routine with consistent bedtime and pre-sleep ritual (screen-offs, breathing/relaxation, dim lighting)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a 60-minute pre-sleep wind-down: screen-off, 10 minutes of diaphragmatic breathing or progressive muscle relaxation, dim lighting, and a brief cognitive-to-physiological cueing (e.g., warm bath). Schedule any worry to a designated ‘worry log’ only during a set window earlier in the evening.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Provides predictable physiological cues to reduce overall arousal while creating a cognitive boundary for intrusive replay and future-oriented worry; supports earlier sleep onset by aligning circadian cues with pre-sleep behavior.",
+      "measurement": "Bedtime timestamp; objective sleep onset latency via diary; frequency/duration of nighttime replay (C01 episodes); nightly worry intensity (0–10); next-day mood/irritability (0–10).",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; monitor for persistent insomnia (>4 weeks) or worsening mood; escalate to clinician if sleep remains severely impaired.",
+      "mapping_query": "C01, C02, C03, C04, C05 (wind-down routine aimed at reducing nocturnal replay, worry, arousal, delayed sleep onset, and morning irritability)"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Cognitive Behavioral Therapy for Insomnia (CBT-I) tailored to nighttime rumination and anticipatory worry",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver CBT-I components focusing on stimulus control, sleep restriction as indicated, cognitive restructuring, and a scheduled worry time. Include behavioral experiments to test beliefs about sleep safety and prepare tomorrow’s tasks earlier in the evening.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Addresses both content (rumination) and arousal (cognitive and physiological) while strengthening sleep drive and regularity, leading to improved sleep onset and reduced morning irritability.",
+      "measurement": "Sleep diary metrics (latency, efficiency); frequency of rumination episodes (C01); daily worry log (C02); morning irritability scale (0–10); PSQI or sleep quality score.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "Monitor stress response; adjust CBT-I pace if distress increases; escalate if suicidality emerges.",
+      "mapping_query": "C01–C05 (CBT-I targets nocturnal replay, anticipatory worry, hyperarousal, delayed sleep onset, and morning irritability)"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness-based sleep interventions (MBIs) to reduce cognitive hyperarousal",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Enroll in an 8-week MBIS or ACT-for-sleep program emphasizing nonjudgmental awareness of thoughts, body scans, and breath-based regulation to decenter intrusive content and calm arousal.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Fosters decentering from intrusive past-conversation replay and reduces subjective arousal, facilitating easier sleep onset and calmer mornings.",
+      "measurement": "Mindfulness/of acceptance scales (e.g., FFMQ/MAAS); nightly arousal rating (0–10); sleep onset latency; morning mood.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "No major safety concerns; ensure practice in a safe context; consider referral if dissociation or distress occurs.",
+      "mapping_query": "C03, C02, C01 (MBIs reduce hyperarousal and intrusive thoughts)"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Evening thought diary with structured cognitive offloading",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce a 5–10 minute ‘brain dump’ journaling at a fixed time before the wind-down period (and a brief plan for tomorrow). Use looks at content replay and worries, then reframe or postpone to a ‘worry window’.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Externalizes intrusive thoughts and reduces cognitive load before bed, decreasing likelihood of bedtime rumination and hyperarousal.",
+      "measurement": "Frequency/duration of brain-dump entries; pre-sleep worry intensity; late-evening rumination episodes; next-day irritability.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure journaling is non-triggering; avoid rumination without redirection to problem-solving; seek support if distress worsens.",
+      "mapping_query": "C01, C02, C03 (thought diary targets replay, worry, and arousal)"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Morning light exposure and daylight optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Engage in 20–30 minutes of bright light exposure soon after waking (outdoor time preferred; consider light therapy box if needed). Avoid bright light near bedtime.",
+      "targets_criteria_ids": [
+        "C04",
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Strengthens circadian alignment, reduces late-night wakefulness propensity, and improves morning mood/reactivity, thereby reducing sleep onset delays and irritability.",
+      "measurement": "Wake time consistency; time in bright light; sleep onset latency; morning irritability ratings.",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Bipolar spectrum caution with light exposure; monitor for effects on mood instability.",
+      "mapping_query": "C04, C03, C05 (light improves circadian timing, arousal, and morning mood)"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Evening caffeine and stimulant scheduling",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Eliminate caffeine after 2 pm; avoid other stimulants in late day; monitor effects of withdrawal; adjust meals to avoid late heavy intake.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces physiological arousal and sleep latency, contributing to earlier sleep onset and improved morning mood.",
+      "measurement": "Caffeine intake log; sleep onset latency; next-day irritability.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Watch for caffeine withdrawal headaches or fatigue; ensure alternate strategies for alertness.",
+      "mapping_query": "C03, C04, C05 (evening intake affects arousal, sleep onset, and morning mood)"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Sleep environment optimization (darkness, temperature, noise)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Upgrade sleep environment: blackout curtains, maintain 65–68F, white noise or soft sound, device-free 60 minutes before bed, remove distracting stimuli.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces sensory arousal and environmental disruptions, facilitating calmer pre-sleep state and faster sleep onset.",
+      "measurement": "Bedroom conditions log; sleep onset latency; subjective sleep quality; morning mood.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "If room changes disrupt sleep ecology (noise complaints, temperature discomfort), adjust and re-check.",
+      "mapping_query": "C03, C04 (environmental optimization lowers arousal and supports sleep onset)"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Interpersonal boundary and morning routine redesign to reduce irritability",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Institute a collaborative morning routine with a calm-start plan (limit negative talk, set expectations, and include 5 minutes of shared space for positive check-ins). Train brief communication boundaries.",
+      "targets_criteria_ids": [
+        "C05",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Improved social context and reduced morning stress reactivity, potentially mitigating early-morning hostility and neurochemical arousal from negative social cues.",
+      "measurement": "Morning mood and irritability ratings; perceived social support; frequency of negative morning interactions.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Ensure fairness in boundary setting; avoid conflict escalation; involve trusted support if necessary.",
+      "mapping_query": "C05, C02, C03 (social boundary and routine affect irritability, worry, and arousal)"
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Digital self-monitoring and feedback loop (sleep/mood diary with weekly review)",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Use a simple app or diary to log bedtimes, sleep onset latency, awakenings, daytime mood, and cognitive arousal; generate weekly trend reports and micro-goals.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Facilitates measurement-based care, enabling timely adjustments to targets and reinforcing progress; increases self-awareness of arousal patterns.",
+      "measurement": "Daily sleep metrics; weekly trend reports; adherence to routines; mood/arousal indices.",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Protect data privacy; ensure user consent; avoid over-monitoring which may increase anxiety.",
+      "mapping_query": "C01–C05 (digital monitoring informs all target criteria)"
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Regular daytime aerobic activity to modulate arousal and sleep pressure",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Engage in 30–45 minutes of moderate aerobic exercise most days, preferably earlier in the day; avoid intense workouts close to bedtime.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Enhances sleep homeostasis and reduces evening cognitive arousal, contributing to earlier sleep onset and improved next-day mood.",
+      "measurement": "Exercise logs; sleep onset latency; morning irritability; perceived energy.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Medical clearance if new to exercise; monitor for injuries or excessive fatigue.",
+      "mapping_query": "C03, C04 (physical activity reduces arousal and improves sleep timing)"
+    }
+  ]
+}

@@ -1,0 +1,192 @@
+{
+  "pseudoprofile_id": "CASE_EPISODIC_DISSOCIATION_V1",
+  "summary": "The case describes episodic perceptual alterations (unreal/dissociation-like experiences) that co-occur with stress and include a subjective sense of not being fully present and acute distress. The following candidate levers are modifiable predictors spanning BIO, PSYCHO, and SOCIAL domains (and their interactions). Each lever is designed to plausibly reduce episode frequency and distress, improve presence during episodes, and enhance functioning, with concrete measurement plans and pragmatic feasibility considerations. Levers are prioritized for feasibility and expected impact given the current state described.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep Quality and Circadian Regularization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish a consistent sleep-wake schedule, optimize the sleep environment (dark, quiet, comfortable), limit caffeine/alcohol late in the day, and optimize morning light exposure to stabilize circadian rhythm.",
+      "targets_criteria_ids": [
+        "C08",
+        "C02",
+        "C03",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Improved sleep reduces baseline neurophysiological arousal and stress-reactivity, which are linked to dissociation-like experiences. Better sleep may decrease episode likelihood and the distress response within episodes, as well as enhance presence in daily life.",
+      "measurement": "Sleep diary (bedtime, wake time, sleep onset latency, awakenings); optional actigraphy; weekly counts of episodes and self-rated distress during episodes (0-10); presence rating during episodes (0-10).",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for signs of hypersomnia or sleep disruption; adjust schedule as needed to avoid social/occupational impairment.",
+      "mapping_query": "Map Sleep Regularization to C08 (baseline stress), C02 (stress trigger), C03 (presence during episodes), C04 (distress during episodes), and C01 (episode occurrence."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Grounding and Presence-Skills Training (5-4-3-2-1; paced breathing)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Teach and practice concise sensory-grounding routines and present-moment awareness techniques to anchor the individual during episodes and in daily life.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C01",
+        "C02",
+        "C08"
+      ],
+      "mechanism_rationale": "Grounding and present-moment attention reduce subjective dissociation, lower acute distress, and may interrupt the escalation of episodes by enhancing cognitive/effective regulation at triggers (stress cues).",
+      "measurement": "Weekly self-report of presence during episodes (0-10); episode frequency count; distress rating during episodes (0-10); home practice adherence (days/week).",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "Ensure grounding is practiced in safe contexts; avoid techniques that could increase anxiety if used excessively; provide crisis plan if distress escalates.",
+      "mapping_query": "Map grounding to C03 (presence), C04 (distress), C01 (episodic occurrence), and C02 (stress trigger)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "CBT-Based Stress Management and Activation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a CBT-informed stress management program: identify stress patterns, apply cognitive restructuring for stressors, schedule regular activation/behaviors, and plan coping strategies for episode-related anxiety.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C01",
+        "C08",
+        "C05"
+      ],
+      "mechanism_rationale": "Reducing cognitive appraisal distortion and increasing engagement in meaningful activities lowers stress reactivity and peri-episode distress, which should reduce frequency and perceived severity of episodes.",
+      "measurement": "Perceived Stress Scale (weekly); episode frequency; distress during episodes; avoidance or functional impacts (if reported).",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "If client experiences increasing anxiety or depressive symptoms, adjust exposure intensity and ensure supportive supervision; provide crisis resources if needed.",
+      "mapping_query": "Map to C02 (stress trigger), C04 (distress), C01 (episode occurrence), C08 (baseline stress)."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "ACT-Informed Values Clarification and Psychological Flexibility",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Apply ACT principles to clarify values, commit to value-driven actions, and use cognitive defusion to reduce experiential avoidance around episodes and stress.",
+      "targets_criteria_ids": [
+        "C04",
+        "C02",
+        "C07",
+        "C05",
+        "C08"
+      ],
+      "mechanism_rationale": "Increasing psychological flexibility reduces distress in response to dissociation-like episodes and stress, improves tolerance of uncertainty, and may reduce fixation on unreal experiences.",
+      "measurement": "AAQ-2 (psychological flexibility); values-congruence check-ins; episode distress and frequency; self-reported meaning/purpose scales.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Monitor for potential frustration if values conflicts arise; provide supportive coaching to reframe challenges as growth opportunities.",
+      "mapping_query": "Map to C04 (distress), C02 (stress trigger), C07 (trigger pattern recognition), C08 (stress baseline)."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Enhanced Social Support and Belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Strengthen social connectedness through regular contact with trusted individuals, social activities, and community-based social prescribing as feasible.",
+      "targets_criteria_ids": [
+        "C08",
+        "C05",
+        "C04",
+        "C03"
+      ],
+      "mechanism_rationale": "Social support lowers stress reactivity, provides coping resources, and reduces isolation, which may decrease episode frequency and distress.",
+      "measurement": "Social connectedness scale; frequency of social interactions (days/week); episode frequency; distress during episodes.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "Be mindful of boundaries and privacy; tailor social activities to comfort level and preferences; monitor for social withdrawal.",
+      "mapping_query": "Map to C08 (baseline stress), C05 (frequency via social engagement), C04 (distress), C03 (presence through social context)."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Regular Physical Activity for Stress Regulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a gradual, sustainable exercise plan (e.g., aerobic activity ~150 minutes/week, plus strength training) to improve stress resilience and brain health.",
+      "targets_criteria_ids": [
+        "C08",
+        "C02",
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Physical activity modulates neurochemical systems and reduces physiological arousal, lowering vulnerability to dissociative episodes and improving mood during stress.",
+      "measurement": "Weekly exercise minutes; episode frequency; distress during episodes; sleep quality (optional).",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Progress gradually; screen for cardiovascular risk; adjust intensity as needed; encourage medical clearance if new symptoms appear.",
+      "mapping_query": "Map to C02 (stress trigger), C04 (distress), C01 (episodic occurrence), C08 (baseline stress)."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Diet, Hydration, and Gut-Brain Axis Support",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Adopt regular, balanced meals; increase fiber and omega-3 intake where appropriate; maintain hydration; consider micros/food sources that support mood and energy.",
+      "targets_criteria_ids": [
+        "C08",
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Nutrition modulates energy, mood, and inflammation, potentially reducing susceptibility to stress-induced perceptual alterations and improving cognitive regulation.",
+      "measurement": "24-hr dietary logs (weekly summaries); episode frequency; distress during episodes; energy/mood ratings.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.3,
+      "priority": "MED",
+      "safety_notes": "Avoid extreme diets; consult a nutrition professional for individualized plans; monitor for nutritional deficiencies.",
+      "mapping_query": "Map to C08 (baseline stress), C01 (episode occurrence), C04 (distress)."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Digital Self-Monitoring and Feedback Loop",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use a simple app or digital journal to log episodes, associated stress levels, sleep, and context; generate periodic feedback to guide self-management and clinician review.",
+      "targets_criteria_ids": [
+        "C08",
+        "C02",
+        "C01",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Enhanced self-monitoring increases self-awareness, improves timing of coping strategies around triggers, and provides data to tailor intervention.",
+      "measurement": "Adherence to logging (days/week); correlation analyses between stress/sleep and episodes; changes in episode frequency/distress.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.35,
+      "priority": "MED",
+      "safety_notes": "Protect data privacy; ensure user-friendly interfaces to maximize engagement; provide option to share data with clinician.",
+      "mapping_query": "Map to C08 (stress baseline), C02 (stress trigger), C01 (episode occurrence), C03 (presence), C04 (distress), C05 (frequency)."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Psychoeducation About Dissociative Experiences",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Provide psychoeducation modules that normalize dissociation-like experiences, outline triggers, and offer practical coping strategies to reduce fear and avoidance.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01",
+        "C03",
+        "C02"
+      ],
+      "mechanism_rationale": "Knowledge and normalization reduce fear-related amplification and improve engagement with other coping strategies; may reduce distress and improve willingness to apply grounding/activation techniques.",
+      "measurement": "Knowledge checks; self-reported distress during episodes; frequency; perceived control.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.25,
+      "priority": "MED",
+      "safety_notes": "Ensure content is trauma-informed; provide crisis resources if distress worsens; avoid triggering materials.",
+      "mapping_query": "Map to C04 (distress), C01 (episode occurrence), C03 (presence), C02 (stress trigger)."
+    }
+  ]
+}

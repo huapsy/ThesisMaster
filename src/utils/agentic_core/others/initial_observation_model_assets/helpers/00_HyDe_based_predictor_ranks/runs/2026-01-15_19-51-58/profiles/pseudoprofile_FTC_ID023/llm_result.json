@@ -1,0 +1,168 @@
+{
+  "pseudoprofile_id": "case_finan_mhealth_multi_modal_v1",
+  "summary": "The case presents persistent, intrusive financial worry with catastrophic expectations and chronic low-level arousal, all framed by perceived insecurity about meeting basic needs. A multi-domain, modifiable set of BIO-PSYCHO-SOCIAL levers is proposed to (1) reduce rumination and catastrophic thinking, (2) regulate arousal and sleep, (3) improve practical financial coping and resource access, and (4) bolster social support and self-efficacy. Interventions are designed to be atomic, actionable levers that can be combined, sequenced, and adapted over a 2–6 week horizon, with simple, scalable metrics to monitor impact on the targeted criteria (C01–C06). Safety monitoring remains a default consideration, with escalation to professional help if acute risk emerges.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Worry_Time_and_Cognitive_Restructuring_Log",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement structured worry time (e.g., 20–30 minutes daily) and maintain a thought-record log to capture triggers, evidence, and alternative outcomes, aiming to reduce intrusion and perceived uncontrollability of financial thoughts.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Directly targets high-frequency intrusive financial worry by scheduling attention, externalizing thoughts, and practicing cognitive reappraisal to reduce uncontrollable rumination and distress.",
+      "measurement": "Daily worry episodes count, average distress (0–10), proportion of days with worry log completed.",
+      "time_horizon": "Short-term (2–4 weeks)",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Recurrent, frequent thoughts about money that intrude on daily life and are experienced as difficult to control."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Structured_Budgeting_and_Automated_Savings",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create a simple 30-day budget with automated transfers to a small financial buffer and proactive expense reminders to reduce decision fatigue and improve perceived financial control.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Improves perceived control over finances by reducing daily financial decisions, increasing predictability, and creating a safety buffer to buffer worry about expenses.",
+      "measurement": "Budget variance per week, days overspent, savings rate, number of automated transfers.",
+      "time_horizon": "Short-term",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for introducing new stress; avoid over-commitment.",
+      "mapping_query": "Ongoing belief or concern that rent, groceries, or other essentials may not be affordably met in the near term."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Diaphragmatic_Breathing_with_HRV_Biofeedback",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Teach diaphragmatic breathing with paced exhale (approximately 6 breaths/min) and optional brief HRV biofeedback to reduce baseline arousal and fatigue.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Physiological regulation lowers chronic arousal, reducing the subjective sense of threat and fatigue that accompanies ongoing worry.",
+      "measurement": "Resting HRV (RMSSD) and breathing rate; self-reported arousal (0–10) daily.",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "If dizziness or lightheadedness occurs, stop and reassess.",
+      "mapping_query": "Sustained, low-intensity anxious arousal or panic-like state experienced most days, producing fatigue or weariness."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sleep_Hygiene_and_Circadian_Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement consistent sleep-wake times, wind-down routine, light exposure optimization, and caffeine timing limits to improve sleep quality and reduce arousal.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Improved sleep reduces daytime arousal and cognitive load, indirectly decreasing worry reactivity and perceived financial threat.",
+      "measurement": "Sleep duration, sleep onset latency, wake after sleep, PSQI score; daytime alertness.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Ongoing belief or concern that rent, groceries, or other essentials may not be affordably met in the near term."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Structured_Financial_Problem_Solving_Skills_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver a short problem-solving module (define problem, generate options, evaluate options, implement, review) applied to monthly expenses and contingencies.",
+      "targets_criteria_ids": [
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Enhances self-efficacy and perceived capability to manage financial stressors, reducing reliance on rumination.",
+      "measurement": "Number of problem-solving cycles used; self-rated problem-solving efficacy; weekly worry frequency.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Low perceived capacity to cope with financial stressors (low trust in one's ability/resources) even when current situation is objectively acceptable."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Social_Support_and_Resource_Navigation",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Activate social support and connect to community resources (financial counseling, housing/food assistance) to reduce perceived insecurity and expand available buffers.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "External resources and social support lessen perceived threat and increase security, which can dampen catastrophic thinking and worry.",
+      "measurement": "Perceived social support scale; utilization of resources; distress levels.",
+      "time_horizon": "Ongoing",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Persistent worry focused on the uncertain longer-term financial future and what it may bring."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Mindfulness_Meditation_Practice",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Introduce brief mindfulness or meditation practice (5–15 minutes daily) to cultivate nonjudgmental awareness of worry and reduce cognitive reactivity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Fosters non-reactive awareness of worry, reducing rumination and physiological arousal.",
+      "measurement": "Daily practice minutes; mindfulness/momentary awareness scores; daily worry intensity.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Recurrent, frequent thoughts about money that intrude on daily life and are experienced as difficult to control."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Cognitive_Bias_Modification_for_Rumination",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Apply attention bias modification and cognitive reframing techniques to disrupt persistent worry cycles around money and the future.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C06"
+      ],
+      "mechanism_rationale": "Alters automatic attentional patterns and cognitive processing, reducing the dominance of worry and catastrophic expectations.",
+      "measurement": "Task performance metrics; self-reported worry frequency and distress; contingency confidence.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Recurrent, frequent thoughts about money that intrude on daily life and are experienced as difficult to control."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Future_Planning_and_Contingency_Scenarios",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Develop “if-then” plans and financial contingency scenarios to reduce uncertainty-driven worry about the future.",
+      "targets_criteria_ids": [
+        "C06",
+        "C02"
+      ],
+      "mechanism_rationale": "Specifying actionable plans for potential futures reduces anticipatory anxiety and perceived risk, increasing perceived control.",
+      "measurement": "Number of scenarios created; plan implementation rate; changes in worry about the future (0–10 scale).",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Persistent worry focused on the uncertain longer-term financial future and what it may bring."
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "pseudoprofile_id": "case_noisy_sensory_load_v1",
+  "summary": "The case shows marked sensory overload from ambient noise with rapid urges to escape, avoidance of noisy contexts, cognitive overload, physiological hyperarousal, and perceived social invalidation, leading to functional impairment. The proposed BIO-PSYCHO-SOCIAL levers target: (1) reducing sensory input and arousal (bio/sensory tools, sleep optimization), (2) improving tolerance and coping through exposure-based and cognitive strategies (psychological), and (3) enhancing supportive environments and communication to sustain participation (social). Each lever is a modifiable predictor with clear linkage to specific, measurable outcomes (noise tolerance, distress, social participation, sleep, activity levels). A staged plan with simple metrics allows monitoring and iterative adjustment to improve noise-related tolerance and daily functioning without safety concerns.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Graded auditory exposure hierarchy with distress tolerance training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a structured, therapist-guided graded exposure plan to gradually increase tolerance to ambient noise, starting from mildly noisy settings and progressing to busier environments, paired with distress tolerance skills (urge to escape, non-reactivity, and grounding).",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Repeated, controlled exposure to noise reduces sensory hyperreactivity and strengthens inhibitory learning, lowering subjective distress (C01), urge to escape (C02), hyperarousal (C04), and cognitive overload (C05) over time.",
+      "measurement": "Distress rating on 0-10 scale during/after exposure; ambient noise threshold (dB) tolerated; frequency of escape attempts; performance on brief cognitive tasks during exposure.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Proceed gradually; pause if severe panic or safety concerns arise; involve clinician if anxiety worsens.",
+      "mapping_query": "Map S01 to C01, C02, C04, C05; identify graded exposure steps and tolerance milestones."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Auditory sensory modulation devices and environment controls (ear protection, noise-cancelling headphones, sound masking)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Adopt portable auditory devices and quieting tools (earplugs, over-ear noise-cancelling headphones, or white/pink noise generators) to reduce input intensity in real-world noisy settings; plan for use during shopping, dining, and family gatherings.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Damping sensory input directly lowers physiologic arousal and cognitive load, enabling better processing and willingness to remain in noisy environments.",
+      "measurement": "Frequency of device use per week; self-reported distress before vs after device use (0-10); perceived noise level in settings with device usage.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure comfortable fit; monitor for any ear discomfort; avoid prolonged exposure to excessively loud environments.",
+      "mapping_query": "Map S02 to C01, C04, C05; assess impact of sensory modulation on distress and processing."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Cognitive reappraisal and self-compassion training targeting perceived social invalidation (C06)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver brief cognitive-behavioral and self-compassion skills focused on reframing reactions to social judgments; practice assertive communication and self-kindness to reduce beliefs that others view reactions as dramatic.",
+      "targets_criteria_ids": [
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Reducing negative appraisal of others’ reactions lowers emotional distress and increases willingness to participate, thereby decreasing social withdrawal (C07).",
+      "measurement": "Perceived invalidation scale (0-100); frequency of social participation attempts; self-reported distress during social meals/events.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Monitor for heightened sensitivity to social feedback; escalate to therapy if distress worsens.",
+      "mapping_query": "Map S03 to C06 and C07; evaluate changes in perceived invalidation and social participation."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Controlled breathing and autonomic regulation (biofeedback-informed)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Teach regular paced/resonance breathing and grounding techniques to downregulate arousal during exposure to noise; optionally incorporate biofeedback to monitor autonomic changes.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Parasympathetic activation via slow breathing reduces heart rate, improves attention, and lowers perceived distress under sensory load.",
+      "measurement": "Self-reported distress during exposure (0-10); respiration rate during tasks; optional HRV metric if available.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "No contraindications for general populations; discuss with clinician if cardiovascular issues exist.",
+      "mapping_query": "Map S04 to C04 and C05; monitor autonomic response and distress reductions."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep optimization and circadian alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent sleep-wake times, optimize sleep environment, limit caffeine after noon, and address nighttime awakenings to support sensory processing and arousal regulation.",
+      "targets_criteria_ids": [
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Improved sleep reduces baseline arousal and enhances cognitive processing and tolerance of sensory input, improving daily functioning and social participation.",
+      "measurement": "PSQI scores; sleep diary entries (duration, awakenings, quality); daytime functioning reports.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "No sleep medications; rely on sleep hygiene strategies.",
+      "mapping_query": "Map S05 to C04 and C07; assess impact of sleep on arousal and daily functioning."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Social support network strengthening and communication planning",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Identify a supportive person network and create a plan to request environmental accommodations (noise reduction, breaks) during outings; rehearse scripts to maintain engagement in noisy contexts.",
+      "targets_criteria_ids": [
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Supportive social contexts and clear requests reduce perceived invalidation and increase safe participation in social activities.",
+      "measurement": "Number of supportive interactions per week; frequency of accommodations requested; participation rate in previously avoided events.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Map S06 to C06 and C07; track changes in social engagement and perceived validation."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Lifestyle activation: movement with sensory-regulation practices",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a weekly routine combining aerobic activity with mindfulness/sensory-regulation practices to reduce baseline arousal and improve attentional control in noisy environments.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C07"
+      ],
+      "mechanism_rationale": "Regular movement enhances neuroplasticity and arousal regulation; mindfulness supports attention during sensory load, enabling better participation.",
+      "measurement": "Weekly minutes of physical activity; distress in noisy settings during/after activity; subjective energy and task engagement.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Progress gradually; medical clearance if needed; ensure exercises are tolerable.",
+      "mapping_query": "Map S07 to C04, C05, and C07; monitor arousal and participation changes."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Environmental design and quiet-zone planning (noise-aware scheduling)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Collaborate with family/work to create quiet zones and plan visits during lower-noise hours; use sensory-friendly layouts to reduce cognitive load during meals and shopping.",
+      "targets_criteria_ids": [
+        "C07",
+        "C01"
+      ],
+      "mechanism_rationale": "Environment modification reduces exposure intensity, enabling better engagement and reducing avoidance.",
+      "measurement": "Quiet-zone usage frequency; time spent in noisy contexts; self-rated distress while in designated quiet zones.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "LOW",
+      "safety_notes": "None",
+      "mapping_query": "Map S08 to C07 (and possibly C01); assess impact of environmental modifications on participation."
+    }
+  ]
+}

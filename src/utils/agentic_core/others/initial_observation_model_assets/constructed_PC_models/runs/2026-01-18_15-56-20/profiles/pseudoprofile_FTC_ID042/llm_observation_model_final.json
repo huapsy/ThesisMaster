@@ -1,0 +1,810 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID042",
+  "model_summary": "This initial gVAR-ready observation model targets a salutogenic shift from social isolation to meaningful in-person and online social engagement, anchored in the home-work context described in the complaint. Five operationalized criteria (C01–C05) capture the social-connection landscape (frequency, loneliness, work-from-home social friction, perceived shrinkage, and proportion of superficial vs. meaningful interactions). A compact set of five modifiable predictors (P01–P05) represents actionable levers: daily social activation planning, social initiation practice, community participation, sleep health as a social-energy anchor, and online social engagement strategy. The plan emphasizes momentary EMA (6 prompts/day) plus a nightly sleep diary over two weeks to generate within-person variance, minimize redundancy, and support a stable gVAR estimation framework.",
+  "variable_selection_notes": "Criteria chosen (C01–C05) map directly to the core complaint (loneliness from limited face-to-face interaction) and cover both subjective experience (loneliness, perceived shrinkage) and observable social-context factors (in-person contact, transactional vs meaningful interactions). Predictors (P01–P05) emphasize practical salutogenic actions (activation planning, initiation skills, community participation, sleep as a mood/energy foundation, and online social engagement) with non-binary, scalar measurements to maximize within-person variance. Redundancy is minimized by using one broad social-activation construct (P01) plus targeted complements (P02, P03, P04, P05). All measurements are specified as EMA or daily diaries to preserve timeliness and avoid retrospective bias. Potential nonlinearities (e.g., online interactions) are acknowledged in the relevance mappings. Bias/uncertainty notes: self-report measures may be influenced by current mood; sleep diary provides nightly anchor to stabilize diurnal fluctuations; passively-collected data are not used in this initial model to keep the design lean and feasible for rapid deployment.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "randomized_within_blocks",
+      "time_blocks_local": [
+        "09:30",
+        "12:30",
+        "15:30",
+        "18:30",
+        "20:30",
+        "22:30"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 84,
+      "notes": "Prompts distributed across weekdays/weekends with mild jitter to preserve ecological validity."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "22:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "End-of-day sleep quality assessment anchored to prior night."
+    },
+    "passive_streams": {
+      "enabled": false,
+      "aggregation_strategy": "",
+      "notes": "Optional future enhancement if passive sensing is added."
+    },
+    "minimum_total_observations_target": 84,
+    "gvar_readiness_notes": "Initial plan focuses on constructs with strong within-person variance potential (C01–C05) and clear actionable predictors (P01–P05). The two-week window balances respondent burden with data sufficiency for gVAR estimation.",
+    "variance_support_notes": "Within-person variance is driven by six daily prompts and a nightly sleep diary; Likert-like scales (0–9 where used) maximize variance while preserving interpretability.",
+    "missingness_risk_notes": "Weekend/holiday variation may increase missing prompts; implement reminder logic and brief non-response codes with imputation-ready handling."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Daily in-person contact frequency",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 24 hours, approximately how many meaningful in-person social contacts (excluding brief transactions like paying at a cashier) did you have? (0–9 scale)",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Primary criterion; captures meaningful in-person social contact frequency."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Subjective loneliness / unmet social connection",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how lonely do you feel on a 1 (not lonely) to 9 (extremely lonely) scale?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures acute loneliness fluctuations; complementary to C01 for triangulation."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Work-from-home limiting incidental interactions",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 24 hours, to what extent did remote work limit incidental social interactions (0 = not at all, 9 = extremely limiting)?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures perceived work-related social friction."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Perceived shrinkage of social presence / reduced social initiative",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, to what extent do you feel socially smaller or less willing to initiate/maintain social contact (1 = not at all, 9 = very much)?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Represents withdrawal/withdrawal risk signal."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Proportion of superficial vs meaningful interactions",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past day, rate the proportion of your face-to-face interactions that were superficial/transactional versus meaningful (0 = almost all superficial, 9 = almost all meaningful).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 6,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Captures the quality mix of interpersonal interactions."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Daily values-aligned social activation plan",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] / change_process_and_therapeutic_phases / behavioral_integration / lifestyle_performance_and_wellbeing_integration / *social_connection_investment_plan",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Anchoring daily social activation in personal values and goals to increase meaningful in-person contact (C01) and reduce loneliness (C02).",
+      "intervention_examples_safe": "Schedule coffee with a friend; join a local group; request a neighbor for a short walk.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, did you follow your planned social activation activities (e.g., meeting a friend, attending group)?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Execution of plan vs. intention captured."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Following social activation plan should increase daily meaningful in-person contacts."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "High feasibility with brief, structured prompts."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Social initiation practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / core_psychological_skills_toolkits / interpersonal_effectiveness_and_relational_repair / initiation_practice",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Directly targets initiation and reciprocity skills to increase meaningful conversations (C01) and reduce loneliness (C02).",
+      "intervention_examples_safe": "1–2 short practice conversations per day; use scripted openers; request feedback from a friend.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, how many times did you proactively initiate a social contact or conversation?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures active social-behavioral initiation."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C03"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "More initiation should raise meaningful in-person contact."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increased social initiation expected to reduce loneliness over short windows."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": "Requires brief practice prompts; low burden."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Community participation",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] / Community_Participation_and_Social_Prescribing / Community_Infrastructure_Enablers",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Engagement in community groups/volunteering increases meaningful social ties, reduces loneliness, and shifts interaction quality (C01, C02, C05).",
+      "intervention_examples_safe": "Join a weekly local meet-up; volunteer for a one-off community project.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, how many hours did you participate in community group activities or volunteering?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 3,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Captures active community engagement."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C05",
+        "C04",
+        "C03"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "More community participation should yield more meaningful in-person contacts."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Greater social connectedness is associated with lower loneliness over daily windows."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "More meaningful group interactions should reduce superficial in-person interactions proportion."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.82,
+        "gvar_feasibility_0_1": 0.78,
+        "notes": "Participation may vary by accessibility and schedule; plan for weekend options."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Sleep quality (bio–circadian anchor)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] / Sleep_Circadian_and_Restoration / Sleep_Routines_and_Practices",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Sleep quality influences mood, energy, and social engagement capacity; better sleep supports higher social activation and reduces loneliness (C02, C04).",
+      "intervention_examples_safe": "Maintain a consistent sleep window; limit screens before bed; wind-down routine.",
+      "measurement": {
+        "mode": "behavioral_log",
+        "channel": "smartphone_app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Sleep quality last night on a 1 (very poor) to 9 (excellent) scale",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "last_night",
+        "expected_within_person_variability": "high",
+        "notes": "Daily diary measurement is essential for circadian alignment and energy availability."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Sleep quality improves mood and reduces perceived loneliness on daily windows."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep increases daytime energy for social engagement."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Low burden; nightly diary fits easily into routine."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Online social engagement plan",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] / digital_social_environment / healthy_online_community_engagement",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Moderated online social activity can buffer loneliness and support social identity; effects on in-person contact are nuanced (nonlinear).",
+      "intervention_examples_safe": " Participate in moderated online groups; plan 1–2 meaningful online interactions per day; limit passive scrolling.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, did you engage in meaningful online social interactions (e.g., supportive messages, constructive conversations) in the last 4 hours?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Nonlinear relation with in-person contact expected; moderation is important."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z_score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C01",
+        "C05",
+        "C03",
+        "C04"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Meaningful online interactions can alleviate loneliness in the short term."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Impact on in-person contact is indirect and may be nonlinear."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.7,
+        "notes": "Requires careful cueing to avoid excessive online time; monitor for signal-to-noise."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,83000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,77000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Immediate effect expected on daily contacts.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reduced loneliness anticipated via increased meaningful contact.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Remodeling incidental contacts; effect may reduce perceived restriction.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Lower shrinkage expected with active engagement.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Likely shift toward meaningful interactions.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Initiation trials should raise meaningful contact.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Loneliness potentially reduced by active initiation.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "Impact on incidental interactions uncertain.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Initiation practice may reduce perceived shrinkage.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "May shift interaction quality away from superficial.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Community engagement should increase meaningful contacts.",
+      "estimated_relevance_0_1": 0.83
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Loneliness often decreases with external social ties.",
+      "estimated_relevance_0_1": 0.77
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Less reliance on incidental interactions if meaningful groups provide support.",
+      "estimated_relevance_0_1": 0.45
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Group participation may reduce perceived shrinking.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "More meaningful contexts may reduce superficial interactions proportion.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Good sleep increases energy for social contact.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Better sleep often lowers loneliness signals.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Sleep improves daytime social engagement capacity.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Quality sleep can reduce perceived social withdrawal.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Sleep quality may shift interaction quality away from superficiality.",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "Online engagement may not translate directly to in-person contacts.",
+      "estimated_relevance_0_1": 0.3
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Meaningful online interactions can reduce loneliness in short windows.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "Impact on incidental in-person interactions is indirect/nonlinear.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Online social health may reduce withdrawal tendencies.",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Online engagement might shift interaction quality away from superficial in-person encounters.",
+      "estimated_relevance_0_1": 0.6
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "low"
+    ],
+    "expected_floor_ceiling_risks": [
+      "moderate"
+    ],
+    "variance_enhancement_suggestions": [
+      "standardize predictors to z-scores",
+      "check for time-of-day effects",
+      "consider random intercepts per participant"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "P06 (nonessential at initial stage)"
+    ],
+    "gvar_feasibility_summary": "Feasible with 5 predictors and 5 criteria; moderate to high data yield expected with 84 prompts over 14 days."
+  },
+  "safety_notes": "Not a diagnosis and not medical/dosing guidance. If acute risk signs appear (self-harm, rapid deterioration), encourage contacting a clinician or crisis service."
+}

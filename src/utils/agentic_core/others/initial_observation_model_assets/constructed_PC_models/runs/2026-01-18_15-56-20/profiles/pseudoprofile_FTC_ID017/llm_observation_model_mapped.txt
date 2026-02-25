@@ -1,0 +1,18 @@
+pseudoprofile_id: pseudoprofile_FTC_ID017
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Work activity during designated rest -> CLINICAL / DSM-5TR / substance-related and addictive disorders / non-substance-related (behavioral) addictive disorders / work addiction (workaholism) / inability_to_detach_from_work (conf=0.76)
+- C02: Lack of perceived restoration -> CLINICAL / DSM-5TR / sleep-wake disorders / insomnia disorders / other specified insomnia disorder / paradoxical insomnia (sleep state misperception) / subjective_sleep_quality_poor (conf=0.78)
+- C03: Guilt when attempting to rest -> CLINICAL / DSM-5TR / depressive disorders / other specified depressive disorder / recurrent brief depression / guilt_present (conf=0.65)
+- C04: Perceived inability to stop working -> CLINICAL / DSM-5TR / substance-related and addictive disorders / non-substance-related (behavioral) addictive disorders / work addiction (workaholism) / inability_to_detach_from_work (conf=0.85)
+- C05: Difficulty implementing boundaries -> NON-CLINICAL / AGE-GENERAL / psychological / autonomy / boundary setting / establishing limits / enforcing limits (conf=0.72)
+- C06: Perceived minimization by social network -> NON-CLINICAL / AGE-GENERAL / social / social integration / social connectedness / network of friends / social support from friends / appraisal support / feedback (conf=0.72)
+
+PREDICTORS:
+- P01: Stop threat monitoring and checking -> PSYCHO / change_process_and_therapeutic_phases / meaning_update / metacognitive_and_attentional_meaning_updating / threat_monitoring_reduction_plan (conf=0.72)
+- P02: Digital boundaries and recovery plan (digital hygiene) -> SOCIAL / digital_social_environment / digital_social_environment_solutions / boundaries_and_wellbeing / digital_overload_recovery_plan (conf=0.92)
+- P03: Boundary with external stressors plan -> PSYCHO / change_process_and_therapeutic_phases / behavioral_integration / environmental_and_social_system_design / boundary_with_external_stressors_plan (conf=0.92)
+- P04: Reduce time checking behavior -> PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / conditioning_and_associations / relearning / reduce_time_checking_behavior (conf=0.88)
+- P05: Weekend social shift mitigation (circadian support) -> BIO / sleep_circadian_and_restoration / circadian_entrainment / context_shift_plans / weekend_social_shift_mitigation (conf=0.92)
+- P06: Notification and attention management plan -> SOCIAL / digital_social_environment / digital_social_environment_solutions / boundaries_and_wellbeing / notification_and_attention_management_plan (conf=0.64)

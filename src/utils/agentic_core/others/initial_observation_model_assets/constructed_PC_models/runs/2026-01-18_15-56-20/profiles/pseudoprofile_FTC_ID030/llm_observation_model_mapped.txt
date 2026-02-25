@@ -1,0 +1,18 @@
+pseudoprofile_id: pseudoprofile_FTC_ID030
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Episodic perceptual/experiential alteration -> CLINICAL / DSM-5TR / dissociative disorders / depersonalization andor derealization disorder / derealization_environment_unreality (conf=0.78)
+- C02: Stress as proximal trigger -> NON-CLINICAL / AGE-GENERAL / emotional / affective process / emotion process / stress (emotion) (conf=0.65)
+- C03: Reduced sense of presence during episodes -> CLINICAL / DSM-5TR / dissociative disorders / acute dissociation due to stressful events / derealization_present (conf=0.85)
+- C04: Acute emotional distress when episodes occur -> CLINICAL / DSM-5TR / somatic symptom and related disorders / somatic symptom disorder / distress_or_impairment_from_somatic_symptom (conf=0.42)
+- C05: Episode frequency (occasional) -> CLINICAL / DSM-5TR / dissociative disorders / depersonalization andor derealization disorder / dpdr_episode_frequency (conf=0.84)
+- C08: Current baseline stress level -> NON-CLINICAL / AGE-GENERAL / emotional / affective process / emotion process / stress (emotion) (conf=0.65)
+
+PREDICTORS:
+- P01: Sleep_Hygiene_and_Circadian_Regulation -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / sleep_quality_rating (conf=0.83)
+- P02: Mindfulness_and_Grounding_Skills -> PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / mindfulness_for_stress / orient_and_ground / present_moment_orientation_practice (conf=0.72)
+- P03: Stress_Reduction_and_Coping_Skills -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / ecological_momentary_assessment_ema / momentary_coping_and_response / ema_perceived_coping_effectiveness (conf=0.78)
+- P04: Regular_Aerobic_Exercise_Program -> BIO / personalization_monitoring_and_data_feedback / wearables_and_home_monitoring / physiology / activity_fitness_and_biomechanics / activity_and_energy / step_counting_wearable (conf=0.72)
+- P05: In-the-moment_Grounding_Techniques -> PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / mindfulness_for_stress / orient_and_ground / five_senses_grounding_practice (conf=0.72)
+- P06: Structured_Social_Support_and_Belonging -> SOCIAL / social_support_and_belonging / belonging_isolation_and_meaning / safety_and_trust_in_support / boundary_setting_with_support_network (conf=0.57)

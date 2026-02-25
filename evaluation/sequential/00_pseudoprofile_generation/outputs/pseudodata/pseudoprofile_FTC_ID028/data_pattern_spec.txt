@@ -1,0 +1,73 @@
+pseudoprofile_id: pseudoprofile_FTC_ID028
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID028/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.5296
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 1.30 * t + phase=4.96)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 4
+  * pulse_1: start_idx=161, length=5, amp=0.985
+  * pulse_2: start_idx=151, length=4, amp=1.099
+  * pulse_3: start_idx=69, length=4, amp=0.465
+  * pulse_4: start_idx=136, length=4, amp=0.786
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P03
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.156 | freq_hint=None
+  * P02: missing_rate=0.139 | freq_hint=None
+  * P03: missing_rate=0.144 | freq_hint=None
+  * P04: missing_rate=0.139 | freq_hint=None
+  * P05: missing_rate=0.089 | freq_hint=None
+  * P06: missing_rate=0.117 | freq_hint=None
+  * C01: missing_rate=0.106 | freq_hint=None
+  * C02: missing_rate=0.144 | freq_hint=None
+  * C03: missing_rate=0.094 | freq_hint=None
+  * C04: missing_rate=0.267 | freq_hint=None
+  * C05: missing_rate=0.239 | freq_hint=None
+  * C06: missing_rate=0.294 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Attention_Systems_Training_and_Cognitive_Offloading | ontology_id=sustained_attention_practice | conf=0.82 | freq_hint=None
+- P02 (PREDICTOR): Screen_Time_Graded_Exposure_and_BlueLight_Filtering | ontology_id=late_evening_screen_reduction | conf=0.62 | freq_hint=None
+- P03 (PREDICTOR): Emotion_Regulation_Skills_Training | ontology_id=emotion_granularity_building_practice | conf=0.78 | freq_hint=None
+- P04 (PREDICTOR): Psychoeducation_on_Recovery_Trajectory_and_Permanence_Beliefs | ontology_id=psychoeducation_recovery_and_depletion | conf=0.72 | freq_hint=None
+- P05 (PREDICTOR): Adaptive_Attribution_Style_Retraining | ontology_id=attributional_reframe_practice | conf=0.95 | freq_hint=None
+- P06 (PREDICTOR): Daily_Accommodations_and_Task_Structuring | ontology_id=transfer_bridge_explicit_link_to_daily_tasks | conf=0.75 | freq_hint=None
+- C01 (CRITERION): Sustained attention / concentration impairment | ontology_id=sustainedattention | conf=0.85 | freq_hint=None
+- C02 (CRITERION): Visual/screen-provoked nausea (sensory intolerance) | ontology_id=nausea_intensity_grade | conf=0.82 | freq_hint=None
+- C03 (CRITERION): Heightened irritability / emotional reactivity | ontology_id=irritability | conf=0.7 | freq_hint=None
+- C04 (CRITERION): Belief that symptoms are permanent / catastrophic fear | ontology_id=catastrophizing_thoughts_about_symptoms | conf=0.88 | freq_hint=None
+- C05 (CRITERION): Strong causal attribution to prior concussion | ontology_id=persistent_negative_beliefs_about_self_related_to_accident | conf=0.62 | freq_hint=None
+- C06 (CRITERION): Functional impact on daily tasks (work/study/leisure) | ontology_id=iadl_impairment | conf=0.85 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

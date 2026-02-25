@@ -1,0 +1,154 @@
+{
+  "pseudoprofile_id": "ALC-CASE-01-PPROFILE",
+  "summary": "This set of modifiable bio-psycho-social levers targets the presented pattern of elevated drinking, anticipatory urges, perceived loss of control, coping-motivated drinking after work, morning impairment, and worry about the pattern. Levers combine behavioral substitutions, urge management, self-monitoring, coping-skills training, sleep/morning functioning optimization, cognitive worry management, environmental/social restructuring, and digital feedback. Each lever explicitly maps to one or more of the six case criteria (C01–C06), is actionable, and aims for short- to mid-term change (2–8 weeks). The plan emphasizes safety and feasibility while maintaining focus on controllable predictors rather than symptomatic labels.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "C04: Alcohol used as post-work coping (primary); C01: Drinking occasions/amounts (secondary)",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Structured after-work routine with non-alcohol coping options (5–20 minutes) before deciding on a drink. Include a brief mindfulness practice, a 15-minute walk, or a short stretch to unwind. Use explicit implementation intentions (e.g., If it’s 5:30 p.m., I will complete a 20-minute non-alcohol coping activity before considering a drink). Keep alcohol out of immediate reach, and rearrange the home environment to support non-drinking choices.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Reduces automatic association between work stress and drinking; builds alternative reinforcement and perceived control by creating a concrete post-work routine.",
+      "measurement": "Daily log of post-work routines and drinks; % days with a non-alcohol coping activity; time to first drink after work",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "CASE_PAYLOAD: map C04 and C01 levers to after-work coping routine optimization and drinking reduction targets."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "C02: Anticipatory urges/preoccupation about drinking",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Urge-management training with a 5-minute delay strategy, urge surfing, and an urge diary. Add cue-management: remove or out-of-reach alcohol cues and create a plan for the first 10 minutes post-urge (e.g., water, breath, grounding).",
+      "targets_criteria_ids": [
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Strengthens impulse control and reduces frequency/intensity of urges by introducing deliberate delay and alternative behaviors.",
+      "measurement": "Urge frequency per day; number of successful 5-minute delays; days with zero or fewer drinks after urges",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for cravings escalation; provide escalation path if urges become unmanageable",
+      "mapping_query": "CASE_PAYLOAD: link C02 urge management and cue management interventions to reduce drinking occasions."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "C03: Perceived loss of voluntary control over drinking",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Enhanced self-monitoring with simple contingency management: daily drinking log with short, attainable targets and small, immediate reinforcements for meeting goals; incorporate brief problem-solving and plan-do-check-adjust cycles to restore sense of control.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Improves perceived control and self-efficacy, breaking automatic cycles by tying behavior to explicit goals and rewards.",
+      "measurement": "Self-efficacy rating for resisting drinking; % days meeting drinking targets; number of alcohol-free days per week",
+      "time_horizon": "2–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "If cravings intensify, add higher-support options (e.g., brief coach contact)",
+      "mapping_query": "CASE_PAYLOAD: implement self-monitoring with contingency management to address C03 and C01."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "C04: Alcohol used as post-work coping; C05: Morning mood/energy impairment",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Coping-skills training with alternative evenings activities: 10–20 minute mindfulness, light physical activity, or social connection that does not involve alcohol. Establish a predictable unwinding routine and set a cap on drinking to optimize morning functioning.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Substitutes alcohol as a coping mechanism with healthier strategies, which in turn improves morning energy/function and reduces overall intake.",
+      "measurement": "Frequency of non-alcohol coping activities after work; perceived evening relaxation quality; morning energy rating",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Monitor for reduced sleep quality if new activities disrupt routines; adjust as needed",
+      "mapping_query": "CASE_PAYLOAD: replace post-work drinking with structured non-alcohol coping strategies affecting C04 and C05."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "C05: Morning mood/energy impairment linked to drinking",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Sleep hygiene and rhythm optimization with drinking reduction: consistent bed/wake times, limit late-evening alcohol, hydration in the evening, and a brief morning routine (light exposure, movement).",
+      "targets_criteria_ids": [
+        "C05",
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Improved sleep and morning functioning reduce motivation for alcohol as a coping mechanism and reinforce healthier routines.",
+      "measurement": "Sleep quality/duration (sleep diary); morning energy rating; days with reduced drinking",
+      "time_horizon": "2–8 weeks",
+      "feasibility_0_1": 0.78,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "CASE_PAYLOAD: optimize bio-psycho factors (sleep, morning functioning) to reduce alcohol-related morning impairment and drinking behavior."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "C06: Worry/concern about current drinking",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive-behavioral worry management: scheduled 'worry time', cognitive restructuring to challenge beliefs about uncontrollability, and problem-solving to address triggers. Include motivational interviewing elements to enhance readiness to change.",
+      "targets_criteria_ids": [
+        "C06",
+        "C03"
+      ],
+      "mechanism_rationale": "Reduces rumination and fear around drinking patterns, increasing motivation and perceived control.",
+      "measurement": "Worry severity rating; readiness-to-change score; days with alcohol use vs. days of non-use",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.58,
+      "priority": "MED",
+      "safety_notes": "Provide escalation to in-person therapy if distress worsens",
+      "mapping_query": "CASE_PAYLOAD: apply CBT worry-management to address C06 and C03."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "C04/C01: Alcohol availability at home; Social support and environment",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Environmental and social restructuring: remove or reduce alcohol at home; recruit a supportive friend/family member; schedule alcohol-free social activities; consider social-prescribing references for ongoing support.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Alters cues and reduces access; increases accountability and social reinforcement for non-drinking choices.",
+      "measurement": "Alcohol in home quantity; number of alcohol-free social events; perceived social support score",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure supportive network is aligned and non-judgmental",
+      "mapping_query": "CASE_PAYLOAD: leverage social environment changes to reduce drinking cues and enhance support."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Personalization_Monitoring_and_Data_Feedback: Self-Assessment_and_Logs; Wearables/Home Monitoring",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Digital monitoring and feedback loop: daily drinking/urge/mood logs with automated feedback and weekly goal adjustment; optional wearables for activity/sleep to optimize alignment with drinking goals.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C06",
+        "C05"
+      ],
+      "mechanism_rationale": "Data-driven insight enhances self-regulation, enabling adaptive goal setting and timely intervention when risk patterns emerge.",
+      "measurement": "Completeness of logs; correlation of urges with drinking; weekly goal attainment; sleep/activity metrics alignment",
+      "time_horizon": "4–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Respect privacy; obtain informed consent and secure data handling",
+      "mapping_query": "CASE_PAYLOAD: implement digital monitoring and feedback tools to optimize all target criteria (C01–C06)."
+    }
+  ]
+}

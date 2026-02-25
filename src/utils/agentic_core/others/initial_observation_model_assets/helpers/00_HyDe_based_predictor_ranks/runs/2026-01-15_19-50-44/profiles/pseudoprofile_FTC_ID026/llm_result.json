@@ -1,0 +1,122 @@
+{
+  "pseudoprofile_id": "CASE01_MessagingAnxiety_SolutionSet_V1",
+  "summary": "The case reveals a cognitive-behavioral pattern of repetitive message-checking driven by anticipatory fear of negative social evaluation, leading to delayed replies and potential misinterpretation by others. Six modifiable levers across cognitive-behavioral strategies, social communication skills, and bio-physiological factors target the core mechanisms (C01–C06): reducing excessive proofreading and indecision (C01, C05), easing fear of judgment (C02), shortening reply latency (C03), correcting perceived social negative feedback (C04), and improving time-related functioning (C06). Each lever has a concrete predictor, measurable outcomes, and a practical time horizon, with safety notes where relevant.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Structured send-Ready checklist + time-bound sending rule",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a brief 'send-ready' criterion and a 2-minute drafting window: after drafting, use a simple checklist (tone, clarity, empathy). If criteria are met, send; if not, revise using approved templates before sending.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C05",
+        "C03"
+      ],
+      "mechanism_rationale": "Externalizes the criteria for adequacy, reducing over-checking and uncertainty about message suitability, while providing a fast-path to sending and reducing delay.",
+      "measurement": "Avg. edits per outgoing message; average time from drafting to sending; frequency of checklist use; self-reported send-readiness.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Map S01 to C01 (reduce proofreading), C02 (address fear via structure), C05 (clarify/standardize 'good enough'), and C03 (reduce delay) through externalized criteria."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Graduated exposure to social evaluation in messaging",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "A stepped exposure plan starting with low-stakes messages that require minimal editing, gradually increasing complexity. Include reflective brief after each step to normalize responses and reduce avoidance.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Systematic exposure reduces anticipatory anxiety, decreases avoidance, and recalibrates perceived social cost of delays, which can lower proofreading and delay.",
+      "measurement": "Self-reported anxiety before/after tasks (0-10 scale); number of messages sent with minimal checking; perceived social feedback after messages.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Map S02 to C02 (anxiety about judgment), C04 (perceived social cost), C03 (delay), and C01 (checking)"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Templates + AI-assisted prompts for message drafting",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Create a library of concise, safe templates and prompts to help draft messages quickly; use prompts to check tone and clarity before sending.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05",
+        "C02"
+      ],
+      "mechanism_rationale": "External templates reduce cognitive load and uncertainty about adequacy, decreasing proofreading and improving confidence in send-worthiness.",
+      "measurement": "Template usage frequency; average edits per message; time to draft; self-rated readiness to send.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Map S03 to C01 (reduce checking), C05 (internal standard for 'good enough'), C02 (fear of sounding stupid) via templates."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Mindfulness-based affect regulation for messaging-related anxiety",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Daily brief mindfulness or acceptance-based practices to reduce anticipatory anxiety and rumination about messages, improving tolerance for imperfect communication.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Enhanced affect regulation lowers reactivity to perceived social evaluation, reduces pre-message arousal, and supports calmer decision-making about when to send.",
+      "measurement": "Daily mindfulness practice adherence; pre/post-message anxiety scores; latency to reply; perceived interpretation by others.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Map S04 to C02 (fear/anxiety), C04 (perceived social feedback), C06 (time/attention regulation)"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Interpersonal communication coaching (tone, pacing, assertiveness)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured coaching with role-plays to enhance clarity, warmth, and appropriate reply pacing to reduce fear of judgment and improve timely responses.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C03"
+      ],
+      "mechanism_rationale": "Improved communication skills reduce perceived social threat and misinterpretation, enabling faster and more confident replies.",
+      "measurement": "Self-rated confidence; observed changes in message tone/clarity; response latency; satisfaction with social interactions.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Map S05 to C02 (fear of judgment), C04 (perceived feedback), C03 (delays)"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep hygiene and circadian stability to support cognitive control",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish regular sleep schedules, consistent wake times, and winding-down routines to improve executive function and emotional regulation related to messaging.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Better sleep enhances cognitive control and emotional regulation, reducing excessive checking and improving timing of replies.",
+      "measurement": "Bedtime/wake time consistency (hours), sleep quality rating, proofreading frequency per message, average response time.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Map S06 to C02 (anxiety), C01 (checking), C06 (time efficiency)"
+    }
+  ]
+}

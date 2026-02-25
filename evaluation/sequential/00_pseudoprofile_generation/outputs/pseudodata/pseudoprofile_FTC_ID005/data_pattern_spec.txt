@@ -1,0 +1,75 @@
+pseudoprofile_id: pseudoprofile_FTC_ID005
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID005/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.5880
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 1.30 * t + phase=6.05)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 4
+  * pulse_1: start_idx=111, length=7, amp=1.402
+  * pulse_2: start_idx=146, length=6, amp=0.951
+  * pulse_3: start_idx=76, length=5, amp=0.961
+  * pulse_4: start_idx=14, length=3, amp=0.968
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P05
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.128 | freq_hint=None
+  * P02: missing_rate=0.156 | freq_hint=None
+  * P03: missing_rate=0.144 | freq_hint=None
+  * P04: missing_rate=0.128 | freq_hint=None
+  * P05: missing_rate=0.117 | freq_hint=None
+  * P06: missing_rate=0.161 | freq_hint=None
+  * P07: missing_rate=0.133 | freq_hint=None
+  * C01: missing_rate=0.178 | freq_hint=None
+  * C02: missing_rate=0.189 | freq_hint=None
+  * C03: missing_rate=0.172 | freq_hint=None
+  * C04: missing_rate=0.233 | freq_hint=None
+  * C05: missing_rate=0.278 | freq_hint=None
+  * C06: missing_rate=0.206 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Grief_Processing_Engagement | ontology_id=grief_processing_and_integration_practice | conf=0.68 | freq_hint=None
+- P02 (PREDICTOR): Mindfulness_and_Affective_Regulation | ontology_id=mindfulness_of_current_emotion | conf=0.82 | freq_hint=None
+- P03 (PREDICTOR): Sleep_Regulation_and_Circadian_Alignment | ontology_id=sleep_quality_rating | conf=0.92 | freq_hint=None
+- P04 (PREDICTOR): Social_Support_Validation_and_Affirmation | ontology_id=mobilization | conf=None | freq_hint=None
+- P05 (PREDICTOR): Meaning_Making_and_Purpose_Reorientation | ontology_id=meaning_and_purpose_checkin | conf=0.72 | freq_hint=None
+- P06 (PREDICTOR): Self_Monitoring_and_Data_Feedback | ontology_id=sct_self_monitoring_goals_and_feedback_loop | conf=0.65 | freq_hint=None
+- P07 (PREDICTOR): Grief_Group_Participation_and_Social_Prescribing | ontology_id=grief_support_group_enrollment | conf=0.58 | freq_hint=None
+- C01 (CRITERION): Emotional numbness / detachment | ontology_id=emotional_numbing_detachment | conf=0.86 | freq_hint=None
+- C02 (CRITERION): Sensory-cued acute distress episodes | ontology_id=distress_to_cues | conf=0.72 | freq_hint=None
+- C03 (CRITERION): Rapid emotional fluctuations | ontology_id=mood_lability | conf=0.72 | freq_hint=None
+- C04 (CRITERION): Work-related concentration impairment | ontology_id=difficulty_concentrating_due_to_worry | conf=0.62 | freq_hint=None
+- C05 (CRITERION): Perceived social minimization / unhelpful responses | ontology_id=validation | conf=0.68 | freq_hint=None
+- C06 (CRITERION): Limited active processing of the loss | ontology_id=continuous | conf=0.65 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

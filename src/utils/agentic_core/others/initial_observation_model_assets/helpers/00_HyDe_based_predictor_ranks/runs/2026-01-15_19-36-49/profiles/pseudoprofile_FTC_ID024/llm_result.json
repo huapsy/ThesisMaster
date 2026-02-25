@@ -1,0 +1,180 @@
+{
+  "pseudoprofile_id": "CASE-SENSORY-OVERLOAD-01",
+  "summary": "The case shows marked sensitivity to ambient noise with rapid physiological arousal, cognitive overload, urge to escape, and social-validity concerns that impair daily function. Modifiable levers span bio (sensory regulation, sleep/nutrition, environmental design), psycho (exposure-based and mindfulness-based strategies, cognitive reframing), and social domains (communication skills and supportive social exposure). A multi-domain, graded-exposure plan combined with arousal regulation and environmental adaptations is likely to shift C01 (noise tolerance), C02 (urge to escape), C04 (hyperarousal), C05 (cognitive overwhelm), C06 (perceived invalidation), and C07 (daily functioning). The approaches emphasize actionable steps, measurable outcomes, and safety without pharmacological dosing.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Auditory Sensory Regulation Toolkit (graded exposure + arousal regulation)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a combined program of 1) graded exposure to noisy environments using a structured hierarchy, 2) physiological arousal regulation via paced breathing and brief HRV biofeedback, and 3) use of personal soundscape tools (noise-canceling ear buds, adjustable white noise) to maintain tolerable exposure.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Gradual, controlled exposure reduces conditioned arousal to noise while physiological regulation lowers reactivity, enabling longer tolerance and reducing the urge to escape.",
+      "measurement": "Distress rating in controlled noisy tasks (0–10); time-to-leave in real settings; frequency/duration of exposure sessions; HRV changes during exposure; daily noise-tolerance diary.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Ensure safe use of hearing protection to prevent hearing fatigue; monitor for signs of panic; discontinue exposure if distress becomes unsafe.",
+      "mapping_query": "Map S01 to C01, C02, C04, C05 in the CASE_PAYLOAD context."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "CBT-based Noise Trigger Exposure with Inhibitory Learning",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver structured exposure sessions in real-world noisy settings with cognitive work to test and reframe beliefs about social judgment (C06); include homework to monitor distress and test predictions about others’ reactions.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Exposure with inhibitory learning reduces arousal to noise and challenges catastrophic social beliefs, lowering avoidance and improving cognitive processing under noise.",
+      "measurement": "In-session distress (0–10); time in noisy settings; avoidance frequency; brief social judgment beliefs scale; task performance during exposure.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "No major safety concerns; monitor for excessive distress during early exposures; provide support if panic develops.",
+      "mapping_query": "Map S02 to C01, C02, C04, C05, C06."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness and Interoceptive Awareness Training for Noise Reactivity",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach body-scan, nonjudgmental noticing, and urge surfing during noise triggers; include short guided meditations to reduce rapid arousal and cognitive overwhelm.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Enhancing present-moment awareness and nonreactivity dampens physiological arousal and cognitive flooding when exposed to noise.",
+      "measurement": "State mindfulness (brief scale); distress during noisy tasks; heart-rate variability during exposure; daily noise-tolerance diary.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; ensure guided practice accessibility.",
+      "mapping_query": "Map S03 to C04, C05, C01."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Social Communication Skills and Advocacy Training",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Provide role-play and scripts to communicate needs in noisy settings; practice requesting accommodations; build a support network to accompany during noisy tasks.",
+      "targets_criteria_ids": [
+        "C06",
+        "C07",
+        "C03"
+      ],
+      "mechanism_rationale": "Improving verbal advocacy reduces perceived social invalidation and enables safer participation in noisy contexts, decreasing functional impairment.",
+      "measurement": "Frequency of requests for accommodations; perceived invalidation scale; participation in meals/events; self-reported functioning.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; ensure scripts respect personal boundaries.",
+      "mapping_query": "Map S04 to C06, C03, C07."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep, Circadian, and Glymphatic Support Protocol",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Optimize sleep schedule and light exposure; regulate late-day caffeine; promote sleep hygiene to reduce baseline arousal and improve daytime sensory tolerance.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Better sleep quality reduces baseline hyperarousal and cognitive load, improving tolerance to noise and reducing urge to escape.",
+      "measurement": "PSQI sleep quality score; bedtime/wake-time stability; daytime noise tolerance rating; next-day functioning.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Monitor for light sensitivity or circadian disruptions; adjust light exposure.",
+      "mapping_query": "Map S05 to C04, C05, C01."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Nutritional Arousal Regulation (Caffeine, Hydration, Micronutrients)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Assess caffeine intake and overall hydration; reduce late-day caffeine; optimize micronutrient intake (e.g., B vitamins, magnesium) to support neural signaling and stress regulation.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Stable neurochemical signaling supports calmer arousal and clearer cognitive processing in noisy environments.",
+      "measurement": "Daily caffeine grams; hydration status; subjective arousal; sleep quality.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Monitor for withdrawal headaches; ensure energy balance.",
+      "mapping_query": "Map S06 to C04, C05, C01."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Acoustic Environment Design and Personal Soundscape Management",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Implement acoustic adjustments in living/work spaces; designate quiet zones; provide personal soundscapes and portable sound-control tools during noisy activities.",
+      "targets_criteria_ids": [
+        "C01",
+        "C07",
+        "C03"
+      ],
+      "mechanism_rationale": "Reducing ambient noise exposure and providing controllable sensory input lowers arousal and improves daily functioning in noisy contexts.",
+      "measurement": "Ambient noise levels (dB) logged; self-reported tolerance; completed activities in noisy settings; use of quiet zones.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None; ensure safe acoustic devices use.",
+      "mapping_query": "Map S07 to C01, C07, C03."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Wearable Arousal Monitoring and Just-In-Time Coping",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use a wearable to monitor arousal (HRV, skin conductance); deliver real-time coping prompts (breathing, grounding) during exposure; track distress and progress.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Real-time feedback supports timely regulation of arousal and reduces impulsive escape behavior.",
+      "measurement": "Physiological arousal metrics; time-to-escape in tasks; distress ratings; prompt adherence.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Data privacy; ensure comfortable wearable usage.",
+      "mapping_query": "Map S08 to C02, C04, C05."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Digital Social Environment Engagement and Community Exposure",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Curate social exposure through community activities in supportive groups; utilise social-prescribing pathways to access quieter, more tolerable social contexts; gradually increase exposure.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Structured social exposure with supportive contexts reduces avoidance and normalizes participation in noisy social environments.",
+      "measurement": "Frequency of social participation; days avoided due to noise; distress in group settings.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None; ensure group selections are appropriate and supportive.",
+      "mapping_query": "Map S09 to C01, C03, C06."
+    }
+  ]
+}

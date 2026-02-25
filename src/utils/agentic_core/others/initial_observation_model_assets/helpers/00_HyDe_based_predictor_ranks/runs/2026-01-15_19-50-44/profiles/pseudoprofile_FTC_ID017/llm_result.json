@@ -1,0 +1,110 @@
+{
+  "pseudoprofile_id": "CASE_BURNOUT_2026_S1",
+  "summary": "The case reveals a burnout pattern sustained by off-hours work, inability to rest effectively, guilt around rest, difficulty stopping work, and social messages that minimize or inadequately support boundary practices. The proposed interventions target modifiable predictors across cognitive, behavioral, social, and biological domains, aiming to reduce off-hours work (C01), improve perceived restoration (C02), lessen guilt (C03), enhance stop-control (C04), strengthen boundary implementation (C05), and improve perceived social support (C06). Interventions are designed to be atomic levers with clear measurement, feasible rollout, and safety considerations.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "OffHours_Boundary_Adherence",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Structured boundary protocol with Do Not Disturb (DND) scheduling, automated email pauses, and explicit communication scripts; weekly accountability check-ins with a named colleague or supervisor.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces engagement in work during designated rest periods, thereby lowering the cognitive-emotional pull to continue work and increasing perceived control over work cessation.",
+      "measurement": "Frequency of work-related actions during designated rest days (self-report); proportion of days with active DND/silenced notifications; adherence rate to boundary scripts.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Ensure boundary steps align with job requirements; allow flexible adjustments to prevent undue risk from work-related obligations; protect privacy in accountability checks.",
+      "mapping_query": "CASE_PAYLOAD -> map S01 to C01 (off-hours activity) + C04 (stop-control) + C05 (boundary implementation)."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Restorative_Energy_Balance",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured rest protocol including scheduled short restorative breaks (2-3 per workday) plus optimized sleep hygiene adjustments (dim lights, consistent bedtime, screen limits 1 hour before bed) to improve restoration.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Regular micro-rests and improved sleep quality enhance energy restoration and counter burnout, addressing the lack of perceived restoration.",
+      "measurement": "Daily rest/restorative mood rating (0-10); minutes spent in restorative breaks; bedtime consistency and sleep quality (brief sleep diary or PSQI subset).",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "Ensure work demands allow scheduled breaks; monitor for sleep disturbances that may require medical evaluation; avoid overly long breaks that disrupt work flow.",
+      "mapping_query": "CASE_PAYLOAD -> map S02 to C02 (restoration)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Rest_Guilt_Compassionate_Cognition",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Self-compassion and values-aligned rest cognitive interventions (5-minute daily prompts; guided audio; reframing guilt as adaptive cue).",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Reducing guilt about taking breaks increases willingness to rest and reinforces boundaries.",
+      "measurement": "Daily guilt about rest rating (0-10); frequency of prompts used; self-reported adherence to rest when guilt arises.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No contraindications; monitor if prompts induce distress; adjust prompt content as needed.",
+      "mapping_query": "CASE_PAYLOAD -> map S03 to C03."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "End_of_Work_Ritual_Enforcement",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a definitive end-of-work ritual (device shutdown timer, automated status update, and a brief transition activity); remove access to work apps after routine end time.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Creates a predictable cue to stop working, increasing perceived control and reducing spillover into personal time.",
+      "measurement": "Time to stop work after official end time; frequency of post-end work activity; self-reported adherence to shutdown ritual.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Coordinate with organizational policies; avoid unsafe pressure to over-schedule; allow for exceptions in urgent situations.",
+      "mapping_query": "CASE_PAYLOAD -> map S04 to C04."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Boundary_Communication_Skills_Training",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Boundary-setting coaching with practical scripts for communicating limits; role-plays; access to an accountability partner for feedback.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Improves practical ability to implement boundaries, reducing reliance on self-control alone and increasing consistency.",
+      "measurement": "Boundary-communication frequency and quality (script usage); days with communicated limits; self-reported boundary adherence.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure boundaries are realistic within job context; avoid creating friction with colleagues.",
+      "mapping_query": "CASE_PAYLOAD -> map S05 to C05."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Social_Support_Quality_Enhancement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured social support enhancement: assign an supportive ally for weekly check-ins, validation exercises, and reframing negative social messages; provide social-prescribing-style resources.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Improved perceived social support and reduced minimization from friends aids adherence to boundaries and rest strategies.",
+      "measurement": "Perceived social support scale; frequency/quality of supportive feedback; self-reported satisfaction with social responses to burnout.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Choose supportive partners; monitor for additional pressure or fatigue from social interactions.",
+      "mapping_query": "CASE_PAYLOAD -> map S06 to C06."
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "pseudoprofile_id": "CASEPROFILE-STARTLE-HYPERAROUSAL-001",
+  "summary": "This case presents six modifiable predictors of hyperarousal and trauma-related reactivity: exaggerated startle (C01), persistent feeling of being on edge (C02), conditioned physiological reactivity to past incident (C03), situational hypervigilance to cues (C04), negative emotional response to ongoing symptoms (C05), and belief–recovery mismatch (C06). The proposed levers span biological (sleep and autonomic regulation), psychological (trauma-focused processing, cognitive restructuring, mindfulness), and social domains (support and belonging), with attention to interactions across domains. Each lever is a measurable, feasible, and safety-conscious predictor designed to move specific criteria while remaining practical for scalable implementation.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Improved sleep quality and circadian alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured sleep optimization program (consistent bed/time, daytime light exposure, dim-light/no screens before bed, and caffeine moderation) to reduce baseline arousal and cue sensitivity.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Adequate, regular sleep reduces baseline autonomic arousal, enhances emotion regulation, and improves discrimination between threat and non-threat cues, thereby dampening startle magnitude, persistent tension, and hypervigilance.",
+      "measurement": "Sleep diary metrics (duration, onset latency, awakenings) and 0–10 self-rated arousal; periodic PSQI or brief sleep quality check.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for daytime sleepiness; advise on caffeine timing and sleep environment stability.",
+      "mapping_query": "sleep circadian optimization to reduce C01/C02/C04"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Diaphragmatic breathing and paced respiration",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Teach diaphragmatic breathing with paced respiration and brief guided practice to downregulate autonomic arousal during triggers and daily life.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Slow, paced breathing increases vagal tone and reduces heart rate and sympathetic arousal, lowering reflexive startle and overall hypervigilance.",
+      "measurement": "Heart rate variability (RMSSD) and breathing rate during practice or at rest; 0–10 self-rated arousal after practice.",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Ensure proper instruction to avoid hyperventilation; stop if dizziness or lightheadedness occurs.",
+      "mapping_query": "paced respiration to reduce C01/C02/C04"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Somatic grounding and interoceptive exposure to decondition past incident cue reactivity",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Regular somatic grounding and interoceptive exposure to re-associate bodily sensations with safety and reduce conditioned arousal.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C02"
+      ],
+      "mechanism_rationale": "Systematic body-awareness and controlled exposure to bodily sensations decouple automatic arousal from reminders, reducing distress and vigilance.",
+      "measurement": "0–10 arousal during controlled exposures; SUDs during reminder exposures; optional psychophysiology (HR/skin conductance) if available.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Progress gradually; conduct with clinician or trained coach to minimize risk of re-traumatization.",
+      "mapping_query": "somatic grounding to reduce C03 and C04"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Trauma-focused exposure and cognitive processing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured exposure therapy with cognitive processing to reframe past incident memories and address mismatch between recovery beliefs and current bodily responses.",
+      "targets_criteria_ids": [
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Controlled exposure desensitizes conditioned fear responses and updates recovery beliefs, reducing physiological arousal to reminders and cognitive dissonance.",
+      "measurement": "SUDs during exposure sessions; cognitive flexibility and belief-about-recovery ratings (0–10).",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Must be delivered by a qualified clinician; monitor distress and provide stabilization strategies between sessions.",
+      "mapping_query": "trauma-focused exposure processing for C03 and C06"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Cognitive reappraisal and reframing to reduce distress about symptoms",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Training in cognitive restructuring and values-based coping to reduce emotional distress (C05) and align recovery expectations (C06).",
+      "targets_criteria_ids": [
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Adaptive reappraisal reduces emotional reactivity to symptoms and narrows cognitive dissonance about recovery progress, enabling flexible coping.",
+      "measurement": "Short emotion regulation scale; 0–10 distress rating; 0–10 belief about recovery.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "cognitive restructuring to reduce C05 and C06"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Structured social support and belonging (peer buddy or group)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Facilitate weekly peer support or group check-ins and a buddy system to provide safety signals and reduce loneliness-related arousal.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Enhanced social connectedness buffers perceived threat, lowers baseline arousal, and improves mood, facilitating coping with symptoms.",
+      "measurement": "Perceived social support scale; loneliness index; 0–10 arousal; attendance rate.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Maintain confidentiality and monitor for conflicts or triggering dynamics in group settings.",
+      "mapping_query": "social support to reduce C02/C04/C05"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Mindfulness-based stress reduction / ACT-based training",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Integrate mindfulness and ACT practices to enhance present-moment awareness and cognitive diffusion, reducing reactivity to cues and distress about symptoms.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Mindfulness/ACT reduces automatic physiological responses to cues, increases cognitive flexibility, and decreases emotional distress and maladaptive avoidance.",
+      "measurement": "Mindfulness questionnaire (short MAAS or FFMQ) and 0–10 arousal; simple cognitive flexibility task; session completion rate.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Mindfulness/ACT to reduce C01/C02/C04/C05"
+    }
+  ]
+}

@@ -1,0 +1,698 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID028",
+  "model_summary": "Initial gVAR-ready observation model targeting post-concussion cognitive vulnerability (concentration, sensory-provoked symptoms, irritability) and maladaptive beliefs. Six operational criteria (C01–C06) are linked to six modifiable predictors (P01–P06) spanning PSYCHO, BIO, and SOCIAL domains. Data collection relies on frequent momentary EMA prompts (6/day over 14 days), a supplementary daily diary (1/day), and passive streams (screen time, sleep, and activity) to maximize within-person variance while minimizing redundancy. The plan preserves full complaint resolution while remaining estimable for graph-based VAR with clear lag structure and interpretable edges between predictors and criteria.",
+  "variable_selection_notes": "Variables chosen to balance coverage of the complaint (attention, sensory-provocation, affect, beliefs, attribution, daily functioning) with measurability and feasibility. Six criteria capture core symptom domains and maladaptive beliefs described in the case (C01–C06). Six predictors provide actionable levers with established mechanisms (attention training, screen exposure management, emotion regulation, psychoeducation on trajectory, attribution retraining, daily accommodations). Measures prefer 1–9 Likert scales where feasible to maximize within-person variance; where nonlinear effects are plausible (e.g., screen use), signs are marked accordingly. Daily diary and passive streams augment data density without overburdening the participant. Some predictors map to multiple criteria (e.g., attention training affects C01 and C06) to reflect cross-domain salience. The grid of predictor–criterion relevance (36 pairs) is provided to seed the gVAR structure and facilitate future refinement as data accrue.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:00",
+        "11:30",
+        "14:00",
+        "16:30",
+        "19:00",
+        "21:30"
+      ],
+      "recall_window": "since last_prompt",
+      "expected_total_prompts": 84,
+      "notes": "6 prompts/day across blocks with jitter to reduce anticipation effects."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "22:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Evening state capture for day-level context."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Passive data streams include screen time, sleep, and activity per prompt window."
+    },
+    "minimum_total_observations_target": 120,
+    "gvar_readiness_notes": "Moderate complexity with 6 predictors and 6 criteria; ensure data pipelines for EMA and passive streams are reliable and that lag windows (0–6h, 0–24h) are respected.",
+    "variance_support_notes": "High expected intra-individual variance in attention and affect; plan for subject-specific centering (within-person z-scoring) and potential transformation.",
+    "missingness_risk_notes": "Prompts may be missed; implement reminders and imputation-friendly design; ensure passive streams can compensate for occasional EMA gaps."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Sustained attention / concentration impairment",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 30 minutes, how difficult was it to sustain attention on your current task? (1 = not difficult at all, 9 = extremely difficult)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Visual/screen-provoked nausea (sensory intolerance)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 30 minutes, how nauseated did screen exposure make you feel? (1 = not nauseated, 9 = extremely nauseated)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Heightened irritability / emotional reactivity",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 30 minutes, how irritable did you feel? (1 = not irritable, 9 = extremely irritable)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Belief that symptoms are permanent / catastrophic fear",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Today I believe my symptoms reflect permanent brain change (1 = strongly disagree, 9 = strongly agree)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "today",
+        "expected_within_person_variability": "medium",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Strong causal attribution to prior concussion",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Today I attribute most of my symptoms to the prior concussion (1 = strongly disagree, 9 = strongly agree)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "today",
+        "expected_within_person_variability": "medium",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Functional impact on daily tasks (work/study/leisure)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Today, how much did cognitive symptoms interfere with daily tasks (1 = not at all, 9 = severely)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "today",
+        "expected_within_person_variability": "medium",
+        "notes": ""
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Attention_Systems_Training_and_Cognitive_Offloading",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / cognitive_and_metacognitive_interventions / cognitive_remediation_and_rehabilitation / *sustained_attention_practice",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Directly reduces cognitive load and improves sustained attention via practice; external offloading reduces working-memory demands.",
+      "intervention_examples_safe": "Use reminders, task chunking, checklists, and environmental cues.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 2 hours, how much did you use attention strategies (e.g., reminders, checklists) to support concentration?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved attentional control should reduce concentration lapses."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Reduced cognitive load from offloading should lessen daily-task disruption."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "No pharmacology; standard cognitive-skill training; ensure safety with task demands.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "High feasibility with EMA; offloading tools are common."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Screen_Time_Graded_Exposure_and_BlueLight_Filtering",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Sleep_and_Circadian / Circadian_Entrainment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.6,
+      "mechanism_rationale": "Managing screen exposure and lighting reduces sensory provocation (nausea) and may improve sleep/wake patterns.",
+      "intervention_examples_safe": "Use blue-light filters; schedule screen breaks; gradual re-exposure plans.",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "Phone OS (screen time minutes)",
+        "assessment_type": "passive_aggregated_per_prompt",
+        "item_or_signal": "Screen time in the last hour (minutes)",
+        "response_scale_or_unit": "minutes",
+        "sampling_per_day": 6,
+        "recall_window": "past_1_hour",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "low",
+        "distribution_hint": "bounded_0_1"
+      },
+      "targets_criteria_var_ids": [
+        "C02"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Lowered screen provocation should reduce nausea over time."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Passive data collection is non-intrusive; ensure data privacy.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Requires access to device-level screen data; ensure consent for passive collection."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Emotion_Regulation_Skills_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / core_psychological_skills_toolkits / emotion_regulation_and_affective_mastery",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Enhanced emotion regulation reduces irritability and reactivity; supports congnitive control.",
+      "intervention_examples_safe": "ED-DBT-style skills; diaphragmatic breathing; cognitive reappraisal practice.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 30 minutes, how effectively were you able to regulate your emotions during a stressful moment?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C03"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better emotion regulation should reduce irritability frequency/severity."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Emotion-regulation training is non-pharmacologic and safe.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.86,
+        "notes": "Requires participant engagement in brief daily exercises."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Psychoeducation_on_Recovery_Trajectory_and_Permanence_Beliefs",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / foundations_and_common_factors / psychoeducation_modules / cognition_and_thinking / attention_and_control / *psychoeducation_attention_is_trainable",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Educating about recovery expectations can recalibrate permanence beliefs and improve prognosis optimism.",
+      "intervention_examples_safe": "Brief psychoeducation modules; self-monitoring of beliefs; expectancy discussions.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Today I believe my symptoms will improve with treatment (1 = strongly disagree, 9 = strongly agree)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "today",
+        "expected_within_person_variability": "medium",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Reducing fixed catastrophic beliefs should lower distress."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Improved recovery expectations can shift attribution away from permanence."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Education content is non-pharmacologic; monitor for misinterpretation.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Standard digital psychoeducation modules; ensure comprehension."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Adaptive_Attribution_Style_Retraining",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / cognitive_and_metacognitive_interventions / metacognitive_and_attention_based_interventions / *attributional_reframe_practice",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Reframing thought-attribution reduces misattributions to concussion and supports optimistic expectations.",
+      "intervention_examples_safe": "Cognitive reframing exercises; journaling; perspective-taking prompts.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Today I attributed my symptoms to factors other than my concussion (1 = strongly disagree, 9 = strongly agree)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "today",
+        "expected_within_person_variability": "medium",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "More balanced attribution reduces permanent-belief strength."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Shifts attribution away from concussion toward broader recovery processes."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Cognitive-attribution work is safe when framed constructively; avoid blaming language.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": "Requires careful scripting to avoid misunderstanding."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Daily_Accommodations_and_Task_Structuring",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "PSYCHO / cognitive_capacity_enhancement_and_stimulation / program_setup_and_transfer / metacognitive_scaffolding / monitor_and_adjust / *transfer_bridge_explicit_link_to_daily_tasks",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Structured task planning reduces cognitive load and supports daily functioning.",
+      "intervention_examples_safe": "Checklists, task chunking, schedule breaks, explicit daily-task mappings.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 2 hours, did you use a structured plan or accommodations to support a task? (1 = no, 9 = yes)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": ""
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better task structuring reduces functional impact."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Task-structuring guidance is non-pharmacologic; monitor for safety in high-demand tasks.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.86,
+        "notes": "High feasibility with short EMA prompts and simple tasks."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,18000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,80000"
+    }
+  ],
+  "edges": [],
+  "diagnostics": {
+    "expected_collinearity_risks": [],
+    "expected_floor_ceiling_risks": [],
+    "variance_enhancement_suggestions": [],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": "6 predictors with moderate-to-high feasibility for EMA and passive data; watch for missingness."
+  },
+  "safety_notes": "This is not a diagnosis or treatment guidance. No medication dosing or unsafe suggestions. If acute risk is detected, seek professional help immediately."
+}

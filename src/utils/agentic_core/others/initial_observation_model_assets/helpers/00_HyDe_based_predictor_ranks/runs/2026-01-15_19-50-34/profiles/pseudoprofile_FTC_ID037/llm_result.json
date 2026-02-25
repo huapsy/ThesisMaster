@@ -1,0 +1,191 @@
+{
+  "pseudoprofile_id": "CASE01_BIOPSYCHO_SOCIAL_LATENCY_MODULATION_2026",
+  "summary": "The presented case shows a pattern of repeated lateness driven by underestimation of task durations, disorganized pre-departure preparation, lack of planned buffers, variability in routine task times, and consequent negative self-evaluation. Modifiable predictors should target (a) cognitive timing accuracy and external time cues (psycho); (b) preparatory routines and item readiness (social/environmental cues); (c) environmental/calendar adjustments and buffers (social); (d) self-regulatory skills and self-compassion (psycho); and (e) basic physiological supports that enhance alertness and consistency (bio). The proposed levers span Bio/Psycho/Social domains and their interactions, with concrete metrics and feasible timelines to observe improvements in lateness frequency (C01), time-estimation accuracy (C02), pre-departure preparedness (C03), buffer use (C04), task duration variability (C05), and self-criticism (C06). Each lever is designed to be changeable, implementable in routine life, and measurable with simple metrics.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Time Estimation Training with External Time Cues",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured practice to estimate routine task durations (e.g., shower, key-finding, walking to car) with immediate feedback, paired with automatic on-screen/time-based alerts (alarms, countdowns) that compare estimated vs actual durations.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Reduces systematic underestimation of task durations, improving scheduling realism and reducing delays that lead to lateness.",
+      "measurement": "Mean absolute error between estimated vs actual task durations; proportion of events started on time; weekly lateness rate.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns. Monitor for frustration with estimates; adjust pace if anxiety increases.",
+      "mapping_query": "How does structured time-estimation training with external cues affect lateness frequency and duration estimation accuracy?"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Pre-Departure Organizational Cue System (Keys/Phone/Clothes Ready by Door)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Implement a door-ready cue system: designated hook for keys/phone, standardized outfit/coat by door, and a 2-minute pre-departure micro-routine assisted by a physical prompt.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Ensures essential items are routinely prepared, reducing time wasted searching and delaying departures; creates a reliable pre-departure state.",
+      "measurement": "Rate of items found/ready before departure; time from decision to leave; lateness proportion.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Simple physical setup; no controversial components.",
+      "mapping_query": "Will door-ready cue systems improve pre-departure preparedness and reduce lateness?"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Built-in Buffer Time in Scheduling",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Block calendar buffers (e.g., 10-20 minutes) before each commitment; treat buffers as non-negotiable with automatic reminders.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Buffers absorb unpredictable delays, reducing late starts and perceived time pressure.",
+      "measurement": "Buffer adherence rate; average delay avoided per event; weekly lateness rate.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Adjust buffer length as needed to avoid over-planning; monitor stress from tighter schedules.",
+      "mapping_query": "Does scheduling built-in buffers before commitments reduce lateness frequency and improve on-time starts?"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Routine Task Standardization Templates",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Create simple, public-facing templates or checklists for common routines (e.g., shower routine, car-walk sequence) with time estimates and step order.",
+      "targets_criteria_ids": [
+        "C05",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Reducing variability by standardizing sequences lowers duration variability and underestimation errors.",
+      "measurement": "Task duration SD per task; mean task duration; lateness rate.",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Templates should be flexible enough to accommodate occasional deviations.",
+      "mapping_query": "Will standardized routine templates reduce duration variability and underestimate errors?"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Self-Compassion and Cognitive Reframing Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Brief self-compassion exercises and cognitive reframing to reduce negative self-evaluation after lateness (“mess” feelings) with daily reflection prompts.",
+      "targets_criteria_ids": [
+        "C06",
+        "C01"
+      ],
+      "mechanism_rationale": "Decreases punitive self-talk that may undermine motivation and adherence to punctual routines; supports consistent behaviors.",
+      "measurement": "Frequency/intensity of self-critical thoughts; correlation with lateness rate.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Monitor for resistance to self-compassion messaging; adapt language to individual preferences.",
+      "mapping_query": "Can self-compassion and cognitive reframing reduce negative self-evaluation and improve on-time behavior?"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Self-Monitoring and Feedback System",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Daily lateness and duration-estimation logs with weekly feedback summaries; include trend visualization and goal tracking.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Providing real-time feedback enhances awareness, supports corrective actions, and reinforces desired routines.",
+      "measurement": "Proportion of events on time; estimation accuracy error over time; adherence to logging.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure data privacy; avoid excessive monitoring that increases stress.",
+      "mapping_query": "Does daily self-monitoring with feedback improve lateness and duration estimation accuracy?"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Sleep Regularity and Morning Light Exposure",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent bed/wake times and morning light exposure to improve alertness and cognitive control in mornings.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Improved sleep/circadian alignment enhances executive function and time perception, reducing lateness and underestimation.",
+      "measurement": "Sleep duration/consistency; chronotype-adjusted wake times; lateness rate; duration estimation accuracy.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Monitor for sleep disorders; refer if persistent insomnia or daytime fatigue.",
+      "mapping_query": "Will sleep regularity and morning light exposure improve punctuality and time-estimation accuracy?"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Pre-Departure Light Physical Activation (Brief Morning Exercise)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Short, 5-10 minute brisk activity before leaving (walk/jump rope) to boost arousal and cognitive readiness.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Increases waking energy and focus, potentially reducing timing errors and delays.",
+      "measurement": "Subjective alertness; lateness rate; duration-estimation accuracy.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Safe for most adults; advise medical clarification if cardiovascular concerns.",
+      "mapping_query": "Does brief pre-departure physical activity increase punctuality and duration estimation accuracy?"
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Social Accountability Partner (Punctuality Buddy)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Pair with a trusted contact to check in on punctuality, share calendars, and provide encouragement for on-time departures.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Social accountability enhances commitment to punctual routines and buffer use.",
+      "measurement": "Buddy-confirmed on-time starts; perceived accountability score; lateness rate.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.92,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Choose a supportive partner; avoid dependency creation.",
+      "mapping_query": "Will a punctuality buddy improve on-time starts and buffer adherence?"
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Digital Tools for Reminders and External Offloading",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Phone-based reminders, checklists, and geofenced prompts with simple offloading of memory tasks (keys, wallet, etc.).",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "External cognitive aids reduce reliance on internal memory and support timely departures.",
+      "measurement": "Prompt completion rate; rate of leaving after prompts; lateness proportion; estimation accuracy.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.58,
+      "priority": "HIGH",
+      "safety_notes": "Respect privacy; configure non-intrusive prompts; allow opt-out at any time.",
+      "mapping_query": "Do digital reminders and checklists improve pre-departure organization, buffer use, and on-time departures?"
+    }
+  ]
+}

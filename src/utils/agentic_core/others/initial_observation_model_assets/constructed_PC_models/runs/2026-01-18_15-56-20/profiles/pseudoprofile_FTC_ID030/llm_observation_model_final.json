@@ -1,0 +1,814 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID030",
+  "model_summary": "Initial gVAR-oriented observation model targeting episodic derealization-like experiences (C01) triggered by stress (C02) with subjective presence (C03) and distress (C04), plus frequency (C05) and current baseline stress (C08) as core outcome criteria. Predictors (P01–P06) are safe, modifiable, salutogenic levers spanning sleep/circadian regulation, mindfulness/grounding, stress coping, aerobic activity, in-the-moment grounding, and social belonging. The plan emphasizes within-person variance via frequent momentary EMA prompts (6 per day) and lightweight passive sensing for activity, enabling a compact, estimable, non-diagnostic, data-rich framework ready for subsequent gVAR modeling. Measurements are designed to capture state fluctuations with 1–9 Likert scales where appropriate, controlled sampling, and explicit lag definitions to support causal/temporal inference while minimizing redundancy and multicollinearity across constructs.",
+  "variable_selection_notes": "Selected criteria cover the complaint’s core features while avoiding near-duplicate self-regulation constructs. C01–C05 capture episodes, triggers, present-moment experience, distress, and frequency; C08 provides a baseline stress context. Predictors were chosen from HyDe and LLM mappings to optimize salutogenic levers with known practical implementability in digital phenotyping (sleep, mindfulness, coping, exercise, grounding, social support). Potential collinearity is mitigated by choosing broad, distinct domains (BIO: sleep, physical activity; PSYCHO: mindfulness, coping; SOCIAL: belonging). Within-person variance will be driven by multiple prompts per day and occasional passive sensing (steps). Assessed signals are primarily self-reported EMA questions with a fixed recall window (since last prompt) to enable lagged analyses (0–24h). Uncertain or nonlinear effects (e.g., social media) are treated as nonlinear/unknown in edges and, if needed, refined after initial data.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:00-09:30",
+        "12:00-12:30",
+        "15:00-15:30",
+        "18:00-18:30",
+        "20:00-20:30",
+        "22:00-22:30"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 84,
+      "notes": "6 prompts/day to maximize within-person variance; include reminder prompts if missing."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "22:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Evening diary captures functional impact and presence. Optional extension if burden allows."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Incorporate smartphone-based sleep/activity proxies and movement data for baseline/response covariates."
+    },
+    "minimum_total_observations_target": 200,
+    "gvar_readiness_notes": "Initial plan emphasizes measurable, modifiable levers with clear within-day sampling; anticipates moderate noise but high identifiability of effects with 14 days of data.",
+    "variance_support_notes": "EMA items designed as 1–9 Likert scales to maximize intra-individual variance; passive sensing adds objective variance in activity/sleep.",
+    "missingness_risk_notes": "Reminder cadence and user-friendly prompts to minimize missing data; plan for imputation and sensitivity checks."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Episodic perceptual/experiential alteration",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, I experienced an episode where my surroundings felt unreal or ‘slightly off’. Rate the intensity of that unreal feeling on a 1–9 scale (1 = not at all, 9 = extremely unreal).",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Episode-level perception; ensure clarity between 'unreal' and normal perception."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_per_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Stress as proximal trigger",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, to what extent did stress precede any episode (1 = not at all, 9 = completely)?",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Temporal association between stress and episodes."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_per_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Reduced sense of presence during episodes",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "During the last episode, rate how present you felt (1 = not present at all, 9 = fully present)",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Presence vs. derealization spectrum during episodes."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_per_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Acute emotional distress when episodes occur",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "During the last episode, rate the distress level (1 = no distress, 9 = extreme distress)",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures affective response at episode onset."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_per_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Episode frequency (occasional)",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, how many episodes occurred? (Rate 1 = none, 9 = many)",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Frequency captured as a categorical 1–9 proxy."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "ordinal_to_continuous",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C08",
+      "source_variable_id": "custom",
+      "label": "Current baseline stress level",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate your overall stress level (1 = not stressed, 9 = extremely stressed)",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Controls for momentary stress context."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_per_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Sleep_Hygiene_and_Circadian_Regulation",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "Sleep_Hygiene_and_Circadian_Regulation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Regular sleep patterns and circadian entrainment stabilize arousal and perceptual processing, reducing vulnerability to episodes.",
+      "intervention_examples_safe": "Consistent bed/wake times; limit caffeine after 2 pm; dark, cool sleep environment.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "How would you rate your sleep quality last night? (1=very poor to 9=excellent)",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 1,
+        "recall_window": "last_night",
+        "expected_within_person_variability": "high",
+        "notes": "Composite sleep quality signal; consider cross-subject z-scoring."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_per_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C08",
+        "C02",
+        "C01",
+        "C03"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Sleep data feasible with daily diary."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Mindfulness_and_Grounding_Skills",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "Mindfulness_and_Grounding_Skills",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.88,
+      "mechanism_rationale": "In-the-moment present-moment awareness and grounding reduce reactivity to stress and perceptual distortion.",
+      "intervention_examples_safe": "Brief mindful breathing, 3-minute grounding body scan.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate your level of mindful awareness (present moment)",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "State mindfulness signal."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_per_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C04",
+        "C08",
+        "C01"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.92,
+        "notes": "Low burden; scalable across participants."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Stress_Reduction_and_Coping_Skills",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "Stress_Reduction_and_Coping_Skills",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.86,
+      "mechanism_rationale": "Structured coping strategies reduce arousal and distress, potentially lowering episode likelihood and severity.",
+      "intervention_examples_safe": "Coping plan training, problem-solving rehearsal, distress tolerance techniques.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate how effectively you used coping skills to manage stress (1-9)",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures coping efficacy in daily life."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_per_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C04",
+        "C08",
+        "C05"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.86,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Coping coach resources may be needed; feasible via app prompts."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Regular_Aerobic_Exercise_Program",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "Aerobic_Exercise_and_Movement",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.82,
+      "mechanism_rationale": "Regular aerobic activity reduces physiological arousal and improves mood, potentially lowering episode occurrence and distress.",
+      "intervention_examples_safe": "Moderate-intensity walking 3–5 days/week; 30 minutes per session.",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "phone_pedometer_steps",
+        "assessment_type": "passive_continuous",
+        "item_or_signal": "Daily total steps in the last 24 hours",
+        "response_scale_or_unit": "steps",
+        "sampling_per_day": 1,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Objective activity proxy; complement with EMA if needed."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C04",
+        "C05",
+        "C08"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.92,
+        "notes": "Relies on device sensors; compatible with EMA."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "In-the-moment_Grounding_Techniques",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "Grounding_Techniques_and_Sensory_Skills",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.83,
+      "mechanism_rationale": "Grounding exercises reduce acute arousal and enhance present-moment orientation, potentially lowering episode distress and derealization.",
+      "intervention_examples_safe": "5–4–3–2–1 grounding, sensory focus, brief body scan.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate how grounded you feel (1-9)",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures immediate grounding response."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_per_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C08"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.86,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Low burden, actionable in real time."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Structured_Social_Support_and_Belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "Social_Support_and_Belonging",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Perceived social support buffers stress reactivity and improves regulatory capacity, potentially reducing distress during episodes.",
+      "intervention_examples_safe": "Scheduled check-ins with a trusted person; supportive messaging; small-group connection.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate how supported you feel by your social network (1-9)",
+        "response_scale_or_unit": "9-point Likert (1-9)",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures perceived social backing."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_per_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C08",
+        "C02"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Leverages existing social supports; feasible across contexts"
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,57000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,57000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,54000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,66000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C08",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Sleep quality and circadian regulation expected to lower current baseline stress.",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Sleep quality reduces proximal stress triggers.",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Better sleep lowers episodes of unreal experiences.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Mindfulness reduces episode intensity and derealization.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Mindfulness enhances present-moment awareness during episodes.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Enhanced grounding reduces distress during episodes.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Coping strategies reduce stress triggers.",
+      "estimated_relevance_0_1": 0.82
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Coping strategies mitigate distress during episodes.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C08",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Coping improves current stress levels.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Aerobic activity reduces daily stress reactivity.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C08",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Exercise lowers baseline stress across the day.",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Increased activity associated with fewer episodes.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Grounding reduces episode magnitude.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Grounding improves present-moment presence during episodes.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Immediate distress attenuation with grounding.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C08",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Grounding related to lower current stress.",
+      "estimated_relevance_0_1": 0.62
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Social support buffers distress during episodes.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C08",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Social belonging lowers current stress levels.",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Social support reduces proximal stress triggers.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Perceived support linked to lower episode frequency (via stress buffering).",
+      "estimated_relevance_0_1": 0.55
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "Potential overlap between C02 and C08 (daily stress context)",
+      "C01 and C04 may co-occur in episodes"
+    ],
+    "expected_floor_ceiling_risks": [
+      "Low floor for C05 given short observation window; ensure meaningful range"
+    ],
+    "variance_enhancement_suggestions": [
+      "Increase prompts per day or include short random prompts to capture variability",
+      "Standardize per-subject z-scoring during analysis"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "(none at this stage)"
+    ],
+    "gvar_feasibility_summary": "Overall feasible with 6 predictors, 14 days; primary risks are missing EMA prompts and sensor data gaps."
+  },
+  "safety_notes": "Not a diagnosis. No medication advice. If acute risk emerges (e.g., depersonalization with suicidality), escalate to appropriate mental health professional per standard safety protocols."
+}

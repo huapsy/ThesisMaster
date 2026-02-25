@@ -1,0 +1,77 @@
+pseudoprofile_id: pseudoprofile_FTC_ID022
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID022/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.6022
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 0.80 * t + phase=4.45)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 4
+  * pulse_1: start_idx=68, length=3, amp=0.802
+  * pulse_2: start_idx=157, length=7, amp=1.221
+  * pulse_3: start_idx=55, length=3, amp=1.267
+  * pulse_4: start_idx=157, length=6, amp=1.169
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P05
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.194 | freq_hint=None
+  * P02: missing_rate=0.133 | freq_hint=None
+  * P03: missing_rate=0.156 | freq_hint=None
+  * P04: missing_rate=0.156 | freq_hint=None
+  * P05: missing_rate=0.061 | freq_hint=None
+  * P06: missing_rate=0.106 | freq_hint=None
+  * P07: missing_rate=0.206 | freq_hint=None
+  * C01: missing_rate=0.261 | freq_hint=None
+  * C02: missing_rate=0.117 | freq_hint=None
+  * C03: missing_rate=0.261 | freq_hint=None
+  * C04: missing_rate=0.183 | freq_hint=None
+  * C05: missing_rate=0.156 | freq_hint=None
+  * C06: missing_rate=0.150 | freq_hint=None
+  * C07: missing_rate=0.389 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Behavioral Activation for social engagement | ontology_id=implementation_intention_activation | conf=0.72 | freq_hint=None
+- P02 (PREDICTOR): Sleep regularity and circadian optimization | ontology_id=sleep_tracker_wrist_wearable | conf=0.79 | freq_hint=None
+- P03 (PREDICTOR): Moderate aerobic activity | ontology_id=exercise_type_and_perceived_exertion_log | conf=0.72 | freq_hint=None
+- P04 (PREDICTOR): Mindfulness-based intervention | ontology_id=pain_mindfulness_practice | conf=0.72 | freq_hint=None
+- P05 (PREDICTOR): Pain education + coping skills | ontology_id=coping_with_stress_without_use | conf=0.72 | freq_hint=None
+- P06 (PREDICTOR): Cognitive restructuring to reduce self-blame | ontology_id=self_critical_thought_restructure | conf=0.78 | freq_hint=None
+- P07 (PREDICTOR): Social prescribing & community engagement | ontology_id=social_prescribing_assessment | conf=0.72 | freq_hint=None
+- C01 (CRITERION): Recurrent headache episodes | ontology_id=headache_frequency_increase | conf=0.66 | freq_hint=None
+- C02 (CRITERION): Headache intensity/unpleasant sensory quality | ontology_id=pain_intensity_moderate_to_severe | conf=0.72 | freq_hint=None
+- C03 (CRITERION): Acute mood collapse in response to pain | ontology_id=mood_disturbance_associated_with_pain | conf=0.75 | freq_hint=None
+- C04 (CRITERION): Behavioral avoidance of social plans | ontology_id=social_avoidance_behavior | conf=0.66 | freq_hint=None
+- C05 (CRITERION): Guilt after cancelling / self-blame | ontology_id=guilt | conf=0.78 | freq_hint=None
+- C06 (CRITERION): Subjective social isolation / reduced social contact | ontology_id=social_withdrawal | conf=0.64 | freq_hint=None
+- C07 (CRITERION): Reinforcing pain–shame cycle (maintenance loop) | ontology_id=shame | conf=0.62 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

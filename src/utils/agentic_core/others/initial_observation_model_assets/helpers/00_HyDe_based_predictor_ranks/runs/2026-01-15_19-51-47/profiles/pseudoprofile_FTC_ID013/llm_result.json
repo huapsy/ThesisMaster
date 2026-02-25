@@ -1,0 +1,195 @@
+{
+  "pseudoprofile_id": "CASE_BP_ALC_01",
+  "summary": "The case describes a pattern of drinking beyond intention (C01) driven by anticipatory urges (C02), perceived lack of voluntary control (C03), use of alcohol as after-work coping (C04), heavier mornings (C05), and worry about drinking pattern (C06). Modifiable levers span neural/metabolic factors, sleep, coping skills, behavior planning, social context, and data-informed feedback. The proposed solutions target these domains with changeable predictors (levers) designed to reduce drinking frequency and urge intensity, improve morning functioning, and decrease worry, while using measurement to refine personalization. Solutions include CBT/MI-based urge management, cue/context modification, alternative-evening routines, sleep optimization, morning energy strategies, motivational interviewing, social accountability, digital self-monitoring, contingent rewards, and alcohol-free social environment changes.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Urge_Surfing_and_Urge_Management_Skills",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured urge management training using urge surfing, delay tactics, and implementation intentions.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Reduces frequency/intensity of urges and aligns drinking decisions with deliberate choice, decreasing episodes that exceed prior plans.",
+      "measurement": "Urge_frequency_per_day; average_urge_intensity(0-10); days_drinking_resisted_vs_planned; alignment_of_planned_vs_actual_drinking.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "No unusual safety concerns; monitor for distress when resisting habitual drinking.",
+      "mapping_query": "Map S01 to C02 and C01; targets reduction of urges and drinking beyond plan as evidenced by complaint (C02) and overuse (C01)."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Cue_Control_and_Context_Modification",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cue-control strategies: remove/modify high-risk drinking contexts (e.g., after-work bars), establish pre-commitment, and employ brief delay after home arrival.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Decreases exposure to triggers and strengthens pre-decision control, reducing opportunities to drink and intensity of urges.",
+      "measurement": "Number_of_high_risk_evenings_with_alcohol_avoided; time_to_first_drink_after_arriving_home; urge_intensity_trends.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Context changes may require social plan adjustments; provide alternative activities.",
+      "mapping_query": "Targets C01 and C02 by altering drinking contexts and cue exposure."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Evening_Coping_Toolbox_with_Activities",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Establish a non-alcohol evening toolbox (walks, short workouts, hobbies) and track use to replace coping with alcohol.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Substitutes the coping function of drinking with rewarding activities, reducing drinking occasions and dependency cues.",
+      "measurement": "Days_with_alternative_activity_used; evenings_without_drinking; time_to_relaxation_before_bed.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "If alternatives do not reduce drinking, escalate to additional supports; ensure activities are accessible.",
+      "mapping_query": "Connect C04 (coping) with C01 (drinking occasions) via substitution in evening routines."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sleep_Regulation_and_Circadian_Entraining",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene protocol and circadian alignment: consistent bed/wake times, dim evening cues, caffeine cutoff, and 15-30 min morning light exposure.",
+      "targets_criteria_ids": [
+        "C05",
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Improved sleep quality and morning energy can reduce mood-driven drinking and reliance on alcohol as coping.",
+      "measurement": "Sleep_onset_latency; total_sleep_time; morning_energy_rating(0-10); days_with_alcohol_after_work.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for persistent sleep disturbances; adjust protocol if needed.",
+      "mapping_query": "Align C05 (morning impairment) with sleep interventions; potential downstream effects on C01/C04."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Morning_Energy_Maintenance_Exercise_and_Light",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Morning light exposure and light aerobic activity to boost mood/energy and reduce post-work drinking drive.",
+      "targets_criteria_ids": [
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Physiological energy and mood enhancement lowers likelihood of evening drinking as coping.",
+      "measurement": "Morning_energy(0-10); days_with_morning_exercise; urge_levels_afternoon/evening.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Adjust activity intensity to fit fitness level; watch for overexertion.",
+      "mapping_query": "Target C05; potential downstream reduction in C01 via improved daytime functioning."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "MI_Enhanced_Change_Readiness_and_Exploration",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Motivational Interviewing sessions to enhance readiness-to-change; explore values, goals, and address worry about control (C06).",
+      "targets_criteria_ids": [
+        "C06",
+        "C04"
+      ],
+      "mechanism_rationale": "Clarifies motivations, reduces ambivalence, and increases engagement with strategies to reduce drinking and worry.",
+      "measurement": "Readiness_ruler(0-10); goal alignment; session attendance; self-reported worry about control.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Respect pace of change; avoid pushy if resistance emerges.",
+      "mapping_query": "S06 maps onto C06 and C04 by increasing motivation to reduce drinking and manage worry."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Structured_Social_Support_and_Accountability",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create accountability partnerships or groups with weekly check-ins and supportive sober activities; social prescribing when available.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "External accountability and belonging support reduce drinking, urge preoccupation, and coping-based drinking patterns.",
+      "measurement": "Number_of_supportive_contacts_per_week; attendance at sober activities; days_without_drinking; perceived support quality.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Ensure voluntary participation; protect autonomy; monitor for social burnout.",
+      "mapping_query": "Social support framework targeting all six criteria (C01-C06) via accountability and belonging."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Digital_Self_Monitoring_with_Feedback",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Use a digital diary/app to log drinking, urges, mood, and triggers; weekly tailored feedback with suggestions.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Increases self-awareness and provides timely prompts to adjust behavior; supports relapse prevention.",
+      "measurement": "Daily_log_completion_rate; urge_score_trends; days_with_reduced_drinking; user_feedback_rating.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure data privacy and consent; provide opt-out options.",
+      "mapping_query": "Leveraging self-monitoring to influence C01, C02, C04, C06."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Contingency_Management_and_Reward_for_Sobriety",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Reinforcement-based contingencies: small rewards for sober evenings and successful coping without alcohol.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Positive reinforcement strengthens non-drinking choices and reduces urges and coping-driven drinking.",
+      "measurement": "Rewards earned; number of sober evenings; urge intensity on high-risk days.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Careful design to avoid triggering cravings via incentives; ensure appropriate scaling.",
+      "mapping_query": "CM approach aiming at C01/C02/C04 through rewards."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Alcohol_Free_Social_Environment_Modifications",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Community-level shifts to alcohol-free social events; create new norms and social identities around sobriety.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Reduces exposure to alcohol-centric cues and supports new social identity that aligns with reduced drinking and worry.",
+      "measurement": "Proportion of social events attended alcohol-free; self-reported social satisfaction; frequency of drinking-episodes in social contexts.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Balance social integration with personal preferences; monitor for social isolation.",
+      "mapping_query": "Modifying social environment to reduce drinking occasions and coping-driven use (C01, C04) and worry (C06)."
+    }
+  ]
+}

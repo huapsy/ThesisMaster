@@ -1,0 +1,741 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID033",
+  "model_summary": "Criterion set C01–C06 captures daytime meal omission, nocturnal hunger, impulsive late-night food choices, interoceptive hunger-signal reliability, and absence/presence of dieting goals. Predictor set P01–P04 targets meal planning/structure, mindful eating, eating-environment design, and planned snack structure. This compact, non-redundant configuration yields measurable within-person variance via momentary EMA (1–9 Likert scales where appropriate) and supports gVAR estimation with clearly specified sampling, timing, and lag structure.",
+  "variable_selection_notes": "Variables chosen to cover (i) daytime meal initiation and structure (C01, C06, C04), (ii) nocturnal eating drive and choices (C02, C03), and (iii) dieting/personal rules context (C05). Predictors focus on actionable levers with established links to the complaint domain in HyDe and LLM-mapped paths: meal planning/structure, mindful eating, environment design, and planned snack structure. Trade-offs include balancing ecological validity with model parsimony; all included items are modifiable through behavioral interventions and yield sufficient within-person variance.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:30-09:15",
+        "11:30-12:15",
+        "14:30-15:15",
+        "17:30-18:15",
+        "20:30-21:15",
+        "23:00-23:45"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 84,
+      "notes": "Six prompts/day over 14 days to capture daytime feeding patterns, hunger spikes, and eating choices with jitter within blocks to reduce anticipation bias."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "22:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Evening diary capturing hunger cues, perceived hunger-signal reliability, and reflections on dieting thoughts."
+    },
+    "passive_streams": {
+      "enabled": false,
+      "aggregation_strategy": "n/a",
+      "notes": "Passive streams disabled to retain feasibility and minimize missing data risk in initial model."
+    },
+    "minimum_total_observations_target": 98,
+    "gvar_readiness_notes": "Initial variable set described below is compact and estimable; edges implemented to enable a coherent gVAR starting point.",
+    "variance_support_notes": "1–9 Likert scales (where used) provide within-person variance across the day; planned meal structure and environment design are expected to fluctuate with context (workdays vs weekends).",
+    "missingness_risk_notes": "EMA fatigue is a consideration; reminders and reasonable daily quotas are recommended to minimize missingness."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Forgetting to eat during the day",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "During the current daytime period, to what extent did you forget to eat or skip meals today? (1=not at all to 9=extremely often)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Atomic item targeting daytime meal initiation; aligns with C01 evidence and decompensation."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_subject_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Large hunger increase at night (compensatory starvation)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the evening/night, how strong is your hunger compared with the daytime? (1=not hungry to 9=extremely hungry)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures nocturnal hunger surges following daytime under-eating."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_subject_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Making poor food choices when very hungry",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "When very hungry at night, how often do you choose energy-dense or less nutritious foods? (1=never to 9=very often)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Direct link to nocturnal impulsive eating behavior."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_subject_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Perceived breakdown of internal hunger cues",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, to what extent do you feel your hunger cues are reliable or accurate? (1=very reliable to 9=not reliable at all)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses interoceptive signal quality as a target for interoception training."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_subject_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Lack of intentional food restriction or dieting",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, did you intentionally restrict calories or follow any diet rules? (1=not at all to 9=absolutely yes)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Diet-identity/intentional restriction is context-dependent; polarity treated as bidirectional in initial model."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_subject_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Daytime attention/organizational factors contributing to missed meals",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, how well were you able to plan or attend to meal timing (e.g., reminders, structure) during daytime? (1=not at all organized to 9=very organized)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Targets daytime planning/organization that contribute to missed meals."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_subject_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Meal_Planning_Structure",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / nutrition_hydration_and_metabolic_health / meal_planning_and_structure",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Directly targets daytime meal initiation and scheduling; improves caloric intake regularity and satiety signaling.",
+      "intervention_examples_safe": "Meal-reminders, calendar-based meal templates, auto-snack prompts",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, did you plan to eat at scheduled times (meals/snacks)?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures daytime planning fidelity."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_subject_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increased daytime planning reduces daytime meal omission within hours."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Feasible with current EMA setup."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Mindful_Eating_Practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / third_wave_and_contextual_therapies / mindfulness_skills / *mindful_eating_practice",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Enhances interoceptive awareness and restraint cues; reduces impulsive choices during hunger.",
+      "intervention_examples_safe": "Brief mindful-eating prompts; DBT mindfulness skills training; informal mindful-eating practice",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, did you practice mindful eating (checking hunger/fullness cues before meals)?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Represents a cognitive-skill based predictor."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_subject_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindful eating reduces daytime meal omission via cue-awareness."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.75,
+        "notes": "Feasible with brief prompts; training may be needed."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Environment_Design_For_Eating",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / nutrition_hydration_and_metabolic_health / environment_design_for_eating",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Modifies eating context to reduce temptations and improve healthy choice likelihood.",
+      "intervention_examples_safe": "Arrange counter-top snack options, remove tempting items from sight, create dedicated eating zones",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, was your eating environment designed to support healthy choices (e.g., no tempting foods within easy reach)?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Addresses environmental constraints on eating behavior."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_subject_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved environment design lowers nocturnal hunger-driven impulsivity."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Implementation is simple but may require household-level adjustments."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Planned_Snack_Structure",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / nutrition_hydration_and_metabolic_health / eating_behavior_and_satiety_skills / *planned_snack_structure",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.78,
+      "mechanism_rationale": "Structured snacking can smooth hunger fluctuations and reduce night- time overcompensation.",
+      "intervention_examples_safe": "Pre-planned snack templates, snack-prep routines",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Did you plan a snack today at a specific time? (1=not planned to 9=fully planned)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Directly supports hunger-signal stabilization."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_subject_zscore",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Structured snacks reduce nocturnal overeating by providing predictable energy intake."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Feasible with simple prompts and templates."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Improved daytime meal planning reduces likelihood of daytime forgetting.",
+      "estimated_relevance_0_1": 0.82
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Structured daytime meals may reduce nocturnal hunger drive.",
+      "estimated_relevance_0_1": 0.76
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Planful eating reduces impulsive late-night food choices.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Meal planning may stabilize perceived hunger signal reliability.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "Dietary-constraint intentions interact variably with planning.",
+      "estimated_relevance_0_1": 0.25
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Planning supports daytime structure, reducing missed meals.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindful eating promotes attention to intake, reducing omissions.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Interoceptive awareness may dampen night hunger spikes.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindful eating lessens impulsive high-energy choices.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Awareness of hunger cues supports signal reliability.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "Mindful eating may influence dieting intent variably.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindful attention to meals may improve daytime organization around eating.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Environment design reduces opportunities to skip meals.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Calibrated eating cues may reduce nocturnal hunger drive.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Environment cues influence snack choices during hunger.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Structural cues may improve hunger cue reliability.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "Diet-intent may interact with environment design variably.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Design changes can enhance daytime eating structure.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Snack planning reduces daytime omissions.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Pre-planned snacks can blunt nocturnal hunger peaks.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Structured snacks reduce impulsive choices during hunger.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Structured snacking may stabilize hunger-signal processing.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "Dieting intent may interact with snack structure variably.",
+      "estimated_relevance_0_1": 0.45
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": " Snack planning aligns with daytime eating structure.",
+      "estimated_relevance_0_1": 0.55
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "low"
+    ],
+    "expected_floor_ceiling_risks": [
+      "none"
+    ],
+    "variance_enhancement_suggestions": [
+      "use within-subject z-scoring; check for nonstationarity; consider separate centering per participant"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "lab-based biomarker predictors that require in-person testing"
+    ],
+    "gvar_feasibility_summary": "Feasible with 4 predictors and 6 criteria; moderate missingness risk mitigated by reminders and concise EMA prompts."
+  },
+  "safety_notes": "Not a diagnosis. No medical dosing or interventions; monitor for acute risk and escalate to care if self-harm or safety concerns arise."
+}

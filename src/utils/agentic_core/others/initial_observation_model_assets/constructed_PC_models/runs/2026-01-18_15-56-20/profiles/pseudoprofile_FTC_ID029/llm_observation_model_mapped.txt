@@ -1,0 +1,17 @@
+pseudoprofile_id: pseudoprofile_FTC_ID029
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Guilt when resting -> CLINICAL / DSM-5TR / trauma- and stressor-related disorders / adjustment disorders / with mixed anxiety and depressed mood / guilt_feelings_present (conf=0.62)
+- C02: Belief that non-productivity equals wasting time -> NON-CLINICAL / AGE-GENERAL / psychological / autonomy / boundary setting / protecting personal time / time management (conf=0.58)
+- C03: Sense of falling behind/time scarcity -> NON-CLINICAL / AGE-GENERAL / psychological / temporal perspective / time management / meeting deadlines / timely task completion (conf=0.78)
+- C04: Intrusive self-critical thoughts during leisure -> CLINICAL / DSM-5TR / personality disorders / other personality disorders / depressive personality disorder / self_critical_rumination (conf=0.62)
+- C05: Urge/drive to act rather than rest -> NON-CLINICAL / AGE-GENERAL / emotional / arousal / alertness / mental readiness / preparedness for action (conf=0.85)
+- C06: Difficulty engaging in restorative activities -> NON-CLINICAL / AGE-GENERAL / physical / physical comfort / relaxation / rest and recovery / balancing activity and rest (conf=0.75)
+
+PREDICTORS:
+- P01: Structured Rest Blocks with Restorative Cueing -> PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / recovery_design / restoration_and_self_care / recovery_rituals_planning (conf=0.82)
+- P02: Self-Compassion and Mindfulness for Leisure -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / mbct_mbsr_core_practices / relating_differently_to_thoughts_practice (conf=0.92)
+- P03: Urge/Delay Tolerance Training -> PSYCHO / cognitive_behavioral_therapies / exposure_and_inhibitory_learning / response_prevention_and_urge_work / urge_tolerance_and_surfing / urge_tolerance_practice (conf=0.86)
+- P04: Sleep Hygiene & Circadian Regulation -> BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / low_stimulation_evening_activities (conf=0.72)
+- P05: Time-Blocking for Valued Actions -> PSYCHO / change_process_and_therapeutic_phases / readiness_and_engagement / wellbeing_optimization_entry_path / values_aligned_time_allocation_plan (conf=0.72)

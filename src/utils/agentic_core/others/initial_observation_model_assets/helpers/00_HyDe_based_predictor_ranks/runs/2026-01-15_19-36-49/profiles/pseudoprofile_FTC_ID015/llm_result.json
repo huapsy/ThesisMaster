@@ -1,0 +1,152 @@
+{
+  "pseudoprofile_id": "CASE-PP-01",
+  "summary": "This postpartum case presents a mother who loves her baby but experiences persistent identity disruption since childbirth, overwhelm, guilt, emotional lability (crying), perceived entrapment, and self-criticism despite positive baby bonding. The goal is to implement modifiable BIO-PSYCHO-SOCIAL levers that plausibly reduce distress and improve functioning by targeting sleep/physiology, emotion regulation and self-compassion, identity integration, practical autonomy, social validation, daily activation, and circadian regulation. The proposed levers span biological, psychological, and social domains (and their interactions), emphasize measurable, implementable actions, and include simple metrics to monitor progress over a 4–8 week horizon, with high-priority emphasis on safety and feasibility for real-world use.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep regularization and circadian entrainment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish a consistent sleep-wake schedule (same wake time and bedtime), optimize the sleep environment (dark, quiet, cool), limit late-day caffeine, and increase morning light exposure to stabilize circadian rhythm. Coordinate with partner for infant nighttime support to reduce awakenings where feasible.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Stable sleep and circadian alignment reduce emotional reactivity and fatigue, improving coping capacity and reducing tearfulness and guilt-driven distress.",
+      "measurement": "7–14 day sleep diary (bedtime, wake time, awakenings), daily sleep quality 0–10, daily mood rating 0–10; optional actigraphy if available",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Link sleep improvements to reductions in overwhelm (C05) and tearfulness (C06) via circadian stabilization."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Compassion-focused self-relating and affect regulation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver brief, structured self-compassion and emotion-regulation training (e.g., guided compassionate letter to self, naming and labeling emotions, cognitive reframe). Include brief psychoeducation on normal postpartum mood variance and strategies to cope with distress without self-judgment.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C07",
+        "C05"
+      ],
+      "mechanism_rationale": "Reducing self-attack after emotional episodes lowers guilt, improves tolerance of negative emotions, and increases adaptive coping, which can dampen overwhelm and tearful reactivity.",
+      "measurement": "Self-Compassion Scale (SCS) pre/post; daily self-criticism rating (0–10) after emotional moments; frequency of crying events; mood diary",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Address C04, C06, C07, C05 via self-compassion and emotion regulation skills."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Identity consolidation and parenting role integration",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Guided journaling and values-driven activities to integrate new motherhood into the identity, including reflections on pre-baby roles and future self-concept; insert meaning-making exercises to reduce distress from identity change.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Clarifying and reconciling identity post-birth reduces distress from role changes and supports a cohesive self-concept, mitigating C01 triggers.",
+      "measurement": "Identity clarity scale; self-perceived role satisfaction; brief pre/post identity integration survey",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Target C01 with identity integration activities to restore self-perception consistency."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Structured caregiving support and respite planning",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create a practical plan for respite and shared caregiving tasks (partner, family, or trusted caregiver) to provide regular short breaks; formalize a weekly schedule to reduce perceived entrapment.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Regular, predictable breaks reduce feelings of entrapment and cognitive load, and improve mood and functioning in daily caregiving.",
+      "measurement": "Number and duration of respite episodes per week; perceived autonomy scale (0–10); caregiver task completion log",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Reduce entrapment (C03) and overwhelm (C05) through structured respite and shared caregiving."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Validation and supportive social communication",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Provide psychoeducation for close others about postpartum distress and train on validating emotions; establish a simple social-support plan with check-ins and encouragement.",
+      "targets_criteria_ids": [
+        "C08",
+        "C04"
+      ],
+      "mechanism_rationale": "Feeling understood and validated by others decreases perceived minimization and self-criticism, supporting emotional disclosure and help-seeking.",
+      "measurement": "Perceived validation scale; social support quality ratings; occurrences of validating interactions (daily diary)",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Mitigate C08 via enhanced validation and social support; may indirectly reduce C04."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Behavioral activation and routine-building",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Institute a simple, scalable daily routine with small, achievable tasks (including infant-interaction activities) to increase engagement and reduce avoidance.",
+      "targets_criteria_ids": [
+        "C05",
+        "C02"
+      ],
+      "mechanism_rationale": "Structured activity and baby-involved routines promote mood stabilization, reduce overwhelm, and reinforce positive bonding with the infant.",
+      "measurement": "Daily activity engagement log; mood ratings (0–10); frequency of crying episodes; time spent with infant in structured activities",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Address C05 (overwhelm) and bolster C02 (positive bonding) through activation and routines."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Mindfulness-based distress management with social support",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a concise mindfulness-based intervention (breath, body scan, nonjudgmental awareness) complemented by social support prompts to discuss experiences with trusted others.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06",
+        "C08"
+      ],
+      "mechanism_rationale": "Mindfulness improves emotion regulation and reduces reactivity; coupling with supportive social prompts enhances validation and reduces self-criticism.",
+      "measurement": "Mindfulness attention scale; daily emotion regulation adequacy rating; frequency of supportive interactions",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Enhance C05/C06 and C08 through mindfulness plus social validation."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Morning light exposure and sleep-wake environment optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Increase daily morning light exposure and optimize the sleep environment (dark room, cool temperature); limit screen time before bed; align caffeine timing with daytime use.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Light exposure and sleep environment improvements stabilize mood and energy, aiding emotional regulation and reducing tearful episodes.",
+      "measurement": "Morning light exposure duration (minutes), sleep environment checklist, sleep quality 0–10, daily mood",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Support C05/C06 via circadian and sleep-environment optimization."
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "pseudoprofile_id": "BIOPSY_SOCIAL_SOLUTION_PROFILE_001",
+  "summary": "The case presents with elevated autonomic arousal and conditioned startle reactions tied to a past incident, plus ongoing vigilance and distress about symptoms. Modifiable levers spanning bio (arousal regulation, sleep, activity, environment), psycho (cognitive reframing, grounding, trauma-focused skills), and social domains (support and belonging) can plausibly reduce exaggerated startle (C01), persistent “on edge” feelings (C02), conditioned reactivity (C03), situational vigilance (C04), emotional distress about symptoms (C05), and belief–reality mismatch about recovery (C06). Each candidate is a measurable, implementable lever with clear linkage to the specified criteria and feasible time horizons.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Autonomic_Arousal_Regulation_Practices",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement daily box breathing (4-4-4-4) and progressive muscle relaxation (PMR) as a pre-occurrence routine and during high-stimulus periods.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Parasympathetic activation via paced respiration and muscle relaxation lowers baseline physiological arousal, reduces baseline hypervigilance, and diminishes startle magnitude.",
+      "measurement": "Daily practice log (yes/no), 0-10 arousal rating, weekly self-reported startle frequency.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; non-pharmacological.",
+      "mapping_query": "CASE_PAYLOAD_C01_C02: map to autonomic regulation practices; assess changes via arousal and startle frequency logs."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Grounding_and_Present_Moment_Skills",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach 5-4-3-2-1 grounding, body scan, and ongoing sensory checks integrated into daily routines and before exposures.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Grounding anchors attention to the present, reducing subjective on-edge feelings and automatic hypervigilant scanning for threats.",
+      "measurement": "Weekly 0-10 on-edge rating; number of grounding sessions completed; subjective ease of grounding (0-10).",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_C02_C04: apply grounding techniques to reduce vigilance and arousal."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Recovery_Beliefs_Cognitive_Reconstruction",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introductory cognitive restructuring to address belief that recovery was complete and symptoms persist (C06); reinforce adaptive recovery narrative and coping efficacy.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Modifying maladaptive recovery beliefs reduces cognitive dissonance and increases engagement with coping strategies.",
+      "measurement": "Pre/post brief recovery-beliefs scale (0-10); coping self-efficacy rating; adherence to coping plan.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_C06: target mismatch belief about recovery through cognitive restructuring."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Gradual_Trauma_Reminder_Exposure",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement therapist-guided imaginal or in-vivo exposure to non-traumatic reminders; pair with inhibitory learning principles to reduce conditioned reactivity (C03) and situational vigilance (C04).",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Systematic exposure facilitates extinction of conditioned arousal responses and reduces hypervigilant cue sensitivity.",
+      "measurement": "Exposure session count; subjective arousal during exposure (0-10); startle magnitude diary.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Requires clinical oversight; monitor for distress and ensure stabilization if needed.",
+      "mapping_query": "CASE_PAYLOAD_C03_C04_C01: exposure-based approach to reduce conditioned reactivity and vigilance."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep_Circadian_Stabilization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent sleep-wake schedule and optimize sleep environment; address circadian misalignment to lessen global arousal and reactivity.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Adequate sleep improves autonomic regulation, reduces baseline arousal, and dampens threat processing.",
+      "measurement": "Sleep diary metrics (duration, latency, awakenings); PSQI score; 0-10 arousal rating.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_C01_C02_C04: sleep optimization to reduce arousal and reactivity."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Regular_Aerobic_Exercise_Program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a moderate aerobic exercise plan (e.g., 150 minutes/week) with progressive increases; monitor mood and arousal before/after sessions.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Exercise reduces baseline arousal, improves autonomic flexibility, and lowers hypervigilant responsiveness.",
+      "measurement": "Weekly exercise minutes; resting heart rate; post-exercise 0-10 arousal rating.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_C01_C02_C04: physical activity to modulate arousal and vigilance."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Structured_Social_Support_and_Participation",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Increase social connectedness via group-based support or social prescribing; cultivate belonging and reduce distress associated with symptoms.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Social support buffers stress, lowers perceived threat, and improves coping with ongoing symptoms.",
+      "measurement": "Attendance and engagement metrics; MOS Social Support scale; loneliness score (0-10).",
+      "time_horizon": "8-16 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_C02_C04_C05: social integration to reduce arousal, vigilance, and distress."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Trauma_Education_and_Coping_Skills",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Provide psychoeducation on trauma responses and coping skills to normalize symptoms and enhance self-management (C05) and coping efficacy (C02/C04).",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Knowledge reduces fear withdrawal, improves allo- and self-regulation, and aligns recovery expectations with lived experience.",
+      "measurement": "Coping efficacy rating; trauma-education quiz score; 0-10 distress when reminded of incident.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_C02_C04_C05_C06: education to enhance coping and normalize symptoms."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Sensory_Environment_Modifications",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Modify sensory environment (noise dampening, lighting, calming cues) to reduce unexpected startle triggers and cue sensitivity in daily life.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Reducing external threat cues lowers startle likelihood and vigilance in common environments.",
+      "measurement": "Frequency of startle episodes in daily settings; perceived sensory irritability (0-10); environmental modification log.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_C01_C04: environmental design to lessen startle triggers and cue sensitivity."
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "pseudoprofile_id": "CASE1_NIGHTTIME_AROUSAL_CBTI_MULTISOURCE",
+  "summary": "The case presents a pattern of evening cognitive hyperarousal with content-specific replay (past conversations) and future-oriented worry, leading to delayed sleep onset and morning irritability. The proposed modifiers span bio (circadian alignment, light exposure, nutrition/exercise), psycho (CBT-I components, worry postponement, imagery-based defusion), and social/environmental domains (routine, social supports) and their interactions. Each lever is actionable, measurable, and designed to reduce nighttime cognitive arousal, shorten sleep onset latency, and improve morning mood, without pharmacology or unsafe practices.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Evening CBT-I–aligned wind-down protocol with fixed bedtime (stimulus control, brief sleep restriction, worry postponement, progressive relaxation)",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Implement a 60-minute wind-down routine starting 1–2 hours before a fixed target bedtime (e.g., 11:00 PM). This includes: 1) stimulus control (bed only for sleep/sex; avoid screens in bed), 2) gentle wind-down activities (dim lights, low-stimulation reading), 3) worry postponement window: schedule a 15–20 minute pre-sleep worry review earlier in evening, 4) 5–10 minutes of progressive muscle relaxation or paced breathing.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Consolidates nocturnal cognitive arousal sources by reducing cue-evoked wakefulness, offloading late-night worry, and lowering physiological arousal. Fixed bedtime supports circadian entrainment and reduces delayed sleep onset.",
+      "measurement": "Sleep diary: bedtime, SOL (minutes), WASO; nightly count of replay episodes (C01) and worry notes (C02); nightly mood rating 0–10; actigraphy for sleep efficiency.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for sleep pressure mismatch; adjust bedtime by 15–30 minutes if SOL remains >60 minutes after 2 weeks; avoid overly restricting sleep.",
+      "mapping_query": "Derives from C03/C04/C02/C01 targets; CBT-I framework applied to evening routine and circadian stabilization."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Worry scheduling and cognitive offloading (pre-sleep worry journaling; worry period)",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Create a structured 20–30 minute worry window 2–3 hours before bedtime with journaling prompts, then postpone further ruminations. Include thought-records, evidence gathering, and short behavioral experiments to test imagined outcomes. Use cueing reminders to transition to worry-free activities post-window.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces perseverative cognition and anticipatory anxiety that sustains nocturnal arousal, thereby easing SOL and improving morning mood.",
+      "measurement": "Frequency of worry lists per night (C02), SOL, nightly mental rehearsal episodes (C01 proxy), morning irritability rating (C05).",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "If worry window causes anxiety to escalate, shorten window; ensure journaling is optional and non-distressing.",
+      "mapping_query": "Targets C02/C03/C04; lever complements S01 by offloading ruminative processes."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Imagery-based defusion and rescripting for replayed conversations",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Use imagery-based cognitive techniques to decouple automatic replay: label as 'imagery,' rehearse a neutral alternative ending, and practice cognitive defusion (observe thoughts without engagement). Optional imagery rehearsal for past conversations reframed during daytime practice.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Reduces salience and emotional charge of past-conversation replay, lowering nocturnal cognitive arousal and improving sleep onset.",
+      "measurement": "Reported nightly replay episodes (C01), subjective arousal pre-sleep on a 0–10 scale, sleep onset latency.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "No adverse effects anticipated; ensure scripts are non-traumatic and within scope of self-guided practice.",
+      "mapping_query": "Addresses content-specific replay (C01) via psychoanalytic-cognitive defusion strategies; complements CBT-I."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Consistent wake time with morning light exposure to reset circadian rhythm",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Set a fixed wake time (e.g., 7:00–7:30 AM) every day and implement morning light exposure (natural light or bright-light box for 20–30 minutes). Evening lighting should be dim to support circadian phase advance.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Strengthens circadian entrainment, reduces evening hyperarousal, and improves morning mood/irritability via stabilized melatonin onset.",
+      "measurement": "Wake time consistency (% adherence), morning light exposure duration, next-day mood (0–10), SOL trends.",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for sleep debt if wake times are forced; adjust to preserve total sleep duration.",
+      "mapping_query": "Targets circadian and morning mood (C03/C04/C05) via light-based entrainment and consistent schedules."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Evening blue-light reduction and warm lighting; screen-time caps before bed",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Limit screen exposure 1–2 hours before bedtime; switch to dim, warm lighting; use blue-light filters; replace stimulating content with calming activities.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Decreases evening cognitive arousal and accelerates sleep onset by reducing visual/psychophysiological stimulation and melatonin suppression.",
+      "measurement": "SBP (screen time hours before bed), use of blue-light filters, SOL, and subjective arousal rating at night.",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure content remains engaging enough to avoid rebound anxiety; track adherence.",
+      "mapping_query": "Interventions aimed at reducing nighttime arousal via environmental lighting and screen exposure."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Evening relaxation and lightweight physical activity",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Include 15–20 minutes of gentle movement (yoga/stretching) and 5–10 minutes of paced breathing or guided relaxation 60–90 minutes before bed; regular daytime aerobic activity on most days.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces physiological arousal and improves sleep propensity; daytime activity improves sleep regulation and next-morning mood.",
+      "measurement": "Activity logs (duration/frequency), pre-sleep arousal score, SOL, morning irritability (0–10 scale).",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Avoid intense workouts close to bedtime; tailor intensity to baseline fitness.",
+      "mapping_query": "Addresses physiological arousal (C03) and morning mood (C05) via relaxation and light exercise."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Nutritional optimization and caffeine timing to support sleep",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Modify evening nutrition to prioritize easily digestible meals; restrict caffeine after 2:00 PM; ensure hydration; consider consistent meal timing to support sleep.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Nutritional timing and caffeine reduction reduce nocturnal arousal and help initiate sleep earlier, improving next-day irritability.",
+      "measurement": "Evening caffeine intake (binary/dose), last meal timing, sleep onset latency, next-day mood.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "LOW",
+      "safety_notes": "No risk; ensure balanced meals to avoid nocturnal discomfort.",
+      "mapping_query": "Targets sleep initiation and night-time arousal via nutritional and caffeine management."
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+pseudoprofile_id: pseudoprofile_FTC_ID003
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID003/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.5638
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 0.80 * t + phase=1.21)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 2
+  * pulse_1: start_idx=54, length=5, amp=0.848
+  * pulse_2: start_idx=116, length=7, amp=1.238
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P03
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.033 | freq_hint=None
+  * P02: missing_rate=0.150 | freq_hint=None
+  * P03: missing_rate=0.189 | freq_hint=None
+  * P04: missing_rate=0.239 | freq_hint=None
+  * P05: missing_rate=0.167 | freq_hint=None
+  * P06: missing_rate=0.139 | freq_hint=None
+  * C01: missing_rate=0.239 | freq_hint=None
+  * C02: missing_rate=0.206 | freq_hint=None
+  * C03: missing_rate=0.250 | freq_hint=None
+  * C04: missing_rate=0.078 | freq_hint=None
+  * C05: missing_rate=0.250 | freq_hint=None
+  * C06: missing_rate=0.211 | freq_hint=None
+  * C07: missing_rate=0.239 | freq_hint=None
+  * C08: missing_rate=0.133 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Panic-onset breathing regulation and autonomic arousal control | ontology_id=ema_breathing_ease | conf=0.82 | freq_hint=None
+- P02 (PREDICTOR): Pulse/heart rate monitoring urge | ontology_id=ema_urge_intensity | conf=0.92 | freq_hint=None
+- P03 (PREDICTOR): Interoceptive attention focus | ontology_id=interoceptive_awareness_training | conf=0.82 | freq_hint=None
+- P04 (PREDICTOR): Social evaluative context sensitivity | ontology_id=social_evaluation_exposure | conf=0.72 | freq_hint=None
+- P05 (PREDICTOR): Escape-urge tolerance and safety-planning | ontology_id=avoidance_safety_behavior_map | conf=0.72 | freq_hint=None
+- P06 (PREDICTOR): Attention control and grounding techniques | ontology_id=five_senses_grounding_practice | conf=0.72 | freq_hint=None
+- C01 (CRITERION): Sudden intense anxiety episodes | ontology_id=recurrent_panic_attacks_present | conf=0.65 | freq_hint=None
+- C02 (CRITERION): Acute chest tightness during episodes | ontology_id=chest_pain_anxiety | conf=0.72 | freq_hint=None
+- C03 (CRITERION): Belief of imminent fainting in public | ontology_id=fear_of_entrapment_or_loss_of_control_in_public_transport | conf=0.58 | freq_hint=None
+- C04 (CRITERION): Social-evaluative embarrassment concern | ontology_id=anticipatory_anxiety_in_social_evaluative_contexts | conf=0.92 | freq_hint=None
+- C05 (CRITERION): Immediate safety-checking behavior (pulse checking) | ontology_id=repetitive_health_checking_behaviors | conf=0.82 | freq_hint=None
+- C06 (CRITERION): Immediate escape/exit planning | ontology_id=creating | conf=0.72 | freq_hint=None
+- C07 (CRITERION): Perceived unpredictability/lack of control over episodes | ontology_id=predictabilityestablishment | conf=0.62 | freq_hint=None
+- C08 (CRITERION): Attention shift to internal bodily sensations | ontology_id=interoceptive_hypervigilance_to_thoracic_signals | conf=0.72 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

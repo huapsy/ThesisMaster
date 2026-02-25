@@ -1,0 +1,115 @@
+{
+  "pseudoprofile_id": "CASE_OCD_CHECKING_001",
+  "summary": "The case reflects OCD-like door-checking with memory doubt, causing repeated behavior, lateness, social embarrassment, and self-criticism. Candidate levers span cognitive, behavioral, and environmental domains to disrupt the checking cycle: (1) direct response-prevention and habit-formation; (2) metacognitive strategies to tolerate uncertainty; (3) mindfulness/urge-management; (4) environmental validation via smart sensing; (5) structured social accountability around departures; (6) self-compassion and affect regulation to reduce self-criticism. These predictors are designed to be modifiable, measurable, and safe, with emphasis on reducing C02 (compulsive checking), C03 (resisting urge), C01 (acceptance of memory), C04 (time cost), C05 (embarrassment), and C06 (self-directed irritation). Each lever links a mechanism to a specific target criterion and includes concrete metrics and a feasible rollout horizon.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "One-Check Rule with Response Prevention",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Adopt a 'one-check' rule: leave after locking and defer any re-check for the next 30 minutes; document the doubt without repeating the action; use an implementation intention cue (e.g., 'If I doubt, I leave and log the doubt, not the action').",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Prevents reinforcement of checking behavior by breaking the doubt-action loop; reduces time cost and urges to re-check.",
+      "measurement": "Checks per leaving episode; minutes spent on departure after locking; self-rated doubt (0–10) at exit.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; monitor for mood changes; escalate if self-harm risk emerges.",
+      "mapping_query": "Map S01 to C02, C03, and C04; implement a 1-check protocol and track checks, departure time, and doubt intensity."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Metacognitive Reframing for Doubt",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement metacognitive strategies to reduce the need for certainty: practice 'uncertainty tolerance' statements, delay responding to doubt, and perform brief cognitive exercises that challenge the necessity of confirming memory.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Reduces belief that certainty is required to act, lowering urge-driven checking behaviors.",
+      "measurement": "Certainty ratings after locking (0–10); frequency of check attempts per episode.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.35,
+      "priority": "MED",
+      "safety_notes": "None beyond standard CBT considerations; monitor mood.",
+      "mapping_query": "Map S02 to C01 and C03; track belief certainty and urge-related checking episodes."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness-Based Urge Surfing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach urge surfing and nonjudgmental awareness: daily brief mindfulness practice (5–10 minutes), and a 4-step acceptance routine when doubt arises (observe, describe, accept, act with intention).",
+      "targets_criteria_ids": [
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Nonjudgmental awareness reduces impulsive checking and mitigates negative self-evaluation after episodes.",
+      "measurement": "Urge intensity (0–10) during leading up to checking; post-episode self-criticism rating (0–10).",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "None; standard mindfulness safety considerations.",
+      "mapping_query": "Map S03 to C03 and C06; monitor urge levels and post-episode self-criticism."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Smart Lock Sensor with Real-Time Status Display",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Install a door-lock sensor with live status in a smartphone app and optional audio/visual cues confirming 'locked' state; use external validation to reduce memory reliance and checking.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "External validation reduces memory doubt and the need to re-check, diminishing the reinforce loop.",
+      "measurement": "Number of manual checks after leaving; time to depart after locking; sensor event logs vs self-checks.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Data privacy and device safety; secure data handling and consent.",
+      "mapping_query": "Map S04 to C01 and C02; track external lock confirmations and reductions in self-checks."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Structured Departure Routine with Social Accountability",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create a fixed departure checklist with a trusted accountability partner; share departure readiness, use a brief log, and limit improvisational checks.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Predictable routines and social accountability reduce lateness and social embarrassment by providing external structure and support.",
+      "measurement": "Minutes late per departure episode; embarrassment rating after arrival; routine adherence rate.",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.3,
+      "priority": "MED",
+      "safety_notes": "None beyond standard social coordination risks; ensure boundaries and privacy.",
+      "mapping_query": "Map S05 to C04 and C05; monitor departure timing, embarrassment, and routine adherence."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Self-Compassion and Emotion Regulation Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Incorporate brief self-compassion exercises after episodes (e.g., 2–3 minutes of kind self-talk), plus brief journaling to reframe the event and reduce self-criticism.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Reducing harsh self-evaluation and increasing adaptive affect regulation lowers social embarrassment and post-episode irritation.",
+      "measurement": "Post-episode self-criticism score (0–10); embarrassment rating after events.",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.25,
+      "priority": "MED",
+      "safety_notes": "None; monitor for emotional distress if baseline mood is fragile.",
+      "mapping_query": "Map S06 to C05 and C06; assess self-criticism and embarrassment before/after interventions."
+    }
+  ]
+}

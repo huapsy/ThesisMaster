@@ -1,0 +1,109 @@
+{
+  "pseudoprofile_id": "case_BIOPSYCHO_SOCIAL_profile_case1_v1",
+  "summary": "From the presented case, five mutable targets drive distress: intrusive visual replay (C01), verbal rumination (C02), immediate physiological reactivity to evaluative cues (C03), anticipatory fear of humiliation (C04), and a lowered threshold for perceiving criticism (C05). The proposed solutions span psychological (CBT/imagery processing, rumination reduction, cognitive reinterpretation, exposure-based strategies), physiological self-regulation (HRV/biofeedback), and social/environmental supports (social connectedness and safe feedback environments). Each lever is designed as a modifiable predictor (not a symptom label), with explicit links to the target criteria, measurable outcomes, a realistic time horizon, feasibility estimates, safety notes, and a mapping query to guide implementation and evaluation.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "C01",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Imagery Rescripting and Rehearsal Therapy (IRT) to reduce intrusive visual replay of the boss incident; includes controlled exposure to the memory with cognitive reframing and brief mindfulness/focus training to reset connection between memory and emotional response.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Re-encodes trauma-related memory, reducing emotional salience and frequency/intensity of involuntary visual replays through systematic exposure and cognitive reframing.",
+      "measurement": "Daily intrusion diary: frequency (0-5 per day) and distress intensity (0-10); optional 0-100% day-time recall proportion.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns with guided, progressive exposure. Monitor distress; pause if flashbacks worsen; if PTSD symptoms emerge, consider clinician involvement.",
+      "mapping_query": "Target C01 with imagery-based exposure and cognitive reframing (IRT) to reduce intrusive replay."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "C02",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Rumination-focused CBT techniques: scheduled worry time, cognitive defusion and thought-tracking, plus behavioral activation to reduce time available for rumination.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Decreases persistent verbal rumination by structuring thought processes, increasing cognitive flexibility, and enhancing engagement in meaningful activities.",
+      "measurement": "Ruminative thought diary (percentage of day engaged in event-related thoughts); distress rating during ruminations (0-10); weekly self-report of time spent ruminating.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Encourage emotional expression; avoid suppression of emotions; monitor for worsening mood; escalate if suicidality risk arises.",
+      "mapping_query": "Target C02 with rumination-focused CBT strategies."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "C03",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Biofeedback-assisted autonomic regulation: HRV-coherence training and paced diaphragmatic breathing during evaluative cues; integrate with mindfulness and progressive muscle relaxation.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Improves autonomic flexibility and dampens visceral reactions (e.g., stomach drop) to feedback by strengthening vagal regulation.",
+      "measurement": "HRV coherence index during evaluative tasks; self-reported distress (0-10) and frequency of stomach-related symptoms per day/week.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.8,
+      "priority": "HIGH",
+      "safety_notes": "Safe with proper instruction; avoid hyperventilation; discontinue if dizziness or faintness occurs.",
+      "mapping_query": "Target C03 via physiological regulation training (biofeedback + paced breathing)."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "C04",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Graded social evaluative exposure with anticipatory anxiety reduction: plan small, safe feedback interactions (one-on-one mock feedback, then real-time feedback) with coaching and post-event reflection; apply expectancy violation techniques.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Own adequate exposure to evaluative situations reduces anticipatory fear and belief that humiliation is inevitable, updating expectancy through corrective experiences.",
+      "measurement": "Prior-to-event anticipatory anxiety (0-10); post-event distress (0-10); avoidance frequency (days/week); success of each graded step.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.72,
+      "priority": "HIGH",
+      "safety_notes": "Ensure supportive, confidential setting; monitor for excessive stress; involve supervisor or facilitator trained in supportive feedback.",
+      "mapping_query": "Target C04 with graded exposure and expectancy violation techniques."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "C05",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive bias modification and reinterpretation training to recalibrate threat interpretation of neutral or mildly critical feedback; teach rapid labeling of distortions and alternative appraisals.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces automatic threat interpretation of feedback by retraining interpretation patterns and enhancing tolerance for ambiguity.",
+      "measurement": "Rate of neutral cues interpreted as threatening (0-100%); distress during feedback (0-10); post-training change in threat attribution bias (pre vs post).",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; support with alternative explanations; monitor for overcorrection or avoidance of feedback.",
+      "mapping_query": "Target C05 with reinterpretation training to reduce threat perception."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "C04 and C05",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Social support and relational resilience program: structured peer feedback groups and mentor check-ins to create a supportive feedback climate; normalize feedback processing and practice constructive responses.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Enhances perceived safety around feedback, lowers threat salience, and broadens interpretation of evaluative cues through positive social experiences and modeled responses.",
+      "measurement": "Perceived social support scale; frequency of supportive feedback encounters; changes in anticipatory fear (0-10) and threat interpretation bias (0-100%).",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Maintain confidentiality; align group norms to avoid judgement; monitor for negative peer dynamics.",
+      "mapping_query": "Target C04 and C05 with social support and relational skills training."
+    }
+  ]
+}

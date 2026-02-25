@@ -1,0 +1,174 @@
+{
+  "pseudoprofile_id": "CASE01_BRKGRIEF_BPS",
+  "summary": "This case centers on chronic, low-to-moderate grief after a breakup with maladaptive social media engagement (checking ex, immediate self-judgment, and somatic distress). The proposed BIO-PSYCHO-SOCIAL levers span: reducing checking behavior through environmental/digital changes (SOCIAL), strengthening cognitive-emotional skills (PSYCHO) to handle urges, shame, and rumination, increasing meaningful social engagement and support (SOCIAL), and optimizing biological regulation via sleep and somatic tools (BIO). Levers are designed as changeable predictors (not labels), with clear mechanisms, measurement options, and a plan for short- to mid-term horizons. Safety notes are included where relevant; if risk of self-harm emerges, seek urgent professional help.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Digital_Social_Environment_Structure_and_Blockers",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Implement a digital boundary plan: enable app blockers/time-limits for ex-partner social profiles, schedule a fixed daily check window (e.g., 10 minutes) and redirect to a neutral activity (e.g., journaling, reading) when the app is opened outside the window.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces cue-reactivity and negative reinforcement from checking, lowers immediate somatic distress after exposure, and weakens habitual checking loops by adding friction and alternative behaviors.",
+      "measurement": "Daily ex-social visits (app logs or self-report); days with ≤1 check; urge-heatmap (0-10) before/after window",
+      "time_horizon": "0-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Map S01 to C02 (checking frequency), C04 (somatic distress after checking), and C05 (inhibiting checking) by creating friction and alternative behaviors around social-media exposure."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Urge_Surfing_and_Delay_Strategy_for_Checking",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach a 15-20 minute delay strategy when urge to check arises, followed by a brief 3-minute grounding practice; allow only one check within a predetermined window if the urge persists.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Enhances inhibitory control, reduces impulsive checking, and diminishes immediate affective and somatic rebound by providing a structured pause and coping skills.",
+      "measurement": "Urge intensity (0-10) pre/during delay; number of checks per day; adherence to delay rule",
+      "time_horizon": "0-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Map S02 to C02 (checking frequency) and C05 (inhibiting checking) by instituting a scheduled delay and coping response before accessing social content."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Self_Compassion_Training_to_Reduce_Shame",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Practice compassionate self-talk and brief self-soothing scripts after checking; track self-criticism and shame using a 0-10 scale; integrate brief daily compassion-focused exercises.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Directly targets negative self-evaluation (shame) following exposure, reducing affect-driven relapse into checking and supporting value-consistent behavior.",
+      "measurement": "Post-check self-criticism rating (0-10); frequency of compassionate phrases used; days with practice",
+      "time_horizon": "0-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Map S03 to C03 (negative self-evaluation) and C05 (inhibiting checking) via self-compassion rehearsals that attenuate shame-driven checking."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Expressive_Writing_for_Grief_and_Social_Media_Triggerrs",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Engage in 2 expressive-writing sessions per week focusing on breakup meaning, social-media triggers, and emotional responses; optionally share non-identifying themes with a trusted friend.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06",
+        "C04"
+      ],
+      "mechanism_rationale": "Processing grief and reducing rumination through narrative expression can decrease fixation on ex and lower somatic reactivity when thinking about or viewing ex-related content.",
+      "measurement": "Sessions completed per week; change in grief intensity (0-10); rumination frequency (0-10)",
+      "time_horizon": "0-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Map S04 to C01 (grief), C06 (rumination), and C04 (somatic distress) by using narrative processing to reframe triggers."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Behavioral_Activation_to_Reduce_Boredom_and_Connectionless_Checking",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Schedule and complete 2-3 meaningful activities daily (or at least 4 per week) to replace idle time that often leads to checking; track engagement and mood.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Fills time with rewarding activities, improving mood and reducing rumination and distress associated with being alone or idle after a breakup.",
+      "measurement": "Days with ≥2 planned activities; mood ratings; time spent checking (self-report)",
+      "time_horizon": "0-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Map S05 to C01 (grief) and C06 (rumination) by increasing engagement in alternative rewarding activities."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Mindfulness_and_Distress_Tolerance_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce brief daily mindfulness practices (5-10 minutes) and distress tolerance skills to observe urges non-judgmentally and reduce reactive checking.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Enhances metacognitive awareness and reduces automatic reactivity to social-media cues, lowering somatic responses and rumination tied to grief.",
+      "measurement": "Daily practice minutes; self-reported urge reactivity; rumination and grief scales",
+      "time_horizon": "0-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Map S06 to C01, C04, and C06 by fostering non-judging awareness and tolerance of distress."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Sleep_Regulation_and_Rhythm_Building",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish fixed bed/wake times, pre-sleep wind-down, and light exposure routines to improve sleep quality and daytime functioning, reducing baseline distress that can amplify grief and reactivity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Better sleep supports emotional regulation and reduces somatic arousal that exacerbates grief and social-media-triggered distress.",
+      "measurement": "Bedtime/wake-time consistency; sleep duration; perceived sleep quality (0-10)",
+      "time_horizon": "0-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.3,
+      "priority": "LOW",
+      "safety_notes": "",
+      "mapping_query": "Map S07 to C01 and C04 by improving biological regulation through sleep stability."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Structured_Social_Support_and_Connections",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Increase regular contact with a supportive friend/family member and participate in a low-pressure social activity (virtual or in-person) to counter isolation and downward social comparison.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Strengthened social support buffers grief, reduces rumination, and can alter negative self-perceptions by validating worth outside the ex-relationship.",
+      "measurement": "Weekly meaningful interactions; perceived social support score; self-criticism ratings",
+      "time_horizon": "0-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Map S08 to C01 (grief), C02 (checking), C03 (shame), and C06 (rumination) via enhanced social connectedness."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Closure_Meaning_and_Identity_Work",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Engage in values-clarification and meaning-making exercises (e.g., identity scaffolding post-breakup) to reduce dependence on the ex and support self-worth",
+      "targets_criteria_ids": [
+        "C01",
+        "C06",
+        "C03"
+      ],
+      "mechanism_rationale": "Reduces distress by reconstructing self-identity post-breakup, lowering vulnerability to social comparison and shame.",
+      "measurement": "Perceived meaning/identity clarity scale; frequency of self-worth promoting activities; changes in self-criticism (0-10)",
+      "time_horizon": "0-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Map S09 to C01 (grief), C06 (rumination), and C03 (shame) through values-affirmation and identity-work interventions."
+    }
+  ]
+}

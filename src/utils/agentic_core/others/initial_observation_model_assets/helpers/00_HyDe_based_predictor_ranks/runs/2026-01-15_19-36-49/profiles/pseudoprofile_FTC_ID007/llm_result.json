@@ -1,0 +1,173 @@
+{
+  "pseudoprofile_id": "CASE-PSY-01",
+  "summary": "The case reflects: (C01) difficulty initiating planned tasks; (C02) substitution with low-effort activities; (C03) distractibility by digital/novel stimuli; (C04) loss of time awareness during off-task activity; (C05) acute panic/anxiety when deadlines are noticed; and (C06) uncertainty/self-blame about causes. The following modifiable BIO-PSYCHO-SOCIAL levers span cognitive-behavioral strategies, attention/energy regulation, environmental design, and social accountability. Each lever is action-oriented, testable, and linked to specific criteria, with simple measurement plans, reasonable time horizons, and feasibility ratings. A staged approach prioritizes high-feasibility/high-impact options (initiation scaffolding, self-efficacy enhancement, and sleep/energy optimization) while offering complementary cross-domain supports (distraction control, time-structure cues, workspace design, and self-monitoring) to address the co-occurring mechanisms driving symptoms.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Implementation-Intention Task Start Protocol",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Behavioral activation with implementation intentions: pre-define a 5-minute micro-task start plan and use time-boxed 'start sprint' rituals; if start is delayed beyond 2 minutes, trigger a brief 1–2 minute reminder and accountability prompt (person or app).",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Turns intention into concrete action steps, reducing initiation barriers and self-blame by creating situational constraints and a clear starting cue.",
+      "measurement": "latency_to_first_action_minutes; proportion starting within 5 minutes; percentage of tasks started per day; short-task completion rate",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.92,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Ensure tasks are sufficiently small to prevent frustration; adjust start steps to energy levels; monitor for fatigue.",
+      "mapping_query": "Maps CASE payload C01 (Failure to initiate) to an initiation-support lever."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Digital-Distraction Control + Focused-Work Protocol",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Create a structured digital environment: scheduled focus windows, app blockers during task blocks, and a Focus Timer with ambient cues; pair with brief cognitive-control grounding exercises.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Reduce susceptibility to digital stimuli and improve accurate time perception by constraining interruptions and building engagement in focused activity.",
+      "measurement": "number of focused-work minutes per block; interruptions count; time-estimation accuracy (target vs actual); days with off-task episodes",
+      "time_horizon": "3-4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.42,
+      "priority": "MED",
+      "safety_notes": "Be mindful of frustration or resistance to app-blockers; allow flexible blocks if stress increases.",
+      "mapping_query": "Aligns with C03 (distraction) and C04 (time loss) from case notes."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "External Time-Cues & Micro-Goal Segmentation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Use visual timers, alarms, and explicit micro-goals to chunk tasks into time-linite steps; train in interval-based task initiation and re-frame time spent on tasks to enhance perceived control.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "External time cues reduce time-perception errors and mitigate deadline-triggered anxiety by creating predictable time structures.",
+      "measurement": "time-estimation error (estimated vs actual); frequency of deadline-related panic episodes; number of tasks started after cue onset",
+      "time_horizon": "2-3 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Ensure alarms are non-startling; allow customization to avoid heightened anxiety.",
+      "mapping_query": "Targets C04 (time perception) and C05 (deadline panic) per decomp."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Deadline Anxiety Regulation & Cognitive Reframing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Apply anxiety-regulation strategies (e.g., diaphragmatic breathing, brief cognitive reframe, pre-deadline planning) and pre-commitment to small steps; normalize deadlines as cues for progress rather than threats.",
+      "targets_criteria_ids": [
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Reduces acute arousal provoked by deadlines, enhancing initiation and sustained attention.",
+      "measurement": "self-reported deadline-related anxiety (0–10 scale); start latency after deadline awareness; number of procrastination episodes",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.35,
+      "priority": "MED",
+      "safety_notes": "Monitor for excessive worry; offer escalation to professional care if panic escalates.",
+      "mapping_query": "Addresses C05 (panic at deadlines) and C01 (initiation) from case description."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Self-Efficacy & Values-Driven Action Support",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Values clarification + small-win goal setting with weekly feedback and social accountability; emphasize controllable steps and celebrate progress to boost perceived competence.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Increases perceived control and reduces self-blame, promoting initiation and adaptive self-appraisal.",
+      "measurement": "self-efficacy scale scores; task initiation rate per week; self-blame ratings",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Guard against overgeneralization of success; maintain realistic standards.",
+      "mapping_query": "Maps to C01 and C06 related to initiation and self-blame."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep & Circadian Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent wake times, morning light exposure, and evening wind-down routines; optimize sleep environment and minimize late-day caffeine; monitor sleep quality.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Improved sleep enhances cognitive energy, attention control, and time-perception accuracy, supporting initiation and focus.",
+      "measurement": "sleep duration/quality (wearable or diary); next-day initiation latency; distraction episodes",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "If sleep disturbance worsens, consult clinician; avoid abrupt schedule changes.",
+      "mapping_query": "Links to C01 (initiation), C03 (distraction), C04 (time awareness) via sleep-cognition pathway."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Workspace Design & Device-Use Boundaries",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Ergonomic, distraction-minimized workspace with designated focus windows and no-phone zones; use of visual timers and physical cues to support task start and sustainment.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": " reduces physical/digital distractions and supports initiation and sustained attention through environmental constraints.",
+      "measurement": "on-task minutes; start latency; interruptions frequency; device-use during focus windows",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Ensure ergonomics are comfortable; provide breaks to prevent strain.",
+      "mapping_query": "Addresses C01/C03/C04 via workspace and device boundaries."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Self-Monitoring & Feedback Loop",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Daily self-monitoring log with objective metrics and weekly progress review; automated feedback to reinforce progress and adapt strategies.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Increases self-awareness and accountability, reduces uncertainty, and facilitates iterative strategy adjustment.",
+      "measurement": "compliance with logs; changes in initiation latency; distraction episodes; anxiety levels; sense of control",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Ensure privacy and supportive framing; avoid excessive self-criticism in feedback.",
+      "mapping_query": "C01-C06 mapping from decomp supports self-monitoring as a cross-cutting lever."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Nutritional/Hydration Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Hydration and balanced meals with clinician-guided micronutrient assessment as appropriate (no dosing instructions provided here); align meals with task timing to sustain energy.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Stable energy and mood support cognitive stamina, improving initiation, attention, and time-tracking accuracy.",
+      "measurement": "daily water intake logs; energy/appetite ratings; start latency",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.3,
+      "priority": "LOW",
+      "safety_notes": "Consult healthcare provider before supplementation; monitor for adverse reactions.",
+      "mapping_query": "Links C01/C03/C04 to energy/nutrition influences on cognition."
+    }
+  ]
+}

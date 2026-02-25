@@ -1,0 +1,121 @@
+{
+  "pseudoprofile_id": "CASE_REST_GUILT_V1",
+  "summary": "The case reveals a self-imposed productivity guilt tied to resting, underpinned by beliefs that non-work time is wasted (C02), an accompanying guilt (C01), and an urge to act (C05) that disrupts leisure (C04) and restorative activities (C06). Interventions should: (1) optimize biological restoration (sleep/activity) to sharpen self-regulation, (2) reframe rest as valuable and non-punitive, (3) dampen intrusive self-criticism during leisure via self-compassion practices, (4) establish social accountability and boundaries to support rest, and (5) build a sustainable rest schedule with optional light activity to balance energy and motivation. Solutions target specific predictors, combine bio-psycho-social levers, and include practical measurements to track progress over a 4–8 week horizon, with safety reminders as needed.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep quality and circadian regularity (bedtime/wake time consistency, wind-down routine, caffeine timing)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a consistent 7-day sleep-wake schedule with a calming pre-sleep routine, optimize the sleep environment (dark/light, temperature), limit after-6pm caffeine/screens, and track with a simple sleep diary.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Stable sleep supports executive function and mood regulation, reducing rumination and intrusive thoughts that fuel guilt about rest; improved sleep drives better adaptive responding to rest periods.",
+      "measurement": "Sleep diary entries (bedtime/wake time consistency, sleep onset latency, awakenings); perceived rest quality (0–1 scale); self-reported guilt during rest (0–1).",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; monitor for persistent insomnia; consult a clinician if sleep disruption persists.",
+      "mapping_query": "CASE_PAYLOAD Sleep_Rest_Optimization_MAPPING"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Beliefs about rest and productivity (cognitive reframing of rest value)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive reframing of rest: identify rest-related guilt triggers, challenge the rule 'non-productive time is wasted', and develop evidence-based counter-beliefs; integrate with daily journaling and brief thought records.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Modifying core beliefs reduces automatic guilt responses and perceived time pressure, enabling healthier restorative time use and reduced sense of falling behind.",
+      "measurement": "Belief about rest scale (0–1); guilt rating during rest (0–1); perceived time pressure (0–1).",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "CASE_PAYLOAD Belief_rest_reframing_MAPPING"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Compassionate inner dialogue and mindfulness for leisure",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce self-compassion training and brief mindfulness practice to reduce intrusive self-criticism during weekends/leisure; implement a 5–10 minute daily mindful pause with compassionate self-talk scripts.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Compassion-focused strategies attenuate harsh self-criticism and reduce frequency of intrusive thoughts during rest, supporting restorative engagement.",
+      "measurement": "Self-criticism scale; frequency of intrusive thoughts during leisure (0–1); duration of restorative rest without interruption.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "CASE_PAYLOAD Self_Compassion_MAPPING"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Urge management with social accountability (urge-surfing + supportive check-ins)",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Urge-surfing and distress tolerance with weekly accountability check-ins; schedule explicit rest blocks; leverage a supportive partner to remind to rest when urges arise.",
+      "targets_criteria_ids": [
+        "C05",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Enhances urge tolerance and reduces automatic resistance to rest; social accountability increases adherence and reframes rest as intentional behavior.",
+      "measurement": "Peak urge intensity during rest attempts (0–1); rest-block adherence frequency; task completion rate during rest periods.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "CASE_PAYLOAD UrgeSurfing_Social_MAPPING"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Structured rest scheduling with social boundaries",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Educate family/friends about rest boundaries; create a weekly rest plan including planned breaks and relaxation activities; establish digital boundaries during off-work times.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Social norms and explicit boundaries reduce guilt and perceived time scarcity by normalizing restorative time and limiting encroachment by others.",
+      "measurement": "Weekly rest plan adherence; self-reported guilt during rest (0–1); rest duration satisfaction.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "CASE_PAYLOAD Social_Boundaries_MAPPING"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Moderate aerobic activity for energy regulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Introduce 3 sessions/week of moderate aerobic activity (e.g., 30 minutes brisk walk) with morning light exposure; gradually increase intensity as tolerated.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Regular aerobic activity improves energy, mood, and cognitive control, reducing the urgency to act against rest and supporting sustainable restorative periods.",
+      "measurement": "Activity logs; energy level (0–1); guilt during rest (0–1); duration of restful periods.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Medical clearance advised if cardiovascular risk factors exist; adjust intensity as needed.",
+      "mapping_query": "CASE_PAYLOAD Exercise_MAPPING"
+    }
+  ]
+}

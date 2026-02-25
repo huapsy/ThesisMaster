@@ -1,0 +1,119 @@
+{
+  "pseudoprofile_id": "CASEPAYLOAD-2026-01-FINAN-ANX-OPT",
+  "summary": "The case shows pervasive, intrusive financial worry (C01) with catastrophic expectations about expenses (C02), chronic low-level arousal (C03), ongoing fear of not meeting basic needs (C04), low perceived financial resilience (C05), and ongoing future financial uncertainty (C06). The proposed solutions span biological, psychological, and social levers and their interactions, aiming to (a) reduce intrusion and arousal, (b) improve planning and coping resources, and (c) strengthen social/resource supports. Interventions are designed as changeable predictors (levers) that can be implemented in real-world settings (self-guided, coach-supported, or clinician-informed) and tracked with simple metrics over 6–12 weeks.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Scheduled financial worry time + cognitive reappraisal training for money-related thoughts",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach and implement a 20-minute daily scheduled worry period paired with CBT-based cognitive reframing steps to challenge catastrophic money-thoughts and improve perceived control.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Structuring worry reduces frequency/interruptions of intrusive thoughts and enhances cognitive control over rumination; reframing catastrophizing beliefs decreases perceived threat from financial uncertainty.",
+      "measurement": "Daily worry intrusion frequency (times/day), average distress rating (0–10), adherence to scheduled worry times (yes/no)",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "No acute safety concerns indicated; monitor for increased distress or panic; refer for urgent care if worsening symptoms.",
+      "mapping_query": "CASE_PAYLOAD_S01 mapping to C01"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Structured budgeting with automated savings and emergency fund establishment",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Develop a concrete budget with goals for automatic savings and an emergency fund; enroll in available community financial supports; implement weekly check-ins to review spending and adjust goals.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Enhances functional control over finances, boosts self-efficacy (C05), reduces fear of near-term financial failure (C04), and lowers future-oriented uncertainty (C06) by creating tangible buffers.",
+      "measurement": "Budget adherence rate, emergency fund balance, self-rated financial security, number of automated savings events",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure privacy of financial data; avoid over-commitment to debt or risky investments.",
+      "mapping_query": "CASE_PAYLOAD_S02 mapping to C04-C05-C06"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep optimization to reduce physiological arousal",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a regular sleep-wake schedule, caffeine timing management, light exposure control, and a calming wind-down routine; track sleep with a daily diary and brief arousal ratings.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Lower baseline arousal improves tolerance to financial stressors and diminishes intrusive worry; better rest supports executive function to manage worries.",
+      "measurement": "Pittsburgh Sleep Quality Index (PSQI) or sleep diary score, next-morning anxiety rating (0–10), daytime fatigue",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "If sleep-disordered breathing or other sleep pathology is suspected, pursue clinical evaluation.",
+      "mapping_query": "CASE_PAYLOAD_S03 mapping to C03 and C01"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Mindfulness-based stress reduction (MBRS) to reduce rumination and arousal",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver an 8-week MBRS program with daily 10-minute practice and guided audio; include reminders and brief weekly check-ins.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Cultivates nonjudgmental awareness of worry, reduces repetitive financial rumination, and attenuates hyperarousal linked to uncertainty about the future.",
+      "measurement": "MAAS/FFMQ mindfulness scores, daily worry frequency, overall anxiety level (0–10).",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.42,
+      "priority": "HIGH",
+      "safety_notes": "Watch for distress during mindfulness practice; adjust intensity if needed.",
+      "mapping_query": "CASE_PAYLOAD_S04 mapping to C01-C03-C06"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Social support enhancement and resource navigation (care coordination)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Connect to community supports (housing, food, utility aid) and establish a monthly check-in to review available resources and social connections; implement social-prescribing pathways.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Providing tangible resources and social belonging reduces perceived financial threat, enhances coping capacity, and lowers future financial uncertainty.",
+      "measurement": "Perceived social support scale (e.g., MOS-SSS), number of resources accessed, self-rated financial security",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure resource eligibility; avoid overwhelming the client with too many options at once.",
+      "mapping_query": "CASE_PAYLOAD_S05 mapping to C04-C05-C06"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Financial problem-solving training (CBT-based) with experiential testing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "A 6–8 session module teaching structured problem-solving steps (define problem, brainstorm options, evaluate options, implement/monitor) tailored to money-related stress; include small behavioral experiments.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Builds cognitive and behavioral skills to manage financial risks, challenge catastrophic predictions, and improve proactive coping with expenses and future uncertainties.",
+      "measurement": "Problem-Solving Confidence Scale, number of implemented action plans, pre/post worry frequency, tracking of unplanned expenses",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Provide safety boundaries; monitor for avoidance; adjust workload to financial reality.",
+      "mapping_query": "CASE_PAYLOAD_S06 mapping to C01-C02-C04-C05-C06"
+    }
+  ]
+}

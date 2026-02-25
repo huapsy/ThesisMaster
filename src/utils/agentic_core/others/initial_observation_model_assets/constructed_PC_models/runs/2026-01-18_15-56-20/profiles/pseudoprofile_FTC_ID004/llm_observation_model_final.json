@@ -1,0 +1,1091 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID004",
+  "model_summary": "This initial gVAR-ready observation model operationalizes seven core affective/interpersonal criteria from the case (C01–C07) and pairs them with a compact set of modifiable predictors (P01–P06) spanning emotion regulation, trigger/environment management, interpersonal repair, self-compassion, self-monitoring, and mindfulness/distress tolerance. The plan emphasizes real-time regulation, trigger-limiting strategies, repair after conflicts, and self-regulation practices, with a sampling design designed for within-person variance via brief, repeated EMA prompts and brief daily diaries. The predicted relations (edges) and a full predictor–criterion relevance grid are provided to guide downstream gVAR analyses while preserving interpretability and feasibility across daily-life data collection.",
+  "variable_selection_notes": "Variables were chosen to reflect (1) immediate reactivity to interpersonal provocations (C01, C02), (2) post-episode emotional recovery (C03), (3) self-evaluative distress (C04), (4) intention–behavior gaps in kindness (C05), (5) use of withdrawal/crying as coping (C06), and (6) real-world relational impact (C07). To maximize within-person variance and avoid redundancy, a single broad self-regulation construct is captured via emotion regulation/mindfulness components (P01, P04, P06) complemented by trigger/environment management (P02), interpersonal repair (P03), and self-monitoring (P05). Measurement relies on momentary self-report (EMA) with 1–9 Likert-like scales where appropriate to maximize variance and suitability for gVAR. Predictor effects are allowed to be nonlinear where indicated (e.g., interaction with triggers or sleep). The sampling plan is coherent across variables: 14 days of data collection, 4 EMA prompts per day for momentary predictors and criteria, plus 2 daily diary anchors, with passive streams left optional to avoid excessive burden. Potential collinearity is mitigated by limiting construct breadth at this stage and by using a single, broad emotion-regulation domain per predictor where possible.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "randomized_within_blocks",
+      "time_blocks_local": [
+        "09:00-11:00",
+        "13:00-15:00",
+        "17:00-19:00",
+        "21:00-23:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 56,
+      "notes": "4 prompts/day balances within-person variance with participant burden; prompts target peak daily variability in affect and reactivity."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 2,
+      "anchor_times_local": [
+        "08:30",
+        "22:00"
+      ],
+      "expected_total_entries": 28,
+      "notes": "Two anchors capture morning and evening state, including perceived self-regulation success and relationship context."
+    },
+    "passive_streams": {
+      "enabled": false,
+      "aggregation_strategy": "",
+      "notes": "Optional later extension if feasibility allows (e.g., sleep proxies, screen time)."
+    },
+    "minimum_total_observations_target": 60,
+    "gvar_readiness_notes": "Initial plan prioritizes constructs with strong theoretical/empirical links to the complaint’s components (reactivity, recovery, repair). The grid supports iterative refinement after early data indicating which predictors show the strongest within-person variance and criterion relevance.",
+    "variance_support_notes": "1–9 Likert-type scales on EMA items yield adequate variance within individuals. Daily diaries add complementary variance at the between-day level.",
+    "missingness_risk_notes": "Allowance for occasional prompts missed; plan includes reminder prompts and flexible imputation-ready design for brief missingness."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Low frustration tolerance / irritability",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate how irritable or prone to snapping you felt during interactions with others (1=not at all irritated, 9=extremely irritated).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures reactivity to minor provocations."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Heightened sensitivity to specific triggers",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate how reactive you felt to recurring cues (e.g., dishes, partner’s tone) in this moment (1=not reactive, 9=extremely reactive).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures cue-specific reactivity."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Post-episode emotional collapse (crying)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, to what extent did you experience a strong urge to cry or actually cry after an interpersonal conflict (1=none, 9=extremely).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses post-conflict emotional release."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Self-directed distress / loss of self-recognition",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate your level of distress and perceived alienation from self (1=not at all, 9=extremely).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Reflects motivation for change-oriented interventions."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Intention to be kind vs failure to enact it",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In this moment, rate how strongly you intend to be kind and not hurtful, and how well you followed through (1=not at all, 9=fully).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures values–behavior gap relevant to skills training."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Maladaptive immediate coping (withdrawal/crying)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate your use of withdrawal/secretive crying as a coping response in the moment (1=not at all, 9=very much).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Targeted to reduce avoidance and promote repair seeking."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C07",
+      "source_variable_id": "custom",
+      "label": "Interpersonal strain / relationship impact",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate the perceived strain in your partner relationship (1=not strained, 9=extremely strained) and warmth/trust in interactions (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures relationship impact observed in daily interactions."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Emotion Regulation Skills Training (Broad)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Cognitive_Behavioral_Therapies > Emotion_Regulation_and_Affective_Mastery",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 1.0,
+      "mechanism_rationale": "Targeted to improve voluntary control of arousal and affective responses; improves responses to triggers and conflicts.",
+      "intervention_examples_safe": "Breath-focused regulation, labeling emotions, and opposing-action planning during conflicts.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Rate your current ability to regulate emotions in this moment (1-9; higher = better regulation).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Broad emotional regulation capacity; integrates distress tolerance."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved regulation expected to reduce irritability after minor provocations."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "High feasibility for EMA delivery; transformer-ready."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Trigger/Environment Modification",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] Interpersonal_Therapeutic_Solutions > Contextual_supports",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Reducing exposure to predictable triggers and shaping responses to cues.",
+      "intervention_examples_safe": "Environment tweaks; boundary setting with others; cue modification.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate how much your environment contributed to triggering irritation in this moment (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Relevant to C01/C02."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reducing triggers should lower irritability."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Feasible with real-time prompts and simple interventions."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Couple Communication Skills for Repair",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] Interpersonal_Therapeutic_Solutions > Conflict_and_Relationship_Repair",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.95,
+      "mechanism_rationale": "Directly supports repairing conflicts and reducing relational harm (C07).",
+      "intervention_examples_safe": "Structured repair conversations; use of de-escalation scripts.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate your attempt to repair the interaction with your partner (1-9) and perceived success (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Targets post-conflict repair and relational warmth."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C07",
+        "C01",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved repair should reduce interpersonal strain."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Useful for near-term relational repair through scripted conversations."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Self-Compassion & Distress Processing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Core_Psychological_Skills_Toolkits > Compassionate_Self_Relating_and_Internal_Support",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.95,
+      "mechanism_rationale": "Reduces self-criticism and enhances compassionate self-talk during dysregulated states (C04).",
+      "intervention_examples_safe": "Compassionate self-talk; distress tolerance with self-kindness.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In this moment, rate how self-compassionate you feel toward yourself (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Directly targets self-directed distress (C04)."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C01",
+        "C03",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increased self-compassion should reduce distress and self-criticism."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.87,
+        "notes": "Supports emotional regulation without pathologizing self-criticism."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Adaptive Self-Monitoring & Feedback",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Measurement_Based_Care_and_Feedback > Self_Assessment_and_Logs",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.95,
+      "mechanism_rationale": "Increases awareness of triggers, regulation attempts, and behavior change, enabling timely adjustments (C01–C07).",
+      "intervention_examples_safe": "Log emotional states, triggers, and coping efforts; review trends with coach/therapist.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate how often you engaged in a coping strategy (1-9) and how useful it was (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Core measurement-based care pillar."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Frequent coping practice should reduce irritability over time."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Supports iterative adjustments through feedback."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Mindfulness-Based Regulation & Distress Tolerance",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Third_Wave_and_Contextual_Therapies > Mindfulness_Based_Interventions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.95,
+      "mechanism_rationale": "Reduces reactivity, enhances nonjudgmental awareness, and improves tolerance of stress (C01–C06).",
+      "intervention_examples_safe": "Mindful breathing, nonreactivity to thoughts, body scan.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In this moment, rate your present level of mindful awareness and nonreactivity (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures flexible regulation in real time."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C06",
+        "C02",
+        "C07",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindfulness supports post-conflict regulation and reduces crying episodes."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.93,
+        "gvar_feasibility_0_1": 0.89,
+        "notes": "Aligns with widely used therapeutic modalities."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,86000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,55000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Emotion regulation training expected to reduce irritability in near term.",
+      "estimated_relevance_0_1": 0.84
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Regulation skills may lower trigger sensitivity.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Improved regulation supports recovery after conflicts.",
+      "estimated_relevance_0_1": 0.82
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Emotion regulation linked to reduced self-distress.",
+      "estimated_relevance_0_1": 0.86
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Regulation supports acting in line with kind intentions.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Better regulation reduces maladaptive withdrawal/crying.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Regulation improves interpersonal exchanges.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Trigger management reduces immediate irritability.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Lower trigger sensitivity reduces snapping.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Fewer triggers reduce post-conflict distress episodes.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Reduced trigger exposure may lessen self-distress.",
+      "estimated_relevance_0_1": 0.45
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Environmental control supports enactment of kind intentions.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Environment modification may reduce maladaptive coping.",
+      "estimated_relevance_0_1": 0.3
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Trigger management can lessen relationship strain.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Repair-oriented communication lowers irritability during conflicts.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Communication skills reduce cue-triggered responses.",
+      "estimated_relevance_0_1": 0.25
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Repair attempts may reduce post-conflict crying episodes.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Repair-focused dialogue reduces self-distress.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Effective repair aligns behavior with kind intent.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Repair interactions may reduce withdrawal coping.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Repair enhances relationship warmth.",
+      "estimated_relevance_0_1": 0.25
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Self-compassion improves regulation during stress.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Self-compassion lessens reactivity to triggers.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Compassion reduces post-conflict crying risk.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Self-compassion lowers self-distress.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Compassionate self-talk supports acting on kind intent.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Self-kindness reduces maladaptive withdrawal coping.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Improved self-regulation can lessen perceived relationship strain.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Frequent self-monitoring supports regulation attempts.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Self-monitoring may reduce sensitivity to triggers over time.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Feedback on regulation correlates with fewer post-conflict distress episodes.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Monitoring distress processing tracks self-distress reductions.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Tracking coping aligns values with behavior.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Self-monitoring supports shift away from withdrawal coping.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Feedback may improve perceived relationship impact.",
+      "estimated_relevance_0_1": 0.45
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness increases regulatory capacity during provocation.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "unknown",
+      "lag_spec": "0-24h",
+      "notes": "Impact on trigger sensitivity could be nonlinear.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness supports post-conflict regulation and reduces crying risk.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Nonjudgmental awareness reduces distress self-evaluation.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Mindfulness supports aligning actions with values.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Increases distress tolerance and reduces impulsivity.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Mindfulness improves communication quality in conflicts.",
+      "estimated_relevance_0_1": 0.55
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [],
+    "expected_floor_ceiling_risks": [],
+    "variance_enhancement_suggestions": [],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": "Initial predictor set shows moderate-to-high feasibility with typical EMA burden; plan is to monitor for collinearity and drop or merge closely related measures if needed."
+  },
+  "safety_notes": "This is not medical advice or diagnosis. If acute risk is suspected (self-harm, suicidality, or unsafe situations), seek immediate professional help. No medication dosing or treatment is prescribed here."
+}

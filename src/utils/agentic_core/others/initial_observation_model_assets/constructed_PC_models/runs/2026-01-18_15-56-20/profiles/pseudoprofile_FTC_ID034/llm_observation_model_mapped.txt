@@ -1,0 +1,20 @@
+pseudoprofile_id: pseudoprofile_FTC_ID034
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Chronic baseline back pain intensity/frequency -> CLINICAL / ICD-10 / pain disorders / cancer-related pain / bone pain due to metastases / pain_intensity_0to10 (conf=0.44)
+- C02: Pain flare-up frequency and acute intensity -> CLINICAL / ICD-10 / pain disorders / functional pain disorders / psychogenic pain disorder / pain_fluctuation_with_psychosocial_stressors (conf=0.66)
+- C03: Future-oriented catastrophic belief (permanence) -> CLINICAL / ICD-10 / pain disorders / musculoskeletal pain disorders / chronic neck pain / pain_catastrophizing_elevated (conf=0.72)
+- C04: Low mood / feeling very down during flares -> CLINICAL / ICD-10 / pain disorders / musculoskeletal pain disorders / rheumatoid arthritis pain / depressed_mood_related_to_pain (conf=0.65)
+- C05: Irritability linked to pain flare-ups -> CLINICAL / ICD-10 / pain disorders / musculoskeletal pain disorders / osteoarthritis pain / mood_disturbance_associated_with_pain (conf=0.72)
+- C06: Reduced optimism / diminished hope about future -> NON-CLINICAL / AGE-GENERAL / psychological / purpose in life / future orientation / optimism about future / hope for tomorrow (conf=0.74)
+- C07: Perceived control / coping self-efficacy for managing pain -> NON-CLINICAL / AGE-GENERAL / psychological / environmental mastery / control over life / self-efficacy / self-assurance (conf=0.65)
+
+PREDICTORS:
+- P01: S01: Cognitive Reappraisal and Behavioral Experiments for Pain Catastrophizing -> PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / restructure_and_install / alternative_thinking / cognitive_reappraisal_practice (conf=0.82)
+- P02: S02: Pain Coping Self-Efficacy Skill-Building -> PSYCHO / third_wave_and_contextual_therapies / dbt_skills_based_therapy / emotion_regulation_skills / build_positive_emotions / long_term_positive_emotion_skills / self_efficacy_building_practice (conf=0.72)
+- P03: S03: Graded Exercise and Activity Pacing with Pain Flare Monitoring -> PSYCHO / cognitive_behavioral_therapies / behavior_change_and_activation / planning_and_grading / activation_design / graded_task_assignment (conf=0.62)
+- P04: S04: Sleep Hygiene and Circadian Regulation Plan -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / daylight_exposure_planning (conf=0.74)
+- P05: S05: Social Support Enhancement and Social Prescribing -> SOCIAL / social_support_and_belonging / network_building_and_maintenance / reconnection_and_repair / conflict_repair_and_reengagement_support (conf=0.66)
+- P06: S06: Mindfulness-Based Pain Modulation (MBPM) -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / body_based_mindfulness / pain_mindfulness_practice (conf=0.84)
+- P07: S07: Meaning/Value-Driven Goal Setting and Hope Enhancement -> PSYCHO / change_process_and_therapeutic_phases / readiness_and_engagement / wellbeing_optimization_entry_path / meaning_and_purpose_checkin (conf=0.75)

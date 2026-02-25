@@ -1,0 +1,169 @@
+{
+  "pseudoprofile_id": "CASE_01_BioPsychSocial_MoodBlunting_FineAutopilot",
+  "summary": "Candidate BIO-PSYCHO-SOCIAL levers targeting reduced positive affect, autopilot-like engagement, internal disengagement, guilt about not enjoying events, and blunted affect. Levers blend behavioral activation, emotion regulation, circadian/nutrition supports, social connectedness, and small-scale activation to increase moment-to-moment engagement with life. Each lever is actionable, modifiable, and measurable over a weeks-to-months horizon, with attention to single or interacting mechanisms (BIO/PSYCHO/SOCIAL) that plausibly shift C01–C06.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Behavioral Activation and Scheduling of Daily Pleasurable Activities",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Implement a structured daily activity plan that includes at least one small, enjoyable activity per day (e.g., a brief walk, hobby task, or social call) and a weekly goal for trying a new or moderately enjoyable activity. Use a simple log to record planned vs. completed activities and immediate mood after each activity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Structured activation increases exposure to rewarding experiences, improves attentional engagement, and reduces automatic, mindless task execution; frequent, small positive experiences can elevate momentary affect and motivation over time.",
+      "measurement": "Weekly activity count (>=10 min per activity), post-activity mood rating (0-10), and engagement presence (yes/no). Experience sampling after activities for positive affect.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "No specific safety concerns; monitor mood trajectory; escalate to professional help if thoughts of self-harm arise.",
+      "mapping_query": "MAP(C01 OR C03 OR C06) to improvements with consistent activation scheduling over 4-8 weeks."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Gratitude and Savoring Practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Daily 5-minute savoring and gratitude journaling, coupled with brief reflective prompts (e.g., identify one positive aspect and one small detail to savor).",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Focusing attention on positive aspects and savoring experiences can enhance reward sensitivity and reduce hedonic blunting, increasing felt pleasure from events.",
+      "measurement": "Daily positive affect rating (0-10), savoring frequency (days with savoring practice), gratitude journaling score (0-3 anchors).",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.35,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; encourage scaling if time pressure increases anxiety.",
+      "mapping_query": "Evaluate association between savoring/gratitude practice and changes in C01 and C04 over 3-6 weeks."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Self-Compassion and Guilt Reduction Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Guided self-compassion exercises and cognitive reframing to reduce guilt about not enjoying positive experiences; include a brief audio/visual guide and a daily quick-check-in.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Reducing self-criticism and guilt can free cognitive resources for enjoying present moments and re-sensitize affective responses to positive events.",
+      "measurement": "Momentary guilt reports (0-10), Self-Compassion Scale scores, daily positive affect.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.3,
+      "priority": "MED",
+      "safety_notes": "None specific; monitor for any increase in rumination and adjust intensity.",
+      "mapping_query": "Monitor reductions in C02 with self-compassion interventions and downstream effects on C04."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sleep Health and Circadian Regularity",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent bed and wake times, reduce evening screen exposure, optimize sleep environment, and track with a simple diary or wearable.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Improved sleep quality/regulation supports emotional reactivity and energy, reducing emotional blunting and improving responsiveness to positive events.",
+      "measurement": "Sleep duration/quality (self-report or wearable), morning mood, variability in wake times (SD of wake times).",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.32,
+      "priority": "HIGH",
+      "safety_notes": "None specific; consult clinician if sleep apnea or other sleep disorders suspected.",
+      "mapping_query": "Assess impact of sleep regularity on C04 and subsequent C01 responses over 4-6 weeks."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Morning Light Exposure and Light-Boosted Activity",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Engage in 30-60 minutes of morning light exposure (outdoor time or bright light) combined with light physical activity; monitor mood/energy mid-morning.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Circadian entrainment via morning light improves energy and mood regulation, supporting increased reactivity to positive events and reduced autopilot.",
+      "measurement": "Time spent in morning light, mid-morning energy/mood rating, baseline vs. post-exposure mood difference.",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.28,
+      "priority": "MED",
+      "safety_notes": "None specific.",
+      "mapping_query": "Examine relation between morning light+activity and changes in C01 and C03."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Structured Social Reconnection and Belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Plan low-pressure, regular social interactions (e.g., 1-2 short calls or in-person meetups per week) and join a community or group aligned with interests; track sense of belonging.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Social connectedness enhances reward processing and reduces self-presentation masking; belonging can amplify positive affect and reduce disengagement.",
+      "measurement": "Number of social contacts per week, perceived belonging scale, mood following social interactions.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.32,
+      "priority": "HIGH",
+      "safety_notes": "None specific.",
+      "mapping_query": "Assess improvements in affect and reductions in outward masking (C05) after social engagement."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Micro-Activation Protocol (5-Minute Energizers)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "When autopilot kicks in, perform a 5-minute brisk movement or quick energizing activity plus a brief coping cue (e.g., 3-note grounding or a positive cue).",
+      "targets_criteria_ids": [
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Brief activation interrupts automatic disengagement, increases arousal, and can yield immediate mood improvement and greater presence in the moment.",
+      "measurement": "Frequency of micro-activations, pre/post mood rating (0-10), subjective presence during task.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.25,
+      "priority": "HIGH",
+      "safety_notes": "None specific.",
+      "mapping_query": "Track immediate mood changes after micro-activations and their relation to C03/C01."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Values-Based Behavioral Experiments",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Conduct small experiments where activities aligned with personal values are performed and compared to neutral activities; track affect and engagement.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Meaningful engagement increases intrinsic motivation and reward sensitivity, countering anhedonia and low initiative.",
+      "measurement": "Affect following values-aligned vs neutral activities; engagement rate and persistence.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.34,
+      "priority": "HIGH",
+      "safety_notes": "None specific.",
+      "mapping_query": "Examine whether values-aligned activities predict increases in C01 and C06."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Nutritional Regularity and Hydration",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Institute regular meal timing and hydration routines; minimize long fasting periods; track energy and mood fluctuations.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Stable metabolic inputs support consistent energy and affective responsiveness, reducing fatigue-related blunting.",
+      "measurement": "Meal timing adherence, daily water intake, daily mood log (0-10).",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.25,
+      "priority": "MED",
+      "safety_notes": "None specific.",
+      "mapping_query": "Assess links between nutrition/hydration adherence and C01 mood response over 4 weeks."
+    }
+  ]
+}

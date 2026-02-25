@@ -90,12 +90,12 @@ REPO_ROOT = _find_repo_root()
 
 # Input: the free-text complaints file (pseudoprofile blocks)
 DEFAULT_FREE_TEXT_PATH = str(
-    REPO_ROOT / "evaluation/01_pseudoprofile(s)/free_text/free_text_complaints.txt"
+    REPO_ROOT / "evaluation/sequential/free_text/free_text_complaints.txt"
 )
 
 # Output: the mapped CSV
 DEFAULT_OUTPUT_CSV = str(
-    REPO_ROOT / "evaluation/02_mental_health_issue_operationalization/mapped_criterions.csv"
+    REPO_ROOT / "evaluation/sequential/01_operationalization/outputs/mapped_criterions.csv"
 )
 
 # Ontology input file is not required here (we use cached leaf text/embeddings),
@@ -1402,8 +1402,15 @@ def _require_file(path: str, hint: str) -> None:
 
 def build_searcher_from_cache() -> Tuple[CriterionSearcher, Dict[str, Any]]:
     load_env_if_possible()
-    if not os.environ.get("OPENAI_API_KEY"):
-        raise RuntimeError("OPENAI_API_KEY not found. Put it in .env as OPENAI_API_KEY=... or export it in your shell.")
+    openrouter_api_key = str(os.environ.get("OPENROUTER_API_KEY") or "").strip()
+    if openrouter_api_key:
+        os.environ["OPENAI_API_KEY"] = openrouter_api_key
+        if not str(os.environ.get("OPENAI_BASE_URL") or "").strip():
+            os.environ["OPENAI_BASE_URL"] = "https://openrouter.ai/api/v1"
+    if not str(os.environ.get("OPENAI_API_KEY") or "").strip():
+        raise RuntimeError(
+            "Missing API key. Set OPENROUTER_API_KEY (preferred) or OPENAI_API_KEY in .env or your shell."
+        )
 
     _require_file(PATHS_JSON, "Run: python embed_leaf_nodes.py")
     _require_file(PATHS_FULL_JSON, "Run: python embed_leaf_nodes.py")
@@ -2243,17 +2250,7 @@ def run_batch(
 
     searcher, _cache_info = build_searcher_from_cache()
 
-    # --- TEMPORARY TEST LIMIT (will be changed later) ---
-    MAX_PSEUDOPROFILES = 50  # NOTE: testing-only cap; adjust/remove later
-
     items = parse_free_text_complaints(free_text_path)
-
-    if len(items) > MAX_PSEUDOPROFILES:
-        log(
-            f"[batch] Limiting pseudoprofiles to {MAX_PSEUDOPROFILES} "
-            f"(skipping {len(items) - MAX_PSEUDOPROFILES} for now; testing purpose)"
-        )
-        items = items[:MAX_PSEUDOPROFILES]
 
     if limit and limit > 0:
         items = items[:limit]

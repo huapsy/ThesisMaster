@@ -1,0 +1,226 @@
+{
+  "pseudoprofile_id": "CASE_CLIMATE_WORRY_OPTIM_01",
+  "summary": "This plan identifies12 modifiable BIO/PSYCHO/SOCIAL levers to reduce repetitive worry about climate/politics, alleviate background dread, and improve long-term planning. Each lever targets specific non-clinical/clinical mental health criteria (C01–C05) while mapping to measurable outcomes, feasibility, and safety guidance. The levers encompass attention control, metacognitive strategies, mindfulness, structured planning, emotion regulation, sleep and activity routines, social connectedness, measurement-based feedback, values-driven motivation, exposure-based cognitive experiments, and caffeine management to create a cross-domain uplift in cognitive-behavioral functioning and mood.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Attention_Systems_Training (ID:92)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "A 6-8 week program of attention control training using computerized tasks (sustained attention/inhibitory control) combined with practical offloading cues (reminders, environmental prompts) to reduce intrusive climate/politics worry and free cognitive resources for planning.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Enhanced top-down attention control reduces the dominance of perseverative worry thoughts (C01) and frees cognitive bandwidth for encoding/planning future actions (C05).",
+      "measurement": "Intrusive_thought_frequency(0–100) + attention_task_accuracy(%) + time_on_planning_tasks(min/day)",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "No acute safety concerns anticipated; monitor for fatigue from cognitive tasks; escalate if self-harm risk emerges.",
+      "mapping_query": "Map C01&C05 to a BIO-level attention training lever from the CASE_PAYLOAD."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Metacognitive_Interventions (ID:105)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "A brief series of metacognitive strategies to flexibly monitor and modify beliefs about worry (e.g., catastrophizing) and to reduce worry persistence.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Targets habitual worry processing and metacognitive beliefs, reducing repetitive cognition (C01) and reallocating cognitive resources toward planning (C05).",
+      "measurement": "Perseverative_Cognition_Score + frequency_of_worry_spikes (0–10 scale)",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Monitor for distress during cognitive monitoring; provide coaching on grounding if distress increases.",
+      "mapping_query": "CASE_PAYLOAD C01 & C05 via Metacognitive Intervention lever."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness_Based_Interventions (ID:170)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Mindfulness/Mindful ACT approach to nonjudgmentally observe worry and cultivate acceptance, reducing rumination and improving present-moment focus.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces automatic worry generation (C01) and dampens background dread (C02); enhances attentional flexibility (C05).",
+      "measurement": "MAAS_Mindfulness_scale + mood_VAS + worry_frequency(0–10)",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "No safety concerns anticipated; ensure access to trained facilitator if needed.",
+      "mapping_query": "CASE_PAYLOAD Mindfulness/ACT lever addressing C01–C02–C05."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Goals_Values_and_Maintenance_Planning (ID:115)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured weekly planning sessions and value-aligned goal setting to counteract impaired long-term planning (C04) and provide a roadmap that reduces worry about the future (C03 via clarity).",
+      "targets_criteria_ids": [
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Clear, value-based planning reduces cognitive load from worry and improves initiation of future-oriented actions (C04).",
+      "measurement": "Weekly_goal_progress_rate + planning_task_completion_time",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; monitor for frustration if goals change.",
+      "mapping_query": "CASE_PAYLOAD lever targeting C04 with value-aligned planning."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Emotion_Regulation_and_Affective_Mastery (ID:107)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Emotion regulation training (skills from core psychological toolkit) to reduce emotional reactivity and frequency of worry-driven mood dips.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Improved regulation dampens background dread (C02) and reduces cognitive load from emotional responses (C05).",
+      "measurement": "DERS_total_score + daily_emotion_regulation_strategies_use(0–1)",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; provide crisis resources if distress escalates.",
+      "mapping_query": "CASE_PAYLOAD emotion regulation to mitigate C02 & C05."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep_Routines_and_Circadian_Restoration (ID:64)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene and circadian alignment program to improve sleep quality and daytime regulation, reducing mood volatility and worry spillover.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Better sleep stabilizes mood and cognitive control, decreasing background dread and attentional capture by worry.",
+      "measurement": "PSQI_score + sleep_latency(min) + awakenings_per_night",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Monitor for sleep aids interactions; avoid unsafe self-management.",
+      "mapping_query": "CASE_PAYLOAD Sleep-related lever addressing C02 & C05."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Aerobic_and_Cardiorespiratory_Movement (ID:27)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Regular aerobic exercise program (e.g., 150 minutes/week) to boost mood, reduce anxiety, and improve cognitive efficiency.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Physical activity improves neurochemical regulation and executive function, diminishing worry preoccupancy (C02) and freeing cognitive space for planning (C05).",
+      "measurement": "Weekly_active_minutes + mood_change_scale + worry_frequency",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Standard physical activity safety; screen for medical contraindications.",
+      "mapping_query": "CASE_PAYLOAD lever targeting C02 & C05 via exercise."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Social_Support_and_Belonging (ID:198/199/200)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured enhancement of social connectedness and belonging through regular check-ins, group activities, or social prescribing to mitigate loneliness and stress.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Social connectedness buffers anxiety and improves future planning motivation by increasing perceived support and reducing isolation.",
+      "measurement": "Social_connectedness_scale + loneliness_index + weekly_social_interaction_count",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Be mindful of privacy; ensure consent and cultural fit for social interventions.",
+      "mapping_query": "CASE_PAYLOAD social domain lever addressing C02 & C04."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Measurement_Based_Care_and_Feedback (ID:143)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement measurement-based care with regular self-reports and feedback loops to track C01–C05 trajectories and tailor interventions.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Frequent outcome feedback increases self-awareness and guides adaptive intervention intensity across multiple targets.",
+      "measurement": "Weekly composite scores: intrusive_thoughts, mood, sleep_quality, planning_progress (0–10 scales)",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Ensure data privacy; monitor for data fatigue; escalate if safety concerns arise.",
+      "mapping_query": "CASE_PAYLOAD measurement-based care mapping to C01–C05."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Caffeine_and_Stimulant_Intake_Modulation (ID:39)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Modulate caffeine and stimulant intake to stabilize arousal and sleep, reducing anxiety-related weariness and cognitive intrusion.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Stabilized arousal and sleep can lessen background dread and improve attentional control over worry.",
+      "measurement": "Days_with_high_caffeine vs baseline + sleep_quality + worry_frequency",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.3,
+      "priority": "MED",
+      "safety_notes": "Advise gradual changes; monitor withdrawal symptoms.",
+      "mapping_query": "CASE_PAYLOAD caffeine modulation lever for C02 & C05."
+    },
+    {
+      "solution_id": "S11",
+      "predictor_variable": "Meaning_Purpose_and_Future_Orientation (ID:145)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Meaning-oriented exploration to cultivate future orientation and reduce catastrophic beliefs about the world’s trajectory.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "A clarified sense of meaning supports resilience to catastrophic expectations and improves willingness to engage in future planning.",
+      "measurement": "Meaning_in_life_scale + future_orientation_score + catastrophizing_frequency",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Provide supportive framing; monitor for existential distress.",
+      "mapping_query": "CASE_PAYLOAD lever targeting C03 and C04 via meaning/purpose framework."
+    },
+    {
+      "solution_id": "S12",
+      "predictor_variable": "Exposure_and_Inhibitory_Learning (ID:85)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Behavioral experiments to test and disconfirm catastrophic beliefs about the future, with gradual exposure to avoided future scenarios.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Directly challenges catastrophic predictions (C03) and reduces habitual thought dominance (C01) through experiential learning.",
+      "measurement": "Catastrophizing_frequency + reality_check_accuracy in experiments (0–1)",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Ensure safety planning if exposures involve high-risk topics; provide clinician oversight as needed.",
+      "mapping_query": "CASE_PAYLOAD exposure-based lever addressing C03/C01."
+    }
+  ]
+}

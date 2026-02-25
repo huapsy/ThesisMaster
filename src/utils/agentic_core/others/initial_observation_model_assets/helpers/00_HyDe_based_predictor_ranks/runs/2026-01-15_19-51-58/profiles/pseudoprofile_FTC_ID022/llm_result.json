@@ -1,0 +1,164 @@
+{
+  "pseudoprofile_id": "CASE_HEADACHE_MOOD_2026",
+  "summary": "The patient reports recurrent headaches described as a squeezing sensation, with mood dropping to very low during episodes, followed by cancellations of plans, guilt, and perceived social isolation. This suggests a modifiable bio-psycho-social cycle where pain exacerbates affect, leading to avoidance and social withdrawal that perpetuates distress and possibly pain sensitivity. The proposed solutions span biology (sleep, nutrition, hydration, physical activity), psychology (pain coping, cognitive reframing, mindfulness), and social context (social engagement, support), with emphasis on disrupting the pain–mood–avoidance cycle and reducing self-criticism, by leveraging self-monitoring, behavioral activation, and structured routines. Each lever targets specific criteria (C01–C07) and includes simple, scalable measurements to track progress and adjust in real time.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Headache Diary with Mood Tracking plus Brief Pain Coping Prompts",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Implement a combined self-monitoring and coping toolkit: daily headache/mood diary with prompts for brief, evidence-based pain coping strategies (breathing, brief activity pacing) to be completed in real time; integrated prompts to reframe mood during episodes.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C07"
+      ],
+      "mechanism_rationale": "Improved self-monitoring enhances anticipatory coping, reduces catastrophizing at onset, promotes timely activation of coping strategies, and weakens the reinforcement of the pain–mood cycle.",
+      "measurement": "Headache frequency (days/week); peak intensity (0-10); mood during episodes (0-10); cycle severity index (0-1 scale)",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "If you experience persistent depressive symptoms or suicidal thoughts, seek professional help immediately.",
+      "mapping_query": "Link diary entries to C01-C07; assess whether real-time coping prompts reduce mood drop magnitude and cycle maintenance over time."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Sleep Regularization + Sleep Hygiene",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent sleep-wake times, optimize light exposure, limit late caffeine, and create a wind-down routine to improve sleep quality, resilience to pain, and mood stability.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C02"
+      ],
+      "mechanism_rationale": "Improved sleep reduces pain sensitivity and emotional reactivity, thereby lowering headache frequency/intensity and stabilizing mood during episodes.",
+      "measurement": "Sleep regularity (bedtime/wake time consistency per week); sleep duration; self-reported sleep quality (1-5)",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for daytime sleepiness or insomnia; adjust schedule as needed.",
+      "mapping_query": "Evaluate associations between sleep metrics and changes in C01-C03/C02 across weeks."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness-Based Pain Coping / ACT for Pain-Emotion Decoupling",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach mindfulness and acceptance-based pain coping to reduce rapid mood decline during headaches, decrease pain catastrophizing, and promote flexible activity engagement.",
+      "targets_criteria_ids": [
+        "C03",
+        "C07"
+      ],
+      "mechanism_rationale": "Reducing affective reactivity to pain and increasing cognitive flexibility dampens the pain–mood–shame cycle.",
+      "measurement": "Mood during headache (0-10); pain unpleasantness (0-10); avoidance tendency; daily practice adherence",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None specific.",
+      "mapping_query": "Assess reductions in magnitude of mood drops and cycle severity with mindfulness/ACT practice."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Group-based Social Engagement / Social Prescribing",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Incorporate weekly social activities or community-based programs to replace cancellations with proactive engagement; strengthen social support to reduce isolation and self-criticism after cancellations.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Social connectedness buffers stress, reduces isolation, and attenuates the negative feedback loop driving mood decline and pain amplification.",
+      "measurement": "Social activity days/week; number of cancellations; loneliness scale score; perceived connectedness (0-10)",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.52,
+      "priority": "HIGH",
+      "safety_notes": "Ensure activities are accessible and non-stressful; monitor for social anxiety triggers.",
+      "mapping_query": "Track changes in social engagement and isolation relative to headache/mood cycle indicators."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Cognitive Reframing of Guilt / Self-Compassion Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Address post-cancellation guilt via CBT-based reframing and self-compassion exercises to reduce self-blame and subsequent withdrawal.",
+      "targets_criteria_ids": [
+        "C05",
+        "C07"
+      ],
+      "mechanism_rationale": "Lower self-judgment reduces shame-driven withdrawal and subsequent mood decline, breaking the reinforcement of the cycle.",
+      "measurement": "Guilt intensity after cancellations (0-10); frequency of self-criticism episodes; adherence to self-compassion exercises",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.48,
+      "priority": "MED",
+      "safety_notes": "If severe self-criticism or depressive symptoms emerge, escalate to therapy.",
+      "mapping_query": "Monitor reductions in guilt and cycle severity following reframing/self-compassion practice."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Physical Activity with Social Support (Group Exercise)",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Structured, moderate-intensity aerobic exercise 3x/week plus group involvement to reduce headaches and improve mood; gradually increase duration.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Exercise lowers pain sensitivity and improves mood; social support reduces isolation and disrupts the pain–shame loop.",
+      "measurement": "Weekly exercise minutes; headache days; pain intensity during episodes; mood during headaches; social contact count",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Assess for physical injuries; start light and progress; consult clinician if headaches worsen.",
+      "mapping_query": "Evaluate headache/pain/mood changes in relation to group exercise participation and social engagement."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Hydration, Regular Meals, Micronutrient Sufficiency",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Nutrition and hydration optimization: regular meals, adequate water intake, and micronutrient sufficiency (iron, B vitamins, magnesium); educate on potential nutritional contributors to headaches and mood disturbances.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Adequate hydration and energy/nutrient balance support neural function and mood stability, reducing dehydration-triggered headaches and fatigue-related mood dips.",
+      "measurement": "Daily water intake (cups); meal regularity; basic energy/mood ratings; micronutrient status if available",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Adjust for dietary restrictions or allergies; monitor GI issues.",
+      "mapping_query": "Correlate hydration/meal regularity with changes in headache frequency and mood during episodes."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Measurement-Based Care and Feedback Loop with Digital Monitoring",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Digital monitoring with daily prompts and weekly feedback reports to tailor plan and escalate if red flags appear; fosters engagement and data-driven adjustments.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Continuous data enables timely, personalized adjustments, preserving gains across headache, mood, social engagement, and guilt/shame reductions.",
+      "measurement": "Composite metrics from diary/app (entry completion rate, trends in C01-C07, proportion of weeks with all entries)",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "If mood worsens or self-harm risk emerges, contact professional immediately.",
+      "mapping_query": "Use weekly feedback to adjust all criteria; monitor trends and escalate if red flags appear."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+pseudoprofile_id: pseudoprofile_FTC_ID002
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Diminished positive emotional response to pleasant events -> CLINICAL / DSM-5TR / movement disorders and other side effects of medication / other (secondary) side effects of medication / organ-system effects / psychiatric or behavioral / emotional blunting / blunted_affective_reactions_to_emotional_stimuli (conf=0.74)
+- C02: Guilt about not enjoying positive experiences -> NON-CLINICAL / AGE-GENERAL / emotional / affective process / emotion process / guilt (conf=0.78)
+- C03: Behavioral autopilot / low moment-to-moment engagement -> NON-CLINICAL / AGE-GENERAL / emotional / arousal / attending / sustained attention / continuous engagement (conf=0.72)
+- C04: General emotional blunting (low affect intensity) -> CLINICAL / DSM-5TR / movement disorders and other side effects of medication / other (secondary) side effects of medication / organ-system effects / psychiatric or behavioral / emotional blunting / flat_affect (conf=0.78)
+- C05: External presentation of being 'fine' despite internal disengagement -> NON-CLINICAL / AGE-GENERAL / emotional / emotional awareness / emotional expression / appropriate display / emotion regulation in displays (conf=0.75)
+- C06: Reduced motivation/interest in non-routine pleasurable activities -> CLINICAL / DSM-5TR / trauma- and stressor-related disorders / posttraumatic stress spectrum / posttraumatic stress disorder / by precipitating trauma / accident-related (e.g., motor vehicle) / diminished_interest_or_pleasurable_engagement_in_activities (conf=0.68)
+
+PREDICTORS:
+- P01: Behavioral Activation Scheduling (S01) -> PSYCHO / change_process_and_therapeutic_phases / skill_acquisition / behavioral_planning_and_execution_skills / behavioral_activation_scheduling (conf=0.92)
+- P02: Gratitude and Savoring (S02) -> PSYCHO / positive_psychology_and_wellbeing / gratitude_and_savoring / savoring_positive_moments_practice (conf=0.92)
+- P03: Sleep Circadian Regularity / Sleep Routines -> BIO / medical_assessment_and_physiology_testing / sleep_and_respiratory_testing / circadian_and_sleep_tracking / sleep_diary (conf=0.78)
+- P04: Morning Light Exposure -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / morning_bright_light_exposure (conf=0.86)
+- P05: Structured Social Reconnection and Belonging -> SOCIAL / social_support_and_belonging / network_building_and_maintenance / reconnection_and_repair / reconnection_with_lapsed_contacts (conf=0.78)
+- P06: Micro-Activation Protocol (5-min Energizers) -> PSYCHO / cognitive_behavioral_therapies / behavior_change_and_activation / planning_and_grading / activation_design / task_initiation_cues (conf=0.68)

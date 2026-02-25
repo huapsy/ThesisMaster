@@ -1,0 +1,971 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID017",
+  "model_summary": "This initial gVAR-ready observation model targets six core burnout-related criteria (C01–C06) with six modifiable predictors (P01–P06) covering cognitive self-regulation, digital boundaries, boundary setting, boundary enforcement, circadian/social alignment, and attention/notification management. Measurements rely on brief momentary EMA items (1–9 Likert) collected 4 times per day over a 14-day period, plus a concise daily diary anchor. The design emphasizes observable, non-redundant constructs with likely within-person variance and mitigated collinearity, enabling early estimation of cross-lagged relationships and salutogenic progress toward a rested, better-regulated state.",
+  "variable_selection_notes": "Variables were chosen to reflect the complaint’s core dynamics: persistent workload during rest (C01), lack of restoration (C02), guilt around rest (C03), perceived loss of control (C04), boundary-implementation difficulty (C05), and social minimization (C06). Predictors map one-to-one to each criterion to reduce redundancy, ensure interpretability, and support targeted intervention planning (e.g., stopping threat monitoring, digital boundaries, boundary planning, adaptive coping, circadian adjustments, and notification management). Bias considerations: self-report EMA susceptibility to social desirability is mitigated by brief, frequent prompts; however, high within-person variance is expected. Uncertainty/trade-offs: a compact set of 6 predictors may miss weaker cross-domain effects, but enhances estimability and actionability for initial gVAR modeling.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:30-10:30",
+        "12:30-13:30",
+        "17:00-17:45",
+        "20:30-21:30"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 56,
+      "notes": "4 prompts/day across 14 days; jitter within blocks to avoid predictability."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "07:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Optional anchor diary to contextualize sleep/rest state."
+    },
+    "passive_streams": {
+      "enabled": false,
+      "aggregation_strategy": "none",
+      "notes": "Passive streams not used in this initial model to reduce complexity."
+    },
+    "minimum_total_observations_target": 60,
+    "gvar_readiness_notes": "6 predictors × 6 criteria form a compact yet informative network; plan for z-scored within-person transformations.",
+    "variance_support_notes": "Expect meaningful within-person variance with EMA; moderate between-person differences in baseline burnout.",
+    "missingness_risk_notes": "Send reminder prompts and provide brief EMA completions incentives; consider data-quality checks and imputation readiness."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "",
+      "label": "Work activity during designated rest",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Engages in work-related actions (e.g., checking or responding to work email, doing tasks) during intended days off or other designated rest periods.",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures impulsive work-related behaviors during rest periods."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "",
+      "label": "Lack of perceived restoration",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now or in the recent moment, rest or recovery did not feel refreshing; you cannot recall last time you felt rested.",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses subjective restoration after rest periods."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "",
+      "label": "Guilt when attempting to rest",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Experiences guilt or self-reproach when not working or when taking time off, which occurs during rest periods.",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures cognitive-emotional cost of resting."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "",
+      "label": "Perceived inability to stop working",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Feels unable to stop work-related activity despite wanting or needing a break; reports lack of control over continuing work.",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses perceived control over work engagement."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "",
+      "label": "Difficulty implementing boundaries",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Has trouble creating or practicing concrete boundary strategies (e.g., turning off notifications).",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures self-regulatory boundary implementation difficulty."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "",
+      "label": "Perceived minimization by social network",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In recent interactions, to what extent did friends minimize or oversimplify your burnout when you discussed it?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses perceived social support vs minimization."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Stop threat monitoring and checking",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Cognitive_Behavioral_Therapies / Metacognitive_and_Attention_Based_Interventions / Stop_threat_monitoring_and_checking",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.92,
+      "mechanism_rationale": "Directly reduces compulsive checking and threat monitoring linked to burnout.",
+      "intervention_examples_safe": "Cognitive strategies to reduce scanning for threats; limit nonessential monitoring during rest.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 24 hours, to what extent did you stop or reduce threat monitoring and checking (e.g., checking work emails) when attempting rest?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Captures adherence to monitoring-stop strategies."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Greater stop of threat monitoring expected to reduce work-related rest intrusion."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "High feasibility for momentary self-report."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Digital boundaries and recovery plan (digital hygiene)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "SOCIAL / digital_social_environment / digital_social_environment_solutions / boundaries_and_wellbeing / *digital_overload_recovery_plan",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Directly governs exposure to digital intrusions, enabling restoration.",
+      "intervention_examples_safe": "Turn off nonessential notifications; set device-free windows; establish recovery-friendly digital routines.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 24 hours, to what extent did you implement the digital overload recovery plan (e.g., notifications off during rest periods)?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Captures adherence to digital boundaries."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C02"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Stronger boundary practices should enhance restoration perceptions."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Moderate participant burden but high salience."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Boundary with external stressors plan",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / change_process_and_therapeutic_phases / boundary_planning / *boundary_with_external_stressors_plan",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.88,
+      "mechanism_rationale": "Boundary-setting with others reduces external demands, supporting rest.",
+      "intervention_examples_safe": "Precommitment to set limits in conversations; scheduled days off; communicated expectations.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 24 hours, to what extent did you implement boundary plans with external stressors (e.g., people, tasks)?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses boundary enforcement behaviors."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C03"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better boundary planning reduces guilt associated with rest."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": "Clear if boundaries are well-communicated."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Reduce time checking behavior",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / conditioning_and_associations / relearning / *reduce_time_checking_behavior",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.91,
+      "mechanism_rationale": "Directly targets time spent checking, easing rest intrusion.",
+      "intervention_examples_safe": "Set fixed check times; use scheduled email blocks; practice nonchecking during rest.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 24 hours, to what extent did you reduce time spent checking work emails or messages?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses adherence to reduced checking."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C04"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Less checking behavior should correlate with greater resting control."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Requires discipline to follow check-schedule."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Weekend social shift mitigation (circadian support)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Sleep_Circadian_and_Restoration / Circadian_Entraining / context_shift_plans / *weekend_social_shift_mitigation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Adjusting weekend social load supports sleep and recovery.",
+      "intervention_examples_safe": "Plan lighter social load on weekends; align social activities with sleep goals.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 24 hours, to what extent did you adjust weekend social plans to support recovery (sleep/rest)?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures circadian-supportive social scheduling."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Weekend plan adjustments may improve restoration perceptions."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.82,
+        "gvar_feasibility_0_1": 0.77,
+        "notes": "Slightly more complex due to weekend variability."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Notification and attention management plan",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / change_process_and_therapeutic_phases / behavioral_integration / boundaries_and_attention_management / *notification_and_attention_management_plan",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Directly reduces attentional intrusion and supports self-regulation.",
+      "intervention_examples_safe": "Enable focus modes; schedule notification checks; minimize multitasking.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 24 hours, to what extent did you implement your notification and attention management plan (e.g., reduced notifications, scheduled checks)?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses pragmatic boundary management for attention."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better notification management likely reduces perceived social minimization via reduced distress talk."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.83,
+        "notes": "High feasibility; supports attention regulation."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,48000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,76000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "P01 expected to reduce C01 via decreased threat monitoring.",
+      "estimated_relevance_0_1": 0.9
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Lower monitoring may improve restoration perceptions.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Less monitoring linked to reduced guilt over resting.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reduced threat monitoring supports stopping work.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Monitoring stops facilitate boundary adoption.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Less threat monitoring may lessen perceived minimization.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Digital boundaries free cognitive space, potentially reducing rest intrusion.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Boundaries support restoration experiences.",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Digital hygiene reduces guilt amplification from tech use.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Boundaries decrease time pressured working states.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Digital plan supports boundary enforcement with external stressors.",
+      "estimated_relevance_0_1": 0.88
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Better digital boundaries may improve perceived social support.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Boundary planning reduces intrusive work expectations.",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Clear boundaries can enhance restoration time.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Plan supports guilt reduction via role clarity.",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Boundaries reduce compulsive work continuation.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Boundaries with others ease boundary implementation.",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "External stressor boundaries may lessen perceived minimization.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reducing checking time supports resting state.",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Less checking reduces cognitive burden on restoration.",
+      "estimated_relevance_0_1": 0.62
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Lower checking linked to less guilt.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Time spent checking relates to perceived control.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reduces boundary fatigue from constant checking.",
+      "estimated_relevance_0_1": 0.48
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Lower checking may ease perceived minimization via reduced catastrophizing.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Weekend social shifts align with rest from cognitive load.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Weekend adjustments can improve restoration windows.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Circadian alignment reduces guilt around resting.",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Circadian-friendly scheduling reduces perceived lack of control.",
+      "estimated_relevance_0_1": 0.52
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Social planning affects boundary maintenance.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Circadian-sensible social plans may improve social support perception.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Notification management may reduce cognitive intrusiveness affecting rest.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Attention control supports restoration.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reduced distress may lower guilt about resting.",
+      "estimated_relevance_0_1": 0.62
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Better attention management supports stopping work.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Notifications strategy reduces boundary fatigue.",
+      "estimated_relevance_0_1": 0.76
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Attention management can improve perceived social support.",
+      "estimated_relevance_0_1": 0.65
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "moderate_between_predictors_P01-P04"
+    ],
+    "expected_floor_ceiling_risks": [
+      "low_for_ordinal_prompts"
+    ],
+    "variance_enhancement_suggestions": [
+      "consider adding one cross-domain predictor if feasibility allows",
+      "monitor for high within-person autocorrelation"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "none_selected_out"
+    ],
+    "gvar_feasibility_summary": "6 predictors × 6 criteria are feasible with 14-day EMA; low likelihood of extreme collinearity with proper transformations."
+  },
+  "safety_notes": "Not a diagnosis. No medical dosing. If acute risk is identified in any data review, follow appropriate safety protocols and refer to care as needed."
+}

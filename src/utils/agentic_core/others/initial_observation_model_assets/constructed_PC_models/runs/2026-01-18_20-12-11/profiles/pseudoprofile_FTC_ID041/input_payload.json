@@ -1,0 +1,2066 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID041",
+  "complaint_text": "I keep waking up from nightmares that feel too real. Not every night, but enough that I’m scared to go to sleep. I wake up sweaty and my heart racing and it takes me ages to calm down.",
+  "decomp_notes": "Decomposition into six changeable, current-state variables directly described or reasonably implied by the complaint (focused on nightmares, physiological arousal, sleep-related fear/avoidance, and difficulty resuming sleep).",
+  "decomp_n_variables_original": 6,
+  "criteria_operationalization_rows": [
+    {
+      "variable_id": "C01",
+      "variable_label": "Nightmare-triggered awakenings (occurrence)",
+      "variable_criterion": "Awakens from nightmares on multiple nights (recurring but not nightly), producing repeated sleep interruption.",
+      "variable_evidence": "\"I keep waking up from nightmares... Not every night, but enough\"",
+      "query_text_used": "Awakens from nightmares on multiple nights (recurring but not nightly), producing repeated sleep interruption.",
+      "variable_polarity": "present",
+      "variable_timeframe": "ongoing (recent)",
+      "variable_severity_0_1": 0.5,
+      "variable_confidence_0_1": 0.9,
+      "criterion_path": "",
+      "criterion_leaf": ""
+    },
+    {
+      "variable_id": "C02",
+      "variable_label": "Nightmare vividness/intensity",
+      "variable_criterion": "Dream content is experienced as highly vivid and realistic, with strong subjective intensity.",
+      "variable_evidence": "\"nightmares that feel too real\"",
+      "query_text_used": "Dream content is experienced as highly vivid and realistic, with strong subjective intensity.",
+      "variable_polarity": "present",
+      "variable_timeframe": "ongoing (recent)",
+      "variable_severity_0_1": 0.8,
+      "variable_confidence_0_1": 0.95,
+      "criterion_path": "",
+      "criterion_leaf": ""
+    },
+    {
+      "variable_id": "C03",
+      "variable_label": "Anticipatory fear of sleep / reluctance to go to bed",
+      "variable_criterion": "Experiences fear or dread about going to sleep specifically because of expectation of nightmares, leading to avoidance or reluctance.",
+      "variable_evidence": "\"I’m scared to go to sleep.\"",
+      "query_text_used": "Experiences fear or dread about going to sleep specifically because of expectation of nightmares, leading to avoidance or reluctance.",
+      "variable_polarity": "present",
+      "variable_timeframe": "ongoing (recent)",
+      "variable_severity_0_1": 0.7,
+      "variable_confidence_0_1": 0.95,
+      "criterion_path": "",
+      "criterion_leaf": ""
+    },
+    {
+      "variable_id": "C04",
+      "variable_label": "Acute autonomic arousal on awakening",
+      "variable_criterion": "Upon awakening from nightmares, experiences marked physiological signs of arousal (e.g., sweating, rapid heart rate).",
+      "variable_evidence": "\"I wake up sweaty and my heart racing\"",
+      "query_text_used": "Upon awakening from nightmares, experiences marked physiological signs of arousal (e.g., sweating, rapid heart rate).",
+      "variable_polarity": "present",
+      "variable_timeframe": "each reported awakening",
+      "variable_severity_0_1": 0.85,
+      "variable_confidence_0_1": 0.98,
+      "criterion_path": "",
+      "criterion_leaf": ""
+    },
+    {
+      "variable_id": "C05",
+      "variable_label": "Prolonged post-awakening physiological/psychological activation",
+      "variable_criterion": "After awakening from a nightmare, requires an extended period to calm down and return to baseline arousal.",
+      "variable_evidence": "\"it takes me ages to calm down\"",
+      "query_text_used": "After awakening from a nightmare, requires an extended period to calm down and return to baseline arousal.",
+      "variable_polarity": "present",
+      "variable_timeframe": "after each relevant awakening",
+      "variable_severity_0_1": 0.75,
+      "variable_confidence_0_1": 0.95,
+      "criterion_path": "",
+      "criterion_leaf": ""
+    },
+    {
+      "variable_id": "C06",
+      "variable_label": "Difficulty resuming sleep after nightmare awakenings",
+      "variable_criterion": "Has trouble falling back asleep after waking from a nightmare, due to lingering arousal or fear.",
+      "variable_evidence": "Implied by combination of waking \"sweaty and my heart racing\" and that it \"takes me ages to calm down\" and being \"scared to go to sleep.\"",
+      "query_text_used": "Has trouble falling back asleep after waking from a nightmare, due to lingering arousal or fear.",
+      "variable_polarity": "present",
+      "variable_timeframe": "following nightmare awakenings (ongoing)",
+      "variable_severity_0_1": 0.6,
+      "variable_confidence_0_1": 0.85,
+      "criterion_path": "",
+      "criterion_leaf": ""
+    }
+  ],
+  "predictor_ontology_overview_RAW": "[BIO]\n└─ Cognitive_Capacity_and_Brain_Health\n  └─ Cerebrovascular_and_Oxygenation_Support (ID:0)\n  └─ Microbiome_GutBrain_Axis_Support (ID:1)\n  └─ Micronutrient_Status_and_Correction (ID:2)\n  └─ Neural_Structure_Membranes_and_Myelination (ID:3)\n  └─ Neurodegeneration_Risk_Modifiers_and_Longevity_Neurohealth (ID:4)\n  └─ Neuroenergetics_and_Metabolic_Support (ID:5)\n  └─ Neuroprotection_Inflammation_and_Oxidative_Stress (ID:6)\n  └─ Neurotoxin_and_Exposure_Risk_Reduction (ID:7)\n  └─ Neurotransmitter_and_Neuromodulator_Support (ID:8)\n  └─ Nootropics_and_Cognitive_Enhancers (ID:9)\n  └─ Sensory_Integrity_and_Access_Supports (ID:10)\n  └─ Sleep_Circadian_and_Glymphatic_Support (ID:11)\n└─ Environmental_Exposures_and_Built_Environment_Optimization\n  └─ Chemical_Exposure_Reduction (ID:12)\n  └─ Drinking_Water_Quality_and_Exposure_Reduction (ID:13)\n  └─ Indoor_Air_Quality_and_Ventilation (ID:14)\n  └─ Microplastics_and_Plastics_Exposure_Reduction (ID:15)\n  └─ Occupational_and_Hobby_Exposure_Controls (ID:16)\n  └─ Outdoor_Environment_and_Community_Exposures (ID:17)\n  └─ Sensory_Environment_Design (ID:18)\n  └─ Thermal_Comfort_and_Shelter_Integrity (ID:19)\n└─ Medical_Assessment_and_Physiology_Testing\n  └─ Cardiometabolic_Physiology_Tests (ID:20)\n  └─ Imaging_and_Neurophysiology_Tests (ID:21)\n  └─ Laboratory_Tests (ID:22)\n  └─ Medication_and_Iatrogenic_Contributor_Review (ID:23)\n  └─ Microbiome_and_GI_Testing (ID:24)\n  └─ Physiology_and_Somatic_Optimization_Tools (ID:25)\n  └─ Sleep_and_Respiratory_Testing (ID:26)\n└─ Movement_Physical_Function_and_Somatic_Care\n  └─ Aerobic_and_Cardiorespiratory_Movement (ID:27)\n  └─ Balance_Coordination_and_Proprioception (ID:28)\n  └─ Bodywork_Manual_Therapies_and_Somatic_Supports (ID:29)\n  └─ Ergonomics_Posture_and_Work_Capacity (ID:30)\n  └─ Injury_Risk_Reduction_and_Tissue_Integrity (ID:31)\n  └─ Mobility_Flexibility_and_Joint_Health (ID:32)\n  └─ Physical_Monitoring_and_Assessment (ID:33)\n  └─ Recovery_and_Regeneration_Supports (ID:34)\n  └─ Rehabilitation_and_Functional_Restoration (ID:35)\n  └─ Respiratory_and_Autonomic_Physiology_Tools (ID:36)\n  └─ Strength_Power_and_Resistance (ID:37)\n└─ Nutrition_Hydration_and_Metabolic_Health\n  └─ Alcohol_and_Other_Intake_Modulation (ID:38)\n  └─ Caffeine_and_Stimulant_Intake_Modulation (ID:39)\n  └─ Dietary_Patterns_and_Frameworks (ID:40)\n  └─ Eating_Behavior_and_Satiety_Skills (ID:41)\n  └─ Hydration_and_Beverage_Tools (ID:42)\n  └─ Meal_Planning_and_Structure (ID:43)\n  └─ Meal_Templates (ID:44)\n  └─ Medical_Nutrition_Therapy_Tools (ID:45)\n  └─ Microbiome_Interventions (ID:46)\n  └─ Micronutrient_Supplement_Forms (ID:47)\n  └─ Supplement_and_Nutraceutical_Library (ID:48)\n└─ Personalization_Monitoring_and_Data_Feedback\n  └─ Personalization_Workflows (ID:49)\n  └─ Self_Assessment_and_Logs (ID:50)\n  └─ Wearables_and_Home_Monitoring (ID:51)\n└─ Pharmacology_and_Biomedical_Treatments\n  └─ AntiInflammatory_and_Immunomodulatory_Therapeutics (ID:52)\n  └─ Endocrine_and_Metabolic_Therapeutics (ID:53)\n  └─ Medication_Formulations_and_Routes (ID:54)\n  └─ Medication_Safety_and_Personalization_Tools (ID:55)\n  └─ Pain_and_Somatic_Symptom_Therapeutics (ID:56)\n  └─ Psychiatric_and_CNS_Pharmacotherapy (ID:57)\n  └─ Sleep_Related_Pharmacotherapy (ID:58)\n  └─ Substance_Intake_Support_Pharmacotherapy (ID:59)\n└─ Sleep_Circadian_and_Restoration\n  └─ Circadian_Entrainment (ID:60)\n  └─ Sleep_Devices_and_Technologies (ID:61)\n  └─ Sleep_Environment (ID:62)\n  └─ Sleep_Pharmacotherapy_Classes (ID:63)\n  └─ Sleep_Routines_and_Practices (ID:64)\n  └─ Sleep_Supplements (ID:65)\n└─ Somatic_and_Interventional_Care_Pathways\n  └─ Somatic_and_Interventional_Therapies (ID:66)\n\n[PSYCHO]\n└─ Brief_and_Motivational_Approaches\n  └─ Coaching_and_Behavior_Change_Support (ID:67)\n  └─ Motivational_Interviewing_Approach (ID:68)\n  └─ Solution_Focused_Brief_Therapy (ID:69)\n└─ Change_Process_and_Therapeutic_Phases\n  └─ Behavior_Change_Theories_and_Modern_Protocol_Arcs (ID:70)\n  └─ Behavioral_Integration (ID:71)\n  └─ Experiential_Disconfirmation (ID:72)\n  └─ Identity_Consolidation (ID:73)\n  └─ Maintenance_and_Transfer (ID:74)\n  └─ Meaning_Update (ID:75)\n  └─ Phase_Management_and_Sequencing (ID:76)\n  └─ Readiness_and_Engagement (ID:77)\n  └─ Skill_Acquisition (ID:78)\n└─ Cognitive_Behavioral_Therapies\n  └─ Behavior_Change_and_Activation (ID:79)\n  └─ Behavioral_Experiments_and_Learning (ID:80)\n  └─ CBT_Foundations (ID:81)\n  └─ CBT_Skills_Training_Libraries (ID:82)\n  └─ Cognitive_Bias_and_Attention_Modification (ID:83)\n  └─ Cognitive_Restructuring (ID:84)\n  └─ Exposure_and_Inhibitory_Learning (ID:85)\n  └─ Perseverative_Cognition_Interventions (ID:86)\n  └─ Problem_Solving_Training (ID:87)\n  └─ Rational_Belief_Work_REBT_Family (ID:88)\n  └─ Schema_Focused_CBT_Derivatives (ID:89)\n  └─ Sleep_Related_Cognitive_Behavioral_Interventions (ID:90)\n  └─ Transdiagnostic_CBT_Frameworks (ID:91)\n└─ Cognitive_Capacity_Enhancement_and_Stimulation\n  └─ Attention_Systems_Training (ID:92)\n  └─ Cognitive_Enrichment_and_Stimulation_Formats (ID:93)\n  └─ Cognitive_Offloading_and_External_Aids (ID:94)\n  └─ Executive_Function_Training (ID:95)\n  └─ Language_and_Verbal_Cognition (ID:96)\n  └─ Learning_and_Memory_Strategies (ID:97)\n  └─ Processing_Speed_and_Efficiency (ID:98)\n  └─ Program_Setup_and_Transfer (ID:99)\n  └─ Reasoning_and_Problem_Solving_Stimulation (ID:100)\n  └─ Social_Cognitive_Processing (ID:101)\n  └─ Visuospatial_and_Imagery_Cognition (ID:102)\n  └─ Working_Memory_and_Updating (ID:103)\n└─ Cognitive_and_Metacognitive_Interventions\n  └─ Cognitive_Remediation_and_Rehabilitation (ID:104)\n  └─ Metacognitive_and_Attention_Based_Interventions (ID:105)\n└─ Core_Psychological_Skills_Toolkits\n  └─ Compassionate_Self_Relating_and_Inner_Support (ID:106)\n  └─ Emotion_Regulation_and_Affective_Mastery (ID:107)\n  └─ Executive_Function_and_Self_Management (ID:108)\n  └─ Interpersonal_Effectiveness_and_Relational_Repair (ID:109)\n  └─ Stress_Resilience_and_Downregulation (ID:110)\n└─ Digital_and_Tech_Enabled_Solutions\n  └─ Care_Delivery_Formats (ID:111)\n  └─ Digital_Tools_and_Supports (ID:112)\n└─ Foundations_and_Common_Factors\n  └─ Case_Formulation_and_Treatment_Planning (ID:113)\n  └─ Ethics_Consent_and_Safety (ID:114)\n  └─ Goals_Values_and_Maintenance_Planning (ID:115)\n  └─ Psychoeducation_Modules (ID:116)\n  └─ Therapeutic_Relationship_and_Context (ID:117)\n└─ Humanistic_and_Experiential_Therapies\n  └─ Emotion_Focused_Therapy (ID:118)\n  └─ Existential_and_Meaning_Centered_Interventions (ID:119)\n  └─ Gestalt_and_Experiential_Therapy (ID:120)\n  └─ Person_Centered_Therapy (ID:121)\n└─ Insight_Oriented_Therapies\n  └─ Mentalization_Based_Interventions (ID:122)\n  └─ Psychodynamic_Therapy_Family (ID:123)\n└─ Integrative_Creative_and_Body_Oriented_Interventions\n  └─ Creative_and_Expressive_Interventions (ID:124)\n  └─ Hypnosis_and_Suggestion_Based_Interventions (ID:125)\n  └─ Parts_And_Internal_Systems_Work (ID:126)\n  └─ Somatic_and_Body_Oriented_Psychotherapies (ID:127)\n└─ Interpersonal_and_Attachment_Therapies\n  └─ Attachment_Informed_Interventions (ID:128)\n  └─ Interpersonal_Therapy_Family (ID:129)\n└─ Lifestyle_Philosophies\n  └─ Abrahamic_And_Contemplative_Ethics (ID:130)\n  └─ Attention_And_Focus_Philosophies (ID:131)\n  └─ Buddhist_and_Contemplative_Philosophies (ID:132)\n  └─ Chinese_and_East_Asian_Philosophies (ID:133)\n  └─ Existential_And_Humanistic_Philosophies (ID:134)\n  └─ Greco_Roman_Practical_Philosophies (ID:135)\n  └─ Habit_And_Systems_Philosophies (ID:136)\n  └─ Indian_and_Yogic_Philosophies (ID:137)\n  └─ Minimalism_And_Simplicity_Movements (ID:138)\n  └─ Modern_Psychology_Informed_Lifestyles (ID:139)\n  └─ Purpose_And_Life_Design_Philosophies (ID:140)\n  └─ Relational_Ethics_As_Lifestyle (ID:141)\n  └─ Resilience_And_Adversity_Philosophies (ID:142)\n└─ Measurement_Based_Care_and_Feedback\n  └─ Measurement_and_Feedback_Systems (ID:143)\n└─ Positive_Psychology_and_Wellbeing\n  └─ Gratitude_and_Savoring (ID:144)\n  └─ Meaning_Purpose_and_Future_Orientation (ID:145)\n  └─ Resilience_and_Optimism_Skills (ID:146)\n  └─ Strengths_and_Resource_Activation (ID:147)\n└─ Self_and_Identity_Work\n  └─ Perfectionism_and_Standards_Work (ID:148)\n  └─ Self_Esteem_and_Self_Worth_Work (ID:149)\n  └─ Shame_Guilt_and_Self_Forgiveness (ID:150)\n  └─ Values_Conflict_and_Moral_Repair_Work (ID:151)\n└─ Substance_Use_Recovery_and_Behavior_Change\n  └─ Affect_Regulation_for_Recovery (ID:152)\n  └─ Assessment_and_Formulation (ID:153)\n  └─ CBT_Based_Recovery_Skills (ID:154)\n  └─ Craving_and_Urge_Management (ID:155)\n  └─ Cue_And_Context_Management (ID:156)\n  └─ Engagement_and_Motivation (ID:157)\n  └─ Interpersonal_and_Group_Recovery_Skills (ID:158)\n  └─ Recovery_Identity_and_Meaning (ID:159)\n  └─ Rehabilitation_Engagement_and_Skill_Use (ID:160)\n  └─ Reinforcement_and_Contingency_Design (ID:161)\n  └─ Relapse_Prevention_and_Lapse_Management (ID:162)\n└─ Systemic_Couple_Family_Parenting\n  └─ Couple_Based_Interventions (ID:163)\n  └─ Family_Systems_Interventions (ID:164)\n  └─ Parenting_And_Caregiver_Interventions (ID:165)\n└─ Third_Wave_and_Contextual_Therapies\n  └─ ACT_Contextual_Behavioral_Therapy (ID:166)\n  └─ Compassion_Focused_Interventions (ID:167)\n  └─ DBT_Skills_Based_Therapy (ID:168)\n  └─ Functional_Analytic_Behavior_Therapy (ID:169)\n  └─ Mindfulness_Based_Interventions (ID:170)\n  └─ Radically_Open_Skills_Based_Therapy (ID:171)\n  └─ Stress_Inoculation_and_Coping_Skills (ID:172)\n└─ Trauma_Memory_Imagery_and_Narrative_Work\n  └─ Cognitive_Trauma_Processing (ID:173)\n  └─ EMDR_Informed_Interventions (ID:174)\n  └─ Exposure_Based_Trauma_Processing (ID:175)\n  └─ Imagery_and_Rescripting_Interventions (ID:176)\n  └─ Narrative_and_Writing_Based_Interventions (ID:177)\n  └─ Stabilization_and_Resourcing (ID:178)\n  └─ Trauma_Focused_CBT_Components (ID:179)\n\n[SOCIAL]\n└─ Care_Navigation_Access_and_Coordination\n  └─ Access_Barrier_Reduction_Solutions (ID:180)\n  └─ Care_Navigation_and_Access (ID:181)\n└─ Community_Participation_and_Social_Prescribing\n  └─ Community_Infrastructure_Enablers (ID:182)\n  └─ Community_Participation_Library (ID:183)\n  └─ Community_Participation_Pathway_Supports (ID:184)\n  └─ Social_Prescribing_and_Community_Linkage (ID:185)\n└─ Culture_Identity_and_Social_Inclusion\n  └─ Culture_Identity_and_Inclusion_Solutions (ID:186)\n└─ Digital_Social_Environment\n  └─ Digital_Social_Environment_Solutions (ID:187)\n└─ Family_Parenting_and_Household_Systems\n  └─ Caregiving_and_Respite_Solutions (ID:188)\n  └─ Family_and_Household_Services (ID:189)\n  └─ Parenting_and_Caregiver_Support (ID:190)\n└─ Interpersonal_Therapeutic_Solutions\n  └─ Interpersonal_Therapeutic_and_Coaching_Services (ID:191)\n└─ Legal_Safety_and_Rights_Support\n  └─ Legal_and_Rights_Support (ID:192)\n  └─ Safety_and_Protection_Solutions (ID:193)\n└─ Romantic_Intimacy_and_Relationships\n  └─ Relational_Therapeutic_Services (ID:194)\n  └─ Relationship_Safety_and_Protection (ID:195)\n  └─ Romantic_Relationship_Skills_and_Support (ID:196)\n  └─ Sexual_Health_Access_and_Support (ID:197)\n└─ Social_Support_and_Belonging\n  └─ Belonging_Isolation_and_Meaning (ID:198)\n  └─ Network_Building_And_Maintenance (ID:199)\n  └─ Support_Network_Development (ID:200)\n└─ Socioeconomic_and_Material_Resource_Solutions\n  └─ Financial_and_Benefits_Support (ID:201)\n  └─ Food_Transport_and_Childcare_Support (ID:202)\n  └─ Housing_and_Neighborhood_Solutions (ID:203)\n  └─ Material_and_Digital_Needs_Support (ID:204)\n└─ Work_Education_and_Role_Functioning\n  └─ Education_and_Training_Context_Solutions (ID:205)\n  └─ Role_Transitions_and_Life_Changes (ID:206)\n  └─ Work_and_Occupational_Solutions (ID:207)\n\n",
+  "signals": {
+    "hyde_based_predictor_rankings": {
+      "hyde_llm_summary": "The case centers on recurrent nightmare-triggered awakenings with high perceived vividness, anticipatory sleep fear, and prolonged post-awakening arousal that disrupts returning to sleep. The proposed levers span psychological techniques for extinguishing fear and modifying nightmare content, autonomic regulation to lower arousal, sleep-environment and circadian alignment, social-context supports, and data-informed monitoring. Each lever is modifiable, non-pharmacological, and targets one or more of the core criteria (C01–C06) with clear measurement plans. Priorities emphasize high-impact, feasible psychoeducation and CBT-I–informed strategies (IRT, routine, relaxation), supplemented by physiological regulation (HRV biofeedback), grounding techniques, environmental optimization, social support, and measurement-based feedback to optimize adherence and track progress. Safety notes are included to escalate to professional care if distress worsens or risk emerges.",
+      "hyde_solutions_compact": "S01:Imagery_Rehearsal_Therapy_training_in_bedtime_routine | S02:CBT-I_components_with_sleep_environment_optimization | S03:HRV_biofeedback_training_before_sleep | S04:Mindfulness_sleep_related_interoceptive_awareness_training | S05:Post_awakening_grounding_and_paced_breathing | S06:Sleep_environment_optimization_bedroom_physical_factors | S07:Partner_assisted_sleep_routine_and_support | S08:Wearable_sleep_and_arousal_monitoring_with_feedback",
+      "hyde_global_top_leaf_paths": [
+        {
+          "rank": 1,
+          "fused_score_0_1": 0.3215790688991546,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *return_to_bed_settling_routine",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *return_to_bed_settling_routine",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *return_to_bed_settling_routine"
+        },
+        {
+          "rank": 2,
+          "fused_score_0_1": 0.277623564004898,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *brief_breath_reset",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *brief_breath_reset",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *brief_breath_reset"
+        },
+        {
+          "rank": 3,
+          "fused_score_0_1": 0.2746935486793518,
+          "predictor_path": "BIO / somatic_and_interventional_care_pathways / somatic_and_interventional_therapies / sleep_medicine_and_circadian_care / therapy_and_device_pathways / *nightmare_targeted_sleep_specialty_referral",
+          "primary_node": "BIO / somatic_and_interventional_care_pathways / somatic_and_interventional_therapies / sleep_medicine_and_circadian_care / therapy_and_device_pathways / *nightmare_targeted_sleep_specialty_referral",
+          "secondary_node": "BIO / somatic_and_interventional_care_pathways / somatic_and_interventional_therapies / sleep_medicine_and_circadian_care / therapy_and_device_pathways / *nightmare_targeted_sleep_specialty_referral"
+        },
+        {
+          "rank": 4,
+          "fused_score_0_1": 0.2745645642280578,
+          "predictor_path": "PSYCHO / foundations_and_common_factors / psychoeducation_modules / sleep_and_restoration_psychoeducation / sleep_cognition_loops / *psychoeducation_sleep_worry_cycle_psychological",
+          "primary_node": "PSYCHO / foundations_and_common_factors / psychoeducation_modules / sleep_and_restoration_psychoeducation / sleep_cognition_loops / *psychoeducation_sleep_worry_cycle_psychological",
+          "secondary_node": "PSYCHO / foundations_and_common_factors / psychoeducation_modules / sleep_and_restoration_psychoeducation / sleep_cognition_loops / *psychoeducation_sleep_worry_cycle_psychological"
+        },
+        {
+          "rank": 5,
+          "fused_score_0_1": 0.2742843925952911,
+          "predictor_path": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / presleep_mental_skills / detachment_and_unloading / *presleep_detachment_routine_design_psychological",
+          "primary_node": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / presleep_mental_skills / detachment_and_unloading / *presleep_detachment_routine_design_psychological",
+          "secondary_node": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / presleep_mental_skills / detachment_and_unloading / *presleep_detachment_routine_design_psychological"
+        },
+        {
+          "rank": 6,
+          "fused_score_0_1": 0.2720682621002197,
+          "predictor_path": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / conditioning_and_associations / relearning / *conditioned_arousal_deconditioning_framework",
+          "primary_node": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / conditioning_and_associations / relearning / *conditioned_arousal_deconditioning_framework",
+          "secondary_node": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / conditioning_and_associations / relearning / *conditioned_arousal_deconditioning_framework"
+        },
+        {
+          "rank": 7,
+          "fused_score_0_1": 0.2719544470310211,
+          "predictor_path": "PSYCHO / foundations_and_common_factors / psychoeducation_modules / sleep_and_restoration_psychoeducation / sleep_cognition_loops / *psychoeducation_insomnia_as_learned_arousal_lay_model",
+          "primary_node": "PSYCHO / foundations_and_common_factors / psychoeducation_modules / sleep_and_restoration_psychoeducation / sleep_cognition_loops / *psychoeducation_insomnia_as_learned_arousal_lay_model",
+          "secondary_node": "PSYCHO / foundations_and_common_factors / psychoeducation_modules / sleep_and_restoration_psychoeducation / sleep_cognition_loops / *psychoeducation_insomnia_as_learned_arousal_lay_model"
+        },
+        {
+          "rank": 8,
+          "fused_score_0_1": 0.2666822969913482,
+          "predictor_path": "PSYCHO / change_process_and_therapeutic_phases / behavioral_integration / lifestyle_performance_and_wellbeing_integration / *sleep_protection_and_recovery_routine",
+          "primary_node": "PSYCHO / change_process_and_therapeutic_phases / behavioral_integration / lifestyle_performance_and_wellbeing_integration / *sleep_protection_and_recovery_routine",
+          "secondary_node": "PSYCHO / change_process_and_therapeutic_phases / behavioral_integration / lifestyle_performance_and_wellbeing_integration / *sleep_protection_and_recovery_routine"
+        },
+        {
+          "rank": 9,
+          "fused_score_0_1": 0.2663036286830902,
+          "predictor_path": "PSYCHO / change_process_and_therapeutic_phases / skill_acquisition / foundational_self_regulation_skills / *sleep_protection_basics_implementation",
+          "primary_node": "PSYCHO / change_process_and_therapeutic_phases / skill_acquisition / foundational_self_regulation_skills / *sleep_protection_basics_implementation",
+          "secondary_node": "PSYCHO / change_process_and_therapeutic_phases / skill_acquisition / foundational_self_regulation_skills / *sleep_protection_basics_implementation"
+        },
+        {
+          "rank": 10,
+          "fused_score_0_1": 0.2655024230480194,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *nonengagement_with_clock_checking",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *nonengagement_with_clock_checking",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *nonengagement_with_clock_checking"
+        },
+        {
+          "rank": 11,
+          "fused_score_0_1": 0.2646407783031463,
+          "predictor_path": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / conditioning_and_associations / relearning / *stimulus_control_bed_association_relearning",
+          "primary_node": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / conditioning_and_associations / relearning / *stimulus_control_bed_association_relearning",
+          "secondary_node": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / conditioning_and_associations / relearning / *stimulus_control_bed_association_relearning"
+        },
+        {
+          "rank": 12,
+          "fused_score_0_1": 0.2630311846733093,
+          "predictor_path": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / cognitive_work / sleep_appraisals / *cognitive_reframe_sleep_threat_appraisals",
+          "primary_node": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / cognitive_work / sleep_appraisals / *cognitive_reframe_sleep_threat_appraisals",
+          "secondary_node": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / cognitive_work / sleep_appraisals / *cognitive_reframe_sleep_threat_appraisals"
+        },
+        {
+          "rank": 13,
+          "fused_score_0_1": 0.2620545029640198,
+          "predictor_path": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / cognitive_work / sleep_appraisals / *paradoxical_intention_sleep_principle",
+          "primary_node": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / cognitive_work / sleep_appraisals / *paradoxical_intention_sleep_principle",
+          "secondary_node": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / cognitive_work / sleep_appraisals / *paradoxical_intention_sleep_principle"
+        },
+        {
+          "rank": 14,
+          "fused_score_0_1": 0.2609606087207794,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *stimulating_content_avoidance",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *stimulating_content_avoidance",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *stimulating_content_avoidance"
+        },
+        {
+          "rank": 15,
+          "fused_score_0_1": 0.2591547966003418,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *attention_on_neutral_sensations",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *attention_on_neutral_sensations",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *attention_on_neutral_sensations"
+        },
+        {
+          "rank": 16,
+          "fused_score_0_1": 0.258543998003006,
+          "predictor_path": "PSYCHO / change_process_and_therapeutic_phases / behavior_change_theories_and_modern_protocol_arcs / modern_clinical_protocol_arcs_solutions / *cbti_sleep_maintenance_plan_implementation",
+          "primary_node": "PSYCHO / change_process_and_therapeutic_phases / behavior_change_theories_and_modern_protocol_arcs / modern_clinical_protocol_arcs_solutions / *cbti_sleep_maintenance_plan_implementation",
+          "secondary_node": "PSYCHO / change_process_and_therapeutic_phases / behavior_change_theories_and_modern_protocol_arcs / modern_clinical_protocol_arcs_solutions / *cbti_sleep_maintenance_plan_implementation"
+        },
+        {
+          "rank": 17,
+          "fused_score_0_1": 0.2578973472118377,
+          "predictor_path": "PSYCHO / foundations_and_common_factors / psychoeducation_modules / sleep_and_restoration_psychoeducation / sleep_cognition_loops / *psychoeducation_presleep_hyperarousal_loop",
+          "primary_node": "PSYCHO / foundations_and_common_factors / psychoeducation_modules / sleep_and_restoration_psychoeducation / sleep_cognition_loops / *psychoeducation_presleep_hyperarousal_loop",
+          "secondary_node": "PSYCHO / foundations_and_common_factors / psychoeducation_modules / sleep_and_restoration_psychoeducation / sleep_cognition_loops / *psychoeducation_presleep_hyperarousal_loop"
+        },
+        {
+          "rank": 18,
+          "fused_score_0_1": 0.257766991853714,
+          "predictor_path": "PSYCHO / change_process_and_therapeutic_phases / behavior_change_theories_and_modern_protocol_arcs / modern_clinical_protocol_arcs_solutions / *cbti_sleep_restriction_implementation",
+          "primary_node": "PSYCHO / change_process_and_therapeutic_phases / behavior_change_theories_and_modern_protocol_arcs / modern_clinical_protocol_arcs_solutions / *cbti_sleep_restriction_implementation",
+          "secondary_node": "PSYCHO / change_process_and_therapeutic_phases / behavior_change_theories_and_modern_protocol_arcs / modern_clinical_protocol_arcs_solutions / *cbti_sleep_restriction_implementation"
+        },
+        {
+          "rank": 19,
+          "fused_score_0_1": 0.2566237151622772,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *paradoxical_intention_sleep_rationale",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *paradoxical_intention_sleep_rationale",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *paradoxical_intention_sleep_rationale"
+        },
+        {
+          "rank": 20,
+          "fused_score_0_1": 0.2564253211021423,
+          "predictor_path": "PSYCHO / third_wave_and_contextual_therapies / dbt_skills_based_therapy / distress_tolerance_skills / *breathing_to_downshift_arousal",
+          "primary_node": "PSYCHO / third_wave_and_contextual_therapies / dbt_skills_based_therapy / distress_tolerance_skills / *breathing_to_downshift_arousal",
+          "secondary_node": "PSYCHO / third_wave_and_contextual_therapies / dbt_skills_based_therapy / distress_tolerance_skills / *breathing_to_downshift_arousal"
+        },
+        {
+          "rank": 21,
+          "fused_score_0_1": 0.2552730143070221,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *audiobook_low_arousal",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *audiobook_low_arousal",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *audiobook_low_arousal"
+        },
+        {
+          "rank": 22,
+          "fused_score_0_1": 0.2552334368228912,
+          "predictor_path": "PSYCHO / foundations_and_common_factors / psychoeducation_modules / sleep_and_restoration_psychoeducation / sleep_cognition_loops / *psychoeducation_safety_behaviors_around_sleep",
+          "primary_node": "PSYCHO / foundations_and_common_factors / psychoeducation_modules / sleep_and_restoration_psychoeducation / sleep_cognition_loops / *psychoeducation_safety_behaviors_around_sleep",
+          "secondary_node": "PSYCHO / foundations_and_common_factors / psychoeducation_modules / sleep_and_restoration_psychoeducation / sleep_cognition_loops / *psychoeducation_safety_behaviors_around_sleep"
+        },
+        {
+          "rank": 23,
+          "fused_score_0_1": 0.255218356847763,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *relaxation_scan_head_to_toe",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *relaxation_scan_head_to_toe",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *relaxation_scan_head_to_toe"
+        },
+        {
+          "rank": 24,
+          "fused_score_0_1": 0.2542138695716858,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *acceptance_of_wakefulness_practice",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *acceptance_of_wakefulness_practice",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *acceptance_of_wakefulness_practice"
+        },
+        {
+          "rank": 25,
+          "fused_score_0_1": 0.253890186548233,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / morning_stabilization / *gentle_mobility_on_waking",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / morning_stabilization / *gentle_mobility_on_waking",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / morning_stabilization / *gentle_mobility_on_waking"
+        },
+        {
+          "rank": 26,
+          "fused_score_0_1": 0.2532676458358764,
+          "predictor_path": "PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / physiological_downshift / breath_and_relaxation_skills / *arousal_downshift_scripts",
+          "primary_node": "PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / physiological_downshift / breath_and_relaxation_skills / *arousal_downshift_scripts",
+          "secondary_node": "PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / physiological_downshift / breath_and_relaxation_skills / *arousal_downshift_scripts"
+        },
+        {
+          "rank": 27,
+          "fused_score_0_1": 0.2528749108314514,
+          "predictor_path": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / conditioning_and_associations / relearning / *reduce_time_checking_behavior",
+          "primary_node": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / conditioning_and_associations / relearning / *reduce_time_checking_behavior",
+          "secondary_node": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / conditioning_and_associations / relearning / *reduce_time_checking_behavior"
+        },
+        {
+          "rank": 28,
+          "fused_score_0_1": 0.2528589963912964,
+          "predictor_path": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / cognitive_work / sleep_appraisals / *sleep_related_worry_defusion",
+          "primary_node": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / cognitive_work / sleep_appraisals / *sleep_related_worry_defusion",
+          "secondary_node": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / cognitive_work / sleep_appraisals / *sleep_related_worry_defusion"
+        },
+        {
+          "rank": 29,
+          "fused_score_0_1": 0.2514674961566925,
+          "predictor_path": "BIO / somatic_and_interventional_care_pathways / somatic_and_interventional_therapies / sleep_medicine_and_circadian_care / therapy_and_device_pathways / *sleep_wake_stabilization_care_plan_coordination",
+          "primary_node": "BIO / somatic_and_interventional_care_pathways / somatic_and_interventional_therapies / sleep_medicine_and_circadian_care / therapy_and_device_pathways / *sleep_wake_stabilization_care_plan_coordination",
+          "secondary_node": "BIO / somatic_and_interventional_care_pathways / somatic_and_interventional_therapies / sleep_medicine_and_circadian_care / therapy_and_device_pathways / *sleep_wake_stabilization_care_plan_coordination"
+        },
+        {
+          "rank": 30,
+          "fused_score_0_1": 0.2498864084482193,
+          "predictor_path": "PSYCHO / change_process_and_therapeutic_phases / behavior_change_theories_and_modern_protocol_arcs / modern_clinical_protocol_arcs_solutions / *cbti_sleep_cognition_update_implementation",
+          "primary_node": "PSYCHO / change_process_and_therapeutic_phases / behavior_change_theories_and_modern_protocol_arcs / modern_clinical_protocol_arcs_solutions / *cbti_sleep_cognition_update_implementation",
+          "secondary_node": "PSYCHO / change_process_and_therapeutic_phases / behavior_change_theories_and_modern_protocol_arcs / modern_clinical_protocol_arcs_solutions / *cbti_sleep_cognition_update_implementation"
+        },
+        {
+          "rank": 31,
+          "fused_score_0_1": 0.2488453835248947,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *neutral_content_audio_option",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *neutral_content_audio_option",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *neutral_content_audio_option"
+        },
+        {
+          "rank": 32,
+          "fused_score_0_1": 0.2485790252685547,
+          "predictor_path": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / presleep_mental_skills / detachment_and_unloading / *constructive_worry_before_bed_worksheet",
+          "primary_node": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / presleep_mental_skills / detachment_and_unloading / *constructive_worry_before_bed_worksheet",
+          "secondary_node": "PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / presleep_mental_skills / detachment_and_unloading / *constructive_worry_before_bed_worksheet"
+        },
+        {
+          "rank": 33,
+          "fused_score_0_1": 0.248182401061058,
+          "predictor_path": "PSYCHO / integrative_creative_and_body_oriented_interventions / hypnosis_and_suggestion_based_interventions / *hypnosis_for_arousal_reduction_skills",
+          "primary_node": "PSYCHO / integrative_creative_and_body_oriented_interventions / hypnosis_and_suggestion_based_interventions / *hypnosis_for_arousal_reduction_skills",
+          "secondary_node": "PSYCHO / integrative_creative_and_body_oriented_interventions / hypnosis_and_suggestion_based_interventions / *hypnosis_for_arousal_reduction_skills"
+        },
+        {
+          "rank": 34,
+          "fused_score_0_1": 0.2478002309799194,
+          "predictor_path": "PSYCHO / foundations_and_common_factors / psychoeducation_modules / sleep_and_restoration_psychoeducation / sleep_cognition_loops / *psychoeducation_paradoxical_intention_rationale",
+          "primary_node": "PSYCHO / foundations_and_common_factors / psychoeducation_modules / sleep_and_restoration_psychoeducation / sleep_cognition_loops / *psychoeducation_paradoxical_intention_rationale",
+          "secondary_node": "PSYCHO / foundations_and_common_factors / psychoeducation_modules / sleep_and_restoration_psychoeducation / sleep_cognition_loops / *psychoeducation_paradoxical_intention_rationale"
+        },
+        {
+          "rank": 35,
+          "fused_score_0_1": 0.2447395175695419,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *low_stimulation_evening_activities",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *low_stimulation_evening_activities",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *low_stimulation_evening_activities"
+        },
+        {
+          "rank": 36,
+          "fused_score_0_1": 0.2446501106023788,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *bedroom_declutter",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *bedroom_declutter",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *bedroom_declutter"
+        },
+        {
+          "rank": 37,
+          "fused_score_0_1": 0.2442496418952942,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *bedroom_device_free_policy",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *bedroom_device_free_policy",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *bedroom_device_free_policy"
+        },
+        {
+          "rank": 38,
+          "fused_score_0_1": 0.2431196719408035,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *aromatherapy_lavender",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *aromatherapy_lavender",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *aromatherapy_lavender"
+        },
+        {
+          "rank": 39,
+          "fused_score_0_1": 0.2430833578109741,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *breathwork_relaxation",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *breathwork_relaxation",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *breathwork_relaxation"
+        },
+        {
+          "rank": 40,
+          "fused_score_0_1": 0.2429847121238708,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *guided_meditation",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *guided_meditation",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *guided_meditation"
+        },
+        {
+          "rank": 41,
+          "fused_score_0_1": 0.2423340529203415,
+          "predictor_path": "PSYCHO / trauma_memory_imagery_and_narrative_work / imagery_and_rescripting_interventions / *nightmare_imagery_rehearsal",
+          "primary_node": "PSYCHO / trauma_memory_imagery_and_narrative_work / imagery_and_rescripting_interventions / *nightmare_imagery_rehearsal",
+          "secondary_node": "PSYCHO / trauma_memory_imagery_and_narrative_work / imagery_and_rescripting_interventions / *nightmare_imagery_rehearsal"
+        },
+        {
+          "rank": 42,
+          "fused_score_0_1": 0.2416993230581283,
+          "predictor_path": "SOCIAL / romantic_intimacy_and_relationships / romantic_relationship_skills_and_support / communication_and_connection / stress_and_coregulation / *sleep_fatigue_and_irritability_risk_mitigation_plan",
+          "primary_node": "SOCIAL / romantic_intimacy_and_relationships / romantic_relationship_skills_and_support / communication_and_connection / stress_and_coregulation / *sleep_fatigue_and_irritability_risk_mitigation_plan",
+          "secondary_node": "SOCIAL / romantic_intimacy_and_relationships / romantic_relationship_skills_and_support / communication_and_connection / stress_and_coregulation / *sleep_fatigue_and_irritability_risk_mitigation_plan"
+        },
+        {
+          "rank": 43,
+          "fused_score_0_1": 0.2391937226057052,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *body_scan_meditation",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *body_scan_meditation",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *body_scan_meditation"
+        },
+        {
+          "rank": 44,
+          "fused_score_0_1": 0.2390027046203613,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *warm_drink_noncaffeinated_option",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *warm_drink_noncaffeinated_option",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *warm_drink_noncaffeinated_option"
+        },
+        {
+          "rank": 45,
+          "fused_score_0_1": 0.2383781224489212,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *low_light_bathroom_path",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *low_light_bathroom_path",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / night_awakenings_support / *low_light_bathroom_path"
+        },
+        {
+          "rank": 46,
+          "fused_score_0_1": 0.2379544973373413,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *progressive_muscle_relaxation",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *progressive_muscle_relaxation",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *progressive_muscle_relaxation"
+        },
+        {
+          "rank": 47,
+          "fused_score_0_1": 0.2376901358366012,
+          "predictor_path": "PSYCHO / change_process_and_therapeutic_phases / phase_management_and_sequencing / stabilization_and_safety_crosscutting / *sleep_stability_firstline_plan_when_appropriate",
+          "primary_node": "PSYCHO / change_process_and_therapeutic_phases / phase_management_and_sequencing / stabilization_and_safety_crosscutting / *sleep_stability_firstline_plan_when_appropriate",
+          "secondary_node": "PSYCHO / change_process_and_therapeutic_phases / phase_management_and_sequencing / stabilization_and_safety_crosscutting / *sleep_stability_firstline_plan_when_appropriate"
+        },
+        {
+          "rank": 48,
+          "fused_score_0_1": 0.2373374700546264,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *comfort_scan_adjustment",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *comfort_scan_adjustment",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *comfort_scan_adjustment"
+        },
+        {
+          "rank": 49,
+          "fused_score_0_1": 0.2371319979429245,
+          "predictor_path": "PSYCHO / change_process_and_therapeutic_phases / readiness_and_engagement / wellbeing_optimization_entry_path / *lifestyle_stability_check_sleep_stress_support",
+          "primary_node": "PSYCHO / change_process_and_therapeutic_phases / readiness_and_engagement / wellbeing_optimization_entry_path / *lifestyle_stability_check_sleep_stress_support",
+          "secondary_node": "PSYCHO / change_process_and_therapeutic_phases / readiness_and_engagement / wellbeing_optimization_entry_path / *lifestyle_stability_check_sleep_stress_support"
+        },
+        {
+          "rank": 50,
+          "fused_score_0_1": 0.2371041923761367,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *imagery_safe_place_practice",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *imagery_safe_place_practice",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *imagery_safe_place_practice"
+        },
+        {
+          "rank": 51,
+          "fused_score_0_1": 0.2367004007101059,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / morning_stabilization / *hydration_on_waking",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / morning_stabilization / *hydration_on_waking",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / morning_stabilization / *hydration_on_waking"
+        },
+        {
+          "rank": 52,
+          "fused_score_0_1": 0.2362691760063171,
+          "predictor_path": "PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / emotion_linked_reappraisal / threat_and_anxiety / *reattribute_threat_to_arousal_sensitivity",
+          "primary_node": "PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / emotion_linked_reappraisal / threat_and_anxiety / *reattribute_threat_to_arousal_sensitivity",
+          "secondary_node": "PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / emotion_linked_reappraisal / threat_and_anxiety / *reattribute_threat_to_arousal_sensitivity"
+        },
+        {
+          "rank": 53,
+          "fused_score_0_1": 0.2359564453363418,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *mindful_labeling_of_thoughts",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *mindful_labeling_of_thoughts",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / inbed_settling / *mindful_labeling_of_thoughts"
+        },
+        {
+          "rank": 54,
+          "fused_score_0_1": 0.2348436117172241,
+          "predictor_path": "BIO / somatic_and_interventional_care_pathways / somatic_and_interventional_therapies / sleep_medicine_and_circadian_care / therapy_and_device_pathways / *sleep_device_therapy_evaluation_pathway",
+          "primary_node": "BIO / somatic_and_interventional_care_pathways / somatic_and_interventional_therapies / sleep_medicine_and_circadian_care / therapy_and_device_pathways / *sleep_device_therapy_evaluation_pathway",
+          "secondary_node": "BIO / somatic_and_interventional_care_pathways / somatic_and_interventional_therapies / sleep_medicine_and_circadian_care / therapy_and_device_pathways / *sleep_device_therapy_evaluation_pathway"
+        },
+        {
+          "rank": 55,
+          "fused_score_0_1": 0.2342766672372818,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *wind_down_routine",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *wind_down_routine",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / *wind_down_routine"
+        },
+        {
+          "rank": 56,
+          "fused_score_0_1": 0.2331096976995468,
+          "predictor_path": "PSYCHO / change_process_and_therapeutic_phases / meaning_update / cognitive_belief_and_rule_updating / *reattribute_threat_to_arousal_sensitivity_practice",
+          "primary_node": "PSYCHO / change_process_and_therapeutic_phases / meaning_update / cognitive_belief_and_rule_updating / *reattribute_threat_to_arousal_sensitivity_practice",
+          "secondary_node": "PSYCHO / change_process_and_therapeutic_phases / meaning_update / cognitive_belief_and_rule_updating / *reattribute_threat_to_arousal_sensitivity_practice"
+        },
+        {
+          "rank": 57,
+          "fused_score_0_1": 0.2324092388153076,
+          "predictor_path": "PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / physiological_downshift / breath_and_relaxation_skills / *soothing_rhythm_breathing",
+          "primary_node": "PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / physiological_downshift / breath_and_relaxation_skills / *soothing_rhythm_breathing",
+          "secondary_node": "PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / physiological_downshift / breath_and_relaxation_skills / *soothing_rhythm_breathing"
+        },
+        {
+          "rank": 58,
+          "fused_score_0_1": 0.2321105152368545,
+          "predictor_path": "BIO / sleep_circadian_and_restoration / sleep_environment / air_allergen_and_irritant_control / *bedroom_co2_monitor",
+          "primary_node": "BIO / sleep_circadian_and_restoration / sleep_environment / air_allergen_and_irritant_control / *bedroom_co2_monitor",
+          "secondary_node": "BIO / sleep_circadian_and_restoration / sleep_environment / air_allergen_and_irritant_control / *bedroom_co2_monitor"
+        },
+        {
+          "rank": 59,
+          "fused_score_0_1": 0.2318577319383621,
+          "predictor_path": "PSYCHO / change_process_and_therapeutic_phases / skill_acquisition / foundational_self_regulation_skills / *arousal_labeling_and_reappraisal_practice",
+          "primary_node": "PSYCHO / change_process_and_therapeutic_phases / skill_acquisition / foundational_self_regulation_skills / *arousal_labeling_and_reappraisal_practice",
+          "secondary_node": "PSYCHO / change_process_and_therapeutic_phases / skill_acquisition / foundational_self_regulation_skills / *arousal_labeling_and_reappraisal_practice"
+        },
+        {
+          "rank": 60,
+          "fused_score_0_1": 0.2313630580902099,
+          "predictor_path": "PSYCHO / third_wave_and_contextual_therapies / stress_inoculation_and_coping_skills / *arousal_management_skills",
+          "primary_node": "PSYCHO / third_wave_and_contextual_therapies / stress_inoculation_and_coping_skills / *arousal_management_skills",
+          "secondary_node": "PSYCHO / third_wave_and_contextual_therapies / stress_inoculation_and_coping_skills / *arousal_management_skills"
+        }
+      ]
+    },
+    "llm_based_criterion_to_predictor_mapping_ranks": {
+      "pre_global_top": [
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 1,
+          "predictor_path": "'[BIO] > Sleep_and_Circadian > Circadian_Entrainment'",
+          "relevance_score": 761.7647,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Sleep_and_Circadian"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 2,
+          "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Environment'",
+          "relevance_score": 705.8824,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Sleep_and_Circadian"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 3,
+          "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Routines_and_Practices'",
+          "relevance_score": 700.5882,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Sleep_and_Circadian"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 4,
+          "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Pharmacotherapy_Classes'",
+          "relevance_score": 685.8824,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Sleep_and_Circadian"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 5,
+          "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Supplements'",
+          "relevance_score": 590.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Sleep_and_Circadian"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 6,
+          "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Devices_and_Technologies'",
+          "relevance_score": 512.9412,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Sleep_and_Circadian"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 7,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Transcranial_Electrical_Stimulation_Family'",
+          "relevance_score": 344.1176,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 8,
+          "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Psychiatric_Pharmacotherapy_Classes'",
+          "relevance_score": 342.3529,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 9,
+          "predictor_path": "'[BIO] > Personalization_and_Monitoring > Wearables_and_Home_Monitoring'",
+          "relevance_score": 327.6471,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Personalization_and_Monitoring"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 10,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Biofeedback_and_Neurofeedback'",
+          "relevance_score": 320.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 11,
+          "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Sleep_Related_Pharmacotherapy_Classes'",
+          "relevance_score": 307.0588,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 12,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Digital_and_Immersive_Neuromodulation'",
+          "relevance_score": 304.7059,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 13,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Transcranial_Magnetic_Stimulation_Family'",
+          "relevance_score": 285.2941,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 14,
+          "predictor_path": "'[PSYCHO] > Cognitive_Behavioral_Therapies > Behavior_Change_and_Activation'",
+          "relevance_score": 268.2353,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Cognitive_Behavioral_Therapies"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 15,
+          "predictor_path": "'[PSYCHO] > Cognitive_Behavioral_Therapies > Behavioral_Experiments_and_Learning'",
+          "relevance_score": 257.0588,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Cognitive_Behavioral_Therapies"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 16,
+          "predictor_path": "'[BIO] > Personalization_and_Monitoring > Self_Assessment_Instruments'",
+          "relevance_score": 251.7647,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Personalization_and_Monitoring"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 17,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Transcranial_Electrical_Stimulation_Montages'",
+          "relevance_score": 237.6471,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 18,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Transcranial_Magnetic_Stimulation_Targets'",
+          "relevance_score": 235.8824,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 19,
+          "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Substance_Use_Treatment_Pharmacotherapy_Classes'",
+          "relevance_score": 214.7059,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 20,
+          "predictor_path": "'[BIO] > Somatic_and_Interventional > Brain_Stimulation_Therapies'",
+          "relevance_score": 212.3529,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Somatic_and_Interventional"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 21,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Ultrasound_and_Mechanical_Neuromodulation'",
+          "relevance_score": 196.4706,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 22,
+          "predictor_path": "'[BIO] > Movement_and_Bodywork > Aerobic_Movement_Modalities'",
+          "relevance_score": 182.3529,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Movement_and_Bodywork"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 23,
+          "predictor_path": "'[BIO] > Personalization_and_Monitoring > Genetics_and_Pharmacogenomics_Tests'",
+          "relevance_score": 172.9412,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Personalization_and_Monitoring"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 24,
+          "predictor_path": "'[PSYCHO] > Cognitive_Behavioral_Therapies > Exposure_and_Inhibitory_Learning'",
+          "relevance_score": 168.5294,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Cognitive_Behavioral_Therapies"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 25,
+          "predictor_path": "'[BIO] > Movement_and_Bodywork > Mobility_MindBody_and_Somatic_Modalities'",
+          "relevance_score": 167.6471,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Movement_and_Bodywork"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 26,
+          "predictor_path": "'[BIO] > Movement_and_Bodywork > Strength_and_Resistance_Modalities'",
+          "relevance_score": 138.2353,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Movement_and_Bodywork"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 27,
+          "predictor_path": "'[PSYCHO] > Third_Wave_and_Contextual_Therapies > Mindfulness_Based_Interventions'",
+          "relevance_score": 125.8824,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Third_Wave_and_Contextual_Therapies"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 28,
+          "predictor_path": "'[BIO] > Movement_and_Bodywork > Balance_and_Coordination_Modalities'",
+          "relevance_score": 120.5882,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Movement_and_Bodywork"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 29,
+          "predictor_path": "'[PSYCHO] > Cognitive_Behavioral_Therapies > Problem_Solving_Training'",
+          "relevance_score": 119.1176,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Cognitive_Behavioral_Therapies"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 30,
+          "predictor_path": "'[PSYCHO] > Digital_and_Tech_Enabled_Solutions > Care_Delivery_Formats'",
+          "relevance_score": 104.7059,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Digital_and_Tech_Enabled_Solutions"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 31,
+          "predictor_path": "'[BIO] > Somatic_and_Interventional > Care_Pathway_and_Safety_Infrastructure'",
+          "relevance_score": 102.9412,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Somatic_and_Interventional"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 32,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Light_and_Photo_Neuromodulation'",
+          "relevance_score": 96.4706,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 33,
+          "predictor_path": "'[BIO] > Movement_and_Bodywork > Digital_and_Remote_Therapy_Formats'",
+          "relevance_score": 94.1176,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Movement_and_Bodywork"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 34,
+          "predictor_path": "'[PSYCHO] > Skills_Libraries > Emotion_Regulation_and_Affect_Skills'",
+          "relevance_score": 89.4118,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Skills_Libraries"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 35,
+          "predictor_path": "'[PSYCHO] > Cognitive_Behavioral_Therapies > Perseverative_Cognition_Interventions'",
+          "relevance_score": 88.2353,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Cognitive_Behavioral_Therapies"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 36,
+          "predictor_path": "'[PSYCHO] > Cognitive_Behavioral_Therapies > Cognitive_Restructuring'",
+          "relevance_score": 86.4706,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Cognitive_Behavioral_Therapies"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 37,
+          "predictor_path": "'[PSYCHO] > Trauma_Memory_Imagery_and_Narrative_Work > Imagery_and_Rescripting_Interventions'",
+          "relevance_score": 84.4118,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Trauma_Memory_Imagery_and_Narrative_Work"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 38,
+          "predictor_path": "'[PSYCHO] > Cognitive_Behavioral_Therapies > Transdiagnostic_CBT_Frameworks'",
+          "relevance_score": 84.4118,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Cognitive_Behavioral_Therapies"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 39,
+          "predictor_path": "'[PSYCHO] > Trauma_Memory_Imagery_and_Narrative_Work > Cognitive_Trauma_Processing'",
+          "relevance_score": 84.1176,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Trauma_Memory_Imagery_and_Narrative_Work"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 40,
+          "predictor_path": "'[PSYCHO] > Trauma_Memory_Imagery_and_Narrative_Work > Trauma_Focused_CBT_Components'",
+          "relevance_score": 82.0588,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Trauma_Memory_Imagery_and_Narrative_Work"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 41,
+          "predictor_path": "'[BIO] > Movement_and_Bodywork > Bodywork_and_Physical_Therapies'",
+          "relevance_score": 81.7647,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Movement_and_Bodywork"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 42,
+          "predictor_path": "'[PSYCHO] > Cognitive_Behavioral_Therapies > Cognitive_Bias_and_Attention_Modification'",
+          "relevance_score": 81.7647,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Cognitive_Behavioral_Therapies"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 43,
+          "predictor_path": "'[PSYCHO] > Cognitive_and_Metacognitive_Interventions > Cognitive_Remediation_and_Rehabilitation'",
+          "relevance_score": 81.1765,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Cognitive_and_Metacognitive_Interventions"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 44,
+          "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Medication_Safety_and_Personalization_Tools'",
+          "relevance_score": 74.1176,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 45,
+          "predictor_path": "'[BIO] > Nutrition_and_Metabolism > Medical_Nutrition_Therapy_Tools'",
+          "relevance_score": 72.3529,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Nutrition_and_Metabolism"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 46,
+          "predictor_path": "'[PSYCHO] > Third_Wave_and_Contextual_Therapies > ACT_Contextual_Behavioral_Therapy'",
+          "relevance_score": 71.7647,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Third_Wave_and_Contextual_Therapies"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 47,
+          "predictor_path": "'[BIO] > Nutrition_and_Metabolism > Supplement_and_Nutraceutical_Library'",
+          "relevance_score": 70.5882,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Nutrition_and_Metabolism"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 48,
+          "predictor_path": "'[BIO] > Nutrition_and_Metabolism > Dietary_Patterns'",
+          "relevance_score": 67.6471,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Nutrition_and_Metabolism"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 49,
+          "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Pain_and_Somatic_Pharmacotherapy_Classes'",
+          "relevance_score": 65.8824,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+        },
+        {
+          "part": "pre_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 50,
+          "predictor_path": "'[BIO] > Nutrition_and_Metabolism > Meal_Planning_and_Structure'",
+          "relevance_score": 65.8824,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Nutrition_and_Metabolism"
+        }
+      ],
+      "post_global_top": [
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 1,
+          "predictor_path": "'[BIO] > Sleep_and_Circadian > Circadian_Entrainment'",
+          "relevance_score": 857.5,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Sleep_and_Circadian"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 2,
+          "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Environment'",
+          "relevance_score": 810.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Sleep_and_Circadian"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 3,
+          "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Routines_and_Practices'",
+          "relevance_score": 800.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Sleep_and_Circadian"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 4,
+          "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Pharmacotherapy_Classes'",
+          "relevance_score": 795.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Sleep_and_Circadian"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 5,
+          "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Sleep_Related_Pharmacotherapy_Classes'",
+          "relevance_score": 762.5,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 6,
+          "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Devices_and_Technologies'",
+          "relevance_score": 715.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Sleep_and_Circadian"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 7,
+          "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Supplements'",
+          "relevance_score": 660.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Sleep_and_Circadian"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 8,
+          "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Psychiatric_Pharmacotherapy_Classes'",
+          "relevance_score": 552.5,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 9,
+          "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Substance_Use_Treatment_Pharmacotherapy_Classes'",
+          "relevance_score": 425.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 10,
+          "predictor_path": "'[BIO] > Personalization_and_Monitoring > Wearables_and_Home_Monitoring'",
+          "relevance_score": 355.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Personalization_and_Monitoring"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 11,
+          "predictor_path": "'[BIO] > Movement_and_Bodywork > Aerobic_Movement_Modalities'",
+          "relevance_score": 287.5,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Movement_and_Bodywork"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 12,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Transcranial_Electrical_Stimulation_Family'",
+          "relevance_score": 270.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 13,
+          "predictor_path": "'[BIO] > Movement_and_Bodywork > Strength_and_Resistance_Modalities'",
+          "relevance_score": 262.5,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Movement_and_Bodywork"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 14,
+          "predictor_path": "'[BIO] > Somatic_and_Interventional > Brain_Stimulation_Therapies'",
+          "relevance_score": 252.5,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Somatic_and_Interventional"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 15,
+          "predictor_path": "'[BIO] > Movement_and_Bodywork > Mobility_MindBody_and_Somatic_Modalities'",
+          "relevance_score": 250.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Movement_and_Bodywork"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 16,
+          "predictor_path": "'[BIO] > Movement_and_Bodywork > Balance_and_Coordination_Modalities'",
+          "relevance_score": 242.5,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Movement_and_Bodywork"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 17,
+          "predictor_path": "'[PSYCHO] > Third_Wave_and_Contextual_Therapies > Mindfulness_Based_Interventions'",
+          "relevance_score": 220.0,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Third_Wave_and_Contextual_Therapies"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 18,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Digital_and_Immersive_Neuromodulation'",
+          "relevance_score": 220.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 19,
+          "predictor_path": "'[BIO] > Movement_and_Bodywork > Digital_and_Remote_Therapy_Formats'",
+          "relevance_score": 215.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Movement_and_Bodywork"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 20,
+          "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Medication_Safety_and_Personalization_Tools'",
+          "relevance_score": 212.5,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 21,
+          "predictor_path": "'[BIO] > Movement_and_Bodywork > Bodywork_and_Physical_Therapies'",
+          "relevance_score": 210.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Movement_and_Bodywork"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 22,
+          "predictor_path": "'[PSYCHO] > Cognitive_Behavioral_Therapies > Behavior_Change_and_Activation'",
+          "relevance_score": 207.5,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Cognitive_Behavioral_Therapies"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 23,
+          "predictor_path": "'[PSYCHO] > Skills_Libraries > Emotion_Regulation_and_Affect_Skills'",
+          "relevance_score": 205.0,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Skills_Libraries"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 24,
+          "predictor_path": "'[BIO] > Personalization_and_Monitoring > Self_Assessment_Instruments'",
+          "relevance_score": 200.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Personalization_and_Monitoring"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 25,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Ultrasound_and_Mechanical_Neuromodulation'",
+          "relevance_score": 195.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 26,
+          "predictor_path": "'[PSYCHO] > Cognitive_Behavioral_Therapies > Cognitive_Restructuring'",
+          "relevance_score": 192.5,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Cognitive_Behavioral_Therapies"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 27,
+          "predictor_path": "'[PSYCHO] > Foundations_and_Common_Factors > Psychoeducation_Modules'",
+          "relevance_score": 190.0,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Foundations_and_Common_Factors"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 28,
+          "predictor_path": "'[PSYCHO] > Cognitive_Behavioral_Therapies > Behavioral_Experiments_and_Learning'",
+          "relevance_score": 187.5,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Cognitive_Behavioral_Therapies"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 29,
+          "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Pain_and_Somatic_Pharmacotherapy_Classes'",
+          "relevance_score": 185.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 30,
+          "predictor_path": "'[PSYCHO] > Cognitive_Behavioral_Therapies > Cognitive_Bias_and_Attention_Modification'",
+          "relevance_score": 185.0,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Cognitive_Behavioral_Therapies"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 31,
+          "predictor_path": "'[PSYCHO] > Brief_and_Motivational_Approaches > Solution_Focused_Brief_Therapy'",
+          "relevance_score": 180.0,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Brief_and_Motivational_Approaches"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 32,
+          "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Endocrine_and_Metabolic_Pharmacotherapy_Classes'",
+          "relevance_score": 175.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 33,
+          "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > AntiInflammatory_and_Immunomodulatory_Pharmacotherapy_Classes'",
+          "relevance_score": 170.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 34,
+          "predictor_path": "'[PSYCHO] > Brief_and_Motivational_Approaches > Motivational_Interviewing_Approach'",
+          "relevance_score": 170.0,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Brief_and_Motivational_Approaches"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 35,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Transcranial_Electrical_Stimulation_Montages'",
+          "relevance_score": 165.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 36,
+          "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Medication_Formulations_and_Routes'",
+          "relevance_score": 165.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 37,
+          "predictor_path": "'[PSYCHO] > Brief_and_Motivational_Approaches > Coaching_and_Behavior_Change_Support'",
+          "relevance_score": 165.0,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Brief_and_Motivational_Approaches"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 38,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Transcranial_Magnetic_Stimulation_Family'",
+          "relevance_score": 160.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 39,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Transcranial_Magnetic_Stimulation_Targets'",
+          "relevance_score": 155.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 40,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Sensory_and_Network_Modulation'",
+          "relevance_score": 150.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 41,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Biofeedback_and_Neurofeedback'",
+          "relevance_score": 145.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 42,
+          "predictor_path": "'[BIO] > Nutrition_and_Metabolism > Dietary_Patterns'",
+          "relevance_score": 145.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Nutrition_and_Metabolism"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 43,
+          "predictor_path": "'[BIO] > Nutrition_and_Metabolism > Hydration_and_Beverage_Tools'",
+          "relevance_score": 140.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Nutrition_and_Metabolism"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 44,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Light_and_Photo_Neuromodulation'",
+          "relevance_score": 135.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 45,
+          "predictor_path": "'[BIO] > Nutrition_and_Metabolism > Supplement_and_Nutraceutical_Library'",
+          "relevance_score": 135.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Nutrition_and_Metabolism"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 46,
+          "predictor_path": "'[BIO] > Nutrition_and_Metabolism > Microbiome_Interventions'",
+          "relevance_score": 130.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Nutrition_and_Metabolism"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 47,
+          "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Implantable_Central_Neuromodulation'",
+          "relevance_score": 130.0,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 48,
+          "predictor_path": "'[PSYCHO] > Digital_and_Tech_Enabled_Solutions > Care_Delivery_Formats'",
+          "relevance_score": 80.0,
+          "primary_node": "'[PSYCHO]",
+          "secondary_node": "'[PSYCHO] > Digital_and_Tech_Enabled_Solutions"
+        },
+        {
+          "part": "post_global",
+          "criterion_path": "",
+          "criterion_leaf": "",
+          "rank": 49,
+          "predictor_path": "'[BIO] > Personalization_and_Monitoring > Genetics_and_Pharmacogenomics_Tests'",
+          "relevance_score": 37.5,
+          "primary_node": "'[BIO]",
+          "secondary_node": "'[BIO] > Personalization_and_Monitoring"
+        }
+      ],
+      "post_per_criterion_top": {
+        "sleep-wake disorders / insomnia disorders / chronic insomnia disorder / early-morning awakening insomnia / *intrusive_rumination_post_awakening": [
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / insomnia disorders / chronic insomnia disorder / early-morning awakening insomnia / *intrusive_rumination_post_awakening",
+            "criterion_leaf": "*intrusive_rumination_post_awakening",
+            "rank": 1,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Circadian_Entrainment'",
+            "relevance_score": 900.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / insomnia disorders / chronic insomnia disorder / early-morning awakening insomnia / *intrusive_rumination_post_awakening",
+            "criterion_leaf": "*intrusive_rumination_post_awakening",
+            "rank": 2,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Environment'",
+            "relevance_score": 880.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / insomnia disorders / chronic insomnia disorder / early-morning awakening insomnia / *intrusive_rumination_post_awakening",
+            "criterion_leaf": "*intrusive_rumination_post_awakening",
+            "rank": 3,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Devices_and_Technologies'",
+            "relevance_score": 860.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / insomnia disorders / chronic insomnia disorder / early-morning awakening insomnia / *intrusive_rumination_post_awakening",
+            "criterion_leaf": "*intrusive_rumination_post_awakening",
+            "rank": 4,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Routines_and_Practices'",
+            "relevance_score": 820.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / insomnia disorders / chronic insomnia disorder / early-morning awakening insomnia / *intrusive_rumination_post_awakening",
+            "criterion_leaf": "*intrusive_rumination_post_awakening",
+            "rank": 5,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Pharmacotherapy_Classes'",
+            "relevance_score": 800.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / insomnia disorders / chronic insomnia disorder / early-morning awakening insomnia / *intrusive_rumination_post_awakening",
+            "criterion_leaf": "*intrusive_rumination_post_awakening",
+            "rank": 6,
+            "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Sleep_Related_Pharmacotherapy_Classes'",
+            "relevance_score": 780.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / insomnia disorders / chronic insomnia disorder / early-morning awakening insomnia / *intrusive_rumination_post_awakening",
+            "criterion_leaf": "*intrusive_rumination_post_awakening",
+            "rank": 7,
+            "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Psychiatric_Pharmacotherapy_Classes'",
+            "relevance_score": 760.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / insomnia disorders / chronic insomnia disorder / early-morning awakening insomnia / *intrusive_rumination_post_awakening",
+            "criterion_leaf": "*intrusive_rumination_post_awakening",
+            "rank": 8,
+            "predictor_path": "'[BIO] > Movement_and_Bodywork > Aerobic_Movement_Modalities'",
+            "relevance_score": 750.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Movement_and_Bodywork"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / insomnia disorders / chronic insomnia disorder / early-morning awakening insomnia / *intrusive_rumination_post_awakening",
+            "criterion_leaf": "*intrusive_rumination_post_awakening",
+            "rank": 9,
+            "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Pain_and_Somatic_Pharmacotherapy_Classes'",
+            "relevance_score": 740.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / insomnia disorders / chronic insomnia disorder / early-morning awakening insomnia / *intrusive_rumination_post_awakening",
+            "criterion_leaf": "*intrusive_rumination_post_awakening",
+            "rank": 10,
+            "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Substance_Use_Treatment_Pharmacotherapy_Classes'",
+            "relevance_score": 720.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+          }
+        ],
+        "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced insomnia / ssri or snri-associated insomnia / *vivid_dreams": [
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced insomnia / ssri or snri-associated insomnia / *vivid_dreams",
+            "criterion_leaf": "*vivid_dreams",
+            "rank": 1,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Circadian_Entrainment'",
+            "relevance_score": 900.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced insomnia / ssri or snri-associated insomnia / *vivid_dreams",
+            "criterion_leaf": "*vivid_dreams",
+            "rank": 2,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Environment'",
+            "relevance_score": 880.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced insomnia / ssri or snri-associated insomnia / *vivid_dreams",
+            "criterion_leaf": "*vivid_dreams",
+            "rank": 3,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Devices_and_Technologies'",
+            "relevance_score": 860.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced insomnia / ssri or snri-associated insomnia / *vivid_dreams",
+            "criterion_leaf": "*vivid_dreams",
+            "rank": 4,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Routines_and_Practices'",
+            "relevance_score": 820.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced insomnia / ssri or snri-associated insomnia / *vivid_dreams",
+            "criterion_leaf": "*vivid_dreams",
+            "rank": 5,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Pharmacotherapy_Classes'",
+            "relevance_score": 800.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced insomnia / ssri or snri-associated insomnia / *vivid_dreams",
+            "criterion_leaf": "*vivid_dreams",
+            "rank": 6,
+            "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Sleep_Related_Pharmacotherapy_Classes'",
+            "relevance_score": 780.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced insomnia / ssri or snri-associated insomnia / *vivid_dreams",
+            "criterion_leaf": "*vivid_dreams",
+            "rank": 7,
+            "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Psychiatric_Pharmacotherapy_Classes'",
+            "relevance_score": 760.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced insomnia / ssri or snri-associated insomnia / *vivid_dreams",
+            "criterion_leaf": "*vivid_dreams",
+            "rank": 8,
+            "predictor_path": "'[BIO] > Movement_and_Bodywork > Aerobic_Movement_Modalities'",
+            "relevance_score": 750.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Movement_and_Bodywork"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced insomnia / ssri or snri-associated insomnia / *vivid_dreams",
+            "criterion_leaf": "*vivid_dreams",
+            "rank": 9,
+            "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Pain_and_Somatic_Pharmacotherapy_Classes'",
+            "relevance_score": 740.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced insomnia / ssri or snri-associated insomnia / *vivid_dreams",
+            "criterion_leaf": "*vivid_dreams",
+            "rank": 10,
+            "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Substance_Use_Treatment_Pharmacotherapy_Classes'",
+            "relevance_score": 720.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+          }
+        ],
+        "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced parasomnias / medication-associated nightmare disorder / *autonomic_arousal_during_nightmares": [
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced parasomnias / medication-associated nightmare disorder / *autonomic_arousal_during_nightmares",
+            "criterion_leaf": "*autonomic_arousal_during_nightmares",
+            "rank": 1,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Pharmacotherapy_Classes'",
+            "relevance_score": 860.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced parasomnias / medication-associated nightmare disorder / *autonomic_arousal_during_nightmares",
+            "criterion_leaf": "*autonomic_arousal_during_nightmares",
+            "rank": 2,
+            "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Sleep_Related_Pharmacotherapy_Classes'",
+            "relevance_score": 800.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced parasomnias / medication-associated nightmare disorder / *autonomic_arousal_during_nightmares",
+            "criterion_leaf": "*autonomic_arousal_during_nightmares",
+            "rank": 3,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Circadian_Entrainment'",
+            "relevance_score": 750.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced parasomnias / medication-associated nightmare disorder / *autonomic_arousal_during_nightmares",
+            "criterion_leaf": "*autonomic_arousal_during_nightmares",
+            "rank": 4,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Routines_and_Practices'",
+            "relevance_score": 700.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced parasomnias / medication-associated nightmare disorder / *autonomic_arousal_during_nightmares",
+            "criterion_leaf": "*autonomic_arousal_during_nightmares",
+            "rank": 5,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Environment'",
+            "relevance_score": 650.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced parasomnias / medication-associated nightmare disorder / *autonomic_arousal_during_nightmares",
+            "criterion_leaf": "*autonomic_arousal_during_nightmares",
+            "rank": 6,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Devices_and_Technologies'",
+            "relevance_score": 600.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced parasomnias / medication-associated nightmare disorder / *autonomic_arousal_during_nightmares",
+            "criterion_leaf": "*autonomic_arousal_during_nightmares",
+            "rank": 7,
+            "predictor_path": "'[BIO] > Somatic_and_Interventional > Brain_Stimulation_Therapies'",
+            "relevance_score": 500.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Somatic_and_Interventional"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced parasomnias / medication-associated nightmare disorder / *autonomic_arousal_during_nightmares",
+            "criterion_leaf": "*autonomic_arousal_during_nightmares",
+            "rank": 8,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Supplements'",
+            "relevance_score": 500.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced parasomnias / medication-associated nightmare disorder / *autonomic_arousal_during_nightmares",
+            "criterion_leaf": "*autonomic_arousal_during_nightmares",
+            "rank": 9,
+            "predictor_path": "'[BIO] > Personalization_and_Monitoring > Wearables_and_Home_Monitoring'",
+            "relevance_score": 420.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Personalization_and_Monitoring"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced parasomnias / medication-associated nightmare disorder / *autonomic_arousal_during_nightmares",
+            "criterion_leaf": "*autonomic_arousal_during_nightmares",
+            "rank": 10,
+            "predictor_path": "'[BIO] > Neuromodulation_and_Neurostimulation > Transcranial_Electrical_Stimulation_Family'",
+            "relevance_score": 400.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Neuromodulation_and_Neurostimulation"
+          }
+        ],
+        "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares": [
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "criterion_leaf": "*anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "rank": 1,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Circadian_Entrainment'",
+            "relevance_score": 900.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "criterion_leaf": "*anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "rank": 2,
+            "predictor_path": "'[PSYCHO] > Third_Wave_and_Contextual_Therapies > Mindfulness_Based_Interventions'",
+            "relevance_score": 880.0,
+            "primary_node": "'[PSYCHO]",
+            "secondary_node": "'[PSYCHO] > Third_Wave_and_Contextual_Therapies"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "criterion_leaf": "*anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "rank": 3,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Environment'",
+            "relevance_score": 860.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "criterion_leaf": "*anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "rank": 4,
+            "predictor_path": "'[PSYCHO] > Cognitive_Behavioral_Therapies > Behavior_Change_and_Activation'",
+            "relevance_score": 830.0,
+            "primary_node": "'[PSYCHO]",
+            "secondary_node": "'[PSYCHO] > Cognitive_Behavioral_Therapies"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "criterion_leaf": "*anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "rank": 5,
+            "predictor_path": "'[PSYCHO] > Skills_Libraries > Emotion_Regulation_and_Affect_Skills'",
+            "relevance_score": 820.0,
+            "primary_node": "'[PSYCHO]",
+            "secondary_node": "'[PSYCHO] > Skills_Libraries"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "criterion_leaf": "*anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "rank": 6,
+            "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Sleep_Related_Pharmacotherapy_Classes'",
+            "relevance_score": 820.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "criterion_leaf": "*anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "rank": 7,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Pharmacotherapy_Classes'",
+            "relevance_score": 800.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "criterion_leaf": "*anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "rank": 8,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Routines_and_Practices'",
+            "relevance_score": 780.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "criterion_leaf": "*anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "rank": 9,
+            "predictor_path": "'[PSYCHO] > Cognitive_Behavioral_Therapies > Cognitive_Restructuring'",
+            "relevance_score": 770.0,
+            "primary_node": "'[PSYCHO]",
+            "secondary_node": "'[PSYCHO] > Cognitive_Behavioral_Therapies"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "criterion_leaf": "*anxiety_or_anticipatory_fear_before_sleep_due_to_nightmares",
+            "rank": 10,
+            "predictor_path": "'[PSYCHO] > Foundations_and_Common_Factors > Psychoeducation_Modules'",
+            "relevance_score": 760.0,
+            "primary_node": "'[PSYCHO]",
+            "secondary_node": "'[PSYCHO] > Foundations_and_Common_Factors"
+          }
+        ],
+        "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *awakening_due_to_nightmare": [
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *awakening_due_to_nightmare",
+            "criterion_leaf": "*awakening_due_to_nightmare",
+            "rank": 1,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Routines_and_Practices'",
+            "relevance_score": 900.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *awakening_due_to_nightmare",
+            "criterion_leaf": "*awakening_due_to_nightmare",
+            "rank": 2,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Circadian_Entrainment'",
+            "relevance_score": 880.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *awakening_due_to_nightmare",
+            "criterion_leaf": "*awakening_due_to_nightmare",
+            "rank": 3,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Environment'",
+            "relevance_score": 850.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *awakening_due_to_nightmare",
+            "criterion_leaf": "*awakening_due_to_nightmare",
+            "rank": 4,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Pharmacotherapy_Classes'",
+            "relevance_score": 720.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *awakening_due_to_nightmare",
+            "criterion_leaf": "*awakening_due_to_nightmare",
+            "rank": 5,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Devices_and_Technologies'",
+            "relevance_score": 700.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *awakening_due_to_nightmare",
+            "criterion_leaf": "*awakening_due_to_nightmare",
+            "rank": 6,
+            "predictor_path": "'[BIO] > Sleep_and_Circadian > Sleep_Supplements'",
+            "relevance_score": 680.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Sleep_and_Circadian"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *awakening_due_to_nightmare",
+            "criterion_leaf": "*awakening_due_to_nightmare",
+            "rank": 7,
+            "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Sleep_Related_Pharmacotherapy_Classes'",
+            "relevance_score": 650.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *awakening_due_to_nightmare",
+            "criterion_leaf": "*awakening_due_to_nightmare",
+            "rank": 8,
+            "predictor_path": "'[BIO] > Pharmacology_and_Biomedical_Treatments > Psychiatric_Pharmacotherapy_Classes'",
+            "relevance_score": 500.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Pharmacology_and_Biomedical_Treatments"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *awakening_due_to_nightmare",
+            "criterion_leaf": "*awakening_due_to_nightmare",
+            "rank": 9,
+            "predictor_path": "'[BIO] > Personalization_and_Monitoring > Wearables_and_Home_Monitoring'",
+            "relevance_score": 360.0,
+            "primary_node": "'[BIO]",
+            "secondary_node": "'[BIO] > Personalization_and_Monitoring"
+          },
+          {
+            "part": "post_per_criterion",
+            "criterion_path": "sleep-wake disorders / parasomnias / rapid eye movement (rem)–related parasomnias / nightmare disorder / *awakening_due_to_nightmare",
+            "criterion_leaf": "*awakening_due_to_nightmare",
+            "rank": 10,
+            "predictor_path": "'[PSYCHO] > Digital_and_Tech_Enabled_Solutions > Care_Delivery_Formats'",
+            "relevance_score": 320.0,
+            "primary_node": "'[PSYCHO]",
+            "secondary_node": "'[PSYCHO] > Digital_and_Tech_Enabled_Solutions"
+          }
+        ]
+      }
+    }
+  },
+  "guidance": {
+    "framework_context": "The output of this script is part of a larger framework that will ultimately construct a criterion+predictor model that is ready for data collection (e.g., via ecological momentary assessments, digital phenotyping, etc.).The general treatment algorithm is based on breadth-first search algorithm that first explores the secondary nodes (i.e., child nodes of the primary nodes BIO PSYCHO and SOCIAL).After data collection, the most relevant solution-predictors are re-selected for further data-analyes where then I focus on their subsequent child nodes).This algorithm goes on until user reaches salutogenic satisfactory mental state.",
+    "goal": "Construct an initial criterion+predictor observation model ready for data collection and suitable for later gVAR analysis. Preserve complaint resolution while remaining estimable.",
+    "requested_variable_counts": {
+      "n_criteria": "choice",
+      "n_predictors": "choice",
+      "note": "If 'choice', choose an optimal number for gVAR feasibility while preserving coverage. Hard cap: total nodes <= 18 (avoid dense grid truncation)."
+    },
+    "measurement_principles": [
+      "Prefer 1–9 Likert (anchored) for many constructs to increase variance.",
+      "Avoid pure binary nodes; if needed, measure intensity 1–9 + optional event flag (not as node).",
+      "Use 'since last prompt' for momentary EMA; 'morning diary' for last-night sleep; 'end_of_day' for daily summaries.",
+      "If passive data used, specify precise signal + aggregation window."
+    ],
+    "gvar_constraints": [
+      "Coherent design: prompts/day must match per-variable sampling_per_day for momentary variables.",
+      "Avoid redundancy/collinearity (pick one broad construct rather than near-duplicates).",
+      "Prefer variables expected to fluctuate within-person at chosen timescale.",
+      "Provide plausible lag bins aligned with schedule: '0-6h', '0-24h', '24-48h', 'multi_lag'."
+    ],
+    "pairwise_estimation_requirement": [
+      "You MUST output three dense relevance arrays: FULL P->C, FULL directed P->P (i!=j), FULL directed C->C (i!=j).",
+      "Dense score format: comma decimal separator and exactly 5 decimals.",
+      "Dense relevance scores are NOMOTHETIC plausibility of a directed relation at the chosen timescale (for gVAR adjacency), not diagnosis.",
+      "Absolute calibration anchors (be consistent): 0.00–0.10 none; 0.10–0.30 weak; 0.30–0.55 moderate; 0.55–0.80 strong; 0.80–1.00 very strong.",
+      "Relative constraint: within each fixed TARGET node, the ordering of relevance MUST reflect your best belief AND provided ranking signals.",
+      "Consistency constraint: each sparse edge copies the exact dense score into estimated_relevance_0_1 (numeric float) to 5 decimals.",
+      "Sparsity default: per TARGET include 2–4 strongest incoming edges (P->C), 1–3 (P->P, C->C).",
+      "Relevance tiers: very_low<0.10, low<0.30, medium<0.55, high<0.80, very_high>=0.80.",
+      "HARD CAP to avoid token truncation: keep total nodes <= 18 (e.g., <=8 criteria and <=10 predictors). Prefer fewer high-signal constructs."
+    ],
+    "sparse_edges_requirement": [
+      "You MUST output edges, edges_pp, edges_cc.",
+      "Each edge must include expected_sign, relation_interpretation, lag_spec, estimated_relevance_0_1 (NUMBER), tier, notes.",
+      "CRITICAL: estimated_relevance_0_1 must match dense grid cell value to 5 decimals.",
+      "Choose sparse edges to maximize coverage and minimize redundancy; avoid lower-scoring inclusions vs omitted higher-scoring candidates for same target."
+    ],
+    "safety_and_scope": [
+      "Not diagnosis. No medication dosing.",
+      "If acute risk is suggested, produce strong safety_notes encouraging professional help."
+    ],
+    "output_format": "STRICT JSON matching the provided JSON Schema exactly."
+  }
+}

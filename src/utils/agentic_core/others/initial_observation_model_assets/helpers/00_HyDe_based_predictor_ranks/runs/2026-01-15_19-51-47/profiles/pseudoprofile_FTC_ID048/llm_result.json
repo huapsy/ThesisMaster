@@ -1,0 +1,152 @@
+{
+  "pseudoprofile_id": "BPCASE-2026-01",
+  "summary": "This case centers on persistent, low-to-moderate grief after a breakup with maladaptive social-media checking that triggers immediate somatic distress and negative self-evaluation. The proposed modifiable levers span social-environmental boundaries (to curb checking), cognitive and affective regulation (reappraisal, self-compassion, mindfulness), behavioral activation and social connectedness, sleep and physiological regulation, and identity/meaning work to rebuild self-worth independent of the ex. Together, these targets aim to reduce C02 (checking), C04 (somatic distress), C03 (self-criticism/shame), C06 (rumination/ Social comparison), and C01 (persistent grief), while providing concrete measurement and feasible rollout timelines.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Digital Boundaries for Social Media Checking (ex unfollow/mute/block; scheduled daily check window; disable non-essential notifications)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Implement a structured digital boundary protocol: unfollow/mute/exclude the ex’s profile; turn off ex-related notifications; schedule a single 10-minute daily window for checking (if at all); use reminders to resist outside-window checking. Maintain a log of checks.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces cue-induced urges and negative reinforcement from checking by altering the environment and limiting exposure to triggering content, thereby decreasing subsequent distress and self-criticism.",
+      "measurement": "Objective: days with zero ex-profile checks; self-reported checks/day; distress level after checking (0–10).",
+      "time_horizon": "2–6 weeks to establish habit; re-evaluate at 8 weeks.",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.72,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_C02|C04|C05"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Cognitive Reframing & Self-Compassion Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Weekly 20-minute CBT-based reframing plus daily 5-minute self-compassion micropractice (guided). Target self-criticism (C03) and distress after checking (C04).",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Improves interpretation of social-media cues, reduces shame, and fosters self-kindness, dampening emotional reactivity and the urge to engage in avoidance behaviors.",
+      "measurement": "Self-criticism/shame ratings after checking (0–10); self-compassion ratings (0–10); frequency of automatic negative thoughts.",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_C03|C04|C05"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness-Based Distress Tolerance & Rumination Reduction",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "10-minute daily mindfulness practice (breath/body scan) plus brief rumination-focused acceptance exercise (guided audio).",
+      "targets_criteria_ids": [
+        "C06",
+        "C04"
+      ],
+      "mechanism_rationale": "Enhances non-judgmental awareness of urges to check, reduces cognitive reactivity and physiological arousal after checking, and lowers rumination.",
+      "measurement": "State rumination scores (0–10); distress after checking (0–10); checks per day.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.68,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_C06|C04"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Behavioral Activation: Planned Pleasurable Activities",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Schedule one meaningful activity daily (walk, exercise, hobby) and two social activities weekly; track mood before/after activities.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Increases positive affect and engagement, reduces passive rumination and excessive social comparison, and improves baseline mood to buffer grief.",
+      "measurement": "Activity log entries per day; mood ratings pre/post activity (0–10); days with at least one activity.",
+      "time_horizon": "3–8 weeks",
+      "feasibility_0_1": 0.92,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_C01|C06"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep Hygiene & Circadian Regularity",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent sleep/wake times, reduce evening screens, wind-down routine, monitor sleep duration/quality; optimize light exposure.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Better sleep supports emotion regulation and cognitive control, reducing sensitivity to social-media cues and somatic distress.",
+      "measurement": "Sleep duration; sleep quality rating (0–10); wake after sleep onset; daily mood.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_C01|C04"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Structured Social Support & Belonging Plan",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Identify 2–3 trusted friends/family; schedule weekly check-ins; join a supportive group; share distress coping strategies; reduce isolation.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Social connectedness buffers grief and decreases reliance on ex-related cues; provides corrective feedback to self-evaluation and mitigates rumination.",
+      "measurement": "Number of supportive contacts per week; belonging scale scores; mood after social interaction (0–10).",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.66,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_C05|C06"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Self-Worth & Compassion-Focused Identity Work",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Daily self-compassion practice; values identification; journaling to rebuild identity outside the ex; weekly reflection on strengths.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Strengthens self-worth independent of the relationship and reduces shame, thus lowering vulnerability to distress after checking.",
+      "measurement": "Self-esteem (Rosenberg) weekly; self-compassion scale after practice; daily diaries.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.64,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_C03|C01"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Meaning, Purpose, and Values Realignment",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Values clarification and daily meaning-focused journaling; identify near-term goals; implement small steps toward personal life goals.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Shifts attention from longing to pursuing personal meaning, reduces rumination about the ex, and promotes forward movement.",
+      "measurement": "Meaning/Purpose scale; daily goal progress logs; mood tracking.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_C01|C06"
+    }
+  ]
+}

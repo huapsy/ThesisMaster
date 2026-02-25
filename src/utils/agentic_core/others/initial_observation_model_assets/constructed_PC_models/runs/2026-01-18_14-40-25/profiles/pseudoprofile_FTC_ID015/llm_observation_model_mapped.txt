@@ -1,0 +1,22 @@
+pseudoprofile_id: pseudoprofile_FTC_ID015
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Altered sense of self since childbirth -> NON-CLINICAL / AGE-SPECIFIC / unspecified_stage / emotional_development / identity_development / self_concept (conf=0.85)
+- C02: Positive emotional bond with the baby -> NON-CLINICAL / AGE-GENERAL / social / family / interpersonal relationships / parent-child relationships / emotional bonding (conf=0.82)
+- C03: Perceived entrapment / loss of autonomy -> NON-CLINICAL / AGE-GENERAL / psychological / autonomy / boundary setting / establishing limits / defining personal limits (conf=0.72)
+- C04: Excessive guilt about feelings/parenting -> CLINICAL / DSM-5TR / depressive disorders / reproductive hormone–related depressive disorders / peripartum (antenatal or postpartum) depression / excessive_guilt_or_worthlessness (conf=0.78)
+- C05: Subjective overwhelm / low coping capacity -> NON-CLINICAL / AGE-GENERAL / emotional / subjective affective feeling / feeling exhausted (conf=0.72)
+- C06: Low frustration tolerance / frequent tearfulness -> CLINICAL / DSM-5TR / depressive disorders / reproductive hormone–related depressive disorders / peripartum (antenatal or postpartum) depression / tearfulness_or_emotional_lability (conf=0.66)
+- C07: Self-criticism after emotional episodes -> CLINICAL / DSM-5TR / personality disorders / other personality disorders / depressive personality disorder / self_critical_rumination (conf=0.72)
+- C08: Perceived minimization / lack of validation from others -> NON-CLINICAL / AGE-GENERAL / social / social integration / acceptance by others / validation / emotional validation (conf=0.72)
+
+PREDICTORS:
+- P01: Subjective sleep quality (last night) -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / sleep_quality_rating (conf=0.82)
+- P02: Objective sleep minutes (night) -> BIO / sleep_circadian_and_restoration / sleep_devices_and_technologies / tracking_and_feedback / actigraphy_device (conf=0.78)
+- P03: Self-compassion practice / self-soothing (use intensity) -> PSYCHO / third_wave_and_contextual_therapies / dbt_skills_based_therapy / emotion_regulation_skills / self_relating_and_repair / validate_and_soothe / compassionate_self_talk_practice (conf=0.66)
+- P04: Cognitive reappraisal / thought reframing frequency -> PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / restructure_and_install / alternative_thinking / cognitive_reappraisal_practice (conf=0.82)
+- P05: Perceived social support / validation -> SOCIAL / social_support_and_belonging / belonging_isolation_and_meaning / safety_and_trust_in_support / boundary_setting_with_support_network (conf=0.58)
+- P06: Respite / childcare hours (available help) -> SOCIAL / family_parenting_and_household_systems / parenting_and_caregiver_support / practical_parenting_supports / respite_care_for_parents_access (conf=0.62)
+- P07: Physical activity (steps per prompt-window) -> BIO / personalization_monitoring_and_data_feedback / wearables_and_home_monitoring / physiology / activity_fitness_and_biomechanics / activity_and_energy / step_counting_wearable (conf=0.82)
+- P08: Screen time / social media minutes (since last prompt) -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / context_and_behavioral_context_logs / screen_time_selfreport (conf=0.62)

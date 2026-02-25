@@ -1,0 +1,162 @@
+{
+  "pseudoprofile_id": "CASEPAYLOAD_2026-01-15_MHOP1",
+  "summary": "Eight modifiable BIO-PSYCHO-SOCIAL levers tailored to the case’s present-tense, mood-variability and relationship-doubt profile. Each lever targets one or more of the operational criteria (C01–C07) through distinct mechanisms (sleep and circadian regulation, aerobic activity, cognitive coping, mindfulness, attribution training, relational skills, self-monitoring, and social support). All are changeable predictors with practical measurement approaches, defined time horizons, and safety considerations. The goal is to reduce mood variability and panic, sharpen attribution about causes of doubt, enhance emotion regulation, and improve relationship decision-making without relying on diagnostic labels or pharmacology. If acute deterioration or self-harm risk emerges, seek professional help promptly.”",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep regularization and circadian alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish a fixed sleep-wake schedule with morning light exposure, a wind-down routine, and caffeine limitation after midday; aim for 7–9 hours per night with consistent bed/wake times and minimal screen exposure 1 hour before bed.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Stable sleep improves daytime mood regulation, reduces cognitive and affective lability, and clarifies interpretation of relationship cues, thereby reducing mood-driven misattribution and panic.",
+      "measurement": "Sleep diary (bed/wake times, awakenings, perceived sleep quality); daily mood rating (0–10); compute sleep-mood correlations.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "If symptoms of sleep apnea or excessive daytime somnolence occur, consult a clinician; avoid sedative aids without medical guidance.",
+      "mapping_query": "Maps to C02 (mood variability), C03 (state-dependent feelings), C04 (attribution clarity), and C06 (emotion regulation) by stabilizing baseline arousal and affect."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Regular aerobic movement (e.g., 150 minutes/week)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured moderate-intensity aerobic activity (e.g., brisk walking, cycling) totaling ~150 minutes weekly, distributed over 3–5 sessions; incorporate a social activity if feasible to boost adherence.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Exercise enhances neurochemical regulation, reduces rumination, and increases cognitive clarity, supporting steadier mood and clearer differentiation between mood effects and relationship cues; improves decision-making around commitment.",
+      "measurement": "Weekly activity minutes (self-report or wearable); mood logs; correlation of activity with mood and relationship-related decisions.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Start gradually if deconditioned; screen for medical conditions; hydrate and cool down appropriately.",
+      "mapping_query": "Links to C02 (mood variability), C03 (state-dependent feelings), C04 (attribution) and C07 (relationship decisions) via mood stabilization and energy increases."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "CBT-based uncertainty tolerance and cognitive restructuring",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Weekly CBT-style coping skills module focusing on tolerating uncertainty, distinguishing mood-driven thoughts from relationship signals, and reducing catastrophic thinking about being “broken.”",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06",
+        "C01"
+      ],
+      "mechanism_rationale": "Skillful reappraisal reduces panic and misattribution of numbness to relationship failure, while strengthening regulation and clearer evaluation of relationship quality.",
+      "measurement": "DERS (emotional regulation) scores; brief Panic Severity Scale (or simple panic intensity ratings); self-reported certainty about issue origin (mood vs relationship).",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "No contraindications; supervise if distress worsens.",
+      "mapping_query": "Addresses C04 (attribution uncertainty), C05 (panic), C06 (emotion regulation), and C01 (relationship doubts) through structured cognitive work."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Mindfulness-based emotion regulation and uncertainty tolerance",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "8-week mindfulness program with daily practice and weekly guided sessions to observe thoughts/feelings nonjudgmentally and reduce reactivity to ambivalence.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Nonjudgmental awareness reduces hasty reactivity to numbness or doubt, dampens catastrophic thoughts, and improves regulation of affect during relationship ambiguities.",
+      "measurement": "Mindfulness (MAAS or Five Facets); Perceived Stress Scale (PSS); self-reported panic intensity.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Mindfulness reduces mood variability and panic, supporting regulation and clearer interpretation of relationship cues."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Attribution retraining to differentiate mood-driven vs relationship-driven cues",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Psychoeducation and practice distinguishing internal mood signals from external relationship signals; journaling to identify attribution patterns and correction of misattributions.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Improved attribution accuracy reduces misreading of mood fluctuations as evidence of relationship failure, decreasing unnecessary distress and inappropriate actions.",
+      "measurement": "Attributional Style Questionnaire (ASQ) or brief mood-attribution items; track C01 occurrences (relationship doubts).",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Targets C04 (attribution uncertainty) and C01 (relationship doubts) via clearer interpretation of cues."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Interpersonal relational skills and communication coaching",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage in relational/communication coaching or therapy to improve dialogue with partner, reduce avoidance, and clarify relationship safety and viability.",
+      "targets_criteria_ids": [
+        "C01",
+        "C07",
+        "C03"
+      ],
+      "mechanism_rationale": "Enhanced communication reduces ambiguity-driven doubt and panic by improving support-seeking, predictive accuracy about partner reactions, and consistent relationship signaling.",
+      "measurement": "Relationship satisfaction scales (e.g., CSI); observed communication quality; changes in the frequency of withdrawal/avoidance; monitor C03 fluctuations.",
+      "time_horizon": "8–16 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure informed consent; maintain confidentiality; monitor for escalation of conflict.",
+      "mapping_query": "Improved relational skills reduce C01 (relationship doubts) and C07 (decision impact) while supporting C03 mood-clarity."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Daily self-monitoring with data feedback",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Maintain a brief daily diary of mood, numbness, panic, and perceived relationship cues; weekly review to identify patterns and adjust activities.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C06",
+        "C01"
+      ],
+      "mechanism_rationale": "Increases self-awareness, enabling timely regulation and more accurate separation of mood effects from relationship signals.",
+      "measurement": "Diary completion rate; pattern analysis of mood vs cues; changes in C02 and C04.",
+      "time_horizon": "4–12 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Self-monitoring enhances recognition of mood-driven vs relationship-driven cues, affecting C02, C04, C06, and C01."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Structured social support activation and belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Activate supportive social connections via community groups or structured social-prescribing; encourage meaningful conversations and reduce isolation.",
+      "targets_criteria_ids": [
+        "C02",
+        "C07",
+        "C01"
+      ],
+      "mechanism_rationale": "Social support buffers mood fluctuations and panic, and provides external cues to evaluate relationship doubts more accurately.",
+      "measurement": "Perceived Social Support Scale (MSPSS); count of supportive interactions; mood correlation with social engagement.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Guidance to avoid unsafe social contexts; monitor for negative social exposure.",
+      "mapping_query": "Enhancing social support buffers mood variability and influences decision-making in relationships (C01, C02, C07)."
+    }
+  ]
+}

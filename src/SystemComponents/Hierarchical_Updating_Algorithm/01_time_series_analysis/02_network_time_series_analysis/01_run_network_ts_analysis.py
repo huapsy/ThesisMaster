@@ -165,13 +165,13 @@ def _find_repo_root() -> Path:
 REPO_ROOT = _find_repo_root()
 
 DEFAULT_INPUT_ROOT = str(
-    REPO_ROOT / "evaluation/01_pseudoprofile(s)/time_series_data/pseudodata"
+    REPO_ROOT / "evaluation/sequential/00_pseudoprofile_generation/outputs/pseudodata"
 )
 DEFAULT_READINESS_ROOT = str(
-    REPO_ROOT / "evaluation/04_initial_observation_analysis/00_readiness_check"
+    REPO_ROOT / "evaluation/sequential/03_readiness_check/outputs"
 )
 DEFAULT_OUTPUT_ROOT = str(
-    REPO_ROOT / "evaluation/04_initial_observation_analysis/01_time_series_analysis/network"
+    REPO_ROOT / "evaluation/sequential/04_network_time_series_analysis/outputs"
 )
 DEFAULT_DATA_FILENAME = "pseudodata_wide.csv"
 DEFAULT_META_FILENAME = "variables_metadata.csv"

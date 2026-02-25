@@ -1,0 +1,21 @@
+pseudoprofile_id: pseudoprofile_FTC_ID020
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Perceived lack of practical life knowledge -> NON-CLINICAL / AGE-GENERAL / psychological / environmental mastery / ability to manage environment / navigating systems / system navigation skills (conf=0.72)
+- C02: Financial-management backlog -> NON-CLINICAL / AGE-GENERAL / financial / financialsecurity / freedomfromdebt / responsiblespending / budgeting tools (conf=0.72)
+- C03: Household task completion backlog -> NON-CLINICAL / AGE-GENERAL / psychological / self-efficacy / handling tasks / task management / organizing tasks (conf=0.66)
+- C04: Social-maintenance deficit -> NON-CLINICAL / AGE-GENERAL / social / social integration / social connectedness / network of friends / maintaining friendships / reciprocity / balanced give and take / avoiding one-sided relationships (conf=0.72)
+- C05: Health self-management gap -> NON-CLINICAL / AGE-GENERAL / psychological / autonomy / self-determination / self-governance / self-management (conf=0.62)
+- C06: Time-management and organizational skills deficit -> NON-CLINICAL / AGE-GENERAL / psychological / temporal perspective / time management / prioritizing tasks / organizing task order (conf=0.72)
+- C07: Negative self-evaluation / shame about life progress -> NON-CLINICAL / AGE-GENERAL / emotional / negative emotions / sadness / shame (conf=0.78)
+- C08: Preserved basic functional capacity -> NON-CLINICAL / AGE-GENERAL / psychological / environmental mastery / competence / effective performance / optimal functioning (conf=0.72)
+
+PREDICTORS:
+- P01: External time-management scaffolds and routines -> PSYCHO / core_psychological_skills_toolkits / executive_function_and_self_management / planning_and_prioritization / goal_structuring / plan_do_review_self_management (conf=0.92)
+- P02: Financial management automation and coaching -> UNMAPPED (reason=No PSYCHO leaf corresponds to budgeting/financial automation as described; closest budgeting leaves are in SOCIAL and do not satisfy the specified ontology path.)
+- P03: Household task management system -> PSYCHO / core_psychological_skills_toolkits / executive_function_and_self_management / planning_and_prioritization / goal_structuring / task_breakdown_skill (conf=0.92)
+- P04: Social accountability platform -> SOCIAL / social_media_ecosystem / social_media_ecosystem_and_interventions / addiction_related_digital_use_and_supports / social_accountability_and_support_networks / peer_support_checkin_template_for_digital_use_goals (conf=0.78)
+- P05: Health self-management optimization -> BIO / pharmacology_and_biomedical_treatments / medication_safety_and_personalization_tools / adherence_and_tracking / adherence_reminder_device (conf=0.62)
+- P06: Self-compassion and cognitive reframing -> PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / emotion_linked_reappraisal / shame_guilt_self_evaluation / compassionate_self_evaluation_reframe (conf=0.92)
+- P07: Mastery experiences and strength-based framing -> PSYCHO / third_wave_and_contextual_therapies / dbt_skills_based_therapy / emotion_regulation_skills / reduce_vulnerability_and_increase_resilience / build_mastery_and_efficacy / graded_task_mastery_planning (conf=0.92)

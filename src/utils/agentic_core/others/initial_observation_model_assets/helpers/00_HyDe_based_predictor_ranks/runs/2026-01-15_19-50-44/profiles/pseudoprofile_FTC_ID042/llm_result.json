@@ -1,0 +1,193 @@
+{
+  "pseudoprofile_id": "CASE-LONELY-WFH-01",
+  "summary": "The case shows meaningful social impairment driven by remote work with few in-person contacts, resulting in loneliness and shrinking social presence. Modifiable levers span three domains: increase meaningful in-person contact (social/environmental changes), enhance the quality and reciprocity of interactions (psychological skills), and support social activation through routines, community ties, and digital augmentation. Interventions should be validated with simple, repeatable metrics (contacts, loneliness, mood) and staged to balance feasibility with impact, prioritizing higher-leverage, safer options (structured contact, behavioral activation, social skills practice, and lightweight monitoring). The plan preserves autonomy and safety while gradually expanding social engagement in-line with the complainant’s preferences and constraints.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Daily meaningful in-person contact frequency (aim to ≥1 meaningful contact per day)",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Structured, scheduled plan to increase meaningful face-to-face contact (e.g., coffee with a friend, coworking space sessions, or study groups) with a 4-week ramp and 4-week maintenance period, including a review step.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Direct exposure to social cues and reward mechanisms increases social motivation, reduces withdrawal tendencies, and attenuates perceived social shrinkage by building routine and predictable social access.",
+      "measurement": "Average number of meaningful in-person contacts per day/week; days with ≥1 meaningful contact; self-rated social engagement.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; monitor for anxiety; adjust pace to preference; ensure boundaries and consent for contact.",
+      "mapping_query": "increase daily meaningful in-person contacts"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Proportion of meaningful vs superficial interactions in daily contacts",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Social skills/communication training to increase reciprocity and depth of conversations (CBT/BA-informed; practice scripts; small-group role-plays) to raise meaningful exchanges and reduce transactional talk.",
+      "targets_criteria_ids": [
+        "C05",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Improving conversational reciprocity increases perceived connectedness and reduces loneliness, while rebuilding confidence to initiate and maintain interactions.",
+      "measurement": "Proportion of meaningful interactions per day; perceived depth of conversations (short scale); loneliness change score.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Monitor for social anxiety; pace interventions to comfort level; adjust prompts as needed.",
+      "mapping_query": "meaningful interactions social skills training"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Hybrid/work arrangement with increased incidental social exposure (structured in-person days)",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Adopt a blended schedule (2-3 days/week in a shared physical space or co-working with colleagues) plus lightweight goals for casual conversations during those days.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Increases incidental social contact, normalizes social activity within work routines, and buffers isolation by creating predictable social contexts.",
+      "measurement": "Number of incidental social interactions per week; satisfaction with social environment during in-person days; in-person contact days per week.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Coordinate with work constraints; protect privacy and boundaries; ensure feasible commute or access to appropriate spaces.",
+      "mapping_query": "hybrid work schedule social exposure"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Structured social activation plan (weekly tasks to seek meaningful connections)",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Behavioral activation for social engagement: schedule weekly social tasks (e.g., call a friend, attend a small-group event) and track mood/engagement, escalating gradually.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Active scheduling reduces avoidance, increases opportunities for meaningful contact, and boosts self-efficacy in social realms.",
+      "measurement": "Weekly completion of social tasks; mood following social tasks; loneliness score; perceived social initiative.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor anxiety; adjust pacing; provide optional therapist guidance if avoidance persists.",
+      "mapping_query": "social activation behavioral activation"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Regular participation in a community/hobby group (weekly) to counter loneliness",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Enroll in a local hobby club, volunteer group, or faith/community gathering aligning with interests; set a recurring schedule with a lightweight support person.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Community involvement expands non-transactional social networks and creates meaningful social identity and belonging, reducing loneliness and social withdrawal.",
+      "measurement": "Weekly attendance; number of meaningful interactions per session; loneliness scale.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Assess accessibility and safety; ensure inclusive, welcoming environments; provide transport/childcare support if needed.",
+      "mapping_query": "community participation social prescribing loneliness"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Digital social environment engagement with offline-conversion prompts",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Curate moderated online social spaces (interest-based groups) with prompts to transition online interactions to offline meetups; track interaction quality.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Low-friction online interactions can seed real-world social ties and provide stepping stones to more meaningful offline contact.",
+      "measurement": "Number of meaningful online interactions; proportion converted to offline meetings; loneliness score.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Protect privacy; avoid unsafe platforms; monitor distress; enforce online safety guidelines.",
+      "mapping_query": "digital social environment loneliness"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Behavioral Activation for social engagement (group/one-on-one)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "CBT-based behavioral activation targeting social activities: plan, execute, and reflect on small social tasks; gradually increase complexity and social load.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Increased social activity reduces withdrawal, improves mood, and builds confidence in social settings.",
+      "measurement": "Rate of task completion; mood before/after activities; loneliness score.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for anxiety; adjust task difficulty; provide support resources if needed.",
+      "mapping_query": "social behavioral activation"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Personalization, self-monitoring and feedback loop (data-driven adjustments)",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Daily self-monitoring of social contacts, mood, and energy with a simple feedback dashboard to adapt the plan; integrate with existing CBT/BA tools.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Data-informed adjustments improve adherence and identify the most effective levers, enhancing self-efficacy and sustained engagement.",
+      "measurement": "Daily logs (contacts, mood, energy); adherence rate; correlation of contacts with mood over time.",
+      "time_horizon": "8-16 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Maintain data privacy; obtain informed consent for monitoring; avoid data overload.",
+      "mapping_query": "self-monitoring social loneliness feedback"
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Group-based interpersonal therapy / social functioning group attendance",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Join a structured group therapy or interpersonal skills group focusing on social functioning and relationship repair; weekly sessions with a trained facilitator.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "A group context provides social support, validates experiences, and builds practical skills in a supportive environment, reducing loneliness and withdrawal.",
+      "measurement": "Group attendance rate; pre/post loneliness and social functioning scales; self-efficacy in socializing.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Screen for group dynamics; ensure qualified facilitator; monitor for group-related distress.",
+      "mapping_query": "group therapy social functioning"
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Network-building plan to expand social connections",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create a two-tier network-building plan: (a) reconnect with existing contacts with scheduled check-ins; (b) reach out to 1-2 new potential connections weekly; set boundary-aware expectations.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Expanding the social network increases opportunities for meaningful contact and reduces loneliness by providing multiple social anchors.",
+      "measurement": "Active connections count; weekly contact frequency with each connection; loneliness score.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Respect privacy and boundaries; avoid stalking-like behavior; ensure consent in new connections.",
+      "mapping_query": "network building social support"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+pseudoprofile_id: pseudoprofile_FTC_ID022
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Recurrent headache episodes -> CLINICAL / DSM-5TR / neurocognitive disorders / major neurocognitive disorder / due to traumatic brain injury / repeated mild tbis / headache_frequency_increase (conf=0.66)
+- C02: Headache intensity/unpleasant sensory quality -> CLINICAL / ICD-10 / headache disorders / primary headache disorders / migraine / chronic migraine / pain_intensity_moderate_to_severe (conf=0.72)
+- C03: Acute mood collapse in response to pain -> CLINICAL / ICD-10 / pain disorders / musculoskeletal pain disorders / osteoarthritis pain / mood_disturbance_associated_with_pain (conf=0.75)
+- C04: Behavioral avoidance of social plans -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / olfactory reference syndrome / behavior patterns / social avoidance / social_avoidance_behavior (conf=0.66)
+- C05: Guilt after cancelling / self-blame -> NON-CLINICAL / AGE-GENERAL / emotional / affective process / emotion process / guilt (conf=0.78)
+- C06: Subjective social isolation / reduced social contact -> CLINICAL / DSM-5TR / trauma- and stressor-related disorders / adjustment disorders / with depressed mood / social_withdrawal (conf=0.64)
+- C07: Reinforcing pain–shame cycle (maintenance loop) -> NON-CLINICAL / AGE-GENERAL / emotional / affective process / emotion process / shame (conf=0.62)
+
+PREDICTORS:
+- P01: Behavioral Activation for social engagement -> PSYCHO / cognitive_behavioral_therapies / behavior_change_and_activation / planning_and_grading / activation_design / implementation_intention_activation (conf=0.72)
+- P02: Sleep regularity and circadian optimization -> BIO / personalization_monitoring_and_data_feedback / wearables_and_home_monitoring / physiology / sleep_and_circadian / wearables / sleep_tracker_wrist_wearable (conf=0.79)
+- P03: Moderate aerobic activity -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / exercise_type_and_perceived_exertion_log (conf=0.72)
+- P04: Mindfulness-based intervention -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / body_based_mindfulness / pain_mindfulness_practice (conf=0.72)
+- P05: Pain education + coping skills -> PSYCHO / substance_use_recovery_and_behavior_change / cbt_based_recovery_skills / coping_skills_training / coping_with_stress_without_use (conf=0.72)
+- P06: Cognitive restructuring to reduce self-blame -> PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / emotion_linked_reappraisal / shame_guilt_self_evaluation / self_critical_thought_restructure (conf=0.78)
+- P07: Social prescribing & community engagement -> SOCIAL / community_participation_and_social_prescribing / social_prescribing_and_community_linkage / assessment_and_plan / social_prescribing_assessment (conf=0.72)

@@ -1,0 +1,665 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID009",
+  "model_summary": "An initial gVAR-ready observation model built from the complaint's six changeable factors (C01–C06) with a concise set of five modifiable predictors (P01–P05) designed to maximize within-person variance and identifiability while minimizing redundancy. The criterion set targets social avoidance, maladaptive beliefs, rumination, plan-based cancellations, loneliness, and self-criticism. Predictors are action-oriented, lever-driven, and measurable via ecological momentary assessment (EMA) or brief daily diaries, emphasizing social activation, rumination reduction coaching, structured reengagement, sleep/circadian alignment, and self-monitoring feedback. The plan emphasizes 4 EMA prompts per day over a 14-day window, plus daily diaries, with a lightweight passive data stream for sleep-related circadian cues. This configuration supports a coherent, estimable gVAR structure that preserves the complaint's resolution while balancing measurement burden and model identifiability.",
+  "variable_selection_notes": "C01–C06 were chosen to cover observable behaviors (avoidance and cancellations), maladaptive beliefs (being annoying), cognitive processes (repetitive rumination), and consequential states (loneliness and self-criticism). Variables were kept atomic to minimize collinearity and to preserve interpretability of within-person fluctuations. We prioritized operable, targetable processes aligned with evidence-based salutogenic strategies (behavioral activation, cognitive restructuring, rumination management, social connectedness, self-compassion). Potential biases include self-report bias on EMA items, memory effects in recall windows, and seasonal/social-context variance. Trade-offs: fewer criteria improve identifiability but may underrepresent nuanced mechanisms; five predictors were selected as a parsimonious yet mechanistically diverse set covering BIO/PSYCHO/SOCIAL levers. All predictors are designed to yield within-person variance across daily prompts and within-day moments, with explicit plans to transform or standardize signals as needed (e.g., z-scoring within person).",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:30",
+        "13:30",
+        "17:30",
+        "21:30"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 56,
+      "notes": "Block prompts with slight jitter to reduce predictability and cueing."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "22:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "End-of-day diary capturing sleep quality alignment and overall day appraisal."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Incorporate sleep-related circadian cues and general resting-state signals; use as supplementary context for BIO predictors."
+    },
+    "minimum_total_observations_target": 70,
+    "gvar_readiness_notes": "Initial plan ready for pilot-testing to calibrate signal transforms and lag structures; anticipate simple z-scoring within-person and occasional nonlinear effects requiring nonparametric checks.",
+    "variance_support_notes": "Predictors intentionally span BIO/PSYCHO/SOCIAL domains with planned within-person variance through frequent EMA prompts and a daily diary. Sleep-related signals add circadian context that often drives affect and social motivation.",
+    "missingness_risk_notes": "Prompt fatigue is a risk; mitigate with reminder messages and adaptive prompting if missingness exceeds threshold; implement brief skip-logic for rare events and allow optional later completion without losing core data."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Social avoidance behavior",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Deliberately avoids or withdraws from social activities (e.g., declining invitations, not attending) because of interpersonal concerns. How much did you avoid social activities since the last prompt? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures real-time avoidance as a proximal indicator of social withdrawal."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Belief 'I am annoying'",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Holds a persistent negative belief that one is annoying to others and expects others to react unfavorably. Since last prompt, how strongly do you feel this belief? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Targets core maladaptive self-beliefs linked to social evaluation risk."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Post-event rumination about social remarks",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Engages in repetitive negative thoughts about things said in social situations, lasting up to ~48 hours. Since last prompt, to what extent did you ruminate about social remarks? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures perseverative cognition related to social interactions."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Plan cancellation frequency/impact",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Cancels or withdraws from planned social engagements. Since last prompt, to what extent did you cancel or withdraw? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Represents behavioral disengagement from social opportunities."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Experienced loneliness from reduced social contact",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Feels lonely as a direct consequence of avoiding or cancelling social interactions. Since last prompt, how lonely did you feel? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Links behavior to affective state via loneliness experience."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Self-critical reaction to loneliness",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "When lonely, to what extent do you engage in self-criticism or derogatory appraisals? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures self-criticism as a response tendency to loneliness."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Loneliness reduction action plan adherence",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "SOCIAL / Belonging / Loneliness_Reduction_Plans",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Direct lever for reducing loneliness and improving social engagement via concrete actions.",
+      "intervention_examples_safe": "Schedule 1 brief social contact, complete a micro-interaction, attend a low-barrier event",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, to what extent did you implement actions from your loneliness-reduction plan? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures adherence to active loneliness-reduction strategies."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increased adherence should reduce avoidance in subsequent prompts."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Post-interaction rumination reduction coaching engagement",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / cognitive_behavioral_therapies / Perseverative_Cognition_Interventions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.82,
+      "mechanism_rationale": "Brief coaching exercises can interrupt rumination cycles after social interactions.",
+      "intervention_examples_safe": "Engage in a 2-minute cognitive refocusing exercise after social interactions",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, did you engage in a coaching exercise to reduce post-interaction rumination? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Targets cognitive strategies to break perseverative thinking."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C03"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Rumination reduction should reduce negative reprocessing after social remarks."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Reengagement after isolation progress",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "SOCIAL / Social_Support_and_Belonging / Belonging_Isolation_And_Meaning",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Structured planning and small steps toward social reengagement should increase contact opportunities.",
+      "intervention_examples_safe": "Attend a short group activity, schedule a 1-1 coffee, join a low-key event",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, did you take a step to reengage socially? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures progress toward social reengagement goals."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Progress toward reengagements expected to reduce avoidance."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Sleep quality and circadian alignment",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Sleep_Circadian_and_Restoration / Circadian_Entrainment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.78,
+      "mechanism_rationale": "Circadian alignment and sleep quality influence mood, energy, and social motivation.",
+      "intervention_examples_safe": "Maintain regular bedtimes, minimize screen exposure before sleep",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "How well did your sleep schedule align with your desired routine yesterday? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "yesterday",
+        "expected_within_person_variability": "medium",
+        "notes": "End-of-day sleep circadian alignment probe."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C04"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep quality may reduce negative beliefs and rumination."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.82,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": ""
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Self-monitoring goals and feedback loop",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Personalization_Monitoring_and_Data_Feedback / Self_Assessment_and_Logs",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.83,
+      "mechanism_rationale": "Self-monitoring enhances self-regulation and helps sustain activation toward social goals.",
+      "intervention_examples_safe": "Daily quick mood/social tracking with brief feedback cues",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Have you logged mood/social activity today and reviewed the feedback? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses ongoing self-monitoring activity."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved self-monitoring may reduce post-event rumination and avoidance behaviors."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": ""
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,40000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Loneliness plan adherence likely reduces avoidance in subsequent moments.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Rumination reduction coaching plausibly lowers perceived annoying-belief intensity.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Coaching may decrease immediate post-event rumination.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Progress toward reengagements expected to reduce avoidance.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "nonlinear",
+      "lag_spec": "0-24h",
+      "notes": "Sleep circadian alignment may interact nonlinearly with rumination.",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Self-monitoring enhances awareness and reduces negative beliefs via feedback.",
+      "estimated_relevance_0_1": 0.62
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Self-monitoring correlates with reduced loneliness via better day planning.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Loneliness plan use should attenuate loneliness in day-to-day life.",
+      "estimated_relevance_0_1": 0.65
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [],
+    "expected_floor_ceiling_risks": [],
+    "variance_enhancement_suggestions": [],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": "Parsimony achieved with 5 predictors and 6 criteria; within-person variance expected; schedule aligned with prompts; plan supports rugged estimation with minor nonlinearities in sleep-circadian interactions."
+  },
+  "safety_notes": "Not a diagnosis. No medication dosing or treatment recommendations. If acute distress or self-harm risk emerges, escalate to a qualified clinician per local guidelines."
+}

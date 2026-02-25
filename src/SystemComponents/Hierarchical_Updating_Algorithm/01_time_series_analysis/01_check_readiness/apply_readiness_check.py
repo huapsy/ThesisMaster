@@ -147,10 +147,10 @@ def _find_repo_root() -> Path:
 REPO_ROOT = _find_repo_root()
 
 DEFAULT_INPUT_ROOT = str(
-    REPO_ROOT / "evaluation/01_pseudoprofile(s)/time_series_data/pseudodata"
+    REPO_ROOT / "evaluation/sequential/00_pseudoprofile_generation/outputs/pseudodata"
 )
 DEFAULT_OUTPUT_ROOT = str(
-    REPO_ROOT / "evaluation/04_initial_observation_analysis/00_readiness_check"
+    REPO_ROOT / "evaluation/sequential/03_readiness_check/outputs"
 )
 DEFAULT_FILENAME = "pseudodata_wide.csv"
 

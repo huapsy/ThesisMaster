@@ -1,0 +1,240 @@
+{
+  "pseudoprofile_id": "PPD_case1_profile",
+  "summary": "The case reflects postpartum distress with altered self-perception (C01), strong positive bond to baby (C02) coexisting with entrapment (C03), overwhelm (C05), guilt (C04), tearfulness (C06), self-criticism (C07), and perceived minimization by others (C08). Modifiable levers span sleep/biological regulation, nutrition and physical health, emotion regulation and self-compassion, and social-ecological supports. An optimal plan targets both primary drivers (identity disruption, autonomic arousal, coping capacity, parenting guilt) and secondary amplifiers (validation, autonomy, support). The solutions emphasize practical, scalable, non-pharmacologic predictors, with cross-domain combinations (BIOxPSYCHO, SOCIAL), measurable outcomes, and safety considerations for any risk escalation. The aim is to produce meaningful mood/coping improvements while preserving infant care and safety, and without dosing or diagnostic labeling.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep_Circadian_Restoration_Schedule",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a structured postpartum sleep-wake schedule with consistent bedtimes/wake times, daytime light exposure, and strategic naps aligning with infant routines to enhance emotional regulation and energy.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06",
+        "C03",
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Stable sleep improves prefrontal control over emotion, reduces irritability and tearfulness, lowers perceived overwhelm, and supports adaptive self-criticism by reducing automatic negative affect.",
+      "measurement": "Daily sleep diary (bed/wake times, nap duration); Pittsburgh Sleep Quality Index (PSQI) weekly; daily mood rating (0-10); frequency of tearful episodes.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD postpartum sleep circadian plan mapping to C05 C06 C03 C04 C07"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Postpartum_Physical_Activity_Program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Introduce a postpartum-safe graded activity plan (e.g., 20–30 minutes brisk walking or light movement most days) with caregiver support to reduce functional overwhelm and improve mood.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06",
+        "C03"
+      ],
+      "mechanism_rationale": "Regular movement enhances neurochemical balance, energy, stress resilience, and cognitive flexibility, thereby reducing emotional reactivity and sense of entrapment.",
+      "measurement": "Weekly activity minutes; step counts; self-reported energy and mood (0-10); diary entries of notable mood changes.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Monitor for postpartum pelvic floor/diastasis concerns; consult clinician if pain or bleeding.",
+      "mapping_query": "CASE_PAYLOAD postpartum physical activity mapping to C05 C06 C03"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Gut_Brain_Axis_Nutrition",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Enhance diet with high-fiber foods, fermented foods, and anti-inflammatory patterns; monitor iron and vitamin D intake; consider nutritionist referral.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Gut microbiome changes can influence mood and stress reactivity; improved nutrition supports energy and emotional balance, reducing guilt amplification and tearfulness.",
+      "measurement": "3–7 day food diary; GI symptom tracking; mood ratings; periodic ferritin/hemoglobin and 25-OH vitamin D (lab tests as advised).",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.35,
+      "priority": "MED",
+      "safety_notes": "Check for food intolerances/allergies; coordinate with clinician for labs.",
+      "mapping_query": "CASE_PAYLOAD gut-brain axis nutrition mapping to C04 C05 C06"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Nutrient_Status_Screening_and_Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Systematic screening for iron, vitamin D, and other micronutrient gaps; implement nutrition plan or clinician referral to optimize status.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Correcting nutritional gaps can support identity stability (energy and cognitive clarity) and reduce emotional lability, guilt, and overwhelm.",
+      "measurement": "Lab checks (ferritin/Hb, 25-OH vitamin D) and ferritin status; mood and self-criticism scales; adherence to nutrition plan.",
+      "time_horizon": "2-3 months",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.3,
+      "priority": "MED",
+      "safety_notes": "Labs to be interpreted by clinician; ensure safe supplementation under guidance.",
+      "mapping_query": "CASE_PAYLOAD micronutrient optimization mapping to C01 C04 C05 C06"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Self_Compassion_Skills_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver self-compassion and shame-resilience training (e.g., compassionate letter writing, brief mindfulness/self-compassion exercises) to reduce self-criticism and guilt after emotions.",
+      "targets_criteria_ids": [
+        "C04",
+        "C07",
+        "C08"
+      ],
+      "mechanism_rationale": "Cultivating self-kindness and reducing harsh self-judgment buffers distress from emotional episodes and lowers punitive attributions to parenting.",
+      "measurement": "Self-Compassion Scale (SCS); guilt/shame items; daily mood and perceived parenting adequacy.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD self-compassion and self-criticism mapping to C04 C07 C08"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Emotion_Regulation_Skills_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach cognitive reappraisal and distress-tolerance techniques; practice brief, daily exercises to improve emotional control during infant-related stress.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Enhanced regulation reduces emotional reactivity to small triggers, decreasing tearfulness and self-criticism while increasing coping capacity.",
+      "measurement": "DERS subscales or brief emotion-regulation check-ins; daily mood logs.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD emotion regulation mapping to C05 C06 C07"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Validated_Social_Support_and_Validation",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Activate and optimize social support networks (partner, family, peer groups); structured check-ins and affirmation to counteract minimization (C08).",
+      "targets_criteria_ids": [
+        "C08",
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Validation from others and practical support reduces perceived entrapment and overwhelm, and bolsters autonomy and mood.",
+      "measurement": "Social Support Questionnaires; satisfaction with support; mood diaries.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD social support and validation mapping to C08 C03 C05"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Respite_Care_and_Caregiver_Support",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Arrange short-term respite (caregiver breaks, flex childcare) to alleviate entrapment and cognitive load; foster time for self-care.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Relief from constant caregiving enhances autonomy and coping, mitigating guilt and overwhelm while supporting identity reconstruction.",
+      "measurement": "Frequency/duration of respite, caregiver burden scales, mood rating.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.35,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD respite care mapping to C03 C05 C01"
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Interpersonal_Therapy_Interactions",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Short-term interpersonal therapy or couple-based communication coaching to repair relational safety and support for parenting.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C08",
+        "C05"
+      ],
+      "mechanism_rationale": "Improved communication and relational safety reduce guilt, self-criticism, and perception of invalidation, supporting autonomy and mood.",
+      "measurement": "Relationship satisfaction scales; communication quality ratings; mood diaries.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.3,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD interpersonal/relational therapy mapping to C03 C04 C08 C05"
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Digital_Measurement_Based_Care_and_Privacy",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use digital mood/sleep tracking tools with feedback loops to guide personalized micro-interventions and monitor risk signals.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06",
+        "C04"
+      ],
+      "mechanism_rationale": "Continuous feedback enhances self-monitoring, supports timely coping strategies, and anchors emotional regulation and self-kindness efforts.",
+      "measurement": "App usage metrics; mood/sleep trend plots; frequency of self-initiated coping strategy use.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.25,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD digital/measurement-based care mapping to C05 C06 C04"
+    },
+    {
+      "solution_id": "S11",
+      "predictor_variable": "ACT_Contextual_Behavioral_Therapy_For_Postpartum Identity",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "An integrated ACT-based program focusing on postpartum values, acceptance of emotional experiences, and committed action toward mother-infant identity integration.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05",
+        "C04",
+        "C07",
+        "C03"
+      ],
+      "mechanism_rationale": "Accepting distress while pursuing meaningful parenting roles can stabilize self-perception, reduce rumination, and improve adaptive behaviors.",
+      "measurement": "Acceptance and Action Questionnaire; mood and identity feeling scales; daily action plans.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD ACT postpartum identity mapping to C01 C05 C04 C07 C03"
+    },
+    {
+      "solution_id": "S12",
+      "predictor_variable": "Sleep_Social_Support_Synergy",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Coordinate sleep optimization with social support plans to amplify effects on mood and sense of autonomy.",
+      "targets_criteria_ids": [
+        "C05",
+        "C03",
+        "C08"
+      ],
+      "mechanism_rationale": "Simultaneous improvement in sleep and social validation reduces arousal and enhances perceived control and connectedness.",
+      "measurement": "Sleep diary; social support quality ratings; mood diaries.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD sleep/social synergy mapping to C05 C03 C08"
+    }
+  ]
+}

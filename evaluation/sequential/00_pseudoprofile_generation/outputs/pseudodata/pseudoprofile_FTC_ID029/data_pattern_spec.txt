@@ -1,0 +1,70 @@
+pseudoprofile_id: pseudoprofile_FTC_ID029
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID029/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.5921
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 1.00 * t + phase=3.69)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 3
+  * pulse_1: start_idx=119, length=2, amp=1.191
+  * pulse_2: start_idx=118, length=2, amp=0.764
+  * pulse_3: start_idx=146, length=3, amp=1.158
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P05
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.183 | freq_hint=None
+  * P02: missing_rate=0.244 | freq_hint=None
+  * P03: missing_rate=0.139 | freq_hint=None
+  * P04: missing_rate=0.122 | freq_hint=None
+  * P05: missing_rate=0.094 | freq_hint=None
+  * C01: missing_rate=0.356 | freq_hint=None
+  * C02: missing_rate=0.128 | freq_hint=None
+  * C03: missing_rate=0.272 | freq_hint=None
+  * C04: missing_rate=0.133 | freq_hint=None
+  * C05: missing_rate=0.244 | freq_hint=None
+  * C06: missing_rate=0.317 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Structured Rest Blocks with Restorative Cueing | ontology_id=recovery_rituals_planning | conf=0.82 | freq_hint=None
+- P02 (PREDICTOR): Self-Compassion and Mindfulness for Leisure | ontology_id=relating_differently_to_thoughts_practice | conf=0.92 | freq_hint=None
+- P03 (PREDICTOR): Urge/Delay Tolerance Training | ontology_id=urge_tolerance_practice | conf=0.86 | freq_hint=None
+- P04 (PREDICTOR): Sleep Hygiene & Circadian Regulation | ontology_id=low_stimulation_evening_activities | conf=0.72 | freq_hint=None
+- P05 (PREDICTOR): Time-Blocking for Valued Actions | ontology_id=values_aligned_time_allocation_plan | conf=0.72 | freq_hint=None
+- C01 (CRITERION): Guilt when resting | ontology_id=guilt_feelings_present | conf=0.62 | freq_hint=None
+- C02 (CRITERION): Belief that non-productivity equals wasting time | ontology_id=time | conf=0.58 | freq_hint=None
+- C03 (CRITERION): Sense of falling behind/time scarcity | ontology_id=timely | conf=0.78 | freq_hint=None
+- C04 (CRITERION): Intrusive self-critical thoughts during leisure | ontology_id=self_critical_rumination | conf=0.62 | freq_hint=None
+- C05 (CRITERION): Urge/drive to act rather than rest | ontology_id=preparedness | conf=0.85 | freq_hint=None
+- C06 (CRITERION): Difficulty engaging in restorative activities | ontology_id=balancing | conf=0.75 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

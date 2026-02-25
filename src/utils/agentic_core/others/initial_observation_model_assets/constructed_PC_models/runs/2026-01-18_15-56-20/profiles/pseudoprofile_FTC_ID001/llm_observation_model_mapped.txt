@@ -1,0 +1,17 @@
+pseudoprofile_id: pseudoprofile_FTC_ID001
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Non-restorative sleep on waking -> CLINICAL / DSM-5TR / sleep-wake disorders / circadian rhythm sleep–wake disorders / delayed sleep–wake phase disorder / subjective_nonrestorative_sleep (conf=0.82)
+- C02: Sustained daytime fatigue / low alertness -> CLINICAL / DSM-5TR / sleep-wake disorders / insomnia disorders / other specified insomnia disorder / psychophysiological (conditioned) insomnia / daytime_fatigue_due_to_sleep_disturbance (conf=0.75)
+- C03: Moments of cognitive lapse (attention/short-term memory) -> CLINICAL / DSM-5TR / neurocognitive disorders / mild neurocognitive disorder / substance or medication-induced / antidepressant-related / attentional_fluctuation (conf=0.68)
+- C04: Immediate self-directed anger/criticism after lapses -> NON-CLINICAL / AGE-GENERAL / emotional / emotional regulation / emotional stability / anger control / managing anger (conf=0.62)
+- C05: Ruminative escalation into global worry about functioning -> CLINICAL / DSM-5TR / anxiety disorders / generalized anxiety disorder / with cognitive rumination / catastrophizing_rumination_content (conf=0.82)
+
+PREDICTORS:
+- P01: Sleep Regularization Plan (Circadian Entrainment) -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / consistent_morning_anchor_routine (conf=0.72)
+- P02: Sleep Environment Optimization -> BIO / environmental_exposures_and_built_environment_optimization / sensory_environment_design / light_and_circadian_environment / blackout_window_treatments (conf=0.72)
+- P03: Morning Daylight Exposure -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / morning_bright_light_exposure (conf=0.85)
+- P04: Rumination Interruption Protocol -> PSYCHO / change_process_and_therapeutic_phases / skill_acquisition / cognitive_and_attentional_skill_building / rumination_interruption_protocol (conf=0.83)
+- P05: Mindfulness-Based Self-Regulation -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / compassion_and_prosocial_meditations / self_compassion_meditation_practice (conf=0.72)
+- P06: Social Support & Belonging -> SOCIAL / social_support_and_belonging / network_building_and_maintenance / mapping_and_assessment / belonging_and_community_fit_assessment (conf=0.62)

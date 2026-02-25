@@ -1,0 +1,16 @@
+pseudoprofile_id: pseudoprofile_FTC_ID006
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Nighttime replay of past conversations -> CLINICAL / DSM-5TR / movement disorders and other side effects of medication / other (secondary) side effects of medication / class-specific adverse effects / stimulants / insomnia or anxiety / nocturnal_worried_ruminations (conf=0.85)
+- C02: Nighttime anticipatory worry / list-making -> CLINICAL / DSM-5TR / movement disorders and other side effects of medication / other (secondary) side effects of medication / class-specific adverse effects / stimulants / insomnia or anxiety / nocturnal_worried_ruminations (conf=0.82)
+- C03: Nighttime cognitive hyperarousal -> CLINICAL / DSM-5TR / sleep-wake disorders / insomnia disorders / chronic insomnia disorder / sleep-maintenance insomnia / nocturnal_cognitive_arousal (conf=0.92)
+- C04: Delayed sleep onset (3am bedtime) -> CLINICAL / DSM-5TR / sleep-wake disorders / other sleep disorders / other specified sleep–wake disorder / sleep_onset_difficulty (conf=0.72)
+- C05: Morning interpersonal irritability -> CLINICAL / DSM-5TR / disruptive, impulse-control, and conduct disorders / disruptive behavior disorders / oppositional defiant disorder / presentation pattern / predominantly angry or irritable / easily_annoyed_or_touchy (conf=0.62)
+
+PREDICTORS:
+- P01: Morning daylight exposure routine -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / morning_bright_light_exposure (conf=0.72)
+- P02: Evening blue-light exposure reduction -> BIO / environmental_exposures_and_built_environment_optimization / sensory_environment_design / light_and_circadian_environment / blue_light_reduction_evening (conf=0.82)
+- P03: Presleep detachment/unloading routine -> PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / presleep_mental_skills / detachment_and_unloading / presleep_detachment_routine_design_psychological (conf=0.85)
+- P04: Presleep cognitive worry reduction (worry writing/diffusion) -> PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / cognitive_work / sleep_appraisals / sleep_related_worry_defusion (conf=0.78)
+- P05: Morning routine consistency with light exposure and gentle activity -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / morning_bright_light_exposure (conf=0.86)

@@ -1,0 +1,1544 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID007",
+  "model_summary": "Select six complaint-derived criteria (difficulty initiating tasks, substituting with low-effort rewards, digital distractibility, loss of time awareness, deadline-triggered panic, and uncertainty/self-blame) and nine modifiable predictors focused on practical, high-signal behavioral levers: implementation intentions, structured focus blocks/timers, digital-distraction (passive phone) metrics, time-awareness checks, contingency/deadline planning (cognitive reappraisal), self-compassion practice, external checklists/offloading, current energy level, and last-night sleep quality. Sampling prioritizes momentary EMA (1–9 Likert) across 6 prompts/day with passive phone aggregation per prompt and a single morning diary for sleep to preserve within-person variance and enable gVAR at short lags (mainly 0–6h, sleep effects 0–24h). The predictor set emphasizes non-redundant, modifiable psychological & environmental strategies with passive triangulation of digital distraction to reduce measurement error.",
+  "variable_selection_notes": "All six complaint-derived criteria (C01–C06) are retained to preserve full complaint resolution. Predictor selection prioritized high HyDe/LLM signals (implementation intentions, structured focus/micro-tasks, digital distraction reduction, time-estimation training, cognitive restructuring/self-compassion, external offloading/checklists, social/accountability, and sleep/energy) while avoiding many near-duplicate executive-function constructs. Trade-offs: several high-ranked ontology leaves pointed to many overlapping CBT/self-management subnodes; I collapsed close candidates (e.g., task breakdown, graded assignment, and activation design) into 1–2 pragmatic predictors (implementation intentions and structured focus blocks) to limit collinearity and maintain estimability. Passive phone signals were included to objectively capture distraction (reduces reliance on self-report). Uncertainty: social accountability can be beneficial or stress-inducing (nonlinear effects) so its sign is treated cautiously. Missingness and platform-API limitations are the main measurement risks.",
+  "design_recommendations": {
+    "study_days": 28,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:00-11:00",
+        "11:00-14:00",
+        "14:00-17:00",
+        "17:00-20:00",
+        "20:00-22:00",
+        "22:00-23:59"
+      ],
+      "recall_window": "since last prompt",
+      "expected_total_prompts": 168,
+      "notes": "Prompts ask about events/behaviors 'since last prompt' on 1–9 Likert scales to increase within-person variance. Use small jitter inside blocks to avoid predictability."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "07:30"
+      ],
+      "expected_total_entries": 28,
+      "notes": "Morning diary collects last-night sleep duration and quality, which are used as a predictor for daytime initiation/attention outcomes (lag 0–24h)."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_3h_aggregation",
+      "notes": "Phone screen_time_minutes and unlock_count aggregated over the past ~3 hours (aligned to each EMA prompt). Ensure privacy (do not capture content) and battery-aware sampling."
+    },
+    "minimum_total_observations_target": 150,
+    "gvar_readiness_notes": "Per-person longitudinal data: 28 days × 6 prompts = 168 timepoints (plus 28 morning diaries) = 196 total expected observations. With typical missingness expect ~100–150 usable timepoints; set a realistic minimum target (150) to plan for regularization approaches. Use within-person z-scoring and detrending if multi-day trends appear. Keep variable count moderate: 6 criteria + 9 predictors = 15 nodes; consider shrinkage/GAM-VAR or regularized gVAR for stable estimates and possibly reduce nodes if realized T is much lower.",
+    "variance_support_notes": "Use 1–9 anchored Likert for EMA items (increases continuous approximation). Include passive continuous signals (minutes, counts) and daily sleep duration for additional variance. Encourage fine-grained response anchors (e.g., 1 = 'Not at all', 5 = 'Somewhat', 9 = 'Extremely').",
+    "missingness_risk_notes": "Risk factors: prompt fatigue (6/day), passive-sensor permissions revoked, platform API variations. Mitigations: brief items (<15s), occasional compliance prompts, and incentivize morning diary completion. Monitor and impute with state-space or multiple imputation tuned for time-series."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Failure to initiate intended task",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, when you sat down to begin a planned task, how much did you actually start the intended task within a few minutes? (1 = Not at all, 9 = Immediately and fully)",
+        "response_scale_or_unit": "1-9 Likert anchored",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures initiation intensity/latency as an approximate continuous measure; if a task attempt did not occur, report 1."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person mean-centering and z-scoring; inspect for linear trend across days",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Substitution with low-effort rewarding activities",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, to what extent did you engage in easier, immediately rewarding activities (e.g., reorganizing photos, watching videos) instead of the task you intended? (1 = Not at all, 9 = A lot)",
+        "response_scale_or_unit": "1-9 Likert anchored",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "If both task and substitutes occurred, rate relative dominance of substitutes."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-scoring; log1p not needed",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Susceptibility to distraction by digital/novel stimuli",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how often did your attention get captured by phones/apps/novel stimuli interfering with the intended task? (1 = Not at all, 9 = Constantly)",
+        "response_scale_or_unit": "1-9 Likert anchored",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Triangulate with passive phone metrics (screen time and pickups) aggregated per prompt."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "within-person standardization; consider log transform for skew in passive corroborates",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Loss of time awareness during off-task activity",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, to what extent did you lose track of time while doing other activities (i.e., time passed faster than expected)? (1 = Not at all, 9 = A great deal)",
+        "response_scale_or_unit": "1-9 Likert anchored",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Combine with passive screen_time to estimate objective durations."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score; inspect for episodic spikes and consider threshold/event flags",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Acute panic/anxiety when deadlines are noticed",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how anxious or panicked did you feel specifically because of deadlines or time pressure? (1 = Not at all, 9 = Extremely)",
+        "response_scale_or_unit": "1-9 Likert anchored",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "If a deadline-triggered panic attack occurred, rate intensity; also optionally flag event in free comment."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-scoring; consider event-flag modeling for extreme spikes",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Uncertainty and self-blame about cause of difficulties",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, to what extent did you feel unsure if this was laziness versus a fixable problem, and blame yourself? (1 = Not at all, 9 = Strongly uncertain/blaming)",
+        "response_scale_or_unit": "1-9 Likert anchored",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures rumination/self-judgment which can block selecting strategies."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "within-person centering and z-score",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Implementation intentions / task-initiation cues",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Cognitive_Behavioral_Therapies / Behavior_Change_and_Activation / planning_and_grading / activation_design / *task_initiation_cues",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.92,
+      "mechanism_rationale": "Specific if-then plans (e.g., 'If I sit down at X, I will do Y for 5 minutes') reduce intention–action gap and cue initiation rapidly.",
+      "intervention_examples_safe": "Create a brief if-then plan before work (e.g., 'When I open my laptop, I will spend 5 minutes on step 1').",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, did you form a specific if-then plan to start the next task? (1 = Not at all specific, 9 = Very specific/actionable)",
+        "response_scale_or_unit": "1-9 Likert anchored",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Directly captures planning strength rather than presence/absence."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Forms immediate cue that reduces failure to initiate within hours."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reduces probability of substituting with easy rewards by increasing commitment to stepwise starts."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "A clear plan focuses attention and reduces distractibility in the near term."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "May reduce off-task drifting and subsequent time loss across the work period."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Successful initiation from plans can reduce deadline-triggered panic by decreasing accrued delay."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Actionable plans can reduce self-blame by producing observable change."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Short EMA item; likely good compliance."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Structured focus blocks and micro-task timers",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / change_process_and_therapeutic_phases / behavioral_integration / time_blocking_for_valued_actions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.88,
+      "mechanism_rationale": "Using timers and graded micro-tasks supports sustained attention and reduces switching to substitutes.",
+      "intervention_examples_safe": "Commit to a 25-minute timer or a 10-minute micro-task with a visible countdown.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, did you use a timer or micro-task structure to focus? (1 = Not at all, 9 = Consistently used and adhered to)",
+        "response_scale_or_unit": "1-9 Likert anchored",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures use and adherence rather than theoretical awareness."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Timers encourage action immediately and sustain initial engagement."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reduces substitution by structuring work into small achievable chunks."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Buffering attention with focused blocks reduces distractibility."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "May reduce prolonged off-task episodes and time loss."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Simple EMA question; actual timer usage may be validated by third-party app logs if available."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Digital distraction (passive phone metrics: screen time and pickups)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / cognitive_capacity_enhancement_and_stimulation / cognitive_offloading_and_external_aids / attention_support_systems / reduce_distraction / *environmental_stimulus_minimization_strategy",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "High screen-time and frequent pickups indicate environmental/digital drivers of substitution and time loss; reducing pickups/screen time reduces distraction.",
+      "intervention_examples_safe": "Enable Do Not Disturb, scheduled app limits, remove tempting apps from home screen.",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "smartphone OS usage stats (screen_time_minutes, unlock_count) aggregated to EMA windows",
+        "assessment_type": "passive_aggregated_per_prompt",
+        "item_or_signal": "screen_time_minutes in past ~3 hours; unlock_count in past ~3 hours (collected via OS usage API; content not captured)",
+        "response_scale_or_unit": "minutes; counts",
+        "sampling_per_day": 6,
+        "recall_window": "past ~3 hours (aligned to prompt)",
+        "expected_within_person_variability": "high",
+        "notes": "Use privacy-preserving aggregation (minutes and counts). Normalize per-person for gVAR."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p for minutes; within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Higher recent screen time strongly correlates with substitution behavior."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Pickups and screen minutes directly index distractibility."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "More distraction increases failure to initiate/continue intended tasks."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Longer screen sessions predict loss of time awareness."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Ensure explicit consent for passive collection; avoid content-level monitoring.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.75,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "OS-level access required; participant permissions and battery constraints may reduce sampling."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Time-awareness checks / time-estimation practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / cognitive_and_metacognitive_interventions / cognitive_remediation_and_rehabilitation / *time_estimation_strategy_training",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Frequent clock-checks, countdowns or brief time-estimation practices recalibrate subjective time and reduce unnoticed long off-task periods.",
+      "intervention_examples_safe": "Set visible countdown timers, pause to estimate elapsed time every 10–20 minutes.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how often did you check the time or use a countdown to monitor elapsed time? (1 = Not at all, 9 = Constantly)",
+        "response_scale_or_unit": "1-9 Likert anchored",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Can be augmented with clock-app open counts if available."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C01",
+        "C02"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "More frequent time checks directly reduce loss of time awareness in the near term."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better time-awareness supports timely initiation and return to task."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reduces long immersion in substitutes by prompting re-evaluation of elapsed time."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Simple EMA item; clock-app opens may be noisy across device types."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Contingency planning / deadline reframing (cognitive restructuring)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / restructure_and_install / *cognitive_reframing_of_intentionality",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.86,
+      "mechanism_rationale": "Pre-emptive planning and cognitive reframing reduce acute deadline-triggered panic by converting threat into manageable steps.",
+      "intervention_examples_safe": "Brief reappraisal of deadline meaning (e.g., 'I can prioritize the next immediate step') and if-then contingency plans.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, to what extent did you do any contingency planning or reframe upcoming deadlines (e.g., plan next steps, reappraise) ? (1 = Not at all, 9 = Very much)",
+        "response_scale_or_unit": "1-9 Likert anchored",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Targets the cognitive step expected to reduce panic when deadlines appear."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C05",
+        "C01",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reappraisal and contingency plans directly reduce acute deadline-related anxiety in the short term."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Contingency planning may increase perceived ability to act, thereby improving initiation (sign may be indirect; increased planning can precede action)."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Reduces uncertainty/self-blame by creating concrete next steps."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Cognitive restructuring items could transiently raise distress if recalling stress; ensure supportive instructions.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Short EMA question acceptable; therapist-guided training may increase effect sizes later."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Self-compassion / uncertainty-processing practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / change_process_and_therapeutic_phases / behavioral_integration / self_compassion_after_failure_practice",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.84,
+      "mechanism_rationale": "Self-compassion reduces self-blame and rumination, supporting adaptive selection of corrective steps and reducing avoidance.",
+      "intervention_examples_safe": "Short self-compassion prompts (e.g., 'What would I say to a friend in this situation?').",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, to what extent did you practice self-compassion or intentionally reduce self-blame? (1 = Not at all, 9 = Very much)",
+        "response_scale_or_unit": "1-9 Likert anchored",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures active practice (not trait self-compassion)."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C06",
+        "C05",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Directly targets self-blame and uncertainty, reducing their intensity."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Reduces emotional reactivity to deadlines via affect regulation."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "By lowering avoidance, may indirectly improve initiation (effect may be indirect)."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "May briefly surface negative self-evaluations; framing should be supportive.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Short prompts have high acceptability."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "External cognitive offloading / checklists",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / cognitive_capacity_enhancement_and_stimulation / cognitive_offloading_and_external_aids / *single_task_context_setup_strategy",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Using checklists or stepwise external supports reduces reliance on internal working memory and lowers activation energy for task starts.",
+      "intervention_examples_safe": "Use a 3-step checklist posted near work space (e.g., open doc, write title, write first sentence).",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, to what extent did you use an external checklist or offloading tool to start/structure the task? (1 = Not at all, 9 = Used and followed closely)",
+        "response_scale_or_unit": "1-9 Likert anchored",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Designed to capture external scaffolding use."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Offloading reduces friction to initiating tasks."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Structured steps channel behavior away from substitutes."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Tangible progress reduces self-blame via feedback."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Simple EMA item; observable behavior."
+      }
+    },
+    {
+      "var_id": "P08",
+      "label": "Current energy / alertness level",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "ontology_path": "BIO / Sleep_Circadian_and_Glymphatic_Support / Sleep_Routines_and_Practices (proximal energy measure)",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.65,
+      "mechanism_rationale": "Momentary energy/alertness moderates ability to initiate and resist low-effort substitutes; influenced by sleep, nutrition and circadian factors.",
+      "intervention_examples_safe": "Short behavioral changes: hydration, brief movement break, or short nap (outside work contexts) to restore energy.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Right now (since the last prompt), how would you rate your energy/alertness? (1 = Exhausted, 9 = Very high energy)",
+        "response_scale_or_unit": "1-9 Likert anchored",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Energy is a proximal moderator for initiation and distractibility."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score; consider controlling for circadian time-of-day",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Higher energy is expected to reduce failure to initiate in the short term."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Low energy increases reliance on low-effort substitutes."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better energy improves sustained attention against digital pulls."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.98,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Short momentary item with high compliance expected."
+      }
+    },
+    {
+      "var_id": "P09",
+      "label": "Last-night sleep quality and duration (morning diary)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Sleep_Circadian_and_Glymphatic_Support / Sleep_Routines_and_Practices",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Sleep influences daytime cognitive control and energy; poor sleep can increase distractibility and reduce initiation.",
+      "intervention_examples_safe": "Consistent sleep schedule, sleep hygiene changes (no electronics before bed), environmental adjustments.",
+      "measurement": {
+        "mode": "other",
+        "channel": "morning diary in smartphone EMA app",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "Last night: how many hours did you sleep? ______ minutes. How would you rate your sleep quality? (1 = Very poor, 9 = Very good)",
+        "response_scale_or_unit": "minutes; 1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "last night",
+        "expected_within_person_variability": "medium",
+        "notes": "Use duration + quality; primary lag expected 0-24h to daytime outcomes."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "duration: none or standardized; quality: z-score; control for weekday effects",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep reduces failure to initiate across the next day."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Improves self-control against low-effort substitutions the following day."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Improves sustained attention."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep reduces time-loss episodes."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Single morning diary item; high expected completion if kept brief."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,92000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,95000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,95000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P09",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P09",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P09",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P09",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P09",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P09",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Implementation intentions should reduce failure to initiate within hours.",
+      "estimated_relevance_0_1": 0.92
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Planning reduces substitution behavior.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Focus from plans reduces distractibility.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Better initiation reduces extended off-task time loss.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Action reduces later deadline-triggered panic.",
+      "estimated_relevance_0_1": 0.45
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Produces observable progress that reduces self-blame.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Timers encourage prompt starts.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Micro-tasks reduce substitution opportunities.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Focused blocks reduce distractibility.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Reduces large time-loss episodes across the work day.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Indirectly lowers panic by enabling progress.",
+      "estimated_relevance_0_1": 0.35
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Mastery experiences can reduce doubt.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Higher recent screen use correlates with more failure to initiate.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Objective screen metrics strongly map to substitutive behaviors.",
+      "estimated_relevance_0_1": 0.9
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Direct index of distractibility.",
+      "estimated_relevance_0_1": 0.95
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Long screen sessions link to loss of time awareness.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "Indirect link to panic; evidence weaker.",
+      "estimated_relevance_0_1": 0.3
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "unknown",
+      "lag_spec": "0-24h",
+      "notes": "Digital habits weakly map to self-blame; likely indirect.",
+      "estimated_relevance_0_1": 0.2
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Time-checks support timely starts.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Prompts to check time reduce deep substitute episodes.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Increases meta-awareness, aids reorienting attention.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Direct mechanism for reducing time blindness.",
+      "estimated_relevance_0_1": 0.9
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "unknown",
+      "lag_spec": "0-24h",
+      "notes": "Effect on panic is indirect and weaker.",
+      "estimated_relevance_0_1": 0.3
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Better time-awareness can modestly reduce uncertainty.",
+      "estimated_relevance_0_1": 0.3
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Planning may increase perceived ability and upstream initiation (indirect positive on action).",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Contingency planning reduces substitutive behaviors.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "May reduce distractibility indirectly; sign uncertain.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "By reducing delay, reduces time-loss episodes.",
+      "estimated_relevance_0_1": 0.3
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Directly targets deadline-related panic via reappraisal and planning.",
+      "estimated_relevance_0_1": 0.9
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Contingency planning reduces uncertainty and self-blame.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Self-compassion reduces avoidance and can increase initiation (indirect).",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Reduces avoidance-driven substitution.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "Effects on distractibility are indirect and modest.",
+      "estimated_relevance_0_1": 0.35
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "May reduce long off-task drifting by reducing rumination that sustains avoidance.",
+      "estimated_relevance_0_1": 0.3
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Improves emotion regulation, thus reducing panic intensity.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Directly reduces self-blame and uncertainty through practice.",
+      "estimated_relevance_0_1": 0.95
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Checklists lower activation energy for starting tasks.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Structure reduces lure of substitutes.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "unknown",
+      "lag_spec": "0-6h",
+      "notes": "May modestly reduce distractibility; effect is indirect.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Short-term structure reduces long off-task episodes.",
+      "estimated_relevance_0_1": 0.45
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Visible progress from checklists can lower panic.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "External evidence of progress reduces self-blame.",
+      "estimated_relevance_0_1": 0.45
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Higher momentary energy supports initiation.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Low energy biases toward low-effort substitutes.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Energy supports attention and reduces distractibility.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "unknown",
+      "lag_spec": "0-24h",
+      "notes": "Energy may modestly influence time-awareness indirectly.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "unknown",
+      "lag_spec": "0-24h",
+      "notes": "Low energy can increase anxiety in some contexts; relationship modest.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "unknown",
+      "lag_spec": "0-24h",
+      "notes": "Direct link to self-blame is weak.",
+      "estimated_relevance_0_1": 0.2
+    },
+    {
+      "from_predictor_var_id": "P09",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Better sleep the prior night reduces next-day initiation problems.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P09",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Improved sleep increases daytime control against substitutes.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P09",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Better sleep supports sustained attention.",
+      "estimated_relevance_0_1": 0.45
+    },
+    {
+      "from_predictor_var_id": "P09",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "unknown",
+      "lag_spec": "0-24h",
+      "notes": "Sleep may reduce extended off-task episodes, evidence moderate.",
+      "estimated_relevance_0_1": 0.35
+    },
+    {
+      "from_predictor_var_id": "P09",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Tiredness can amplify anxiety; better sleep may reduce panic reactivity.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P09",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Sleep supports cognitive clarity and may reduce uncertainty/self-blame indirectly.",
+      "estimated_relevance_0_1": 0.5
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "P01 (implementation intentions), P02 (structured focus), and P07 (checklists) are conceptually related and may show moderate collinearity.",
+      "P06 (self-compassion) and C06 (self-blame) will be correlated; careful temporal ordering needed.",
+      "P03 passive phone metrics might correlate with EMA reports of distraction (C03), requiring careful modeling to avoid measurement redundancy."
+    ],
+    "expected_floor_ceiling_risks": [
+      "Passive screen_time minutes could be zero during some windows (floor).",
+      "Highly motivated participants may show ceiling responses on implementation-intention or checklist items, reducing variance."
+    ],
+    "variance_enhancement_suggestions": [
+      "Use 1–9 Likert anchors with behavioral anchors to increase spread.",
+      "Aggregate passive minutes over 3-hour windows to reduce zero-inflation but preserve variability.",
+      "Encourage participants to report brief, concrete episodes rather than binary yes/no to avoid floor effects."
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "Biomedical/neurostimulation interventions (e.g., TMS, pharmacotherapy) deprioritized at this initial behavioral gVAR stage due to scope and safety.",
+      "Highly overlapping executive-function subnodes (e.g., many fine-grained planning variants) collapsed into implementation intentions/structured focus to reduce redundancy."
+    ],
+    "gvar_feasibility_summary": "With 28 days and 6 prompts/day (168 max momentary prompts) plus 28 morning diaries = 196 total expected observations, expect ~100–150 usable timepoints after typical missingness. For a single-person gVAR with 15 nodes, regularization (LASSO/graphical-LASSO) or Bayesian shrinkage is recommended. Consider reducing nodes or combining highly collinear predictors if realized T is substantially below target."
+  },
+  "safety_notes": "No acute self-harm or severe psychiatric risk is evident in the complaint text. If panic episodes are frequent/intense or there is functional impairment beyond typical distress, advise contacting a mental health professional. Passive collection must follow privacy/consent rules (no content capture). Avoid recommending medication changes; if pharmacologic treatment is suspected necessary, refer to a clinician."
+}

@@ -1,0 +1,175 @@
+{
+  "pseudoprofile_id": "CASE001_NightmareSleepCase",
+  "summary": "The case presents recurrent nightmare-triggered awakenings with high dream vividness, anticipatory sleep fear, acute autonomic arousal on awakening, and difficulty resuming sleep. Modifiable levers span three domains (BIO, PSYCHO, SOCIAL) and target the core mechanisms: nightmare frequency/vividness (C01/C02), sleep-related fear (C03), autonomic arousal at awakenings (C04), post-awakening re-entry to sleep (C05), and sleep maintenance (C06). The proposed levers emphasize evidence-based nightmare interventions (IRT/CBT-N), relaxation to downregulate arousal, sleep environment and lifestyle adjustments, mindfulness, measurement-based care, and social support. Each lever maps to specific criteria, includes simple metrics for monitoring, and prioritizes high-impact, safe, and feasible approaches that can be iterated in a stepped-care fashion.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Nightmare content rewrite with Imagery Rehearsal Therapy (IRT)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Train client to vividly recall a nightmare, then rewrite the scene with a non-threatening or empowered ending; rehearse the modified imagery during the day and apply during sleep onset after awakenings as needed.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "IRT diminishes nightmare distress and vividness, reduces fear associated with sleep, and improves ability to fall asleep again after awakenings by altering the mental imagery driving arousal.",
+      "measurement": "Nightmare frequency per week; self-rated nightmare vividness/intensity (0-10); time to fall back asleep after awakening; bedtime-related anxiety questionnaire.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "Standard IRT protocols; monitor distress; discontinue if distress worsens",
+      "mapping_query": "CASE_PAYLOAD_MAPPING_S01_to_C01-C02-C03-C06"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Pre-sleep relaxation training (Progressive Muscle Relaxation + paced breathing)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Teach a 15-20 minute routine of progressive muscle relaxation and diaphragmatic breathing before bed; optional audio guide; use after nightmare awakenings to facilitate downregulation.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Relaxation activates parasympathetic processes, reduces acute autonomic arousal on awakening, and speeds return to baseline sleep, aiding in resuming sleep after nightmares.",
+      "measurement": "Self-reported arousal on awakening (0-10); time to calm down after waking; sleep onset latency; number of awakenings requiring re-initiation of sleep.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Ensure exercises are comfortable; stop if dizziness or lightheadedness occurs",
+      "mapping_query": "CASE_PAYLOAD_MAPPING_S02_to_C04-C05-C06"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep-focused Cognitive Behavioral Therapy (CBT) for anticipatory fear and nightmares",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured CBT plan addressing sleep-related worry and nightmare threat appraisal; includes cognitive restructuring, behavioral experiments (e.g., scheduled worry time), and sleep resumption strategies after awakenings.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Cognitive restructuring reduces sleep-related fear and nightmare-threat appraisal, lowers pre-sleep arousal, and improves resilience in resuming sleep after nocturnal awakenings.",
+      "measurement": "Bedtime worry scale; frequency of nightmare-related thoughts; time to fall asleep after awakenings.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.72,
+      "priority": "HIGH",
+      "safety_notes": "Standard CBT for sleep; monitor mood changes; refer if depression or suicidality emerges",
+      "mapping_query": "CASE_PAYLOAD_MAPPING_S03_to_C03-C01-C06"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sleep environment optimization (temperature, light, noise, bedding)",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Create a sleep-conducive environment: cool room (18-20°C), dark curtains or eye mask, white-noise or fan for sound masking, comfortable mattress/pillows, consistent bedtime cueing.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "A stable, comfortable sleep environment reduces physiological arousal and supports quicker re-entry into sleep after awakenings, improving overall sleep maintenance.",
+      "measurement": "Subjective sleep environment comfort rating (0-10); number of nocturnal awakenings; time to fall back asleep after awakenings.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_MAPPING_S04_to_C04-C05-C06"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Evening caffeine and alcohol intake modulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Limit caffeine after 2 PM; restrict or time alcohol consumption away from bedtime; maintain hydration; simple diary to track usage.",
+      "targets_criteria_ids": [
+        "C04",
+        "C03"
+      ],
+      "mechanism_rationale": "Reducing evening stimulants and alcohol-related sleep fragmentation lowers nocturnal arousal and anticipatory sleep worry, facilitating smoother sleep onset and maintenance.",
+      "measurement": "Evening caffeine last-use time; total daily caffeine intake; alcohol near bedtime occurrences; sleep onset latency; awakenings.",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_MAPPING_S05_to_C04-C03"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Mindfulness-based stress reduction (MBSR) for sleep-related rumination",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Weekly mindfulness practice plus brief daily 5-10 minute sessions (breathing, body scan, present-mocus meditations) to reduce pre-sleep rumination and vigilance.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Mindfulness reduces worry and sympathetic arousal, improving sleep onset and reducing post-nightmare arousal.",
+      "measurement": "Pre-sleep worry diary; state anxiety scores; sleep onset latency; awakenings due to rumination.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_MAPPING_S06_to_C03-C04"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Sleep diary with weekly feedback (Measurement-based care)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Maintain a daily sleep diary (SOL, WASO, nightmare occurrences, arousal, mood); weekly feedback from clinician/coach to adjust plan.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Regular monitoring + feedback guides timely adjustments, reduces uncertainty, and strengthens self-management of sleep-related symptoms.",
+      "measurement": "Diary entries per week; SOL/WASO; nightmare frequency/intensity; response to feedback.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Ensure privacy; avoid excessive monitoring that increases distress",
+      "mapping_query": "CASE_PAYLOAD_MAPPING_S07_to_C01-C02-C04-C06"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Aerobic exercise integration with consistent timing",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Incorporate 3-5 moderate-intensity aerobic sessions per week (e.g., brisk walk, cycling); avoid intense exercise close to bedtime; track activity.",
+      "targets_criteria_ids": [
+        "C04",
+        "C03"
+      ],
+      "mechanism_rationale": "Regular aerobic activity improves sleep quality and reduces baseline arousal, supporting easier sleep onset and reduces nightmare-related activation.",
+      "measurement": "Weekly minutes of aerobic activity; sleep quality score; time to fall asleep; dream intensity changes.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_MAPPING_S08_to_C04-C03"
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Social support and collaborative sleep plan (partner involvement)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage a trusted person (partner/family) to provide reassurance, help implement sleep routines, and reduce nighttime disturbances; establish a joint bedtime routine.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Supportive presence and shared routines can lessen sleep-related fear and physiologic arousal, improving sleep continuity.",
+      "measurement": "Perceived social support score; adherence to joint bedtime routine; nights awake with fear; time to fall asleep after awakenings.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_MAPPING_S09_to_C03-C04"
+    }
+  ]
+}

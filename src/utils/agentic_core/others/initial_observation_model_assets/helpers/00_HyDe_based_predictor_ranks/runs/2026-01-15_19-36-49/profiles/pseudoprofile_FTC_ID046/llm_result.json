@@ -1,0 +1,193 @@
+{
+  "pseudoprofile_id": "CASE_AUDITORY_TEXTURE_SENSORY_2026-01",
+  "summary": "This case shows a pattern of specific auditory trigger sensitivity (chewing sounds), aversive anger responses, perseverative auditory replay, self-criticism, and a parallel texture sensitivity. Lever candidates target (1) reducing trigger reactivity and improving controllability (desensitization + cognitive strategies), (2) diminishing perseverative attention to triggers, (3) alleviating self-criticism and distress, (4) addressing associated texture sensitivity through sensory integration, (5) optimizing sleep and nutrition to support neurobiological regulation, and (6) leveraging social support and tracking to sustain change. Each lever is designed as a modifiable predictor rather than a symptom label, with clear measurement plans and a feasible implementation pathway.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Auditory_Trigger_Desensitization_Training",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Structured exposure to chewing/sound triggers paired with inhibitory learning and coping skills (breathing, pause, cognitive labeling) to reduce aversive reactivity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Repeated, safe exposure reduces reactivity to the triggering sounds, improves stimulus controllability, and builds tolerance via inhibitory learning. Concurrent coping skills build resilience against impulsive anger and reduce negative self-evaluation.",
+      "measurement": "Mean distress rating (0-10) during controlled chewing-sound tasks; frequency of anger outbursts in trigger contexts per week; ability to ignore or habituate to triggers post-exposure; self-criticism intensity (0-4).",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No pharmacological or unsafe interventions. Monitor for escalation; pause if exposure provokes uncontrollable distress.",
+      "mapping_query": "Case mapping: implement a ramped chewing-sound exposure protocol; track C01-C03-C04 metrics across sessions."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Emotion_Regulation_Skills_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach and practice cognitive reappraisal, labeling emotions, and distress tolerance strategies to modulate rapid anger responses and self-criticism.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Enhancing emotion regulation reduces the perceived intensity of triggered anger and mitigates self-criticism by reframing reactions, increasing perceived controllability.",
+      "measurement": "Anger intensity scale (0-10) after exposure to triggers; self-criticism severity (0-4) daily diary; distress tolerance capacity (brief task or self-report).",
+      "time_horizon": "5-10 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Link psychoeducation to short-term practice: assess C02 and C04 changes with weekly self-reports."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Attention_Bias_Modification_for_Auditory_Sounds",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Attention retraining to reduce perseverative auditory attention and intrusive replay of trigger sounds (CBT-attention modification techniques or MBCT-derived practices).",
+      "targets_criteria_ids": [
+        "C03",
+        "C02"
+      ],
+      "mechanism_rationale": "Redirecting attention away from ruminative trigger replay decreases perceptual salience of the sound, reducing distress and anger reactivity.",
+      "measurement": "Intrusive-auditory_replay frequency (daily diary); reaction time-based attention bias tasks (pre/post); self-reported urge to attend to sounds (0-5).",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Assessment of attention shifts in daily logs and experimental tasks; track C03 and C02 progression."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sensory_Environment_Optimization",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create a safer sensory environment (sound dampening, quiet zones, chew-noise minimization, and texture-friendly surfaces) to reduce trigger exposure and perceptual load.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Lowering external sensory load and improving tactile comfort reduces baseline trigger sensitivity and cross-modal amplification of distress.",
+      "measurement": "Environment quality score (0-10) for home/work settings; frequency/intensity of trigger exposure in the environment; texture-related discomfort frequency (0-4).",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Environment adjustments mapped to C01 and C05; monitor changes via weekly environmental assessments."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep_Routine_and_Sleep_Quality_Enhancement",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Optimize sleep hygiene and circadian alignment to support emotional regulation and sensory processing capacity.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C03"
+      ],
+      "mechanism_rationale": "Better sleep supports executive control, reduces irritability, and dampens intrusive sensory processing and rumination.",
+      "measurement": "PSQI (bedtime/wake-inconsistency, sleep latency), nocturnal awakenings; morning affect; self-reported trigger reactivity (0-10).",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Link sleep metrics to daytime reactivity to triggers (C02-C04) in weekly diaries."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "GutBrain_Nutrition_Support",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Nutrition optimization and gut-brain axis support (balanced micronutrients, omega-3s, fiber, probiotic considerations) to support neurochemical balance.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C03"
+      ],
+      "mechanism_rationale": "Stable micronutrient status and gut-brain signaling modulate neurotransmitter systems involved in mood, anger regulation, and sensory processing.",
+      "measurement": "Blood micronutrient panel (iron, B12, zinc, vitamin D); dietary diary; self-reported mood and trigger response (0-10).",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Nutritional plan with periodic labs; track C02/C04 changes through diaries and mood scales."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Compassion_Focused_Skills_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Self-compassion and shame-reduction practices to reduce self-criticism and distress around sensitivity.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Cultivating self-kindness reduces self-judgment and distress tied to sensory reactions, improving overall coping.",
+      "measurement": "Self-Compassion Scale (SCS) changes; distress about reactions (0-4); daily self-talk quality (positive vs harsh).",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Assess changes in self-criticism (C04) via weekly check-ins and SCS scores."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Texture_Sensory_Integration_and_Exposure",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Occupational-therapy–informed tactile exposure and texture-processing strategies to reduce texture aversion (C05).",
+      "targets_criteria_ids": [
+        "C05",
+        "C03"
+      ],
+      "mechanism_rationale": "Systematic tactile exposure paired with sensory integration improves tolerance to textures and reduces accompanying auditory distress via generalized arousal regulation.",
+      "measurement": "Texture sensitivity rating (0-4); functional task tolerance with textures; reported trigger interference (0-4).",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "OT-based tactile-exposure plan linked to C05 and potential C03 improvements."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Structured_Social_Support_and_Presence",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Leverage supportive social networks and peer coaching to buffer distress and model adaptive responses to triggers.",
+      "targets_criteria_ids": [
+        "C04",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Social support reduces perceived threat, lowers distress, and improves coping with triggers and intrusive thoughts.",
+      "measurement": "Perceived social support scale; frequency of social-situation coping attempts; anger intensity in social contexts (0-10).",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Social-prescribing and peer-support activities tracked against C02-C04."
+    },
+    {
+      "solution_id": "S010",
+      "predictor_variable": "Personalization_Monitoring_and_Data_Feedback",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Use digital self-monitoring tools to track triggers, responses, and context; provide feedback loops and adaptive goal-setting.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Continuous feedback enables tailoring of interventions to moment-to-moment triggers and supports sustained behavior change across domains.",
+      "measurement": "Daily trigger diary accuracy; adherence to intervention components; composite trigger-reactivity score (0-1 scaled); weekly progress review.",
+      "time_horizon": "4-16 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Integrate data across C01-C05; assess responsiveness to personalized adjustments over time."
+    }
+  ]
+}

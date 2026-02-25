@@ -1,0 +1,141 @@
+{
+  "pseudoprofile_id": "CASE1_BIO_PSYCHO_SOCIAL_OPTIMIZATION_v1",
+  "summary": "The case shows exaggerated startle reactivity (C01), persistent hyperarousal (C02), conditioned bodily reactivity to a past incident (C03), situational vigilance (C04), emotional distress about symptoms (C05), and belief–reality mismatch about recovery (C06). The following modifiable predictors span bio, psycho, and social domains (and their interactions) to reduce autonomic arousal, improve cognitive coping, and enhance coping resources. Each lever is a concrete, actionable changeable predictor with observable metrics, feasible implementation, and a reasonable timeline for detectable impact. Where applicable, safeguards and professional-supervision notes are included for exposure-based approaches.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Box_Breathing_4x4_Daily_Practice",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a daily 5-10 minute box breathing (4 seconds inhale, 4 hold, 4 exhale, 4 hold) done twice daily, with brief reminders and a simple log.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Slow diaphragmatic breathing enhances parasympathetic activity and reduces sympathetic arousal, dampening rapid startle and ongoing hypervigilance.",
+      "measurement": "Daily log of practice (yes/no), per-session self-rated calm pre/post, heart rate variability (HRV) via wearable if available.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "Map Box_Breathing_4x4 to C01/C02/C04; monitor adherence and any dizziness or lightheadedness."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Sleep_Hygiene_and_Circadian_Scheduling",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent bed/wake times, minimize screen exposure 1 hour before bed, optimize sleep environment (dark, cool, quiet).",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C01 (indirect)"
+      ],
+      "mechanism_rationale": "Improved sleep quality and circadian alignment reduce baseline hyperarousal and trigger sensitivity to environmental cues.",
+      "measurement": "Sleep diary (bedtime/wake time,睡眠_efficiency), subjective sleep quality (0-10), next-day arousal rating.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "Map Sleep_Hygiene_and_Circadian_Scheduling to C02 and C04; track indirect effects on C01 via daytime arousal."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Regular_Aerobic_Exercise_Program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Engage in at least 150 minutes per week of moderate aerobic activity (e.g., brisk walking, cycling), with 2-3 days/week of movement consistent across weeks.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C01 (indirect)"
+      ],
+      "mechanism_rationale": "Exercise reduces baseline sympathetic tone, improves mood, and enhances autonomic flexibility, lowering startle magnitude and vigilance.",
+      "measurement": "Weekly exercise minutes, weekly step count, self-rated calm/arousal daily.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Consult clinician if cardiovascular symptoms arise; start gradually if currently inactive.",
+      "mapping_query": "Map Regular_Aerobic_Exercise_Program to C02/C04; monitor changes in C01 indirectly via arousal reductions."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Trauma_Informed_Mindfulness_and_Grounding",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce trauma-informed mindfulness practices (short daily grounding exercises, bodily scan, 5-10 minutes) with optional weekly guided session.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Mindfulness enhances interoceptive awareness and cognitive decentering, reducing reactivity to trauma reminders and improving emotional regulation.",
+      "measurement": "Daily mindfulness log (duration, perceived helpfulness 0-10), momentary arousal ratings, subjective distress about reminders.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Trauma-focused content should be introduced with guidance; monitor for distress and provide grounding alternatives if distress worsens.",
+      "mapping_query": "Map Trauma_Informed_Mindfulness_and_Grounding to C03/C04/C05; assess impact on C02 and subjective distress."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Cognitive_Reappraisal_and_Reframing_Practices",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Train on cognitive reappraisal and belief-challenge strategies (e.g., journaling prompts) to address belief-reality mismatch about recovery (C06).",
+      "targets_criteria_ids": [
+        "C06",
+        "C05",
+        "C02"
+      ],
+      "mechanism_rationale": "Reframing beliefs about recovery reduces cognitive dissonance, decreases distress about symptoms, and lowers selective attention to threat cues.",
+      "measurement": "Frequency of completed reframing prompts, self-rated belief change (0-10), daily distress/arousal score.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "Map Cognitive_Reappraisal_and_Reframing_Practices to C06; monitor effects on C05 and C02."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Structured_Social_Support_and_Engagement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Increase supportive social interactions via regular check-ins with a trusted person or small group activity (weekly).",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Social connectedness buffers stress responses, reduces hypervigilance, and improves coping with distressing symptoms.",
+      "measurement": "Number of social interactions per week; perceived social support scale; daily arousal/calm ratings.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "Map Structured_Social_Support_and_Engagement to C02/C04/C05; evaluate changes in arousal and distress."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Trauma_Focused_Graded_Exposure_with_Therapist_Support",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Under clinician guidance, implement a gradually titrated exposure plan to trauma-related cues in a controlled, supportive setting.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C01 (indirect)",
+        "C05"
+      ],
+      "mechanism_rationale": "Systematic exposure reduces conditioned arousal and avoidance, diminishing automatic defensive responses and improving coping with reminders.",
+      "measurement": "Distress levels during exposure tasks (0-10), number of triggered episodes per week, subjective sense of control.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.5,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Requires licensed clinician; monitor for excessive distress; have safety plan and grounding resources.",
+      "mapping_query": "Map Trauma_Focused_Graded_Exposure_with_Therapist_Support to C03/C04/C01/C05; track distress trajectories."
+    }
+  ]
+}

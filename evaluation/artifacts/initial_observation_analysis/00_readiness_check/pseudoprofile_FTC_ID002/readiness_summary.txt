@@ -1,0 +1,44 @@
+Profile: pseudoprofile_FTC_ID002
+Input: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/01_pseudoprofile(s)/time_series_data/pseudodata/pseudoprofile_FTC_ID002/pseudodata_wide.csv
+Generated: 2026-01-19T14:23:53
+Tier: Tier3_LaggedDynamicNetwork
+Tier3 variant: STATIC_gVAR
+Score: 94.6 / 100 (FullyReady)
+Ready variables (6): P01, P08, C02, C03, C04, C06
+
+Client-friendly summary
+Your data is nearly ready for a time-lagged network model, with a static (non-changing over time) variant that works now. To keep things reliable and potentially unlock a time-varying version later, we should gather more data and reduce gaps. Right now, 6 variables are usable out of 14, with regular timing and about 21% missing data. A longer, denser dataset would let us explore a dynamic model that changes over time.
+
+Technical summary
+Tier=Tier3_LaggedDynamicNetwork (STATIC_gVAR); score=94.6/100 (FullyReady). Vars: candidates=14, ready=6, hard_drop=0, soft_drop=8-9. Time: regularity=regular_or_quasi_regular, irregular_frac=0.00, dup_frac=0.00, sorted=True. Tier3 STATIC: n_eff_q25=109, required≈90; feasible=True. Tier3 TV: n_eff_q25=112, required≈252; tv_window≈84; feasible=False. Non-stationarity detected in several variables; STATIC_gVAR is feasible but with caveats. Time-varying gVAR is not feasible with current data (252 required points). Mean missingness ≈21.1%. Ready vars=6 out of 14 candidates; overall readiness is high though nonstationarity and missingness warrant careful preprocessing and documentation.
+
+Non-stationarity handling
+Non-stationarity is not a problem if TIME_VARYING_gVAR is feasible; it mainly limits STATIC_gVAR feasibility.
+
+Next steps
+- Increase data completeness to reduce missingness.
+- Prioritize data collection for the six ready variables (P01, P08, C02, C03, C04, C06).
+- Investigate preprocessing to address non-stationarity (e.g., detrending or differencing).
+- Consider smoothing/windowing strategies if pursuing TIME_VARYING_gVAR with more data.
+- Document decisions and rationale in a reproducible report.
+- Plan a longer time-series collection to reach ~252 points required for TIME_VARYING_gVAR feasibility.
+
+Key caveats
+- Non-stationarity detected in several variables; STATIC_gVAR assumes stationarity and may bias estimates if not addressed.
+- Six ready variables limit model scope and may omit important dynamics.
+- Missingness ~21% can reduce power and affect stability of estimates; imputation or thresholding may be required.
+- Time-varying gVAR is currently not feasible with the available data (252 points needed).
+- Results depend on chosen correlation method (Spearman) and assumptions about data regularity.
+- Some nonstationary signals (e.g., P02, P03, P04, P05) warrant preprocessing before static modeling.
+- Low perceived high-collinearity risk reported; continue monitoring as model variables change.
+- Documentation should explicitly state stationarity considerations and preprocessing steps to maintain reproducibility.
+
+Why (evidence)
+- Recommended tier: Tier3_LaggedDynamicNetwork
+- Tier3 variant: STATIC_gVAR (stationarity_required=True)
+- Ready variables: 6 / model candidates: 14
+- Time regularity: regular_or_quasi_regular (irregular_fraction=0.00, dup_fraction=0.00)
+- Tier3 TV feasible=False; n_eff_q25_tv=112 vs required≈252 (tv_window≈84)
+- Tier3 STATIC feasible=True; n_eff_q25_static=109 vs required≈90
+- Non-stationarity is not a blocker if TIME_VARYING_gVAR is feasible; it mainly affects STATIC feasibility.
+- Mean missingness (base set): 21.1%

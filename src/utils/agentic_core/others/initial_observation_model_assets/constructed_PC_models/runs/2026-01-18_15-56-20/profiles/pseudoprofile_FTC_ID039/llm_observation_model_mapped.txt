@@ -1,0 +1,19 @@
+pseudoprofile_id: pseudoprofile_FTC_ID039
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Romantic relationship doubt -> NON-CLINICAL / AGE-SPECIFIC / early_adulthood / emotional_development / resilience_architecture / uncertainty_tolerance / relationship_ambiguity_navigation (conf=0.92)
+- C02: Short-term mood variability -> CLINICAL / DSM-5TR / bipolar and related disorders / bipolar ii disorder / current or most recent episode / with mixed features / depressed_mood (conf=0.72)
+- C03: State-dependent emotional connection to partner -> NON-CLINICAL / AGE-GENERAL / emotional / positive emotions / love / bonding / emotional bonding (conf=0.72)
+- C04: Attribution uncertainty (internal vs external cause) -> NON-CLINICAL / AGE-SPECIFIC / early_adulthood / emotional_development / resilience_architecture / uncertainty_tolerance / relationship_ambiguity_navigation (conf=0.62)
+- C05: Acute panic/catastrophic self-evaluation -> CLINICAL / DSM-5TR / personality disorders / other personality disorders / self-defeating personality disorder / chronic_self_criticism (conf=0.72)
+- C06: Emotion regulation / coping capacity in moments of doubt -> NON-CLINICAL / AGE-GENERAL / emotional / emotional regulation / emotional stability / mood management / regulating mood swings (conf=0.83)
+- C07: Impact on relationship decision-making and behavior -> NON-CLINICAL / AGE-SPECIFIC / late_adolescence / social_development / peer_relationships / romantic_relationships / relationship_commitment (conf=0.66)
+
+PREDICTORS:
+- P01: Emotion Regulation Skills Training (CBT/DBT-based) -> PSYCHO / core_psychological_skills_toolkits / emotion_regulation_and_affective_mastery / change_strategies / emotion_modulation / cognitive_reappraisal_emotion (conf=0.72)
+- P02: Attribution Uncertainty (internal vs external cause) -> PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / evaluate / evidence_and_data / alternative_attribution_generation (conf=0.72)
+- P03: Romantic Relationship Communication Skills -> SOCIAL / romantic_intimacy_and_relationships / romantic_relationship_skills_and_support / communication_and_connection / skills_and_frameworks / active_listening_practice_as_couple (conf=0.72)
+- P04: Sleep Quality (Last Night) -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / sleep_quality_rating (conf=0.88)
+- P05: Social Support & Belonging Engagement -> SOCIAL / social_support_and_belonging / network_building_and_maintenance / mapping_and_assessment / belonging_and_community_fit_assessment (conf=0.78)
+- P06: Moderate Physical Activity (wearable) -> BIO / personalization_monitoring_and_data_feedback / wearables_and_home_monitoring / physiology / activity_fitness_and_biomechanics / activity_and_energy / activity_tracker_wearable (conf=0.72)

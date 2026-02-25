@@ -1,0 +1,169 @@
+{
+  "pseudoprofile_id": "CASE_PAYLOAD_SOLUTION_001",
+  "summary": "This plan targets the workplace cycle described in the case payload by introducing modifiable BIO/PSYCHO/SOCIAL levers designed to reduce errors, mutualize threat appraisals, curb compensatory overwork, and alleviate fatigue-driven performance decrements. Levers span sleep/circadian regulation, cognitive offloading, anxiety management, structured breaks, attention training, task planning, supervisory support, physical activity, and nutrition, with explicit measurement anchors and cross-domain interactions to interrupt the feedback loop driving the cycle (C01–C05).",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep regularization and circadian alignment (consistent wake/bed times; wind-down routine)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish a fixed, predictable sleep-wake schedule with a 30–45 minute pre-sleep wind-down and light exposure in the morning to support circadian entrainment.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Improved sleep quality and consistency buffer daytime fatigue, sharpen attention, and reduce fatigue-related processing errors. Better energy regulation lowers the likelihood of attention lapses and slowed processing that contribute to C01 and C05.",
+      "measurement": "Sleep diary (bedtime, wake time, awakenings), perceived sleep quality (0-10), next-day alertness scale (0-10)",
+      "time_horizon": "2–4 weeks to detect changes in fatigue and attention; continue for sustained gains",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns. If sleep apnea or other sleep disorders are suspected, refer to medical assessment.",
+      "mapping_query": "Map to C04 fatigue reduction and C05 attention/cognitive performance preservation via睡眠 regularization and circadian alignment."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "External cognitive offloading tools (task checklists; pre-mistake pause)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Provide a standardized task checklist, micro-check prompts, and a 1–2 minute pre-task pause to verify critical steps before execution.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces cognitive load and reliance on working memory during task execution, lowering minor errors (C01) and supporting processing speed/accuracy (C05) during fatigue periods.",
+      "measurement": "Errors per shift (C01 proxy), checklist usage frequency, post-task self-rating of confidence in completion",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Ensure checklists are concise and task-specific to avoid added cognitive burden.",
+      "mapping_query": "Link predictor to C01 reduction in minor mistakes and C05 stabilization of processing under fatigue via cognitive offloading."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Catastrophic thinking reframing and anxiety management (CBT-based)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver brief, scalable CBT-style cognitive restructuring focusing on risk appraisal about job security, including worry time and evidence-based challenge statements.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Directly targets the anticipatory fear (C02), reducing the likelihood that anxiety drives overcompensation and errors (C01) by normalizing threat appraisal and increasing cognitive flexibility.",
+      "measurement": "Weekly anxiety/thought-breadth intensity (0-10), frequency of firing-up thoughts in work context, self-reported error tendency",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for escalation of distress; provide crisis plan if anxiety becomes overwhelming.",
+      "mapping_query": "Map to C02 reduction in threat appraisal and secondary effects on C01 through improved cognitive flexibility."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Structured micro-breaks and fatigue management (scheduled breaks)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Integrate brief, regular micro-breaks (e.g., 2–3 minutes every 60–90 minutes) and a 5–10 minute longer break mid-shift to reduce fatigue accumulation.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Regular rest intervals attenuate fatigue accumulation and maintain attention, decreasing fatigue-induced performance decrements and minor mistakes.",
+      "measurement": "Break frequency/duration (self-report or app-tracked), subjective fatigue rating before/after breaks, post-break error rate",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Ensure breaks do not conflict with safety-critical tasks; adjust for shift patterns.",
+      "mapping_query": "Ties to C04 fatigue reduction and C05 cognitive performance maintenance via fatigue management."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Attention/cognition training (short daily exercises)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Incorporate a 10–15 minute daily attention/working-memory training block (e.g., computer-based tasks) to bolster cognitive control during fatigue.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Enhances cognitive capacity and resilience to fatigue-related lapses, dampening attention lapses and working-memory errors that feed the cycle (C05).",
+      "measurement": "Training adherence, standardized cognitive task performance metrics (e.g., accuracy/speed), self-reported focus during work",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.42,
+      "priority": "MED",
+      "safety_notes": "No pharmacological risk; ensure task difficulty is appropriate to avoid frustration.",
+      "mapping_query": "Connects to C05 improvement in attention and working memory under fatigue via cognitive training."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Structured task planning and supervisor-supported workload pacing",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Implement daily 10–15 minute planning session with a supervisor or mentor to prioritize tasks, set realistic deadlines, and cap overtime. Introduce a simple backlog-tracking tool.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Directly reduces error rate by improving task order and expectations (C01); reduces overtime-driven fatigue (C04) and the need to compensate through late-work (C03).",
+      "measurement": "Planned vs. actual task completion, overtime hours per week, self-rated task clarity",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.46,
+      "priority": "HIGH",
+      "safety_notes": "Ensure legitimate workload capacity; avoid new stressors; maintain supervisor training.",
+      "mapping_query": "Link planning to reductions in C01 errors and C04 fatigue via paced work and clearer expectations."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Workplace social support and supervisor check-ins",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Establish regular, supportive check-ins with a supervisor and promote peer support to discuss workload, feedback, and stress responses.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Enhanced social support can dampen threat appraisals (C02), reduce the compulsion to overwork (C03), and indirectly lower minor errors (C01) through improved morale and feedback.",
+      "measurement": "Perceived supervisor support scale, frequency of check-ins, self-reported changes in error rate",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Monitor for misalignment between support and workload realities; adjust frequency as needed.",
+      "mapping_query": "Map to reductions in C02 and C03 via enhanced social support and feedback, with downstream effect on C01."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Physical activity and daylight exposure (energy modulation)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Encourage regular moderate physical activity (e.g., brisk walk 20–30 minutes daily) and daylight exposure to enhance energy and cognitive function.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Exercise and daylight improve energy, mood, and executive function, reducing fatigue (C04) and supporting cognitive performance (C05) during work.",
+      "measurement": "Weekly activity minutes, daylight exposure notes, self-rated energy and focus levels",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Screen for physical limitations; adapt intensity.",
+      "mapping_query": "Tie to fatigue reduction (C04) and cognitive performance stability (C05) via increased energy through activity."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Nutrition/hydration optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Promote regular meals with balanced macronutrients and adequate hydration to sustain energy across shifts.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Stable energy availability supports attention, reduces fatigue, and minimizes fatigue-driven errors (C01/C05).",
+      "measurement": "Hydration/food intake logs, midday energy levels, error rate trend",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.35,
+      "priority": "LOW",
+      "safety_notes": "None notable; monitor for dietary restrictions or allergies.",
+      "mapping_query": "Connects to fatigue reduction (C04) and cognitive stability (C05) via energy/nutrition optimization."
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+pseudoprofile_id: pseudoprofile_FTC_ID010
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID010/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.5927
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 0.80 * t + phase=5.66)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 2
+  * pulse_1: start_idx=84, length=2, amp=1.223
+  * pulse_2: start_idx=112, length=7, amp=1.086
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P04
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.100 | freq_hint=None
+  * P02: missing_rate=0.094 | freq_hint=None
+  * P03: missing_rate=0.206 | freq_hint=None
+  * P04: missing_rate=0.089 | freq_hint=None
+  * P05: missing_rate=0.161 | freq_hint=None
+  * P06: missing_rate=0.094 | freq_hint=None
+  * P07: missing_rate=0.194 | freq_hint=None
+  * C01: missing_rate=0.200 | freq_hint=None
+  * C02: missing_rate=0.272 | freq_hint=None
+  * C03: missing_rate=0.200 | freq_hint=None
+  * C04: missing_rate=0.217 | freq_hint=None
+  * C05: missing_rate=0.200 | freq_hint=None
+  * C06: missing_rate=0.200 | freq_hint=None
+  * C07: missing_rate=0.222 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Sleep regularization / circadian alignment | ontology_id=consistent_morning_anchor_routine | conf=0.68 | freq_hint=None
+- P02 (PREDICTOR): Activation management / time-blocked initiation | ontology_id=time_blocking_for_valued_actions | conf=0.85 | freq_hint=None
+- P03 (PREDICTOR): Spending precommitment / budget discipline | ontology_id=precommitment_to_remove_temptations | conf=0.72 | freq_hint=None
+- P04 (PREDICTOR): Social boundaries & communication boundaries | ontology_id=boundary_setting_practice | conf=0.72 | freq_hint=None
+- P05 (PREDICTOR): Routine anchoring and energy restoration | ontology_id=micro_restoration_routines | conf=0.72 | freq_hint=None
+- P06 (PREDICTOR): Implementation intentions and progress monitoring | ontology_id=implementation_intention_ifthen_plans | conf=0.88 | freq_hint=None
+- P07 (PREDICTOR): External accountability / social support | ontology_id=accountability_partner_matching | conf=0.62 | freq_hint=None
+- C01 (CRITERION): Burst of project initiation | ontology_id=initiating | conf=0.62 | freq_hint=None
+- C02 (CRITERION): Marked increase in talkativeness | ontology_id=pressured_speech | conf=0.74 | freq_hint=None
+- C03 (CRITERION): Impulsive/unsafe spending | ontology_id=purchasing_despite_budget_constraint | conf=0.72 | freq_hint=None
+- C04 (CRITERION): Rapid alternation of high and low energy/mood | ontology_id=mood_lability_present | conf=0.78 | freq_hint=None
+- C05 (CRITERION): Low-energy crash with social withdrawal | ontology_id=social_withdrawal_present | conf=0.52 | freq_hint=None
+- C06 (CRITERION): Exhaustion and disruption of routines | ontology_id=rapid_post_episode_fatigue_exhaustion | conf=0.78 | freq_hint=None
+- C07 (CRITERION): High initiation with likely poor follow-through | ontology_id=follow_through_difficulty | conf=0.7 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

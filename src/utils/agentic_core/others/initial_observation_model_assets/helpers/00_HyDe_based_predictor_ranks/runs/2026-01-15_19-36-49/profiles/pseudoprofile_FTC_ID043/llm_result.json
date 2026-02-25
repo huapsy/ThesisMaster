@@ -1,0 +1,140 @@
+{
+  "pseudoprofile_id": "CASE_BEES_001",
+  "summary": "The case reflects high-frequency internal cognitive activity with racing thoughts, task-unrelated attention, and a sense of internal mental noise, yielding difficulty sustaining focus and reduced engagement. Modifiable levers span brain- and behavior-related (BIO) factors, cognitive-psychological (PSYCHO) strategies, and social context (SOCIAL). The proposed solutions emphasize: 1) strengthening executive-attention control and reducing cognitive offloading through targeted cognitive training; 2) cultivating nonjudgmental awareness and metacognitive regulation to manage thought flow; 3) stabilizing sleep and circadian rhythms to support attention and cognitive clarity; 4) using external aids to organize attention and task structure; 5) increasing aerobic activity to boost brain health and attention; 6) enhancing social belonging and support to reduce rumination; and 7) implementing measurement-based care loops to personalize and sustain change. Each lever is a changeable predictor with a plausible mechanism, concrete measurement, and a clear link to the specified mental-state criteria.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Attention_Systems_Training_(Executive_Function_Enhancement)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured attention-training program targeting sustained attention and working memory (e.g., computerized attention tasks, task-switching drills, and adaptive CPT-like exercises) delivered 2–3 times/week for 6–8 weeks.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Improves fronto-parietal control over distractor processing and task-set maintenance, reducing spontaneous, task-irrelevant thoughts and the felt need to suppress thoughts. Strengthened cognitive control decreases racing thoughts during ongoing activities.",
+      "measurement": "CPT performance metrics (response accuracy, omission/commission errors), percent on-task during standardized tasks, daily self-rated focus (0–10).",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns anticipated.",
+      "mapping_query": "Map S01 to C02/C03/C04: Does regular attention-system training decrease racing thoughts, improve on-task focus, and increase perceived control over thought flow?"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Mindfulness_and_Metacognitive_Regulation_Training",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "8-week Mindfulness-Based Intervention (MBI) with metacognitive strategies (brief daily sessions, 10–20 minutes) plus brief reflection and self-talk coaching to observe thoughts without engagement.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Cultivates nonjudgmental observation of mental activity, reduces automaticity of task-unrelated thoughts, and lowers perceived noise, thereby improving control over thought flow and distress linked to cognitive chatter.",
+      "measurement": "Mindfulness questionnaire (e.g., MAAS), thought-frequency diary (daily tally of task-unrelated thoughts), distress rating during activities (0–10).",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "None evident; monitor for initial discomfort with attention to internal experiences.",
+      "mapping_query": "Map S02 to C03/C04/C05: Can mindfulness/metacognitive regulation reduce ongoing mental chatter and improve engagement?"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep_Regularity_and_Circadian_Alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep regularization plan with fixed bed/wake times, consistent daytime routines, and wind-down rituals across 4–12 weeks.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Stable sleep supports cortical recovery and attentional networks, reducing daytime cognitive noise and improving sustained attention and resistance to distraction.",
+      "measurement": "Sleep diary metrics (bedtime consistency, wake time consistency), basic actigraphy if available, self-reported focus during screen tasks (0–10).",
+      "time_horizon": "4–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None anticipated beyond standard sleep hygiene considerations.",
+      "mapping_query": "Map S03 to C01/C02: Will regular sleep patterns reduce racing thoughts and improve attention?"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "External_Attention_Aids_and_Task_Structuring",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Use of external aids (e.g., visual schedules, reminders, task-binding notes) to structure ongoing activities and reduce cognitive load during passive tasks.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "External scaffolds reduce internal cognitive load, limiting spontaneous thought generation during tasks and enabling better maintenance of attention and quicker quieting of intrusive thoughts.",
+      "measurement": "Frequency of aid usage (days/week), on-task time percentage during tasks, self-rated ease of quieting thoughts (0–10).",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None; ensure aids support autonomy and do not become over-reliance.",
+      "mapping_query": "Map S04 to C01/C02/C03/C04: Do external aids improve task focus and reduce internal chatter?"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Aerobic_Movement_and_Physical_Fitness",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured aerobic program (3–5 sessions/week) focusing on moderate-intensity activity, plus progress tracking.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Exercise enhances cerebral blood flow, neurotrophic factors, and executive function, improving attention stability and reducing distractibility and cognitive noise.",
+      "measurement": "Weekly exercise log (minutes), perceived alertness/mood rating (0–10), cognitive task performance metrics (e.g., speed/accuracy on simple attention tasks).",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Screen for cardiovascular risk; adjust intensity appropriately.",
+      "mapping_query": "Map S05 to C02/C03: Will regular aerobic activity boost attention and reduce racing thoughts?"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Social_Belonging_and_Support_Activation",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured social engagement plan (group activities, peer-support check-ins, or social-prescribing linkage) aimed at increasing meaningful social connection.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Enhanced social connectedness buffers rumination, provides adaptive distraction and support for managing mental activity, and improves engagement with activities.",
+      "measurement": "Loneliness scale (e.g., UCLA-LS3), social support index, weekly engagement count in social activities (logs).",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Monitor for social overwhelm; ensure voluntary participation and boundaries.",
+      "mapping_query": "Map S06 to C05/C06: Does increasing belonging and social support decrease mental chatter and improve engagement?"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Measurement_Based_Care_and_Feedback_Loops",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Daily brief self-monitoring (checklists) of C01–C06 with weekly review and plan adjustment by a coach or clinician.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Frequent feedback closes the loop between subjective state and targeted interventions, allowing rapid tailoring of strategies to reduce racing thoughts and improve attention and engagement.",
+      "measurement": "Daily logs (0–10) for each C01–C06; weekly trend charts; plan-adjustment documentation.",
+      "time_horizon": "4–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None; ensure data privacy and supportive framework for reporting.",
+      "mapping_query": "Map S07 to all criteria: Does a feedback-driven monitoring system enable rapid optimization of interventions?"
+    }
+  ]
+}

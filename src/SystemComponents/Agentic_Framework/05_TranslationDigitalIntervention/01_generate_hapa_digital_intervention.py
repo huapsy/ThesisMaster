@@ -10,12 +10,38 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
+import tempfile
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
+
+def _ensure_mpl_configdir() -> None:
+    if os.environ.get("MPLCONFIGDIR"):
+        return
+    default_dir = Path.home() / ".matplotlib"
+    try:
+        default_dir.mkdir(parents=True, exist_ok=True)
+        probe = default_dir / ".phoenix_mpl_write_test"
+        probe.write_text("ok", encoding="utf-8")
+        probe.unlink(missing_ok=True)
+        os.environ["MPLCONFIGDIR"] = str(default_dir)
+        return
+    except Exception:
+        pass
+
+    fallback_dir = Path(tempfile.gettempdir()) / "phoenix_mplconfig"
+    fallback_dir.mkdir(parents=True, exist_ok=True)
+    os.environ["MPLCONFIGDIR"] = str(fallback_dir)
+
+
+_ensure_mpl_configdir()
+
+import matplotlib as mpl
+mpl.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -189,6 +215,93 @@ def _token_jaccard(a: str, b: str) -> float:
 
 def _normalize_key_path(text: str) -> str:
     return normalize_path_text(str(text or "")).lower()
+
+
+HAPA_COMPONENT_ORDER: Tuple[str, ...] = (
+    "Motivation",
+    "Intention and Self-Efficacy",
+    "Action and Coping Planning",
+    "Action Control",
+    "Recovery and Maintenance",
+)
+
+HAPA_COMPONENT_KEYWORDS: Dict[str, Tuple[str, ...]] = {
+    "Motivation": (
+        "motivation",
+        "risk",
+        "outcome",
+        "expectancy",
+        "value",
+        "benefit",
+        "cost",
+    ),
+    "Intention and Self-Efficacy": (
+        "intention",
+        "self_efficacy",
+        "self efficacy",
+        "confidence",
+        "commitment",
+        "belief",
+        "readiness",
+    ),
+    "Action and Coping Planning": (
+        "planning",
+        "plan",
+        "implementation",
+        "if_then",
+        "if then",
+        "coping",
+        "schedule",
+        "organization",
+    ),
+    "Action Control": (
+        "monitor",
+        "tracking",
+        "feedback",
+        "adherence",
+        "cue",
+        "control",
+        "self_monitoring",
+    ),
+    "Recovery and Maintenance": (
+        "maintenance",
+        "relapse",
+        "restart",
+        "recovery",
+        "lapse",
+        "sustain",
+        "habit",
+    ),
+}
+
+
+def _hapa_component_from_text(*texts: str) -> str:
+    joined = " ".join([str(t or "").lower() for t in texts]).strip()
+    if not joined:
+        return "Action and Coping Planning"
+    scores: Dict[str, float] = {component: 0.0 for component in HAPA_COMPONENT_ORDER}
+    for component, keywords in HAPA_COMPONENT_KEYWORDS.items():
+        score = 0.0
+        for keyword in keywords:
+            if keyword in joined:
+                score += 1.0
+        scores[component] = score
+    best = max(scores.items(), key=lambda kv: kv[1])
+    if best[1] <= 0.0:
+        return "Action and Coping Planning"
+    return best[0]
+
+
+def _high_level_subtree(path: str, fallback_name: str = "") -> str:
+    normalized = normalize_path_text(path)
+    parts = [p.strip() for p in normalized.split(" / ") if p.strip()]
+    if len(parts) >= 3:
+        return " / ".join(parts[:3])
+    if len(parts) >= 2:
+        return " / ".join(parts[:2])
+    if parts:
+        return parts[0]
+    return str(fallback_name or "UNKNOWN_SUBTREE")
 
 
 def _parse_profile_number(profile_id: str) -> Optional[str]:
@@ -621,6 +734,138 @@ def select_coping_candidates(
     return detail, result
 
 
+def build_hapa_component_candidates(
+    *,
+    predictor_candidates: Sequence[Dict[str, Any]],
+    selected_barriers: Sequence[Dict[str, Any]],
+    coping_candidates: Sequence[Dict[str, Any]],
+    barrier_detail_rows: Sequence[Dict[str, Any]],
+) -> Dict[str, Any]:
+    component_map: Dict[str, Dict[str, Any]] = {}
+    for component in HAPA_COMPONENT_ORDER:
+        component_map[component] = {
+            "component": component,
+            "subtree_nodes": {},
+            "barriers": [],
+            "coping_strategies": [],
+            "linked_targets": [],
+            "inference_notes": [],
+        }
+
+    for row in selected_barriers:
+        barrier_name = str(row.get("barrier_name") or "").strip()
+        barrier_path = normalize_path_text(str(row.get("barrier_path") or ""))
+        component = _hapa_component_from_text(barrier_name, barrier_path, str(row.get("barrier_parent_domain") or ""))
+        subtree = _high_level_subtree(barrier_path, barrier_name)
+        score = _score_0_1(row.get("total_score_0_1"))
+        block = component_map[component]
+        block["barriers"].append(
+            {
+                "barrier_name": barrier_name,
+                "barrier_path": barrier_path,
+                "score_0_1": score,
+                "supporting_predictors": list(row.get("supporting_predictors") or []),
+            }
+        )
+        current = block["subtree_nodes"].get(subtree, {"node": subtree, "score_0_1": 0.0, "evidence_count": 0, "source": "barrier"})
+        current["score_0_1"] = max(float(current.get("score_0_1", 0.0)), score)
+        current["evidence_count"] = int(current.get("evidence_count", 0)) + 1
+        block["subtree_nodes"][subtree] = current
+
+    for row in barrier_detail_rows:
+        barrier_name = str(row.get("barrier_name") or "").strip()
+        barrier_path = normalize_path_text(str(row.get("barrier_path") or ""))
+        component = _hapa_component_from_text(barrier_name, barrier_path)
+        subtree = _high_level_subtree(barrier_path, barrier_name)
+        score = _score_0_1(row.get("predictor_barrier_contribution_0_1"))
+        block = component_map[component]
+        current = block["subtree_nodes"].get(subtree, {"node": subtree, "score_0_1": 0.0, "evidence_count": 0, "source": "predictor_barrier_mapping"})
+        current["score_0_1"] = max(float(current.get("score_0_1", 0.0)), score)
+        current["evidence_count"] = int(current.get("evidence_count", 0)) + 1
+        block["subtree_nodes"][subtree] = current
+
+    for row in coping_candidates:
+        coping_name = str(row.get("coping_name") or "").strip()
+        coping_path = normalize_path_text(str(row.get("coping_path") or ""))
+        component = _hapa_component_from_text(coping_name, coping_path)
+        score = _score_0_1(row.get("score_0_1"))
+        block = component_map[component]
+        block["coping_strategies"].append(
+            {
+                "coping_name": coping_name,
+                "coping_path": coping_path,
+                "score_0_1": score,
+                "linked_barriers": list(row.get("linked_barriers") or []),
+            }
+        )
+        subtree = _high_level_subtree(coping_path, coping_name)
+        current = block["subtree_nodes"].get(subtree, {"node": subtree, "score_0_1": 0.0, "evidence_count": 0, "source": "coping_barrier_mapping"})
+        current["score_0_1"] = max(float(current.get("score_0_1", 0.0)), score)
+        current["evidence_count"] = int(current.get("evidence_count", 0)) + 1
+        block["subtree_nodes"][subtree] = current
+
+    ranked_targets = sorted(
+        list(predictor_candidates),
+        key=lambda row: _score_0_1(row.get("priority_0_1")),
+        reverse=True,
+    )
+    for component in HAPA_COMPONENT_ORDER:
+        block = component_map[component]
+        component_text = " ".join(
+            [
+                component.lower(),
+                " ".join([str(item.get("barrier_name") or "") for item in block["barriers"][:10]]).lower(),
+                " ".join([str(item.get("coping_name") or "") for item in block["coping_strategies"][:10]]).lower(),
+            ]
+        )
+        scored_targets: List[Dict[str, Any]] = []
+        for row in ranked_targets[:20]:
+            label = str(row.get("predictor_label") or row.get("predictor") or "").strip()
+            path = normalize_path_text(str(row.get("predictor_path") or label))
+            base = _score_0_1(row.get("priority_0_1"))
+            sim = _token_jaccard(component_text, f"{label} {path}")
+            score = max(0.0, min(1.0, 0.70 * base + 0.30 * sim))
+            scored_targets.append(
+                {
+                    "predictor": str(row.get("predictor") or ""),
+                    "predictor_label": label,
+                    "predictor_path": path,
+                    "priority_0_1": base,
+                    "component_relevance_0_1": score,
+                }
+            )
+        scored_targets = sorted(scored_targets, key=lambda item: float(item["component_relevance_0_1"]), reverse=True)
+        block["linked_targets"] = scored_targets[:6]
+
+        subtree_nodes = sorted(
+            list(block["subtree_nodes"].values()),
+            key=lambda item: (float(item.get("score_0_1", 0.0)), int(item.get("evidence_count", 0))),
+            reverse=True,
+        )[:12]
+        block["subtree_nodes"] = subtree_nodes
+        block["barriers"] = sorted(block["barriers"], key=lambda item: float(item.get("score_0_1", 0.0)), reverse=True)[:10]
+        block["coping_strategies"] = sorted(
+            block["coping_strategies"], key=lambda item: float(item.get("score_0_1", 0.0)), reverse=True
+        )[:12]
+
+        inferred_from = []
+        if block["barriers"]:
+            inferred_from.append("barrier_mapping")
+        if block["coping_strategies"]:
+            inferred_from.append("coping_mapping")
+        if block["linked_targets"]:
+            inferred_from.append("step03_step04_targets")
+        block["inference_notes"] = [
+            "High-level subtree inference from ontology mappings (not strict leaf-node matching).",
+            f"Evidence sources: {', '.join(inferred_from) if inferred_from else 'none'}",
+        ]
+
+    return {
+        "component_order": list(HAPA_COMPONENT_ORDER),
+        "components": [component_map[name] for name in HAPA_COMPONENT_ORDER],
+    }
+
+
 class InterventionTargetModel(BaseModel):
     predictor: str
     predictor_label: str
@@ -724,6 +969,19 @@ def _heuristic_step05_critic(
     has_safety = len(intervention.safety_notes or []) > 0
     free_text = evidence_bundle.get("free_text", {}) if isinstance(evidence_bundle, dict) else {}
     has_personalization = bool(str((free_text or {}).get("person_text", "")).strip() or str((free_text or {}).get("context_text", "")).strip())
+    hapa_component_candidates = (
+        evidence_bundle.get("hapa_component_candidates", {}) if isinstance(evidence_bundle, dict) else {}
+    )
+    component_rows = (
+        hapa_component_candidates.get("components", [])
+        if isinstance(hapa_component_candidates, dict)
+        else []
+    )
+    components_with_mapping_evidence = sum(
+        1
+        for row in component_rows
+        if len(list(row.get("barriers") or [])) > 0 or len(list(row.get("coping_strategies") or [])) > 0
+    )
 
     subscores = {
         "reasoning_quality": 0.70 if intervention.clinical_case_formulation.strip() else 0.50,
@@ -746,6 +1004,8 @@ def _heuristic_step05_critic(
         critical_issues.append("Coping set is too narrow to support barrier diversity.")
     if len(hapa) < 4:
         critical_issues.append("HAPA component coverage is incomplete.")
+    if components_with_mapping_evidence >= 2 and len(hapa) < 5:
+        critical_issues.append("Mapped HAPA component evidence suggests fuller component coverage is needed.")
     if not has_safety:
         critical_issues.append("Safety/escalation notes missing.")
     if critical_issues:
@@ -844,6 +1104,7 @@ def heuristic_step05_intervention(
     predictor_candidates: Sequence[Dict[str, Any]],
     selected_barriers: Sequence[Dict[str, Any]],
     coping_candidates: Sequence[Dict[str, Any]],
+    hapa_component_candidates: Optional[Dict[str, Any]] = None,
 ) -> Step05InterventionModel:
     ranked_targets = sorted(
         list(predictor_candidates),
@@ -911,46 +1172,89 @@ def heuristic_step05_intervention(
     person = str(free_text.get("person_text") or "").strip()
     context = str(free_text.get("context_text") or "").strip()
 
+    component_lookup: Dict[str, Dict[str, Any]] = {}
+    if isinstance(hapa_component_candidates, dict):
+        for item in (hapa_component_candidates.get("components") or []):
+            key = str(item.get("component") or "").strip()
+            if key:
+                component_lookup[key] = item
+
+    def _component_actions(component_key: str, base_actions: Sequence[str]) -> List[str]:
+        actions = list(base_actions)
+        block = component_lookup.get(component_key) or {}
+        top_subtrees = [str(row.get("node") or "") for row in (block.get("subtree_nodes") or [])[:2] if str(row.get("node") or "").strip()]
+        if top_subtrees:
+            actions.append(f"Prioritize these ontology subtrees: {', '.join(top_subtrees)}.")
+        top_coping = [str(row.get("coping_name") or "") for row in (block.get("coping_strategies") or [])[:2] if str(row.get("coping_name") or "").strip()]
+        if top_coping:
+            actions.append(f"Start with these coping options: {', '.join(top_coping)}.")
+        return actions
+
     hapa_components = [
         HAPAComponentStepModel(
             component="Motivation: Risk perception and outcome expectancy",
             objective="Translate symptom burden into concrete and meaningful change targets.",
-            actions=[
+            actions=_component_actions(
+                "Motivation",
+                [
                 "Reflect on current symptom-impact pattern using concise daily feedback.",
                 "Link expected gains to personally meaningful outcomes.",
-            ],
+                ],
+            ),
             digital_delivery="Short daily check-in + reflective prompt card.",
             measurement_signals=["criterion intensity trend", "engagement with reflection prompt"],
         ),
         HAPAComponentStepModel(
             component="Motivation: Task self-efficacy and intention",
             objective="Increase confidence and commitment to start behavior change.",
-            actions=[
+            actions=_component_actions(
+                "Intention and Self-Efficacy",
+                [
                 "Define one small, feasible behavior target per day.",
                 "Use confidence scaling (0-10) and adjust task size when confidence <7.",
-            ],
+                ],
+            ),
             digital_delivery="Adaptive intent prompt with confidence slider.",
             measurement_signals=["self-efficacy rating", "intention completion"],
         ),
         HAPAComponentStepModel(
             component="Volition: Action planning and coping planning",
             objective="Specify when/where/how actions happen and how barriers are handled.",
-            actions=[
+            actions=_component_actions(
+                "Action and Coping Planning",
+                [
                 "Create if-then plans for the top barriers.",
                 "Attach one coping option to each prioritized barrier.",
-            ],
+                ],
+            ),
             digital_delivery="If-then planner with barrier-specific coping menu.",
             measurement_signals=["plan completion", "coping plan coverage"],
         ),
         HAPAComponentStepModel(
             component="Volition: Action control and maintenance",
             objective="Sustain execution through monitoring, feedback, and rapid recovery after setbacks.",
-            actions=[
+            actions=_component_actions(
+                "Action Control",
+                [
                 "Run micro self-monitoring loop with daily progress feedback.",
                 "Apply restart protocol after missed actions.",
-            ],
+                ],
+            ),
             digital_delivery="Daily progress dashboard + restart nudges.",
             measurement_signals=["adherence rate", "time-to-restart after lapse"],
+        ),
+        HAPAComponentStepModel(
+            component="Recovery: Lapse recovery and long-term maintenance",
+            objective="Maintain gains and restore action quickly after setbacks.",
+            actions=_component_actions(
+                "Recovery and Maintenance",
+                [
+                    "Define a restart script for high-risk moments.",
+                    "Review weekly maintenance indicators and adjust plans.",
+                ],
+            ),
+            digital_delivery="Weekly maintenance review and lapse-recovery checklist.",
+            measurement_signals=["lapse frequency", "days to recovery", "maintenance consistency"],
         ),
     ]
 
@@ -1041,8 +1345,9 @@ def run_llm_step05(
         PromptSection("targets", json.dumps(evidence_bundle.get("target_candidates", []), ensure_ascii=False, indent=2), priority=8),
         PromptSection("barriers", json.dumps(evidence_bundle.get("barrier_candidates", {}), ensure_ascii=False, indent=2), priority=9),
         PromptSection("coping", json.dumps(evidence_bundle.get("coping_candidates", {}), ensure_ascii=False, indent=2), priority=10),
-        PromptSection("predictor_parent_feasibility", json.dumps(evidence_bundle.get("predictor_parent_feasibility", []), ensure_ascii=False, indent=2), priority=11),
-        PromptSection("critic_feedback", json.dumps(evidence_bundle.get("critic_feedback", {}), ensure_ascii=False, indent=2), priority=12),
+        PromptSection("hapa_component_candidates", json.dumps(evidence_bundle.get("hapa_component_candidates", {}), ensure_ascii=False, indent=2), priority=11),
+        PromptSection("predictor_parent_feasibility", json.dumps(evidence_bundle.get("predictor_parent_feasibility", []), ensure_ascii=False, indent=2), priority=12),
+        PromptSection("critic_feedback", json.dumps(evidence_bundle.get("critic_feedback", {}), ensure_ascii=False, indent=2), priority=13),
     ]
     packed = pack_prompt_sections(
         sections,
@@ -1099,7 +1404,8 @@ def run_llm_step05_critic(
         PromptSection("target_candidates", json.dumps(evidence_bundle.get("target_candidates", []), ensure_ascii=False, indent=2), priority=6),
         PromptSection("barrier_candidates", json.dumps(evidence_bundle.get("barrier_candidates", {}), ensure_ascii=False, indent=2), priority=7),
         PromptSection("coping_candidates", json.dumps(evidence_bundle.get("coping_candidates", {}), ensure_ascii=False, indent=2), priority=8),
-        PromptSection("parent_feasibility", json.dumps(evidence_bundle.get("predictor_parent_feasibility", []), ensure_ascii=False, indent=2), priority=9),
+        PromptSection("hapa_component_candidates", json.dumps(evidence_bundle.get("hapa_component_candidates", {}), ensure_ascii=False, indent=2), priority=9),
+        PromptSection("parent_feasibility", json.dumps(evidence_bundle.get("predictor_parent_feasibility", []), ensure_ascii=False, indent=2), priority=10),
     ]
     packed = pack_prompt_sections(
         sections,
@@ -1150,12 +1456,12 @@ def run_llm_step05_critic(
 
 def parse_args() -> argparse.Namespace:
     repo_root = Path(__file__).resolve().parents[4]
-    default_handoff_root = repo_root / "evaluation/05_treatment_target_handoff"
-    default_output_root = repo_root / "evaluation/06_translation_digital_intervention"
-    default_readiness_root = repo_root / "evaluation/04_initial_observation_analysis/00_readiness_check"
-    default_network_root = repo_root / "evaluation/04_initial_observation_analysis/01_time_series_analysis/network"
-    default_impact_root = repo_root / "evaluation/04_initial_observation_analysis/02_momentary_impact_coefficients"
-    default_free_text_root = repo_root / "evaluation/01_pseudoprofile(s)/free_text"
+    default_handoff_root = repo_root / "evaluation/sequential/06_target_identification_and_model_update/outputs"
+    default_output_root = repo_root / "evaluation/sequential/07_hapa_digital_intervention/outputs"
+    default_readiness_root = repo_root / "evaluation/sequential/03_readiness_check/outputs"
+    default_network_root = repo_root / "evaluation/sequential/04_network_time_series_analysis/outputs"
+    default_impact_root = repo_root / "evaluation/sequential/05_momentary_impact_quantification/outputs"
+    default_free_text_root = repo_root / "evaluation/sequential/free_text"
     default_predictor_barrier = (
         repo_root
         / "src/utils/official/ontology_mappings/PREDICTOR/barrier_to_predictor/results/gpt-5-nano/predictor_to_barrier_edges_long.csv"
@@ -1332,6 +1638,16 @@ def main() -> int:
                 selected_barriers=selected_barriers,
                 coping_to_barrier_df=coping_to_barrier_df,
             )
+            hapa_component_candidates = build_hapa_component_candidates(
+                predictor_candidates=predictor_candidates,
+                selected_barriers=selected_barriers,
+                coping_candidates=coping_candidates,
+                barrier_detail_rows=(
+                    barrier_detail_df.head(300).fillna("").to_dict(orient="records")
+                    if not barrier_detail_df.empty
+                    else []
+                ),
+            )
 
             criteria_ids = step04_payload.get("retained_criteria_ids", []) or []
             evidence_payload = {
@@ -1364,6 +1680,7 @@ def main() -> int:
                     "top_ranked": coping_candidates[:80],
                     "detail_rows_top": coping_detail_df.head(350).fillna("").to_dict(orient="records") if not coping_detail_df.empty else [],
                 },
+                "hapa_component_candidates": hapa_component_candidates,
             }
 
             critic_max_iterations = max(0, int(args.critic_max_iterations))
@@ -1401,6 +1718,7 @@ def main() -> int:
                         predictor_candidates=predictor_candidates,
                         selected_barriers=selected_barriers,
                         coping_candidates=coping_candidates,
+                        hapa_component_candidates=hapa_component_candidates,
                     )
 
                 if bool(args.hard_ontology_constraint):
@@ -1506,6 +1824,10 @@ def main() -> int:
                 json.dumps(evidence_payload, indent=2, ensure_ascii=False),
                 encoding="utf-8",
             )
+            (out_profile_dir / "step05_hapa_component_candidates.json").write_text(
+                json.dumps(hapa_component_candidates, indent=2, ensure_ascii=False),
+                encoding="utf-8",
+            )
             (out_profile_dir / "step05_hapa_prompt_trace.json").write_text(
                 json.dumps(step05_trace, indent=2, ensure_ascii=False),
                 encoding="utf-8",
@@ -1538,6 +1860,12 @@ def main() -> int:
                     "n_barriers": int(len(step05_output.selected_barriers)),
                     "n_coping": int(len(step05_output.selected_coping_strategies)),
                     "n_hapa_components": int(len(step05_output.hapa_component_plan)),
+                    "n_hapa_component_subtrees": int(
+                        sum(
+                            len(list(row.get("subtree_nodes") or []))
+                            for row in (hapa_component_candidates.get("components") or [])
+                        )
+                    ),
                     "n_phases": int(len(step05_output.phased_delivery_plan)),
                     "n_visual_files": int(len(step05_trace.get("visual_files", []) or [])),
                     "top_target": (

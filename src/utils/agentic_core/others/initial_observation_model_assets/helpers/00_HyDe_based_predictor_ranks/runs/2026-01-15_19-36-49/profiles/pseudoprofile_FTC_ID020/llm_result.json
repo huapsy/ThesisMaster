@@ -1,0 +1,189 @@
+{
+  "pseudoprofile_id": "pseudo_case1_2026",
+  "summary": "The case reflects a person who feels consistently behind across money, chores, friendships, and health, with strong perceived skill gaps in organization and planning, coupled with negative self-evaluation. The proposed BIO/PSYCHO/SOCIAL levers target (1) cognitive-behavioral skill-building and external scaffolds to reduce backlog (time management, task offloading), (2) social and resource-oriented supports (finances, friendships) to alleviate felt lag and isolation, (3) health and sleep optimization to restore energy and routine, and (4) self-compassion and mindfulness to mitigate harsh self-judgments. Levers emphasize actionable, measurable behavior changes and environmental supports that are safe, scalable, and non-pharmacological, with explicit measurement plans and modest, staged expectations over 4–8 weeks.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Time-management and organizational skills deficit",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured time-blocking and external task offloading: implement a daily 15-minute planning ritual, calendar-blocking for priority tasks, and external offloading tools (checklists, reminders, and public commitments) to reduce backlog. Pair with a weekly 30-minute review to adjust priorities and detect emerging backlog early.",
+      "targets_criteria_ids": [
+        "C06",
+        "C03"
+      ],
+      "mechanism_rationale": "Improved planning and externalization reduce accumulation of tasks, lessen the cognitive load of “catching up,” and increase perceived control, which should lower anxiety around daily functioning and improve completion of chores and health tasks.",
+      "measurement": "% of planned tasks completed daily; backlog days (days with >0 unfinished tasks); weekly backlog trend.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING: S01 targets C06; S01 also supports C03 by reducing backlog through planning."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Financial-management backlog",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Financial management coaching paired with automation: set up automatic bill payments, a simple budget template with weekly review, and access to a budgeting coach or peer-support accountability partner.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Automating recurring financial tasks reduces administrative burden, frees cognitive resources for other domains, and improves health-taking behaviors by stabilizing finances, thereby alleviating stress linked to “being behind.”",
+      "measurement": "Bills paid on time (%); budget variance (% vs. plan); days with financial activity logged.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING: S02 targets C02; S02 also supports C05 through financial stability."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Household task completion backlog",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Household task scheduling with micro-rituals: create a 5-minute daily chore routine and a 15-minute weekly deep-clean block; use a simple checklist with visual progress to prevent accumulation.",
+      "targets_criteria_ids": [
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Structured, brief routines reduce task resistance and prevent backlog growth, while visual feedback reinforces self-efficacy in daily functioning.",
+      "measurement": "Backlog count (uncompleted chores) weekly; task completion rate.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.58,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING: S03 targets C03; S03 also complements C06 by improving planning of tasks."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Social-maintenance deficit",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured social engagement plan: schedule 1–2 short, regular check-ins with close friends weekly and identify an accessible social activity (e.g., walking group, coffee) to rebuild social maintenance.",
+      "targets_criteria_ids": [
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Consistent social contact buffers loneliness, supports cue-based behavioral activation, and can reduce negative self-evaluation by restoring normal social rhythm.",
+      "measurement": "Number of social interactions/contacts per week; self-reported connectedness scale.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING: S04 targets C04; S04 may indirectly influence C07 via enhanced social validation."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Health self-management gap",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Health action plan with reminders: create a simple daily health checklist (appointments, meds, activity), set automatic reminders, and align health tasks with other daily routines to improve adherence.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Routine health behaviors supported by reminders reduce drift in health maintenance and improve overall daily functioning, which may lessen perceived life disorganization.",
+      "measurement": "Days with health activities completed; appointment adherence rate; self-rated health routine consistency.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING: S05 targets C05; S05 also supports C06 by embedding health tasks in daily routines."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Negative self-evaluation / shame about life progress",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive-behavioral self-worth reframing and values-guided journaling: daily compassionate self-talk, countering perfectionism with value-based progress notes, and brief behavioral experiments to test self-efficacy in small tasks.",
+      "targets_criteria_ids": [
+        "C07",
+        "C01"
+      ],
+      "mechanism_rationale": "Directly targets maladaptive self-evaluation by promoting self-compassion, recalibrating expectations, and providing experiential data of progress, reducing defeatist thoughts.",
+      "measurement": "Self-esteem scale (brief), frequency of self-critical thoughts; perceived progress toward goals.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.82,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "If self-harm risk emerges, escalate to professional help; otherwise none.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING: S06 targets C07; S06 also influences C01 via improved perceived knowledge through compassionate framing."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Sleep circadian regularity and restoration",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep optimization plan: fixed wake time, consistent bed routine, morning light exposure, and a wind-down ritual to stabilize sleep; align with daily routines to boost energy and cognitive function.",
+      "targets_criteria_ids": [
+        "C06",
+        "C08"
+      ],
+      "mechanism_rationale": "Improved sleep quality and regularity enhance executive function, mood, and energy, reducing the sense of being perpetually behind and supporting daily functioning.",
+      "measurement": "Bedtime/wake-time consistency (variability in wake time); sleep duration; daytime energy scale.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING: S07 targets C06 via cognitive-restorative effects and C08 via functional capacity."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Self-monitoring and data feedback",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Personalization and data-feedback loop: use self-assessment logs and wearables to monitor daily mood, energy, and task completion; provide weekly feedback to adjust plans.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06",
+        "C08"
+      ],
+      "mechanism_rationale": "Regular self-monitoring increases awareness of patterns, fosters proactive planning, and links mood/cognition with daily functioning, reducing unhelpful avoidance and backlog.",
+      "measurement": "Days logged; correlation between mood, energy, and task completion; objective task completion rate.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.62,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING: S08 targets C01 and C06 and C08 via self-monitoring feedback."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Digital and tech-enabled support for care/navigation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Digital support tools: use calendar reminders, task-sharing apps, and a social-identity/community platform to coordinate support, reminders, and accountability; leverage virtual coaching as needed.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Tech-enabled support reduces cognitive load, facilitates timely social engagement, and reinforces goal-directed behavior, mitigating backlogs across multiple domains.",
+      "measurement": "Engagement metrics with digital tools; number of reminders completed; self-reported connectedness.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING: S09 targets C04, C06, and C07 through digital support and accountability."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Mindfulness-based coping and emotion regulation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Third-wave intervention: 8-week mindfulness-based coping skills (breath, body scan, acceptance) to reduce reactivity to stress and improve executive functioning, with a focus on self-compassion and present-moment action.",
+      "targets_criteria_ids": [
+        "C07",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Improved emotion regulation and nonjudgmental awareness reduce catastrophic thinking about life progression, enabling more consistent engagement in daily tasks and social obligations.",
+      "measurement": "Mindfulness questionnaire scores; stress reactivity scale; adherence to daily mindfulness practice.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING: S10 targets C07 and has downstream effects on C04 and C06 via improved regulation."
+    }
+  ]
+}

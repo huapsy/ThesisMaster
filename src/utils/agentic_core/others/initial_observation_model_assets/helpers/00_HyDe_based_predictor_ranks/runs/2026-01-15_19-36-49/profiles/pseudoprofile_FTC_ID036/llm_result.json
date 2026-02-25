@@ -1,0 +1,174 @@
+{
+  "pseudoprofile_id": "case_2026_casepayload_01",
+  "summary": "The case reveals recurrent attentional disengagement during conversations (C01) with automatic social responding (C02), missed key content (C03), followed by negative self-evaluation (C04) and embarrassment (C05), and limited ability to reorient attention (C06). The proposed set of modifiable BIO/PSYCHO/SOCIAL levers targets: (1) direct attention training and cognitive offloading to strengthen real-time processing; (2) mindfulness-based and contextual strategies to improve present-moment awareness and reduce self-criticism; (3) explicit communication repair and social skills to clarify and retain information; (4) sleep/nutrition/hydration and environmental supports to optimize cognitive energy; and (5) social support and belonging to buffer embarrassment and sustain engagement. Each lever maps to specific criteria, includes simple measurable metrics, and prioritizes safety and feasibility for practical deployment in real-life conversations.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Attention_Systems_Training (ID92)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Weekly brief computerized attention training combined with pre-conversation mindfulness micro-practices to increase sustained attention and reduce mind-wandering.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Strengthens neural control of attention and working memory, reducing episodes of disengagement (C01) and improving in-the-moment comprehension (C03); by aligning processing with the speaker, decreases automatic social signaling that occurs without understanding (C02).",
+      "measurement": "Mind-wandering frequency (0-5 scale after conversations); % key content recalled correctly; observed alignment of nods with content (self/partner report).",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; ensure training load is manageable and does not interfere with daily functioning.",
+      "mapping_query": "Map S01 to C01-C03; assess pre/post changes in mind-wandering, recall, and perceived attention during conversations."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Mindfulness_Based_Attention_Regulation (ID170)",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "8-week mindfulness-based attention regulation training to notice lapses, reorient to the speaker, and reduce automatic social responding.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Cultivates nonjudgmental awareness of attentional lapses and self-talk, enabling quicker reorientation (C06) and reducing negative self-evaluation after lapses (C04).",
+      "measurement": "State mindfulness ratings after conversations; time to reorient following a lapse; post-episode self-criticism rating.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; ensure practice spaces are private and non-stressful.",
+      "mapping_query": "Map S02 to C01 and C04; track present-moment awareness and post-lapse self-criticism over 6-8 weeks."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Interpersonal_Communication_Repair_Skills (ID109)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Training in asking for repetition, paraphrasing, and summarizing; explicit repair strategies to reduce embarrassment and improve recall.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": " equips the person with proactive repair scripts, reducing automatic social responding (C02), improving on-the-spot comprehension (C03), lowering negative self-evaluation (C04) and embarrassment (C05.",
+      "measurement": "Frequency of repair requests; accuracy of recalled content; embarrassment rating after conversations.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Provide scripts that avoid blaming self or others; ensure comfort and consent when practicing with others.",
+      "mapping_query": "Map S03 to C02-C05; measure conversational repair effectiveness and affective responses over 8-12 weeks."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Cognitive_Offloading_and_External_Aids (ID94)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Structured note-taking templates, quick-check questions, and brief audio-to-text supports to anchor memory and confirm comprehension during conversations.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "External supports reduce cognitive load during conversations, decreasing lapses (C01) and improving recall (C03) while maintaining engagement (C02).",
+      "measurement": "Utilization rate of templates; recall accuracy; self-rated comprehension during conversations.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Respect privacy; obtain consent before recording or transcribing conversations; store data securely.",
+      "mapping_query": "Map S04 to C01-C03; monitor use of external aids and effects on recall and engagement."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep_Circadian_and_Restoration_Optimization (ID60/11)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene and circadian regularity with daytime light exposure and strategic caffeine timing to optimize daytime alertness.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Improved sleep quality and daytime alertness support sustained attention (C01) and processing of conversational content (C03).",
+      "measurement": "Sleep diary (bedtime/wake time); daytime alertness ratings; post-conversation recall accuracy.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "No pharmacological interventions; monitor caffeine effects and sleep timing for individuals with sensitivity.",
+      "mapping_query": "Map S05 to C01 and C03; assess impact of sleep quality on attention and recall across 8-12 weeks."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Nutrition_Hydration_and_Metabolic_Health_Strategies (ID40/42)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Balanced meals with regular hydration and micronutrient-rich patterns to support cognitive energy and mood.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Adequate energy availability and nutrient status support attention and information processing during conversations.",
+      "measurement": "Daily meal/hydration logs; self-rated energy; post-conversation recall accuracy.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Account for dietary restrictions; avoid unverified supplements without professional guidance.",
+      "mapping_query": "Map S06 to C01 and C03; evaluate how nutrition/hydration changes affect attention and content recall."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social_Support_Belonging_Platforms (ID198/199/200)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured social support and belonging activities (brief check-ins with trusted listener) to buffer embarrassment and sustain engagement.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Enhanced social belonging reduces self-criticism after lapses and decreases embarrassment in social settings by providing supportive feedback.",
+      "measurement": "Perceived social support scale; embarrassment rating after conversations; self-efficacy in conversation.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.58,
+      "priority": "MED",
+      "safety_notes": "Ensure boundaries and privacy in social interactions; avoid over-reliance on a single person.",
+      "mapping_query": "Map S07 to C04-C05; assess changes in self-evaluation and embarrassment with increased social support."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Attention_Bias_Modification_Training (ID83)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "CBM-style attention bias modification to bias attention toward target stimuli, reducing mind-wandering in social contexts.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Alters automatic attentional patterns to favor processing of social cues and reduces drift away from conversations.",
+      "measurement": "Reaction-time indices on Attention tasks; self-reported focus during conversations; recall accuracy.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "None anticipated; monitor for frustration with training tasks.",
+      "mapping_query": "Map S08 to C01-C03; monitor changes in attentional bias, focus, and recall."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Working_Memory_Updating_Training (ID103)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Cognitive training to bolster working memory updating and processing speed to support real-time comprehension during conversations.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Improved updating and control of representations supports sustained attention and rapid reorientation after lapses (C06) and better recall (C03).",
+      "measurement": "Working memory task performance; post-conversation recall accuracy; time to first correct reply after a lapse.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure tasks are progressively loaded; avoid fatigue.",
+      "mapping_query": "Map S09 to C01, C03, and C06; track WM improvements and conversational accuracy over 6-8 weeks."
+    }
+  ]
+}

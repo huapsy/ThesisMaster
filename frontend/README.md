@@ -14,12 +14,21 @@ Interactive debugging UI for the PHOENIX engine, built to inspect and run the th
   - pseudodata synthesis with configurable points/missingness/seed,
   - manual CSV upload fallback.
 - Iterative PHOENIX cycle trigger:
-  - readiness/network/impact,
-  - Step-03 treatment-target handoff,
-  - Step-04 updated model,
-  - Step-05 HAPA intervention,
-  - run summaries and stage logs.
+  - cycle starts from current session pseudodata + model artifacts (Step 01/02 handled in Model Creation),
+  - core engine flow: readiness -> network -> impact -> Step-03/04 -> Step-05 -> treatment communication,
+  - quality-and-research flow: impact visualization + research reporting,
+  - run summaries with explicit `engine_stage_flow` and `quality_and_research_flow`.
+  - communication component appears only after final cycle communication is generated (not pre-shown at intake).
+  - startup LLM health-check/fallback state is surfaced in runtime component status text.
+- Comprehension dashboard:
+  - interactive time-series chart sourced from session CSV (no manual PNG upload required),
+  - impact/barrier/coping charts plus step-level summaries.
+- Full cohort execution:
+  - one-click 10-patient (or custom N) end-to-end runs,
+  - bounded patient-level parallelism,
+  - persisted cohort manifests with per-patient artifact pointers.
 - Realtime streaming logs via SSE for every background job.
+  - stream endpoint emits keepalive heartbeats and supports cursor resume (`after=<log_index>`) for reconnect-safe long runs.
 
 ## Directory Layout
 
@@ -32,6 +41,7 @@ frontend/
 │   │   ├── ui.py
 │   │   └── api.py
 │   ├── services/
+│   │   ├── cohort.py
 │   │   ├── job_manager.py
 │   │   ├── phoenix_service.py
 │   │   ├── pseudodata.py
@@ -39,7 +49,8 @@ frontend/
 │   ├── static/
 │   └── templates/
 └── workspace/
-    └── sessions/   (runtime artifacts, per session)
+    ├── cohort_runs/ (cohort manifests and batch-level metadata)
+    └── sessions/    (runtime artifacts, per session)
 ```
 
 ## Run
@@ -48,10 +59,10 @@ frontend/
 python frontend/app.py
 ```
 
-Or launch through the orchestrator:
+Or launch through the integrated pipeline launcher:
 
 ```bash
-python evaluation/00_pipeline_orchestration/run_pipeline.py --ui
+python evaluation/integrated_pipeline/run_pipeline.py --ui
 ```
 
 Open:
@@ -60,8 +71,12 @@ Open:
 
 ## Environment Notes
 
-- `OPENAI_API_KEY` must be available for LLM-enabled runs.
+- `OPENROUTER_API_KEY` is the primary key for LLM-enabled runs.
+- Frontend app startup auto-loads repo `.env` when present.
+- Frontend subprocesses mirror `OPENROUTER_API_KEY` into `OPENAI_API_KEY` and enforce `OPENAI_BASE_URL=https://openrouter.ai/api/v1` for legacy scripts.
+- `OPENAI_API_KEY` remains an optional fallback.
 - LLM execution is enabled by default in the UI; each run form includes a `Disable LLM` toggle.
+- LLM model fields support live catalog lookup from OpenRouter (`/api/llm/models`) with type-ahead suggestions.
 - Optional overrides:
   - `PHOENIX_REPO_ROOT`
   - `PHOENIX_FRONTEND_WORKSPACE`
@@ -70,6 +85,6 @@ Open:
 
 ## Runtime Data Safety
 
-- Frontend writes only under `frontend/workspace/sessions/<session_id>/`.
+- Frontend writes only under `frontend/workspace/` (`sessions/` + `cohort_runs/`).
 - No ontology structure/content is modified.
 - Session files are isolated and can be inspected independently for reproducibility.

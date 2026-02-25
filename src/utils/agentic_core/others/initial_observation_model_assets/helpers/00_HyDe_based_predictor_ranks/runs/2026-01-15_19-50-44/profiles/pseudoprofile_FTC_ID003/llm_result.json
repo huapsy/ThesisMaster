@@ -1,0 +1,149 @@
+{
+  "pseudoprofile_id": "CASE01_PANIC_PUBLIC_EPISODES",
+  "summary": "The case presents sudden, high-intensity panic waves with chest tightness, fear of fainting in public, and social-evaluative concerns driving safety behaviors (pulse checking, escape planning) and hypervigilant attention to internal cues. Modifiable levers span biological arousal regulation, cognitive reinterpretation, and social-context strategies, with important cross-domain interactions (e.g., breathing training reducing autonomic arousal which in turn lowers catastrophic appraisals). The proposed predictors are controllable, scalable, and target the identified criteria (C01-C08) through evidence-informed mechanisms while emphasizing safety and gradual implementation.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Paced_breathing_training_usage",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Structured paced breathing and resonant breathing training with daily practice (e.g., box breathing patterns) to reduce autonomic arousal during panic episodes.",
+      "targets_criteria_ids": [
+        "C01",
+        "C07"
+      ],
+      "mechanism_rationale": "Normalizes respiration, reduces risk of hyperventilation, and dampens sympathetic activation; increases perceived control over episodes, potentially reducing unpredictability.",
+      "measurement": "Practice minutes per week; self-rated episode intensity (0-10); episode frequency; optional heart-rate variability (HRV) if available.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Avoid rapid, shallow breathing that could provoke dizziness; breathe slowly and evenly; stop if dizziness or lightheadedness occurs.",
+      "mapping_query": "Targets C01 (sudden anxiety) and C07 (unpredictability) by lowering physiological arousal and increasing controllability during episodes."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Interoceptive_Exposure_to_chest_sensations",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Gradual, therapist-guided interoceptive exposure to chest tightness and dizziness cues paired with cognitive counter-statements; build tolerance to somatic sensations.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C08",
+        "C07"
+      ],
+      "mechanism_rationale": "Reduces fear conditioning to bodily cues, decreases catastrophic interpretations, and broadens tolerance for internal sensations, thereby reducing reliance on safety behaviors.",
+      "measurement": "Number of exposure steps completed; fear ratings during exposures; frequency of chest-tightness episodes; self-reported attention to internal cues.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Conduct under guidance; monitor distress; pause if distress escalates or if symptoms worsen.",
+      "mapping_query": "Targets C02 (chest tightness), C03 (fainting belief), C08 (attention to sensations), and C07 (unpredictability) through controlled somatic exposure."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Cognitive_restructuring_of_fainting_belief",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "CBT-based cognitive restructuring to challenge the conviction of imminent public fainting; use evidence gathering and probabilistic reasoning to reframe risk.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces catastrophic misinterpretation and anticipatory social-evaluation concerns, promoting approach behaviors rather than avoidance.",
+      "measurement": "C03 severity ratings; embarrassment worry scale; frequency of safety behaviors in social settings.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None beyond standard CBT safety considerations.",
+      "mapping_query": "Targets C03 (fainting belief) and C04 (social embarrassment) via cognitive reframing and safety-behavior reduction."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Public_exposure_with_social_support",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured in-vivo exposure to common social settings (shops, cafe, public transit) with a trusted companion; plan, execute, and debrief after each session.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Direct exposure in real-world contexts reduces social-evaluative threat and helps recalibrate the association between bodily symptoms and functional impairment.",
+      "measurement": "Number of social exposures completed; episode occurrence in public; self-reported embarrassment and distress levels.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Start with low-stress environments; ensure a safety plan and optional debriefing partner.",
+      "mapping_query": "Targets C04 (embarrassment) and C01 (sudden anxiety) through progressive public exposures with support."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Safety_checking_reduction_training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Response-prevention for pulse-checking behaviors coupled with grounding and alternative coping (e.g., box breathing, stimulus-focused grounding) during episodes.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Disrupts reinforcement of safety-checking; increases tolerance of bodily sensations without immediate verification, reducing reinforcement of panic responses.",
+      "measurement": "Frequency of pulse checks per episode; urge intensity; use of grounding techniques during episodes.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Provide safe grounding scripts; monitor for dizziness or syncope; escalate if symptoms worsen.",
+      "mapping_query": "Targets C05 by reducing safety-checking behaviors during episodes."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Escape_plan_delay_and_re-appraisal",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Delay/deferral of escape planning during episodes; implement urge-surfing and cognitive reappraisal to tolerate distress in current location.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Increases distress tolerance, reduces avoidance, and weakens the reinforcement of leaving the scene at first sign of symptoms.",
+      "measurement": "Time-to-escape decision; episode-related distress ratings; number of times escape was avoided.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.58,
+      "priority": "MED",
+      "safety_notes": "If episodes escalate, have a clear safety plan and access to support.",
+      "mapping_query": "Targets C06 by reducing impulsive escape planning and increasing distress tolerance."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Uncertainty_tolerance_training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "ACT-based acceptance strategies to increase tolerance of uncertainty and distress; defusion from anxious thoughts; values-aligned actions.",
+      "targets_criteria_ids": [
+        "C07"
+      ],
+      "mechanism_rationale": "Reduces perceived unpredictability and experiential avoidance, enabling continued engagement in social contexts during episodes.",
+      "measurement": "C07 ratings; avoidance scales; frequency of avoidance behaviors in daily life.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None beyond standard ACT considerations.",
+      "mapping_query": "Targets C07 by enhancing uncertainty tolerance and reducing avoidance."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Mindfulness_practice_for_attention_regulation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Mindfulness-based attention control training; practice noticing sensations without judgment to reduce reactivity to internal cues.",
+      "targets_criteria_ids": [
+        "C08",
+        "C01"
+      ],
+      "mechanism_rationale": "Reduces automatic focus on bodily sensations and lowers reactivity, thereby diminishing rapid amplification of panic; supports external orientation during episodes.",
+      "measurement": "Mindfulness practice minutes; C08 salience ratings; episode intensity/frequency.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.58,
+      "priority": "MED",
+      "safety_notes": "No specific safety concerns.",
+      "mapping_query": "Targets C08 (attention to sensations) and C01 (sudden anxiety) through mindfulness-based attention regulation."
+    }
+  ]
+}

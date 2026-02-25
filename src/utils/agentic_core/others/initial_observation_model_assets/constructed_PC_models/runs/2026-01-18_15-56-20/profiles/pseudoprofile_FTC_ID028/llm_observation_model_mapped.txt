@@ -1,0 +1,18 @@
+pseudoprofile_id: pseudoprofile_FTC_ID028
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Sustained attention / concentration impairment -> NON-CLINICAL / AGE-GENERAL / intellectual / mentalagility / concentration / focusedattention / sustainedattention (conf=0.85)
+- C02: Visual/screen-provoked nausea (sensory intolerance) -> CLINICAL / DSM-5TR / movement disorders and other side effects of medication / other (secondary) side effects of medication / organ-system effects / gastrointestinal / nausea or vomiting / nausea_intensity_grade (conf=0.82)
+- C03: Heightened irritability / emotional reactivity -> CLINICAL / DSM-5TR / bipolar and related disorders / other specified bipolar and related disorder / hypomanic episode without prior major depressive episode / irritability (conf=0.70)
+- C04: Belief that symptoms are permanent / catastrophic fear -> CLINICAL / DSM-5TR / somatic symptom and related disorders / somatic symptom disorder / catastrophizing_thoughts_about_symptoms (conf=0.88)
+- C05: Strong causal attribution to prior concussion -> CLINICAL / DSM-5TR / trauma- and stressor-related disorders / posttraumatic stress spectrum / posttraumatic stress disorder / by precipitating trauma / accident-related (e.g., motor vehicle) / persistent_negative_beliefs_about_self_related_to_accident (conf=0.62)
+- C06: Functional impact on daily tasks (work/study/leisure) -> CLINICAL / DSM-5TR / neurocognitive disorders / major neurocognitive disorder / unspecified major neurocognitive disorder / iadl_impairment (conf=0.85)
+
+PREDICTORS:
+- P01: Attention_Systems_Training_and_Cognitive_Offloading -> PSYCHO / cognitive_and_metacognitive_interventions / cognitive_remediation_and_rehabilitation / sustained_attention_practice (conf=0.82)
+- P02: Screen_Time_Graded_Exposure_and_BlueLight_Filtering -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / late_evening_screen_reduction (conf=0.62)
+- P03: Emotion_Regulation_Skills_Training -> PSYCHO / third_wave_and_contextual_therapies / dbt_skills_based_therapy / emotion_regulation_skills / emotion_literacy_and_awareness / identify_and_name / emotion_granularity_building_practice (conf=0.78)
+- P04: Psychoeducation_on_Recovery_Trajectory_and_Permanence_Beliefs -> PSYCHO / foundations_and_common_factors / psychoeducation_modules / stress_and_arousal / self_regulation_cycles / psychoeducation_recovery_and_depletion (conf=0.72)
+- P05: Adaptive_Attribution_Style_Retraining -> PSYCHO / cognitive_and_metacognitive_interventions / metacognitive_and_attention_based_interventions / attributional_reframe_practice (conf=0.95)
+- P06: Daily_Accommodations_and_Task_Structuring -> PSYCHO / cognitive_capacity_enhancement_and_stimulation / program_setup_and_transfer / metacognitive_scaffolding / monitor_and_adjust / transfer_bridge_explicit_link_to_daily_tasks (conf=0.75)

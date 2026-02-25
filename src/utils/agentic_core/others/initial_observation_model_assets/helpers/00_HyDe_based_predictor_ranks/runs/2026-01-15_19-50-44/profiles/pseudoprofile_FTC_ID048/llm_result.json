@@ -1,0 +1,114 @@
+{
+  "pseudoprofile_id": "CASE_GRIEF_001",
+  "summary": "The case centers on persistent low-intensity grief with compulsive social-media checking that triggers somatic distress and self-criticism, sustaining a negative affect loop (C01, C02, C03, C04, C05, C06). Modifiable levers span cognitive-behavioral strategies, mindful- and meaning-focused processing, somatic regulation, and social-environment enhancements. Each lever targets specific predictors (e.g., checking frequency, self-judgment, rumination, somatic distress, and social comparison) while leveraging cross-domain effects (psycho-social actions reducing affective pain and cue-driven behaviors, bio-somatic regulation reducing distress reactivity, and social supports buffering loneliness). The plan emphasizes feasible, measurable, and time-limited interventions that can be tracked with simple metrics, without pharmacology or unsafe practices. Safety considerations are included; none indicate imminent self-harm risk in this scenario, but ongoing monitoring is advised.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Digital_Boundary_Strategies_for_Social_Media_Checking",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Implement scheduled, limited social-media checks (e.g., 2x/day for 10 minutes), enable blockers/notifications silencing, and substitute distress-reducing activities during peak-check windows.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Reduces automatic checking cues, decreases post-check distress and self-criticism, and lowers rumination triggered by ex-related content by disrupting the reinforcement cycle.",
+      "measurement": "Daily count of ex-social checks; distress rating immediately after checking (0-10); pre/post check urge intensity",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; ensure autonomy and user consent for boundary changes.",
+      "mapping_query": "Targets C02 (checking), C05 (inhibiting checking), and C06 (social comparison/rumination) by altering exposure cues and access patterns."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Self_Compassion_Practice_after_Social_Media_Checking",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Brief, protocolized self-compassion exercise (e.g., 5-minute compassionate response, self-talk script) immediately after checking; record a self-judgment reduction score.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Directly attenuates self-criticism and shame following exposure, reducing reinforcement of anxious/negative appraisals and risky checking behavior.",
+      "measurement": "Self-criticism/shame rating after each check (0-10); subsequent urge to check (0-10); frequency of checks",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Addresses C03 (negative self-evaluation) and C05 (inhibiting checking) via compassionate cognitive processes."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness_Based_Rumination_Reduction_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Daily 10-minute mindfulness practice focusing on grief without avoidance, plus urge-surfing during check episodes to decenter from distressing thoughts.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Promotes decentering from grief and obsessive rumination, reducing the emotional pull of checking and upward social comparisons.",
+      "measurement": "Average daily minutes of mindfulness; rumination duration per day; time spent checking",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Targets persistent grief (C01) and rumination/ social comparison (C06) via mindfulness-based decentering."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Grief_Processing_and_Values_Based_Activity",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Weekly activities aligned with personal values; journaling on meaning and future orientation; 6- to 8-week plan emphasizing engagement over rumination.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Addresses ongoing grief by fostering meaning-making and active engagement, reducing passive ruminative focus on the breakup.",
+      "measurement": "Weekly engagement score for values-based activities; grief intensity rating (0-10)",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Directly targets C01 by shifting focus toward values-based action and meaning."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Somatic_Regulation_Techniques",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "During/check episodes, use paced breathing, grounding (5-4-3-2-1), and progressive muscle relaxation to mitigate nausea and sick feelings.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces acute somatic distress triggered by exposure to ex-content, improving tolerance to social cues and reducing avoidance/compensation cycles.",
+      "measurement": "Frequency of somatic symptoms during/after checks; nausea rating (0-10)",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Addresses C04 by providing physiological regulation during exposure to distress cues."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Structured_Social_Support_Engagement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Schedule regular, brief check-ins with a trusted friend/family member; plan low-pressure social activities; use supportive messages as a coping alternative to checking.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Enhances emotional buffering, reduces loneliness, and decreases reliance on ex-content cues, thereby lowering checking impulses and distress.",
+      "measurement": "Number of supportive interactions per week; distress level during social time; days with no checking",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Leveraging social resources to dampen grief impact and reduce checking behaviors."
+    }
+  ]
+}

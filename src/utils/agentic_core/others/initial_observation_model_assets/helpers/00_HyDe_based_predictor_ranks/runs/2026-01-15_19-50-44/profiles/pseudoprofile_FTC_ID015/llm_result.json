@@ -1,0 +1,203 @@
+{
+  "pseudoprofile_id": "CASE-POSTPARTUM-001",
+  "summary": "This case reflects a prominent postpartum identity shift with emotional lability, guilt, overwhelm, and reduced sense of autonomy. Interventions should be multi-domain (bio/psycho/social) and target modifiable levers that (a) restore physiological/brain-function stability (sleep, nutrition), (b) enhance emotion regulation and adaptive thinking, (c) support identity consolidation and meaning-making as a new maternal role, and (d) strengthen social support and practical caregiving resources to reduce entrapment. The plan prioritizes safety monitoring, measurement-based feedback, and leveraging existing psychosocial frameworks to improve mood, parenting confidence, and enacted self-efficacy without pharmacology or unsafe practices.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Structured Sleep Hygiene and Circadian Regulation (Sleep_Routines_and_Circadian_Entraining)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a structured sleep plan for mother-infant schedule: maintain consistent bed and wake times, optimize daytime nap opportunities, increase morning light exposure, minimize late caffeine and screen exposure, and optimize infant sleep environment with partner support for overnight feeds. Use a simple daily sleep log to track duration and regularity.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06",
+        "C02"
+      ],
+      "mechanism_rationale": "Better sleep stabilizes emotion regulation networks, reduces irritability/tearfulness, and enhances positive affect and bonding opportunities with the baby.",
+      "measurement": "Daily sleep logs (hours/night, regularity), PSQI or sleep quality item, daily mood ratings, caregiver-reported infant sleep cues.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No pharmacological interventions; ensure infant safety and feeding schedule; monitor for sleep deprivation-related risk; escalate if mood worsens.",
+      "mapping_query": "Sleep optimization lever mapped to mood, tearfulness, and infant bonding criteria."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Emotion Regulation Skills Training (DBT/CBT-based)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach and practice core emotion regulation skills (emotion labeling, diaphragmatic breathing, urge surfing, cognitive reappraisal, distress tolerance) integrated into daily routines with brief practice tasks and reflection prompts.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C05",
+        "C07"
+      ],
+      "mechanism_rationale": "Strengthened regulation reduces emotional reactivity, minimizes guilt-driven avoidance, and supports steadier parenting interactions.",
+      "measurement": "DERS or ERQ scores; frequency of emotional escalation episodes; daily mood and crying episodes.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "No medication advice; monitor for overwhelming distress; escalate if suicidality emerges.",
+      "mapping_query": "Emotion regulation skills to reduce guilt, overwhelm, and tearfulness."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Compassion-Focused Self-Relating Practices",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce short daily self-compassion exercises (kind-self dialogue, compassionate imagery, self-affirming journaling) to reduce harsh self-criticism and self-blame after emotional episodes.",
+      "targets_criteria_ids": [
+        "C04",
+        "C07",
+        "C05"
+      ],
+      "mechanism_rationale": "Fosters a kinder self-relationship, dampens self-criticism, decreases shame-related avoidance, and improves tolerance of distress.",
+      "measurement": "Self-Compassion Scale (short form); daily distress ratings; frequency of self-criticism statements.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Ensure practices are gentle and non-forceful; monitor for avoidance of emotional processing.",
+      "mapping_query": "Self-compassion interventions to mitigate guilt and self-criticism postpartum."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Identity Consolidation and Meaning Update (PSYCHOxSOCIAL)",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Guided values exploration and narrative re-authoring of motherhood identity; clarify meaning and goals in the new parental role; align daily activities with evolving sense of self.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Supports adaptive re-define of self in the maternal role, preserves positive infant bonding, and enhances perceived autonomy via purpose-driven actions.",
+      "measurement": "Identity clarity scale; Meaning in Life Questionnaire; mother-role satisfaction ratings.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Be sensitive to cultural expectations; avoid pathologizing normal postpartum variation.",
+      "mapping_query": "Identity and meaning work to reduce postpartum distress and reinforce bonding."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Caregiving Support and Respite Planning",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Coordinate partner/family support and community respite options; schedule protected time for self-care; connect with caregiving services to reduce continuous caregiving load.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05",
+        "C08"
+      ],
+      "mechanism_rationale": "Reduces perceived entrapment, restores energy for parenting, and increases validation from supportive others.",
+      "measurement": "Hours of uninterrupted caregiver time per week; number of supportive interventions; mood or energy ratings.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Ensure infant care continuity; coordinate with partner to avoid gaps in care.",
+      "mapping_query": "Respite and caregiving support to alleviate entrapment and overwhelm."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Belonging and Social Support Network Development",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Facilitate connection with a new-moms group, peer-support circles, and a digital support network; encourage regular check-ins and shared experiences.",
+      "targets_criteria_ids": [
+        "C08",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Social validation and belonging buffer stress, enhance parenting confidence, and improve mood via shared experiences.",
+      "measurement": "MSPSS or similar social support scale; number of interactions per week; mood on contact days.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Watch for online group dynamics; maintain healthy boundaries; protect privacy.",
+      "mapping_query": "Social belonging and support network to bolster validation and mood."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Interpersonal Effectiveness and Boundary Setting Training",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Skills training in assertive communication, help-seeking, boundary setting, and chore-sharing; practice scripts and role-plays with partner and family.",
+      "targets_criteria_ids": [
+        "C03",
+        "C08",
+        "C05"
+      ],
+      "mechanism_rationale": "Increases practical support, reduces caregiving entrapment, and improves perceived validation and autonomy.",
+      "measurement": "Frequency of help requests; satisfaction with support; daily functioning mood.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Assess for relationship safety; provide de-escalation strategies if conflicts arise.",
+      "mapping_query": "Boundary setting and help-seeking to reduce entrapment and improve support."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Behavioral Activation and Problem-Solving Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Daily activity scheduling with small, rewarding infant-care tasks; structured problem solving for practical baby-care constraints; track progress and mood.",
+      "targets_criteria_ids": [
+        "C05",
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Increases engagement, reduces avoidance, and improves mood and sense of agency in parenting.",
+      "measurement": "BA diary entries; goal attainment; mood ratings; number of completed tasks.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Tasks should be realistic and scaled to energy; avoid overloading the caregiver.",
+      "mapping_query": "Activation and problem-solving to reduce overwhelm and enhance mood."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Nutritional Status Optimization (Iron/Vitamin D/Omega-3)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Coordinate with clinician for a nutritional assessment and implement dietary improvements and targeted supplementation as indicated (iron, vitamin D, omega-3), via food first approach and clinician-guided supplementation.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Improved energy, cognitive function, and mood support; supports sustained caregiving and mood regulation.",
+      "measurement": "Labs (ferritin, vitamin D), dietary logs, mood ratings.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "LOW",
+      "safety_notes": "Consult clinician for dosing; monitor for supplementation safety and interactions; avoid self-dosing.",
+      "mapping_query": "Nutritional optimization to support mood, energy, and cognitive function postpartum."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Measurement-Based Care and Feedback Loops",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement routine, validated postpartum mood tracking (e.g., PHQ-9, GAD-7, postpartum-specific scales) with weekly feedback sessions to adjust plan and target selections.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08"
+      ],
+      "mechanism_rationale": "Systematic monitoring detects early deterioration, validates progress, and enables timely, data-driven plan adjustments.",
+      "measurement": "Scores from PHQ-9, GAD-7, PSS; session notes; plan adjustments.",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "If suicidality or worsening risk is detected, escalate immediately to urgent care.",
+      "mapping_query": "Outcome monitoring framework to inform adaptive intervention planning."
+    }
+  ]
+}

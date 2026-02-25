@@ -1,0 +1,117 @@
+{
+  "pseudoprofile_id": "CASE_FINANCE_ANX_CASE01",
+  "summary": "The case shows persistent intrusive financial worry with catastrophic expectations and chronic low-level arousal, despite objective adequacy. Modifiable levers across cognitive-behavioral (worry management), financial contingency planning, sleep and arousal regulation, physical activity, mindfulness/acceptance, and social-resource engagement are proposed to reduce worry frequency, lessen catastrophic thinking, and bolster perceived financial resilience. Interventions are designed to be practical, scalable, and safe, with clear standards for measurement and timelines aligned to the six operationalized criteria (C01–C06).",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Worry_Scheduling_and_Cognitive_Distortion_Modification",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach client to allocate a fixed daily worry window (e.g., 20–30 minutes) and use cognitive restructuring to challenge financial catastrophic predictions; employ worry diaries and behavioral experiments to test predictions in real life.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Constraining worry to a scheduled period reduces spontaneous intrusive thoughts and provides a platform to test and disconfirm catastrophic beliefs, thereby lowering both frequency (C01) and intensity of catastrophizing (C02).",
+      "measurement": "Worry_window_adherence_percent; daily_worry_frequency; average_worry_distress_0_10; weekly_count_of_cognitive_distortion_events",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "Relates to C01 and C02; use worry diaries and cognitive restructuring exercises to quantify changes."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Budgeting_and_Emergency_Fund_Planning_Sessions",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Provide structured budgeting, expense tracking, and an action plan to build a small emergency fund; connect with local resources or benefits; schedule weekly check-ins to adjust plans.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Enhances perceived control and resource security, reducing threat appraisal of near-term expenses and improving confidence in coping capacity (C04, C05, C06).",
+      "measurement": "Emergency_fund_balance; Budget_adherence_rate; self-rated_financial_resilience_0_10; number_of_expenses_covered_by_plan",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Provide general budgeting strategies; avoid professional financial advice beyond basic planning.",
+      "mapping_query": "Targets C04, C05, C06; track financial security metrics and coping confidence."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep_Hygiene_and_Circadian_Rhythm_Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement consistent sleep-wake times, optimize sleep environment, limit caffeine, and consider light exposure strategies to reduce daytime fatigue and arousal linked to worry.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Improved sleep reduces baseline arousal and enhances cognitive control, decreasing worry intrusions and fatigue that fuel rumination (C03); better daytime functioning may reduce perceived intrusion frequency (C01).",
+      "measurement": "Sleep_diary_quality_score; nightly_awakenings; caffeine_intake; daytime_fatigue_matters; mood_rating",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "Aims at C03; potential indirect effects on C01 via improved cognitive control and restoration."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Regular_Aerobic_Exercise_and_Breathing_Regimen",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured plan for 150 minutes/week of moderate-intensity aerobic exercise plus brief diaphragmatic breathing during worry episodes; encourage consistent activity on most days.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Physical activity lowers chronic arousal and anxiety, improving emotional regulation; diaphragmatic breathing during worry episodes reduces autonomic arousal and distress, potentially lowering both C03 and worry intrusion (C01).",
+      "measurement": "Weekly_exercise_minutes; heart_rate_variability; state_anxiety_score; worry_frequency_0_10",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "Directly targets C03; potential impact on C01 via arousal reduction."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Mindfulness_Acceptance_and_Stress_Reactivity_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "8-week mindfulness/ACT-based program to increase present-moment focus, reduce avoidance, and improve tolerance of uncertainty; includes daily brief practices and values-driven planning.",
+      "targets_criteria_ids": [
+        "C02",
+        "C06",
+        "C03"
+      ],
+      "mechanism_rationale": "Enhances cognitive flexibility and distress tolerance, reducing catastrophic appraisal (C02), uncertainty reactivity (C06), and arousal (C03).",
+      "measurement": "Mindfulness_scale (FFMQ); distress_tolerance_score; worry_frequency/intensity; uncertainty_acceptance_rating",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "Targets C02, C06, C03; fosters acceptance and reduces reactivity to worry."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Social_Support_and_Resource_Access_Activation",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage social supports, community resources, and social-prescribing to reduce isolation and increase practical resources for expenses; implement regular touchpoints for resource navigation.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Social connectedness and tangible support reduce financial threat, improve resource access, and lower uncertainty about the future (C04, C05, C06).",
+      "measurement": "Perceived_social_support_score; number_of_resources_accessed; user_satisfaction_with_support; frequency_of_check-ins",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure consent and privacy; avoid overreliance on external resources.",
+      "mapping_query": "Addresses C04-C06 through social support and access to resources."
+    }
+  ]
+}

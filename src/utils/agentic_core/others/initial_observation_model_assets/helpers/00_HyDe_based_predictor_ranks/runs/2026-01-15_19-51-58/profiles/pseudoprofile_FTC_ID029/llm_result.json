@@ -1,0 +1,173 @@
+{
+  "pseudoprofile_id": "CASE_PAYLOAD_GuiltRest_PsychSocial01",
+  "summary": "The case shows a maladaptive short-circuit between rest and perceived productivity: guilt during rest, belief that non-productivity is wasting time, a perceived time scarcity, intrusive self-criticism during leisure, and a strong urge to act. Interventions should be modifiable levers across cognitive-reappraisal ( Psycho ), behavioral scheduling ( Psycho ), self-compassion/mindfulness ( Psycho ), and social/environmental boundary supports ( Social ), with optional bio-behavioral adjustments to sleep/rest quality. Each predictor targets one or more of the decomp variables (C01–C06) and uses simple, scalable measurements to track impact. The plan emphasizes safety considerations only if emergent risk signs appear; current data do not indicate imminent self-harm risk. ”",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Rest_Guilt_Reduction_CBT_Rethinking",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "CBT-based cognitive restructuring to reframe rest as a valuable, restorative and time-useful activity; implement brief behavioral experiments to test and weaken the belief that rest equals wasted time, addressing C01 and C02.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Automatic guilt and all-or-nothing beliefs about rest drive negative affect and reinforce rest avoidance. Reframing and testing these beliefs reduces guilt and creates cognitive space for restorative activities.",
+      "measurement": "Daily rest-related guilt rating (0–10); proportion of rest blocks completed vs. planned; weekly belief about rest scale (e.g., “rest is wasteful” item).",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns beyond monitoring for acute distress; escalate to clinician if guilt leads to withdrawal or self-punitive behavior.",
+      "mapping_query": "Map guilt/rest beliefs to C01/C02; apply CBT-based reframing and behavioral experiments to test resting beliefs."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Structured_Rest_Scheduling_and_Rest_Building",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a daily, structured rest schedule with brief, enjoyable restorative activities to counteract the urge to overwork and to normalize downtime, addressing C05 and C06.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06",
+        "C03"
+      ],
+      "mechanism_rationale": "A predictable rest schedule reduces situational urgency to act, weakens intrusive work-related auto-pilot, and supports engagement in restorative activities.",
+      "measurement": "Number/drequency and duration of planned rest blocks; urge-to-work intensity during rest (0–10); adherence rate to planned rest vs. actual rest.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Ensure rest blocks do not become avoidance cycles; monitor for avoidance of important tasks.",
+      "mapping_query": "Target C05/C06 with structured rest scheduling and behavioral activation for rest."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness_Leisure_Compassion_for_Leisure",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Mindfulness-based and self-compassion practices during leisure time to reduce intrusive self-criticism (C04) and guilt (C01).",
+      "targets_criteria_ids": [
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Nonjudgmental awareness of thoughts during leisure reduces affective reactivity and the power of intrusive self-criticism, enabling restorative engagement.",
+      "measurement": "Frequency of intrusive critical thoughts during weekends; Self-Compassion Scale (short) scores; time spent in non-work leisure.",
+      "time_horizon": "6–10 weeks",
+      "feasibility_0_1": 0.92,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None specific; ensure mindfulness practices are adapted if distress increases.",
+      "mapping_query": "Address C04 with mindfulness/self-compassion strategies to reduce weekend intrusive self-criticism and guilt (C01)."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Values_Driven_Rest_and_Meaning_Update",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Values clarification and meaning-focused work to re-define rest as aligned with long-term goals and well-being, reducing the automatic rule that rest is wasteful (C02) and the perceived time-scarcity (C03).",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Aligning rest with core values and long-term goals reduces cognitive conflict and fear of lost progress, decreasing guilt and perceived scarcity.",
+      "measurement": "Values-alignment score (pre/post weekly reflection); perceived time adequacy (0–10); frequency of planned rest aligned with goals.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "None specific; align values work with personal context to avoid rigidity.",
+      "mapping_query": "Map C02/C03/C01 to values-focused interventions and measure value alignment."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Rest_Rituals_and_Environment_Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Create soothing rest rituals and optimize the immediate environment (lighting, noise, seating) to support restorative activities and reduce cognitive dissonance about resting.",
+      "targets_criteria_ids": [
+        "C06",
+        "C01"
+      ],
+      "mechanism_rationale": "Environmental cues and structured rituals ease transition into rest, reducing guilt and facilitating sustainable restorative activities.",
+      "measurement": "Rest onset latency; duration of uninterrupted rest; perceived restfulness rating (0–10).",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "No risk; monitor for over-scripting routines.",
+      "mapping_query": "Leverage REST_Rituals and environmental design to lower C06 and C01."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep_Quality_and_Sleep_Schedule_Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Enhance sleep quality and regularity to improve daytime energy and reduce intrusive thoughts, supporting better engagement in restorative activities (affecting C06).",
+      "targets_criteria_ids": [
+        "C06",
+        "C03"
+      ],
+      "mechanism_rationale": "Better sleep improves cognitive control and reduces negative affect, lessening the urgency to overproduce and easing guilt about rest.",
+      "measurement": "PSQI or short sleep quality index; sleep regularity; daytime energy scale.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.86,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "If sleep issues persist, consider clinician evaluation.",
+      "mapping_query": "Target C06 via Sleep quality/schedule enhancements; observe impact on rest acceptance."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social_Boundaries_and_Rest_Support",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Establish social agreements (family/household) that protect rest periods, reducing guilt and time-scarcity pressures (C01/C03).",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C02"
+      ],
+      "mechanism_rationale": "Social commitments and boundaries legitimize rest as part of daily life, reducing external cues to overwork and internalized guilt.",
+      "measurement": "Rest-protected time per day; perceived social support for rest (0–10); frequency of rest interruptions.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Coordinate with household to avoid conflict; ensure boundaries are reasonable.",
+      "mapping_query": "Use Social boundaries to reduce C01/C03 guilt and perceived time scarcity (C02)."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Measurement-Based_Rest_Guilt_Feedback_and_BUild",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Implement a simple digital self-monitoring system providing real-time feedback on guilt during rest, rest frequency, and adherence to rest plans, enabling rapid adjustments.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Frequent feedback helps calibrate beliefs about rest, detect maladaptive patterns, and reinforce restorative behavior.",
+      "measurement": "Daily guilt score during rest; rest duration; plan adherence; weekly feedback-based adjustments.",
+      "time_horizon": "4–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Ensure data privacy; provide opt-out if distress increases; use supportive feedback style.",
+      "mapping_query": "Apply measurement-based care to track C01/C02/C04/C06 and adjust interventions accordingly."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Weekend_Rest_Acceptance_and_Compassion_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Weekend-focused acceptance and compassion training to normalize rest and reduce intrusive weekend-specific self-criticism (C04) and guilt (C01).",
+      "targets_criteria_ids": [
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Special focus on weekend leisure reduces specific peak triggers for guilt and self-criticism, promoting sustainable rest patterns.",
+      "measurement": "Weekend intrusive thoughts frequency; self-compassion scores; rest duration during weekends.",
+      "time_horizon": "6–10 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.42,
+      "priority": "MED",
+      "safety_notes": "No significant safety concerns; monitor for distress during compassion exercises.",
+      "mapping_query": "Target C04 with weekend-specific acceptance/compassion training to reduce weekend guilt (C01)"
+    }
+  ]
+}

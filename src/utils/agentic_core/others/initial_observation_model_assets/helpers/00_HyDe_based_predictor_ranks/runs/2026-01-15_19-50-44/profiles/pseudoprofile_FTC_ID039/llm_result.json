@@ -1,0 +1,186 @@
+{
+  "pseudoprofile_id": "CASE_REL_MOOD_01",
+  "summary": "The case presents modifiable bio-psycho-social levers to reduce active romantic-doubt and mood-dissociation symptoms without labeling or medication. Key targets are attribution uncertainty (distinguishing mood-driven vs real relationship problems), short-term mood variability, panic-like thoughts, and the impact of doubt on relationship decisions. A multi-domain plan is proposed across psychology-driven emotion regulation and cognitive approaches, relationship-communication and attachment-informed interpersonal work, sleep/mood biology, and social-support buffers. Interventions are designed as practical, scalable levers with clear measurements, short-to-mid time horizons (weeks to a couple of months), and safety considerations. The goal is to move specific criteria (C01–C07) by enhancing meta-cognition, self-regulation, communication, and social-context supports while avoiding unsafe practices and not diagnostic labeling.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Attribution Clarity Training (C04)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Psychoeducation plus structured cognitive reattribution exercises to separate internal mood fluctuations from objective relationship problems; journaling prompts to regularly label causes (internal mood vs external factors).",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces misattribution of mood states to the relationship, decreasing panic and indecision triggered by uncertainty.",
+      "measurement": "Daily attribution clarity score (0-1) via brief diary; weekly composite C04 accuracy",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "Map to C04 Attribution Uncertainty; target reduction in misattribution of mood vs relationship issues."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Emotion Regulation Skills Training (ER)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "DBT-style skills package: diaphragmatic breathing, urge surfing, cognitive reappraisal, and behavioral activation for uncertain moments.",
+      "targets_criteria_ids": [
+        "C02",
+        "C06",
+        "C05",
+        "C03"
+      ],
+      "mechanism_rationale": "Improved mood regulation reduces the amplitude/frequency of mood swings, lowers panic responses, and stabilizes feelings toward the partner.",
+      "measurement": "ER use percentage of days with at least one strategy; daily mood rating (0-10)",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns beyond standard coping guidance.",
+      "mapping_query": "Link to C02 (mood variability) and C06 (emotion regulation); C05 (panic) and C03 (state-dependent feelings)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep Regularity & Circadian Alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene program with fixed wake time, morning light exposure, wind-down routine, and caffeine timing; track with a sleep diary.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Stable sleep-wake patterns dampen day-to-day mood variability and improve emotional regulation.",
+      "measurement": "Sleep duration consistency (min-max range per week); mood-sleep correlation index",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; monitor for sleep disorder symptoms; refer if suspected.",
+      "mapping_query": "Addresses C02 by stabilizing mood variability via sleep regularity."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Relationship Communication & Boundaries Skills",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Interpersonal communication and boundary-setting training (I statements, reflective listening) with weekly relationship conversations and decision-making checks.",
+      "targets_criteria_ids": [
+        "C01",
+        "C07"
+      ],
+      "mechanism_rationale": "Clear communication reduces ambiguity driving doubt and mitigates avoidance or maladaptive decisions into the relationship.",
+      "measurement": "Weekly relationship satisfaction; number of days with open communication; // self-reported decision clarity",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.72,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for potential conflict escalation; provide de-escalation guidance and crisis contacts if distress intensifies.",
+      "mapping_query": "Targets C01 (Romantic relationship doubt) and C07 (Impact on decision-making)."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Mindfulness + Mentalization",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Mindfulness-based attention to mood states plus mentalization training to understand partner-focused feelings across moods.",
+      "targets_criteria_ids": [
+        "C04",
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Nonjudgmental tracking of mood and insights into others' mental states reduce attribution bias, strengthen affective connection, and dampen catastrophic thoughts.",
+      "measurement": "Frequency of mindful states; ability to label partner-directed feelings during mood shifts; reduction in panic episodes",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "Maps to C04 attribution clarity, C03 state-dependent feelings, C05 panic."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Compassionate Self-Relating (Self-Compassion)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Self-compassion training to counter catastrophizing thoughts about self-worth during numbness/doubt.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces catastrophic self-evaluation and panic reactivity, stabilizing responses during emotional numbness.",
+      "measurement": "Self-compassion scale score; frequency of compassionate self-talk occurrences",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "Relates to C05 panic and self-evaluation."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Daily Mood & Attribution Monitoring (Feedback Loop)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Simple daily diary app or paper log with weekly clinician/coach feedback; prompts mood, partner feelings, and attributions.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Regular monitoring increases self-awareness, refines attributions, and provides early signals to intervene before escalations.",
+      "measurement": "Diary completion rate; change in attribution accuracy; weekly mood variability index",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "Supports C01, C02, and C04 via measurement-based feedback."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Social Support & Belonging Buffering",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured plan to increase meaningful social interactions; cultivate supportive networks to buffer mood and relationship doubts.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": " Social buffering reduces perceived relationship threat and mood variability by providing alternate sources of affirmation and reality testing.",
+      "measurement": "Interpersonal interactions per week; loneliness scale score",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "Addresses C01 via enhanced social support."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Relationship Activity Scheduling (Behavioral Activation)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Plan and engage in regular, enjoyable relationship activities to counter withdrawal and numbness; tracking satisfaction after each activity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C07"
+      ],
+      "mechanism_rationale": "Active engagement with valued relationship activities reduces avoidance and strengthens perceived relationship quality, influencing mood and decisions.",
+      "measurement": "Proportion of planned activities completed; post-activity relationship satisfaction rating",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Ensure activities are consensual and within comfort zone; monitor for distress if activities highlight problems.",
+      "mapping_query": "Targets C01 and C07 through behavioral activation in the relationship context."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Attachment-Informed Interpersonal Therapy (IT-attachment)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Attachment-informed interpersonal therapy focusing on safety, trust, and relational needs; structured sessions with a clinician or trained coach.",
+      "targets_criteria_ids": [
+        "C01",
+        "C07"
+      ],
+      "mechanism_rationale": "Improves felt security and reduces polarized mood responses around the partner; supports healthier commitment decisions.",
+      "measurement": "Attachment security rating; conflict frequency; weekly therapy progress markers",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.7,
+      "priority": "MED",
+      "safety_notes": "Recommend clinician involvement; provide crisis resources and escalation plan if distress worsens.",
+      "mapping_query": "Attachment-informed work addressing C01 and C07."
+    }
+  ]
+}

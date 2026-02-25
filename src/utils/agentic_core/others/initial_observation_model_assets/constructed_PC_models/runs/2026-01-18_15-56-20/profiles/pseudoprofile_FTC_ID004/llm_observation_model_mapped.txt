@@ -1,0 +1,19 @@
+pseudoprofile_id: pseudoprofile_FTC_ID004
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Low frustration tolerance / irritability -> NON-CLINICAL / AGE-GENERAL / emotional / mood process / irritable mood (conf=0.77)
+- C02: Heightened sensitivity to specific triggers -> CLINICAL / DSM-5TR / trauma- and stressor-related disorders / other specified trauma- and stressor-related disorders / subthreshold ptsd presentation / distress_in_response_to_cues (conf=0.62)
+- C03: Post-episode emotional collapse (crying) -> CLINICAL / DSM-5TR / trauma- and stressor-related disorders / grief-related disorders / persistent complex bereavement disorder / emotional_numbing_or_detachment (conf=0.72)
+- C04: Self-directed distress / loss of self-recognition -> CLINICAL / DSM-5TR / dissociative disorders / depersonalization andor derealization disorder / emotional_numbing_or_reduced_affect (conf=0.62)
+- C05: Intention to be kind vs failure to enact it -> NON-CLINICAL / AGE-GENERAL / emotional / positive emotions / love / kindness / kindness in actions (conf=0.78)
+- C06: Maladaptive immediate coping (withdrawal/crying) -> NON-CLINICAL / AGE-GENERAL / emotional / emotional regulation / coping strategies / emotion-focused coping / emotional expression (conf=0.78)
+- C07: Interpersonal strain / relationship impact -> NON-CLINICAL / AGE-GENERAL / social / positive relationships / intimacy / emotional closeness / emotional synchrony (conf=0.62)
+
+PREDICTORS:
+- P01: Emotion Regulation Skills Training (Broad) -> PSYCHO / third_wave_and_contextual_therapies / dbt_skills_based_therapy / emotion_regulation_skills / emotion_literacy_and_awareness / identify_and_name / emotion_intensity_rating_framework (conf=0.62)
+- P02: Trigger/Environment Modification -> PSYCHO / substance_use_recovery_and_behavior_change / cue_and_context_management / stimulus_control_principles / reduce_exposure_to_triggering_contexts_strategy (conf=0.72)
+- P03: Couple Communication Skills for Repair -> SOCIAL / romantic_intimacy_and_relationships / romantic_relationship_skills_and_support / communication_and_connection / skills_and_frameworks / repair_attempt_practice_for_couples (conf=0.85)
+- P04: Self-Compassion & Distress Processing -> PSYCHO / core_psychological_skills_toolkits / compassionate_self_relating_and_inner_support / compassionate_cognition / reframes_and_voice / self_criticism_to_care_reframe (conf=0.85)
+- P05: Adaptive Self-Monitoring & Feedback -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / ecological_momentary_assessment_ema / momentary_coping_and_response / ema_perceived_coping_effectiveness (conf=0.82)
+- P06: Mindfulness-Based Regulation & Distress Tolerance -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / applied_mindfulness_for_stress_and_reactivity / mindful_response_to_stress_practice (conf=0.75)

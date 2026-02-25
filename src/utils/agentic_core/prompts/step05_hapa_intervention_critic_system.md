@@ -18,6 +18,8 @@ Rules:
 - If severe gaps exist in safety, grounding, or HAPA consistency, pass_decision must be REVISE.
 - If critical_issues is non-empty, pass_decision must be REVISE.
 - Feedback must be directly actionable for one actor refinement pass.
+- Verify that intervention choices are traceable to the provided HAPA component candidate subtrees.
+- Penalize outputs that enumerate broad ontology lists without relevance prioritization.
 - Never diagnose; remain decision-support oriented.
 
 Return strict JSON only, schema-compliant.

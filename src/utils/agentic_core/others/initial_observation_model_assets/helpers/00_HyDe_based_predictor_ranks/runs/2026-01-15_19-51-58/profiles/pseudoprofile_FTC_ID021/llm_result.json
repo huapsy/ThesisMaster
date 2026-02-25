@@ -1,0 +1,150 @@
+{
+  "pseudoprofile_id": "CASE_SLEEP_AWAKEN_001",
+  "summary": "The case presents an early-morning awakening with rapid cognitive arousal, post-awakening doomscrolling, and daytime impairment by midday. Core modifiable levers lie in (1) stabilizing circadian timing and sleep efficiency, (2) reducing nocturnal arousal and maladaptive post-awakening behaviors, (3) restructuring digital content exposure and bed-related device use, and (4) boosting daytime energy support to improve subsequent night's sleep. The proposed predictors span BIO, PSYCHO, and SOCIAL domains and emphasize actionable, measurable changes rather than symptom labeling. Each lever targets specific operationalized criteria (C01–C06) and includes simple metrics, short to moderate time horizons, and safety considerations.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Fixed wake time anchor with gradual bedtime window (Sleep Schedule Regularization)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish a consistent wake time aligned to a practical morning start (e.g., 07:00 on weekdays; 07:30 on weekends) and gradually adjust bedtime to achieve 7–9 hours of total sleep. Use a strict 15–20 minute rule for attempts to sleep: if not asleep within that window, leave the bed, engage in a quiet, dim-light activity for 20–30 minutes, then return to bed. This Sleep Restriction/Chronotherapy-inspired approach aims to improve sleep maintenance (C01) and overall sleep efficiency, reducing the likelihood of 4:30 awakenings.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Regularized timing strengthens circadian entrainment and reduces fragmentation by anchoring the sleep-wake cycle, decreasing early-morning arousal likelihood and promoting calmer transitions between sleep and wake.",
+      "measurement": "Sleep diary entries: wake time, sleep onset, time in bed, total sleep time; optional actigraphy for nightly sleep efficiency; weekly average wake time consistency.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor daytime sleepiness; if blocked sleep becomes excessively short, re-adjust schedule toward longer time in bed or consult a clinician. Ensure no unsafe coercives in schedule changes.",
+      "mapping_query": "CASE_PAYLOAD_SLEEP_REGULARIZATION"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Awakening arousal regulation via 60-second breathwork and grounding",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Upon awakening around 4:30, execute a 60-second paced-breathing cycle (e.g., inhale 4s, hold 2s, exhale 6s), followed by 1–2 minutes of grounding (naming 5 things you see/hear/taste) and a brief 1-minute cognitive label of worries. If still awake after 2–3 minutes, switch to a non-stimulating activity with dim light and return to bed when sleepy. This targets immediate cognitive/physiological arousal (C03) and reduces doomscrolling urge (C05).",
+      "targets_criteria_ids": [
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Fast arousal containment reduces intrusive thoughts and resets cognitive load, enabling calmer re-entry to sleep and less engagement with distressing content.",
+      "measurement": "Arousal ratings (0–10) before/after practice; time to fall back asleep after wake; track instances of doomscrolling with a simple log.",
+      "time_horizon": "2–3 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "If panic or intense distress occurs, discontinue and seek professional guidance.",
+      "mapping_query": "CASE_PAYLOAD_AWAKE_AROUSAL_REGULATION"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Bed/room disengagement rule: no screens in bed; use a dedicated dim-reading space",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Implement a strict bed-to-sleep environment rule: no device use in bed after lights-out and during night awakenings; place phone in another room or use an approved sleep-safe mode. If awake, perform a 5–10 minute passive rest (breathing/relaxation) outside the bed; resume sleep when sleepy. This directly reduces in-bed device engagement (C04) and secondarily reduces exposure to doomscrolling (C05).",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Limiting sensorimotor stimulation and doomscrolling cues in the bed environment promotes natural sleep pressure and reduces post-awakening cognitive activation.",
+      "measurement": "Bedtime device usage logs; self-report on in-bed activities during awakenings; sleep diary entries for SOL and number/duration of awakenings.",
+      "time_horizon": "3 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "If device use is essential for safety (e.g., caregiving), adapt with minimal-risk alternatives (e.g., grayscale mode, backlit minimal notifications).",
+      "mapping_query": "CASE_PAYLOAD_DEVICE_DISENGAGEMENT"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Doomscrolling content constraints and digital boundary management",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Create a structured digital boundary: block distress-inducing apps during the early-morning window; allocate a 10–15 minute window post-wake for neutral, non-stimulating content (e.g., nature, educational videos) or journaling; use content filters and mute news notifications during sleep hours. This reduces exposure to negative content (C05) and associated arousal (C03).",
+      "targets_criteria_ids": [
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Lowering the cognitive load and negative affect associated with doomscrolling during vulnerable hours supports faster restoration of calm and reduces wake-time arousal.",
+      "measurement": "App usage logs; self-report mood/arousal after wake; diary entries on doomscrolling frequency.",
+      "time_horizon": "2 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "If screen-time reduction affects critical communications, ensure alternative safe arrangements and caregiver contacts are maintained.",
+      "mapping_query": "CASE_PAYLOAD_DIGITAL_BOUNDARIES"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Morning light exposure to anchor circadian rhythm",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Introduce 15–30 minutes of bright light exposure within 30–60 minutes of waking (outdoor morning light preferred; or use a 10,000-lux light box if outdoor exposure is not feasible). Consistent light timing supports stable sleep pressure and may reduce premature awakenings (C01).",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Early-day light cues advance/delay circadian phase to stabilize sleep timing, reducing wakefulness at 04:30 and improving daytime functioning.",
+      "measurement": "Log of light exposure (time and duration); subjective sleep quality; tracking wake times.",
+      "time_horizon": "3–4 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Screen flicker or light sensitivity may cause headaches in some individuals; start with shorter exposures if needed.",
+      "mapping_query": "CASE_PAYLOAD_MORNING_LIGHT"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Mindfulness and worry-scheduling for nocturnal and daytime rumination",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Incorporate brief, daily mindfulness-based awareness (5–10 minutes) and a scheduled daytime worry period (20 minutes) to reduce nocturnal rumination and post-awakening negative cognitions. Include a 2–3 minute cognitive shuffle upon awakening to disrupt looping thoughts. This targets C03 and C05 by reducing arousal and rumination.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Structured cognitive attention management lowers hypervigilant thought patterns, enabling calmer awakenings and less doomscrolling exposure.",
+      "measurement": "Perceived arousal on waking (0–10); minutes spent in worry period; daily rumination checklists.",
+      "time_horizon": "3 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "If anxiety worsens, adjust duration of worry period and seek CBT-I guidance.",
+      "mapping_query": "CASE_PAYLOAD_MINDFULNESS_WORRY_SCHEDULING"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Sleep-focused CBT-I strategies for nocturnal awakenings",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Apply sleep-focused cognitive-behavioral strategies: (a) cognitive restructuring to reframe awakening-related worries; (b) sleep hygiene and stimulus control; (c) imagery/distraction techniques (e.g., cognitive shuffle) when waking; (d) planned daytime activities to reduce nocturnal cognitive arousal. This directly targets C03 and C05 and supports C01 through improved sleep drive.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "CBT-I components reduce wake-time arousal and maladaptive thought processes, improving sleep continuity and reducing daytime impairment.",
+      "measurement": "Sleep diary SOL, number of awakenings, time to return to sleep; worry and mood scales.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "If symptoms persist or worsen, seek CBT-I specialized guidance.",
+      "mapping_query": "CASE_PAYLOAD_SLEEP_CBT_I"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Structured daytime energy optimization to support nocturnal sleep",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Implement a daytime energy strategy: morning light exposure (S05) plus light aerobic activity (e.g., 15–25 minutes), balanced meals with regular hydration, and a planned brief afternoon activity to prevent fatigue-driven late-day caffeine reliance. Consider a 10–15 minute late-afternoon wind-down period to avoid overstimulation near bedtime. This aims to reduce daytime impairment (C06) and improve overall sleep health.",
+      "targets_criteria_ids": [
+        "C06",
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Energy regulation across the day supports stable sleep pressure and reduces daytime lethargy that can worsen nighttime arousal.",
+      "measurement": "Energy/fatigue ratings (daily), activity logs, cognitive functioning checks around midday.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Caffeine timing may need adjustment for sensitivity; monitor for sleep onset delays.",
+      "mapping_query": "CASE_PAYLOAD_DAYTIME_ENERGY"
+    }
+  ]
+}

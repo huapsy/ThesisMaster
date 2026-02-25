@@ -1,0 +1,1212 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID002",
+  "model_summary": "Initial gVAR-ready observation model selecting 6 core criteria reflecting present-state affective blunting and autopilot disengagement (C01–C06) and 6 modifiable predictors drawn from BIO/PSYCHO/SOCIAL levers (P01–P06). The plan uses momentary EMA for most predictors to maximize within-person variance, supplemented by a daily diary for sleep/routine aspects and passive streams (sensor-based) where feasible. The design preserves non-diagnostic intent, minimizes redundancy, and yields a coherent, estimable variable set for subsequent gVAR modeling while preserving the complaint’s resolution (blunted positive affect, guilt, autopilot, reduced motivation). The predictor–criterion relevance grid is provided to guide downstream VAR estimation, with explicit lag and sign expectations where interpretable.",
+  "variable_selection_notes": "Criteria (C01–C06) operationalize the current complaint: diminished response to positives, guilt about non-enjoyment, autopilot engagement, broad emotional blunting, outward ‘fine’ presentation, and reduced motivation. Predictors (P01–P06) target actionable salutogenic levers identified by HyDe and LLM mappings (behavioral activation, savoring/gratitude, sleep health, morning light exposure, social connection, and micro-activations). Variables were chosen to maximize within-person variance (4 EMA prompts/day; 1 daily sleep/narrative diary; passive sleep/light sensors) while limiting redundancy (one broad construct per domain and avoiding multiple near-duplicate self-regulation measures). Potential measurement noise and nonlinearity are acknowledged; nonlinear/unknown effects are flagged in the predictor–criterion mapping. Bias considerations include self-report bias for affective states and potential reactivity to prompts; plan includes passive streams to triangulate self-report.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:30-09:30",
+        "12:30-13:30",
+        "16:30-17:30",
+        "20:30-21:30"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 56,
+      "notes": "Distribute across day parts to capture daily fluctuations; jitter to reduce timing effects."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "22:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "End-of-day diary focusing on sleep routine regularity and day-ahead planning."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Passive data streams (sleep, light exposure, movement) to complement EMA; keeps within-person variance high without overburdening prompts."
+    },
+    "minimum_total_observations_target": 200,
+    "gvar_readiness_notes": "Expect meaningful within-person variance across the 14-day window; plan for minor missingness with imputation-ready designs.",
+    "variance_support_notes": "Offsets include passive data for sleep/light to stabilize estimates; consider simple z-scoring within-person.",
+    "missingness_risk_notes": "Implement reminders and automated checks; monitor missingness per-variable and per-day; adjust prompts if systematic dropouts are detected."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Diminished positive emotional response to pleasant events",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right after a pleasant event occurs, rate how much pleasure you felt (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Anchored to pleasant-events exposure; capture immediate affective reactivity."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Guilt about not enjoying positive experiences",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, rate how guilty you feel for not enjoying a recent positive event (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures self-criticism in the context of positive affect."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Behavioral autopilot / low moment-to-moment engagement",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, rate your level of engaged presence during activities (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures automaticity in daily task engagement."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "General emotional blunting (low affect intensity)",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Rate your overall emotional intensity today (1-9; 1 very flat, 9 very intense)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Broad affective range to index blunting."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "External presentation of being 'fine' despite internal disengagement",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate how fine you appear on the outside (1-9) vs how disengaged you feel inside (1-9 reaction to today)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Indexes discrepancy between outward mask and internal state."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Reduced motivation/interest in non-routine pleasurable activities",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, rate your motivation to pursue new or enjoyable activities (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses drive toward non-obligatory pleasures."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Behavioral Activation Scheduling (S01)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Behavioral Activation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Directly increases engagement with pleasurable activities to counter autopilot and low positive affect.",
+      "intervention_examples_safe": "Plan 15-minute walk, 5-min hobby, or social check-in; schedule across day.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, to what extent did you initiate a planned pleasant activity?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures active engagement attempts."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C02"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 1,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increased activation should raise positive affect and reduce blunted response."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 1,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better engagement may reduce guilt about non-enjoyment."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "More intentional activity should reduce autopilot engagement."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 2,
+          "typical_lag_hours_max": 8,
+          "rationale": "Active engagement expected to elevate overall affective variability away from flat affect."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "More activation may reduce outward masking."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 1,
+          "typical_lag_hours_max": 12,
+          "rationale": "Motivation should rise with active scheduling."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "None beyond standard EMA burden; monitor for distress; provide safety contacts if needed.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": "Predictor P01 is highly feasible with smartphone prompts; EMA burden balanced by 4 prompts/day."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Gratitude and Savoring (S02)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Gratitude and Savoring",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Enhances positive affect reactivity and savoring, counteracting blunted affect.",
+      "intervention_examples_safe": "Brief gratitude note, savoring exercise after pleasant events.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, rate how much you noticed and savored positive moments (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures micro-repair of positive affect through savoring."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C04",
+        "C02",
+        "C03",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 1,
+          "typical_lag_hours_max": 6,
+          "rationale": "Gratitude and savoring linked to increased momentary positive affect."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 1,
+          "typical_lag_hours_max": 6,
+          "rationale": "Higher savoring expected to blunt overall emotional flattening."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 1,
+          "typical_lag_hours_max": 6,
+          "rationale": "Guilt may lessen as positive moments are savored."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Gratitude practices may reduce autopilot by grounding the moment."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 1,
+          "typical_lag_hours_max": 8,
+          "rationale": "Outward presentation aligns with internal savoring increases."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 1,
+          "typical_lag_hours_max": 12,
+          "rationale": "Savoring may boost motivation for pleasurable activities."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "No sensitive content; standard EMA burden; monitor for distress.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.86,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Prompts may be complemented by a quick savoring micro-practice."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Sleep Circadian Regularity / Sleep Routines",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Sleep_Circadian_and_Restoration",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Regular sleep routines support circadian stability and daytime energy.",
+      "intervention_examples_safe": "Fixed wake time; wind-down routine; consistent bedtime.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Today, rate how consistent your sleep schedule was (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "today",
+        "expected_within_person_variability": "medium",
+        "notes": "End-of-day assessment of routine regularity."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C04",
+        "C03",
+        "C05",
+        "C06",
+        "C02"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "More regular sleep may enhance next-day positive affect reactivity."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Stable circadian input reduces global emotional blunting."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Regular sleep improves daytime engagement."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Visible daytime energy can reduce outward masking."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 48,
+          "rationale": "Better sleep often increases motivation in subsequent days."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Improved sleep routine may lessen guilt about not enjoying events."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Standard sleep self-report; no sensitive content.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": "Diary-based assessment favored; may supplement with sleep-tracking passively."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Morning Light Exposure",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Sleep_Circadian_and_Restoration > Light Exposure",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Morning light exposure supports circadian entrainment and daytime alertness.",
+      "intervention_examples_safe": "Bright light exposure in the first hour after waking.",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "Smartphone sensors",
+        "assessment_type": "passive_continuous",
+        "item_or_signal": "Average ambient light exposure in the first 60 minutes after wake (lux)",
+        "response_scale_or_unit": "lux",
+        "sampling_per_day": 1,
+        "recall_window": "morning",
+        "expected_within_person_variability": "high",
+        "notes": "Sensor-based capture of light exposure; aligns with circadian regulation."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p",
+        "collinearity_risk": "low",
+        "distribution_hint": "bounded_0_1"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C04",
+        "C03",
+        "C05",
+        "C06",
+        "C02"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Morning light may boost daytime positive affect reactivity."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Circadian entrainment reduces global blunting."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Better alertness reduces autopilot tendencies."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Increased daytime energy supports authentic engagement."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "More morning energy associated with higher motivation later."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Regular light exposure can reduce guilt about not enjoying events."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "No hazardous content; ensure privacy of sensor data.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.78,
+        "notes": "Passive light data is feasible on most smartphones; consider device variability."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Structured Social Reconnection and Belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "SOCIAL / Social_Support_and_Belonging > Network_Building_And_Maintenance",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.82,
+      "mechanism_rationale": "Social connectedness supports positive affect and counteracts withdrawal.",
+      "intervention_examples_safe": "Scheduled short social check-ins with trusted contacts; group activity.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, rate the quality of your social connection (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures perceived social connectedness in real time."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05",
+        "C02",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Social belonging supports positive affect responsiveness."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Engagements may reduce autopilot behaviors."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Supportive social contexts can blunt blunted affect."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Visible belonging reduces outward masking."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Positive social experiences may lessen guilt about not enjoying events."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Social engagement amplifies motivation to pursue pleasurable activities."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Standard EMA; ensure privacy of social interactions.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.86,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Clear prompts about social context; consider privacy settings."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Micro-Activation Protocol (5-min Energizers)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Behavior_Change_and_Activation > micro-joy_planning",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.78,
+      "mechanism_rationale": "Brief energizers can shift momentary arousal and engagement, counteracting autopilot.",
+      "intervention_examples_safe": "Two-minute stretch plus a quick tidy-up task; 5-min energetic activity.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the last 60 minutes, did you perform a 5-minute energizer? If yes, rate its perceived energy impact (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Tests short, scalable activation attempts."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p_if_needed",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C02"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Quick energizers should boost immediate positive affect."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increased engagement following activation reduces autopilot."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Brief energizers can elevate overall affect intensity."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Small bursts may reduce outward masking."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 8,
+          "rationale": "Momentary activation supports reduced guilt about not enjoying events."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Frequent micro-activations may sustain motivation over the day."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "No risky content; keep activations simple and safe.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.82,
+        "gvar_feasibility_0_1": 0.79,
+        "notes": "Simple, brief tasks; ensure user-friendly prompts."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,76000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,64000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,56000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,82000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,64000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,42000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,38000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,43000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,41000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,56000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,48000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,77000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,64000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,56000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,80000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Anticipated immediate improvement in positive affect reactivity.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reduced guilt via engagement.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Decreases autopilot through activation.",
+      "estimated_relevance_0_1": 0.76
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Enhanced affective intensity.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Better outward–internal alignment.",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Increased motivation.",
+      "estimated_relevance_0_1": 0.69
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Savoring linked to positive affect.",
+      "estimated_relevance_0_1": 0.79
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Guilt reduction via positive affect.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reduced autopilot through positive engagement.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Broad affective improvement.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Improved social presentation consistency.",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Motivation enhancement via savoring.",
+      "estimated_relevance_0_1": 0.62
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Circadian stability supports positive affect reactivity.",
+      "estimated_relevance_0_1": 0.9
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Guilt reductions linked to better mood.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Engagement improves with alertness.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Circadian alignment reduces blunting.",
+      "estimated_relevance_0_1": 0.88
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Improved daytime energy affects external presentation.",
+      "estimated_relevance_0_1": 0.82
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Energy increments may sustain motivation.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Morning light linked to mood reactivity.",
+      "estimated_relevance_0_1": 0.42
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Light exposure may reduce guilt via improved mood.",
+      "estimated_relevance_0_1": 0.38
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Light improves alertness, reducing autopilot.",
+      "estimated_relevance_0_1": 0.43
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Circadian cues can reduce emotional flattening.",
+      "estimated_relevance_0_1": 0.52
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Energy and presence may curb outward masking.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Responsive energy may boost motivation.",
+      "estimated_relevance_0_1": 0.41
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Social belonging supports affective reactivity.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Belonging can reduce guilt over affect non-enjoyment.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Social interactions may interrupt autopilot.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Social support can enhance overall affect.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Visible belonging reduces outward masking.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Belonging can sustain motivation.",
+      "estimated_relevance_0_1": 0.52
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Brief energizers can boost positive affect.",
+      "estimated_relevance_0_1": 0.66
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Suggests mood repair reducing guilt.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Activation may reduce autopilot.",
+      "estimated_relevance_0_1": 0.76
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Energy bursts can raise affect intensity.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Awareness of self-processing reduces masking.",
+      "estimated_relevance_0_1": 0.56
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Occasional energizers may sustain motivation.",
+      "estimated_relevance_0_1": 0.8
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "low",
+      "moderate"
+    ],
+    "expected_floor_ceiling_risks": [
+      "low"
+    ],
+    "variance_enhancement_suggestions": [
+      "include passive sleep/light data",
+      "z-score within-person transforms",
+      "consider lagged predictors (0–24h)"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "P07+ (not included)"
+    ],
+    "gvar_feasibility_summary": "Overall feasible with 6 predictors; passive streams add robustness; ensure devices collect light/sleep data consistently."
+  },
+  "safety_notes": "Not a diagnosis. No medication dosing. Monitor for acute risk; provide safety resources if distress escalates."
+}

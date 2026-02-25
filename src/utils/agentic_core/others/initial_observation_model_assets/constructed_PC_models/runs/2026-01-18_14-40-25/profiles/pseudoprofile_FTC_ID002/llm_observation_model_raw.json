@@ -1,0 +1,904 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID002",
+  "model_summary": "Selects the six complaint-derived criteria (reduced positive reactivity, guilt about not enjoying, autopilot routines, broad emotional blunting, outward masking, and low motivation) as momentary EMA outcomes and pairs them with eight modifiable, measurable predictors drawn from high-ranked psycho-behavioural and bio-routine levers: behavioral activation, savoring/positive noticing, self-compassion, present-moment awareness, micro-activation energizers, sleep quality (morning diary), social connection, and phone screen-time (passive). Design emphasizes repeated momentary assessment (5 prompts/day) for within-person variance and a 28-day window (≈140 momentary observations + 28 morning diaries) to support gVAR estimation while minimizing redundant constructs.",
+  "variable_selection_notes": "All six complaint-specific criteria are preserved to keep full clinical resolution. Predictor selection prioritized high HyDe / LLM signals (behavioral activation, savoring, self-compassion, mindfulness, sleep/circadian, micro-practices, social connection) and added an objective passive marker (phone screen time) to index autopilot/distracted behavior. Trade-offs: kept only one broad attention/presence variable (mindfulness/presence) to avoid collinearity with savoring/self-compassion and chose sleep as a daily diary rather than high-frequency passive sleep devices to reduce burden. Passive phone signal included despite potential nonlinearity because it is low-burden and mechanistically linked to autopilot/engagement. Uncertainty/bias: self-report measures may be biased by insight/effortful responding; passive screen time can reflect work demands rather than disengagement (hence flagged as nonlinear).",
+  "design_recommendations": {
+    "study_days": 28,
+    "momentary_ema": {
+      "prompts_per_day": 5,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "wake+2h (morning)",
+        "midday (late morning/early afternoon)",
+        "mid-afternoon",
+        "early evening",
+        "pre-bed (evening)"
+      ],
+      "recall_window": "since last prompt",
+      "expected_total_prompts": 140,
+      "notes": "Fixed blocks with small random jitter reduce predictability while preserving coverage of daily routines. Use reminders and brief questions (≤ 60s)."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "morning (upon waking / first phone check)"
+      ],
+      "expected_total_entries": 28,
+      "notes": "Morning diary captures prior-night sleep quality and overall overnight recovery; keep single-item 1–9 Likert for feasibility."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "passive_aggregated_per_prompt",
+      "notes": "Aggregate passive signals (phone screen minutes) over the interval 'since last prompt' to align with EMAs. Require opt-in and clear privacy notice."
+    },
+    "minimum_total_observations_target": 120,
+    "gvar_readiness_notes": "With 5 prompts/day × 28 days (≈140 observations) per momentary variable and daily diaries, the dataset should be sufficient for initial gVAR (multivariate lagged models). Prefer within-person standardization (person-mean centering) before gVAR. Consider pruning predictors in follow-up analyses if collinearity inflates VAR parameter uncertainty.",
+    "variance_support_notes": "Use 1–9 anchored Likert scales for all EMA items to maximize within-person variance. Passive screen minutes are continuous and likely provide variance; morning sleep quality is expected to vary daily.",
+    "missingness_risk_notes": "Main risks: missed prompts (work/commute), passive stream opt-out, and morning diary noncompliance. Mitigation: brief EMAs, small incentives, adaptive reminder timing, and passive-only fallback if EMA missed (record passively)."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Diminished positive emotional response to pleasant events",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, when something pleasant happened, how much did you feel pleasure or positive emotion? (1 = not at all, 9 = a lot)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Anchored to positive-event reactivity; if no positive event occurred, instruct to rate 'if one had occurred, how much would you have felt' to avoid missingness."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "person-mean centering; optionally seasonal detrend across weeks; no heavy nonlinear transform",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Guilt about not enjoying positive experiences",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, to what extent did you feel guilty or self-critical about not enjoying something you experienced? (1 = not at all, 9 = extremely)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Targets the specific guilt described in complaint; may correlate with general negative affect but captured as event-specific self-evaluation."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "person-mean centering; consider logit-type transform if heavy floor effects",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Behavioral autopilot / low moment-to-moment engagement",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how often did you do things in an automatic or 'on autopilot' way (mindless, not present)? (1 = not at all/present, 9 = entirely on autopilot)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Directly operationalizes autopilot; pairs with passive screen-time to triangulate."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "person-mean centering; consider robust scaling",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "General emotional blunting (low affect intensity)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how intense were your emotions overall (both positive and negative)? (1 = not intense/very blunted, 9 = very intense)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures broad affect intensity; useful to separate blunting from valence-specific changes."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "person-mean centering; scale to unit variance",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "External presentation of being 'fine' despite internal disengagement",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how much did you present or act as if you were 'fine' while feeling different inside? (1 = not at all, 9 = a lot)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "low",
+        "notes": "May show lower within-person variance but preserves complaint-specific outward masking behavior."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering if variance sufficient; otherwise treat as slower-moving covariate",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Reduced motivation/interest to pursue non-routine pleasurable activities",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how motivated were you to do something enjoyable beyond routine obligations? (1 = not at all motivated, 9 = highly motivated)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Designed to capture momentary fluctuations in motivational drive relevant to behavioral activation."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "person-mean centering; consider AR components in gVAR",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Behavioral activation (intentional pleasurable activity engagement)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Cognitive_Behavioral_Therapies / Behavior_Change_and_Activation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Scheduling and completing valued or pleasurable activities increases opportunities for positive reinforcement and can restore positive reactivity and motivation.",
+      "intervention_examples_safe": "Plan a short valued activity (call a friend, 15-min walk, creative hobby) and attempt it; start with graded/brief tasks.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, did you intentionally do a planned/enjoyable activity? Rate how engaged you were: 1 = not at all, 9 = fully engaged.",
+        "response_scale_or_unit": "1-9 Likert (engagement intensity)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "If none planned/done, instruct to rate 1 for engagement; consider an optional event-flag field for binary occurrence."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering; use in raw 1-9 for interpretability",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Doing planned activities should increase momentary motivation/interest and future motivation via momentum."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Completing pleasurable activities provides opportunities for positive affective responses."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Single 1–9 item per prompt is low burden and aligns with EMA schedule."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Savoring / positive-event noticing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Positive_Psychology_and_Wellbeing / Gratitude_and_Savoring",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Deliberate noticing and savoring of positive moments can amplify positive affective responses and counteract blunting.",
+      "intervention_examples_safe": "Brief savoring exercise (notice the sensory/details of a pleasant moment for 1-2 minutes).",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, to what extent did you intentionally notice or savor any pleasant moment? (1 = not at all, 9 = very much)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures brief micropractices linked to increased positive affect."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C04",
+        "C02"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Savoring should increase immediate positive affect when it occurs."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Short single-item EMA feasible."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Self-compassion / reduced self-criticism",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Self_and_Identity_Work / Shame_Guilt_and_Self_Forgiveness",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Self-compassion practices target guilt and self-criticism, reducing the secondary distress tied to not enjoying events.",
+      "intervention_examples_safe": "Brief self-compassion prompt (kind phrase to self; mindful acceptance).",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, to what extent did you respond to yourself with compassion rather than self-criticism? (1 = entirely self-critical, 9 = entirely self-compassionate)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Targets guilt-specific regulation skill; may moderate the impact of low positive reactivity on overall distress."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Increased self-compassion should reduce guilt/self-criticism about low enjoyment."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Single-item assessments acceptable."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Momentary present-moment awareness (mindfulness)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Third_Wave_and_Contextual_Therapies / Mindfulness_Based_Interventions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Increasing psychological presence reduces autopilot, increases emotional granularity, and supports noticing/savoring.",
+      "intervention_examples_safe": "Brief 30-second grounding check-in; orient to breath/body.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how present and aware were you of what you were doing? (1 = not at all, 9 = completely present)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Chosen as the single self-regulation/attention construct to limit redundancy."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C01",
+        "C04"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Greater presence should reduce autopilot-like behavior in subsequent moments."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Short single-item feasible and expected to vary within-day."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Micro-activation (5-minute energizers / small wins)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Cognitive_Behavioral_Therapies / Behavior_Change_and_Activation / skill_shaping_and_routine",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Small, frequent activation tasks create momentum, improve energy and motivation, and provide opportunities for positive feedback.",
+      "intervention_examples_safe": "5-minute brisk walk, stretch, music boost, or short social check-in.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, did you do a short energizing activity (5 minutes) and how energizing was it? (1 = not at all, 9 = very energizing)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures micro-activations that can be rapidly deployed and measured repeatedly."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering; consider binary event flag for sensitivity analyses",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C06",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Micro-activations interrupt autopilot and increase subsequent engagement."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Frequent binary + intensity reporting possible; single 1–9 item reduces burden."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Sleep quality / last-night restoration (morning diary)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Sleep_Circadian_and_Restoration / Sleep_Routines_and_Practices",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Nightly sleep quality and circadian regularity influence daytime energy, attention, affect reactivity, and propensity to operate on autopilot.",
+      "intervention_examples_safe": "Consistent sleep window, light exposure in morning, pre-bed low-stimulation routine.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone morning diary",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "How well did you sleep last night / how restorative was your sleep? (1 = very poor, 9 = very restorative)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 1,
+        "recall_window": "last night",
+        "expected_within_person_variability": "medium",
+        "notes": "Single-item morning diary reduces burden and aligns with circadian hypothesis."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "person-mean centering; consider controlling for weekday/weekend effects",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep should reduce daytime automatic behavior and increase presence."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "If very poor sleep reported consistently, consider flagging for clinical follow-up.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Morning diary improves sleep measurement validity vs recall later in day."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "Social connection / brief social contact",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "SOCIAL / Social_Support_and_Belonging / Network_Building_And_Maintenance",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Brief social contact and perceived connection can increase positive affect and motivation and act as behavioral activation.",
+      "intervention_examples_safe": "Short supportive message to a friend, 10-minute call, join a community event.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how connected did you feel to others or did you have meaningful social contact? (1 = not at all, 9 = very connected)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures brief social investments that can influence positive affect and motivation."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C06",
+        "C04"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Social connection increases opportunities for positive affect and reinforcement."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.93,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": "Single-item feasible; social contact may be constrained by schedule."
+      }
+    },
+    {
+      "var_id": "P08",
+      "label": "Phone screen-time minutes (passive) — proxy for autopilot/distracted behavior",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "ontology_path": "BIO / Personalization_Monitoring_and_Data_Feedback / Wearables_and_Home_Monitoring",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.6,
+      "mechanism_rationale": "Higher passive phone screen time (unstructured) in short windows may indicate distractibility/autopilot and reduce presence or savoring; relationship may be nonlinear (work vs leisure).",
+      "intervention_examples_safe": "Phone-use boundary setting, brief phone-free periods, app timers.",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "phone OS usage API (minutes screen ON/unlocked) aggregated in-app",
+        "assessment_type": "passive_aggregated_per_prompt",
+        "item_or_signal": "Total phone screen time minutes since previous prompt (auto-logged via OS usage API)",
+        "response_scale_or_unit": "minutes (continuous)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Requires explicit consent to collect screen-time; interpret with caution (work-related usage vs autopilot leisure)."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p(minutes) or winsorize extreme values; person-mean centering afterwards",
+        "collinearity_risk": "low",
+        "distribution_hint": "other"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C01",
+        "C04"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "nonlinear",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Higher unstructured screen-time may be associated with more autopilot and less presence, but work-related screen time can confound directionality (hence nonlinear)."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Privacy-sensitive; require explicit opt-in and local aggregation (no raw content).",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.7,
+        "gvar_feasibility_0_1": 0.72,
+        "notes": "Feasible on most smartphones but may be limited by OS permissions and user comfort."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,95000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,95000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,95000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,95000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Behavioral activation increases subsequent motivation/interest.",
+      "estimated_relevance_0_1": 0.95
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Savoring produces near-term boosts in positive reactivity.",
+      "estimated_relevance_0_1": 0.95
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Self-compassion reduces guilt/self-criticism.",
+      "estimated_relevance_0_1": 0.95
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Momentary presence interrupts autopilot in short windows.",
+      "estimated_relevance_0_1": 0.95
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Better sleep reduces daytime automatic behavior and improves presence.",
+      "estimated_relevance_0_1": 0.85
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "P02 (savoring) and P01 (behavioral activation) may correlate when activation includes pleasant activities.",
+      "P04 (mindfulness/presence) and P03 (self-compassion) may show moderate correlation in practice (both attention-related regulation skills).",
+      "Several EMA outcomes (C01, C04) may covary strongly; consider dimensionality reduction if necessary."
+    ],
+    "expected_floor_ceiling_risks": [
+      "C05 (external presentation) may show floor/ceiling effects in some participants (low variability).",
+      "P03 (self-compassion) and P02 (savoring) may show skew (many low baseline values) early in the study."
+    ],
+    "variance_enhancement_suggestions": [
+      "Use 1–9 Likert anchors and explicit instruction to respond in hypothetical terms if no event occurred to reduce zero-inflation.",
+      "Encourage short planned micro-experiments to produce variance (e.g., daily planned pleasant activity)."
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "Multiple near-duplicate self-regulation constructs (e.g., both lengthy mindfulness scales and brief presence item) — only brief presence included.",
+      "Objective continuous sleep device streams (e.g., actigraphy) — excluded to reduce burden and complexity; single-item morning diary included instead."
+    ],
+    "gvar_feasibility_summary": "With 5 prompts/day across momentary variables and 28 days, the within-person time series should provide adequate temporal resolution for gVAR. Person-mean centering and controlling for day-of-week/sleep trends recommended. If multicollinearity arises, drop or combine highly correlated predictors (e.g., P01 vs P05) before final gVAR estimation."
+  },
+  "safety_notes": "No acute self-harm or psychosis signals present in the complaint. If responses during data collection indicate severe distress, suicidal ideation, or acute sleep deprivation with cognitive impairment, trigger safety protocol directing participant to urgent clinical contact. Passive data collection (screen time) requires clear consent and privacy safeguards."
+}

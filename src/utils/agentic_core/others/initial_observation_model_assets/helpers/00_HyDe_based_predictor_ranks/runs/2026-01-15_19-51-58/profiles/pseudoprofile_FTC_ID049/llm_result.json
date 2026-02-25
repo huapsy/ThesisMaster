@@ -1,0 +1,140 @@
+{
+  "pseudoprofile_id": "CASE_ANGELTING_001",
+  "summary": "This case presents episodic tingling in hands/feet with immediate anxiety, an amplification loop, catastrophic threat beliefs, medical uncertainty, and heightened interoceptive monitoring. The proposed modifiable levers target (a) the physiological arousal and autonomic dysregulation that accompany sensations, (b) cognitive processing that amplifies threat and maintains distress, and (c) social and informational supports that reduce uncertainty. Interventions span bio (sleep, exercise, breathing), psycho (CBT/interoceptive exposure, mindfulness, education), and social (care navigation, social support) domains, with attention to interactions (e.g., breathing + CBT, sleep improving interoceptive tolerance, social reassurance lowering threat appraisals). Each lever is actionable, measurable, and aimed at specific criteria (C01–C06) while avoiding unsafe practices or medication dosing. Safety notes emphasize monitoring for distress escalation and seeking professional help if acute risk emerges.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Interoceptive_Exposure_and_Cognitive_Reappraisal_Practice_Frequency",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Structured CBT with graded interoceptive exposure to tingling sensations paired with cognitive reappraisal to reduce threat beliefs and anxiety.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Exposure to benign bodily sensations reduces fear conditioning and catastrophizing by disconfirming catastrophic beliefs; coupling with cognitive reappraisal weakens the reinforcement loop between sensation and anxiety, lowering perception of intensity and frequency.",
+      "measurement": "Weekly logs of tingling episodes (frequency and self-rated intensity), anxiety ratings during episodes (0–10), and a brief cognitive-content questionnaire assessing catastrophizing and threat beliefs.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Proceed with a graded plan; monitor for transient distress increases; pause or modify if new neurological signs emerge; seek clinician input if symptoms worsen.",
+      "mapping_query": "Map to C01–C04 by applying interoceptive exposure and cognitive restructuring in a BIOxPSYCHO framework."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Daily_Mindfulness_and_Interoceptive_Awareness_Practice",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Mindfulness-based attention to bodily sensations with nonjudgmental awareness (e.g., body scan, breath-focused meditation) to reduce reactivity to tingling and interoceptive monitoring.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Nonjudgmental awareness decreases automatic threat appraisal and reduces the amplification of sensations, lowering anxiety response and interoceptive monitoring.",
+      "measurement": "Frequency/duration of mindfulness practice; self-report mindfulness scale (e.g., MAAS/FFMQ); episode-specific anxiety ratings; interoceptive attention scores.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "May transiently increase awareness of sensations; monitor for rumination; adjust practice if distress escalates.",
+      "mapping_query": "Map to C02–C04–C06 using mindfulness-based strategies to modulate interoception and threat appraisal."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep_Quality_Improvement_and_Regulation",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Enhance sleep hygiene and circadian alignment to stabilize autonomic function and reduce interoceptive sensitivity.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Improved sleep improves autonomic regulation and reduces baseline arousal, diminishing anxious reactivity to tingling and monitoring.",
+      "measurement": "Sleep diary metrics (duration, latency, awakenings), Pittsburgh Sleep Quality Index, episode-related anxiety scores.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Check for sleep disorders or sleep apnea; adjust routines accordingly; consult clinician if fatigue or daytime impairment persists.",
+      "mapping_query": "Map to C02–C04–C06 through sleep quality improvements affecting autonomic regulation and threat response."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Paced_Breathing_with_HRV_Biofeedback",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Regular paced breathing (e.g., 4–6 breaths per minute) with optional HRV biofeedback to dampen autonomic arousal during episodes.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Slow, regular breathing lowers sympathetic activation and reduces interoceptive threat sensitivity; HRV improvements reflect better autonomic balance reducing anxiety and monitoring.",
+      "measurement": "Session adherence; real-time or patient-reported breathing rate; HRV metrics if available; episode anxiety ratings; tingling intensity.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Instruct to avoid hyperventilation and dizziness; adjust pace for comfort; discontinue if lightheadedness occurs.",
+      "mapping_query": "Map to C02–C03–C06 via autonomic regulation technique combining breathing and biofeedback."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Care_Navigation_and_Social_Support_Planning",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured social support and care-navigation plan to provide reassurance, explain medical uncertainty, and reduce threat belief persistence.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C02"
+      ],
+      "mechanism_rationale": "Consistent social reassurance and clear pathways for medical exploration decrease catastrophic interpretations and uncertainty, lowering anxiety and monitoring.",
+      "measurement": "Perceived social support scale, frequency of reassuring encounters/logs, episode-specific anxiety ratings.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Coordinate with healthcare providers to avoid delaying necessary medical workups; ensure accuracy of information shared.",
+      "mapping_query": "Map to C04–C05 (and indirectly C02) through enhanced social support and care-navigation."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Psychoeducation_on_Tingling_and_Medical_Causes",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Targeted psychoeducation modules about common benign nerve-related sensations and typical medical workups to reduce uncertainty and threat interpretation.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Accurate information mitigates misinterpretation and reduces catastrophic thinking while addressing uncertainty about cause.",
+      "measurement": "Knowledge quiz performance; worry/uncertainty scales; post-education reassurance ratings.",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure factual, evidence-based content; avoid medical misinterpretation; provide clinician contact for questions.",
+      "mapping_query": "Map to C04–C05 via education that reframes interpretation and uncertainty."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Regular_Aerobic_Exercise_Adherence",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured, gradual aerobic exercise plan to improve autonomic flexibility and mood, reducing anxiety responses to sensations.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Exercise-induced neurochemical and autonomic changes reduce baseline anxiety and interoceptive sensitivity, dampening amplification and monitoring.",
+      "measurement": "Weekly exercise minutes, session adherence, episode anxiety ratings, tingling frequency/intensity.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Medical clearance recommended if cardiovascular risk; start low and progress gradually; monitor for overexertion.",
+      "mapping_query": "Map to C02–C03–C06 through physiologic and mood benefits of regular aerobic activity."
+    }
+  ]
+}

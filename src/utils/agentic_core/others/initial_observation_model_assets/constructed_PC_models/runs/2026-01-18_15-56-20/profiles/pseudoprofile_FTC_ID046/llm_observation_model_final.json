@@ -1,0 +1,772 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID046",
+  "model_summary": "This initial gVAR-ready observation model targets five patient-expressed factors (auditory trigger sensitivity to chewing sounds, intensity/controllability of anger, perseverative listening to trigger sounds, self-directed distress about sensory reactions, and texture sensitivity) as criteria (C01–C05). It couples them with five modifiable predictors (P01–P05) that map to evidence-informed salutogenic levers: autonomic arousal regulation, self-soothing sensory toolkit usage, mindful attention to sounds, compassionate self-talk, and sleep hygiene. The design emphasizes within-person variance via frequent momentary assessments (EMA) across 21 days, plus a daily diary and passive streams for sleep/arousal context. The measurement plan uses 1–9 Likert scales for subjective states and 1–9 intensity scales for predictor usage where feasible, with per-subject standardization to support gVAR estimation. All edges assume mostly negative (salutogenic) directional effects (increases in predictor use reduce criterion severity), with a coherent 0–6h lag window for proximal effects. The design prioritizes non-redundant constructs and moderate-collinearity risk to allow stable estimation and interpretable mediation/moderation paths.",
+  "variable_selection_notes": "Criteria (C01–C05) capture the core phenomenology described in the complaint: tactile/auditory trigger sensitivity, affective response, intrusive auditory imagery, self-judgment, and texture sensitivity. Predictors (P01–P05) were chosen to cover autonomic regulation, sensory coping, mindful engagement with auditory input, compassionate self-relating processes, and sleep timing/quality—areas highlighted by HyDe and LLM mappings as impactful, modifiable levers with broad mechanistic plausibility and safe, scalable interventions. To limit redundancy, we included one broad self-regulation construct per major mechanism (arousal regulation, sensory coping, mindfulness, compassion/self-talk, sleep), reducing overlap while preserving explanatory power. Within-person variance is maximized through five EMA prompts per day across three weeks, a daily sleep diary, and passive sleep/arousal signals when available. Potential nonlinearity (e.g., sensory exposure effects) is acknowledged in predictor-criterion links but the primary design assumes monotonic salutogenic effects for planning purposes; nonlinearities will be explored in later model refinement.",
+  "design_recommendations": {
+    "study_days": 21,
+    "momentary_ema": {
+      "prompts_per_day": 5,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:00",
+        "11:30",
+        "14:00",
+        "17:00",
+        "21:30"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 105,
+      "notes": "Five prompts/day over 21 days to maximize within-person variance; jitter reduces predictability."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "20:00"
+      ],
+      "expected_total_entries": 21,
+      "notes": "Evening diary captures sleep quality and texture/sensory context."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Wearable-derived autonomic proxy (HRV-like index) and sleep/wake timing when available; otherwise supplement with EMA items."
+    },
+    "minimum_total_observations_target": 126,
+    "gvar_readiness_notes": "Initial set supports gVAR with five criteria and five predictors, enabling cross-path evaluation and lagged effects.",
+    "variance_support_notes": "1–9 Likert scales for C01–C05; 1–9 scales for predictor usage (e.g., breathwork, self-soothing, mindfulness, compassion, sleep quality). Per-subject standardization recommended.",
+    "missingness_risk_notes": "Reminders for prompts; plan for missing daily diary data; imputation/backfilling strategies discussed in analysis plan."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Auditory trigger sensitivity (chewing sounds)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "In-app EMA",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past hour, how strongly did you experience aversive reactivity (discomfort or agitation) when exposed to chewing/mouth noises? Rate 1–9.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Trigger-specific aversion intensity"
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Intensity and controllability of anger response",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "In-app EMA",
+        "assessment_type": "momentary",
+        "item_or_signal": "When the trigger occurred, how intense was your anger and how controllable did you feel it was? Rate 1–9 for intensity and 1–9 for controllability.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Sudden anger intensity and perceived controllability"
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Perseverative auditory attention / inability to habituate",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "In-app EMA",
+        "assessment_type": "momentary",
+        "item_or_signal": "After exposure, how often do you find yourself replaying or cannot stop hearing the trigger sounds? Rate 1–9.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Intrusive auditory imagery and replay"
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Self-directed distress and negative evaluation",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "In-app EMA",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right after a trigger, rate how distressed you feel about having these reactions on a 1–9 scale.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Self-criticism and distress about sensory reactions"
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Reported sensitivity to textures",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "In-app EMA",
+        "assessment_type": "momentary",
+        "item_or_signal": "Do you notice unusual sensitivity or aversion to textures (tactile/visual) alongside your sound sensitivity? Rate 1–9.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Texture sensitivity in parallel with sound sensitivity"
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Autonomic Arousal Regulation Practice (paced breathing / HRV biofeedback)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "ontology_path": "[BIO] > Autonomic_Regulation_and_Arousal_Skills",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Directly reduces sympathetic arousal and improves emotional regulation, enhancing controllability over triggers.",
+      "intervention_examples_safe": "Paced breathing, brief HRV-biofeedback sessions, progressive muscle relaxation.",
+      "measurement": {
+        "mode": "wearable_sensor",
+        "channel": "HRV_index (e.g., RMSSD) in last 5 minutes; optional EMA prompt on paced-breathing usage",
+        "assessment_type": "momentary",
+        "item_or_signal": "HRV index in the last 5 minutes; if not available, self-report of paced-breathing usage in last 10 minutes.",
+        "response_scale_or_unit": "HRV_units / 1-9 (self-report surrogate if needed)",
+        "sampling_per_day": 5,
+        "recall_window": "past_10_minutes",
+        "expected_within_person_variability": "high",
+        "notes": "Primary autonomic regulation lever; combines passive physiological signal with brief self-report when needed."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Arousal regulation should reduce trigger aversion within hours."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Wearable HRV feasible if device present; otherwise surrogate EMA item suffices."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Self-Soothing Sensory Toolkit Usage (multi-sensory toolkit)",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "ontology_path": "[PSYCHO] > Core_Psychological_Skills_Toolkits > Self_Soothe_Sensory_Toolkit",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Enhances immediate coping with sensory input, dampening aversive reactivity.",
+      "intervention_examples_safe": "Tactile textures, soothing sounds, visual calm cues, multi-sensory grounding.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "In-app EMA",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the last 60 minutes, did you use any self-soothing sensory tools? Rate effectiveness 1–9.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "past_60_minutes",
+        "expected_within_person_variability": "high",
+        "notes": "Captures real-time toolkit usage"
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Toolkit use should reduce aversive reactivity to triggers promptly."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Requires easy-to-use toolkit prompts; feasible in most populations."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Mindfulness of Sounds (present-moment awareness of auditory input)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Third_Wave_and_Contextual_Therapies > Present_Moment_Awareness_Skills",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Decentering from distressing sounds reduces reactivity and rumination.",
+      "intervention_examples_safe": "Mindful listening to ambient sounds; nonjudgmental noting of sounds.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "In-app EMA",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the last 60 minutes, rate your ability to observe sounds without getting reactive. 1–9.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "past_60_minutes",
+        "expected_within_person_variability": "high",
+        "notes": "Mindfulness of auditory input"
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindful listening reduces aversive reaction to auditory triggers."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Requires user engagement with mindful listening prompts."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Compassion-Focused Self-Relating Practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Third_Wave_and_Contextual_Therapies > Compassion_FocusedInterventions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Reduces self-directed distress and negative self-judgement, buffering reactivity to triggers.",
+      "intervention_examples_safe": "Self-compassion scripts, compassionate self-talk, loving-kindness practice.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "In-app EMA",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the last 60 minutes, rate your use and perceived effectiveness of compassionate self-talk. 1–9.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "past_60_minutes",
+        "expected_within_person_variability": "high",
+        "notes": "Promotes self-relating warmth"
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Compassion-focused self-talk reduces self-directed distress."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.82,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": "Requires coaching prompts; feasible in most settings."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Sleep Hygiene and Circadian Regularity",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Sleep_Circadian_and_Restoration",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Regular sleep supports autonomic regulation and sensory processing; improves arousal thresholds.",
+      "intervention_examples_safe": "Consistent bed/wake times, light exposure timing, wind-down routine.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Evening diary",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "From last night, how many hours did you sleep and how would you rate overall sleep quality (1–9)?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 1,
+        "recall_window": "last_night",
+        "expected_within_person_variability": "medium",
+        "notes": "End-of-day sleep assessment; complements passive sleep data if available"
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep reduces overall arousal sensitivity to triggers within the day."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Daily sleep diary feasible; wearable sleep data adds robustness."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,86000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,64000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,72000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "proximal arousal regulation reduces trigger aversion",
+      "estimated_relevance_0_1": 0.86
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "arousal lowering expected to dampen anger intensity",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "arousal regulation supports habituation processes",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "lower arousal linked to less distress",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "arousal reduction may reduce texture sensitivity impact",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "self-soothing reduces aversion to triggers",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "toolkit usage linked to reduced anger intensity",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "sensory coping supports habituation of triggering sounds",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "self-soothing lowers distress after exposure",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "textures-handling tools may reduce texture sensitivity impact",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "mindfulness of sounds reduces aversion",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "present-moment awareness dampens anger response",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "mindfulness supports decreased replay of sounds",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "decouples distress from triggers",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "auditory mindfulness may reduce texture-related distress",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "compassionate self-talk lowers reactivity to sounds",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "self-relating compassion reduces anger intensity",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "self-compassion linked to decreased perseverative listening",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "compassion practice reduces self-criticism",
+      "estimated_relevance_0_1": 0.9
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "compassion improves overall sensory context coping",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "sleep regularity lowers arousal sensitivity",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "better sleep linked to reduced anger intensity by next day",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "sleep quality supports calmer auditory processing",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "sleep quality reduces distress about reactions",
+      "estimated_relevance_0_1": 0.64
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "sleep improves sensory tolerance; texture sensitivity may lessen",
+      "estimated_relevance_0_1": 0.72
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "low-to-moderate chance of overlap among affect-regulation predictors (P01–P04)"
+    ],
+    "expected_floor_ceiling_risks": [
+      "low risk given 1–9 scales and multiple prompts"
+    ],
+    "variance_enhancement_suggestions": [
+      "center and scale per subject; consider z-scoring within subject; monitor for collinearity during model fitting"
+    ],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": "Feasible; plan uses 5 predictors and 5 criteria with 105 EMA prompts plus 21 daily diaries; passive sleep/AR signals strengthen estimation."
+  },
+  "safety_notes": "Not a diagnosis or treatment recommendation. If acute risk signs emerge, encourage seeking professional care. This plan is for observation/data collection and hypothesis generation for gVAR modeling."
+}

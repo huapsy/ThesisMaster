@@ -1,0 +1,160 @@
+{
+  "pseudoprofile_id": "CASE-ANX-HP-01",
+  "summary": "The case presents health-anxiety driven by catastrophic interpretation of minor symptoms, compulsive health-information seeking, and poor inhibitory control over checking. Candidate levers span biological (arousal regulation, sleep), psychological (cognitive-behavioral and metacognitive processes, coping skills), and social/environmental (digital hygiene, support systems) domains, with attention to interactions (e.g., mindfulness reducing arousal to support cognitive restructuring; social supports reducing reassurance-seeking). The following modifiable predictors are designed to reduce health-worry frequency/intensity, curb catastrophic appraisals, decrease compulsive checking, restore sense of control, and blunt acute fear responses, while permitting measurable progress within a 4–12 week horizon.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Health anxiety-focused exposure with response prevention (CBT-ERP)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured CBT-ERP for health anxiety: deliberate exposure to symptom-related cues without performing checking or seeking reassurance, paired with behavioral experiments to disconfirm catastrophic beliefs. Include diary of symptoms, countdowns to allow delaying checking, and guided retreat from immediate internet searches after initial symptom cue.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Reduces automatic catastrophic appraisal, strengthens inhibitory control over checking impulses, and normalizes distress through habituation to symptom cues and non-checking responses.",
+      "measurement": "Daily worry/intensity (0-10) via brief diary; number of symptom-triggered searches; time spent on health information per day; self-reported urge to check (0-10); frequency of symptom-driven panic-like responses.",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns beyond standard CBT exposure practices; monitor for brief increases in worry during early ERP phases.",
+      "mapping_query": "Map S01 to C01–C04 and C06; assess reductions in worry frequency, catastrophic interpretation, and checking behaviors over time."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Mindfulness-based arousal regulation and cognitive reactivity reduction",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "8-week mindfulness-based stress reduction (MBSR) with daily 10–15 minute practices (breath awareness, body scan, urge surfing) plus psychoeducation on nonreactivity to bodily sensations. Teach acceptance of uncertainty and observation of thoughts without judgment.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Dampens autonomic arousal, increases meta-awareness, and reduces reactivity to symptoms, lowering panic-level fear and the urge to engage in compulsive checking.",
+      "measurement": "Daily minutes of formal/informal mindfulness practice; state/anxiety ratings after symptom cues; frequency of checking urges; catastrophizing thoughts count.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "None beyond standard mindfulness practice guidance; ensure gradual intensity for individuals with anxiety disorders.",
+      "mapping_query": "Map S02 to C02 and C06; assess changes in symptom reactivity and perceived control."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Digital health-information use regulation (digital hygiene)",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Implement structured digital hygiene plan: fixed daily time window for symptom-related searches, use website blockers during high-risk periods, use a pre-search checklist to reframe purpose, and substitute with alternate activities (e.g., walk, chores).",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Disrupts reinforcement cycles of checking, increases inhibitory control, and reduces exposure to excessive threat information.",
+      "measurement": "Daily health-search time; number of symptom-driven searches; delay between symptom cue and first search; frequency of reassurance-seeking visits; self-reported urge to search.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "If symptoms escalate or safety concerns arise, adjust blockers and consult clinician.",
+      "mapping_query": "Map S03 to C03 and C04; monitor reduction in compulsive searching and improved inhibitory control."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sleep quality and circadian alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene program to stabilize arousal and daytime fatigue: consistent bed/wake times, morning light exposure, caffeine timing adjustments, wind-down routine, and room environment optimization.",
+      "targets_criteria_ids": [
+        "C05",
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Improved sleep reduces daytime anxiety reactivity and improves emotional regulation, lowering distress about loss of control and fear responses to symptoms.",
+      "measurement": "Sleep diary (duration, onset latency, awakenings); morning mood/anxiety; number of symptom-driven panic-like reactions; subjective sense of control.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None apart from general sleep-disruption monitoring; adjust caffeine/screen exposure accordingly.",
+      "mapping_query": "Map S04 to C01, C05, C06; evaluate changes in arousal and symptom-triggered fear."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Social support and accountability structures",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage a structured social-support/ accountability plan: weekly check-ins with a trusted partner or therapist, involvement in a psychoeducation or health-anxiety group, and social prescribing to community resources to reduce isolation and reassurance-seeking.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "External support reduces reliance on self-reassurance, provides alternative coping strategies, and buffers distress when symptoms arise.",
+      "measurement": "Number of supportive contacts per week; loneliness scale; perceived social support; check-in adherence; symptom-related checking episodes.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Monitor for potential over-reliance on social reassurance; balance with cognitive skills training.",
+      "mapping_query": "Map S05 to C01 and C04; track shifts in reassurance-seeking and social connectedness."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Psychoeducation and safety planning for health-anxiety",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured psychoeducation module plus a safety/crisis plan: educate about health-anxiety mechanisms, identify triggers, and create stepwise coping actions for early signs, including when to seek professional help.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Increases cognitive clarity and preparedness, reducing catastrophic misinterpretations and distress around control failures.",
+      "measurement": "Knowledge quiz scores; safety-plan activation frequency; episodes of checking; anxiety ratings before/after symptom cues.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None beyond standard psychoeducation materials.",
+      "mapping_query": "Map S06 to C01 and C02; assess learning uptake and reductions in catastrophic thinking."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Attention bias and interpretation bias modification (CBM)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Online cognitive bias modification training targeting threat interpretation and attentional bias toward health-threat cues; scheduled sessions to reframe ambiguous symptoms.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Shifts automatic threat appraisal toward more adaptive interpretations, reducing immediate panic-like responses and compulsive checking.",
+      "measurement": "CBM task performance metrics; symptom worry frequency; post-CBM symptom ratings; checking urges.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None.",
+      "mapping_query": "Map S07 to C02 and C03; evaluate changes in interpretation bias and checking behavior."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Behavioral activation and Problem-Solving training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Integrate behavioral activation with problem-solving therapy: schedule meaningful activities, create problem-solving steps for symptom-related situations, and reduce avoidance by planned exposure to non-health-related activities.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C06"
+      ],
+      "mechanism_rationale": "Enhances mastery and control through purposeful activity, reduces avoidance and negative cognitions, and builds coping strategies for symptom management.",
+      "measurement": "Activity engagement log; problem-solving steps completed; anxiety remained after symptom cue; frequency of protective behaviors (vs. checking).",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "None.",
+      "mapping_query": "Map S08 to C01, C02, and C06; monitor activity levels and problem-solving effectiveness."
+    }
+  ]
+}

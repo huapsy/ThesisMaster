@@ -1,0 +1,98 @@
+{
+  "pseudoprofile_id": "case_sleep_rumination_001",
+  "summary": "The case presents a nocturnal pattern of cognitive hyperarousal with content-specific rumination (past conversations, future catastrophizing) leading to delayed sleep onset and morning irritability. Key modifiable levers span biological circadian regulation, cognitive-behavioral processing of worry and rumination, and pre-sleep/environmental adjustments. The proposed solutions target (1) reduce nighttime cognitive activation and rumination (C01, C02, C03), (2) move sleep onset earlier (C04), and (3) alleviate morning irritability (C05) through actionable BIO/PSYCHO/SOCIAL strategies. Each lever is designed as a changeable predictor that can be implemented with widely available tools (therapy, journaling, routines, environmental tweaks) and is trackable with simple metrics over a weeks-to-month horizon.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "CBT-I package with stimulus control, sleep restriction planning as appropriate, cognitive restructuring of nocturnal rumination, and scheduled nighttime worry time",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a structured CBT-I protocol focusing on (a) stimulus control to re-associate bed with sleep, (b) sleep-restriction adjustments to consolidate sleep, (c) cognitive restructuring of replayed conversations and future worries, and (d) a fixed 20–30 minute 'worry window' earlier in the evening to offload ruminative content before bed.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Addresses content-specific replay (C01) by reframing memories and reducing salience; reduces nighttime anticipatory worry (C02) via scheduled worry time; lowers cognitive hyperarousal (C03) with sleep-tightening routines; decreases delayed sleep onset (C04) through consolidated sleep pressure and routine.",
+      "measurement": "Sleep diary metrics (SOL in minutes, bedtime consistency, sleep efficiency), frequency of nighttime intrusive thoughts, number of worries logged during the pre-sleep window.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns identified. Monitor for excessive sleep restriction effects if used long-term.",
+      "mapping_query": "Map CBT-I components to CASE payload targets: reduce C01-C04 by restructuring thoughts, scheduling worry, and tightening sleep schedule."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Evening mindfulness/acceptance-based practice to reduce cognitive arousal and rumination",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce a brief, guided mindfulness or acceptance-based practice (5–15 minutes) each evening to observe thoughts nonjudgmentally, with emphasis on non-engagement with ruminative content and reducing evaluative thinking before sleep.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "By cultivating nonreactive awareness, reduces cognitive hyperarousal (C03) and diminishes automatic replay (C01) without suppressing content.",
+      "measurement": "Adherence to practice (daily YES/NO), self-rated pre-sleep arousal, SOL (minutes) from sleep diary.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Safe; no contraindications. Recommend short guided sessions to begin.",
+      "mapping_query": "Link evening mindfulness to reductions in C03 and C01 per CASE_PAYLOAD."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Evening worry scheduling and externalization (journaling or voice memo) 15–30 minutes before bed",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Establish a fixed 'worry time' block earlier in the evening (or immediately after dinner) to offload concerns into an external medium (journal or voice memo) and limit post-worry rumination at bedtime.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Directly targets nighttime replay (C01) and anticipatory worry (C02) by moving content processing to a controlled window, reducing nocturnal cognitive engagement.",
+      "measurement": "Frequency of nightly intrusive thoughts (brief diary check), number of worries logged during worry window, SOL.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Monitor for increased anxiety during worry period; adjust window length as needed.",
+      "mapping_query": "Map worry scheduling to mitigate C01 and C02 based on CASE payload."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Morning circadian alignment via consistent wake time with morning light exposure",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Choose a fixed wake time (e.g., 7:00–7:30 AM) with immediate morning light exposure (10–20 minutes outdoors or bright light therapy) to advance circadian phase and improve daytime mood.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Regularized wake time and morning light promote earlier sleep onset indirectly by advancing circadian rhythm, reduce sleep inertia, and improve morning irritability (C05) through better daytime regulation.",
+      "measurement": "Wake time consistency, actigraphy-derived circadian phase markers, morning mood rating (0–10), SOL impact.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Sun exposure caution for photosensitivity; adjust light intensity as needed.",
+      "mapping_query": "Align circadian timing (C04) and morning mood (C05) through wake-time/light interventions."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Bedroom/bedroom environment optimization: blackout curtains, cooler room, screen-curfew, white noise or soft ambient sounds",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Create an sleep-conducive environment by (a) blackout curtains or eye mask, (b) cooling the room to ~18–20°C, (c) limiting screens 60 minutes before bed, and (d) using white noise to reduce nocturnal awakenings and arousal.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Environmental cues shape sleep pressure and arousal; reducing sensory input and exposure to screens lowers cognitive arousal (C03) and facilitates earlier sleep onset (C04).",
+      "measurement": "Environmental checklist completion, subjective sleep quality, SOL and WASO via sleep diary, time spent on screens before bed.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None specific; ensure safety and comfort in sleeping environment.",
+      "mapping_query": "Map environmental adjustments to reduce C03 and facilitate earlier sleep onset (C04) per CASE payload."
+    }
+  ]
+}

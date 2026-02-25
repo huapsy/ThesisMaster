@@ -1,0 +1,176 @@
+{
+  "pseudoprofile_id": "CASE_PAYLOAD_v1_MentalHealthSomaticAnxiety_InterventionPlan",
+  "summary": "The case reflects a high level of acute bodily symptom intensity with strong threat appraisal, avoidance of risky contexts, and interoceptive hypervigilance, despite normal medical test results. Modifiable levers should target (1) the brain-body threat conditioning and attention to internal signals (BIO+PSYCHO), (2) avoidance behaviors and real-world functioning (SOCIAL), and (3) interpretation of symptoms and response to reassurance (PSYCHO). An integrated plan that uses graded exposure, cognitive-behavioral strategies, acceptance-based approaches, autonomic regulation, and supportive social/health-system strategies is likely to reduce symptom frequency/severity, distress from unpredictability, and avoidance, while improving daily functioning and quality of life.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Interoceptive Exposure + Mindfulness Training for Bodily Sensations",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Systematic interoceptive exposure to feared bodily sensations paired with mindfulness-based attention retraining to reduce catastrophic interpretation and hypervigilance. Components include in-session graded exposures to sensations (e.g., mild GI sensations, heartbeat focus, dizziness simulations) with daily self-guided audio and brief weekly psychoeducation to normalize bodily signals.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Reducing fear-conditioned responses to internal cues lowers autonomic arousal, decreases threat amplification, and reduces both distress from unpredictability and excessive interoceptive focus.",
+      "measurement": "Daily symptom diary (frequency and 0–10 peak intensity); interoceptive attention scale (0–5); weekly log of completed exposures; optional resting HRV during tasks.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for acute distress during early exposures; stop or modify if panic symptoms worsen; ensure access to clinician if symptoms escalate.",
+      "mapping_query": "Map S01 to C01, C02, C03, and C06; track changes via daily symptom diaries and exposure logs."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Graded Real-World Exposure to Leaving Home/Travel",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured, progressive exposure program to reduce travel-avoidance and improve confidence away from home. Start with short, safe excursions near home and gradually increase distance/time in a stepwise ladder, with contingency planning for symptoms and a support person or coach.",
+      "targets_criteria_ids": [
+        "C05",
+        "C07",
+        "C02"
+      ],
+      "mechanism_rationale": "Systematic exposure to avoided contexts reduces avoidance behavior, lowers anticipatory anxiety, and improves daily functioning and resilience in real-world settings.",
+      "measurement": "Weekly distance from home (meters/kilometers) and time spent away; avoidance days; self-reported fear during excursions (0–10).",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.66,
+      "priority": "HIGH",
+      "safety_notes": "Proceed with safety plan; pause or slow the ladder if panic or severe symptom escalation occurs; ensure support contact during initial travels.",
+      "mapping_query": "Map S02 to C05 and C02/C07; monitor travel distance and avoidance reduction over time."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Cognitive Reappraisal & Threat Interpretation Modification (CBT-based)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive-behavioral interventions to challenge catastrophic interpretations of bodily sensations and reduce perceived danger. Includes cognitive restructuring, behavioral experiments to test feared outcomes, and relapse-prevention planning.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Altering automatic threat appraisals lowers fear responses to sensations and increases trust in benign medical information, reducing distress when symptoms arise.",
+      "measurement": "Threat appraisal rating (0–10) before/after sessions; frequency of catastrophic thoughts; satisfaction with medical reassurance.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure collaboration with healthcare providers; monitor for misinterpretations that require clinician review.",
+      "mapping_query": "Map S03 to C03 and C04; track threat perception changes and reassurance acceptance."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "ACT-based Uncertainty Tolerance & Values-Driven Action",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Acceptance and Commitment Therapy (ACT)–informed practices to increase tolerance of uncertainty and encourage value-consistent actions despite symptoms. Includes values clarification, committed action plans, and experiential exercises.",
+      "targets_criteria_ids": [
+        "C02",
+        "C07",
+        "C04"
+      ],
+      "mechanism_rationale": "Increasing acceptance of uncertainty reduces distress from unpredictable symptoms and supports engagement in meaningful activities, lowering functional impairment.",
+      "measurement": "Acceptance of uncertainty scale; values-aligned activities completed per week; distress and engagement scores.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; ensure alignment with medical advice and patient preferences.",
+      "mapping_query": "Map S04 to C02 and C07; monitor changes in acceptance and activity engagement."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Autonomic Regulation via HRV Biofeedback & Paced Breathing",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Physiological regulation program using HRV biofeedback and paced breathing to reduce autonomic arousal, improve emotional regulation, and lessen symptom intensity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C06"
+      ],
+      "mechanism_rationale": "Improved autonomic balance dampens excessive bodily arousal and lowers interoceptive threat sensitivity.",
+      "measurement": "HRV metrics (RMSSD, HF power); resting heart rate; episode intensity and frequency logs; breathing rate during practice.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Occasional dizziness during training should be monitored; adapt practice as needed; seek clinician input if uncomfortable changes occur.",
+      "mapping_query": "Map S05 to C01, C02, C06; use physiological data to gauge arousal changes."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep Regularity & Circadian Alignment Protocol",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene and circadian regularity program (consistent sleep/wake times, light exposure, wind-down routines) to stabilize physiological systems and improve symptom regulation.",
+      "targets_criteria_ids": [
+        "C01",
+        "C07"
+      ],
+      "mechanism_rationale": "Better sleep supports autonomic regulation and mood, reducing symptom frequency/severity and emotional interference.",
+      "measurement": "Sleep duration/consistency (actigraphy or diary); Pittsburgh Sleep Quality Index scores; daytime fatigue/functional impact reports.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Minimal risk; monitor for sleep disturbances during routine changes; adjust as needed.",
+      "mapping_query": "Map S06 to C01 and C07; assess sleep quality vs symptom impact."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Structured Social Support & Community Connection",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Enhance social connectedness and access to supportive networks through facilitated groups, buddy systems, and social prescribing where available.",
+      "targets_criteria_ids": [
+        "C07",
+        "C05"
+      ],
+      "mechanism_rationale": "Enhanced belonging and practical support reduce fear-avoidance and emotional distress, improving functioning.",
+      "measurement": "Social connectedness scale; number of supportive contacts per week; avoidance days; mood/affect ratings.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Ensure respectful inclusion and privacy; monitor for over-reliance on social inputs.",
+      "mapping_query": "Map S07 to C05 and C07; track changes in social engagement and symptom impact."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Enhanced Medical Communication & Reassurance Strategy",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Develop a structured plan for communicating with clinicians, including a patient-facing prompt list and collaborative interpretation of test results, to reduce perceived invalidation of reassurance.",
+      "targets_criteria_ids": [
+        "C04",
+        "C02"
+      ],
+      "mechanism_rationale": "Better communication reduces mistrust and reduces distress when medical results are normal but symptoms persist.",
+      "measurement": "Patient satisfaction with reassurance; trust in clinician; perceived validation during medical encounters.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; avoid misinterpretation of medical advice; encourage questions.",
+      "mapping_query": "Map S08 to C04 and C02; evaluate changes in reassurance acceptance and distress."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Measurement-Based Care with Self-Monitoring Feedback Loop",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Implement regular self-monitoring of symptoms, triggers, and functioning with weekly feedback to tailor interventions. This creates data-driven adjustment of strategies and enhances engagement.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C05",
+        "C07"
+      ],
+      "mechanism_rationale": "Frequent feedback and data-driven adjustments improve responsiveness of interventions and empower the patient.",
+      "measurement": "Weekly symptom counts, 0–10 intensity, triggers, avoidance days; weekly feedback report; adherence to plan.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No direct safety concerns; ensure privacy and data security; escalate if new risk signals appear.",
+      "mapping_query": "Map S09 to all primary criteria (C01-C07) via ongoing measurement and feedback."
+    }
+  ]
+}

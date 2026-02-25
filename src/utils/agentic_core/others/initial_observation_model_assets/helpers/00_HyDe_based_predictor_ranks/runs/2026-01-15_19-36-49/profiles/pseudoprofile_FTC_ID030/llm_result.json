@@ -1,0 +1,189 @@
+{
+  "pseudoprofile_id": "CASE_ENG_2026_01",
+  "summary": "The presenting pattern is episodic perceptual alteration with stress as a proximal trigger, accompanied by a subjective sense of not being fully present and acute distress during episodes. Modifiable levers span sleep regulation, mindful presence, stress-responsive coping, behavioral activation, aerobic fitness, social connectedness, measurement-based feedback, and nutritional/somatic support. Implementing a layered, multi-domain plan targeting C01 (episodic alteration), C02 (stress trigger), C03 (sense of presence), C04 (acute distress), C05 (episode frequency), and C08 (baseline stress) is expected to reduce episode frequency and distress, stabilize presence during episodes, and improve overall functional resilience over weeks to months.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep regularity and circadian entrainment optimization (consistent bed/wake times, morning light exposure, caffeine timing)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured sleep plan with fixed bedtime/wake time, wind-down routine, morning outdoor light exposure, caffeine avoidance in late day, and a simple sleep diary or actigraphy tracking.",
+      "targets_criteria_ids": [
+        "C08",
+        "C02",
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Regular sleep reduces autonomic arousal and improves cognitive control, decreasing vulnerability to stress-triggered perceptual alterations and distress; stable circadian cues support sense of presence.",
+      "measurement": "Sleep diary entries (bedtime, wake time, duration, awakenings), optional actigraphy; weekly counts of episodes; presence and distress ratings during episodes.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "MAP_S01 -> C08,C02,C01,C03"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Grounding and present-moment orientation training (5-10 minute daily grounding; sensory cues; reality-check cues)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach 5-4-3-2-1 grounding, sensory naming, and brief slow-breathing exercises; provide cue cards; embed in daily routine and during stress periods.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Grounding expands interoceptive awareness and stabilizes attention, reducing dissociative-like experiences and distress, while interrupting stress-reactivity cycles.",
+      "measurement": "Presence rating during episodes (0-10); distress rating (0-10); weekly episode count; adherence to grounding practice.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "MAP_S02 -> C03,C04,C02,C01"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness-based stress reduction (MBSR) or brief mindfulness training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "8-week mindfulness program with daily 10-minute practice (breath awareness, body scan, open monitoring); guided audio resources; practice log.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C08",
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Nonjudgmental present-moment awareness reduces reactivity to stress and perceptual distortion, enhances presence, and experimentally dampens distress responses.",
+      "measurement": "Perceived Stress Scale (PSS) weekly; daily mindfulness practice log; episodes frequency and presence ratings.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "MAP_S03 -> C02,C04,C08,C03,C01"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Psychoeducation about episodes and coping strategies",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Psychoeducation session on triggers, normalizing experiences, and a personalized coping plan; skills include grounding, paced breathing, cognitive reframing; provide written/recorded resources.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Increased knowledge and self-efficacy reduce fear and distress, improving anticipatory coping and execution of strategies when episodes arise.",
+      "measurement": "Coping plan adherence check-ins; knowledge quiz; self-reported episode distress and frequency.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "MAP_S04 -> C02,C04,C03,C01"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Behavioral Activation and engagement in rewarding activities",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Weekly activity scheduling and engagement in enjoyable tasks to counter avoidance and rumination; gradual increase in social/occupational activities during high-stress periods.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01",
+        "C05",
+        "C08"
+      ],
+      "mechanism_rationale": "Activation improves mood, reduces rumination and perceived threat, and lowers the probability of distress during episodes.",
+      "measurement": "Weekly activity log; mood ratings; episode frequency and distress during weeks.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "MAP_S05 -> C04,C01,C05,C08"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Regular aerobic exercise program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "3-4 sessions per week of moderate-intensity cardio (e.g., brisk walking, cycling); monitor with simple HR; gradual progression to sustain adherence.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C08",
+        "C06"
+      ],
+      "mechanism_rationale": "Exercise reduces physiologic arousal, improves mood and cognitive control, and buffers stress-related perceptual disturbances.",
+      "measurement": "Exercise log (frequency/duration); optional HRV or resting heart rate; episode frequency; distress ratings.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Obtain medical clearance if cardiovascular risk; adapt for fitness level",
+      "mapping_query": "MAP_S06 -> C02,C04,C08,C06"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social support and belonging (social prescribing, supportive networks)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Facilitate connections with supportive peers/family; set up regular check-ins; encourage discussion of stress and episodes in a validating environment; use social linkage to community resources.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C08",
+        "C07",
+        "C05"
+      ],
+      "mechanism_rationale": "Social support buffers stress reactivity, reduces distress during episodes, and enhances insight into triggers through validation and shared coping.",
+      "measurement": "Number of meaningful social contacts per week; perceived social support scale; episode frequency and distress.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "MAP_S07 -> C02,C04,C08,C07,C05"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Measurement-based care and feedback system",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Implement weekly symptom/episode tracking with feedback loops; use simple dashboards to monitor C01-C04-C08 and adjust plan; involve clinician or coach for review.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C08",
+        "C05",
+        "C03"
+      ],
+      "mechanism_rationale": "Regular measurement and feedback promote engagement, early detection of worsening patterns, and timely adjustment of interventions.",
+      "measurement": "Weekly self-report composites; adherence to plan; episode counts; present-distress ratings.",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "MAP_S08 -> C01,C02,C04,C08,C05,C03"
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Nutrition and micronutrient optimization (e.g., magnesium, B vitamins, omega-3)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Consultation with a nutrition professional to optimize diet; ensure balanced intake and consider evidence-based micronutrient support; track dietary changes.",
+      "targets_criteria_ids": [
+        "C08",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Optimal nutrient status supports neural function and stress resilience, potentially reducing baseline stress and episode distress.",
+      "measurement": "Food diary and micronutrient intake tracking; episode frequency and distress.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Consult healthcare provider regarding supplements; avoid self-prescribing high-risk nutrients",
+      "mapping_query": "MAP_S09 -> C08,C04,C01"
+    }
+  ]
+}

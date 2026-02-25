@@ -1,0 +1,150 @@
+{
+  "pseudoprofile_id": "PROFILE_CASE_OCD_DOOR_CHECK_2026_01",
+  "summary": "Case presents compulsive door-checking with certainty-driven memory doubt (C01), repetitive checking (C02), difficulty inhibiting checking (C03), time cost/late departures (C04), social embarrassment (C05), and self-criticisms after episodes (C06). The following candidate, modifiable BIO-PSYCHO-SOCIAL levers span cognitive-behavioral techniques, environmental design, implementation strategies, self-compassion, mindfulness, social support, and sleep/circadian optimization. Each lever targets one or more of the specified criteria, includes a concrete measurement plan, a reasonable time horizon, and feasibility/impact estimates to guide prioritization. Safety notes accompany any intervention that could affect distress or safety.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Door_checking_ERP_with_Response_Prevention",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Brief ERP module: graded exposure to leaving the door with no checking, plus a structured response-prevention rule (e.g., commit to leaving after initial lock without re-check). Use a daily checklist to track episodes and urge strength.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Exposure with response prevention weakens the conditioned urge to re-check by habituation and inhibitory learning, reducing frequency of checks (C02), the urge to check (C03), and lateness due to checks (C04).",
+      "measurement": "Weekly count of checks per leaving episode; average departure delay in minutes; self-reported urge intensity after leaving (0–10).",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Monitor distress; escalate to clinician if compulsions intensify or impairment worsens.",
+      "mapping_query": "S01 maps to C02, C03, C04"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Memory_Acceptance_Metacognitive_Therapy",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Micro-metacognitive training to foster acceptance of memory for locking; use reality-testing prompts and a brief memory-confidence diary to reduce doubt about locking (C01).",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Metacognitive strategies reduce the need for constant certainty about memory, promoting acceptance of the locking action as sufficient.",
+      "measurement": "Post-locking memory acceptance rating (0–10); daily doubts count.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Avoid framing that could pathologize normal doubt; emphasize supportive framing.",
+      "mapping_query": "S02 maps to C01"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Environmental_Lock_Status_Indicator_and_Delay",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Install lock-status visual indicator and a mandated brief delay before re-check (e.g., one-minute delay). Optional smartphone notification of lock state to provide external feedback and reduce reliance on internal memory; minimize re-check triggers.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "External feedback reduces dependence on internal certainty signals and creates a safe delay that decreases repeated checking and lateness.",
+      "measurement": "Frequency of post-initial-lock checks per leaving episode; departure timeliness (on-time vs late).",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Privacy considerations for notifications; adjust if alerts increase anxiety.",
+      "mapping_query": "S03 maps to C02, C04"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Implementation_Intention_for_Leaving_Routines",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Create a precommitment: after locking, enforce a fixed short delay (e.g., 2 minutes) before leaving, supported by an alarm or calendar reminder. Use an leaving-ritual to standardize the departure process and reduce opportunistic checks.",
+      "targets_criteria_ids": [
+        "C04",
+        "C02"
+      ],
+      "mechanism_rationale": "Implementation intentions create automatic cues that reduce reliance on momentary doubt and decrease late departures and checks.",
+      "measurement": "On-time departure rate; checks per leaving episode; time from initial lock to exit.",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure the delay fits daily schedule; adjust as needed to avoid undue stress.",
+      "mapping_query": "S04 maps to C04, C02"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Self_Compassion_Training_for_Self_Evaluation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Brief self-compassion exercises post-episode; rewrite self-talk; gratitude/forgiveness journaling to mitigate post-check self-criticism (C06).",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Reducing harsh self-criticism after lapses decreases maladaptive affect that can reinforce future checking and rumination.",
+      "measurement": "Post-episode self-criticism rating (0–10); frequency of negative self-talk entries.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Monitor for overgeneralization of self-worth; emphasize compassionate framing.",
+      "mapping_query": "S05 maps to C06"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Mindfulness_Acceptance_Based_Strategies_for_Uncertainty",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Guided mindfulness/acceptance practices focusing on uncertainty and the urge to re-check (urge surfing) after locking.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Acceptance-based strategies reduce impulsive checking by attenuating craving-like urges and improving inhibitory control.",
+      "measurement": "Urge intensity after leaving (0–10); number of checks; time to depart.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Provide clear guidance to avoid avoidance; ensure proper practice.",
+      "mapping_query": "S06 maps to C02, C03"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social_Buddy_Partner_Checking_Accountability",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage a trusted buddy to support leaving routines; share plan; use scheduled check-ins to reduce embarrassment and improve punctuality (C04, C05).",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Social accountability reduces self-consciousness-related delays and supports consistent leaving behavior.",
+      "measurement": "On-time departure rate; embarrassment rating; partner interaction frequency.",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Respect autonomy; ensure partner is supportive and voluntary.",
+      "mapping_query": "S07 maps to C04, C05"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Sleep_Circadian_Regulation_for_Cognition",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene and circadian optimization: regular sleep schedule, daylight exposure, limit caffeine late; aim for 7–9 hours to support executive function and memory reliability (C01, C03, C04).",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Improved sleep enhances memory consolidation and executive control, reducing doubt and improving timely departure.",
+      "measurement": "Average sleep duration; sleep quality score; days with no checks; departure times.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Monitor for caffeine-related anxiety; adjust as needed.",
+      "mapping_query": "S08 maps to C01, C03, C04"
+    }
+  ]
+}

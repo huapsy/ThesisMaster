@@ -1,0 +1,177 @@
+{
+  "pseudoprofile_id": "CASE-PP-001",
+  "summary": "The case presents recurrent brief panic spikes with chest tightness, fear of public fainting, and safety/safety-seeking behaviors (pulse checking, escape planning) in social contexts, driven by anticipatory social-evaluative concerns and heightened attention to internal sensations. Modifiable predictors should target: (1) physiological arousal regulation (breathing, HRV), (2) interoceptive and cognitive processing of bodily sensations, (3) safety-behavior patterns and exposure to feared social settings, (4) cognitive beliefs about fainting and unpredictability, (5) social support and public-context coping, (6) attention deployment, sleep/physical activity as baseline risk modifiers, and (7) acute coping for episodes (grounding). Proposed levers span BIO / PSYCHO / SOCIAL domains and their interactions, with clear metrics to monitor each lever’s impact on PCA criteria (C01–C08). Each lever is a controllable predictor to be implemented in a stepped, safety-conscious manner, with graded exposure and clinician supervision where needed.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "InteroceptiveExposure_to_Panic_Sensations",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Graded interoceptive exposure to panic-like bodily sensations (under clinician guidance), starting with mildly provocative cues (e.g., light exertion, brief elevated breathing) to reduce fear of chest tightness and fainting in public.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C07"
+      ],
+      "mechanism_rationale": "Increases tolerance of arousal and chest sensations, reducing catastrophic misinterpretations (C03) and perceived lack of control (C07), thereby lowering episode intensity (C01) and the drive to escape (C06).",
+      "measurement": "Exposures per week; peak distress during exposures (SUD); weekly panic episode frequency (C01); self-rated chest-tightness intensity (C02).",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Graded progression; avoid self-administered high-intensity exposures if symptoms are medically concerning; coordinate with clinician if chest pain worsens.",
+      "mapping_query": "map to C01/C02/C03/C07"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Diaphragmatic_Breathing_and_HRV_Biofeedback",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Teach paced breathing at 4-6 breaths/min and diaphragmatic breathing, with optional heart-rate variability (HRV) biofeedback; practice daily 5-15 minutes and use during episodes.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C07"
+      ],
+      "mechanism_rationale": "Reduces autonomic arousal (C01) and attenuates chest tightness (C02); improves perceived control (C07) by providing a regulator during episodes.",
+      "measurement": "Resting HRV; average breathing rate during practice; episode arousal ratings; panic frequency (C01).",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "C01/C02/C07"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness_Meditation_and_Acceptance_Strategies",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Mindfulness-based stress reduction and acceptance strategies to observe sensations nonjudgmentally; 20-30 minutes daily with urge-surfing during episodes.",
+      "targets_criteria_ids": [
+        "C01",
+        "C07",
+        "C08"
+      ],
+      "mechanism_rationale": "Reduces reactivity to internal cues (C08) and fear of unpredictable episodes (C07), thereby decreasing episode intensity (C01) and avoidance tendencies.",
+      "measurement": "Minutes of practice; self-rated urge intensity; episode frequency/severity; C08 scale.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "C01/C07/C08"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Safety_Behavior_Reduction_and_Public_Exposure",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Identify and reduce safety behaviors (pulse-checks, escape planning) with graded public exposure plans; pair with a supportive social partner; progressively increase public exposure.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06",
+        "C01",
+        "C07"
+      ],
+      "mechanism_rationale": "Reducing reliance on safety behaviors weakens avoidance cycles, improves social context tolerance, and lowers risk of escalation (C01) while reducing social embarrassment concerns (C04) and perceived unpredictability (C07).",
+      "measurement": "Frequency of pulse checks (C05) per episode; number of public exposures; embarrassment ratings (C04); episode frequency (C01).",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Ensure gradual exposures; monitor for safety signal and medical advice as needed.",
+      "mapping_query": "C01/C04/C05/C06"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Attention_Retraining_to_External_Cues",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Attention retraining to emphasize external environmental cues during onset; practice outside episodes and during real-life tasks to reduce internal-sensation salience (C08).",
+      "targets_criteria_ids": [
+        "C08",
+        "C01",
+        "C07"
+      ],
+      "mechanism_rationale": "Shifts attentional focus away from phasic bodily cues, reducing misinterpretation and panic escalation (C01) and improving perceived controllability (C07).",
+      "measurement": "Self-reported attention focus during episodes; C08 score; episode frequency.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "C01/C08"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Cognitive_Belief_Modification_of_Fainting_and_Unpredictability",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive restructuring to challenge beliefs about imminent fainting (C03) and lack of trigger predictability (C07); use behavioral experiments and reframing.",
+      "targets_criteria_ids": [
+        "C03",
+        "C07"
+      ],
+      "mechanism_rationale": "Directly targets core fear beliefs that sustain episodes, reducing conviction about imminent loss of consciousness and perceived randomness of episodes.",
+      "measurement": "Belief conviction scales for C03/C07; pre/post behavioral experiments; episode frequency.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "C03/C07"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social_Support_Partner_in_Public_Exposure",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage a trusted social partner during public outings; plan and practice progressive exposure in social settings; train partner in supportive responses.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Social support reduces embarrassment (C04) and facilitates sustained exposure reducing episode occurrence (C01).",
+      "measurement": "Public-episode embarrassment ratings (C04); episode frequency; partner-supported outings completed.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "C04/C01"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Sleep_Quality_and_Physical_Activity_Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Improve sleep quality and establish regular aerobic activity 3-4x/week to reduce baseline arousal and improve stress resilience.",
+      "targets_criteria_ids": [
+        "C01",
+        "C07"
+      ],
+      "mechanism_rationale": "Better sleep and regular exercise lower baseline arousal and improve perceived control over episodes (C07), thereby reducing incident frequency (C01).",
+      "measurement": "Sleep quality index (e.g., PSQI); weekly aerobic minutes; episode frequency (C01).",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "C01/C07"
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Grounding_and_Panic_Urges_Management",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Acquire quick grounding techniques (5-4-3-2-1, tactile grounding) and urge-surfing scripts to manage acute panic urges.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Immediate coping reduces episode severity and distress, diminishes safety behaviors and public embarrassment during episodes.",
+      "measurement": "Frequency of grounding use during episodes; urge duration; episode severity (C01); embarrassment (C04).",
+      "time_horizon": "2-4 weeks for mastery; ongoing usage",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "C01/C04/C05"
+    }
+  ]
+}

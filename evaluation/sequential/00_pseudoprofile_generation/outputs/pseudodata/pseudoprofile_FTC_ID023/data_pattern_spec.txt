@@ -1,0 +1,69 @@
+pseudoprofile_id: pseudoprofile_FTC_ID023
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID023/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.5538
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 1.00 * t + phase=0.09)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 2
+  * pulse_1: start_idx=165, length=6, amp=0.972
+  * pulse_2: start_idx=46, length=3, amp=0.985
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P02
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.106 | freq_hint=None
+  * P02: missing_rate=0.206 | freq_hint=None
+  * P03: missing_rate=0.128 | freq_hint=None
+  * P04: missing_rate=0.094 | freq_hint=None
+  * P05: missing_rate=0.150 | freq_hint=None
+  * C01: missing_rate=0.294 | freq_hint=None
+  * C02: missing_rate=0.117 | freq_hint=None
+  * C03: missing_rate=0.200 | freq_hint=None
+  * C04: missing_rate=0.128 | freq_hint=None
+  * C05: missing_rate=0.283 | freq_hint=None
+  * C06: missing_rate=0.133 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Worry management and planning (CBT-based) | ontology_id=worry_to_planning_discrimination | conf=0.82 | freq_hint=None
+- P02 (PREDICTOR): Budgeting support engagement (financial care navigation) | ontology_id=budgeting_support_service | conf=0.92 | freq_hint=None
+- P03 (PREDICTOR): Arousal regulation (breathing/mindfulness) | ontology_id=mindfulness_of_breath | conf=0.78 | freq_hint=None
+- P04 (PREDICTOR): Sleep circadian optimization (sleep routines) | ontology_id=sleep_quality_rating | conf=0.86 | freq_hint=None
+- P05 (PREDICTOR): Social connection/safety plan (resources & support) | ontology_id=support_needs_by_context_assessment | conf=0.72 | freq_hint=None
+- C01 (CRITERION): High-frequency intrusive financial worry | ontology_id=worry | conf=0.85 | freq_hint=None
+- C02 (CRITERION): Catastrophic expectation about unexpected expenses | ontology_id=unknown | conf=None | freq_hint=None
+- C03 (CRITERION): Chronic low-level physiological/affective arousal (panic) | ontology_id=panic | conf=0.66 | freq_hint=None
+- C04 (CRITERION): Perceived inability to reliably meet basic expenses | ontology_id=basic | conf=0.92 | freq_hint=None
+- C05 (CRITERION): Low confidence in financial resilience despite current adequacy | ontology_id=financial | conf=0.88 | freq_hint=None
+- C06 (CRITERION): Future-oriented financial uncertainty | ontology_id=future_oriented_worry_rumination | conf=0.7 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

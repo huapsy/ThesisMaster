@@ -1,0 +1,73 @@
+pseudoprofile_id: pseudoprofile_FTC_ID021
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID021/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.5673
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 0.80 * t + phase=4.54)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 4
+  * pulse_1: start_idx=116, length=3, amp=1.427
+  * pulse_2: start_idx=80, length=6, amp=1.249
+  * pulse_3: start_idx=93, length=5, amp=0.928
+  * pulse_4: start_idx=14, length=6, amp=1.387
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P05
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.222 | freq_hint=None
+  * P02: missing_rate=0.050 | freq_hint=None
+  * P03: missing_rate=0.106 | freq_hint=None
+  * P04: missing_rate=0.161 | freq_hint=None
+  * P05: missing_rate=0.194 | freq_hint=None
+  * P06: missing_rate=0.133 | freq_hint=None
+  * C01: missing_rate=0.200 | freq_hint=None
+  * C02: missing_rate=0.261 | freq_hint=None
+  * C03: missing_rate=0.111 | freq_hint=None
+  * C04: missing_rate=0.117 | freq_hint=None
+  * C05: missing_rate=0.161 | freq_hint=None
+  * C06: missing_rate=0.239 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Morning light exposure (circadian entrainment) | ontology_id=morning_bright_light_exposure | conf=0.85 | freq_hint=None
+- P02 (PREDICTOR): Evening screen exposure before bed | ontology_id=late_evening_screen_reduction | conf=0.78 | freq_hint=None
+- P03 (PREDICTOR): Pre-sleep cognitive load and rumination | ontology_id=presleep_detachment_routine_design_psychological | conf=0.72 | freq_hint=None
+- P04 (PREDICTOR): Sleep routine adherence (stimulus-control bed setup) | ontology_id=cbti_sleep_maintenance_plan_implementation | conf=0.82 | freq_hint=None
+- P05 (PREDICTOR): Bedroom sleep environment quality | ontology_id=bedroom_thermal_zoning | conf=0.63 | freq_hint=None
+- P06 (PREDICTOR): Midday energy / daytime functioning cue | ontology_id=ema_mental_energy | conf=0.92 | freq_hint=None
+- C01 (CRITERION): Early-morning awakening (sleep maintenance) | ontology_id=early_morning_awakening | conf=0.82 | freq_hint=None
+- C02 (CRITERION): Sleep onset ability | ontology_id=subjective_sleep_onset_latency_report | conf=0.78 | freq_hint=None
+- C03 (CRITERION): Immediate cognitive/physiological arousal on awakening | ontology_id=morning_hyperarousal_signs_post_awakening | conf=0.84 | freq_hint=None
+- C04 (CRITERION): In-bed/device-mediated engagement during attempted rest | ontology_id=reduced_alertness_during_high_demand_activities | conf=0.65 | freq_hint=None
+- C05 (CRITERION): Exposure to distressing/ruminative content | ontology_id=intrusive_rumination_post_awakening | conf=0.74 | freq_hint=None
+- C06 (CRITERION): Daytime functional impairment by midday | ontology_id=impaired_daytime_functioning | conf=0.85 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

@@ -1,0 +1,157 @@
+{
+  "pseudoprofile_id": "case_A2026_startle_arousal",
+  "summary": "The case presents persistent hyperarousal with exaggerated startle to sudden cues, ongoing subjective edge, and conditioned physiological reactivity tied to a past incident, along with distress about symptoms and an expectation-reality gap in recovery. The proposed modifiable levers span biological regulation (sleep and autonomic tone), psychological processes (trauma-focused coping, cognitive reappraisal, mindfulness), and social-context supports (belonging and access to resources). Each lever targets specific criteria (C01–C06) and lever interactions (e.g., better sleep and breathing reduce arousal, while trauma-focused work reduces conditioned reactivity and mismatches in recovery expectations). The plan includes simple measurements, reasonable time horizons, and feasibility/impact estimates to guide iterative optimization while avoiding unsafe interventions or medications.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep_Routine_and_Circadian_Stability",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish and maintain a consistent sleep-wake schedule, optimize sleep environment, and increase morning light exposure to strengthen circadian entrainment and restorative sleep.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Improved sleep consolidates emotional memory processing and reduces baseline physiological arousal, which dampens hypervigilance, startle latency, and spontaneous bodily reactivity.",
+      "measurement": "Sleep diary entries (bed/wake times), PSQI or sleep quality rating, 0-10 daily arousal, resting HRV",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No major safety concerns. If insomnia worsens or leads to distress, seek clinician guidance.",
+      "mapping_query": "CASE_PAYLOAD_MAP:S01 -> map Sleep_Routine_and_Circadian_Stability to C01-C04 (startle, on-edge, vigilance) and to overall arousal."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Paced_Breathing_and_HRV_Biofeedback",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Teach daily paced-breathing (e.g., 6 breaths per minute) with HRV biofeedback to enhance autonomic balance and reduce autonomic arousal in response to cues.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Slow, resonant breathing increases parasympathetic activity, lowers sympathetic drive, and improves heart-rate variability, which dampens startle magnitude and general hypervigilance.",
+      "measurement": "RMSSDHRV during rest, respiratory rate logs, 0-10 arousal self-report, brief cue-provoked arousal tasks",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "If dizziness or fatigue occurs, adjust pacing; consult clinician if cardiac symptoms emerge.",
+      "mapping_query": "CASE_PAYLOAD_MAP:S02 -> map Paced_Breathing_and_HRV_Biofeedback to C01-C04 (startle, on-edge, vigilance)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Trauma_Focused_CBT_Self_Guided_Module",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver a trauma-focused cognitive-behavioral module (self-guided with optional clinician check-ins) addressing conditioned reactivity, coping skills, and cognitive restructuring of recovery beliefs.",
+      "targets_criteria_ids": [
+        "C03",
+        "C06",
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Exposure-like processing and cognitive reappraisal reduce automatic arousal to reminders and close the gap between recovery expectations and current bodily responses, diminishing avoidance and habitual hypervigilance.",
+      "measurement": "PCL-5 or trauma distress scale, daily SUDs (0-10) for reminders, adherence logs",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Trauma-focused work should be guided or supervised by trained clinicians; monitor for distress during modules and provide crisis support if needed.",
+      "mapping_query": "CASE_PAYLOAD_MAP:S03 -> map Trauma_Focused_CBT to C03/C06 and downstream effects on C01/C04."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Mindfulness_Based_Stress_Reduction_Practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Engage in daily mindfulness/acceptance practices (short sessions) plus weekly check-ins to cultivate nonjudgmental awareness of arousal and reduce automatic reactivity.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Mindfulness enhances emotion regulation, reduces reactivity to cues, and lowers perceived threat in ambiguous situations, thereby decreasing subjective edge and startle responses.",
+      "measurement": "Five Facet Mindfulness Questionnaire (FFMQ), PSS, 0-10 arousal scale, daily practice logs",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "No safety risks; ensure practice fits individual tolerance; seek guidance if distress increases.",
+      "mapping_query": "CASE_PAYLOAD_MAP:S04 -> map Mindfulness to C02/C04."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Structured_Social_Support_and_Belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Enhance social connectedness through regular contact with trusted others, social routine, and community/peer support to buffer arousal and distress.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Social support buffers stress physiology and provides safety cues, reducing perceived threat and negative affect related to ongoing symptoms.",
+      "measurement": "Social Connectedness Scale, loneliness ratings, 0-10 mood, frequency of social interactions",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Offer resources for safe, non-demanding social contact; monitor for social withdrawal increases.",
+      "mapping_query": "CASE_PAYLOAD_MAP:S05 -> map Social_Support to C02/C04/C05."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Psychoeducation_about_Trauma_Recovery_and_Expectations",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Provide clear, strengths-based psychoeducation about trauma recovery trajectories and realistic expectations to resolve belief-recovery mismatch (C06) and reduce distress about symptoms (C05).",
+      "targets_criteria_ids": [
+        "C06",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Accurate expectations and normalizing responses decrease cognitive dissonance and distress, increasing engagement with adaptive coping.",
+      "measurement": "Recovery beliefs inventory, 0-10 mismatch awareness rating, mood scale",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Ensure information is validating and not retraumatizing; tailor to individual context.",
+      "mapping_query": "CASE_PAYLOAD_MAP:S06 -> map Psychoeducation about recovery to C06 and secondary effects on C02/C05."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Controlled_Sound_Exposure_Desensitization",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a structured, safe exposure protocol to gradually desensitize startle responses to sudden auditory cues within a controlled setting (app-guided or clinician-supervised).",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Systematic exposure reduces learned fear and sensitization to abrupt cues, lowering spontaneous startle and vigilance.",
+      "measurement": "Cue-provoked arousal ratings, 0-10 startle magnitude, adherence logs",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Follow safety guidance; stop if distress escalates; consider clinician supervision for severe reactivity.",
+      "mapping_query": "CASE_PAYLOAD_MAP:S07 -> map Exposure to C01/C04."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Wearable_Biofeedback_with_Personalization_Feedback",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use wearables to monitor arousal (HRV, sleep, activity) and deliver personalized, adaptive feedback to guide pacing of activities and coping strategies.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Real-time physiological data enable tailored regulation strategies, supporting self-management of startle and hypervigilance while reinforcing adaptive thoughts and behaviors.",
+      "measurement": "HRV RMSSD, sleep duration/quality, daily arousal ratings, adherence to recommended practices",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Data privacy and user comfort with wearables; ensure opt-in and clear consent; monitor for increased distress with self-monitoring.",
+      "mapping_query": "CASE_PAYLOAD_MAP:S08 -> map Wearable_Biofeedback to C01/C02/C04 with Psycho-behavioral feedback loop."
+    }
+  ]
+}

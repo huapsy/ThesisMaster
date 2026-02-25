@@ -1,0 +1,187 @@
+{
+  "pseudoprofile_id": "CASE_BIOPSYCHO_SOCIAL_SolutionPlan_001",
+  "summary": "This plan targets modifiable BIO, PSYCHO, and SOCIAL levers to decrease acute somatic symptom intensity, reduce distress from unpredictability, lessen catastrophic threat interpretations, improve acceptance of medical reassurance, reduce avoidance of leaving home, and lessen overall functional impact. Leveraging interoceptive exposure, cognitive restructuring, graded exposure, mindfulness, psychoeducation, sleep and circadian regularity, gut-brain axis nutrition, physical activity, social support, and structured reassurance strategies, the approach combines single-lever changes with cross-domain interactions (e.g., improved sleep reduces arousal and interoceptive sensitivity; social support buffers distress). Each candidate maps to specific criteria (C01–C07), includes a practical measurement plan, time horizon, feasibility, expected impact, and safety notes. The plan emphasizes changeable predictors, practical implementation, and minimal safety risks while avoiding unsafe or non-modifiable actions.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Interoceptive_exposure_adherence",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured interoceptive exposure program (guided exercises to provoke heart rate, dizziness, and GI sensations in a controlled, progressive manner) with weekly homework",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C06",
+        "C03"
+      ],
+      "mechanism_rationale": "Exposure to feared internal sensations in a controlled way reduces fear conditioning, decreases catastrophic interpretation, and lowers vigilance for bodily signals.",
+      "measurement": "sessions_per_week; homework_completion_rate; daily symptom intensity ratings; interoceptive_habituation_score",
+      "time_horizon": "0-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Provide a clinician-guided protocol; monitor for panic or worsening dizziness; pause if severe symptoms occur; ensure safety during exercises",
+      "mapping_query": "Interoceptive exposure lever mapped to reducing C01, C02, C06, and C03 through exposure-based fear reduction."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Cognitive_reappraisal_skills_usage",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Daily cognitive reappraisal practice with worksheets and micro-habits (CBT-based) to reinterpret bodily sensations as non-threatening",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Reframing sensations lowers threat interpretations and catastrophic worry, reducing avoidance and distress",
+      "measurement": "daily threat_appraisal_rating(0-100); practice_log; pre-post cognitive restructuring task scores",
+      "time_horizon": "2-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "C02 and C03 can improve via enhanced cognitive reinterpretation; primarily targets C03."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Graded_exposure_to_leaving_home_progress",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured, gradual plan to increase safe excursions (home-to-store, then longer trips) with fear ratings and habituation logging",
+      "targets_criteria_ids": [
+        "C05",
+        "C02"
+      ],
+      "mechanism_rationale": "Systematic exposure reduces avoidance learning and anticipatory distress when away from home, increasing tolerance of unpredictability",
+      "measurement": "frequency/distance of trips; anticipatory anxiety ratings; avoidance_behavior_score",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Coordinate with a trusted person; implement panic safety plan; avoid high-risk environments until confidence increases",
+      "mapping_query": "Directly targets C05 with secondary reduction in C02 via increased exposure."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Mindfulness_practice_adherence",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "8-week mindfulness program focusing on nonjudgmental observation of sensations",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Nonjudgmental awareness reduces reactivity to bodily sensations, lowers threat appraisal, and diminishes interoceptive hypervigilance",
+      "measurement": "days_of_practice_per_week; MAAS/FFMQ scores; symptom diary changes",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Mindfulness reduces C02, C03, and C06 through attenuated interoceptive reactivity."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Medical_reassurance_fusion",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Structured pre-visit brief for clinicians and patient-led questions; reassurance strategy documented in notes",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Improved acceptance of test results and clinician communication reduces frustration and mistrust, mitigating symptom amplification",
+      "measurement": "patient_satisfaction_with_reassurance_scale; perceived_message_validity_scores",
+      "time_horizon": "1-4 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Ensure accuracy of information; avoid false reassurance; emphasize ongoing monitoring if symptoms persist",
+      "mapping_query": "Directly addresses C04 by improving reassurance acceptance."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep_routine_regularization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Consistent sleep-wake times with light exposure management and bedtime routine to optimize circadian entrainment",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C06"
+      ],
+      "mechanism_rationale": "Regular sleep reduces autonomic arousal and interoceptive sensitivity, lowering somatic episode intensity and distress",
+      "measurement": "sleep diary metrics (sleep onset, wake after sleep, naps); perceived sleep quality; next-day symptom rating",
+      "time_horizon": "2-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "If sleep meds are used, coordinate; monitor caffeine intake; minimize screen exposure before bed",
+      "mapping_query": "Sleep regularity improves C01 and reduces C02/C06 via reduced arousal."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "GI_brain_axis_nutrition",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Dietary pattern emphasizing fiber, fermented foods, hydration; micronutrient sufficiency; consider gut microbiome-friendly plan",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Modulating GI function and gut microbiota may reduce GI symptom intensity and autonomic arousal linked to somatic episodes",
+      "measurement": "GI_symptom_diary; dietary_adherence_checklist; stool_quality_score",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.35,
+      "priority": "MED",
+      "safety_notes": "Consult nutritionist if GI symptoms worsen; assess for intolerances",
+      "mapping_query": "Leverages GI-brain axis to influence C01 somatic intensity."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Regular_cardio_activity",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Moderate aerobic activity 3-4x/week with paced breathing integration",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C06"
+      ],
+      "mechanism_rationale": "Exercise reduces autonomic arousal, improves mood, and lowers somatic symptom frequency; paced breathing supports autonomic regulation",
+      "measurement": "sessions_per_week; perceived exertion; HRV metrics; symptom diary",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Screen for contraindications; progress gradually; consult clinician if chest pain or dizziness intensifies",
+      "mapping_query": "Physical activity as a lever to reduce C01-C06 by improving autonomic regulation and mood."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Structured_social_support",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Facilitated peer-support group or family involvement plan with scheduled regular check-ins",
+      "targets_criteria_ids": [
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Social support buffers distress, reduces avoidance, and increases tolerance of unpredictable symptoms",
+      "measurement": "contacts_per_week; perceived_support_scale; group attendance",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure group safety; monitor for social stress; clarify boundaries and expectations",
+      "mapping_query": "Support networks reduce C02 and C05 through emotional buffering and accountability."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Symptom_mechanisms_psychoeducation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Psychoeducation module explaining autonomic arousal, normal bodily sensations, and interpretation of medical tests",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Increases acceptance of reassurance by improving understanding of mechanisms; reduces misinterpretation and mistrust",
+      "measurement": "quiz_scores; satisfaction_with_information; post-education symptom appraisal change",
+      "time_horizon": "1-3 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "Use accessible language; avoid medical jargon; ensure content is evidence-based",
+      "mapping_query": "Education lever targeting C04 by improving understanding of bodily symptoms and reassurance acceptability."
+    }
+  ]
+}

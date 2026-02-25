@@ -1,0 +1,838 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID003",
+  "model_summary": "A compact, gVAR-ready observation model targeting panic-experiences in public settings by coupling eight clinically-informed criteria (C01–C08) with six modifiable predictors (P01–P06) spanning biological regulation, cognitive-behavioral strategies, and social-context factors. The plan emphasizes frequent momentary assessments (EMA) to maximize within-person variance, with optional daily diary and passive streams to bolster data richness while preserving estimability. Measurement is designed around 1–9 Likert scales where appropriate, with explicit recall windows and lag-aware links to support later VAR/gVAR analyses. The design minimizes redundancy, prioritizes cross-domain synergistic levers (breathwork, attention, safety-planning, exposure concepts), and establishes a clear plan for lagged relationships (0–6h to 0–24h) while maintaining feasibility for 14-day sampling.",
+  "variable_selection_notes": "Selected eight criterion variables reflect the core, state-changeable symptoms and safety behaviors described in the complaint (panic waves, chest tightness, fear of fainting, social-evaluative concern, safety-checking, escape planning, perceived unpredictability, and interoceptive attention). They map to a coherent set of modifiable predictors that are plausibly actionable in real-world settings. The six predictors were chosen to cover (1) autonomic regulation (P01), (2) safety/monitoring behavior (P02), (3) interoceptive focus (P03), (4) social-evaluative context sensitivity (P04), (5) escape-urge dynamics (P05), and (6) grounding/attention control (P06). This minimizes overlap among self-regulation constructs while preserving mechanistic coverage. Within-person variance is maximized by momentary assessments across 14 days, with a simple daily diary to capture contextual signals and optional passive data for augmentation. The grid-based predictor–criterion relevance will guide downstream gVAR modeling, while edges will hint at plausible causal directions without over-committing to strict linearity.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:30-10:30",
+        "11:30-12:30",
+        "13:30-14:30",
+        "15:30-16:30",
+        "18:00-19:00",
+        "20:00-21:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 84,
+      "notes": "Six brief EMA prompts per day across wake hours with mild jitter to reduce anticipation."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "07:30"
+      ],
+      "expected_total_entries": 14,
+      "notes": "One-line daily-context diary to anchor intra-day variability."
+    },
+    "passive_streams": {
+      "enabled": false,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Optional passive sensors (HRV proxies, movement) can be added if feasible."
+    },
+    "minimum_total_observations_target": 120,
+    "gvar_readiness_notes": "Feasible with six parsimonious predictors and eight criteria; cross-domain synergy supports robust gVAR estimation.",
+    "variance_support_notes": "Expect substantial within-person variability across days; plan to apply per-subject z-scoring or similar normalization.",
+    "missingness_risk_notes": "Prompts may be missed; implement reminders and diary fallback; consider multiple imputation later if needed."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Sudden intense anxiety episodes",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Occurrences of brief, high-intensity spikes of anxiety characterized by sudden onset, marked arousal, and urgent subjective distress.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Based on complaint phrase: 'random waves of panic'."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_by_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Acute chest tightness during episodes",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Subjective experience of chest constriction or tightness occurring with anxiety episodes.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "during episodes",
+        "expected_within_person_variability": "high",
+        "notes": "Aligns with chest sensation complaint."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_by_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Belief of imminent fainting in public",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "During episodes, how strongly do you believe you are about to faint or lose consciousness in public?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "during episodes",
+        "expected_within_person_variability": "high",
+        "notes": "Captures catastrophic belief during panic."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_by_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Social-evaluative embarrassment concern",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Anticipatory or concurrent worry about being judged by others during symptoms.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "during/around episodes in social settings",
+        "expected_within_person_variability": "high",
+        "notes": "Directly maps to social-evaluative concern in the complaint."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_by_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Immediate safety-checking behavior (pulse checking)",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate your urge to check your pulse or physical signs.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "during episodes",
+        "expected_within_person_variability": "high",
+        "notes": "Corresponds to safety behavior in the complaint."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_by_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Immediate escape/exit planning",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How strong is the urge to plan an escape from the current environment?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "during episodes",
+        "expected_within_person_variability": "high",
+        "notes": "Represents safety-avoidant planning in public settings."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_by_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C07",
+      "source_variable_id": "custom",
+      "label": "Perceived unpredictability/lack of control over episodes",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Do you feel episodes occur randomly and are unpredictable?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "past_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Captures perceived unpredictability."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_by_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C08",
+      "source_variable_id": "custom",
+      "label": "Attention shift to internal bodily sensations",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how much are you focusing on internal bodily sensations (heartbeat, chest) rather than external surroundings?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": "Interoceptive attention relates to onset salience."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_by_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Panic-onset breathing regulation and autonomic arousal control",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "ontology_path": "BIO > Interoception_and_Bodily_Sensations > Respiratory_Regulation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Breathing regulation dampens autonomic arousal and interoceptive amplification, reducing likelihood and intensity of sudden panic spikes.",
+      "intervention_examples_safe": "Box breathing, paced breathing, extended exhalation exercises",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In this moment, how easy is it to perform slow, controlled breaths? (1=very difficult, 9=very easy)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures immediate breath regulation capability."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_by_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Breathing regulation is expected to lower arousal and panic frequency."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "No pharmacological or unsafe recommendations; maintain safety planning if symptoms escalate.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "EMA feasibility high; 6 prompts/day is manageable."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Pulse/heart rate monitoring urge",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO > Cardiovascular_Sensation_Sensitivity > Pulse_Check_Intensity",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Reducing habitual pulse-checking may decrease safety behaviors and maladaptive vigilance during episodes.",
+      "intervention_examples_safe": "Gradual cue exposure to internal cues; alternative grounding techniques",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how strong is your urge to check your pulse or chest signs?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Monitors safety-check impulse."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_by_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C05",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reducing pulse-check urges should lower safety behaviors."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "No unsafe guidance; emphasize coping strategies.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "6 prompts/day typical."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Interoceptive attention focus",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO > Interoception_and_Awareness > Attention_to_Bodily_Sensations",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Modulating attention to internal cues can shape arousal salience and threat appraisal during episodes.",
+      "intervention_examples_safe": "Interoceptive exposure with grounding, body scan practices",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how much are you focusing on internal bodily sensations (heartbeat/chest) rather than external surroundings?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "momentary",
+        "expected_within_person_variability": "high",
+        "notes": "Captures interoceptive attention dynamics."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_by_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C08"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C08",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Shifting attention away from internal cues may reduce salience of symptoms."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "No safety risk; align with grounding strategies.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.93,
+        "gvar_feasibility_0_1": 0.87,
+        "notes": "High-frequency EMA acceptable."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Social evaluative context sensitivity",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "SOCIAL > Social_Evaluative_Processing > Public_Exposure_Sensitivity",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Mitigating anticipatory social anxiety can dampen embarrassment-related cognitions and avoidance.",
+      "intervention_examples_safe": "Structured social exposure planning with cognitive reappraisal",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how worried are you about being judged by others in this public setting?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Key social-evaluative concern in panic contexts."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_by_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C07",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reducing social-evaluative concern lowers anticipatory threat."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "No safety risk; maintain supportive framing.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Requires context-sensitive prompts."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Escape-urge tolerance and safety-planning",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO > Behavioral_Self_Regulation > Escape_and_Safety_Planning",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Improving tolerance to urges to flee and using planned safety routines reduces avoidance.",
+      "intervention_examples_safe": "Urge surfing with planned exits; rehearsed safety-plan steps",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In this moment, how strong is your urge to leave the current environment?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Links to C06 (escape planning) and C04 (social concern)."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_by_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C06",
+        "C04",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Tolerance to escape urges reduces avoidance and impairment."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Encourage safety planning without encouraging avoidance or risk-taking.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "24/7 prompts; ensure manageable flow."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Attention control and grounding techniques",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO > Cognitive_Self_Regulation > Grounding_and_Attentional_Control",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.78,
+      "mechanism_rationale": "Strengthening executive control and grounding reduces cognitive threat processing during episodes.",
+      "intervention_examples_safe": "5-4-3-2-1 grounding; simple mindfulness of body cues",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How effective is your grounding technique right now (e.g., 5-4-3-2-1)?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 6,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Supports cognitive regulation."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_by_subject",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C04",
+        "C07",
+        "C08"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Grounding reduces arousal and salience of panic cues."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Promote safe grounding practices; no risky instructions.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "High feasibility; grounded in standard practices."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,72000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,63000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,48000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,66000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,48000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,55000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Breathing regulation expected to lower arousal; picture of causal link to panic onset.",
+      "estimated_relevance_0_1": 0.82
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Arousal reduction may relieve chest tightness severity.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Reducing social embarrassment concern may lower public distress.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Urge to check pulse reduced by coping strategies.",
+      "estimated_relevance_0_1": 0.6
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [],
+    "expected_floor_ceiling_risks": [],
+    "variance_enhancement_suggestions": [],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": "Initial set shows low to moderate collinearity risk with appropriate scaling; monitor during pilot."
+  },
+  "safety_notes": "Not a diagnosis. If acute risk arises, encourage seeking professional evaluation. No medication dosing or recommendations provided."
+}

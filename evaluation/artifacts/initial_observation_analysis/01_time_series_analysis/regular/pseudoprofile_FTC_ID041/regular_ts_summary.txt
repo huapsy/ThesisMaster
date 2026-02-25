@@ -1,0 +1,43 @@
+Profile: pseudoprofile_FTC_ID041
+Generated: 2026-01-19T16:09:21
+Raw CSV: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/01_pseudoprofile(s)/time_series_data/pseudodata/pseudoprofile_FTC_ID041/pseudodata_wide.csv
+Readiness report: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/04_initial_observation_analysis/00_readiness_check/pseudoprofile_FTC_ID041/readiness_report.json
+
+Inputs from readiness
+- Recommended tier (readiness): Tier3_LaggedDynamicNetwork
+- Readiness score (readiness): 94.64037698412699
+- Time regularity (readiness): regular_or_quasi_regular
+
+Data overview
+- Rows: 180
+- Timestamp col: date
+- Nominal columns detected: (none)
+
+Variables analyzed
+- Count: 14
+- Variables: P01, P02, P03, P04, P05, P06, P07, P08, C01, C02, C03, C04, C05, C06
+
+Highlights
+- Top trends (coef, p):
+  * C03: coef=0.01805, p=2.71e-15
+  * C05: coef=-0.008246, p=3.26e-05
+  * C02: coef=-0.005591, p=0.00291
+  * C06: coef=0.004569, p=0.0702
+  * C04: coef=-0.003415, p=0.117
+- Top progress (regressed % vs scale):
+  * P02: 59.7% (regressed vs scale)
+  * P05: 52.3% (regressed vs scale)
+  * P08: 49.3% (regressed vs scale)
+  * P04: 46.5% (regressed vs scale)
+  * P06: 42.0% (regressed vs scale)
+
+Significant timestamp effects (alpha)
+- weekday: 0 significant
+- weekend_split: 0 significant
+- hour_of_day: 0 significant
+- time_of_day_bins: 0 significant
+
+Outputs
+- JSON report: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/04_initial_observation_analysis/01_time_series_analysis/regular/pseudoprofile_FTC_ID041/regular_ts_report.json
+- Overview CSV: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/04_initial_observation_analysis/01_time_series_analysis/regular/pseudoprofile_FTC_ID041/regular_ts_variables_overview.csv
+- Summary TXT: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/04_initial_observation_analysis/01_time_series_analysis/regular/pseudoprofile_FTC_ID041/regular_ts_summary.txt

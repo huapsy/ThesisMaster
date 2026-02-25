@@ -1,0 +1,1638 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID002",
+  "model_summary": "Initial gVAR-ready observation model for self-reported blunted positive affect, autopilot routines, outward 'fine' masking, guilt for not enjoying, general blunted affect, and reduced motivation. Design: 28 days, 5 momentary EMAs/day plus 1 morning diary/day. 6 criterion nodes (C01–C06) preserved from complaint; 8 predictor nodes (P01–P08) chosen to cover high-signal, modifiable behavioral and bio-social levers (behavioral activation, savoring/positive-event noticing, self-compassion, micro-activation energizers, mindful present-moment checks, social reconnection, sleep regularity, morning light). Sampling aligns with EMA schedule to support within-person gVAR modeling at 0–24h / 0–6h lags.",
+  "variable_selection_notes": "Kept all 6 original criteria to preserve complaint fidelity. Selected 8 predictors from top-ranked PSYCHO/BIO solutions in signals (behavioral activation, savoring, self-compassion, micro-activations, mindful check-ins, social connection, sleep/circadian, morning light). Prioritized modifiable, EMA-measurable constructs with expected within-person variability at the chosen timescale. Total nodes = 14 (<=18).",
+  "design_recommendations": {
+    "study_days": 28,
+    "momentary_ema": {
+      "prompts_per_day": 5,
+      "schedule_type": "semi-random_within_blocks",
+      "time_blocks_local": [
+        "morning_07-10",
+        "late_morning_10-13",
+        "afternoon_13-17",
+        "evening_17-21",
+        "night_21-23"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 140,
+      "notes": "Prompts semi-random within listed blocks to reduce predictability while covering daily context. Momentary variables sampled at every prompt (sampling_per_day = 5)."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "morning_07:00"
+      ],
+      "expected_total_entries": 28,
+      "notes": "Morning diary anchors sleep quality and morning light exposure (previous night / current morning)."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "daily_aggregate (morning and daily totals)",
+      "notes": "Optional passive streams: phone ambient light sensor aggregated 06:00-10:00 (minutes bright), daily step count (total). Use only with consent; included for triangulation with self-report morning light and activity."
+    },
+    "minimum_total_observations_target": 140,
+    "gvar_readiness_notes": "Design provides dense intra-individual time series (5 prompts/day x 28 days) for momentary variables and daily diaries for sleep/light. Good candidate variables for gVAR; expect enough variability for pairwise estimation if adherence >= 60%.",
+    "variance_support_notes": "Use 1–9 anchored Likert scales for self-report constructs to increase variance. Detrend weekly linear effects if observed; include time-of-day fixed effects in models to capture circadian patterns.",
+    "missingness_risk_notes": "Risk concentrated on evening prompts and diary compliance. Suggest push reminders and brief items (one screen, 3–5 items per prompt). Consider planned missingness or multiple imputation for gVAR if <70% adherence."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "C01",
+      "label": "Diminished positive emotional response to pleasant events",
+      "criterion_path": "preserved_free_text",
+      "polarity": "lower_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "When something good happened since the last prompt, how much did you actually feel pleasure? (1=None — 9=A lot)",
+        "response_scale_or_unit": "1-9 Likert (1 low pleasure, 9 high pleasure)",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures immediate positive affect reactivity to events. If no positive event, allow 'no event' flag; still capture baseline pleasantness rating."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "mean-centering within-person; consider logit-like transform only if boundary effects observed",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "C02",
+      "label": "Guilt about not enjoying positive experiences",
+      "criterion_path": "preserved_free_text",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, did you feel guilty because you didn’t enjoy something you thought you should? Rate intensity. (1=None — 9=Very strong)",
+        "response_scale_or_unit": "1-9 Likert (guilt intensity)",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "If participant reports no relevant event, allow '0=no relevant event' option; treat as low intensity for time-series."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "C03",
+      "label": "Behavioral autopilot / low moment-to-moment engagement",
+      "criterion_path": "preserved_free_text",
+      "polarity": "lower_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, how often did you feel 'on autopilot' or not mentally present? (1=Not at all — 9=Almost always)",
+        "response_scale_or_unit": "1-9 Likert (higher = more autopilot)",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "High-frequency capture important to detect micro-changes; can be complemented by passive activity/sedentary signals."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "person-mean centering; consider AR(1) structure",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "C04",
+      "label": "General emotional blunting (low affect intensity)",
+      "criterion_path": "preserved_free_text",
+      "polarity": "lower_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Overall, since the last prompt, how intense were your emotions when something happened? (1=Very muted — 9=Very intense)",
+        "response_scale_or_unit": "1-9 Likert (affect intensity)",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures broad affective intensity across valence."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "center; consider variance-stabilizing if heteroskedastic",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "C05",
+      "label": "External presentation of being 'fine' despite internal disengagement",
+      "criterion_path": "preserved_free_text",
+      "polarity": "lower_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, how much did you present as 'fine' outwardly while feeling different inside? (1=Not at all — 9=Very much)",
+        "response_scale_or_unit": "1-9 Likert (higher = more masking)",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures mismatch between outward functioning and inner state."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "C06",
+      "label": "Reduced motivation/interest to pursue non-routine pleasurable activities",
+      "criterion_path": "preserved_free_text",
+      "polarity": "lower_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, how motivated were you to start or plan an enjoyable non-routine activity? (1=None — 9=Very motivated)",
+        "response_scale_or_unit": "1-9 Likert (motivation)",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Designed to capture initiative changes across the day."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "center; consider differencing if trending",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Behavioral activation: planned pleasant/activity adherence",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Cognitive_Behavioral_Therapies / Behavior_Change_and_Activation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Increasing engagement in planned pleasant or valued activities raises opportunity for positive reinforcement and restores reward sensitivity.",
+      "intervention_examples_safe": "Scheduling small pleasurable activities, graded activation, linking activities to values.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, did you do a planned pleasant activity or take a step toward one? Rate adherence (1=No effort — 9=Fully carried out)",
+        "response_scale_or_unit": "1-9 Likert (adherence/effort)",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Binary event flag optional in metadata but primary node uses intensity scale."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "center; can be used raw",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "monotonic_positive",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Doing planned activities increases motivation and sense of mastery within hours to a day."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "monotonic_positive",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 48,
+          "rationale": "Increased activity increases exposure to positive events and can restore reactivity across hours to days."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Low risk; ensure not to encourage unsafe activities. If severe withdrawal observed, recommend clinical review.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "High feasibility via short EMA item; good within-person variance expected."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Positive-event noticing / savoring practice engagement",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / positive_psychology_and_wellbeing / gratitude_and_savoring",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Actively noticing and savoring positive events increases momentary positive affect and encoding of pleasurable experiences.",
+      "intervention_examples_safe": "Savoring prompts, brief gratitude noting, sensory-focused savoring exercises.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, did you notice or savor any positive moment? Rate intensity (1=None — 9=Strong savoring)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Savoring frequency/intensity measured; also useful as intervention adherence indicator."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "center",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "monotonic_positive",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Savoring should boost immediate positive affect within minutes to hours."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "monotonic_positive",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Frequent savoring may increase overall affective intensity over short timescales."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Low risk.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Short EMA item, high within-person signal expected."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Self-compassion / guilt-reduction practice use",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / change_process_and_therapeutic_phases / behavioral_integration / self_compassion_after_failure_practice",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Self-compassion interventions reduce self-criticism and guilt, directly targeting guilt about not enjoying experiences.",
+      "intervention_examples_safe": "Brief compassionate self-talk prompts, guided self-compassion exercises.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, did you use a self-compassion exercise or notice kinder self-talk? (1=None — 9=Used thoroughly)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Directly measures use/intensity of self-compassion practice."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "center",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Self-compassion reduces guilt intensity within hours."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Low risk; if high shame/guilt linked to self-harm, advise clinical referral.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.75,
+        "notes": "Feasible via brief EMA items."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Micro-activation energizers (5-minute activations)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / change_process_and_therapeutic_phases / readiness_and_engagement / positive_emotion_micropractices_plan",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Short, frequent activation breaks interrupt autopilot and increase engagement; provide immediate arousal and behavioral momentum.",
+      "intervention_examples_safe": "5-minute brisk walk, sensory re-engagement, short social check-in.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, did you perform a brief energizer (5 minutes)? Rate effort (1=None — 9=Fully done)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "High-frequency capture useful to detect interruption of autopilot."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "center; treat as intervention adherence variable",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Micro-activations should reduce autopilot in the short term (minutes to hours)."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Low risk; ensure energizers are safe for participant's physical health.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Short item, expected good adherence if prompts are brief."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Brief mindful present-moment check-ins (attention)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / third_wave_and_contextual_therapies / act_contextual_behavioral_therapy / present_moment_awareness",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Short mindfulness/presence checks increase momentary attention, reduce autopilot and possibly increase affect intensity.",
+      "intervention_examples_safe": "Brief 1-minute grounding prompts, breathing checks.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, how present/attentive did you feel? (1=Not at all — 9=Very present)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures momentary attention/presence."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "center",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increased presence reduces autopilot quickly."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Low risk.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Short EMA item; good within-person variance expected."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Social connectedness: brief interactions / outreach",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "SOCIAL / Social_Support_and_Belonging / Network_Building_And_Maintenance",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Small social interactions can lift mood, provide meaningful feedback, and reduce masking by increasing authentic connection.",
+      "intervention_examples_safe": "Short calls/texts, planned social check-ins, attending small gatherings.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Today, how many meaningful social interactions did you have? (0,1-2,3+); and rate their quality 1-9",
+        "response_scale_or_unit": "count + 1-9 quality rating (use quality as primary node)",
+        "sampling_per_day": 1,
+        "recall_window": "end_of_day",
+        "expected_within_person_variability": "medium",
+        "notes": "End-of-day summary to reduce burden; quality rating used for gVAR node."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "center; treat count separately as covariate if needed",
+        "collinearity_risk": "low",
+        "distribution_hint": "other"
+      },
+      "targets_criteria_var_ids": [
+        "C05",
+        "C04",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "High-quality interactions reduce internal masking and increase authentic affect over the day."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Ensure social prompts respect privacy and safety.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.75,
+        "notes": "End-of-day reduces momentary burden; lower temporal resolution for gVAR but still informative."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "Sleep quality and regularity (previous night)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Sleep_Circadian_and_Restoration / Sleep_Routines_and_Practices",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.6,
+      "mechanism_rationale": "Poor sleep and irregular circadian rhythm can increase autopilot, blunted affect, and reduced motivation.",
+      "intervention_examples_safe": "Bedtime consistency, sleep hygiene, light/dark exposure.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "How well did you sleep last night? (1=Very poorly — 9=Very well). Also capture sleep duration (hours).",
+        "response_scale_or_unit": "1-9 Likert + hours",
+        "sampling_per_day": 1,
+        "recall_window": "last_night",
+        "expected_within_person_variability": "medium",
+        "notes": "Combine with passive step and light data for triangulation."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "center; include day-of-week controls",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep reduces daytime autopilot and increases alertness the next day."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "If severe insomnia or hypersomnolence suspected, advise clinical evaluation.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Morning diary likely high-compliance if short."
+      }
+    },
+    {
+      "var_id": "P08",
+      "label": "Morning light exposure / early activity (minutes bright)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "BIO / Neuromodulation_and_Neurostimulation / Light_and_Photo_Neuromodulation",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.5,
+      "mechanism_rationale": "Morning bright light and early activity support circadian entrainment, increasing daytime alertness and affective responsiveness.",
+      "intervention_examples_safe": "Morning outdoor exposure, light therapy, brief morning walks.",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "ambient_light_sensor",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Minutes above threshold lux between 06:00-10:00 (daily aggregate)",
+        "response_scale_or_unit": "minutes",
+        "sampling_per_day": 1,
+        "recall_window": "daily_aggregate_morning",
+        "expected_within_person_variability": "medium",
+        "notes": "Fallback to self-report morning diary if passive data unavailable: 'How much bright light exposure this morning? (1-9)'."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "daily z-score or person-mean centering",
+        "collinearity_risk": "low",
+        "distribution_hint": "other"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C04",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "monotonic_negative",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Morning light increases alertness and reduces autopilot across the day."
+        }
+      ],
+      "include_priority": "LOW",
+      "risk_ethics_notes": "Low risk; do not recommend bright light exposure for photosensitive conditions without medical advice.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.7,
+        "gvar_feasibility_0_1": 0.6,
+        "notes": "Passive sensor may be missing for some phones; include self-report fallback."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,20000"
+    }
+  ],
+  "predictor_predictor_relevance": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,08000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,12000"
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,12000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,12000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,12000"
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P08",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P01",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P02",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P03",
+      "relevance_score_0_1_comma5": "0,08000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P04",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P05",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P06",
+      "relevance_score_0_1_comma5": "0,12000"
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P07",
+      "relevance_score_0_1_comma5": "0,45000"
+    }
+  ],
+  "criterion_criterion_relevance": [
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_criterion_var_id": "C02",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,20000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.85,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Savoring expected to quickly increase positive reactivity."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.75,
+      "estimated_relevance_tier": "high",
+      "notes": "Behavioral activation increases exposure to reinforcing events."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "medium",
+      "notes": "Mindful presence may modestly increase detected positive affect."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "Micro-activations may indirectly increase opportunities for positive events."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.85,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Self-compassion expected to reduce guilt about not enjoying events."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Increased activation can reduce rumination/guilt by increasing engagement."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "Savoring may modestly reduce guilt by increasing perceived enjoyment."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.8,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Micro-activations seen as primary interruptor of autopilot."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "Behavioral activation reduces habitual autopilot through planned variability."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Momentary mindful checks increase presence and reduce autopilot."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.8,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Savoring increases affect intensity across valence domains."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Presence can amplify emotional intensity."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "medium",
+      "notes": "Activation may increase overall affective engagement over time."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Becoming more present may reduce outward masking by increasing authenticity."
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "high",
+      "notes": "Meaningful social interaction may reduce the need to 'mask'."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "Self-compassion may reduce internal distress that drives masking."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.85,
+      "estimated_relevance_tier": "very_high",
+      "notes": "Behavioral activation is primary lever to increase initiative."
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Micro-activations boost immediate motivation and momentum."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "medium",
+      "notes": "Savoring may increase anticipated reward and thus motivation."
+    }
+  ],
+  "edges_pp": [
+    {
+      "from_predictor_var_id": "P04",
+      "to_predictor_var_id": "P01",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "Micro-activations help build momentum that supports later activation adherence."
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_predictor_var_id": "P02",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Doing activities increases opportunities to notice and savor positive events."
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_predictor_var_id": "P02",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "medium",
+      "notes": "Self-compassion may make savoring easier by reducing self-criticism."
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_predictor_var_id": "P03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-6h",
+      "estimated_relevance_0_1": 0.5,
+      "estimated_relevance_tier": "medium",
+      "notes": "Mindful check-ins may trigger compassionate self-response."
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_predictor_var_id": "P04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.35,
+      "estimated_relevance_tier": "medium",
+      "notes": "Better sleep supports energy to perform micro-activations."
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_predictor_var_id": "P07",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.45,
+      "estimated_relevance_tier": "medium",
+      "notes": "Morning light exposure improves sleep regularity."
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_predictor_var_id": "P05",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.4,
+      "estimated_relevance_tier": "medium",
+      "notes": "Social interactions may cue mindful presence practices."
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_predictor_var_id": "P06",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.3,
+      "estimated_relevance_tier": "low",
+      "notes": "Noticing positives may increase desire to share socially."
+    }
+  ],
+  "edges_cc": [
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.75,
+      "estimated_relevance_tier": "high",
+      "notes": "Autopilot reduces motivation/initiative over the day."
+    },
+    {
+      "from_criterion_var_id": "C03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.65,
+      "estimated_relevance_tier": "high",
+      "notes": "Sustained autopilot associated with blunted affect."
+    },
+    {
+      "from_criterion_var_id": "C04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "monotonic_negative",
+      "relation_interpretation": "hypothesized_direct_causal",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.7,
+      "estimated_relevance_tier": "high",
+      "notes": "Broad blunting reduces positive reactivity."
+    },
+    {
+      "from_criterion_var_id": "C01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.6,
+      "estimated_relevance_tier": "high",
+      "notes": "Lower positive reactivity often increases guilt about not enjoying."
+    },
+    {
+      "from_criterion_var_id": "C06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.55,
+      "estimated_relevance_tier": "medium",
+      "notes": "Low motivation may perpetuate autopilot through less varied behavior."
+    },
+    {
+      "from_criterion_var_id": "C05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "monotonic_positive",
+      "relation_interpretation": "temporal_association_noncausal_possible",
+      "lag_spec": "0-24h",
+      "estimated_relevance_0_1": 0.4,
+      "estimated_relevance_tier": "medium",
+      "notes": "Consistent outward masking might be associated with internal autopilot."
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "P01 and P04 (activation/adherence and micro-activation) may correlate at times; monitor variance inflation.",
+      "P02 and P01 may be correlated when activities produce savoring; consider testing for redundancy."
+    ],
+    "expected_floor_ceiling_risks": [
+      "C02 guilt may be zero-inflated if no relevant events are reported; include 'no event' metadata.",
+      "Passive P08 may have many zeros for indoor participants; include self-report fallback."
+    ],
+    "variance_enhancement_suggestions": [
+      "Use anchored 1–9 Likert scales as specified to maximize within-person variance.",
+      "Encourage completion windows and short items to reduce missingness."
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "High-complexity biomedical neuromodulation nodes (TMS, implantable) excluded due to low feasibility and out-of-scope for EMA gVAR.",
+      "Detailed nutrition microbiome measures deferred to later phases."
+    ],
+    "gvar_feasibility_summary": "With 5 momentary prompts/day and 28 days, momentary variables will yield ~140 timepoints — adequate for pairwise gVAR if adherence >=60%. Daily diaries and passive aggregates complement temporal coverage. Recommended next steps: pilot for 1 week to assess adherence and within-person variance; pre-specify lag bins (0-6h, 0-24h, 24-48h) in modeling pipeline."
+  },
+  "safety_notes": "This model is for measurement planning and not diagnostic. If responses indicate acute safety risk (suicidal ideation, self-harm intent), immediate clinical escalation is required — include an automated risk screen and local emergency instructions in the data-collection system."
+}

@@ -1,0 +1,176 @@
+{
+  "pseudoprofile_id": "CASE-2026-01-PSY-001",
+  "summary": "The case shows a grief response after a breakup with maladaptive social-media checking that triggers somatic distress and shame (C01-C04-C06) and undermines self-evaluation (C03). Modifiable levers span neurocognitive regulation, behavior activation, sleep/physiology, social support, digital environment management, self-compassion, grief processing, and interpersonal skills. The proposed predictors aim to reduce distress and rumination while increasing positive reinforcement, healthier social engagement, and greater sense of control over triggers. Interventions are selected for feasibility and potential impact in the short-to-mid term (weeks to a couple of months) and include simple measurement plans to track change in the specified criteria (C01-C06).",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Behavioral Activation and Positive Activity Scheduling",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured daily engagement in pleasant activities and light aerobic exercise (3–4 days/week), with weekly planning and reflection to increase reinforcement and reduce preoccupation with the breakup.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06",
+        "C02"
+      ],
+      "mechanism_rationale": "Increases baseline positive affect and purpose, reducing the vulnerability to rumination and checking spirals by providing rewarding alternatives and structured time use.",
+      "measurement": "Activities completed per week; daily mood rating (0–10); urge-to-check incidents; self-reported rumination frequency (0–5 scale).",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns. Monitor if activities trigger avoidance or overexertion.",
+      "mapping_query": "CASE_PAYLOAD: C01/C06/C02 targeted via BA scheduling to shift reinforcement from checking to rewarding activities."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Delay-based Checking Control with Cue Management",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a 15-minute delay rule before checking ex’s social media, accompanied by cue-management (phone out of reach, use app blockers) and brief grounding exercises.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Interrupts automatic checking bursts, reduces acute somatic distress, and weakens the reinforcement loop driving compulsive checking.",
+      "measurement": "Average delay before first check; number of checks per day; post-check distress (0–10 scale).",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None anticipated; ensure non-punitive framing to avoid program dropout.",
+      "mapping_query": "CASE_PAYLOAD: S02 targets C02, C04, C05 via delaying checks and cue-management to break the checking cycle."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness and Self-Compassion Practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Daily short mindfulness-based practice (10 minutes) with self-compassion prompts (e.g., loving-kindness toward self) to reduce reactivity to social cues and shame.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C06",
+        "C04"
+      ],
+      "mechanism_rationale": "Nonjudgmental awareness reduces emotional reactivity to triggers; self-compassion mitigates shame and negative self-evaluation while cushioning rumination.",
+      "measurement": "Daily mindfulness minutes; self-compassion rating; frequency of checking episodes; mood ratings.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "CASE_PAYLOAD: S03 targets C01/C03/C06/C04 with mindfulness and self-compassion to lower distress and reactivity."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sleep Hygiene and Circadian Regularity",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish a consistent sleep schedule, wind-down routine, limit caffeine after midday, and optimize sleep environment to reduce emotional reactivity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Improved sleep supports emotion regulation and reduces somatic distress and irritability that amplify grief responses.",
+      "measurement": "Average nightly sleep duration; sleep quality rating; days with adequate sleep (≥7 hours).",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Monitor for sleep disorders; seek clinician if persistent insomnia.",
+      "mapping_query": "CASE_PAYLOAD: S04 BIO lever to attenuate C01 and C04 via sleep regulation."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Structured Social Support and Belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Weekly, low-pressure social support contact (phone call or in-person) with a trusted friend/family or support group to process breakup and reduce loneliness.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06",
+        "C03"
+      ],
+      "mechanism_rationale": "Social connection buffers loneliness, normalizes grief, and reduces self-critical rumination and social comparison.",
+      "measurement": "Number of supportive interactions per week; loneliness scale score; mood rating.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Encourage supportive, non-pressuring encounters; avoid triggering social comparisons.",
+      "mapping_query": "CASE_PAYLOAD: S05 uses Social Support to dampen C01/C06/C03 via belonging and validation."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Digital Environment Modulation (Social Media Exposure Management)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Curate feeds to minimize exposure to ex-related triggers; schedule limited, planned social-media use; disable push notifications for ex’s accounts.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Reduced trigger exposure lowers urge to check, minimizes immediate somatic distress, and curtails distress-laden rumination tied to social comparison.",
+      "measurement": "Time spent on ex-related content; number of checks per day; distress after checking (0–10).",
+      "time_horizon": "2 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Ensure privacy settings are respected; avoid retaliation or risky online behavior.",
+      "mapping_query": "CASE_PAYLOAD: S06 targets C02/C04/C06 through digital exposure control in the social environment."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Self-Compassion and Compassion-Focused Practices",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Daily self-compassion exercises and a compassionate inner voice to reduce self-criticism and shame from social comparisons.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Enhancing self-compassion reduces shame (C03) and lowers reactivity to grief cues and social triggers, diminishing rumination (C06).",
+      "measurement": "Self-compassion scale score; daily mood; frequency of checking episodes.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "CASE_PAYLOAD: S07 uses Compassion-focused work to address C03/C01/C06."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Grief Expression and Meaning-Making (Expressive Writing)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Expressive writing and narrative reframing about the breakup to facilitate meaning-making and reduce repetitive distress.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Structured expression helps organize emotions, reduces rumination, and shifts focus from longing to growth-oriented meaning.",
+      "measurement": "Weekly writing sessions (minutes); distress rating after sessions; changes in rumination frequency.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Provide supportive prompts to avoid ruminative spirals; monitor for distress during writing.",
+      "mapping_query": "CASE_PAYLOAD: S08 Narrative/expression-based grief processing targeting C01/C06."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Interpersonal Effectiveness and Boundary Setting Skills",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Teach and practice boundary-setting and assertive communication to reduce exposure to triggering interactions and support healthier social engagement.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Clear boundaries reduce triggering social exposure, decrease shame from perceived social judgments, and lower somatic distress by improving control over environmental cues.",
+      "measurement": "Frequency of boundary-congruent interactions; perceived social support; post-interaction mood.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "If boundary setting evokes conflict, provide supportive coaching and safety planning as needed.",
+      "mapping_query": "CASE_PAYLOAD: S09 enhances Social domain skills to reduce C02/C03/C04 through boundary-setting and assertive communication."
+    }
+  ]
+}

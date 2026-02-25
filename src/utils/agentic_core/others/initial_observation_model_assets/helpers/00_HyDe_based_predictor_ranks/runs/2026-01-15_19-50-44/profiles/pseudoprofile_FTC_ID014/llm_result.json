@@ -1,0 +1,137 @@
+{
+  "pseudoprofile_id": "CASE-PP-001",
+  "summary": "The case presents five atomic targets that maintain a distress cycle: intrusive visual replay (C01), persistent rumination (C02), acute physiological reactivity to evaluative cues (C03), anticipatory fear of humiliation (C04), and a lowered threshold for perceiving criticism (C05). Modifiable levers across bio/psycho/social domains (and their interactions) can plausibly reduce re-experiencing, ruminative thinking, and threat sensitivity, while improving autonomic regulation and social buffering. The set below spans cognitive-behavioral strategies, imagery and exposure techniques, physiological regulation, mindfulness/acceptance, social support, and lifestyle-sleep/gut health; each lever targets specific criteria, has a feasible implementation path, and uses simple measurements to track impact over 4–12 weeks. Safety notes emphasize monitoring for escalation and ensuring supportive contexts, with escalation to professional care if risk indicators emerge.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Cognitive_Reappraisal_and_Thought_Structuring",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a structured CBT-based plan focusing on identifying automatic thoughts about feedback, generating balanced alternative interpretations, and testing beliefs via small behavioral experiments (e.g., requesting specific feedback and noting outcomes). Include brief daily thought diaries and weekly reflection to reduce rumination (C02) and modify threat appraisals (C04) and labeling of feedback as personally humiliating (C05).",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reframes perceived threat, decreases cognitive fusion with negative feedback, and builds evidence that feedback is not universally humiliating; reduces anticipatory fear by recalibrating threat estimates.",
+      "measurement": "Daily thought diary entries (frequency of ruminative thoughts: 0–10), perceived threat rating (0–10) after feedback, occasional cognitive flexibility quizzes; standardized rumination scale (pre/post).",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for increased anxiety; adjust pacing if distress increases. No safety risk inherent.",
+      "mapping_query": "CASE_PAYLOAD:C02+C04+C05"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Intrusive_visual_replay_reduction_via_imagery_rescripting",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach imagery rescripting: when intrusive visual replays arise, guide the client to insert a new, non-threatening ending or compassionate self-view to the scene and rehearse the modified image in a brief daily practice (5–10 minutes). This can be augmented with a scripted coping frame (e.g., “this moment is not my entire identity”).",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces vividness and emotional arousal of replayed scenes; reframes anticipated humiliation as a controllable, non-catastrophic event, diminishing anticipatory fear.",
+      "measurement": "Intrusion diary (frequency and vividness 0–10); post-imagery distress rating (0–10) after practice; briefImagery_Vividness_Scale.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "None-specific; monitor for distress during imagery; provide support if re-traumatization occurs.",
+      "mapping_query": "CASE_PAYLOAD:C01+C04"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Breathing_technique_training_and_Bio_Regulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Instruct diaphragmatic breathing and paced respiration (6 breaths/min) with grounding cues to deploy when cues of feedback occur. Include 2–3 minutes of diaphragmatic breathing pre/post feedback and a cueing plan (e.g., pause, breathe, reframe) to reduce autonomic arousal (C03) and counter anticipatory reactivity (C04).",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Improves autonomic balance, lowers visceral arousal, and reduces the immediacy of stomach-dropping sensations during evaluative cues; supports cognitive reappraisal.",
+      "measurement": "Self-rated arousal during feedback (0–10), resting HRV or pulse rate (if available), frequency of breathing technique use.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Avoid hyperventilation; stop if dizziness occurs; adapt pace.",
+      "mapping_query": "CASE_PAYLOAD:C03"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Mindfulness_and_Acceptance_Practices",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce brief daily mindfulness practice (5–10 minutes) focusing on observing thoughts about feedback with non-judgmental diffusion, plus acceptance-based cognitive defusion to reduce identifying with negative narratives (C02) and anticipatory fear (C04).",
+      "targets_criteria_ids": [
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Decreases experiential avoidance and cognitive entanglement with feedback-related thoughts; enhances tolerance of uncertainty and reduces reactivity to evaluative cues.",
+      "measurement": "MAAS or Mindfulness questionnaire scores; daily rumination log (0–10); pre/post worry/fear scale during anticipatory periods.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None specific; exposure to distress remains optional and should be gradual.",
+      "mapping_query": "CASE_PAYLOAD:C02+C04"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Controlled_feedback_exposure_and_belief_testing",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Set up structured, low-stakes feedback interactions with a trusted coworker/coach to test beliefs about humiliation. Progressively increase exposure to evaluative cues while recording anxiety and outcome data. Pair each session with a brief cognitive check (e.g., predicted vs. actual reaction, evidence) to challenge catastrophic interpretations (C04, C05).",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Directly tests and disproves catastrophic expectations about feedback; reduces threat appraisal and threat-based sensitivity to criticism through experiential learning.",
+      "measurement": "Session-by-session anxiety (0–10), number of successful feedback interactions, post-session reality check accuracy (0–1).",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Ensure oversight, consent, and confidentiality; avoid coercive scenarios; involve HR if workplace issues arise.",
+      "mapping_query": "CASE_PAYLOAD:C04+C05"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Social_Support_and_Communication_Skills",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Identify a trusted colleague or mentor for weekly 20-minute check-ins to discuss feedback experiences, practice boundary setting, and receive validation. Build a brief shared coping plan for handling feedback and feedback conversations. This social buffer aims to reduce rumination (C02) and anticipatory fear (C04) by enriching social context.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Strengthens social buffering against threat, reduces internalization of feedback as humiliation, and normalizes feedback as part of growth, thereby dampening reactivity to evaluative cues.",
+      "measurement": "Quality of support network rating, check-in frequency, perceived support (0–10), self-reported rumination and fear scales.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Maintain confidentiality; ensure support contacts are appropriate and non-judgmental.",
+      "mapping_query": "CASE_PAYLOAD:C02+C04+C05"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Sleep_quality_and_Gut_Brain_Support",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement sleep hygiene optimization (consistent bed/wake times, dark cool room, limit caffeine after midday) and gut-brain support via dietary patterns (fiber, fermented foods) and hydration. Optional: assess sleep and GI symptoms; adjust caffeine and meals around work stress. This lever supports all five criteria by improving cognitive-emotional regulation and reducing physiological reactivity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Better sleep and gut function improve neurocognitive processing and emotion regulation, reducing intrusion, rumination, arousal to feedback, and threat sensitivity.",
+      "measurement": "Sleep diary (duration, sleep quality), caffeine intake, GI symptoms, mood and arousal ratings (daily 0–10).",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "LOW",
+      "safety_notes": "Monitor for sleep disorders or GI issues; consult clinician if persistent problems.",
+      "mapping_query": "CASE_PAYLOAD:ALL"
+    }
+  ]
+}

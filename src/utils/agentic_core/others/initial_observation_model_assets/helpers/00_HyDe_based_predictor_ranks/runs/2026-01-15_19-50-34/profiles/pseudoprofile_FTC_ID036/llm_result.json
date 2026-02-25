@@ -1,0 +1,140 @@
+{
+  "pseudoprofile_id": "CASE_ANALYSIS_MINDWANDER_SOCIAL_001",
+  "summary": "The case shows chronic attentional disengagement during conversations with automatic social responding, lapses in registering content, followed by negative self-evaluation and social embarrassment. Key modifiable levers span bio (sleep, nutrition, physical activity), psycho (attention regulation, repair strategies, self-monitoring), and social/environmental (distraction reduction, conversational supports). The proposed solutions target the specific predictors (C01–C06) with practical, measurable, and safe interventions designed to improve sustained attention, real-time comprehension, repair after lapses, and reduced social distress, while leveraging cross-domain interactions (e.g., better sleep amplifying mindfulness effects).",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Mindfulness/attention-regulation practice (daily 5-10 minutes) and brief on-the-spot metacognitive checks during conversations",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured daily mindfulness-based attention regulation practice (5-10 minutes) combined with brief on-the-spot metacognitive check-ins during conversations to notice lapses early and gently re-center attention.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Reduces frequency and duration of mind-wandering, increases awareness of lapses, improves ability to reorient and engage, and buffers negative self-appraisal by fostering nonjudgmental awareness.",
+      "measurement": "Daily self-rated mind-wandering during conversations (0-10); number of successful re-engagements within conversations; brief post-conversation recall check (percent accuracy)",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns. Monitor for excessive rumination; if distress increases, adjust practice intensity.",
+      "mapping_query": "MAP: C01, C02, C03, C04, C05, C06; aligns mindfulness to attention and repair mechanisms."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Repair-oriented conversational training (paraphrase, repetition requests, summarizing)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach and rehearse a concise repair toolkit: 1) pause and request repetition when unsure, 2) paraphrase back speaker points, 3) summarize main idea before moving on.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Provides structured methods to maintain social connection and accuracy after lapses, reducing embarrassment and negative self-evaluation.",
+      "measurement": "Frequency of repetition requests; accuracy of recalled content after conversations; self-rated confidence in understanding (0-10)",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "MAP: C02, C03, C04, C05; repair skills directly address social inattention and recall gaps."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Regular sleep-wake routine and circadian hygiene (light exposure, caffeine timing)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish a consistent bedtime and wake time, optimize morning light exposure, limit caffeine after early afternoon, and maintain a calm pre-sleep routine to improve daytime attention and memory.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Improved sleep supports sustained attention, working memory, and emotional regulation, reducing lapses and negative self-comments.",
+      "measurement": "Sleep diary (bed/wake times, duration, quality); daytime sleepiness (0-10); post-conversation recall accuracy",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "MAP: C01, C03, C04; sleep optimization targets attention and memory function."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "External cognitive supports during conversations (notes, prompts, quick summaries)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Carry a small notebook or use a lightweight notes app; create a simple 1-sentence summary cue before responding; use a brief checklist to capture key points.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Offloads cognitive load, reduces missed content, and supports timely re-engagement with the speaker.",
+      "measurement": "Usage rate of notes during conversations; proportion of conversations with notes used; post-conversation recall accuracy",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "MAP: C01, C02, C03; external aids support attention and recall."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Distraction-minimized social environment during conversations",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create distraction-reduced environments for conversations (quiet space, phone-free policy, scheduled times) and communicate with conversation partners about minimizing interruptions.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Lower external cognitive load enhances sustained attention and authentic engagement.",
+      "measurement": "Distraction exposure rating (0-10) per conversation; perceived attentiveness by self and partner (0-10); overall conversation satisfaction",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "MAP: C01, C02; environmental optimization reduces attentional load."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Regular aerobic exercise and hydration optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Incorporate a weekly plan of aerobic activity (e.g., 3x30 minutes) and maintain steady hydration; pair with cues (e.g., brisk walk after meals) to boost overall cognitive function.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Exercise enhances cerebral blood flow and neurotrophic factors, supporting attention and memory; hydration supports cognitive efficiency.",
+      "measurement": "Weekly exercise minutes; daily step count; self-rated attention during conversations (0-10)",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "MAP: C01, C03; physical activity and hydration bolster cognitive performance."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Nutritional status optimization for brain health (iron/B12/omega-3)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Screen for micronutrient status and adjust dietary intake toward iron-rich foods, B12 sources, and omega-3 fatty acids; ensure adequate hydration and discuss clinician-guided supplementation if needed.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Nutritional optimization supports energy metabolism and cognitive function, contributing to fewer attentional lapses and better recall.",
+      "measurement": "Dietary intake logs;, biomarkers if available; subjective attention rating during conversations",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.4,
+      "priority": "LOW",
+      "safety_notes": "Medical guidance recommended for supplementation; avoid unsupervised dosing.",
+      "mapping_query": "MAP: C01, C03; nutrition supports attention/memory via energy availability."
+    }
+  ]
+}

@@ -1,0 +1,875 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID011",
+  "model_summary": "Initial gVAR-ready observation model focusing on six core cognitive-behavioral criteria (C01–C06) derived from the complaint, with eight modifiable predictors (P01–P08) spanning cognitive/metacognitive strategies, behavioral exposure, implementation planning, environmental feedback, self-compassion, social accountability, digital feedback, and sleep–circadian regulation. The design emphasizes momentary EMA capture (4 prompts/day) plus a minimal passive/diary stream to maximize within-person variance while containing redundancy. The predictor–criterion network is intentionally sparse and interpretable for subsequent graph-based VAR exploration, with explicit measurement modes, recall windows, and lag expectations. All measures are non-diagnostic and safety-oriented.",
+  "variable_selection_notes": "Rationale: The six criteria (C01–C06) capture memory-doubt, repeated checking, urge inhibition, lateness, social embarrassment, and self-criticism—central to the complaint and amenable to salutogenic interventions. The eight predictors (P01–P08) provide actionable levers across (1) metacognitive training, (2) ERP-like delay exposure, (3) implementation intentions, (4) environmental cueing (auto-lock), (5) self-compassion/self-talk, (6) accountability feedback, (7) digital measurement/feedback, and (8) sleep circadian regularity. To minimize collinearity, I selected one broad cognitive/metacognitive construct (memory confidence/urge monitoring), one behavioral strategy, a concrete environmental cue, a social support mechanism, a digital-feedback scaffold, and a physiological sleep regulator. Within-person variance is pursued via 4 daily EMA prompts and daily diary; passive streams include lock sensor signals and sleep data. Bias/uncertainty notes: C01–C06 come with moderate to high face validity but may correlate (e.g., embarrassment with lateness). Predictor feasibility is addressed through a mix of self-report and passive sensing; lag expectations reflect typical ERP/nonlinear learning dynamics (0–6h for immediate strategies; up to 12h for cumulative sleep effects).",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:00",
+        "13:00",
+        "17:00",
+        "21:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 56,
+      "notes": "4 prompts/day x 14 days; jitter within blocks to reduce time-based biases."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "21:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "End-of-day reflection on day events, mood, and perceived checking."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Door lock sensor events; sleep metrics from wearables; app engagement signals."
+    },
+    "minimum_total_observations_target": 70,
+    "gvar_readiness_notes": "Pilot-ready design with basic EMA/passive signals; scalable to larger samples.",
+    "variance_support_notes": "Leverage 1–9 Likert scales for key constructs; avoid binary endpoints where possible.",
+    "missingness_risk_notes": "Anticipate partial compliance; include reminders and simple imputation guidance."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Failure to accept memory of locking",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right after locking, rate your doubt about memory that you locked the door (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures momentary memory-doubt after exit."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Compulsive checking repetitions",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since leaving, rate the urge to re-check the door (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses urge intensity during leaving episodes."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Difficulty resisting the urge to re-check",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right before acting on doubt, rate how difficult it was to resist re-checking (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Inhibitory control during exit process."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Time cost (lateness)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the most recent leaving episode, how late were you due to checking? (1-9 scale; 1 = no lateness).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures time-cost of checking behaviors."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Embarrassment in social context",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last leaving episode, rate your level of embarrassment or social discomfort (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Social consequences of lateness/checking."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Self-directed irritation/negative self-evaluation",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "After the checking episode, rate your level of irritation or negative self-evaluation (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures self-criticism following checking."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Metacognitive training: memory confidence",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / metacognitive_interventions / memory_confidence_training",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Aims to improve confidence in memory for actions, reducing doubt after locking.",
+      "intervention_examples_safe": "Brief metacognitive prompts; cueing strategies; memory-confidence reflection.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Did you complete the memory-confidence metacognitive training exercise since the last prompt? Rate (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Adherence to memory-confidence training tasks."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C06"
+      ],
+      "expected_effects": [],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Moderate burden; feasible with app-based prompts."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "ERP with Delay to Check",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / cognitive_behavioral_therapies / exposure_and_inhibitory_learning",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Delay-based exposure and response prevention reduce habitual checking.",
+      "intervention_examples_safe": "ERP-like practice with controlled delays; harmless exposure tasks.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Did you engage in an ERP-like delay-to-check exercise since the last prompt? Rate (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Adherence to exposure protocol."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "expected_effects": [],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.75,
+        "gvar_feasibility_0_1": 0.75,
+        "notes": "Requires careful app scheduling to avoid burden."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Implementation intentions for exit",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / change_process_and_therapeutic_phases / behavioral_solutions / implementation_intentions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.82,
+      "mechanism_rationale": "If-then planning facilitates cue-based action initiation, reducing forgotten exit steps and possibly lateness.",
+      "intervention_examples_safe": "Pre-planned exit routines; if-then rules anchored to leaving cues.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Did you use your exit plan before leaving since the last prompt? Rate (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures adherence to exit strategies."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C01"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Depends on participant adherence to planning steps."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Door lock status indicator and auto-lock",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] / Environmental_exposures_and_built_environment_optimization / Door_lock_signals",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.78,
+      "mechanism_rationale": "External sensor feedback and automatic locking reduce reliance on memory and timing, potentially lowering lateness (C04) and memory doubt (C01).",
+      "intervention_examples_safe": "Install/verify auto-lock; real-time indicator feedback.",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "smart_home_integration",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Daily door lock events and auto-lock status (count per day).",
+        "response_scale_or_unit": "events/day",
+        "sampling_per_day": 1,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Objective environmental cueing input."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "none",
+        "collinearity_risk": "low",
+        "distribution_hint": "count"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C04"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Depends on device integration; feasible with minimal burden."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Self-compassion and self-talk training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] / core_psychological_skills_toolkits / Emotion_Regulation_and_Affective_Mastery",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Enhances adaptive self-regulation and reduces self-criticism (C06).",
+      "intervention_examples_safe": "Brief self-compassion prompts; compassionate self-talk scripts.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Did you practice self-compassion or compassionate self-talk since the last prompt? Rate (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures engagement with self-compassion practice."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C06",
+        "C05"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Low burden; integrates with existing EMA prompts."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Accountability partner support",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] / Interpersonal_Therapeutic_solutions / Accountability_and_support",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Social accountability can buffer embarrassment and lapse risk; enhances adherence to plans.",
+      "intervention_examples_safe": "Scheduled check-ins; shared progress updates.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Did you receive accountability partner support since the last prompt? Rate (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures perceived social support."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "none",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C05",
+        "C04"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.7,
+        "gvar_feasibility_0_1": 0.75,
+        "notes": "Dependent on partner engagement; feasible with consent."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "Digital measurement and feedback system",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "ontology_path": "[PSYCHO] / Digital_and_Tech_Enabled_Solutions / Digital_Tools_and_Supports",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.78,
+      "mechanism_rationale": "Continuous digital feedback and monitoring can optimize engagement with other predictors.",
+      "intervention_examples_safe": "Usage of an EMA app with real-time feedback dashboards.",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "app_engagement_metrics",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Daily engagement with the feedback system (minutes of active use or prompts completed).",
+        "response_scale_or_unit": "minutes/day",
+        "sampling_per_day": 1,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "External measurement of system engagement."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "none",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Relies on participant device compatibility; generally feasible."
+      }
+    },
+    {
+      "var_id": "P08",
+      "label": "Sleep circadian regularization",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] / Sleep_Circadian_and_Restoration / Circadian_Entrainment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Regular sleep-wake schedules support cognitive control and reduce variability across the day, potentially reducing C04–lateness and C05 embarrassment.",
+      "intervention_examples_safe": "Consistent bed/wake times; light exposure management.",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "wearable_or_phone",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Daily sleep onset time, wake time, and duration; variability across days.",
+        "response_scale_or_unit": "minutes",
+        "sampling_per_day": 1,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Sleep data used to compute regularity index."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "standardize_by_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C05",
+        "C01",
+        "C03"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.92,
+        "notes": "Depends on device compatibility; generally feasible with wearables."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,92000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,92000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,88000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,45000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Memory-confidence training expected to decrease post-lock doubt.",
+      "estimated_relevance_0_1": 0.82
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "ERP-like practice reduces compulsive checking.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Exit-planning reduces lateness risk per leaving episode.",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Auto-lock reduces lateness due to checking.",
+      "estimated_relevance_0_1": 0.72
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Self-compassion practice reduces self-criticism after episodes.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Accountability support mitigates social embarrassment.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Digital feedback supports memory confidence reductions in doubt.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "System feedback dampens urge to re-check.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Sleep regularity supports punctual exit behavior.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Regular sleep reduces social discomfort after late departures.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-12h",
+      "notes": "Better sleep may reduce memory-doubt burden the next day.",
+      "estimated_relevance_0_1": 0.5
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "low between P01–P04 (non-overlapping mechanisms)",
+      "moderate between P07 and P03 due to behavioral overlap"
+    ],
+    "expected_floor_ceiling_risks": [
+      "potential ceiling effects for C02 in highly motivated samples",
+      "floor effects for late-night prompts processing"
+    ],
+    "variance_enhancement_suggestions": [
+      "center/scale predictors per participant",
+      "rank-based normalization for ordinal measures if needed"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "multiple near-duplicate self-regulation items not used in this initial model"
+    ],
+    "gvar_feasibility_summary": "Feasible with 14-day sampling; passive streams add modest complexity but enhance model identifiability."
+  },
+  "safety_notes": "Not a diagnosis. No medication guidance. If any acute risk emerges, advise professional help and safety planning."
+}

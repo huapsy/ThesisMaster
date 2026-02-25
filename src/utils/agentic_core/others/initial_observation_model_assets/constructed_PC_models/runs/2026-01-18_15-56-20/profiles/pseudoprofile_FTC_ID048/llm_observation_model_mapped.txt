@@ -1,0 +1,16 @@
+pseudoprofile_id: pseudoprofile_FTC_ID048
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Persistent low-intensity grief/longing -> NON-CLINICAL / AGE-GENERAL / emotional / arousal / wanting / craving / longing (conf=0.75)
+- C02: Repetitive checking of ex's social media -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / obsessive-compulsive disorder / thematic subtypes / relationship obsessions (rocd) / compulsive_confirmatory_behaviors_about_relationship_status (conf=0.72)
+- C04: Acute somatic distress triggered by checking -> CLINICAL / DSM-5TR / somatic symptom and related disorders / somatic symptom disorder / distress_or_impairment_from_somatic_symptom (conf=0.78)
+- C05: Difficulty inhibiting checking despite harm -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / obsessive-compulsive disorder / thematic subtypes / harm obsessions (self or others) with mental or behavioral rituals / checking_behaviors_for_harm_prevention (conf=0.78)
+- C06: Upward social comparison/rumination about ex -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / obsessive-compulsive disorder / thematic subtypes / relationship obsessions (rocd) / constant_comparison_with_ideal_partner (conf=0.62)
+
+PREDICTORS:
+- P01: Digital_Social_Environment_Structure_and_Blockers -> SOCIAL / digital_social_environment / digital_social_environment_solutions / boundaries_and_wellbeing / digital_boundary_setting_plan (conf=0.82)
+- P02: Urge_Surfing_and_Delay_Strategy_for_Checking -> PSYCHO / cognitive_behavioral_therapies / exposure_and_inhibitory_learning / response_prevention_and_urge_work / urge_tolerance_and_surfing / cognitive_reframe_urge_as_wave (conf=0.72)
+- P03: Self_Compassion_Training_to_Reduce_Shame -> PSYCHO / core_psychological_skills_toolkits / compassionate_self_relating_and_inner_support / self_compassion_practices / warmth_and_common_humanity / self_compassion_break_practice (conf=0.72)
+- P04: Sleep_Regulation_and_Rhythm_Building -> BIO / sleep_circadian_and_restoration / circadian_entrainment / activity_and_meal_cues / social_rhythm_stabilization (conf=0.72)
+- P05: Structured_Social_Support_and_Connections -> SOCIAL / social_support_and_belonging / support_network_development / family_caregiver_and_friends_mobilization / supportive_checkin_network_setup (conf=0.72)

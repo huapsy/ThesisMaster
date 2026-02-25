@@ -1,0 +1,21 @@
+pseudoprofile_id: pseudoprofile_FTC_ID007
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Failure to initiate intended task -> CLINICAL / DSM-5TR / neurodevelopmental disorders / attention-deficit or hyperactivity disorder (adhd) / unspecified adhd / initiation_difficulty (conf=0.92)
+- C02: Substitution with low-effort rewarding activities -> NON-CLINICAL / AGE-SPECIFIC / middle_childhood / cognitive_development / executive_functions / impulse_control / delaying_gratification (conf=0.62)
+- C03: Susceptibility to distraction by digital/novel stimuli -> CLINICAL / DSM-5TR / neurodevelopmental disorders / attention-deficit or hyperactivity disorder (adhd) / predominantly inattentive presentation / easy_distraction_by_extraneous_stimuli (conf=0.85)
+- C04: Loss of time awareness during off-task activity -> NON-CLINICAL / AGE-SPECIFIC / very_old / cognitive_development / existential_cognition / time_perception_alteration / present_moment_expansion (conf=0.72)
+- C05: Acute panic/anxiety when deadlines are noticed -> CLINICAL / DSM-5TR / anxiety disorders / panic disorder / situationally predisposed panic attacks / cue_triggered_panic_attack_occurrence (conf=0.92)
+- C06: Uncertainty and self-blame about cause of difficulties -> CLINICAL / DSM-5TR / personality disorders / other personality disorders / depressive personality disorder / self_critical_rumination (conf=0.78)
+
+PREDICTORS:
+- P01: Implementation intentions / task-initiation cues -> PSYCHO / foundations_and_common_factors / goals_values_and_maintenance_planning / implementation_intention_ifthen_plans (conf=0.85)
+- P02: Structured focus blocks and micro-task timers -> PSYCHO / change_process_and_therapeutic_phases / behavioral_integration / implementation_and_routine_building / time_blocking_for_valued_actions (conf=0.92)
+- P03: Digital distraction (passive phone metrics: screen time and pickups) -> PSYCHO / cognitive_capacity_enhancement_and_stimulation / cognitive_offloading_and_external_aids / attention_support_systems / reduce_distraction / environmental_stimulus_minimization_strategy (conf=0.93)
+- P04: Time-awareness checks / time-estimation practice -> PSYCHO / cognitive_and_metacognitive_interventions / cognitive_remediation_and_rehabilitation / time_estimation_strategy_training (conf=0.94)
+- P05: Contingency planning / deadline reframing (cognitive restructuring) -> PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / restructure_and_install / belief_strength_modulation / cognitive_reframing_of_intentionality (conf=0.93)
+- P06: Self-compassion / uncertainty-processing practice -> PSYCHO / change_process_and_therapeutic_phases / behavioral_integration / lifestyle_performance_and_wellbeing_integration / self_compassion_after_failure_practice (conf=0.72)
+- P07: External cognitive offloading / checklists -> PSYCHO / cognitive_capacity_enhancement_and_stimulation / cognitive_offloading_and_external_aids / external_memory_systems / design_and_use / checklists_for_error_prevention (conf=0.82)
+- P08: Current energy / alertness level -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / ecological_momentary_assessment_ema / momentary_cognition_and_energy / ema_mental_energy (conf=0.92)
+- P09: Last-night sleep quality and duration (morning diary) -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / sleep_diary (conf=0.82)

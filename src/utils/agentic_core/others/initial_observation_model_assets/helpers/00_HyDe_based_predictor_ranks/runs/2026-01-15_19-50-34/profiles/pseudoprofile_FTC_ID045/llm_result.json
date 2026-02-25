@@ -1,0 +1,136 @@
+{
+  "pseudoprofile_id": "CASEPAYLOAD_01",
+  "summary": "The case describes a self-perpetuating workplace cycle: small errors provoke threat appraisals (fear of being fired), which triggers compensatory overwork, leading to fatigue and further errors. The proposed BIO/PSYCHO/SOCIAL levers target modifiable predictors that can interrupt this cycle by improving sleep and energy management, reducing cognitive load, reframing threat interpretations, implementing boundary-setting, and strengthening supportive work relationships. Each lever maps to specific criteria (C01–C05), specifies measurable indicators, and includes practical time frames and safety considerations to balance feasibility with potential impact.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep regularization and improved sleep hygiene (consistent bedtime/wake time, sleep environment optimization, caffeine timing)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a structured sleep hygiene plan: fixed bedtime and wake time, optimize dark, quiet sleep environment, minimize screens 1 hour before bed, limit caffeine after 2 PM, and establish a clear wind-down routine; consider morning light exposure to reinforce circadian rhythm.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Restorative sleep enhances daytime alertness, working memory, and vigilance, reducing fatigue-related errors (C04, C05) and lowering stress reactivity that can amplify threat thoughts (C02).",
+      "measurement": "Sleep diary with bed/wake times; Epworth Sleepiness Scale; per-shift error rate; self-rated energy level.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; screen for possible sleep-disorder symptoms (snoring, gasping). Seek medical evaluation if red flags arise.",
+      "mapping_query": "Targets C04 (fatigue) and C05 (attention/processing) via improved sleep; indirect impact on C02 through reduced arousal."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Structured fatigue-energy management with planned microbreaks",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Schedule 5-minute microbreaks every 90–120 minutes, with brief movement, hydration, and exposure to natural light; avoid late-day caffeine and optimize task pacing to reduce cumulative fatigue.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Regular breaks reduce cognitive fatigue and attentional lapses, improving accuracy (C01) and processing (C05); pacing decreases need for compensatory overtime (C03) and lowers fatigue (C04).",
+      "measurement": "Break logs; per-shift minor error count (C01); brief fatigue scales; subjective alertness ratings.",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Ensure breaks align with safety-critical tasks; adjust for job requirements.",
+      "mapping_query": "Addresses C01 (errors), C04 (fatigue), and C05 (attention) by reducing fatigue-related lapses."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Pre-task checklists and error-proofing routines (CBT-informed)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Before starting tasks, use a 60-second checklist to confirm inputs, critical steps, and potential error-prone moments; apply simple ‘if-then’ planning and cognitive reframe of mistakes as information for learning.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "External checklists reduce minor errors (C01); cognitive reappraisal reduces firing-related threat thoughts (C02); reducing cognitive load improves processing (C05).",
+      "measurement": "Checklist completion rate; error rate per task; self-reported firing-related thoughts; time to task completion.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; ensure trainings are concise to avoid cognitive overload.",
+      "mapping_query": "Directly targets C01; mitigates C02 via reframing; potential C05 improvement from reduced cognitive load."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Boundary-setting and supervisor alignment to cap overtime",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Institute a weekly planning session with supervisor to align task load, set a maximum daily overtime cap, and implement a no-after-hours rule; ensure urgent work coverage and safe handoffs.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C02"
+      ],
+      "mechanism_rationale": "Reducing overtime (C03) lowers fatigue (C04) and mitigates threat-driven overcompensation; greater control and predictability may reduce catastrophic firing thoughts (C02).",
+      "measurement": "Total overtime hours per week; perceived workload; error rate; anxiety about job security scales.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for backlog; adjust coverage plans to sustain critical tasks.",
+      "mapping_query": "Primarily targets C03; secondary benefits for C04 and C02 via workload normalization."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "External cognitive offloading tools and prompts",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Integrate digital checklists, task templates, and prompts within the workflow; use visual dashboards and reminders to reduce memory load and impulsive revisions.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "External aids reduce reliance on working memory, lowering error rate (C01) and cognitive strain that degrades processing (C05).",
+      "measurement": "Tool usage frequency; error rate per task; reaction/response time; perceived mental effort.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Data privacy and workplace policy considerations; avoid overreliance on tools at the expense of fundamental skills.",
+      "mapping_query": "Directly supports C01; reduces C05 by lowering cognitive load."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Cognitive restructuring and resilience training (CBT-based) to address catastrophic beliefs about firing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver brief CBT-informed exercises targeting automatic thoughts about job loss; use evidence-based reframing, behavioral experiments, and self-compassion strategies to reduce firing-related anxiety.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Reducing catastrophic thoughts (C02) enhances task engagement and reduces avoidance; improved coping can lower error propensity (C01) by stabilizing attention and effort.",
+      "measurement": "Frequency/intensity of firing-related thoughts; anxiety scales; per-task error rate and speed.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.82,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Screen for high anxiety or trauma histories; provide supportive environment and optional therapist referral if needed.",
+      "mapping_query": "Targets C02 primarily; potential secondary impact on C01 via improved coping and focus."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Structured social support and supervisor feedback loop",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Establish weekly 1-on-1 feedback with a supervisor focusing on progress and constructive praise; add a peer buddy system and regular check-ins to reduce isolation and provide social accountability.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Social support reduces threat perception (C02), enhances performance (C01) and can alleviate fatigue through validation and accountability (C04).",
+      "measurement": "Perceived support scale; feedback quality ratings; error rate; fatigue ratings.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure feedback is constructive and non-punitive; protect psychological safety.",
+      "mapping_query": "Addresses C02 and C01; C04 via social accountability and supportive context."
+    }
+  ]
+}

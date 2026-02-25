@@ -5,6 +5,10 @@
 {% block content %}
 {% set session = snapshot.session %}
 <div id="session-app" data-session-id="{{ session.session_id }}"></div>
+<datalist id="llm-model-options">
+  <option value="gpt-5-nano">gpt-5-nano (default alias)</option>
+  <option value="openai/gpt-5-nano">openai/gpt-5-nano</option>
+</datalist>
 
 {% if llm_globally_disabled %}
 <section class="panel">
@@ -58,6 +62,15 @@
 
   <div id="job-error-banner" class="alert error hidden"></div>
 
+  <div class="runtime-flow-card">
+    <h3>Live Process Summary</h3>
+    <div class="meta-grid">
+      <div><strong>Current stage:</strong> <span id="runtime-stage-summary">Idle</span></div>
+      <div><strong>Last event:</strong> <span id="runtime-last-event">No events yet.</span></div>
+    </div>
+    <ol id="runtime-events-list" class="runtime-events-list"></ol>
+  </div>
+
   <div class="stack">
     <div>
       <h3>Complaint</h3>
@@ -83,18 +96,10 @@
     <p class="muted">
       Runs operationalization and constructs the initial observation model. Use this first after intake.
     </p>
-    <div class="inline-form">
+    <div class="inline-form quick-run-form">
       <label>
-        LLM model
-        <input id="initial-llm-model" type="text" value="gpt-5-nano" {% if llm_globally_disabled %}disabled{% endif %}>
-      </label>
-      <label>
-        Prompt budget
-        <input id="initial-prompt-budget" type="number" min="2000" step="1000" value="400000">
-      </label>
-      <label>
-        Max workers
-        <input id="initial-max-workers" type="number" min="1" max="64" value="12">
+        Model
+        <input id="initial-llm-model" list="llm-model-options" type="text" value="gpt-5-nano" {% if llm_globally_disabled %}disabled{% endif %}>
       </label>
       <label class="checkline">
         <input id="initial-hard-ontology" type="checkbox">
@@ -106,6 +111,29 @@
       </label>
       <button id="run-initial-model-btn" class="btn primary">Run Model Creation</button>
     </div>
+    <details class="advanced-settings">
+      <summary>Advanced configuration</summary>
+      <div class="advanced-settings-body">
+        <div class="inline-form">
+          <label>
+            Prompt budget
+            <input id="initial-prompt-budget" type="number" min="2000" step="1000" value="400000">
+          </label>
+          <label>
+            Max workers
+            <input id="initial-max-workers" type="number" min="1" max="64" value="12">
+          </label>
+          <label>
+            Critic max iterations
+            <input id="initial-critic-iterations" type="number" min="1" max="6" value="2">
+          </label>
+          <label>
+            Critic pass threshold
+            <input id="initial-critic-threshold" type="number" min="0.5" max="1" step="0.01" value="0.74">
+          </label>
+        </div>
+      </div>
+    </details>
     <p class="muted compact">Execution status is shown in the runtime strip and live logs.</p>
   </div>
 </section>
@@ -156,62 +184,78 @@
     </div>
 
     <h3>Synthesize pseudodata</h3>
-    <div class="inline-form">
+    <div class="inline-form quick-run-form">
       <label>
         Number of time points
         <input id="synth-points" type="number" min="10" max="365" value="84">
       </label>
-      <label>
-        Missing rate (0-0.7)
-        <input id="synth-missing" type="number" step="0.01" min="0" max="0.7" value="0.10">
-      </label>
-      <label>
-        Seed
-        <input id="synth-seed" type="number" min="0" value="42">
-      </label>
       <button id="synthesize-btn" class="btn primary">Synthesize Pseudodata</button>
     </div>
+    <details class="advanced-settings">
+      <summary>Advanced configuration</summary>
+      <div class="advanced-settings-body">
+        <div class="inline-form">
+          <label>
+            Missing rate (0-0.7)
+            <input id="synth-missing" type="number" step="0.01" min="0" max="0.7" value="0.10">
+          </label>
+          <label>
+            Seed
+            <input id="synth-seed" type="number" min="0" value="42">
+          </label>
+        </div>
+      </div>
+    </details>
 
-    <div class="table-wrap">
-      <table class="data-table" id="collection-table">
-        <thead>
-          <tr>
-            <th>Variable</th>
-            <th>Role</th>
-            <th>Question / signal</th>
-            <th>Scale</th>
-            <th>Baseline (0-1)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for row in snapshot.collection_schema.variables or [] %}
-            <tr>
-              <td><code>{{ row.var_id }}</code><br>{{ row.label }}</td>
-              <td>{{ row.role }}</td>
-              <td>{{ row.question }}</td>
-              <td>{{ row.response_scale }}</td>
-              <td>
-                <input
-                  class="baseline-input"
-                  type="number"
-                  min="0"
-                  max="1"
-                  step="0.01"
-                  value="{{ row.default_baseline_0_1 }}"
-                  data-var-id="{{ row.var_id }}"
-                >
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
+    <details class="advanced-settings">
+      <summary>Baseline and variable-level overrides</summary>
+      <div class="advanced-settings-body">
+        <div class="table-wrap">
+          <table class="data-table" id="collection-table">
+            <thead>
+              <tr>
+                <th>Variable</th>
+                <th>Role</th>
+                <th>Question / signal</th>
+                <th>Scale</th>
+                <th>Baseline (0-1)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in snapshot.collection_schema.variables or [] %}
+                <tr>
+                  <td><code>{{ row.var_id }}</code><br>{{ row.label }}</td>
+                  <td>{{ row.role }}</td>
+                  <td>{{ row.question }}</td>
+                  <td>{{ row.response_scale }}</td>
+                  <td>
+                    <input
+                      class="baseline-input"
+                      type="number"
+                      min="0"
+                      max="1"
+                      step="0.01"
+                      value="{{ row.default_baseline_0_1 }}"
+                      data-var-id="{{ row.var_id }}"
+                    >
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
 
-    <h3>Manual data upload (CSV)</h3>
-    <textarea id="manual-csv" rows="6" placeholder="Paste CSV with t_index,date and variable columns (Pxx/Cxx)."></textarea>
-    <div class="actions">
-      <button id="manual-upload-btn" class="btn ghost">Save Manual Data</button>
-    </div>
+    <details class="advanced-settings">
+      <summary>Manual data upload (CSV)</summary>
+      <div class="advanced-settings-body">
+        <textarea id="manual-csv" rows="6" placeholder="Paste CSV with t_index,date and variable columns (Pxx/Cxx)."></textarea>
+        <div class="actions">
+          <button id="manual-upload-btn" class="btn ghost">Save Manual Data</button>
+        </div>
+      </div>
+    </details>
 
     <div id="pseudodata-summary">
       {% if snapshot.pseudodata_summary %}
@@ -229,41 +273,161 @@
   </div>
   <div class="section-body">
     <p class="muted">
-      Runs readiness → network/impact analysis → target selection/update model, with optional intervention translation.
+      Runs the iterative PHOENIX cycle from session pseudodata and the existing observation model:
+      Step-03 readiness → Step-04 network → Step-05 impact → Step-06 target/update model →
+      Step-07 HAPA intervention → Step-08 treatment communication.
+      Step-01/02 are executed in the Model Creation section. Research reporting remains outside the core engine sequence.
     </p>
-    <div class="inline-form">
+    <div class="inline-form quick-run-form">
       <label>
         LLM model
-        <input id="cycle-llm-model" type="text" value="gpt-5-nano" {% if llm_globally_disabled %}disabled{% endif %}>
-      </label>
-      <label>
-        Memory window
-        <input id="cycle-memory-window" type="number" min="1" max="10" value="3">
-      </label>
-      <label class="checkline">
-        <input id="cycle-hard-ontology" type="checkbox">
-        Hard ontology constraint
-      </label>
-      <label class="checkline">
-        <input id="cycle-disable-llm" type="checkbox" {% if llm_globally_disabled %}checked disabled{% endif %}>
-        Deterministic mode (disable LLM)
-      </label>
-      <label class="checkline">
-        <input id="cycle-request-refinement" type="checkbox">
-        Request updated model for next iteration
+        <input id="cycle-llm-model" list="llm-model-options" type="text" value="gpt-5-nano" {% if llm_globally_disabled %}disabled{% endif %}>
       </label>
       <label class="checkline">
         <input id="cycle-include-intervention" type="checkbox" checked>
         Include intervention translation (Step 05)
       </label>
-      <button id="run-cycle-btn" class="btn primary">Run Analysis</button>
+      <button id="run-cycle-btn" class="btn primary">Run Core Engine</button>
     </div>
-    <p class="muted compact">Use “Request updated model loop” to route next iteration back to acquisition.</p>
+    <details class="advanced-settings">
+      <summary>Advanced configuration</summary>
+      <div class="advanced-settings-body">
+        <div class="inline-form">
+          <label>
+            Memory window
+            <input id="cycle-memory-window" type="number" min="1" max="10" value="3">
+          </label>
+          <label>
+            Handoff critic max iterations
+            <input id="cycle-handoff-critic-iterations" type="number" min="1" max="6" value="2">
+          </label>
+          <label>
+            Handoff critic pass threshold
+            <input id="cycle-handoff-critic-threshold" type="number" min="0.5" max="1" step="0.01" value="0.74">
+          </label>
+          <label>
+            Intervention critic max iterations
+            <input id="cycle-intervention-critic-iterations" type="number" min="1" max="6" value="2">
+          </label>
+          <label>
+            Intervention critic pass threshold
+            <input id="cycle-intervention-critic-threshold" type="number" min="0.5" max="1" step="0.01" value="0.74">
+          </label>
+          <label>
+            Network bootstrap runs
+            <input id="cycle-network-boot" type="number" min="20" max="200" value="40">
+          </label>
+          <label>
+            Network block length
+            <input id="cycle-network-block-len" type="number" min="6" max="60" value="14">
+          </label>
+          <label>
+            Network jobs
+            <input id="cycle-network-jobs" type="number" min="1" max="16" value="4">
+          </label>
+          <label class="checkline">
+            <input id="cycle-run-visualizations" type="checkbox" checked>
+            Generate impact visuals
+          </label>
+          <label class="checkline">
+            <input id="cycle-run-communication" type="checkbox" checked>
+            Generate final treatment communication
+          </label>
+          <label class="checkline">
+            <input id="cycle-parallel-branches" type="checkbox" checked>
+            Enable parallel branches
+          </label>
+          <label class="checkline">
+            <input id="cycle-hard-ontology" type="checkbox">
+            Hard ontology constraint
+          </label>
+          <label class="checkline">
+            <input id="cycle-disable-llm" type="checkbox" {% if llm_globally_disabled %}checked disabled{% endif %}>
+            Deterministic mode (disable LLM)
+          </label>
+          <label class="checkline">
+            <input id="cycle-request-refinement" type="checkbox">
+            Request updated model for next iteration
+          </label>
+        </div>
+      </div>
+    </details>
+    <p class="muted compact">
+      Visualization/report generation are tracked as evaluation-support stages (not core-engine stages).
+      Parallel branches are flagged in realtime logs (for example, <code>visualization.parallel_start</code>).
+    </p>
     <div id="pipeline-summary"></div>
     <details id="pipeline-summary-raw-wrap" class="hidden">
       <summary>Show raw run JSON</summary>
       <pre id="pipeline-summary-raw" class="json-view"></pre>
     </details>
+  </div>
+</section>
+
+<section class="panel collapsible-section" data-section-key="cohort" data-default-open="false">
+  <div class="section-head">
+    <h2>Full Cohort Execution (10 Patients)</h2>
+    <button type="button" class="btn ghost small toggle-section-btn">Expand</button>
+  </div>
+  <div class="section-body is-collapsed">
+    <p class="muted">
+      Launches full PHOENIX execution for multiple generated patient variants with strict artifact persistence per patient.
+    </p>
+    <div class="inline-form quick-run-form">
+      <label>
+        Patient count
+        <input id="cohort-patient-count" type="number" min="1" max="30" value="10">
+      </label>
+      <label>
+        Parallel patients
+        <input id="cohort-parallel-patients" type="number" min="1" max="8" value="2">
+      </label>
+      <button id="run-cohort-btn" class="btn primary">Run Full Cohort</button>
+    </div>
+    <details class="advanced-settings">
+      <summary>Advanced configuration</summary>
+      <div class="advanced-settings-body">
+        <div class="inline-form">
+          <label>
+            LLM model
+            <input id="cohort-llm-model" list="llm-model-options" type="text" value="gpt-5-nano" {% if llm_globally_disabled %}disabled{% endif %}>
+          </label>
+          <label>
+            Pseudodata points
+            <input id="cohort-pseudodata-points" type="number" min="10" max="365" value="84">
+          </label>
+          <label>
+            Pseudodata missing rate
+            <input id="cohort-pseudodata-missing" type="number" min="0" max="0.7" step="0.01" value="0.10">
+          </label>
+          <label>
+            Pseudodata seed
+            <input id="cohort-pseudodata-seed" type="number" min="0" value="42">
+          </label>
+          <label class="checkline">
+            <input id="cohort-disable-llm" type="checkbox" {% if llm_globally_disabled %}checked disabled{% endif %}>
+            Deterministic mode (disable LLM)
+          </label>
+          <label class="checkline">
+            <input id="cohort-include-intervention" type="checkbox" checked>
+            Include intervention step
+          </label>
+          <label class="checkline">
+            <input id="cohort-run-visualizations" type="checkbox" checked>
+            Generate impact visuals
+          </label>
+          <label class="checkline">
+            <input id="cohort-run-communication" type="checkbox" checked>
+            Generate final treatment communication
+          </label>
+          <label class="checkline">
+            <input id="cohort-parallel-branches" type="checkbox" checked>
+            Enable parallel branches
+          </label>
+        </div>
+      </div>
+    </details>
+    <div id="cohort-summary" class="cohort-summary muted">No cohort run artifacts yet.</div>
   </div>
 </section>
 
@@ -308,6 +472,26 @@
         <h3>Coping Strategy Strength</h3>
         <canvas id="chart-coping"></canvas>
       </div>
+      <div class="chart-card chart-card-wide">
+        <div class="chart-card-head">
+          <h3>Observed Time-Series (Interactive)</h3>
+          <label class="compact-select">
+            Signal
+            <select id="timeseries-variable-select"></select>
+          </label>
+          <label class="compact-select">
+            Window
+            <select id="timeseries-window-select">
+              <option value="all">All</option>
+              <option value="120">120</option>
+              <option value="60" selected>60</option>
+              <option value="30">30</option>
+            </select>
+          </label>
+        </div>
+        <canvas id="chart-timeseries"></canvas>
+        <p id="timeseries-status" class="muted compact">No pseudodata loaded.</p>
+      </div>
     </div>
     <div class="dashboard-detail-grid">
       <article class="detail-card">
@@ -341,7 +525,7 @@
   </div>
   <div class="section-body is-collapsed">
     <p class="muted">
-      LLM-based explanation layer (fallback to deterministic summary when LLM is disabled or unavailable).
+      Final-stage treatment communication (generated after the cycle completes).
     </p>
     <div id="communication-summary">
       {% if snapshot.communication_summary and snapshot.communication_summary.payload %}
@@ -374,9 +558,10 @@
       <label class="checkline"><input type="checkbox" class="section-visibility-toggle" data-section-target="step01_02" checked>Model Creation</label>
       <label class="checkline"><input type="checkbox" class="section-visibility-toggle" data-section-target="model_visuals" checked>Model Diagnostics</label>
       <label class="checkline"><input type="checkbox" class="section-visibility-toggle" data-section-target="data_collection" checked>Acquisition</label>
-      <label class="checkline"><input type="checkbox" class="section-visibility-toggle" data-section-target="cycle" checked>Analysis + Intervention</label>
+      <label class="checkline"><input type="checkbox" class="section-visibility-toggle" data-section-target="cycle" checked>Engine Cycle</label>
+      <label class="checkline"><input type="checkbox" class="section-visibility-toggle" data-section-target="cohort" checked>10-Patient Cohort</label>
       <label class="checkline"><input type="checkbox" class="section-visibility-toggle" data-section-target="dashboard" checked>Comprehension Dashboard</label>
-      <label class="checkline"><input type="checkbox" class="section-visibility-toggle" data-section-target="communication" checked>Communication</label>
+      <label class="checkline"><input type="checkbox" class="section-visibility-toggle" data-section-target="communication" checked>Final Communication</label>
     </div>
     <div class="control-actions">
       <button id="expand-all-btn" type="button" class="btn ghost small">Expand all sections</button>

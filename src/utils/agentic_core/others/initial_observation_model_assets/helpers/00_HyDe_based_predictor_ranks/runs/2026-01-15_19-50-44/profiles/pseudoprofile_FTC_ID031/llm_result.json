@@ -1,0 +1,178 @@
+{
+  "pseudoprofile_id": "Case_BPAnger_Rage_01",
+  "summary": "The case shows episodic, sudden anger with near-full-body arousal, frequent trigger sensitivity, surprise at reactions, post-episode shame, identity-discrepancy, some inhibition of outward expression, and a clear motivation to change. Modifiable predictors span bio (arousal regulation, sleep, inhibitory control), psycho (trigger appraisal, expectancy management, self-compassion, values/identity alignment, motivation), and social (support, accountability). The proposed levers aim to reduce episode frequency and intensity, dampen physiological arousal, improve cognitive-emotional regulation, repair self-view after episodes, and boost readiness to engage in skills, with straightforward measurements and practical time horizons.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "C01",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Anger Episode Monitoring with Pause & Plan",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Structured self-monitoring increases awareness of triggers and early cues, enabling timely use of planned coping strategies to prevent or attenuate surprise spikes.",
+      "measurement": "Weekly count of anger spikes; time of onset; trigger log; adherence to pause plan (yes/no)",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns anticipated; monitor for avoidance or excessive rumination.",
+      "mapping_query": "Map C01 reduction through diary tracking and proactive coping pauses."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "C02",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Autonomic Regulation via Paced Breathing + Regular Aerobic Activity",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Controlled breathing and aerobic activity lower peak physiological arousal during episodes, reducing bodily intensity and downstream intensity of anger.",
+      "measurement": "Peak arousal rating during episodes (0-10); resting HR/HRV where available; weekly activity minutes",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Check for cardiovascular symptoms; adjust intensity as needed.",
+      "mapping_query": "C02 arousal reduction via autonomic regulation."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "C03",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Trigger Reappraisal Training + Minor-Trigger Desensitization",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Enhancing cognitive reappraisal and gradual exposure to low-severity triggers reduces likelihood that minor events escalate into intense anger.",
+      "measurement": "Probability of trigger-provoked anger (0-1); EMA prompts after minor triggers; self-report of reappraisal use",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Progress gradually to avoid avoidance; monitor for overexposure.",
+      "mapping_query": "C03 reduce trigger sensitivity through cognitive reappraisal and exposure."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "C04",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Pre-episode Expectancy Management (Mental Rehearsal & Coping Commitments)",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Pre-emptive planning for coping reduces unexpectedness and stabilizes initial emotional responses at episode onset.",
+      "measurement": "Subjective unexpectedness rating during episodes (0-1); adherence to planned coping steps",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "N/A",
+      "mapping_query": "C04 reduce unexpectedness via planning and rehearsal."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "C05",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Self-Compassion & Repair Scripts Post-Episode",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Developing self-kindness and explicit repair strategies lowers post-episode shame and repetitious self-criticism, breaking the shame cycle.",
+      "measurement": "Post-episode shame rating (0-1); frequency of self-criticism; number of repair attempts",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for excessive reassurance seeking or avoidance of self-criticism entirely; refer if rumination worsens.",
+      "mapping_query": "C05 shame reduction through self-compassion & repair."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "C06",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Values-Based Identity Alignment & Narrative Reframing",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Clarifying values and aligning actions with an intentional self-view reduces perceived mismatch between anger responses and who one wants to be.",
+      "measurement": "Identity alignment score; values clarity index; alignment of last 2-week actions with stated values",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "N/A",
+      "mapping_query": "C06 enhance identity-action alignment through values work."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "C07",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Inhibitory Control Training + Safe Expression Outlets",
+      "targets_criteria_ids": [
+        "C07"
+      ],
+      "mechanism_rationale": "Strengthening prefrontal control and providing safe outlets increases the ability to pause and avoid outward aggression during episodes.",
+      "measurement": "Pause-before-action success rate; self-reported inhibitory control; frequency of verbal/physical expressions without harm",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure outlets are safe and non-harmful; monitor for overuse of outlets as avoidance.",
+      "mapping_query": "C07 improve inhibitory control to prevent outward aggression."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "C08",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Motivational Interviewing & Goal-Setting for Anger Management",
+      "targets_criteria_ids": [
+        "C08"
+      ],
+      "mechanism_rationale": "Raising motivation and concrete goals increases engagement with skills and persistence through difficult episodes.",
+      "measurement": "Readiness-to-change score; session engagement metrics; goal attainment rate",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "N/A",
+      "mapping_query": "C08 strengthen motivation to change through MI and goal setting."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Social_Support_and_Accountability",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Social Support Networking & Accountability Partnerships",
+      "targets_criteria_ids": [
+        "C08",
+        "C03"
+      ],
+      "mechanism_rationale": "Structured social support reduces trigger reactivity and enhances motivation through accountability and modeling of adaptive responses.",
+      "measurement": "Number of supportive contacts per week; adherence to accountability checks; reported trigger responses",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Cultivate supportive networks; avoid unsupervised high-risk groups.",
+      "mapping_query": "Social support influence on trigger sensitivity (C03) and motivation (C08)."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Sleep_and_Circadian_Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep Hygiene & Circadian Regularity",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Improved sleep quality and regular circadian rhythm reduce baseline arousal and improve emotional regulation, dampening reactivity to triggers.",
+      "measurement": "Sleep duration/quality (sleep diary or wearable); episode arousal ratings; trigger responsiveness",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Monitor for sleep disturbances or worsening fatigue; refer if sleep disorder suspected.",
+      "mapping_query": "Sleep quality effects on arousal (C02) and trigger sensitivity (C03)."
+    }
+  ]
+}

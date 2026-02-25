@@ -1,0 +1,111 @@
+{
+  "pseudoprofile_id": "CASE burnout_boundaries_v1",
+  "summary": "Case shows burnout with inability to disconnect from work and rest that feels unrewarding, anchored by six changeable factors (C01–C06). I propose six modifiable predictors across BIO/PSYCHO/SOCIAL domains and their interactions: enforce off-hours boundaries (reducing work during rest), implement recovery-oriented micro-breaks and sleep optimization, cultivate self-compassion to reduce guilt, establish a stop-work ritual with timeboxing, build concrete boundary skills with scripts, and optimize social support to counter perceived minimization. Each lever targets specific criteria, has simple metrics, and is designed for a 4–8 week rollout with clear feasibility and impact estimates. The plan emphasizes actionable behavior change, cognitive reframing where needed, and social-system supports to maximize transfer and safety.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Off-hours boundary adherence (digital boundaries)",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Structured off-work boundary protocol including scheduled auto-replies, Do Not Disturb settings, calendar blocks for rest, and weekly accountability check-ins with a peer.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Directly reduces work activity during designated rest periods (C01) and increases perceived control over work-life boundaries (C04); regular accountability reinforces sustainable boundary use.",
+      "measurement": "% of designated rest periods with zero work activity; average rest duration; self-reported restfulness (0–10); frequency of boundary-tool usage (DND, auto-reply).",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "How does enforcing off-work boundaries via digital controls affect intrusion of work during rest (C01) and perceived control (C04)?"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Structured recovery micro-breaks and sleep hygiene optimization",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Guided 5–7 minute restorative breaks (breathing, light movement) plus a daily 15–20 minute rest window; sleep schedule regularization, improved light exposure in the morning, reduced blue light at night, and caffeine timing adjustments.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Provides actual rest and supports circadian alignment, thereby improving perceived restoration (C02) and reducing subjective fatigue.",
+      "measurement": "Restfulness rating after breaks; daily fatigue score (0–10); subjective sleep quality diary (0–10); adherence to break times.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Will structured micro-rests and sleep hygiene improvements increase restoration and reduce fatigue (C02)?"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Self-compassion training and guilt reappraisal",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Guided self-compassion exercises, journaling, and cognitive reframing to normalize rest and reduce guilt about taking time off.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Reduces self-criticism and guilt during rest, increasing willingness to disengage and recover.",
+      "measurement": "Guilt/self-criticism scale; self-compassion scale; rest duration intentions vs. actual rest.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Does increasing self-compassion and guilt-reappraisal reduce C03 (guilt during rest)?"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Stop-work ritual and timeboxing with accountability",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "End-of-day stop-work ritual (plan next day, close tasks, disable after-hours email), timeboxing of remaining tasks, and accountability partner to reinforce boundaries.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Increases perceived control over workload (C04) and clarifies boundaries, reducing difficulty in boundary implementation (C05) via structured practice and social reinforcement.",
+      "measurement": "End-of-day boundary adherence percentage; time spent on off-hours work; frequency/duration of notifications; self-rated boundary satisfaction.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Can stop-work rituals and accountability improve boundary adherence (C05) and perceived control (C04)?"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Boundary skills training and practical boundary scripts",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Training in boundary setting with concrete communication scripts; role-plays; adjusting notification settings and visibility to others.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Enhances ability to set and communicate boundaries, which reduces social minimization (C06) and improves boundary feasibility (C05) through practiced, repeatable scripts.",
+      "measurement": "Boundaries practiced per week; frequency of boundary-related communications; perceived quality of social response; social support questionnaire.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Do boundary communication skills and scripts reduce boundary difficulty (C05) and perceived social minimization (C06)?"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Structured social support optimization",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Mapping of supportive contacts; regular check-ins with a chosen supportive person; social-prescribing style linkage to community supports; psychoeducation for support network.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Enhances perceived social support and reduces minimization by social network; strengthens belonging and accountability.",
+      "measurement": "Perceived social support scale (e.g., MSPSS); frequency of supportive interactions; mood and stress indicators; satisfaction with social network.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Will structured social support and education of the social network increase perceived support (C06) and reduce minimization?"
+    }
+  ]
+}

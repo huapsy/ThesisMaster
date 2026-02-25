@@ -1,0 +1,230 @@
+{
+  "pseudoprofile_id": "case_bees_brain_beam_v1",
+  "summary": "The patient reports a persistently buzzing internal cognitive state with racing thoughts, attention drift, and difficulty quieting mental chatter, which impairs engagement in tasks. The following modifiable BIO/PSYCHO/SOCIAL levers are proposed to reduce cognitive overactivity, improve sustained attention, and restore enjoyment by targeting both cognitive control and environmental supports, while leveraging social and self-monitoring strategies. Each lever maps directly to one or more case criteria (C01–C06), specifies a measurable outcome, and balances feasibility with expected impact within a 4–12 week horizon.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Attention_Systems_Training",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured attention training program including daily 10–15 minute computer-based attention tasks, with brief interleaved dual-task blocks to strengthen executive control and reduce rapid thought-switching.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Enhancing top-down control of attention strengthens neural networks governing focus, reducing spontaneous thought influx, mind-wandering, and task-related distraction.",
+      "measurement": "Attention task performance (e.g., Sustained Attention to Response Task) plus 0–10 self-rated focus during activities and diary-based count of racing thoughts.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for fatigue or frustration during cognitive loading.",
+      "mapping_query": "MapCASE: C01-C03 to Attention training interventions."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Mindfulness_Based_Interventions",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Mindfulness-based practices (e.g., brief daily mindfulness or ACT-inspired decentering) with weekly reflection to foster nonjudgmental observation of thoughts and reduce reactivity to mental chatter.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Nonjudgmental awareness and cognitive defusion decrease identificatory grip of internal noise, supporting sustained task engagement and quieter thought streams.",
+      "measurement": "Mindfulness scales (FFMQ or MAAS), momentary probes of thought frequency (0–10) during activities, and perceived control over thoughts.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.68,
+      "priority": "HIGH",
+      "safety_notes": "If distress increases, tailor practice intensity; provide optional guided sessions.",
+      "mapping_query": "MAP to C02-C04 via mindfulness-related decentering and exposure to thoughts."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Metacognitive_Training_and_Cognitive_Remediation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Metacognitive training plus simple cognitive remediation tasks to improve working memory and attentional control, with weekly coaching and daily short practice.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Enhancing metacognitive awareness and cognitive flexibility reduces perceived inability to quiet thoughts and improves control over attentional focus.",
+      "measurement": "Performance on cognitive tasks (working memory, updating), frequency of racing thoughts (0–10), and self-reported focus during tasks.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "None specific; monitor cognitive load.",
+      "mapping_query": "Link C04 with metacognitive and remediation components; extend to C01-C02."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sleep_Routines_and_Circadian_Entrainment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent sleep-wake schedule, optimize sleep environment, and implement a simple wind-down routine to improve sleep quality and daytime cognitive performance.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Sleep regularity improves prefrontal control and reduces daytime cognitive noise, supporting sustained attention and reduced mind-wandering.",
+      "measurement": "Sleep diary/actigraphy, 0–10 sleep quality, and self-reported frequency of racing thoughts during day.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Avoid sleep aids without clinician guidance; monitor for sleep disturbance if routines change.",
+      "mapping_query": "C01-C03 improved via sleep regularity and circadian alignment."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Cognitive_Offloading_and_External_Aids",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Use external memory aids and structured task scaffolding (calendars, prompts, checklists) to reduce internal cognitive load during activities.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "External supports lessen cognitive strain, reducing mind-wandering and improving task continuity during passive and active tasks.",
+      "measurement": "Usage frequency of prompts/checklists, self-reported task focus, and objective task performance during activities.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure prompts are not over-reliant; promote gradual fade.",
+      "mapping_query": "Link external aids to reduced cognitive load and improved attention (C02/C03)."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Behavioral_Activation_and_Engagement_Scheduling",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured activity scheduling with graded engagement in enjoyable tasks to boost mood and reduce time available for rumination; incorporate small, reinforcing steps.",
+      "targets_criteria_ids": [
+        "C06",
+        "C02"
+      ],
+      "mechanism_rationale": "Increased positive reinforcement and goal-directed activity reduces idle cognitive time and improves selective attention.",
+      "measurement": "Activity engagement ratings (0–10), frequency of off-task thoughts during activities, and duration of focused engagement.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.92,
+      "expected_impact_0_1": 0.68,
+      "priority": "HIGH",
+      "safety_notes": "Adjust activity difficulty to avoid frustration; monitor anhedonia.",
+      "mapping_query": "Behavioral activation to improve enjoyment and reduce distraction (C06, C02)."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Digital_Tools_and_Supports_For_Attention_and_Mind_Wandering",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deploy focus-enhancing digital tools (timers, prompts, progress dashboards) with feedback loops to support attention during tasks.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Digital cues provide external structure that helps regulate thought streams and maintain task alignment.",
+      "measurement": "App engagement data, focus ratings (0–10), and objective attention metrics from tasks.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure user-friendly design; avoid over-reliance on tech.",
+      "mapping_query": "Digital tools supporting attention and reducing wandering mapped to C01-C03."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Regular_Aerobic_Exercise",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "A structured, gradually progressive aerobic exercise plan (e.g., 30 minutes most days) to support neurocognitive function and mood.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C06"
+      ],
+      "mechanism_rationale": "Exercise enhances executive function, reduces rumination, and increases engagement in daily activities.",
+      "measurement": "Weekly exercise log, step counts, cognitive task performance, and self-reported focus during activities.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.72,
+      "priority": "HIGH",
+      "safety_notes": "Screen for contraindications; adapt intensity as needed.",
+      "mapping_query": "Link aerobic fitness gains to improvements in racing thoughts and attention (C01/C02/C06)."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Micronutrient_and_Microbiome_Support",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Nutritional optimization focusing on micronutrient adequacy and gut-brain axis support through diet and supervised guidance (without dosing instructions).",
+      "targets_criteria_ids": [
+        "C05",
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Adequate micronutrients support neurotransmitter metabolism and energy availability, reducing internal sensory noise and enhancing attention.",
+      "measurement": "Dietary recall quality, optional lab indicators if available, self-rated mental noise (0–10), and attention ratings.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Coordinate with clinician if there are dietary restrictions or medical conditions.",
+      "mapping_query": "Nutritional and microbiome modulation to reduce mental noise and improve attention."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Structured_Social_Support_and_Belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "A plan to enhance social connectedness through regular peer contact, group activities, and social prescribing pathways to improve engagement and meaning.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Greater social connectedness improves mood, reduces rumination, and enhances engagement with activities.",
+      "measurement": "Social connectedness scales; engagement ratings; enjoyment of activities.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Be mindful of boundary setting and autonomy in social contexts.",
+      "mapping_query": "Social belonging interventions targeting C06 (enjoyment/engagement)."
+    },
+    {
+      "solution_id": "S11",
+      "predictor_variable": "Caffeine_Intake_Modulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Modulate caffeine intake by staggering consumption and avoiding late-day caffeine to reduce arousal and sleep disruption.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Late caffeine can heighten arousal and amplify internal noise; moderating intake may improve sleep, focus, and reduce buzzing.",
+      "measurement": "Caffeine logs; self-rated buzzing intensity (0–10) and focus during tasks.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Monitor for withdrawal symptoms; avoid abrupt cessation.",
+      "mapping_query": "Caffeine modulation to improve sleep and reduce cognitive noise (C01/C02/C05)."
+    },
+    {
+      "solution_id": "S12",
+      "predictor_variable": "Foundations_and_Common_Factors_With_Measurement",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Psychoeducation modules plus measurement-based care with weekly progress feedback to enhance insight, self-regulation, and adaptive planning.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Education and feedback empower self-management and targeted adjustments, promoting reductions in racing thoughts, thought quieting, and engagement.",
+      "measurement": "Weekly self-report scales, dashboards showing trend in C01/C04/C06 metrics, and adherence to plan.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Present information clearly to avoid overwhelm; tailor to baseline literacy.",
+      "mapping_query": "Foundations + measurement-based care linking C01/C04/C06 with education and feedback."
+    }
+  ]
+}

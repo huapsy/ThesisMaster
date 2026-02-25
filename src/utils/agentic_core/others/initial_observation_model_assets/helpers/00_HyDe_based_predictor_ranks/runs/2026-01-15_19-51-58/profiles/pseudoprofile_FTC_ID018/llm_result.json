@@ -1,0 +1,155 @@
+{
+  "pseudoprofile_id": "CASE-2026-01-BIOPSYCHO_SOCIAL-OPTIMIZER",
+  "summary": "The case presents evenings marked by persistent bleak/empty mood, high-energy cost to engage in activities, and a pattern of prolonged passive phone scrolling serving as avoidance. The proposed predictors span behavioral activation, sleep/circadian regulation, digital boundaries, mindfulness-based coping, social connection, micro-activity initiation, coping-skills training, and sleep-environment optimization. Each lever is modifiable, targets one or more of the five core decomp variables (C01–C05), and emphasizes simple, feasible tasks that can be tracked with lightweight measures over a 2–6 week horizon. The plan leverages bio-psycho-social interactions (e.g., sleep and arousal, energy costs, emotion regulation, and social-environment cues) to reduce evening bleakness and phone-based avoidance without pharmacological intervention. Safety monitoring remains standard; escalate to professional care if mood deteriorates or risk rises.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "EVENING_BEHAVIORAL_ACTIVATION_WITH_STIMULUS_CONTROL",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Structured, small-step evening activation plan paired with stimulus control of phone use: schedule 2–4 brief, enjoyable activities (e.g., 10-min walk, gentle stretch, quick hobby) immediately after work or sunset; implement 1–2 phone-free windows; use reminders and environmental cues to initiate activities; track adherence and mood.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Activates approach-oriented behavior, reduces reliance on passive scrolling, and lowers perceived evening effort by creating momentum with small tasks; changes neural/appraisal patterns related to mood and energy.",
+      "measurement": "Evening mood (0–10), number of activities started, total evening phone-use minutes, number of phone-free windows, perceived effort to start activities (0–10).",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.78,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns identified; adjust activity choices to avoid frustration if too challenging.",
+      "mapping_query": "CASE_PAYLOAD_JSON -> S01 mapping to C01/C03/C04/C05"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "SLEEP_CIRCADIAN_REGULATION_EVENING",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish a consistent evening wind-down and sleep window (fixed 30–60 minute pre-sleep routine), optimize light exposure (avoid bright screens), and regulate caffeine/large meals timing; aim for consistent bed and wake times across weekdays and weekends.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Stabilizes circadian rhythms and sleep pressure, reducing evening affective intensity and improving emotional expression capacity and energy for activities.",
+      "measurement": "Bedtime consistency (minutes variance/week), total sleep duration, sleep quality (0–10), evening mood (0–10).",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Screen for potential sleep disorders; avoid late caffeine; adjust routine as needed.",
+      "mapping_query": "CASE_PAYLOAD_JSON -> S02 mapping to C01/C02"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "DIGITAL_WELLBEING_EVENING_APP_LIMITS",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Set structured limits for social media and video apps after 7 pm; enable grayscale/blue-light filter; create a designated phone-free zone; use a digital wellbeing tool to track and reduce evening screen time.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces habitual, avoidance-driven scrolling and cognitive load, freeing cognitive resources for initiation of activities and reducing perceived effort.",
+      "measurement": "Evening screen-time minutes, number of phone-free windows, self-reported urge to scroll (0–10).",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.82,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; monitor for withdrawal or irritability; adjust limits gradually.",
+      "mapping_query": "CASE_PAYLOAD_JSON -> S03 mapping to C03/C05/C04"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "MINDFULNESS_ACCEPTANCE_DISTRESS_TOLERANCE_EVENING",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach brief mindfulness and distress tolerance skills for evenings (2–4 minute breathing/grounding exercises; acceptance-based reframing of bleak feelings) to reduce avoidance and increase willingness to engage.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05",
+        "C02"
+      ],
+      "mechanism_rationale": "Improves emotional regulation and distress tolerance, reducing the need to escape via phone and increasing capacity to initiate meaningful activities.",
+      "measurement": "Brief mindfulness/ distress tolerance self-report, evening mood (0–10), time spent scrolling after using skills (minutes).",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Low-risk; provide crisis resources if distress escalates.",
+      "mapping_query": "CASE_PAYLOAD_JSON -> S04 mapping to C01/C05/C02"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "EVENING_SOCIAL_CONNECTION_SCHEDULE",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Schedule brief social contact in the evening (15–30 minutes) via call/meetup with a supportive person or a small group activity to counteract bleakness and reduce reliance on phone scrolling.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Social connectedness provides positive reinforcement and reduces rumination, fostering engagement with real activities and decreasing perceived effort barriers.",
+      "measurement": "Number of evening social contacts, mood rating after contact, time spent on phone during evening before/after. ",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.78,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Assess for social anxiety triggers; ensure safe environments; offer remote options if needed.",
+      "mapping_query": "CASE_PAYLOAD_JSON -> S05 mapping to C01/C04"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "MICRO_ACTIVITY_STEPWISE_EVENING_SNACKS",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Provide a library of 5-minute, low-effort micro-activities (e.g., quick walk, stretch, tidy a small area, journaling) to reduce energy barrier and create momentum toward evening engagement.",
+      "targets_criteria_ids": [
+        "C04",
+        "C03"
+      ],
+      "mechanism_rationale": "Lowering initiation costs promotes action, reduces avoidance behaviors, and can generate dopamine/endorphin boosts that support mood and energy.",
+      "measurement": "Number of micro-activities completed per evening, total time spent on activities, self-rated effort to start (0–10).",
+      "time_horizon": "3–5 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "Activities should be safe and adaptable to physical ability.",
+      "mapping_query": "CASE_PAYLOAD_JSON -> S06 mapping to C04/C03"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "COPING_SKILLS_EVENING_WORKSHOP",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver a brief coping-skills module for evenings (problem solving, behavioral activation planning, cognitive defusion) to manage bleak feelings and reduce scrolling as avoidance.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Expands adaptive strategies, reducing reliance on phone as coping and increasing capacity to initiate alternate activities.",
+      "measurement": "Coping-skills usage survey, evening mood, time spent scrolling, number of activities initiated.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Low-risk; provide crisis resources if distress worsens.",
+      "mapping_query": "CASE_PAYLOAD_JSON -> S07 mapping to C01/C05/C04"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "SLEEP_ENVIRONMENT_IMPROVEMENT_EVENING",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Optimize evening sleep environment: reduce ambient light/noise, adjust temperature, ensure comfortable seating; use white noise or soft music to ease transition to sleep.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "A calmer sleep milieu supports mood stabilization and smoother energy and affect regulation in the evening.",
+      "measurement": "Sleep-environment quality score (1–5), evening mood (0–10), sleep onset latency, number of awakenings, next-morning energy.",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.82,
+      "expected_impact_0_1": 0.42,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; monitor for allergies or intolerance to sound/light modifications.",
+      "mapping_query": "CASE_PAYLOAD_JSON -> S08 mapping to C01/C02"
+    }
+  ]
+}

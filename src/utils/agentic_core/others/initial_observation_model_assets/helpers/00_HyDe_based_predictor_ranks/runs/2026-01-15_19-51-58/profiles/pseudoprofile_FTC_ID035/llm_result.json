@@ -1,0 +1,157 @@
+{
+  "pseudoprofile_id": "CASE_HP_HEALTH_ANXIETY_01",
+  "summary": "The case expresses health-anxiety driven by catastrophic interpretations of minor symptoms, compulsive internet health-searching, and difficulty inhibiting checking despite insight, leading to loss of perceived control and panic-like responses. Modifiable levers span cognitive-behavioral, metacognitive, physiological, and social domains to reduce worry frequency/intensity, reframe threat appraisals, curb compulsive checking, strengthen inhibitory control, and enhance coping resources. The proposed solutions are non-pharmacological, implementable, and target the specific criteria C01–C06 through measurable behavioral and cognitive changes, with attention to safety and feasibility.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Cognitive-Behavioral Therapy with Exposure and Response Prevention for health anxiety",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured CBT module combining cognitive restructuring for catastrophic interpretations with exposure with response prevention (ERP) targeting health-related checking and reassurance-seeking behaviors.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "By directly challenging catastrophic appraisals (C02) and reducing the compulsion to check (C03) via response prevention, while practicing inhibitory control during symptom triggers, the cascade reduces immediate panic (C06) and improves cognitive-control over health worries (C04).",
+      "measurement": "Worry intensity and frequency (0-1 scale) weekly; count of health-related searches per day; duration of search episodes (minutes); occasions of checking after symptom onset.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.8,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for acute distress; ensure medical clearance if new symptoms arise; escalate if signs of medical risk or suicidality appear.",
+      "mapping_query": "Map predictor to C02, C03, C04, C06 with CBT-ERP components to reduce catastrophic appraisal, checking behavior, and panic response."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Worry Scheduling with Structured Problem-Solving",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement worry time scheduling (brief daily interval) plus structured problem-solving training to address controllable aspects of health anxiety and reduce unproductive rumination.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Scheduled worry periods constrain the unbounded rumination driving high C01 scores, while problem-solving skills reduce perceived uncontrollability (C05) and dampen engagement in irrational reassurance seeking (C04).",
+      "measurement": "Daily duration of worry during scheduled window (minutes); frequency of worry episodes outside window; problem-solving usage count; perceived controllability ratings.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None specific; monitor for increased distress during initial implementation; provide skip options if overwhelmed.",
+      "mapping_query": "Targets C01 and C05 via constraint-based worry scheduling and problem-solving strategies; also reduces C04 through decreased reassurance seeking."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Internet-Health-Search Boundary with Accountability",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Set up digital boundaries (time-blocked access, site-blockers) with an accountability partner or coach to monitor and gradually reduce time spent on health searches.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "External boundaries reduce automatic checking urges (C03) and reliance on repetitive reassurance cycles (C04), creating room for alternative coping strategies and cognitive flexibility.",
+      "measurement": "Total health-search time per day (minutes); number of search attempts after boundary prompts; accountability partner feedback logs.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure medical information-seeking remains safe; avoid barriers to urgent medical care; adjust boundaries if symptoms worsen.",
+      "mapping_query": "Maps to C03 and C04 by constraining checking behavior and reassurance seeking via social accountability and digital boundaries."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Metacognitive Therapy for Worry Beliefs and Threat Monitoring",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Apply metacognitive strategies to modify beliefs about worry (e.g., worry is uncontrollable or dangerous) and reduce threat-monitoring, without engaging in content-focused rumination.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Changing meta-beliefs about worry reduces engagement with threat-focused thoughts and inhibits cognitive control over health-related rumination (C02, C04), diminishing the trigger for compulsive checking (C03) indirectly.",
+      "measurement": "Metacognitive beliefs questionnaire scores; frequency and duration of worry-related attentional focus; rating of perceived control over thoughts.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; ensure proper clinician guidance if severe distress occurs.",
+      "mapping_query": "Targets C02 and C04 by altering worry-related meta-beliefs and attentional control."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Interoceptive Exposure for Symptom Panic Reduction",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Gradual, controlled exposure to physiological sensations (interoceptive exposure) paired with paced breathing and grounding to reduce panic responses when symptoms appear.",
+      "targets_criteria_ids": [
+        "C06",
+        "C02"
+      ],
+      "mechanism_rationale": "Repeated exposure to bodily sensations under safe conditions reduces fear conditioning and catastrophic misinterpretations at symptom onset (C06, C02); improves tolerance and reduces reflexive checking.",
+      "measurement": "Panic intensity during symptom onset (0-1 scale); duration of peak fear; post-exposure distress ratings.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Medical screening advised if cardiovascular symptoms occur; proceed under clinician guidance.",
+      "mapping_query": "Links interoceptive exposure to lowering C06 panic response and reducing catastrophic interpretation (C02)."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep Hygiene and Circadian Regulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured sleep-wocused routine with caffeine/alcohol reduction, consistent bed/wake times, and daytime activity scheduling to reduce arousal and improve cognitive control.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Improved sleep reduces baseline arousal and rumination, lowering overall health-related worry (C01) and distress about lack of control (C05).",
+      "measurement": "Sleep diary metrics (sleep onset latency, wake after sleep onset, total sleep time); next-day worry intensity; daytime functioning ratings.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None; monitor for sleep disorders; refer if persistent insomnia.",
+      "mapping_query": "Addresses C01 and C05 via improved sleep and reduced daytime arousal."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social Support strengthening and Safety Planning",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Develop a brief safety plan and enhance social support networks (family, friends, peer groups) to buffer health-anxiety triggers and provide facilitated coping.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Stronger social support reduces perceived loss of control (C05) and decreases health-anxiety frequency (C01) by providing alternative coping resources and reassurance within safe boundaries.",
+      "measurement": "Perceived social support scores; frequency of supportive contacts; use of safety plan; days with reliable coping support.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure boundaries to prevent enmeshment; culturally appropriate supports.",
+      "mapping_query": "Maps to C01 and C05 through enhancement of social resources and safety planning."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Digital Self-Monitoring and Feedback Loop (Measurement-Based Care)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use a digital diary/app to track daily worry, symptom triggers, checking episodes, sleep, and activity; provide automated feedback and adaptive suggestion prompts.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Regular self-monitoring increases awareness and creates data-driven feedback loops, supporting cognitive and behavioral adjustments across all criteria (reduction in worry, catastrophic interpretations, checking, inhibition, perceived control, and panic responses).",
+      "measurement": "Daily diary completeness; trend lines for worry (C01), symptom-related interpretation (C02), search/check episodes (C03/C04), control distress (C05), and panic intensity (C06); adherence rate.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Data privacy considerations; ensure secure handling of personal health data.",
+      "mapping_query": "Comprehensive mapping to all six criteria via continuous self-monitoring and feedback."
+    }
+  ]
+}

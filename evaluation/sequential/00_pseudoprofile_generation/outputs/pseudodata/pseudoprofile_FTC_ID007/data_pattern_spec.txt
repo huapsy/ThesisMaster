@@ -1,0 +1,77 @@
+pseudoprofile_id: pseudoprofile_FTC_ID007
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID007/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.4548
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 1.00 * t + phase=1.91)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 4
+  * pulse_1: start_idx=20, length=3, amp=0.684
+  * pulse_2: start_idx=111, length=2, amp=0.974
+  * pulse_3: start_idx=103, length=7, amp=0.781
+  * pulse_4: start_idx=56, length=4, amp=1.144
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P08
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.133 | freq_hint=None
+  * P02: missing_rate=0.206 | freq_hint=None
+  * P03: missing_rate=0.128 | freq_hint=None
+  * P04: missing_rate=0.183 | freq_hint=None
+  * P05: missing_rate=0.194 | freq_hint=None
+  * P06: missing_rate=0.172 | freq_hint=None
+  * P07: missing_rate=0.078 | freq_hint=None
+  * P08: missing_rate=0.233 | freq_hint=None
+  * C01: missing_rate=0.156 | freq_hint=None
+  * C02: missing_rate=0.183 | freq_hint=None
+  * C03: missing_rate=0.256 | freq_hint=None
+  * C04: missing_rate=0.328 | freq_hint=None
+  * C05: missing_rate=0.178 | freq_hint=None
+  * C06: missing_rate=0.156 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Implementation Intentions for Task Initiation | ontology_id=implementation_intention_ifthen_plans | conf=0.72 | freq_hint=None
+- P02 (PREDICTOR): Structured Focus Blocks with Timers | ontology_id=time_blocking_for_valued_actions | conf=0.8 | freq_hint=None
+- P03 (PREDICTOR): Digital Distraction Reduction and Workspace Optimization | ontology_id=environmental_stimulus_minimization_strategy | conf=0.88 | freq_hint=None
+- P04 (PREDICTOR): Time-Perception Calibration and Time Awareness Training | ontology_id=time_estimation_strategy_training | conf=0.92 | freq_hint=None
+- P05 (PREDICTOR): Deadline Anxiety Reduction via Cognitive Restructuring | ontology_id=time_projection_reappraisal | conf=0.75 | freq_hint=None
+- P06 (PREDICTOR): Self-Compassion and Uncertainty Processing | ontology_id=compassionate_self_talk | conf=0.72 | freq_hint=None
+- P07 (PREDICTOR): Behavioral Activation with Micro-Tasks | ontology_id=behavioral_activity_planning_system | conf=0.78 | freq_hint=None
+- P08 (PREDICTOR): Social Accountability and Support Network | ontology_id=accountability_partner_matching_workflow | conf=0.72 | freq_hint=None
+- C01 (CRITERION): Failure to initiate intended task | ontology_id=initiation_difficulty | conf=0.92 | freq_hint=None
+- C02 (CRITERION): Substitution with low-effort rewarding activities | ontology_id=engaging | conf=0.72 | freq_hint=None
+- C03 (CRITERION): Susceptibility to distraction by digital/novel stimuli | ontology_id=easy_distraction_by_extraneous_stimuli | conf=0.66 | freq_hint=None
+- C04 (CRITERION): Loss of time awareness during off-task activity | ontology_id=present_moment_expansion | conf=0.68 | freq_hint=None
+- C05 (CRITERION): Acute panic/anxiety when deadlines are noticed | ontology_id=panic_like_symptoms_in_queue_exposure | conf=0.55 | freq_hint=None
+- C06 (CRITERION): Uncertainty and self-blame about cause of difficulties | ontology_id=negative_attribution_style | conf=0.62 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

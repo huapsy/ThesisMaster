@@ -1,0 +1,138 @@
+{
+  "pseudoprofile_id": "CASE_foodnight_optimization_v1",
+  "summary": "The case presents recurrent appetite lability with nocturnal overeating (C01, C02), negative self-evaluation after episodes (C03), and strict post-episode dieting urges (C04), occurring in a context of accessible nighttime food (C05) and late-night wakefulness (C06). The modifiable levers span biological (sleep and metabolism), psychological (cognition, self-regulation, mindfulness), and social/environmental domains (meal structure, home food environment, social accountability). The goals are to (1) reduce nighttime eating episodes and hunger swings, (2) soften punitive post-episode self-talk and improve mood after eating, (3) stabilize sleep-wake patterns to limit opportunities for nocturnal eating, and (4) increase sustainable self-management through monitoring and social support. Each solution is a discrete, actionable predictor with measurable targets and a clear mechanism, designed to be implementable in real-world settings without pharmacology or unsafe practices.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Evening meal timing regularization + pre-bed protein snack",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Implement a consistent dinner window (e.g., 7–8 pm) with a structured 15–25 g protein snack 60–90 minutes before bed; relocate high-risk snacks away from bedrooms; establish a simple 5-minute pre-sleep routine to reduce cue-driven eating.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C06"
+      ],
+      "mechanism_rationale": "Stabilizes hunger/satiety signals (biological) and reduces impulsive nighttime intake; the routine and snack timing support self-regulation (psychological) and lower exposure to nocturnal cues (environmental/social).",
+      "measurement": "Weekly count of midnight eating episodes; self-reported hunger fluctuations (0–10 scale); on-time bedtime +/- minutes.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor if caloric needs are unmet; adapt timing for dietary restrictions or medical conditions.",
+      "mapping_query": "What is the expected impact of regular evening meals with a pre-bed protein snack on nighttime eating (C02) and hunger fluctuations (C01) within 6–8 weeks?"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Flexible dieting cognition and self-talk reframing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Train a brief cognitive shift: replace all-or-nothing statements like 'be good tomorrow' with 'today I aim for balance; one day won’t undo progress.' Use a 1-line daily mantra and 3-minute journaling focused on self-compassion after episodes.",
+      "targets_criteria_ids": [
+        "C04",
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Reduces punitive dieting thoughts and shame that fuel binge cycles (psychological) and improves self-efficacy, thereby decreasing likelihood of post-episode overeating and negative self-evaluation.",
+      "measurement": "Frequency of rigid dieting statements per day; post-meal mood and guilt ratings; number of eating episodes per week.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "None beyond standard monitoring for mood shifts; ensure inclusive language for diverse eating patterns.",
+      "mapping_query": "Would replacing rigid diet thoughts with flexible, compassionate self-talk reduce C04 and C03 and C01 episodes over 4–6 weeks?"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Nighttime food accessibility reduction",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Reorganize home food environment to minimize nighttime access: relocate or lock away snacks; set a no-eating-after-9 pm rule; reinforce with a simple household cue (e.g., pre-bedding checklist).",
+      "targets_criteria_ids": [
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Decreases external cues and opportunities for nocturnal binge behavior by altering the built environment and social norms around snacking.",
+      "measurement": "Count of nighttime eating episodes; nocturnal snack availability checks; self-reported accessibility cue exposure.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "If household caregiving or safety needs require access to snacks, tailor rules to maintain safety while reducing opportunity.",
+      "mapping_query": "How does reducing at-home access to snacks at night influence nighttime eating episodes and accessibility cues (C02, C05) in 4–6 weeks?"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sleep hygiene and circadian alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish fixed wake time with an 7–9 hour sleep window, limit caffeine after 2 pm, and create a screen-free pre-bed routine.",
+      "targets_criteria_ids": [
+        "C06",
+        "C01"
+      ],
+      "mechanism_rationale": "Improved circadian stability reduces nighttime awakenings and nocturnal hunger signals; better sleep supports impulse control and appetite regulation.",
+      "measurement": "Bedtime and wake-time consistency (minutes); sleep onset latency; number of nocturnal awakenings; night hunger reports.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "If sleep disorders or daytime fatigue persist, consider sleep evaluation with a clinician.",
+      "mapping_query": "What impact does sleep regularity and reduced nighttime waking have on nighttime eating (C02) and hunger (C01) over 6–8 weeks?"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Daily self-monitoring of hunger, mood, and episodes",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement brief daily check-ins: rate hunger/fullness (0–10), mood (0–5), and note any episodes; review weekly summaries to adjust meals and strategies.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Enhances interoceptive awareness and early cue detection, supporting self-regulation and reducing the likelihood of binge episodes and negative self-evaluation.",
+      "measurement": "Daily diary adherence; number of episodes; correlation between hunger ratings and episodes; mood after meals.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None beyond standard diary use.",
+      "mapping_query": "Would daily self-monitoring of hunger and mood reduce nighttime eating episodes and post-eating guilt (C02, C03, C01)?"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Mindful eating practice around meals",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach a 4–5 minute mindful eating routine at dinner: pause, take 3 slow breaths, attend to hunger cues, and chew thoroughly; incorporate brief post-meal reflection on fullness.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Increases interoceptive awareness and reduces impulsive intake during high-risk windows; lowers post-eating negative affect by grounding the eating experience.",
+      "measurement": "Frequency of mindful eating practice; pre-meal urge ratings; number of eating episodes; post-meal fullness vs. hunger alignment.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None.",
+      "mapping_query": "Does mindful eating practice decrease nighttime binge frequency and post-eating negative affect (C02, C03, C01)?"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social accountability and support engagement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Pair with a accountability partner (friend/family) for weekly check-ins, share meal plans, and request support to limit late-night snacking; optionally join a community or group with similar goals.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Social support improves adherence, reduces stigma around seeking help, and provides real-time feedback and encouragement to regulate eating behavior and post-eating responses.",
+      "measurement": "Number of accountability interactions; perceived support rating; weekly episode counts.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure boundaries and privacy; tailor to individual social contexts.",
+      "mapping_query": "Would increased social accountability reduce nighttime eating episodes and improve post-eating self-evaluation (C02, C03, C04, C01)?"
+    }
+  ]
+}

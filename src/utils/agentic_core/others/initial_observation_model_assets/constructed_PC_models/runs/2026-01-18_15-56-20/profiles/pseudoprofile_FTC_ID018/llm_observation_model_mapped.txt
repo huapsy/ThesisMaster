@@ -1,0 +1,16 @@
+pseudoprofile_id: pseudoprofile_FTC_ID018
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Evening-onset persistent bleak/empty mood -> CLINICAL / DSM-5TR / depressive disorders / melancholic depression / diurnal_mood_variation (conf=0.62)
+- C02: Low outward emotional expression (non-crying distress) -> NON-CLINICAL / AGE-GENERAL / emotional / emotional awareness / emotional expression / appropriate display / socially appropriate emotion expression (conf=0.62)
+- C03: Prolonged passive smartphone use in evenings -> CLINICAL / DSM-5TR / substance-related and addictive disorders / non-substance-related (behavioral) addictive disorders / digital media use disorders / smartphone addiction / neglect_of_other_activities_due_to_phone (conf=0.78)
+- C04: Perceived low energy / high effort barrier to other activities -> CLINICAL / DSM-5TR / depressive disorders / seasonal affective (seasonal) depressive disorder / summer-onset (spring or summer pattern) / fatigue_or_low_energy_summer (conf=0.68)
+- C05: Avoidant coping function of phone use -> NON-CLINICAL / AGE-SPECIFIC / early_adolescence / emotional_development / stress_management / coping_strategies (conf=0.70)
+
+PREDICTORS:
+- P01: Evening_Behavioral_Activation_Schedule -> PSYCHO / change_process_and_therapeutic_phases / behavioral_integration / implementation_and_routine_building / behavioral_activation_routine_embedding (conf=0.65)
+- P02: Evening_ScreenTime_Reduction -> SOCIAL / social_media_ecosystem / social_media_ecosystem_and_interventions / addiction_related_digital_use_and_supports / environmental_control_and_friction_design / home_screen_deemphasis_and_app_hiding_strategy (conf=0.78)
+- P03: Morning_Light_Exposure_and_Sleep_Wake_Stability -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / morning_bright_light_exposure (conf=0.83)
+- P04: Sleep_Routine_Consistency -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / sleep_diary (conf=0.78)
+- P05: Evening_Social_Engagement -> PSYCHO / measurement_based_care_and_feedback / measurement_and_feedback_systems / activity_engagement_tracking (conf=0.65)

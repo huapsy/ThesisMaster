@@ -1,0 +1,20 @@
+pseudoprofile_id: pseudoprofile_FTC_ID008
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Elevated resting muscle tension in shoulders and jaw -> CLINICAL / ICD-10 / pain disorders / orofacial pain disorders / temporomandibular joint disorders / neck_muscle_tension_associated_with_tmjd (conf=0.62)
+- C02: Low moment-to-moment awareness of bodily tension -> NON-CLINICAL / AGE-GENERAL / physical / physical self-care / listening to body signals / body awareness / body mindfulness (conf=0.82)
+- C03: Headaches triggered by muscular tension -> CLINICAL / ICD-10 / headache disorders / primary headache disorders / tension-type headache / mild_to_moderate_intensity (conf=0.92)
+- C04: Persistent anticipatory threat expectation -> CLINICAL / DSM-5TR / anxiety disorders / generalized anxiety disorder / with cognitive rumination / future_oriented_worry_rumination (conf=0.57)
+- C05: Difficulty relaxing on low-stress days -> NON-CLINICAL / AGE-GENERAL / emotional / emotional regulation / emotional stability / anxiety reduction / reducing tension (conf=0.66)
+- C06: Habitual anticipatory muscle bracing in absence of immediate threat -> CLINICAL / ICD-10 / pain disorders / orofacial pain disorders / temporomandibular joint disorders / bruxism_behavior (conf=0.62)
+
+PREDICTORS:
+- P01: Progressive muscle relaxation (PMR) practice (shoulders/jaw-focused) -> PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / physiological_downshift / breath_and_relaxation_skills / progressive_muscle_relaxation_practice (conf=0.92)
+- P02: Interoceptive body-scan / mindful-body awareness check-ins -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / body_based_mindfulness / body_scan_with_breath_integration (conf=0.92)
+- P03: Hourly micro-breaks with gentle movement + diaphragmatic breathing -> PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / physiological_downshift / breath_and_relaxation_skills / diaphragmatic_breathing_practice (conf=0.62)
+- P04: Threat reappraisal / cognitive reframing practice -> PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / emotion_linked_reappraisal / threat_and_anxiety / threat_appraisal_reframe (conf=0.78)
+- P05: Ergonomic / posture cueing and adjustments -> BIO / movement_physical_function_and_somatic_care / ergonomics_posture_and_work_capacity / posture_and_micro_movement_aids / standing_posture_cue_tool (conf=0.75)
+- P06: Sleep protection / circadian routine adherence -> BIO / medical_assessment_and_physiology_testing / sleep_and_respiratory_testing / circadian_and_sleep_tracking / sleep_diary (conf=0.75)
+- P07: Wearable jaw-clench/bruxism sensor (passive) — episodes & intensity -> BIO / personalization_monitoring_and_data_feedback / wearables_and_home_monitoring / physiology / neurophysiology_and_stress_proxies / muscle_tension / jaw_clench_bruxism_sensor (conf=0.85)
+- P08: Structured social support (brief weekly check-ins / encouraging cues) -> SOCIAL / social_support_and_belonging / support_network_development / family_caregiver_and_friends_mobilization / supportive_checkin_network_setup (conf=0.82)

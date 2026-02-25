@@ -1,0 +1,464 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID042",
+  "source_raw_model": "llm_observation_model_raw.json",
+  "mapped_file": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID042/llm_observation_model_mapped.txt",
+  "n_timepoints": 180,
+  "freq": "D",
+  "start_date": "2025-01-01",
+  "regime_center_t_norm": 0.47091278920658525,
+  "driver_predictor_code": "P01",
+  "shared_osc_frequency": 1.0,
+  "shared_osc_phase": 5.820167582483168,
+  "pulse_specs": [
+    {
+      "start_idx": 143,
+      "length": 7,
+      "amp": 0.8141637207888412
+    },
+    {
+      "start_idx": 123,
+      "length": 6,
+      "amp": 0.7764933314544353
+    },
+    {
+      "start_idx": 94,
+      "length": 5,
+      "amp": 0.848106847615113
+    }
+  ],
+  "missing_rate_by_code": {
+    "P01": 0.22777777777777777,
+    "P02": 0.12777777777777777,
+    "P03": 0.15,
+    "P04": 0.16666666666666666,
+    "P05": 0.06111111111111111,
+    "C01": 0.08333333333333333,
+    "C02": 0.20555555555555555,
+    "C03": 0.3,
+    "C04": 0.20555555555555555,
+    "C05": 0.2611111111111111
+  },
+  "missing_rate_overall": 0.17888888888888885,
+  "predictor_generation_meta": {
+    "P01": {
+      "template": "social_support",
+      "phi": 0.9385923213109901,
+      "noise_sd_mean": 0.10981974385031672,
+      "dropout": {
+        "start_idx": 130,
+        "length": 4,
+        "multiplier": 0.32911031887490927
+      }
+    },
+    "P02": {
+      "template": "social_support",
+      "phi": 0.7362325932322811,
+      "noise_sd_mean": 0.10981974385031672,
+      "dropout": null
+    },
+    "P03": {
+      "template": "social_support",
+      "phi": 0.9149497665901037,
+      "noise_sd_mean": 0.10981974385031672,
+      "dropout": {
+        "start_idx": 127,
+        "length": 2,
+        "multiplier": 0.39646642970076096
+      }
+    },
+    "P04": {
+      "template": "sleep_light",
+      "phi": 0.8208350805031859,
+      "noise_sd_mean": 0.10981974385031672,
+      "dropout": {
+        "start_idx": 49,
+        "length": 2,
+        "multiplier": 0.598078815304316
+      }
+    },
+    "P05": {
+      "template": "social_support",
+      "phi": 0.7795357190438192,
+      "noise_sd_mean": 0.10981974385031672,
+      "dropout": null
+    }
+  },
+  "criterion_generation_meta": {
+    "C01": {
+      "phi": 0.8497752488723018,
+      "noise_sd_mean": 0.6013194099099657,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.19999999999988569,
+        "P02": 0.19999999999988569,
+        "P03": 0.19999999999988569,
+        "P04": 0.19999999999988569,
+        "P05": 0.19999999999988569
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P01",
+        "a1_pre": -0.5355012649035162,
+        "a2_post": 1.2808693453046103
+      },
+      "outlier_indices": []
+    },
+    "C02": {
+      "phi": 0.7246044913896517,
+      "noise_sd_mean": 0.6013194099099657,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.2499999999999375,
+        "P02": 0.2499999999999375,
+        "P03": 0.2499999999999375,
+        "P05": 0.2499999999999375
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P01",
+        "a1_pre": -1.1337896929033404,
+        "a2_post": -1.060766302454767
+      },
+      "outlier_indices": []
+    },
+    "C03": {
+      "phi": 0.8181357332869784,
+      "noise_sd_mean": 0.6013194099099657,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.19999999999988569,
+        "P02": 0.19999999999988569,
+        "P03": 0.19999999999988569,
+        "P04": 0.19999999999988569,
+        "P05": 0.19999999999988569
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P01",
+        "a1_pre": 0.3907357279430075,
+        "a2_post": 0.033560236071251914
+      },
+      "outlier_indices": [
+        58,
+        69
+      ]
+    },
+    "C04": {
+      "phi": 0.8236929095558935,
+      "noise_sd_mean": 0.6013194099099657,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.2499999999999375,
+        "P02": 0.2499999999999375,
+        "P03": 0.2499999999999375,
+        "P05": 0.2499999999999375
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P01",
+        "a1_pre": 0.5192934284191666,
+        "a2_post": 1.0811764723570043
+      },
+      "outlier_indices": [
+        120
+      ]
+    },
+    "C05": {
+      "phi": 0.9473314670157506,
+      "noise_sd_mean": 0.6013194099099657,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.19999999999988569,
+        "P02": 0.19999999999988569,
+        "P03": 0.19999999999988569,
+        "P04": 0.19999999999988569,
+        "P05": 0.19999999999988569
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P01",
+        "a1_pre": -0.07491684643385454,
+        "a2_post": 1.300871989443968
+      },
+      "outlier_indices": [
+        20,
+        84
+      ]
+    }
+  },
+  "missingness_meta": {
+    "P01": {
+      "base_target": 0.19949333783919637,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 6,
+          "length": 4
+        },
+        {
+          "start_idx": 166,
+          "length": 5
+        }
+      ],
+      "mcar_fraction": 0.08888888888888889,
+      "mar_fraction": 0.09444444444444444
+    },
+    "P02": {
+      "base_target": 0.15278619784627073,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [],
+      "mcar_fraction": 0.05,
+      "mar_fraction": 0.07777777777777778
+    },
+    "P03": {
+      "base_target": 0.1410012388988036,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 101,
+          "length": 3
+        },
+        {
+          "start_idx": 47,
+          "length": 3
+        }
+      ],
+      "mcar_fraction": 0.06666666666666667,
+      "mar_fraction": 0.05555555555555555
+    },
+    "P04": {
+      "base_target": 0.16878924635006368,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 154,
+          "length": 9
+        },
+        {
+          "start_idx": 79,
+          "length": 3
+        }
+      ],
+      "mcar_fraction": 0.03888888888888889,
+      "mar_fraction": 0.07222222222222222
+    },
+    "P05": {
+      "base_target": 0.06419882080070378,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [],
+      "mcar_fraction": 0.03888888888888889,
+      "mar_fraction": 0.022222222222222223
+    },
+    "C01": {
+      "base_target": 0.09935148123932072,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [],
+      "mcar_fraction": 0.044444444444444446,
+      "mar_fraction": 0.03888888888888889
+    },
+    "C02": {
+      "base_target": 0.16208607489393595,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 38,
+          "length": 10
+        },
+        {
+          "start_idx": 126,
+          "length": 9
+        }
+      ],
+      "mcar_fraction": 0.06666666666666667,
+      "mar_fraction": 0.05555555555555555
+    },
+    "C03": {
+      "base_target": 0.3159379534219845,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 60,
+          "length": 7
+        },
+        {
+          "start_idx": 23,
+          "length": 5
+        }
+      ],
+      "mcar_fraction": 0.17777777777777778,
+      "mar_fraction": 0.08888888888888889
+    },
+    "C04": {
+      "base_target": 0.16715875573424982,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 67,
+          "length": 4
+        },
+        {
+          "start_idx": 163,
+          "length": 3
+        }
+      ],
+      "mcar_fraction": 0.07777777777777778,
+      "mar_fraction": 0.1
+    },
+    "C05": {
+      "base_target": 0.3114938002218906,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [],
+      "mcar_fraction": 0.18333333333333332,
+      "mar_fraction": 0.09444444444444444
+    }
+  },
+  "patterns": [
+    "AR(1) inertia",
+    "weekly seasonality",
+    "slow drift trend",
+    "abrupt step change",
+    "smooth sigmoid transition",
+    "shared latent sinusoidal co-fluctuation",
+    "lagged predictor->criterion effects",
+    "bursts/pulses + decay",
+    "outliers/shocks",
+    "missingness: MCAR+MAR+block+schedule"
+  ],
+  "variables": [
+    {
+      "code": "P01",
+      "role": "PREDICTOR",
+      "label": "Daily values-aligned social activation plan",
+      "ontology_id": "social_connection_investment_plan",
+      "conf": 0.88,
+      "freq_hint": null
+    },
+    {
+      "code": "P02",
+      "role": "PREDICTOR",
+      "label": "Social initiation practice",
+      "ontology_id": "social_initiation_practice",
+      "conf": 0.92,
+      "freq_hint": null
+    },
+    {
+      "code": "P03",
+      "role": "PREDICTOR",
+      "label": "Community participation",
+      "ontology_id": "volunteer_service_community",
+      "conf": 0.78,
+      "freq_hint": null
+    },
+    {
+      "code": "P04",
+      "role": "PREDICTOR",
+      "label": "Sleep quality (bio\u2013circadian anchor)",
+      "ontology_id": "sleep_quality_rating",
+      "conf": 0.92,
+      "freq_hint": null
+    },
+    {
+      "code": "P05",
+      "role": "PREDICTOR",
+      "label": "Online social engagement plan",
+      "ontology_id": "prosocial_online_participation_plan",
+      "conf": 0.82,
+      "freq_hint": null
+    },
+    {
+      "code": "C01",
+      "role": "CRITERION",
+      "label": "Daily in-person contact frequency",
+      "ontology_id": "daily",
+      "conf": 0.72,
+      "freq_hint": null
+    },
+    {
+      "code": "C02",
+      "role": "CRITERION",
+      "label": "Subjective loneliness / unmet social connection",
+      "ontology_id": "combatting",
+      "conf": 0.66,
+      "freq_hint": null
+    },
+    {
+      "code": "C03",
+      "role": "CRITERION",
+      "label": "Work-from-home limiting incidental interactions",
+      "ontology_id": "in",
+      "conf": 0.78,
+      "freq_hint": null
+    },
+    {
+      "code": "C04",
+      "role": "CRITERION",
+      "label": "Perceived shrinkage of social presence / reduced social initiative",
+      "ontology_id": "social_withdrawal_subclinical",
+      "conf": 0.72,
+      "freq_hint": null
+    },
+    {
+      "code": "C05",
+      "role": "CRITERION",
+      "label": "Proportion of superficial vs meaningful interactions",
+      "ontology_id": "meaningful",
+      "conf": 0.82,
+      "freq_hint": null
+    }
+  ]
+}

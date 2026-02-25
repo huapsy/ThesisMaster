@@ -1,0 +1,71 @@
+pseudoprofile_id: pseudoprofile_FTC_ID045
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID045/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.5632
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 1.30 * t + phase=0.14)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 2
+  * pulse_1: start_idx=14, length=6, amp=0.940
+  * pulse_2: start_idx=16, length=6, amp=1.126
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P05
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.183 | freq_hint=None
+  * P02: missing_rate=0.122 | freq_hint=None
+  * P03: missing_rate=0.167 | freq_hint=None
+  * P04: missing_rate=0.206 | freq_hint=None
+  * P05: missing_rate=0.161 | freq_hint=None
+  * P06: missing_rate=0.172 | freq_hint=None
+  * P07: missing_rate=0.261 | freq_hint=None
+  * C01: missing_rate=0.217 | freq_hint=None
+  * C02: missing_rate=0.283 | freq_hint=None
+  * C03: missing_rate=0.306 | freq_hint=None
+  * C04: missing_rate=0.244 | freq_hint=None
+  * C05: missing_rate=0.228 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Sleep regularization and sleep hygiene | ontology_id=sleep_quality_rating | conf=0.92 | freq_hint=None
+- P02 (PREDICTOR): Structured fatigue-energy management with planned microbreaks | ontology_id=mental_energy_rating | conf=0.78 | freq_hint=None
+- P03 (PREDICTOR): Pre-task checklists and error-proofing routines | ontology_id=checklists_for_error_prevention | conf=0.92 | freq_hint=None
+- P04 (PREDICTOR): Boundary-setting and supervisor alignment to cap overtime | ontology_id=stress_load_boundary_setting_practice | conf=0.85 | freq_hint=None
+- P05 (PREDICTOR): External cognitive offloading tools and prompts | ontology_id=external_aids_use_training | conf=0.78 | freq_hint=None
+- P06 (PREDICTOR): Cognitive restructuring and resilience training (threat appraisal) | ontology_id=threat_appraisal_reframe | conf=0.82 | freq_hint=None
+- P07 (PREDICTOR): Structured social support and supervisor feedback loop | ontology_id=feedback_conversation_support | conf=0.85 | freq_hint=None
+- C01 (CRITERION): Rate of small work errors | ontology_id=careless_errors_in_tasks | conf=0.82 | freq_hint=None
+- C02 (CRITERION): Catastrophic job-loss expectation (anticipatory fear) | ontology_id=fear_that_something_awful_may_happen | conf=0.58 | freq_hint=None
+- C03 (CRITERION): Compensatory overwork (working late) | ontology_id=excessive_work_hours_persisting_outside_expectations | conf=0.78 | freq_hint=None
+- C04 (CRITERION): Daytime tiredness/fatigue | ontology_id=daytime_fatigue_intensity | conf=0.85 | freq_hint=None
+- C05 (CRITERION): Attention/cognitive performance decline linked to fatigue | ontology_id=cognitive_fatigue | conf=0.82 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

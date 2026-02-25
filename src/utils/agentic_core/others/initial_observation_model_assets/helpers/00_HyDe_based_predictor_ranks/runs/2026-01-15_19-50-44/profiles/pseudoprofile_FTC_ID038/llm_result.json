@@ -1,0 +1,151 @@
+{
+  "pseudoprofile_id": "CASE-CLIMATE-WORRY-01",
+  "summary": "This case centers on persistent repetitive worry about climate politics with a background dread, catastrophic future expectations, impaired long-term planning, and attentional capture by worry (C01–C05). The proposed BIO-PSYCHO-SOCIAL levers target (1) cognitive-behavioral and metacognitive processes to reduce rumination and distortions, (2) attentional control and worry-management tactics, (3) concrete planning and action initiation, (4) sleep and physical health to support cognitive functioning, (5) social support as a buffer, and (6) values-focused motivation to counter fatalism. Levers are chosen as modifiable predictors with feasible measurement and short-to-medium time horizons to move the observed criteria.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Cognitive_Reframing_and_Thought_Record_Use",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured CBT-based cognitive restructuring with daily thought records and brief reframing of climate/political worry; incorporate evidence-for/likelihood checks and a 5-minute scheduled worry window.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Intrusive repetitive thoughts (C01) and catastrophic future beliefs (C03) are maintained by maladaptive cognitive appraisals; identifying distortions and testing beliefs can reduce frequency and distress.",
+      "measurement": "Weekly intrusion frequency and distress (0–10) for C01; belief strength/probability estimates for C03 (0–100%).",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None. Monitor for distress during cognitive challenges; provide crisis resources if needed.",
+      "mapping_query": "MAP: C01, C03; PSYCHO: CBT_Foundations (ID81) and Cognitive_Structuring (ID84)."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Worry_Scheduling_and_Attention_Control",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce a 15–30 minute scheduled worry time daily; practice attention redirection to neutral tasks during outside-scheduled worry; use cue-based prompts to resume task-focused activity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Structured worry time reduces constant cognitive load; attention control training reduces attentional capture by worry.",
+      "measurement": "Daily worry time (min); attention performance on brief tasks; self-rated focus during tasks.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "None.",
+      "mapping_query": "MAP: C01, C05; PSYCHO: Mindfulness_Based_Interventions (ID170), Attention_Systems_Training (ID92)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Implementation_Intentions_and_Planning",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Weekly planning session to create concrete, if-then plans for future tasks; break goals into small steps; calendar reminders to support initiation.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Explicit planning improves initiation and follow-through; reducing cognitive load from long-term goals.",
+      "measurement": "Weeks with at least 1 implemented future task; task completion rate; self-rated planning quality.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "MAP: C04; PSYCHO: Behavior_Change_and_Activation (ID79) and Planning (ID76)."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Mindfulness_Meditation_Practice_for_Rumination_Reduction",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Daily 5–10 minute mindfulness/acceptance practice; urge surfing for worries; nonjudgmental present-moment awareness to reduce rumination.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Mindfulness reduces rumination and affective reactivity, improving attentional control and mood.",
+      "measurement": "Daily mindfulness minutes; weekly rumination scale (e.g., RRS); worry duration.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None.",
+      "mapping_query": "MAP: C01,C02,C05; PSYCHO: Mindfulness_Based_Interventions (ID170)."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep_Routine_Stabilization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent sleep-wake times, wind-down routine, reduce screen exposure before bed; maintain a sleep diary; optimize sleep environment.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Improved sleep reduces baseline anxiety and cognitive interference, supporting attention and executive control.",
+      "measurement": "Sleep diary metrics (duration, latency, awakenings); daytime sleepiness; weekly planning quality.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None.",
+      "mapping_query": "MAP: C02; BIO: Sleep_Routines (ID64) and Sleep_Environment (ID62)."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Regular_Aerobic_Exercise_For_Mood_and_Cognition",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Engage in 150 minutes/week of moderate aerobic activity (walking/cycling); track with a log; monitor mood and cognition changes.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Exercise reduces anxiety and enhances executive function, reducing cognitive load from worry and aiding attention.",
+      "measurement": "Weekly minutes of aerobic activity; mood/anxiety ratings; basic cognitive task performance.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None.",
+      "mapping_query": "MAP: C02; BIO: Aerobic_Movement (ID27)."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Structured_Social_Support_and_Engagement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Regular brief social check-ins with a trusted person; shared activities; bolster belonging and accountability for future plans.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Social support buffers negative affect and supports planning; belonging reduces rumination.",
+      "measurement": "Weekly social interactions count; perceived support; planning adherence.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None.",
+      "mapping_query": "MAP: C02, C04; SOCIAL: Belonging (ID198) and Social_Linkage (ID185)."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Values_Clarification_and_Future_Orientation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Values clarification exercises to align actions with long-term goals; develop a values-driven, flexible future plan; enhances motivation and reduces fatalistic thinking.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C02"
+      ],
+      "mechanism_rationale": "Values alignment provides purpose, reduces catastrophic thinking, and supports proactive planning.",
+      "measurement": "Values alignment score; future orientation scale; number of values-consistent plans per week.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.82,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "None.",
+      "mapping_query": "MAP: C03, C04, C02; PSYCHO: Meaning_Update (ID75) and Values_Framework (ID115)."
+    }
+  ]
+}

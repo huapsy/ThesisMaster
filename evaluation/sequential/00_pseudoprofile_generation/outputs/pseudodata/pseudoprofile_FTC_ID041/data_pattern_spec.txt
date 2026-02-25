@@ -1,0 +1,74 @@
+pseudoprofile_id: pseudoprofile_FTC_ID041
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID041/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.6276
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 1.30 * t + phase=4.82)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 3
+  * pulse_1: start_idx=89, length=4, amp=1.503
+  * pulse_2: start_idx=130, length=3, amp=0.973
+  * pulse_3: start_idx=129, length=4, amp=1.062
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P06
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.100 | freq_hint=None
+  * P02: missing_rate=0.261 | freq_hint=None
+  * P03: missing_rate=0.156 | freq_hint=None
+  * P04: missing_rate=0.178 | freq_hint=None
+  * P05: missing_rate=0.161 | freq_hint=None
+  * P06: missing_rate=0.100 | freq_hint=None
+  * P07: missing_rate=0.117 | freq_hint=None
+  * C01: missing_rate=0.239 | freq_hint=None
+  * C02: missing_rate=0.256 | freq_hint=None
+  * C03: missing_rate=0.311 | freq_hint=None
+  * C04: missing_rate=0.206 | freq_hint=None
+  * C05: missing_rate=0.133 | freq_hint=None
+  * C06: missing_rate=0.183 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Imagery Rehearsal Therapy training in bedtime routine | ontology_id=nightmare_imagery_rehearsal | conf=0.85 | freq_hint=None
+- P02 (PREDICTOR): CBT-I components + sleep environment optimization | ontology_id=cbti_sleep_restriction_implementation | conf=0.62 | freq_hint=None
+- P03 (PREDICTOR): HRV biofeedback training before sleep | ontology_id=hrv_guided_breathing_tool | conf=0.84 | freq_hint=None
+- P04 (PREDICTOR): Mindfulness sleep-related interoceptive awareness training | ontology_id=interoceptive_awareness_training | conf=0.78 | freq_hint=None
+- P05 (PREDICTOR): Post awakening grounding and paced breathing | ontology_id=paced_breathing_practice | conf=0.62 | freq_hint=None
+- P06 (PREDICTOR): Sleep environment optimization (bedroom factors) | ontology_id=bedding_thermal_optimization | conf=0.82 | freq_hint=None
+- P07 (PREDICTOR): Wearable sleep and arousal monitoring with feedback | ontology_id=sleep_tracker_wearable | conf=0.88 | freq_hint=None
+- C01 (CRITERION): Nightmare-triggered awakenings (occurrence) | ontology_id=nocturnal_awakenings_due_to_nightmares | conf=0.78 | freq_hint=None
+- C02 (CRITERION): Nightmare vividness/intensity | ontology_id=vivid_dreams | conf=0.62 | freq_hint=None
+- C03 (CRITERION): Anticipatory fear of sleep / reluctance to go to bed | ontology_id=physiological_arousal_at_bedtime | conf=0.82 | freq_hint=None
+- C04 (CRITERION): Acute autonomic arousal on awakening | ontology_id=autonomic_arousal_during_nightmares | conf=0.72 | freq_hint=None
+- C05 (CRITERION): Prolonged post-awakening activation | ontology_id=sleep_inertia_post_awakening | conf=0.92 | freq_hint=None
+- C06 (CRITERION): Difficulty resuming sleep after nightmare awakenings | ontology_id=sleep_maintenance_difficulty | conf=0.62 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

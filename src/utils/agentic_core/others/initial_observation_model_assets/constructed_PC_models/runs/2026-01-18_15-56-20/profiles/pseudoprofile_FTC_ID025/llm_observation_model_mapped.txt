@@ -1,0 +1,22 @@
+pseudoprofile_id: pseudoprofile_FTC_ID025
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Frequency of automatic social comparisons -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / body dysmorphic disorder / behavior patterns / camouflaging or comparing or seeking reassurance / appearance_comparison_frequency (conf=0.62)
+- C02: Specific triggers: others' achievements -> NON-CLINICAL / AGE-GENERAL / emotional / emotional awareness / self-recognition / trigger awareness / identifying triggers (conf=0.68)
+- C03: Speed of negative self-evaluation after a trigger -> CLINICAL / DSM-5TR / anxiety disorders / social anxiety disorder / generalized / fear of negative evaluation / catastrophizing_neutral_feedback_as_criticism (conf=0.66)
+- C04: Intensity of lowered self-worth (feeling like a failure) -> CLINICAL / DSM-5TR / depressive disorders / major depressive disorder (unipolar depression) / single episode / melancholic type / feelings_of_worthlessness (conf=0.72)
+- C05: Jealousy/envious emotional response -> NON-CLINICAL / AGE-GENERAL / emotional / affective process / emotion process / jealousy (conf=0.72)
+- C06: Repetitive thinking/rumination loop -> CLINICAL / DSM-5TR / anxiety disorders / generalized anxiety disorder / with cognitive rumination / self_referential_ruminative_content (conf=0.85)
+- C07: Capacity to maintain initial positive affect -> NON-CLINICAL / AGE-GENERAL / psychological / positive thinking / optimism / positive expectations / maintaining positive outlook (conf=0.62)
+- C08: Motivation and intent to change -> NON-CLINICAL / AGE-GENERAL / psychological / personal growth / desire to grow / motivation for improvement / internal motivation (conf=0.78)
+
+PREDICTORS:
+- P01: Self-Compassion_Practice (failure-related) -> PSYCHO / self_and_identity_work / self_esteem_and_self_worth_work / self_compassion_for_failure_practice (conf=0.92)
+- P02: Self-Monitoring_Goals_and_Feedback_Loop -> PSYCHO / change_process_and_therapeutic_phases / behavior_change_theories_and_modern_protocol_arcs / social_cognitive_theory_solutions / sct_self_monitoring_goals_and_feedback_loop (conf=0.92)
+- P03: Mindfulness_Based_Interventions -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / open_monitoring_and_meta_awareness / decentering_practice (conf=0.82)
+- P04: Emotion_Regulation_Skills -> PSYCHO / core_psychological_skills_toolkits / emotion_regulation_and_affective_mastery / change_strategies / emotion_modulation / cognitive_reappraisal_emotion (conf=0.82)
+- P05: Sleep_Rhythm_and_Circadian_Entrainment -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / daylight_exposure_planning (conf=0.79)
+- P06: Social_Support_and_Belonging_Network -> SOCIAL / social_support_and_belonging / network_building_and_maintenance / mapping_and_assessment / belonging_and_community_fit_assessment (conf=0.72)
+- P07: Cognitive_Reframing_and_Beliefs -> PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / restructure_and_install / alternative_thinking / cognitive_reappraisal_practice (conf=0.84)
+- P08: Activation_and_Values-Based_Action -> PSYCHO / cognitive_behavioral_therapies / behavioral_experiments_and_learning / values_and_approach / approach_learning / values_aligned_action_experiment (conf=0.72)

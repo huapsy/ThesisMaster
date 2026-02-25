@@ -1,0 +1,95 @@
+{
+  "pseudoprofile_id": "BPSS_CASE_SLEEP_AROUSAL_001",
+  "summary": "This case features nighttime cognitive hyperarousal with content-specific rumination (past conversations, future worry), delayed sleep onset around 03:00, and morning irritability. The proposed modifiable BIO-PSYCHO-SOCIAL levers target (1) pre-sleep arousal and circadian timing (BIO+PSYCHO), (2) evening worry content and control (PSYCHO), (3) pre-sleep mindfulness to attenuate rumination (PSYCHO), (4) morning light and routine to realign circadian rhythm and mood (BIOxSOCIAL), and (5) sleep-environment and stimulant timing to reduce arousal thresholds (BIO). Each lever links to measurable targets (C01-C05) and uses simple, repeatable metrics over a 4–8 week horizon. Feasibility is generally high with expected moderate-to-high impact, and safety considerations are straightforward (no pharmacology or unsafe practices).\" ,",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Nighttime cognitive hyperarousal and delayed sleep onset (C03/C04)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a brief CBT-I–informed sleep protocol: fixed wake time, consolidated sleep window, stimulus control (bed for sleep only), a 10–15 minute wind-down (progressive muscle relaxation or box breathing), and a daytime worry management plan to reduce pre-sleep arousal.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Directly reduces pre-sleep cognitive activation and realigns sleep timing, addressing both hyperarousal and delayed sleep onset.",
+      "measurement": "Sleep onset latency (minutes), bedtime consistency (hour/±), wake time consistency, subjective sleep quality (0–10).",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; monitor for insomnia worsening; adjust intensity if needed.",
+      "mapping_query": "CASE_PAYLOAD_JSON S01 CBT-I circadian realignment"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Evening worry scheduling and cognitive defusion to reduce past replay and anticipatory worry",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Establish a 15–20 minute 'worry window' in the early evening with cognitive defusion (label thoughts, view as passing events, rewrite as neutral narratives) and reduce ruminative looping before bedtime.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Constrains the retrieval and rehearsal of past conversations and reduces evening anticipatory thinking, lowering nocturnal cognitive load.",
+      "measurement": "Frequency/duration of nighttime replay, perceived controllability of thoughts (0–10), nightly worry content diary.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "None beyond standard CBT-informed safety considerations.",
+      "mapping_query": "CASE_PAYLOAD_JSON S02 worry scheduling"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness-based pre-sleep practice to reduce cognitive hyperarousal",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "A brief (5–10 minute) guided mindfulness/breathing practice before bed to reduce arousal and foster non-judgmental awareness of thoughts.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Promotes autonomic downregulation and cognitive decentering, decreasing the sustainment of nocturnal rumination.",
+      "measurement": "Pre-sleep arousal rating (0–10), sleep onset latency, frequency of intrusive thoughts.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Low risk; adapt to comfort with mindfulness practices.",
+      "mapping_query": "CASE_PAYLOAD_JSON S03 mindfulness pre-sleep"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Morning light exposure and structured routine to reduce morning irritability and realign circadian",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Bright light exposure within 30–60 minutes of waking, 15–20 minutes of outdoor activity/exercise, consistent wake time, and a buffer of social interaction (e.g., breakfast with a family member). Limit screen use for the first hour after waking.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Circadian realignment and social engagement improve morning mood and reduce irritability, aiding smoother sleep-wake transitions.",
+      "measurement": "Morning mood rating (0–10), morning irritability rating (0–10), wake time consistency (minutes), outdoor light exposure minutes.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "MED",
+      "safety_notes": "Check for light sensitivity; adjust light exposure and consider seasonality.",
+      "mapping_query": "CASE_PAYLOAD_JSON S04 morning light routine"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep environment optimization and caffeine timing to reduce sleep disturbance and pre-sleep arousal",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Optimize bedroom environment (darkness, cool temperature, white noise or earplugs) and restrict caffeinated beverages after early afternoon; remove or dim screens 30–60 minutes before bed; consider blue-light blocking options.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Environmental and stimulant management lowers physiological arousal and facilitates earlier sleep onset.",
+      "measurement": "Bedtime setting and consistency, sleep onset latency, caffeine intake log, perceived sleep quality, room environment rating (noise, light, temp).",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Monitor caffeine sensitivity; avoid excessive restriction that may impact functioning.",
+      "mapping_query": "CASE_PAYLOAD_JSON S05 sleep environment caffeine"
+    }
+  ]
+}

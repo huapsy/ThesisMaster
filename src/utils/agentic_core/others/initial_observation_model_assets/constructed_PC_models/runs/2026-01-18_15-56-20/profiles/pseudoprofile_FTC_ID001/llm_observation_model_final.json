@@ -1,0 +1,881 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID001",
+  "model_summary": "Initial gVAR-ready observation model focusing on five core complaint criteria derived from the case payload (C01–C05) and a compact set of six modifiable predictors (P01–P06) targeting circadian sleep regulation, sleep environment, daylight entrainment, rumination interruption, mindfulness-based self-regulation, and social belonging. Measurements rely primarily on momentary EMA self-reports (1–9 Likert scales) to maximize within-person variance while minimizing redundancy. The design emphasizes sleep restoration and daytime functioning with a clear, parallel structure for data collection (4 EMA prompts/day over a 14-day window plus a daily diary). The approach preserves the complaint’s resolution by tracking sleep restoration problems, daytime fatigue, cognitive lapses, self-criticism, and rumination, while enabling downstream gVAR modeling of predictor–outcome dynamics across plausible lags (0–6h).",
+  "variable_selection_notes": "Variables chosen to cover the atomic components described in the decomp notes: subjective non-restorative sleep (C01), daytime fatigue (C02), cognitive lapses (C03), immediate self-criticism after lapses (C04), and rumination about overall functioning (C05). Modifiable predictors (P01–P06) focus on actionable levers with broad mechanistic plausibility and established links to sleep physiology, cognitive control, and affect–social processes. We avoid duplicative self-regulation constructs by selecting a single, cohesive sleep–circadian intervention cluster (circadian entrainment) plus targeted cognitive/emotional regulation and social support levers. Measurement is designed to yield sufficient within-person variance (1–9 Likert) and allow lagged analyses with plausible windows (0–6h). Potential biases include self-report bias in sleep perception and recall, and reduced responsiveness over the 14-day window; mitigation plans are described in design_recommendations.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:00-10:00",
+        "12:00-14:00",
+        "16:00-18:00",
+        "20:00-22:00"
+      ],
+      "recall_window": "since last prompt",
+      "expected_total_prompts": 56,
+      "notes": "Distribute prompts to capture waking state, daytime fatigue, cognitive lapses, emotional responses, and rumination events."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "07:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Evening/night sleep diary is substituted by nightly EMA items; daily diary anchors sleep context and recovery."
+    },
+    "passive_streams": {
+      "enabled": false,
+      "aggregation_strategy": "n/a",
+      "notes": "Passive streams not used in this initial pass to keep design focused and estimable."
+    },
+    "minimum_total_observations_target": 70,
+    "gvar_readiness_notes": "Requires reliable EMA delivery and high adherence across days; plan reminders and compensation to limit missingness.",
+    "variance_support_notes": "Expect meaningful within-person fluctuations in sleep perception, fatigue, attention, and affect; ensure prompts cover key times (morning wake, post-lapse periods, evening rumination).",
+    "missingness_risk_notes": "Moderate; mitigate via automated reminders, user-friendly prompts, and brief reminder cadence."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "",
+      "label": "Non-restorative sleep on waking",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How rested did you feel upon waking this morning on a 1 (not rested) to 9 (fully rested) scale?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Directly from complaint: non-restorative sleep despite 7–8 h perceived duration."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "",
+      "label": "Sustained daytime fatigue / low alertness",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since waking, how fatigued or alert are you today on a 1 (very alert) to 9 (very fatigued) scale?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures daytime functioning and alertness linked to sleep restoration."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "",
+      "label": "Moments of cognitive lapse (attention/short-term memory)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since waking, how often did you experience attentional lapses or brief memory lapses (e.g., forgetfulness) on a 1 (never) to 9 (very often) scale?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Target cognitive fog described in complaint."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "",
+      "label": "Immediate self-directed anger/criticism after lapses",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Immediately after noticing a lapse, how angry at yourself did you feel on a 1 (not angry) to 9 (extremely angry) scale?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Actionable emotion regulation target."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "",
+      "label": "Ruminative escalation into global worry about functioning",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "After a lapse, to what extent did thoughts escalate into worry about overall functioning on a 1 (not at all) to 9 (very much) scale?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures rumination and self-evaluation cycle."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Sleep Regularization Plan (Circadian Entrainment)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] Sleep_circadian_and_restoration / circadian_entrainment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Promotes stable sleep-wake timing to improve restoration and daytime alertness.",
+      "intervention_examples_safe": "Consistent bed and wake times, consistent weekend schedule.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, how well did you maintain a regular sleep-wake schedule (0-9 scale; 0 = not regular at all, 9 = highly regular)?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses adherence to circadian alignment."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better sleep regularity should improve waking restoration and reduce morning fatigue."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "High feasibility for circadian alignment prompts."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Sleep Environment Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] Sleep_circadian_and_restoration / Sleep_environment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.82,
+      "mechanism_rationale": "Optimizing room conditions (light, sound, temperature) facilitates sleep restoration.",
+      "intervention_examples_safe": "Use blackout curtains, maintain cool room temperature, minimize noise.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How conducive was your sleep environment tonight (1-9; 1 = very poor, 9 = excellent)?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Environmental quality variable closely linked to sleep quality."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "A better environment supports restoration and reduces perceived non-restorative sleep."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Environment prompts are straightforward and high adherence."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Morning Daylight Exposure",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] Sleep_circadian_and_restoration / circadian_entrainment / light_cues",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.78,
+      "mechanism_rationale": "Daylight exposure helps circadian entrainment and improves morning alertness.",
+      "intervention_examples_safe": "Outdoor or bright morning light for 15–30 minutes.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, how much daylight exposure did you have in the morning (1-9 scale; 1 = none, 9 = plenty)?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "today",
+        "expected_within_person_variability": "high",
+        "notes": "Captures circadian entrainment signal via daylight exposure."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Morning light is expected to raise daytime alertness and reduce fatigue."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Prompts rely on self-report; consider optional passive daylight sensing if available."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Rumination Interruption Protocol",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Cognitive_Behavioral_Therapies / Perseverative_Cognition_Interventions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.79,
+      "mechanism_rationale": "Structured interruptions of rumination can stabilize affect and reduce lapses.",
+      "intervention_examples_safe": "Pause-and-redirect, cognitive shift to values, short grounding exercise.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, how successfully did you interrupt rumination when it started (1-9 scale)?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Targets rumination escalation (C05)."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Disruption of rumination should reduce escalation into global worry."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.84,
+        "notes": "Moderate burden; emphasize brief prompts."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Mindfulness-Based Self-Regulation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] Third_Wave_and_Contextual_Therapies / Mindfulness_Based_Interventions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Mindfulness practices support emotion regulation and reduce acute self-criticism.",
+      "intervention_examples_safe": "Brief mindfulness or compassionate self-talk (1–2 minutes).",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, rate your current level of mindful awareness or compassionate self-regulation (1-9).",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Supports C04 and C05 by improving emotional regulation."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved self-regulation should reduce self-anger after lapses."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindfulness reduces escalation into global worry."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.82,
+        "gvar_feasibility_0_1": 0.78,
+        "notes": "Mindfulness prompts may require user buy-in; provide brief psychoeducation."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Social Support & Belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] Social_Support_and_Belonging / Network_Building_And_Maintenance",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Perceived social support buffers stress and may reduce rumination and affective reactivity.",
+      "intervention_examples_safe": "Engage a supportive contact; plan a brief social check-in.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, to what extent did you feel supported by others today (1-9 scale)?",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Addresses C05 via social buffering."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_per_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Social effects on rumination may be nonlinear depending on context; monitor for nonlinearity."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Social prompts rely on naturalistic interactions; may vary by day."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Circadian alignment supports restoration; immediate effect expected on subjective sleep restoration.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Enhanced sleep regularity improves daytime fatigue.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Better sleep may reduce cognitive lapses via wakefulness stabilization.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Less sleep disruption reduces reactive self-criticism post-lapses.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Stable sleep may reduce rumination escalation after lapses.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Sleep environment optimization supports restorative sleep.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Improved environment reduces daytime fatigue.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Quieter, cooler room may support attentional stability.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Calm environment reduces emotional reactivity after lapses.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Less environmental arousal may dampen rumination.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Greater daylight exposure supports circadian entrainment and restoration.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Morning light boosts alertness; reduces fatigue.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Circadian alignment improves cognitive functioning.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Better attention may reduce impulsive self-criticism post-lapse.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Daylight exposure supports mood stabilization reducing rumination.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Interrupting rumination may indirectly support sleep restoration.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Interrupting rumination reduces daytime fatigue via mood stabilization.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Distraction from ruminative thoughts may reduce lapses.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Less self-criticism when lapses are interrupted.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Rumination interruption reduces escalation to global worry.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness may enhance sleep perception quality.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness improves daytime regulation and alertness.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Enhanced attention control from mindfulness reduces lapses.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Emotional regulation reduces self-anger after lapses.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness reduces escalation into worry.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Social support buffers distress contributing to sleep restoration.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Perceived belonging improves daytime functioning.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Social buffers may stabilize attention.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Supportive interactions reduce self-criticism post-lapse.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Belonging reduces rumination risk.",
+      "estimated_relevance_0_1": 0.6
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "Moderate between C01 and C02 due to sleep-related variance",
+      "Low between C03 and C04 with distinct cognitive domains"
+    ],
+    "expected_floor_ceiling_risks": [
+      "Potential floor effects for C04 if prompts not triggering lapses",
+      "Ceiling effects unlikely for C01 with 1–9 scale"
+    ],
+    "variance_enhancement_suggestions": [
+      "Include additional anchor prompts to maximize within-person variance",
+      "If needed, add a follow-up 1–2 item calibration to reduce measurement noise"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "Medication-based sleep aids (not included in initial model)",
+      "Longitudinal biomarkers not yet integrated"
+    ],
+    "gvar_feasibility_summary": "Moderate number of predictors with manageable data requirements; EMA load feasible with 14-day window and 56 prompts."
+  },
+  "safety_notes": "No acute safety concerns identified from the complaint; this is a data-collection model. If any emergent risk (e.g., suicidality) is reported via EMA, follow standard risk-management protocol and escalate to clinician resources."
+}

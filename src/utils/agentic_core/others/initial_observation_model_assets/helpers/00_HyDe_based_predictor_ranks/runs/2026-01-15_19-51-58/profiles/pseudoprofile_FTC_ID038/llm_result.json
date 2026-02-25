@@ -1,0 +1,194 @@
+{
+  "pseudoprofile_id": "CASE-CP-2026-01",
+  "summary": "The case reflects frequent, controllable cognitive-emotional processes (repetitive worry about climate/politics), a persistent low-grade dread, catastrophic future expectations, impaired long-term planning, and attentional capture by worry. Optimal leverage targets are modifiable cognitive control, emotion regulation, sleep/physiology, physical activity, social context, digital monitoring, nutrition, and structured planning. The proposed predictors span BIO/PSYCHO/SOCIAL domains and their interactions (BIOxPSYCHO, PSYCHOxSOCIAL, BIOxPSYCHOxSOCIAL) to reduce rumination, improve planning capability, and restore adaptive pacing of thoughts and actions. Each lever includes measurable outcomes, feasible implementation, and expected impact, with attention to safety and practicality.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Attention_Control_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured attention retraining and cognitive control exercises to reduce intrusive worry about climate/politics and reallocate attentional resources toward task-relevant processing. Includes brief behavioral experiments to test catastrophic beliefs.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Enhances top-down cognitive control to curb perseverative cognition and limit attentional capture by worry, thereby reducing frequency of intrusive thoughts and freeing cognitive resources for planning.",
+      "measurement": "Daily diary of intrusive thought episodes; performance on an attention-control task (e.g., simple Stroop/attention shift task) at baseline and follow-up.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Map C01 and C05 to S01: implement Attention_Control_Training to reduce repetitive thoughts and improve attentional control; evaluate over 4-8 weeks."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Mindfulness_Practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Mindfulness-based emotion regulation training to increase nonjudgmental awareness of worry and reduce automatic reactivity, thereby dampening the impact of global-threat ideation.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Cultivates non-reactive awareness of worry, which reduces emotional arousal and cognitive narrowing, freeing cognitive resources and diminishing repetitive thought streams.",
+      "measurement": "Daily minutes of mindfulness practice; EMA worry intensity; performance on attention tasks; brief mindfulness state questionnaires.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Link S02 to C02, C05, C01 by implementing Mindfulness_Based_Interventions and tracking affective and attentional indices over 6-12 weeks."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Implementation_Intentions_for_Goals",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Establish explicit implementation intentions and weekly planning routines to re-engage future-oriented behavior and reduce planning paralysis.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Pre-commitment to concrete if-then plans lowers cognitive load for future planning and enhances follow-through, addressing impairment in long-term planning.",
+      "measurement": "Count of weekly planning sessions; proportion of long-term goals broken into actionable steps; adherence to planned tasks.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Apply Implementation_Intentions to C04 and C05 with weekly planning metrics; monitor progress over 6-12 weeks."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sleep_Regularity_and_Sleep_Quality",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Establish consistent bedtimes/wake times and optimize sleep duration to support emotional regulation and cognitive control.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Adequate, regular sleep enhances prefrontal control over affect and cognition, reduces baseline dread, and improves planning efficiency.",
+      "measurement": "Sleep diary (bedtime/wake time, duration); Pittsburgh Sleep Quality Index; morning mood; self-reported planning ease.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Link Sleep_Routines_and_Circadian_Entrainment to C02/C05/C04 with regular sleep metrics over 6-8 weeks."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Regular_Aerobic_Exercise",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a progressive aerobic exercise program (e.g., 3-4 sessions/week) to boost mood and cognitive control over worry.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Exercise upregulates mood- and executive function-related neural pathways, reducing anxiety and rumination while improving planning capacity.",
+      "measurement": "Weekly exercise minutes; mood ratings; daily worry frequency.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "S05 aligns with BIOxPSYCHO targets to improve mood and reduce rumination via structured aerobic activity."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Structured_Social_Support_and_Belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage with a supportive social network or accountability partner to discuss worries and jointly plan long-term steps.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Social connectedness buffers stress, provides perspective, and motivates follow-through on future plans, reducing dread and intrusive thoughts.",
+      "measurement": "Weekly social interactions; perceived social support; progress on weekly planning tasks.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.38,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Use Social_Support_and_Belonging to mitigate C02/C04/C01 through structured social engagement."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Digital_Monitoring_and_Feedback",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Digital self-monitoring (logs) and feedback loops to track worry, mood, and planning progress, enabling timely adjustments.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": " Frequent feedback supports self-regulation and adaptive behavior change across cognitive, affective, and planning domains.",
+      "measurement": "Daily entries for worry, mood, and planned tasks; adherence rates; aggregated weekly feedback summaries.",
+      "time_horizon": "4-16 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Leverage Measurement_Based_Care_and_Feedback tools to monitor C01/C02/C04/C05 with ongoing feedback over 4-16 weeks."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Nutritional_Metabolic_Support",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Improve nutritional status (omega-3 fatty acids, vitamin D, overall balanced diet) to support brain function and emotional regulation.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Optimal nutrition supports neurobiological substrates of mood and executive function, reducing vulnerability to worry and planning difficulties.",
+      "measurement": "Dietary logs; optional blood nutrient markers; energy levels and subjective mood.",
+      "time_horizon": "8-16 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.3,
+      "priority": "LOW",
+      "safety_notes": "",
+      "mapping_query": "BIO nutrition targets to improve C02/C05/C04 via dietary optimization; track via logs and biomarkers if available."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Content_Boundaries_and_Doomscrolling_Limitations",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Set daily limits on doomscrolling and redirect attention to constructive activities (planning tasks, grounding practices).",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Reducing exposure to catastrophic content lowers trigger frequency, mood reactivity, and cognitive load, freeing bandwidth for planning.",
+      "measurement": "Screen time metrics; worry episode counts; engagement in planned activities.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.35,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Limit doomscrolling to reduce C01/C02/C05; monitor digital exposure and worry response over 4-6 weeks."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Cognitive_Reframing_and_Evidence_Seeking",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured cognitive restructuring to challenge catastrophic beliefs with evidence and thought records; practice building more balanced future scenarios.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Directly targets maladaptive belief content and repetitive thinking by empirically testing beliefs, reducing frequency of catastrophic thinking and intrusive thoughts.",
+      "measurement": "Frequency of thought-record usage; belief conviction ratings; frequency of alternative interpretations.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "S10 uses Cognitive_Reframing to address C03 and C01 with structured thought records and evidence testing."
+    }
+  ]
+}

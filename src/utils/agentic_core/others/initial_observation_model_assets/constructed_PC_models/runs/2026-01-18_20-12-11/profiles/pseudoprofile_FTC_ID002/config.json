@@ -1,0 +1,28 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID002",
+  "llm_model": "gpt-5-mini",
+  "n_criteria": "choice",
+  "n_predictors": "choice",
+  "prompt_top_hyde": 60,
+  "prompt_top_mapping_global": 60,
+  "prompt_top_mapping_per_criterion": 10,
+  "max_ontology_chars": 120000,
+  "use_cache": true,
+  "auto_repair": true,
+  "max_repair_attempts": 3,
+  "deterministic_fix": true,
+  "max_fix_passes": 5,
+  "predictor_feasibility_csv": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/src/utils/official/multi_dimensional_feasibility_evaluation/PREDICTORS/results/summary/predictor_rankings.csv",
+  "critic_max_iterations": 2,
+  "critic_pass_threshold": 0.74,
+  "hard_ontology_constraint": true,
+  "prompt_budget_tokens": 400000,
+  "parent_feasibility_top_k": 30,
+  "disable_critic_llm": true,
+  "inputs": {
+    "mapped_criterions_path": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/02_mental_health_issue_operationalization/mapped_criterions.csv",
+    "hyde_dense_profiles_path": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/03_construction_initial_observation_model/helpers/00_HyDe_based_predictor_ranks/runs/2026-01-15_19-50-34/dense_profiles.csv",
+    "llm_mapping_ranks_path": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/03_construction_initial_observation_model/helpers/00_LLM_based_mapping_based_predictor_ranks/all_pseudoprofiles__predictor_ranks_dense.csv",
+    "ontology_path": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/src/utils/official/ontology_mappings/CRITERION/predictor_to_criterion/input_lists/predictors_list.txt"
+  }
+}

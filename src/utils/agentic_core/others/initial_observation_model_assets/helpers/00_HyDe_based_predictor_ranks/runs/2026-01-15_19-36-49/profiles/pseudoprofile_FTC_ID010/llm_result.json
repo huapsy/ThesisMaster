@@ -1,0 +1,138 @@
+{
+  "pseudoprofile_id": "case01_bio_psycho_social_profile",
+  "summary": "The case shows recurrent episodes of high activation with rapid initiation of multiple projects, elevated talkativeness, and impulsive spending, followed by days of fatigue, social withdrawal, and routine disruption. Targeted, modifiable BIO-PSYCHO-SOCIAL levers should stabilize energy and mood, improve task follow-through, reduce impulsive spending, enhance emotion regulation, manage social load, and support self-monitoring. The plan selects practical, measurable predictors across sleep, activation scheduling, impulse control, mindfulness, social boundaries, and data-driven self-management to reduce the amplitude and frequency of cycling, restore routines, and lessen exhaustion.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep regularization and circadian entrainment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish a consistent sleep-wake schedule (same bedtime and wake time for weekdays/weekends), implement a 30–60 minute wind-down routine, morning light exposure within 30 minutes of waking, and limit stimulants 6 hours before bed. Use a simple sleep diary or app to track duration, quality, and awakenings.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Regular circadian cues reduce the intensity of energy highs/lows and fatigue, improving executive function, routine maintenance, and social responsiveness.",
+      "measurement": "Sleep duration and efficiency (diary/app); daily energy/mood ratings; time-to-reply to messages; routine adherence percentage.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "If sleep worsens (insomnia, sleep fragmentation), adjust schedule or consider gradual bedtime shifts; monitor for daytime sleepiness.",
+      "mapping_query": "Map S01 to C04, C05, C06 to stabilize energy cycles and routines."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Energy-aware activation scheduling and task structuring",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "During elevated periods, plan and commit to initiating a limited number of meaningful tasks (e.g., 2–3) with explicit micro-deadlines; use a short planning worksheet (what, why, how, when) and schedule check-ins for progress.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Structured activation channels energy into sustainable work, reduces unbounded initiation, and improves follow-through across cycles.",
+      "measurement": "Number of projects started per elevated window; proportion of started projects with at least one completed milestone; weekly planning quality score.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "S02 targets C01, C04, and C07 by aligning initiation with sustainable follow-through."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Impulse-control and precommitment budgeting for discretionary spending",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Create a precommitment spending plan (automatic transfers to savings, capped discretionary budget, and a 24–48 hour rule for non-essential purchases). Include urge-surging coping strategies (pause, breathe, reframe).",
+      "targets_criteria_ids": [
+        "C03",
+        "C07"
+      ],
+      "mechanism_rationale": "Precommitment reduces impulse-driven spending during elevated moods and supports consistent financial behavior and project sustainability.",
+      "measurement": "Discretionary purchases per elevated episode; variance from monthly discretionary budget; self-reported urge intensity.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Monitor for financial stress or rigidity; adjust budget limits as needed.",
+      "mapping_query": "S03 aims at reducing C03 spending episodes and improving follow-through (C07)."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Mindfulness-based emotion regulation (third-wave skills)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Brief daily mindfulness/mindful breathing practice plus utilization of acceptance/defusion strategies during high-activation periods; incorporate short experiential exercises to reduce reactive reactivity.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Improved emotion regulation dampens abrupt mood/energy swings, enabling steadier engagement and social responsiveness.",
+      "measurement": "Emotion Regulation Questionnaire (ERQ) or brief mindfulness scale; daily mood/activation logs; response to texts during elevated phases.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.58,
+      "priority": "MED",
+      "safety_notes": "None.",
+      "mapping_query": "S04 targets C04 and C06 via enhanced emotional regulation."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Social load management and boundary setting",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Plan and restrict social engagement during high-activation phases; schedule low-stimulus check-ins; communicate boundaries with close contacts; use supportive social-prescribing for meaningful connection.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Managing social demand reduces fatigue and withdrawal, preserving energy for recovery and routine maintenance.",
+      "measurement": "Time spent in social interactions; energy after social activity (pre/post); texting response latency and consistency.",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure boundaries respect needs; avoid social isolation.",
+      "mapping_query": "S05 aims to reduce social withdrawal (C05) and improve engagement (C06)."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Self-monitoring with data-informed feedback",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Daily logs of mood, energy, sleep, and activity with automated trend feedback and minimal coaching prompts; use a simple dashboard to suggest adjustments (e.g., timing, task selection).",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Frequent self-monitoring increases self-awareness and enables timely adjustments to prevent extreme highs/lows and sustain routines.",
+      "measurement": "Adherence to logging (days with complete entries); correlation between logs and episode severity; number of data-driven adjustments implemented.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; ensure data privacy and user-friendly interface.",
+      "mapping_query": "S06 supports all variables (C01–C07) through personalized feedback."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Work/Project load management with precommitment review",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Adopt a cap on concurrent projects during elevated periods (e.g., max 2 active), with weekly review meetings to adjust scope and deadlines; use a simple scoring rubric to prioritize projects.",
+      "targets_criteria_ids": [
+        "C01",
+        "C07",
+        "C04"
+      ],
+      "mechanism_rationale": "Limiting initiation and aligning scope with capacity helps maintain follow-through and prevent rapid cycling from escalating to overload.",
+      "measurement": "Number of active projects; time-to-first-minishable milestone; weekly review scores; energy/mood after work sessions.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Monitor for over-capping; adjust if essential projects are deprioritized.",
+      "mapping_query": "S07 targets C01 and C07 while balancing C04 via workload caps."
+    }
+  ]
+}

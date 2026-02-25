@@ -1,0 +1,197 @@
+{
+  "pseudoprofile_id": "CASE_HEADACHE_MOOD_OPTIMIZER_V1",
+  "summary": "This BIO-PSYCHO-SOCIAL optimization plan targets a pain–mood–social withdrawal cycle driven by recurrent headaches and acute mood drops. Levers span sleep/biological regulation, physical activity, cognitive-behavioral pain coping, mindfulness/acceptance, social engagement, self-compassion, nutrition/hydration, interpersonal functioning, and data-driven care. Each candidate is a modifiable predictor (lever) with observable targets (C01–C07), practical measurement, and a clear mechanism. The plan emphasizes gradual, safe implementation with monitoring to adjust intensity and guard against overexertion or withdrawal, while ensuring safety in case of worsening mood.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep regularization and circadian alignment (consistent bed/wake times, wind-down routine, sleep environment optimization)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent sleep/wake times (e.g., 10pm–6am), create a simple wind-down (dim lights, screen-off 60 minutes before bed), optimize room conditions (cool, dark, quiet), limit caffeine after midday, and track sleep, headache days, and mood during headaches.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Regular, restorative sleep improves pain modulation, reduces physiological arousal, and stabilizes mood regulation networks, which can lower headache frequency/severity and blunt acute mood drops.",
+      "measurement": "Average sleep duration; sleep onset latency; headache days per week; mean mood rating during headache episodes (0–10).",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for signs of sleep apnea or insomnia; refer for sleep evaluation if snoring, gasping, or persistent fatigue.",
+      "mapping_query": "Map Sleep regularization lever to C01–C03; establish simple sleep diary and wellness metrics."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Behavioral Activation and social re-engagement",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Create a graded plan to re-engage in social activities (start with 1 small activity per week, gradually increase), include an activation schedule, and prepare coping plans for headache onset. Use problem-solving for barriers and track mood before/after social opportunities.",
+      "targets_criteria_ids": [
+        "C04",
+        "C03",
+        "C07"
+      ],
+      "mechanism_rationale": "Withdrawal and avoidance worsen mood and reinforce isolation; planned, low-friction social activity increases positive reinforcement, reduces guilt after cancellations, and interrupts the pain–shame cycle.",
+      "measurement": "Number of social activities per week; mood ratings before/after activities; headache days; post-cancellation guilt intensity.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Pace progression to avoid social overwhelm; monitor headaches after new activities.",
+      "mapping_query": "Map Behavioral Activation lever to C04, C03, C07; track social activity and mood changes."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "CBT-based Pain Coping Skills Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver pain coping strategies (activity pacing, graded exposure to avoided activities, cognitive restructuring of pain catastrophizing) and use brief behavioral experiments to test beliefs about pain interfering with life.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C07"
+      ],
+      "mechanism_rationale": "CBT-based coping reduces perceived pain intensity, emotional reactivity, and maladaptive avoidance, weakening the pain–shame loop.",
+      "measurement": "Daily pain intensity (0–10); pain catastrophizing scores; mood during headaches; frequency of withdrawal.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure delivery by trained professional; tailor to comorbid conditions.",
+      "mapping_query": "Map CBT pain coping to C02, C03, C07; include daily pain and coping metrics."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "ACT/Mindfulness for pain acceptance and values-driven action",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Incorporate brief daily mindfulness and values-driven activities to reduce reactivity to pain and negative mood, promoting flexible behavior despite headaches.",
+      "targets_criteria_ids": [
+        "C03",
+        "C07"
+      ],
+      "mechanism_rationale": "Acceptance-based strategies diminish attitudinal aversion and rumination, reducing mood collapse and guilt while supporting continued activity.",
+      "measurement": "Minutes of mindfulness practice per day; mood during headaches; avoidance frequency; guilt intensity.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Safe for most; adapt pace based on distress levels and prior trauma history if present.",
+      "mapping_query": "Map ACT/Mindfulness to C03, C07; assess practice time and mood impact."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Social Prescribing and Community Belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Facilitate connections with community groups or a social buddy; create a plan for regular meaningful contact; support sense of belonging and reduce isolation.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Enhanced belonging buffers stress, reduces perceived isolation, lowers vigilance toward pain, and discourages the shame-driven withdrawal cycle.",
+      "measurement": "Number of meaningful social contacts per week; perceived isolation scale; mood after social interactions; headache frequency.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Respect personal limits; avoid forcing social exposure; tailor to preferences.",
+      "mapping_query": "Map Social prescribing to C04, C06, C07; track belonging, contact frequency, and mood."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Hydration, caffeine modulation, and regular meals",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Set daily hydration goals (2–3 liters), limit caffeine intake after early afternoon, and schedule regular balanced meals to stabilize mood and pain fluctuations.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Stable hydration and glucose levels, plus moderated caffeine, can reduce headache frequency/severity and mood lability.",
+      "measurement": "Water intake (ml/day); caffeine intake (mg/day); headache days; mood during episodes; meal regularity.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Monitor caffeine withdrawal risk; taper gradually; ensure medical tolerance for hydration changes.",
+      "mapping_query": "Map hydration/caffeine/meal regularity to C01–C03; monitor intake and outcomes."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Aerobic physical activity program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a structured program (e.g., 3x20-minute brisk walks/week or equivalent) with gradual progression; monitor headaches and mood post-activity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Regular aerobic activity improves pain modulation, reduces headache frequency, and elevates mood, disrupting the pain–shame cycle.",
+      "measurement": "Sessions per week; headache days; post-exercise mood; energy levels; incidental social engagement.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Obtain medical clearance; avoid overexertion during active headaches; adapt intensity as needed.",
+      "mapping_query": "Map aerobic exercise to C01,C03; track sessions and mood changes."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Interpersonal Therapy / Relationship repair",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Offer one-on-one or family/couple sessions to improve communication, plan re-entry into social activities with a trusted person, and teach assertive communication.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Improved interpersonal functioning reduces social withdrawal, guilt, and stress-related amplification of pain.",
+      "measurement": "Relationship satisfaction; frequency of social activities with close others; mood after interactions; headache pattern.",
+      "time_horizon": "12 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Address potential relational conflicts with clinician support if needed.",
+      "mapping_query": "Map IPT to C04, C06, C07; monitor relationship outcomes."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Self-compassion and shame reduction",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Incorporate compassionate self-talk and short daily exercises to reframe guilt after cancellations and reduce self-blame.",
+      "targets_criteria_ids": [
+        "C05",
+        "C07"
+      ],
+      "mechanism_rationale": "Reducing self-criticism weakens the self-directed shame component fueling withdrawal and mood collapse.",
+      "measurement": "Self-criticism scale; guilt intensity after cancellations; mood trajectory.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Ensure self-compassion is supportive, not minimizing real needs or pain; tailor language.",
+      "mapping_query": "Map self-compassion to C05 and C07; track guilt and mood outcomes."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Measurement-Based Care and Feedback System",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Implement daily symptom/mood/headache tracking with a weekly review to adjust plans; use simple visual dashboards to guide interventions and maintain engagement.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Regular data capture creates feedback loops that enable timely adjustments across the pain–mood–social domains, preventing maintenance of the cycle.",
+      "measurement": "Headache days; average mood; social activity counts; guilt; loneliness; sleep; activity metrics.",
+      "time_horizon": "Ongoing with initial 4 weeks of active tracking",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Ensure data privacy; provide crisis plan if mood deteriorates; share with clinician as appropriate.",
+      "mapping_query": "Map Measurement-Based Care to all criteria (C01–C07); analyze longitudinal changes."
+    }
+  ]
+}

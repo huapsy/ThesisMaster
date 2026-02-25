@@ -1,0 +1,178 @@
+{
+  "pseudoprofile_id": "CASE BurnoutBorder_MGMT_V1",
+  "summary": "This profile targets modifiable bio-psycho-social levers to reduce burnout symptoms evidenced by compulsive work during rest, lack of perceived restoration, guilt about rest, and boundary difficulties. Core mechanisms include reducing niggling cognitive-emotional pressures (guilt, rumination), strengthening boundary skills and social validation, optimizing digital and sleep-related restoration, and leveraging data-driven feedback to tailor interventions. Interventions span sleep/physiology, cognitive-behavioral skill-building, social-support enhancements, and environmental/digital changes, with cross-domain interactions (e.g., boundary skills improving recovery quality, mindfulness reducing guilt, social validation buffering perceived minimization). The plan emphasizes attainable, measurable changes rather than abstract switches, with clear short-to-mid term horizons and safety considerations (none acute evident).",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Boundary Implementation Proficiency (C05)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Structured boundary training and habit design: implement turning off notifications, scheduled work windows, do-not-disturb times, and boundary scripts for after-hours communication.",
+      "targets_criteria_ids": [
+        "C05",
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Improved boundary skills and concrete routines reduce automatic work checking during designated rest, increase perceived control, and decrease guilt.",
+      "measurement": "Boundaries adherence rate (days with no work tasks during rest); frequency/duration of notifications during off-hours; self-reported boundary confidence.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Link C05 (boundary implementation) with downstream effects on C01 (work during rest) and C04 (perceived inability to stop)."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Restoration via Structured Micro-Breaks",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement 10-20 minute micro-rests every 90 minutes or structured breaks; combine with brief mindfulness or breathing exercises; enforce off-screen time during breaks.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Frequent, brief restorative periods counter cognitive fatigue, reduce rumination, and lessen urge to continue work; supports actual rest over perceived rest.",
+      "measurement": "Restfulness rating after breaks; frequency of email checking during off days; objective logs of work-free breaks.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Addresses C02 (perceived restoration) and C01/C04 (rest behavior during designated rest)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Guilt Management Skills (C03)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Brief CBT/ACT-based module to reframe guilt as a signal of need and to cultivate rest-affirming values; practice commitment to rest aligned with core values.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Reducing guilt reactivity increases willingness to rest and enhances perceived control over work, mitigating burnout cycle.",
+      "measurement": "Guilt intensity scale during rest; number of rest days taken; self-reported control over working during breaks.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Targets C03 and C04 through cognitive-behavioral reframing of guilt and control over rest."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Quality Social Validation and Support (C06)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Enhance validation via structured conversations with friends/family; social-prescribing style supports; coach responses to avoid minimizing the problem.",
+      "targets_criteria_ids": [
+        "C06",
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Higher perceived emotional support buffers stress and counters minimization, reducing guilt and boundary struggles.",
+      "measurement": "Social support quality scale; perceived validation after conversations; frequency of supportive interactions per week.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Addresses C06 (perceived minimization) and supports C03/C05 via improved social scaffolding."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Digital Hygiene for Off-Work Time",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement aggressive digital hygiene: turn off work notifications during off days, scheduled email checks (2x daily), auto-replies, and a defined end-of-work window.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces compulsive checking and interruptions, enabling genuine rest and boundary adherence.",
+      "measurement": "Status of off-work notifications; frequency of email checks during designated rest; self-reported restoration.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Directly targets C01 and C05 through environmental modification."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep Quality and Circadian Alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement sleep hygiene protocol: consistent bed/wake times, light exposure management, wind-down routine, caffeine limitation, and optimal sleep environment.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Better sleep improves restoration, reduces fatigue-driven work engagement, and supports boundary adherence.",
+      "measurement": "Sleep diary metrics (time in bed, sleep onset latency, awakenings); sleep quality index; morning energy rating.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Affects C02 (restoration) and C01/C04 via improved sleep contributing to reduced compulsion to work."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Work Boundary Communication with Supervisor (C05)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured plan to discuss boundaries with supervisor; create after-hours policy; provide boundary scripts; involve HR if needed.",
+      "targets_criteria_ids": [
+        "C05",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Clear expectations reduce external pressure, empower control over after-hours work, and minimize guilt.",
+      "measurement": "Boundary communication clarity score; after-hours response rate; supervisor feedback.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Social-communication strategy aimed at improving boundary enforcement (C05) and reducing after-hours work (C01/C04)."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Mindfulness-Based Stress Reduction (MBSR)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "4-6 week mindfulness program with daily short practices to reduce rumination and guilt reactivity; anchor rest as acceptable.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Mindfulness decreases reactivity to stress and guilt, facilitating acceptance of rest and greater self-regulation.",
+      "measurement": "Daily mindfulness practice adherence; state mood; guilt levels; energy after rest.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Intervenes on C02, C03, and C04 via mindfulness-based reductions in rumination and guilt."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Personalization Monitoring and Feedback (Data-Driven)",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Weekly metric reviews with simple dashboards; adapt interventions based on data from self-reports, sleep logs, and boundary adherence; small iterative changes.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Feedback loops enable rapid, personalized adjustments across domains, sustaining engagement and effectiveness.",
+      "measurement": "Adherence to interventions; changes in C01-C06; user satisfaction with logging/dashboard.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Integrated, multi-domain feedback to co-create a personalized burnout-management plan."
+    }
+  ]
+}

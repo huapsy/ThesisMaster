@@ -1,0 +1,194 @@
+{
+  "pseudoprofile_id": "ANGER_SPIKE_OPTIMIZER_01",
+  "summary": "This plan proposes a set of modifiable BIO-PSYCHO-SOCIAL levers designed to reduce sudden anger spikes, lower bodily arousal during episodes, improve predictability of responses, align behavior with self-identity, and strengthen social support. By targeting arousal regulation, sleep/nutrition, emotion regulation skills, trigger rehearsal, impulse control, and identity-motivational factors, the approach aims to decrease episode frequency/severity and reduce post-episode shame, while improving readiness to change and long-term well-being.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "In-episode autonomic-arousal regulation toolkit (paced breathing and grounding)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Real-time autonomic regulation using paced diaphragmatic breathing with a longer exhale, brief grounding (5 senses or 5-4-3-2-1), and optional biofeedback cue during episodes.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces peak bodily arousal, dampens trigger amplification, and lowers surprise by stabilizing physiological responses and grounding attention.",
+      "measurement": "Episode-level peak arousal (0-10), episode count per week, and self-reported use of regulation technique (yes/no) per episode.",
+      "time_horizon": "0-6 weeks (initial adoption) with ongoing practice",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; instruct properly; monitor for dizziness or hyperventilation during initial practice.",
+      "mapping_query": "Maps S01 to C02 (peak arousal during episodes) and C03 (trigger sensitivity) via in-the-moment regulation; aims to decrease response intensity and surprise."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Sleep regularization and caffeine/modulation for baseline arousal",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Stabilize sleep-wake schedule, limit late caffeine, maintain hydration, and establish regular meals to reduce baseline irritability and arousal.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Better sleep and moderated stimulant use lower baseline arousal and reactivity to minor triggers, reducing both intensity and frequency of episodes.",
+      "measurement": "Sleep quantity/quality (logs or PSQI), daily caffeine intake, weekly episode count and peak intensity.",
+      "time_horizon": "2-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Be mindful of sleep disorders or caffeine sensitivity; consult clinician if sleep problems persist.",
+      "mapping_query": "Addresses C02 baseline arousal and C03 trigger sensitivity; improved sleep reduces surprise and reactivity."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Emotion regulation skills training (CBT/DBT) and cognitive reframing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured weekly training in labeling emotions, adaptive appraisal, problem-solving, and cognitive reframe strategies; practice in daily life.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C08"
+      ],
+      "mechanism_rationale": "Enhances top-down control of emotions, aligns behavior with values, and increases readiness to change by reducing unexpected anger and self-identity conflict.",
+      "measurement": "Frequency of emotion regulation use (brief diary or scale), perceived identity-behavior alignment, readiness-to-change rating.",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "None beyond standard therapy supervision; monitor for distress during exposure exercises.",
+      "mapping_query": "Targets C04 (unexpectedness), C06 (identity conflict), and C08 (motivation) via structured emotion regulation training."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Trigger-specific cognitive rehearsal and pre-commitment to response delay",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Mental rehearsal of calm, non-harmful responses to common triggers; set a pre-commitment to pause before reacting (e.g., 5-second rule) and use coping steps.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Pre-emptive cognitive preparation reduces trigger amplification, lowers episode frequency, and decreases surprise by establishing expected response patterns.",
+      "measurement": "Number of trigger-provoked episodes per week, time to de-escalate, self-reported perceived surprise during episodes.",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None; ensure practice under supervision if there is risk of escalation with certain triggers.",
+      "mapping_query": "Connects C03 (trigger sensitivity), C01 (episode frequency), and C04 (unexpectedness) via pre-emptive cognitive rehearsal."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Urge-surfing and delay of responding during anger",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Training in pausing for 5-10 seconds during anger, labeling emotion, breathing, and choosing non-harmful actions; escalate with safety plan if needed.",
+      "targets_criteria_ids": [
+        "C07",
+        "C01"
+      ],
+      "mechanism_rationale": "Improves inhibitory control to prevent outward aggression and reduces recurrence by interrupting automatic responding.",
+      "measurement": "Incidents of outward aggression, average delay before responding, adherence to pause technique.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Develop a safety plan; involve therapist if risk of harm increases.",
+      "mapping_query": "Targets C07 (inhibition) and C01 (episode frequency) through urge-surfing and response delay training."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Identity-aligned values exploration and self-concept work",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Values clarification and identity consolidation exercises to reduce perceived mismatch between anger responses and the self-image.",
+      "targets_criteria_ids": [
+        "C06",
+        "C08"
+      ],
+      "mechanism_rationale": "Strengthening value-aligned behavior reduces cognitive dissonance after episodes and boosts motivation to change.",
+      "measurement": "Identity congruence score, readiness-to-change rating, self-reported values alignment.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None beyond standard therapeutic practice.",
+      "mapping_query": "Addresses C06 (identity mismatch) and C08 (motivation) via values-focused identity work."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Shame processing and self-compassion training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Shame- and self-compassion–focused practices to reduce post-episode shame and self-criticism; normalize emotions.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06",
+        "C08"
+      ],
+      "mechanism_rationale": "Reduces self-criticism and identity threat after episodes, supporting ongoing motivation to change and identity repair.",
+      "measurement": "Post-episode shame rating, self-compassion scale, motivation score.",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "None beyond standard therapy guidance.",
+      "mapping_query": "Targets C05 (shame), C06 (identity), and C08 (motivation) through shame resilience and self-compassion work."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Social support and relational repair interventions",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage supportive social networks; involve trusted others in monitoring and accountability; family or partner sessions as appropriate.",
+      "targets_criteria_ids": [
+        "C08",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Social connectedness buffers emotional reactions, reduces isolation, and reinforces identity-consistent behavior and motivation.",
+      "measurement": "Perceived social support scale, frequency of supportive interactions, post-episode shame and identity alignment reports.",
+      "time_horizon": "6-16 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Set healthy boundaries; check for risk of relational conflict or abuse; involve clinician if needed.",
+      "mapping_query": "Supports C08 (motivation), C05 (shame), and C06 (identity) via enhanced social connectedness."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Regular aerobic exercise program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured weekly aerobic activity (e.g., brisk walking, cycling) to improve autonomic regulation and mood.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Exercise improves autonomic balance and mood, reducing arousal during episodes and lowering frequency.",
+      "measurement": "Weekly active minutes, pre/post episode arousal, weekly episode count.",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Progress gradually; consult clinician for medical conditions; monitor for signs of overtraining.",
+      "mapping_query": "Affects C02 (arousal), C03 (trigger sensitivity), and C01 (episode frequency) via improved physio-regulation and mood."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Nutrition, micronutrient balance and gut-brain axis support",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Dietary patterns rich in anti-inflammatory foods, omega-3 Fatty acids, magnesium; hydration; GI health considerations.",
+      "targets_criteria_ids": [
+        "C02",
+        "C06",
+        "C08"
+      ],
+      "mechanism_rationale": "Nutritional state supports brain regulation, reduces irritability, and enhances cognitive control and motivation.",
+      "measurement": "Diet quality score, adherence to supplement plan, mood/anger ratings.",
+      "time_horizon": "8-24 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Check allergies; consult dietitian for medical conditions; avoid unsafe supplements.",
+      "mapping_query": "Biological mood regulation via nutrition impacting arousal (C02), identity alignment (C06), and motivation (C08)."
+    }
+  ]
+}

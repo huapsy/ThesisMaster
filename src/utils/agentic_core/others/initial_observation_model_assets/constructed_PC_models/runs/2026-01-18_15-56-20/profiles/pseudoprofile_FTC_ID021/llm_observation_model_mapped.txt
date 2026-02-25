@@ -1,0 +1,18 @@
+pseudoprofile_id: pseudoprofile_FTC_ID021
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Early-morning awakening (sleep maintenance) -> CLINICAL / DSM-5TR / sleep-wake disorders / insomnia disorders / chronic insomnia disorder / sleep-maintenance insomnia / early_morning_awakening (conf=0.82)
+- C02: Sleep onset ability -> CLINICAL / DSM-5TR / sleep-wake disorders / insomnia disorders / chronic insomnia disorder / sleep-onset insomnia / subjective_sleep_onset_latency_report (conf=0.78)
+- C03: Immediate cognitive/physiological arousal on awakening -> CLINICAL / DSM-5TR / sleep-wake disorders / insomnia disorders / chronic insomnia disorder / early-morning awakening insomnia / morning_hyperarousal_signs_post_awakening (conf=0.84)
+- C04: In-bed/device-mediated engagement during attempted rest -> CLINICAL / DSM-5TR / sleep-wake disorders / central disorders of hypersomnolence / idiopathic hypersomnia / with long sleep time / reduced_alertness_during_high_demand_activities (conf=0.65)
+- C05: Exposure to distressing/ruminative content -> CLINICAL / DSM-5TR / sleep-wake disorders / insomnia disorders / chronic insomnia disorder / early-morning awakening insomnia / intrusive_rumination_post_awakening (conf=0.74)
+- C06: Daytime functional impairment by midday -> CLINICAL / DSM-5TR / sleep-wake disorders / insomnia disorders / unspecified insomnia disorder / impaired_daytime_functioning (conf=0.85)
+
+PREDICTORS:
+- P01: Morning light exposure (circadian entrainment) -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / morning_bright_light_exposure (conf=0.85)
+- P02: Evening screen exposure before bed -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / late_evening_screen_reduction (conf=0.78)
+- P03: Pre-sleep cognitive load and rumination -> PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / presleep_mental_skills / detachment_and_unloading / presleep_detachment_routine_design_psychological (conf=0.72)
+- P04: Sleep routine adherence (stimulus-control bed setup) -> PSYCHO / change_process_and_therapeutic_phases / behavior_change_theories_and_modern_protocol_arcs / modern_clinical_protocol_arcs_solutions / cbti_sleep_maintenance_plan_implementation (conf=0.82)
+- P05: Bedroom sleep environment quality -> BIO / environmental_exposures_and_built_environment_optimization / thermal_comfort_and_shelter_integrity / indoor_sleep_comfort_environment / bedroom_thermal_zoning (conf=0.63)
+- P06: Midday energy / daytime functioning cue -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / ecological_momentary_assessment_ema / momentary_cognition_and_energy / ema_mental_energy (conf=0.92)

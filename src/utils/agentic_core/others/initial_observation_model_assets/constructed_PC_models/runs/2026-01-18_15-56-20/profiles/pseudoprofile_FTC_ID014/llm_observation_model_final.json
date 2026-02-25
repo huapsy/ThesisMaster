@@ -1,0 +1,734 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID014",
+  "model_summary": "An updated gVAR-ready observation model comprising five atomic criteria of internal reactivity to social-evaluative threat (intrusive visual replay, persistent rumination, physiological arousal to feedback, anticipatory humiliation fear, and lowered threshold for perceiving criticism) paired with five modifiable predictors spanning sleep-circadian regulation, sleep routines, digital-psychological supports, mindfulness-based regulation, and exposure-based approach to social feedback. Measurements rely on a mix of passive and EMA signals to maximize within-person variance while preserving feasibility: each criterion is probed via momentary EMA prompts (4 prompts/day over 14 days) and predictors include both passive sleep metrics and brief EMA checks (also 4 prompts/day). This design yields an estimable, compact set of interactions (P01–P05 with C01–C05) suitable for gVAR modeling, with explicit attention to measurement variance, non-redundancy, and cross-domain links suggested by HyDe and LLM mappings.",
+  "variable_selection_notes": "Rationale: 1) five target mechanisms directly map the complaint’s phenomenology (replay, rumination, arousal, anticipatory threat, threat-detection bias). 2) five predictors cover biologic (sleep circadian entrainment + sleep routines), psychological (mindfulness, CBT/behavioral activation concepts), technology-enabled solutions (digital tools), and social-context supports, offering distinct but complementary levers.3) Sampling plan emphasizes within-person variance (1–9 scales for EMA items; daily passive sleep signals) while limiting burden with 4 prompts/day across 5 criteria and 14 days. 4) Avoids redundancy by selecting broad, non-overlapping constructs (e.g., one Sleep domain, one Mindfulness/CBT domain, one Exposure/Social domain). 5) Predictors chosen to align with the top HyDe/LLM ranks (sleep circadian entrainment, mindfulness-based interventions, digital tools, exposure-based social approaches) and to enable clear causal paths in gVAR. Bias/uncertainty notes: reliance on self-report for symptoms and engagement introduces subjective bias; passive sleep metrics mitigate some bias but may vary with device compliance. Collinearity risk is mitigated by using distinct domains (sleep, mindfulness/CBT, digital supports, exposure, social support) though some alignment (sleep and arousal) is plausible and will be tested in edges/diagnostics.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 4,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:00-10:00",
+        "12:00-14:00",
+        "16:00-18:00",
+        "20:00-22:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 56,
+      "notes": "Ensure prompts scattered across day to sample workday and evening experiences; jitter within blocks to reduce predictability."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 0,
+      "anchor_times_local": [],
+      "expected_total_entries": 0,
+      "notes": "Not used in this initial design to minimize burden."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Sleep circadian and sleep routines drawn from passive signals; other predictors primarily EMA."
+    },
+    "minimum_total_observations_target": 56,
+    "gvar_readiness_notes": "Initial design provides a balanced, cross-domain lever set with explicit measurement types and sampling density; passive sleep signals improve signal-to-noise. Expectable within-person variance is high for EMA items (0–9), enabling stable gVAR estimation after preprocessing (z-scoring within-person).",
+    "variance_support_notes": "Variance expected from momentary state fluctuations (intrusions, rumination, arousal) and from sleep-schedule changes; plan to apply within-person centering and optional logit or z-score transformations.",
+    "missingness_risk_notes": "Potential EMA non-response; mitigate with reminders and a small amount of incentives; passive sleep measures may have missing nightly data if device not worn."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Intrusive visual replay of the incident",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How frequently and intensely do you experience involuntary visual or sensory re-experiencing of the boss-yelling scene?",
+        "response_scale_or_unit": "0-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "5-point to 9-point Likert captured via per-prompt question; transform via within-person z-score."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Persistent thinking/rumination about the event",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How strongly are you dwelling on the event in your thoughts right now?",
+        "response_scale_or_unit": "0-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures cognitive intrusion distinct from visual replay; use for cross-domain analyses."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Acute physiological reaction to feedback",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How intense is your bodily reaction (e.g., stomach drop) to feedback or evaluative cues?",
+        "response_scale_or_unit": "0-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures somatic arousal linked to evaluative feedback."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Anticipatory fear of humiliation",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How strong is your expectation that future feedback or social interactions will lead to public humiliation or shame?",
+        "response_scale_or_unit": "0-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures anticipatory threat appraisals."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Lowered threshold for perceiving criticism",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How often do you interpret minor or neutral feedback as threatening or highly critical?",
+        "response_scale_or_unit": "0-9 Likert",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Represents cognitive bias in interpreting feedback."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Sleep_Circadian_Entraining_Behavior",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "'[BIO] Sleep_Circadian > Circadian_Entrainment'",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Aligning sleep-wake schedule with circadian rhythm reduces arousal and reactivity to evaluative cues; improves sleep quality and emotional regulation.",
+      "intervention_examples_safe": "Maintain consistent bedtimes/wake times; manage light exposure; regular meal timing.",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "phone_analytics_sleep",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Circadian entrainment proxy: sleep onset time, wake time, duration, and regularity per day; aggregated to daily metrics",
+        "response_scale_or_unit": "hours",
+        "sampling_per_day": 1,
+        "recall_window": "past 24 hours",
+        "expected_within_person_variability": "low",
+        "notes": "Passive data; privacy considerations."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.7,
+        "notes": "Passive sleep metrics feasible with standard wearables; privacy considerations addressed."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Digital_Tools_and_Supports_Usage",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "'[PSYCHO] > Digital_and_Tech_Enabled_Solutions > Digital_Tools_and_Supports'",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Engagement with digital tools can modulate rumination, cognitive flexibility, and exposure to supportive content.",
+      "intervention_examples_safe": "Use mood-tracking apps, reminder prompts, CBT-based digital modules",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 15 minutes, rate your use of digital tools for mood regulation (apps, prompts, CBT tools) on a 0-9 scale",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Self-reported engagement with digital tools."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.78,
+        "gvar_feasibility_0_1": 0.72,
+        "notes": "EMA burden moderate; digital tool data optional if device access issues occur."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Mindfulness_Practices_and_Decentering",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "'[PSYCHO] > Third_Wave_and_Contextual_Therapies > Mindfulness_Based_Interventions'",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Mindfulness and decentering reduce rumination and reactivity to threat; improves cognitive flexibility.",
+      "intervention_examples_safe": "Brief mindfulness of breathing, present-moment awareness, or mindful observing practices.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 15 minutes, rate your engagement in mindful noticing or decentering (0-9)",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures active mindfulness engagement."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.75,
+        "notes": "Signal strength varies with practice; ensure minimal burden."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Exposure_Practice_and_Social_Feedback_Safety",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "'[PSYCHO] > Third_Wave_and_Contextual_Therapies > ACT_Contextual_Behavioral_Therapy'",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.72,
+      "mechanism_rationale": "Systematic exposure to social-evaluative cues reduces anticipatory fear and threat appraisal; improves tolerance.",
+      "intervention_examples_safe": "Structured, gradual exposure to mild feedback in supportive settings",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 15 minutes, rate your engagement in exposure practice or approaching social feedback (0-9)",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures exposure practice intensity."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.76,
+        "gvar_feasibility_0_1": 0.7,
+        "notes": "Exposure tasks should be carefully tailored to avoid retraumatization; safety checks in place."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Social_Support_and_Belonging_Engagement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "'[SOCIAL] > Social_Support_and_Belonging > Network_Building_And_Maintenance'",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Social support buffers threat-related arousal and enhances cognitive control; facilitates safe appraisal of feedback.",
+      "intervention_examples_safe": "Reach out to trusted person, seek short supportive interactions",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 15 minutes, rate reaching out to someone for support (0-9)",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures social support engagement."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.78,
+        "gvar_feasibility_0_1": 0.75,
+        "notes": "Social prompts rely on available network; account for privacy."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,52000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep circadian entrainment reduces intrusion frequency/intensity.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Circadian alignment supports cognitive control over rumination.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Improved sleep reduces physiological arousal to feedback.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Better sleep reduces anticipatory threat.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Sleep stability reduces threat sensitivity.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Digital tools may modulate intrusion processing via cognitive relief.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Digital supports can reduce rumination when used after triggering events.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Engagement with digital tools may dampen physiological arousal indirectly.",
+      "estimated_relevance_0_1": 0.35
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Digital prompts may reduce anticipatory fear via coping strategies.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Digital supports may improve interpretation of feedback.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness reduces intrusive imagery by decentering.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness reduces worry rumination.",
+      "estimated_relevance_0_1": 0.52
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness may lower perceived physiological arousal.",
+      "estimated_relevance_0_1": 0.3
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Decentering reduces anticipatory threat.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness can reduce threat sensitivity.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Exposure-based mindfulness supports intrusive imagery regulation.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness reduces rumination via attention-flexibility.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness lowers arousal reactivity.",
+      "estimated_relevance_0_1": 0.3
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness supports healthier anticipated reactions.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness fosters non-threat interpretations of feedback.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Social support buffers intrusions.",
+      "estimated_relevance_0_1": 0.15
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Social support reduces rumination risk.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Social support lowers physiological arousal.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Supportive contexts reduce anticipatory fear.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Supportive feedback interpretation lowers threat sensitivity.",
+      "estimated_relevance_0_1": 0.5
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "C01 vs C02 potential overlap (intrusive imagery vs rumination)",
+      "C04 vs C05 potential overlap (anticipation vs threat sensitivity)"
+    ],
+    "expected_floor_ceiling_risks": [
+      "Low sample size risk for extreme responses on some EMA items",
+      "Moderate floor effect if responses cluster near 0"
+    ],
+    "variance_enhancement_suggestions": [
+      "Apply within-person z-scoring for all EMA items",
+      "Consider random intercepts in subsequent modeling to account for baseline differences"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "None at this stage; all five criteria retained"
+    ],
+    "gvar_feasibility_summary": "Overall feasible with 5 predictors and 5 criteria; passive sleep data improves signal; EMA burden balanced by 4 prompts/day."
+  },
+  "safety_notes": "Not a diagnosis. No medication dosing or safety interventions provided. If any acute safety concerns arise (e.g., suicidality, self-harm risk), follow local guidelines and seek immediate clinical support."
+}

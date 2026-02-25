@@ -1,0 +1,160 @@
+{
+  "pseudoprofile_id": "CASE_ANGER_SUDDEN_RAGE_LEVERS_V1",
+  "summary": "The case presents sudden, intense anger surges triggered by minor events, with high bodily arousal, surprise at the response, post-episode shame, and a perceived mismatch with self-identity. Modifiable levers should (1) dampen baseline and spike arousal, (2) enhance pre-emptive regulation and inhibitory control, (3) reframe identity and values to align with calmer responses, (4) reduce exposure to or modification of triggering environments, and (5) bolster motivation to change. Interventions span biological (sleep, exercise), psychological (emotion regulation, CBT/MI, self-compassion), and social/environmental domains (trigger management, supports), with explicit measurement hooks and short-to-mid-term horizons to track progress and safety.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep quality improvement with circadian regularity (stable bed/wake times, sleep duration optimization, sleep environment)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Enhance sleep regularity and quality to lower baseline physiological arousal and reactivity to triggers.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C07"
+      ],
+      "mechanism_rationale": "Poor sleep increases amygdala reactivity and overall arousal; better sleep reduces intensity of bodily rage, improves trigger tolerance, and supports inhibitory control.",
+      "measurement": "Sleep duration and bedtime consistency (daily logs), Pittsburgh Sleep Quality Index, actigraphy if available; weekly counts of anger episodes; self-rated arousal during episodes (0-10).",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; monitor for sleep-disordered breathing or use of sleep aids.",
+      "mapping_query": "Map to criteria C02, C03, C04, C05, C07; assess via sleep quality metrics and episode arousal/behavior data."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Acute emotion regulation practice during triggers (brief grounding, STOP technique, paced breathing)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach and rehearse a brief regulatory ritual to apply at trigger onset (e.g., STOP: Stop, Take a breath, Observe, Proceed) or box breathing to reduce autonomic arousal before responding.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Immediate regulation dampens autonomic surge, reducing intensity, abruptness, and the likelihood of acting out; supports smoother response selection.",
+      "measurement": "Frequency of regulation use per triggering event (or per week), self-rated arousal during triggers (0-10), proportion of episodes without outward acting.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "N/A",
+      "mapping_query": "Target C02, C03, C04, C07; track arousal and behavior changes during trigger exposures."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "CBT-based anger regulation skills: pause/plan and behavioral experiments to reduce impulsive expressions",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured CBT interventions (urge surfing, pre-commitment to non-impulsive responses) with behavioral experiments to test and reinforce alternative reactions.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C07",
+        "C03"
+      ],
+      "mechanism_rationale": "Skill acquisition reduces episode occurrence and improves inhibitory control, while re-framing responses to reduce surprise and improve consistency with self-image.",
+      "measurement": "Episodes per week; proportion of episodes with no acting out; frequency of skill use; daily anger diaries.",
+      "time_horizon": "10-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "If risk of harm arises, implement safety plan and escalate to clinician.",
+      "mapping_query": "Target C01, C02, C07, C03; monitor episode rates and skill application."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Identity-focused values alignment and compassionate self-relating to reduce self-criticism",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Values clarification and compassionate self-talk to align self-identity with calm, assertive responses; include self-forgiveness practices for post-episode reflection.",
+      "targets_criteria_ids": [
+        "C06",
+        "C08",
+        "C05"
+      ],
+      "mechanism_rationale": "Reducing identity-discrepancy and increasing readiness to change mitigates shame-driven relapse and supports sustained behavior change.",
+      "measurement": "C06 (identity-behavior alignment) score; readiness to change (0-10 scale); post-episode shame intensity (0-10).",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "N/A",
+      "mapping_query": "Target C06, C08, C05; track identity alignment and motivation over time."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Environmental/trigger-context modification to reduce exposure to high-arousal driving contexts",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Optimize the driving environment and commute routines (route changes, calmer vehicle setup, ambient factors) and implement an anger-trigger log with pre- and post-drive routines.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Contextual controls reduce trigger frequency and intensity, decreasing surprise and arousal escalation.",
+      "measurement": "Trigger exposure hours per week; driving-episode counts; self-reported trigger intensity within driving contexts.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "N/A",
+      "mapping_query": "Target C01, C03, C04; assess changes in trigger exposure and response frequency."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Motivation/readiness to change reactive anger using motivational interviewing and goal setting",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "MI sessions with values-based exploration and SMART goal setting to enhance engagement and commitment to practicing skills.",
+      "targets_criteria_ids": [
+        "C08",
+        "C06"
+      ],
+      "mechanism_rationale": "Higher readiness improves adoption of skills and reduces resistance to change, supporting longer-term decreases in reactivity.",
+      "measurement": "Readiness to change score (0-10); goal attainment metrics; attendance/engagement in sessions.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "N/A",
+      "mapping_query": "Target C08 and C06; monitor motivation, intent, and alignment with behavior change."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Post-episode shame reduction via self-compassion and forgiveness interventions",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Compassion-focused therapy components and self-forgiveness practices to reduce self-criticism after episodes.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06",
+        "C08"
+      ],
+      "mechanism_rationale": "Reducing post-episode shame interrupts cycles that reinforce maladaptive responses and identity threat, promoting adaptive motivation.",
+      "measurement": "Post-episode shame intensity (0-10); self-criticism levels; documentation of identity distress.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "N/A",
+      "mapping_query": "Target C05, C06, C08; track post-episode affect and self-relational changes."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Regular aerobic exercise to improve autonomic regulation and lower arousal spikes",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Engage in a structured moderate-intensity aerobic program 3–5 days/week with progression; monitor HRV and resting heart rate as proxies.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Exercise enhances autonomic balance, reduces baseline arousal, and buffers emotional responses to triggers.",
+      "measurement": "Exercise logs; weekly resting HR and HRV; episode frequency and self-rated arousal (0-10).",
+      "time_horizon": "12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Consult clinician for contraindications; start gradually.",
+      "mapping_query": "Target C02 and C03; monitor arousal and trigger sensitivity via physiological and self-report metrics."
+    }
+  ]
+}

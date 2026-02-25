@@ -1,0 +1,184 @@
+{
+  "pseudoprofile_id": "CASE001_BIOPSYCHO_SOCIAL_OPTIMIZER",
+  "summary": "The case shows difficulty initiating tasks, reliance on low-effort distractions, rapid distraction by digital stimuli, underestimation of time during off-task activity, panic when deadlines become salient, and uncertainty/self-blame about causes. Modifiable levers across biological, psychological, and social domains (and their interactions) can plausibly reduce initiation barriers, improve attention management, recalibrate time perception, lessen deadline-related anxiety, and decrease self-judgment. The proposed solutions emphasize actionable behavior change, structured routines, cognitive-affective skills, environmental design, accountability, and measurement-informed feedback. Each lever targets specific operational criteria (C01–C06) and includes simple, feasible measurement approaches to track impact over 4–8 weeks, with attention to safety and scalability.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Implementation_Intentions_for_Task_Initiation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Train and implement implementation intentions (if-then plans) to start the first task immediately after seating, e.g., 'If I sit down, I will start the first task within 3 minutes' plus a 2-minute start-rule.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Precommitment to action reduces the initiation threshold and interrupts procrastination cycles by setting a concrete cue-behavior link.",
+      "measurement": "Latency to initiate the target task after sitting (minutes); proportion of tasks started within 5 minutes of sitting.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "None beyond standard coaching; adjust start-time to individual tolerance to avoid frustration.",
+      "mapping_query": "MAP:C01->S01"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Structured_Time_Blocking_with_Distraction_Control",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Adopt focused 25-minute work blocks with scheduled 5-minute breaks; enable focus mode, use website/app blockers, and designate a distraction-free work area.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Time-boxing anchors attention, reduces spontaneous task avoidance, and limits interruptions from digital stimuli, thereby supporting task initiation and sustained focus.",
+      "measurement": "Percentage of time spent on the target task during blocks; number of off-task episodes per block; minutes of cumulative on-task time per day.",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.8,
+      "priority": "HIGH",
+      "safety_notes": "If blocking tools cause stress, allow brief flexible blocks; adjust to workload.",
+      "mapping_query": "MAP:C01|C03|C04->S02"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep_Rhythm_Regularization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Stabilize sleep-wake schedule (consistent bed/time, morning light exposure) and optimize sleep hygiene to support cognitive function and emotional regulation.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Better sleep enhances executive functioning, time perception, and anxiety regulation, reducing initiation barriers and deadline panic.",
+      "measurement": "Bedtime/wake-time consistency (minutes), average sleep duration, sleep efficiency, subjective sleepiness; task initiation latency.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "If sleep problems persist, seek clinician guidance; screen for sleep disorders.",
+      "mapping_query": "MAP:C01|C04|C05->S03"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Deadline_Focused_Mindfulness_Practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce brief, weekly mindfulness/acceptance practice aimed at deadlines to reduce panic responses and reframe deadlines as manageable cues.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Mindfulness attenuates acute anxiety triggered by deadlines via exposure to distress in a nonjudgmental context and improves cognitive control.",
+      "measurement": "Self-reported deadline-related anxiety (Likert scale) and frequency of panic responses per week.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "None beyond standard mindfulness guidance; monitor for distress during practice.",
+      "mapping_query": "MAP:C05->S04"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Compassionate_Self_Relating_and_Self_Efficacy",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach compassionate self-talk and self-efficacy boosting scripts to counter self-blame about difficulties.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Reducing harsh self-judgment can lower decision-paralysis and improve willingness to engage in corrective steps.",
+      "measurement": "Self-criticism scores; likelihood of initiating after self-criticism (weekly self-report).",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "None; ensure phrasing remains supportive and non-guilt-inducing.",
+      "mapping_query": "MAP:C06->S05"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Digital_Environment_Redesign_and_Distraction_Reduction",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Design the physical/digital workspace to minimize distractions (hide non-work apps, use focus-friendly layouts, scheduled notification limits).",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Reducing exposure to digital stimuli lowers distraction susceptibility and supports task engagement.",
+      "measurement": "Distraction episodes per work session; on-task minutes per session.",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "MED",
+      "safety_notes": "Ensure accessibility of needed apps; avoid social isolation through periodic breaks.",
+      "mapping_query": "MAP:C03->S06"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Coaching_Motivational_Interviews_and_Action_Planning",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Bi-weekly coaching using motivational interviewing and structured action planning to bolster initiation and reduce self-blame.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Enhances readiness, problem solving, and self-efficacy, decreasing reliance on avoidance patterns.",
+      "measurement": "Task initiation success rate; self-reported motivation and confidence in initiating tasks.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Coaching quality matters; monitor for misalignment with goals.",
+      "mapping_query": "MAP:C01|C06->S07"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Measurement_Based_Self_Monitoring_and_Feedback",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Implement daily self-monitoring logs and a weekly feedback dashboard that tracks initiation, distractions, and deadlines-related anxiety.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Feedback loops create awareness and empower adaptive adjustments, reducing drift from planned tasks.",
+      "measurement": "Frequency of completed task initiations; days with off-task episodes; weekly trend in deadline anxiety.",
+      "time_horizon": "4–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.8,
+      "priority": "HIGH",
+      "safety_notes": "Ensure data privacy; use non-punitive feedback.",
+      "mapping_query": "MAP:C01|C04|C05->S08"
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Social_Accountability_Partner_with_Weekly_Check-ins",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Pair with a accountability partner for weekly check-ins on progress, obstacles, and deadlines.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Social accountability increases commitment to initiation and reduces deadline anxiety through support and external monitoring.",
+      "measurement": "Number of tasks completed per week; reported anxiety around deadlines.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Choose compatible partner; align expectations to avoid pressure.",
+      "mapping_query": "MAP:C01|C05->S09"
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Problem_Solving_Skills_Training_for_Difficulties",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Provide training in structured problem-solving and cognitive restructuring to translate difficulties into concrete steps.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Equips with explicit steps to address obstacles, reducing uncertainty and self-blame.",
+      "measurement": "Number of concrete action steps generated per session; rate of initiating next steps after planning.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure skills are practiced with real-world tasks and adjustable complexity.",
+      "mapping_query": "MAP:C06->S10"
+    }
+  ]
+}

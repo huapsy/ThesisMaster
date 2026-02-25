@@ -1,0 +1,16 @@
+pseudoprofile_id: pseudoprofile_FTC_ID046
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Auditory trigger sensitivity (chewing sounds) -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / other specified obsessive-compulsive and related disorder / misophonia (sound-triggered rage or distress) / distress_anxiety_response_to_trigger_sounds (conf=0.78)
+- C02: Intensity and controllability of anger response -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / other specified obsessive-compulsive and related disorder / misophonia (sound-triggered rage or distress) / anger_rage_response_to_trigger_sounds (conf=0.74)
+- C03: Perseverative auditory attention / inability to habituate -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / other specified obsessive-compulsive and related disorder / misophonia (sound-triggered rage or distress) / intrusive_cognition_about_trigger_sounds (conf=0.75)
+- C04: Self-directed distress and negative evaluation -> CLINICAL / DSM-5TR / personality disorders / other personality disorders / depressive personality disorder / self_critical_rumination (conf=0.72)
+- C05: Reported sensitivity to textures -> CLINICAL / DSM-5TR / neurodevelopmental disorders / other neurodevelopmental disorders / sensory processing disorder / tactile_hypersensitivity (conf=0.72)
+
+PREDICTORS:
+- P01: Autonomic Arousal Regulation Practice (paced breathing / HRV biofeedback) -> BIO / movement_physical_function_and_somatic_care / respiratory_and_autonomic_physiology_tools / autonomic_biofeedback / hrv_guided_breathing_tool (conf=0.82)
+- P02: Self-Soothing Sensory Toolkit Usage (multi-sensory toolkit) -> PSYCHO / core_psychological_skills_toolkits / emotion_regulation_and_affective_mastery / tolerance_and_surfing / affect_tolerance / self_soothing_sensory_toolkit (conf=0.92)
+- P03: Mindfulness of Sounds (present-moment awareness of auditory input) -> PSYCHO / third_wave_and_contextual_therapies / act_contextual_behavioral_therapy / present_moment_awareness / mindfulness_of_sounds (conf=0.92)
+- P04: Compassion-Focused Self-Relating Practice -> PSYCHO / third_wave_and_contextual_therapies / dbt_skills_based_therapy / emotion_regulation_skills / self_relating_and_repair / validate_and_soothe / compassionate_self_talk_practice (conf=0.88)
+- P05: Sleep Hygiene and Circadian Regularity -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / sleep_diary (conf=0.75)

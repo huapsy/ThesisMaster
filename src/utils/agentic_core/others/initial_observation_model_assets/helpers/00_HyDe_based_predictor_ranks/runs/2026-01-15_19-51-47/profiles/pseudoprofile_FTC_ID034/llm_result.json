@@ -1,0 +1,162 @@
+{
+  "pseudoprofile_id": "CASE-CHRONIC-PAIN-MOOD-001",
+  "summary": "CASE-CHRONIC-PAIN-MOOD-001 presents chronic baseline back pain with flare-ups driving catastrophic thinking (pain will never end), low mood, irritability, reduced optimism, and perceived low coping efficacy. Modifiable levers span bio (sleep, activity, pain regulation), psycho (cognitive reframing, coping skills, meaning/optimism), and social (support access and navigation). The proposed solutions target the pain-cognition-affect loop, aiming to lower pain-related distress, improve self-efficacy, stabilize mood during flares, and enhance functioning through coordinated, feasible interventions with clear metrics linked to C01–C07.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Pain_Coping_Skills_Training_and_Cognitive_Reframing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "CBT-based Pain Coping Skills Training: train cognitive reframing, problem-solving, behavioral activation, and coping strategies to reduce catastrophizing and improve mood during pain flares.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Reduces catastrophic pain beliefs and increases perceived control, which lowers affective distress and improves coping during flares.",
+      "measurement": "Catastrophizing scale, Pain Self-Efficacy, daily mood rating, pain intensity diary.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; monitor mood and SI per standard care.",
+      "mapping_query": "Map to C03, C04, C06, C07 through CBT-based coping skills."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Sleep_Quality_and_Rhythm_Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene optimization with circadian realignment, consistent bed/wake times, light exposure management, and relaxation routines; optional sleep tracking.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C07",
+        "C01"
+      ],
+      "mechanism_rationale": "Improved sleep reduces pain sensitivity and mood disturbance, supporting cognitive control and coping.",
+      "measurement": "PSQI or sleep diary; daily mood; pain intensity; flare frequency.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Link sleep quality to mood and pain modulation (C04, C06, C07, C01)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Graded_Activity_and_Pacing",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured graded exercise program with pacing and fatigue-aware progression to reduce baseline pain interference and flare-triggered distress.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Activity pacing and gradual exposure reduce pain amplification, improve function, and enhance coping self-efficacy.",
+      "measurement": "Baseline and weekly activity logs; pain intensity; flare frequency; mood.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Low risk; adjust based on orthopedic/physical therapy guidance.",
+      "mapping_query": "Address C01 and C02 through gradual activity and pacing, with mood benefits (C04) and coping (C07)."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Mindfulness_Based_Pain_Management",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Mindfulness-Based Stress Reduction (MBSR) or Acceptance and Commitment Therapy (ACT) components for pain acceptance and present-moment focus.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Cultivates nonjudgmental awareness of pain, reduces avoidance, and improves emotional regulation and optimism.",
+      "measurement": "Pain acceptance scale; catastrophizing scale; mood; functioning.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Support for C03 and mood/optimism via acceptance and mindfulness."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Social_Support_Activation",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured social support activation and social prescribing: engage with a support network, peer coaching, or community-based activity.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C07",
+        "C01"
+      ],
+      "mechanism_rationale": "Social connectedness buffers mood disturbance, enhances perceived control, and supports coping behaviors.",
+      "measurement": "Social support scale; mood ratings; pain diary; engagement metrics.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Leverage social resources to improve mood and pain coping."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Pain_Flare_Management_Protocol",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Structured flare-management plan with trigger identification, pacing strategies, heat/cold therapy, relaxation techniques, and rapid-access support.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C03"
+      ],
+      "mechanism_rationale": "Directly reduces flare frequency/severity, mitigating negative cognitive-affective responses and maintaining mood stability.",
+      "measurement": "Flare frequency/duration; peak pain during flares; mood during flares.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Mitigate C02 with practical flare-management; supports C03/C04 during flares."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Meaning_Purpose_and_Future_Orientation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Meaning-focused coaching to reconnect purpose and future orientation; values-based goal setting and forward-looking planning.",
+      "targets_criteria_ids": [
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Reinforces optimistic outlook and perceived agency, supporting sustained coping and mood.",
+      "measurement": "Future orientation scale; meaning in life; mood; goal attainment.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Enhance C06/C07 via meaning-centered coaching."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Care_Navigation_and_Access_to_Multidisciplinary_Care",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Care navigation to access multidisciplinary pain care (PT, psychology, sleep medicine, primary care) and reduce barriers to adherence.",
+      "targets_criteria_ids": [
+        "C01",
+        "C07",
+        "C04"
+      ],
+      "mechanism_rationale": "Improved access enhances engagement, adherence to self-management strategies, and mood regulation.",
+      "measurement": "Care-engagement metrics; appointment adherence; mood; pain.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Improve access to multi-modal care to support pain and mood targets."
+    }
+  ]
+}

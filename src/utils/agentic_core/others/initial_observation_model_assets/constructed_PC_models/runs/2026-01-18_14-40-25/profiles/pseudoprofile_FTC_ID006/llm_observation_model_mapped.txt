@@ -1,0 +1,19 @@
+pseudoprofile_id: pseudoprofile_FTC_ID006
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Nighttime replay of past conversations -> CLINICAL / DSM-5TR / sleep-wake disorders / insomnia disorders / chronic insomnia disorder / sleep-onset insomnia / pre_sleep_rumination_frequency (conf=0.66)
+- C02: Nighttime anticipatory worry / list-making -> CLINICAL / DSM-5TR / anxiety disorders / generalized anxiety disorder / with cognitive rumination / catastrophizing_rumination_content (conf=0.72)
+- C03: Nighttime cognitive hyperarousal -> CLINICAL / DSM-5TR / sleep-wake disorders / insomnia disorders / chronic insomnia disorder / sleep-maintenance insomnia / nocturnal_cognitive_arousal (conf=0.72)
+- C04: Delayed sleep onset (late sleep timing) -> CLINICAL / DSM-5TR / sleep-wake disorders / circadian rhythm sleep–wake disorders / delayed sleep–wake phase disorder / delayed_sleep_onset_time (conf=0.85)
+- C05: Morning interpersonal irritability -> CLINICAL / DSM-5TR / disruptive, impulse-control, and conduct disorders / disruptive behavior disorders / oppositional defiant disorder / presentation pattern / predominantly angry or irritable / irritable_mood_present (conf=0.78)
+
+PREDICTORS:
+- P01: Morning bright light exposure (minutes within 1h of waking) -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / morning_bright_light_exposure (conf=0.92)
+- P02: Evening screen minutes (minutes of screen-on in 2h before sleep) -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / late_evening_screen_reduction (conf=0.78)
+- P03: Evening wind-down routine adherence (1–9) -> BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / wind_down_routine (conf=0.92)
+- P04: Evening cognitive unloading / expressive journaling (minutes) -> PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / cognitive_stress_skills / appraisal_and_self_efficacy / cognitive_unloading_journaling (conf=0.88)
+- P05: Bed-use / stimulus-control adherence (1–9) -> PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / conditioning_and_associations / relearning / stimulus_control_bed_association_relearning (conf=0.82)
+- P06: Use of scheduled worry time (1–9) -> PSYCHO / cognitive_behavioral_therapies / sleep_related_cognitive_behavioral_interventions / presleep_mental_skills / detachment_and_unloading / constructive_worry_before_bed_worksheet (conf=0.82)
+- P07: Sleep environment quality (darkness, temperature, noise) 1–9 -> BIO / sleep_circadian_and_restoration / sleep_environment / light_and_display_control / low_lux_bedroom_lighting (conf=0.62)
+- P08: Morning stabilization routine (light + gentle activity) 1–9 -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / consistent_morning_anchor_routine (conf=0.72)

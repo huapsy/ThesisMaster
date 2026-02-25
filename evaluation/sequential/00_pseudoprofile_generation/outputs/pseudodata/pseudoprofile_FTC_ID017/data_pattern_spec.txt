@@ -1,0 +1,71 @@
+pseudoprofile_id: pseudoprofile_FTC_ID017
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID017/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.6052
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 1.30 * t + phase=0.62)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 2
+  * pulse_1: start_idx=5, length=5, amp=0.931
+  * pulse_2: start_idx=133, length=5, amp=1.024
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P01
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.156 | freq_hint=None
+  * P02: missing_rate=0.028 | freq_hint=None
+  * P03: missing_rate=0.056 | freq_hint=None
+  * P04: missing_rate=0.172 | freq_hint=None
+  * P05: missing_rate=0.161 | freq_hint=None
+  * P06: missing_rate=0.117 | freq_hint=None
+  * C01: missing_rate=0.083 | freq_hint=None
+  * C02: missing_rate=0.233 | freq_hint=None
+  * C03: missing_rate=0.167 | freq_hint=None
+  * C04: missing_rate=0.128 | freq_hint=None
+  * C05: missing_rate=0.261 | freq_hint=None
+  * C06: missing_rate=0.272 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Stop threat monitoring and checking | ontology_id=threat_monitoring_reduction_plan | conf=0.72 | freq_hint=None
+- P02 (PREDICTOR): Digital boundaries and recovery plan (digital hygiene) | ontology_id=digital_overload_recovery_plan | conf=0.92 | freq_hint=None
+- P03 (PREDICTOR): Boundary with external stressors plan | ontology_id=boundary_with_external_stressors_plan | conf=0.92 | freq_hint=None
+- P04 (PREDICTOR): Reduce time checking behavior | ontology_id=reduce_time_checking_behavior | conf=0.88 | freq_hint=None
+- P05 (PREDICTOR): Weekend social shift mitigation (circadian support) | ontology_id=weekend_social_shift_mitigation | conf=0.92 | freq_hint=None
+- P06 (PREDICTOR): Notification and attention management plan | ontology_id=notification_and_attention_management_plan | conf=0.64 | freq_hint=None
+- C01 (CRITERION): Work activity during designated rest | ontology_id=inability_to_detach_from_work | conf=0.76 | freq_hint=None
+- C02 (CRITERION): Lack of perceived restoration | ontology_id=subjective_sleep_quality_poor | conf=0.78 | freq_hint=None
+- C03 (CRITERION): Guilt when attempting to rest | ontology_id=guilt_present | conf=0.65 | freq_hint=None
+- C04 (CRITERION): Perceived inability to stop working | ontology_id=inability_to_detach_from_work | conf=0.85 | freq_hint=None
+- C05 (CRITERION): Difficulty implementing boundaries | ontology_id=enforcing | conf=0.72 | freq_hint=None
+- C06 (CRITERION): Perceived minimization by social network | ontology_id=feedback | conf=0.72 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

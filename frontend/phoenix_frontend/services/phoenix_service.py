@@ -7,14 +7,17 @@ import shlex
 import subprocess
 import threading
 import time
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 from datetime import date, datetime, timedelta
 from io import StringIO
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
+from urllib import error as urlerror
+from urllib import request as urlrequest
 
 import pandas as pd
 
+from .cohort import build_cohort_cases, new_manifest, update_manifest
 from .communication_agent import generate_communication_summary
 from .pseudodata import build_collection_schema, parse_baseline_overrides, synthesize_pseudodata
 from .session_store import SessionStore
@@ -43,14 +46,17 @@ class PhoenixService:
             self.repo_root
             / "src/SystemComponents/Agentic_Framework/02_ConstructionInitialObservationModel/utils/helpers/bipartite_model_visualization.py"
         )
-        self.integrated_pipeline_script = self.evaluation_root / "00_pipeline_orchestration/run_pseudodata_to_impact.py"
+        self.integrated_pipeline_script = self.evaluation_root / "integrated_pipeline/run_engine_pipeline.py"
+        self.initial_model_assets_root = (
+            self.repo_root / "src/utils/agentic_core/others/initial_observation_model_assets"
+        )
         self.predictor_feasibility_csv = (
             self.repo_root
             / "src/utils/official/multi_dimensional_feasibility_evaluation/PREDICTORS/results/summary/predictor_rankings.csv"
         )
         self.mapping_ranks_csv = (
-            self.evaluation_root
-            / "03_construction_initial_observation_model/helpers/00_LLM_based_mapping_based_predictor_ranks/all_pseudoprofiles__predictor_ranks_dense.csv"
+            self.initial_model_assets_root
+            / "helpers/00_LLM_based_mapping_based_predictor_ranks/all_pseudoprofiles__predictor_ranks_dense.csv"
         )
         self.ontology_predictor_list = (
             self.repo_root / "src/utils/official/ontology_mappings/CRITERION/predictor_to_criterion/input_lists/predictors_list.txt"
@@ -58,6 +64,10 @@ class PhoenixService:
         self.operationalization_cache_dir = (
             self.repo_root / "src/SystemComponents/Agentic_Framework/01_OperationalizationMentalHealthProblem/tmp"
         )
+        self.cohort_runs_root = (self.session_store.sessions_root.parent / "cohort_runs").resolve()
+        self.cohort_runs_root.mkdir(parents=True, exist_ok=True)
+        self._llm_model_cache: Dict[str, Any] = {"fetched_at": 0.0, "models": []}
+        self._llm_model_cache_ttl_seconds = max(30, int(os.getenv("PHOENIX_MODEL_CATALOG_TTL_SECONDS", "300")))
 
     def run_initial_model(
         self,
@@ -70,6 +80,7 @@ class PhoenixService:
         critic_max_iterations: int = 2,
         critic_pass_threshold: float = 0.74,
         max_workers: Optional[int] = None,
+        generate_communication: bool = False,
         log: LogFn,
     ) -> Dict[str, Any]:
         session = self.session_store.load_session(session_id)
@@ -162,24 +173,46 @@ class PhoenixService:
             )
 
         model_final_json = profile_dir / "llm_observation_model_final.json"
+        step02_fallback_reason = ""
         if not model_final_json.exists():
             worker_error = self._extract_step02_worker_error(run_dir=run_dir, profile_id=profile_id)
             if worker_error:
                 log(f"[component:step02_initial_model] status=failed {worker_error}", "ERROR")
-                raise RuntimeError(
-                    "Step 02 produced no model artifact. "
-                    f"Worker error for {profile_id}: {worker_error}. "
-                    f"Expected file: {model_final_json}"
-                )
-            log("[component:step02_initial_model] status=failed missing_model_json", "ERROR")
-            raise RuntimeError(f"Step 02 finished but model JSON is missing: {model_final_json}")
-        log("[component:step02_initial_model] status=succeeded", "INFO")
+                step02_fallback_reason = f"worker_error:{worker_error}"
+            else:
+                log("[component:step02_initial_model] status=failed missing_model_json", "ERROR")
+                step02_fallback_reason = "missing_model_json"
+
+        if step02_fallback_reason:
+            log(
+                "Step 02 artifact missing; generating deterministic heuristic model fallback "
+                f"({step02_fallback_reason}).",
+                "WARNING",
+            )
+            fallback_model = self._build_heuristic_initial_model(
+                profile_id=profile_id,
+                complaint_text=session.complaint_text,
+            )
+            fallback_summary = str(fallback_model.get("model_summary") or "").strip()
+            fallback_model["model_summary"] = (
+                f"{fallback_summary}\n"
+                f"Step 02 fallback reason: {step02_fallback_reason}."
+            ).strip()
+            profile_dir.mkdir(parents=True, exist_ok=True)
+            model_final_json.write_text(
+                json.dumps(fallback_model, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+            log("[component:step02_initial_model] status=succeeded heuristic_fallback", "INFO")
+        else:
+            log("[component:step02_initial_model] status=succeeded", "INFO")
 
         model_mapped_json = profile_dir / "llm_observation_model_mapped.json"
         if not model_mapped_json.exists():
             model_mapped_json.write_text(model_final_json.read_text(encoding="utf-8"), encoding="utf-8")
 
         model_payload = json.loads(model_final_json.read_text(encoding="utf-8"))
+        self._ensure_mapped_txt_artifact(profile_dir=profile_dir, profile_id=profile_id, model_payload=model_payload)
         schema = build_collection_schema(model_payload)
 
         visuals: List[Dict[str, str]] = []
@@ -227,11 +260,14 @@ class PhoenixService:
                 log(f"[component:communication_agent] status=failed {exc}", "ERROR")
                 raise
 
-        with ThreadPoolExecutor(max_workers=2) as executor:
-            vis_future = executor.submit(_run_visualization_task)
-            comm_future = executor.submit(_run_communication_task)
-            vis_future.result()
-            communication = comm_future.result()
+        if generate_communication:
+            with ThreadPoolExecutor(max_workers=2) as executor:
+                vis_future = executor.submit(_run_visualization_task)
+                comm_future = executor.submit(_run_communication_task)
+                vis_future.result()
+                communication = comm_future.result()
+        else:
+            _run_visualization_task()
 
         visuals = self._collect_profile_visuals(profile_dir, session_id=session_id)
 
@@ -400,7 +436,15 @@ class PhoenixService:
         request_model_refinement: bool,
         profile_memory_window: int,
         handoff_critic_max_iterations: int,
+        handoff_critic_pass_threshold: float,
         intervention_critic_max_iterations: int,
+        intervention_critic_pass_threshold: float,
+        network_boot: int,
+        network_block_len: int,
+        network_jobs: int,
+        run_impact_visualizations: bool,
+        run_treatment_communication: bool,
+        parallel_branches: bool,
         log: LogFn,
     ) -> Dict[str, Any]:
         session = self.session_store.load_session(session_id)
@@ -414,6 +458,13 @@ class PhoenixService:
 
         pipeline_run_id = session.pipeline_run_id.strip() or f"frontend_pipeline_{session.session_id}"
         cycle_index = int(session.current_cycle) + 1
+        effective_network_jobs = max(1, int(network_jobs))
+        if effective_network_jobs > 1:
+            log(
+                "network_jobs > 1 can fail in constrained environments; clamping to 1 for stable execution.",
+                "WARNING",
+            )
+            effective_network_jobs = 1
 
         cmd = [
             self.python_exe,
@@ -445,6 +496,9 @@ class PhoenixService:
             str(max(1, int(profile_memory_window))),
             "--initial-model-runs-root",
             str(paths["initial_model_runs_root"]),
+            "--step02-fallback-runs-root",
+            str(paths["initial_model_runs_root"]),
+            "--allow-step02-fallback",
             "--free-text-root",
             str(paths["free_text_root"]),
             "--predictor-feasibility-csv",
@@ -455,21 +509,42 @@ class PhoenixService:
             llm_model,
             "--handoff-critic-max-iterations",
             str(max(1, int(handoff_critic_max_iterations))),
+            "--handoff-critic-pass-threshold",
+            str(float(handoff_critic_pass_threshold)),
             "--intervention-critic-max-iterations",
             str(max(1, int(intervention_critic_max_iterations))),
+            "--intervention-critic-pass-threshold",
+            str(float(intervention_critic_pass_threshold)),
+            "--network-boot",
+            str(max(20, int(network_boot))),
+            "--network-block-len",
+            str(max(6, int(network_block_len))),
+            "--network-jobs",
+            str(effective_network_jobs),
+            "--network-execution-policy",
+            "all_methods",
+            "--communication-llm-model",
+            llm_model,
         ]
         cmd.append("--run-intervention-step" if include_intervention else "--no-run-intervention-step")
+        cmd.append("--run-impact-visualizations" if run_impact_visualizations else "--no-run-impact-visualizations")
+        cmd.append("--run-treatment-communication" if run_treatment_communication else "--no-run-treatment-communication")
+        cmd.append("--parallel-branches" if parallel_branches else "--no-parallel-branches")
+        # Frontend cycle execution always starts from session pseudodata + session model artifacts.
+        # Step-01/02 are executed explicitly via the dedicated "Model Creation" action.
+        cmd.append("--start-from-pseudodata")
 
         if hard_ontology_constraint:
             cmd.append("--hard-ontology-constraint")
         if disable_llm:
             cmd.append("--disable-llm")
+            cmd.append("--communication-disable-llm")
 
         log(f"Running integrated PHOENIX analysis cycle {cycle_index}.", "INFO")
         self._run_command(
             cmd=cmd,
             log=log,
-            component="pipeline_cycle_orchestrator",
+            component="pipeline_cycle_engine",
         )
 
         cycle_root = self._cycle_run_root(
@@ -516,6 +591,389 @@ class PhoenixService:
             "pipeline_summary": payload,
             "dashboard": dashboard,
             "communication_summary": communication,
+        }
+
+    def list_llm_models(self, *, query: str = "", limit: int = 80) -> List[Dict[str, Any]]:
+        q = str(query or "").strip().lower()
+        max_rows = max(1, min(int(limit), 200))
+
+        defaults = [
+            {"id": "gpt-5-nano", "label": "gpt-5-nano (default alias)", "provider": "openrouter"},
+            {"id": "openai/gpt-5-nano", "label": "openai/gpt-5-nano", "provider": "openrouter"},
+            {"id": "openai/gpt-5-mini", "label": "openai/gpt-5-mini", "provider": "openrouter"},
+            {"id": "openai/gpt-4.1-mini", "label": "openai/gpt-4.1-mini", "provider": "openrouter"},
+        ]
+        selected: List[Dict[str, Any]] = []
+        seen: set[str] = set()
+
+        def _accept(item: Dict[str, Any]) -> bool:
+            token = str(item.get("id") or "").strip().lower()
+            label = str(item.get("label") or "").strip().lower()
+            if not token:
+                return False
+            if q and q not in token and q not in label:
+                return False
+            return True
+
+        def _push(item: Dict[str, Any]) -> None:
+            token = str(item.get("id") or "").strip()
+            if not token or token in seen:
+                return
+            if _accept(item):
+                seen.add(token)
+                selected.append(item)
+
+        for item in defaults:
+            _push(item)
+
+        openrouter_key = str(os.environ.get("OPENROUTER_API_KEY") or "").strip()
+        if not openrouter_key:
+            return selected[:max_rows]
+
+        now = time.time()
+        cached_rows = self._llm_model_cache.get("models")
+        cache_fetched_at = float(self._llm_model_cache.get("fetched_at") or 0.0)
+        if isinstance(cached_rows, list) and cached_rows and (now - cache_fetched_at) <= self._llm_model_cache_ttl_seconds:
+            for row in cached_rows:
+                if isinstance(row, dict):
+                    _push(row)
+            return selected[:max_rows]
+
+        remote_rows: List[Dict[str, Any]] = []
+        try:
+            req = urlrequest.Request(
+                "https://openrouter.ai/api/v1/models",
+                headers={
+                    "Authorization": f"Bearer {openrouter_key}",
+                    "Accept": "application/json",
+                },
+                method="GET",
+            )
+            with urlrequest.urlopen(req, timeout=8.0) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+            data = payload.get("data") if isinstance(payload, dict) else []
+            if isinstance(data, list):
+                for row in data:
+                    if not isinstance(row, dict):
+                        continue
+                    model_id = str(row.get("id") or "").strip()
+                    if not model_id:
+                        continue
+                    context_length = row.get("context_length")
+                    context_txt = ""
+                    try:
+                        if context_length is not None:
+                            context_txt = f" ({int(context_length):,} ctx)"
+                    except Exception:
+                        context_txt = ""
+                    remote_rows.append(
+                        {
+                            "id": model_id,
+                            "label": f"{model_id}{context_txt}",
+                            "provider": "openrouter",
+                        }
+                    )
+        except (urlerror.URLError, TimeoutError, ValueError, json.JSONDecodeError):
+            remote_rows = []
+
+        remote_rows.sort(key=lambda row: str(row.get("id") or "").lower())
+        self._llm_model_cache = {"fetched_at": now, "models": remote_rows}
+        for row in remote_rows:
+            _push(row)
+        return selected[:max_rows]
+
+    def run_full_cohort(
+        self,
+        *,
+        seed_session_id: str,
+        patient_count: int,
+        parallel_patients: int,
+        llm_model: str,
+        disable_llm: bool,
+        hard_ontology_constraint: bool,
+        model_prompt_budget_tokens: int,
+        model_critic_max_iterations: int,
+        model_critic_pass_threshold: float,
+        model_max_workers: int,
+        pseudodata_n_points: int,
+        pseudodata_missing_rate: float,
+        pseudodata_seed: int,
+        include_intervention: bool,
+        profile_memory_window: int,
+        handoff_critic_max_iterations: int,
+        handoff_critic_pass_threshold: float,
+        intervention_critic_max_iterations: int,
+        intervention_critic_pass_threshold: float,
+        network_boot: int,
+        network_block_len: int,
+        network_jobs: int,
+        run_impact_visualizations: bool,
+        run_treatment_communication: bool,
+        parallel_branches: bool,
+        log: LogFn,
+    ) -> Dict[str, Any]:
+        seed_session = self.session_store.load_session(seed_session_id)
+        n_patients = max(1, int(patient_count))
+        parallel_patients = max(1, min(int(parallel_patients), n_patients))
+        cohort_run_id = f"cohort_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{seed_session_id[-6:]}"
+        cohort_root = self.cohort_runs_root / cohort_run_id
+        manifest_path = cohort_root / "cohort_manifest.json"
+        run_options = {
+            "llm_model": str(llm_model),
+            "disable_llm": bool(disable_llm),
+            "hard_ontology_constraint": bool(hard_ontology_constraint),
+            "model_prompt_budget_tokens": int(model_prompt_budget_tokens),
+            "model_critic_max_iterations": int(model_critic_max_iterations),
+            "model_critic_pass_threshold": float(model_critic_pass_threshold),
+            "model_max_workers": int(model_max_workers),
+            "pseudodata_n_points": int(pseudodata_n_points),
+            "pseudodata_missing_rate": float(pseudodata_missing_rate),
+            "pseudodata_seed": int(pseudodata_seed),
+            "include_intervention": bool(include_intervention),
+            "profile_memory_window": int(profile_memory_window),
+            "handoff_critic_max_iterations": int(handoff_critic_max_iterations),
+            "handoff_critic_pass_threshold": float(handoff_critic_pass_threshold),
+            "intervention_critic_max_iterations": int(intervention_critic_max_iterations),
+            "intervention_critic_pass_threshold": float(intervention_critic_pass_threshold),
+            "network_boot": int(network_boot),
+            "network_block_len": int(network_block_len),
+            "network_jobs": int(network_jobs),
+            "run_impact_visualizations": bool(run_impact_visualizations),
+            "run_treatment_communication": bool(run_treatment_communication),
+            "parallel_branches": bool(parallel_branches),
+        }
+        manifest = new_manifest(
+            run_id=cohort_run_id,
+            cohort_root=cohort_root,
+            seed_session_id=seed_session_id,
+            patient_count=n_patients,
+            parallel_patients=parallel_patients,
+            options=run_options,
+        )
+        manifest_lock = threading.Lock()
+        update_manifest(manifest_path, manifest)
+
+        cases = build_cohort_cases(
+            base_complaint=seed_session.complaint_text,
+            base_person=seed_session.person_text,
+            base_context=seed_session.context_text,
+            patient_count=n_patients,
+        )
+        log(
+            f"[component:cohort_batch] status=running patients={n_patients} parallel={parallel_patients} run_id={cohort_run_id}",
+            "INFO",
+        )
+
+        for case in cases:
+            created = self.session_store.create_session(
+                complaint_text=case.complaint_text,
+                person_text=case.person_text,
+                context_text=case.context_text,
+            )
+            self.session_store.update_session(
+                created.session_id,
+                notes={
+                    **created.notes,
+                    "cohort_run_id": cohort_run_id,
+                    "cohort_variant": case.variant_label,
+                    "cohort_index": int(case.index) + 1,
+                    "cohort_seed_session_id": seed_session_id,
+                },
+            )
+            manifest["patients"].append(
+                {
+                    "patient_index": int(case.index) + 1,
+                    "variant_label": case.variant_label,
+                    "session_id": created.session_id,
+                    "profile_id": created.profile_id,
+                    "status": "queued",
+                    "stages": {
+                        "model_creation": "queued",
+                        "acquisition": "queued",
+                        "analysis": "queued",
+                    },
+                    "error": "",
+                }
+            )
+
+        manifest["summary"]["created_sessions"] = len(manifest["patients"])
+        update_manifest(manifest_path, manifest)
+
+        def _save_manifest() -> None:
+            with manifest_lock:
+                update_manifest(manifest_path, manifest)
+
+        def _set_patient_stage(session_id: str, stage_key: str, stage_status: str, detail: str = "") -> None:
+            with manifest_lock:
+                for row in manifest["patients"]:
+                    if row.get("session_id") != session_id:
+                        continue
+                    row["stages"][stage_key] = stage_status
+                    if detail:
+                        row["last_detail"] = detail
+                    break
+                update_manifest(manifest_path, manifest)
+
+        def _set_patient_status(
+            session_id: str,
+            status: str,
+            *,
+            error: str = "",
+            result_payload: Optional[Dict[str, Any]] = None,
+        ) -> None:
+            with manifest_lock:
+                for row in manifest["patients"]:
+                    if row.get("session_id") != session_id:
+                        continue
+                    row["status"] = status
+                    if error:
+                        row["error"] = error
+                    if result_payload:
+                        row["result"] = result_payload
+                    break
+                update_manifest(manifest_path, manifest)
+
+        def _process_case(row: Dict[str, Any]) -> Dict[str, Any]:
+            session_id = str(row["session_id"])
+            profile_id = str(row["profile_id"])
+
+            def _row_log(message: str, level: str = "INFO") -> None:
+                log(f"[cohort:{profile_id}] {message}", level)
+
+            _set_patient_status(session_id, "running")
+            _set_patient_stage(session_id, "model_creation", "running")
+            _row_log("[component:cohort_batch] status=running stage=model_creation")
+            model_result = self.run_initial_model(
+                session_id=session_id,
+                llm_model=llm_model,
+                disable_llm=disable_llm,
+                hard_ontology_constraint=hard_ontology_constraint,
+                prompt_budget_tokens=model_prompt_budget_tokens,
+                critic_max_iterations=model_critic_max_iterations,
+                critic_pass_threshold=model_critic_pass_threshold,
+                max_workers=model_max_workers,
+                generate_communication=False,
+                log=_row_log,
+            )
+            _set_patient_stage(session_id, "model_creation", "succeeded", detail="Initial model complete")
+
+            _set_patient_stage(session_id, "acquisition", "running")
+            _row_log("[component:cohort_batch] status=running stage=acquisition")
+            pseudodata_result = self.synthesize_session_pseudodata(
+                session_id=session_id,
+                n_points=pseudodata_n_points,
+                missing_rate=pseudodata_missing_rate,
+                seed=int(pseudodata_seed) + int(row["patient_index"]),
+                baseline_rows=[],
+                log=_row_log,
+            )
+            _set_patient_stage(session_id, "acquisition", "succeeded", detail="Pseudodata complete")
+
+            _set_patient_stage(session_id, "analysis", "running")
+            _row_log("[component:cohort_batch] status=running stage=analysis")
+            cycle_result = self.run_pipeline_cycle(
+                session_id=session_id,
+                hard_ontology_constraint=hard_ontology_constraint,
+                llm_model=llm_model,
+                disable_llm=disable_llm,
+                include_intervention=include_intervention,
+                request_model_refinement=False,
+                profile_memory_window=profile_memory_window,
+                handoff_critic_max_iterations=handoff_critic_max_iterations,
+                handoff_critic_pass_threshold=handoff_critic_pass_threshold,
+                intervention_critic_max_iterations=intervention_critic_max_iterations,
+                intervention_critic_pass_threshold=intervention_critic_pass_threshold,
+                network_boot=network_boot,
+                network_block_len=network_block_len,
+                network_jobs=network_jobs,
+                run_impact_visualizations=run_impact_visualizations,
+                run_treatment_communication=run_treatment_communication,
+                parallel_branches=parallel_branches,
+                log=_row_log,
+            )
+            _set_patient_stage(session_id, "analysis", "succeeded", detail="Pipeline cycle complete")
+
+            paths = self.session_store.session_paths(session_id)
+            result_payload = {
+                "session_id": session_id,
+                "profile_id": profile_id,
+                "model_final_json": str(model_result.get("model_final_json") or ""),
+                "pseudodata_wide_csv": str(paths["pseudodata_profile_root"] / "pseudodata_wide.csv"),
+                "pipeline_summary_json": str(cycle_result.get("pipeline_summary_json") or ""),
+                "cycle_root": str(cycle_result.get("cycle_root") or ""),
+            }
+            _set_patient_status(session_id, "succeeded", result_payload=result_payload)
+            _row_log("[component:cohort_batch] status=running stage=completed")
+            return result_payload
+
+        futures: Dict[Future[Dict[str, Any]], Dict[str, Any]] = {}
+        completed_rows: List[Dict[str, Any]] = []
+        failed_rows: List[Dict[str, Any]] = []
+
+        with ThreadPoolExecutor(max_workers=parallel_patients) as executor:
+            for row in manifest["patients"]:
+                futures[executor.submit(_process_case, row)] = row
+
+            for future in as_completed(futures):
+                row = futures[future]
+                session_id = str(row["session_id"])
+                profile_id = str(row["profile_id"])
+                try:
+                    payload = future.result()
+                    completed_rows.append(payload)
+                except Exception as exc:
+                    err = f"{type(exc).__name__}: {exc}"
+                    failed_rows.append(
+                        {
+                            "session_id": session_id,
+                            "profile_id": profile_id,
+                            "error": err,
+                        }
+                    )
+                    _set_patient_stage(session_id, "analysis", "failed", detail=err[:240])
+                    _set_patient_status(session_id, "failed", error=err)
+                    log(f"[cohort:{profile_id}] [component:cohort_batch] status=failed {err}", "ERROR")
+
+        manifest["summary"]["completed"] = len(completed_rows)
+        manifest["summary"]["failed"] = len(failed_rows)
+        manifest["completed_sessions"] = completed_rows
+        manifest["failed_sessions"] = failed_rows
+        manifest["status"] = "failed" if failed_rows else "succeeded"
+        _save_manifest()
+
+        self.session_store.update_session(
+            seed_session_id,
+            notes={
+                **seed_session.notes,
+                "latest_cohort_run_id": cohort_run_id,
+                "latest_cohort_manifest": str(manifest_path),
+                "latest_cohort_completed": len(completed_rows),
+                "latest_cohort_failed": len(failed_rows),
+            },
+        )
+
+        if failed_rows:
+            log(
+                f"[component:cohort_batch] status=failed completed={len(completed_rows)} failed={len(failed_rows)}",
+                "ERROR",
+            )
+            raise RuntimeError(
+                f"Cohort run finished with failures ({len(failed_rows)} / {len(manifest['patients'])}). "
+                f"Inspect manifest: {manifest_path}"
+            )
+
+        log(
+            f"[component:cohort_batch] status=succeeded completed={len(completed_rows)} failed=0",
+            "INFO",
+        )
+        return {
+            "run_id": cohort_run_id,
+            "cohort_root": str(cohort_root),
+            "manifest_json": str(manifest_path),
+            "patient_count": len(manifest["patients"]),
+            "completed_count": len(completed_rows),
+            "failed_count": len(failed_rows),
+            "patients": completed_rows,
         }
 
     def load_model_payload(self, session_id: str) -> Dict[str, Any]:
@@ -567,6 +1025,12 @@ class PhoenixService:
                 )
 
         communication_summary = self._load_latest_communication_summary(session_id=session_id)
+        cohort_summary: Dict[str, Any] = {}
+        cohort_manifest_raw = str((session.notes or {}).get("latest_cohort_manifest") or "").strip()
+        if cohort_manifest_raw:
+            cohort_manifest_path = Path(cohort_manifest_raw).expanduser().resolve()
+            if cohort_manifest_path.exists() and cohort_manifest_path.is_file():
+                cohort_summary = self._read_json(cohort_manifest_path)
 
         return {
             "session": session.to_dict(),
@@ -581,6 +1045,7 @@ class PhoenixService:
             "pipeline_summary": pipeline_summary,
             "pipeline_dashboard": pipeline_dashboard,
             "communication_summary": communication_summary,
+            "cohort_summary": cohort_summary,
             "has_model": bool(model_path is not None and model_path.exists() and model_path.is_file()),
             "has_pseudodata": (paths["pseudodata_profile_root"] / "pseudodata_wide.csv").exists(),
             "has_pipeline_summary": bool(
@@ -617,6 +1082,12 @@ class PhoenixService:
         if env:
             process_env.update(env)
         process_env.setdefault("PYTHONUNBUFFERED", "1")
+        openrouter_api_key = str(process_env.get("OPENROUTER_API_KEY") or "").strip()
+        if openrouter_api_key:
+            process_env["OPENAI_API_KEY"] = openrouter_api_key
+            process_env["OPENAI_BASE_URL"] = str(
+                process_env.get("OPENAI_BASE_URL") or "https://openrouter.ai/api/v1"
+            )
         existing_pythonpath = process_env.get("PYTHONPATH", "")
         root_path = str(self.repo_root)
         path_parts = [part for part in existing_pythonpath.split(os.pathsep) if part]
@@ -658,7 +1129,7 @@ class PhoenixService:
                 line = line_queue.get(timeout=0.8)
             except queue.Empty:
                 now = time.time()
-                if component and now - last_heartbeat >= 10:
+                if component and now - last_heartbeat >= 5:
                     elapsed = int(now - started)
                     log(f"[component:{component}] heartbeat elapsed={elapsed}s", "INFO")
                     last_heartbeat = now
@@ -673,7 +1144,7 @@ class PhoenixService:
             log(line, "INFO")
 
             now = time.time()
-            if component and now - last_heartbeat >= 10:
+            if component and now - last_heartbeat >= 5:
                 elapsed = int(now - started)
                 log(f"[component:{component}] heartbeat elapsed={elapsed}s", "INFO")
                 last_heartbeat = now
@@ -712,7 +1183,7 @@ class PhoenixService:
             return ""
 
     def _discover_latest_hyde_dense_profiles(self) -> Path:
-        root = self.evaluation_root / "03_construction_initial_observation_model/helpers/00_HyDe_based_predictor_ranks/runs"
+        root = self.initial_model_assets_root / "helpers/00_HyDe_based_predictor_ranks/runs"
         if not root.exists():
             return root / "dense_profiles.csv"
         candidates = sorted(root.glob("*/dense_profiles.csv"), key=lambda p: p.stat().st_mtime, reverse=True)
@@ -752,7 +1223,7 @@ class PhoenixService:
             return {}
 
     def _build_heuristic_initial_model(self, *, profile_id: str, complaint_text: str) -> Dict[str, Any]:
-        source_runs = self.evaluation_root / "03_construction_initial_observation_model/constructed_PC_models/runs"
+        source_runs = self.initial_model_assets_root / "constructed_PC_models/runs"
         sample_jsons = sorted(source_runs.glob("*/profiles/*/llm_observation_model_final.json"), key=lambda p: p.stat().st_mtime, reverse=True)
         if sample_jsons:
             payload = self._read_json(sample_jsons[0])
@@ -772,11 +1243,61 @@ class PhoenixService:
             "Heuristic fallback model generated with LLM disabled. "
             + str(payload.get("model_summary") or "")
         ).strip()
+        criteria_vars = list(payload.get("criteria_variables") or [])
+        predictor_vars = list(payload.get("predictor_variables") or [])
+        # Keep deterministic fallback compact enough for downstream readiness/network steps.
+        payload["criteria_variables"] = criteria_vars[:3]
+        payload["predictor_variables"] = predictor_vars[:4]
         payload["variable_selection_notes"] = (
             str(payload.get("variable_selection_notes") or "")
             + f"\nComplaint context: {complaint_text[:400]}"
+            + "\nDeterministic profile clipped to 3 criteria + 4 predictors for stable downstream cycle execution."
         ).strip()
         return payload
+
+    def _ensure_mapped_txt_artifact(self, *, profile_dir: Path, profile_id: str, model_payload: Dict[str, Any]) -> Path:
+        mapped_txt_path = profile_dir / "llm_observation_model_mapped.txt"
+        if mapped_txt_path.exists():
+            return mapped_txt_path
+
+        def _var_code(row: Dict[str, Any], default_prefix: str, fallback_idx: int) -> str:
+            raw = str(row.get("var_id") or row.get("source_variable_id") or "").strip().upper()
+            if raw.startswith(default_prefix) and len(raw) == 3 and raw[1:].isdigit():
+                return raw
+            return f"{default_prefix}{fallback_idx:02d}"
+
+        criteria_rows = list(model_payload.get("criteria_variables") or [])
+        predictor_rows = list(model_payload.get("predictor_variables") or [])
+
+        lines: List[str] = [
+            f"pseudoprofile_id: {profile_id}",
+            "source_raw_model: frontend_heuristic_or_llm_json",
+            "",
+            "CRITERIA",
+        ]
+        for idx, row in enumerate(criteria_rows, start=1):
+            if not isinstance(row, dict):
+                continue
+            code = _var_code(row, "C", idx)
+            label = str(row.get("label") or row.get("criterion_label") or code).strip()
+            criterion_path = str(row.get("criterion_path") or row.get("ontology_path") or "criteria/unspecified").strip()
+            if "/" not in criterion_path:
+                criterion_path = f"criteria/{criterion_path}"
+            lines.append(f"- {code}: {label} -> {criterion_path} (conf=0.75)")
+
+        lines.extend(["", "PREDICTORS"])
+        for idx, row in enumerate(predictor_rows, start=1):
+            if not isinstance(row, dict):
+                continue
+            code = _var_code(row, "P", idx)
+            label = str(row.get("label") or row.get("predictor_label") or code).strip()
+            predictor_path = str(row.get("ontology_path") or row.get("predictor_path") or "predictors/unspecified").strip()
+            if "/" not in predictor_path:
+                predictor_path = f"predictors/{predictor_path}"
+            lines.append(f"- {code}: {label} -> {predictor_path} (conf=0.75)")
+
+        mapped_txt_path.write_text("\n".join(lines).strip() + "\n", encoding="utf-8")
+        return mapped_txt_path
 
     def _write_communication_summary(
         self,
@@ -808,19 +1329,35 @@ class PhoenixService:
         files = sorted(paths["frontend_logs_root"].glob("communication_*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
         if not files:
             return {}
-        payload = self._read_json(files[0])
-        return {
-            "path": str(files[0]),
-            "payload": payload,
-        }
+        for path in files:
+            payload = self._read_json(path)
+            stage = str(payload.get("stage") or "").strip().lower()
+            if stage.startswith("cycle_"):
+                return {
+                    "path": str(path),
+                    "payload": payload,
+                }
+        return {}
 
     def _extract_cycle_dashboard(self, *, cycle_root: Path, profile_id: str, session_id: str) -> Dict[str, Any]:
-        readiness = self._read_json(cycle_root / "00_readiness_check" / profile_id / "readiness_report.json")
-        network = self._read_json(cycle_root / "01_time_series_analysis/network" / profile_id / "comparison_summary.json")
-        impact_df = self._safe_read_csv(cycle_root / "02_momentary_impact_coefficients" / profile_id / "predictor_composite.csv")
-        step03_path = cycle_root / "03_treatment_target_handoff" / profile_id / "step03_target_selection.json"
-        step04_path = cycle_root / "03_treatment_target_handoff" / profile_id / "step04_updated_observation_model.json"
-        step05_path = cycle_root / "03b_translation_digital_intervention" / profile_id / "step05_hapa_intervention.json"
+        def _stage_root(primary: str, legacy: str) -> Path:
+            primary_root = cycle_root / primary
+            if primary_root.exists():
+                return primary_root
+            return cycle_root / legacy
+
+        readiness_root = _stage_root("03_readiness_check", "00_readiness_check")
+        network_root = _stage_root("04_time_series_analysis/network", "01_time_series_analysis/network")
+        impact_root = _stage_root("05_momentary_impact_coefficients", "02_momentary_impact_coefficients")
+        handoff_root = _stage_root("06_target_identification_and_model_update", "03_treatment_target_handoff")
+        intervention_root = _stage_root("07_hapa_digital_intervention", "03b_translation_digital_intervention")
+
+        readiness = self._read_json(readiness_root / profile_id / "readiness_report.json")
+        network = self._read_json(network_root / profile_id / "comparison_summary.json")
+        impact_df = self._safe_read_csv(impact_root / profile_id / "predictor_composite.csv")
+        step03_path = handoff_root / profile_id / "step03_target_selection.json"
+        step04_path = handoff_root / profile_id / "step04_updated_observation_model.json"
+        step05_path = intervention_root / profile_id / "step05_hapa_intervention.json"
         step03 = self._read_json(step03_path)
         step04 = self._read_json(step04_path)
         step05 = self._read_json(step05_path)
@@ -946,20 +1483,43 @@ class PhoenixService:
         out: List[Dict[str, str]] = []
         candidates: List[Path] = []
         for base in [
+            cycle_root / "03_readiness_check" / profile_id,
             cycle_root / "00_readiness_check" / profile_id,
+            cycle_root / "04_time_series_analysis/network" / profile_id,
             cycle_root / "01_time_series_analysis/network" / profile_id,
+            cycle_root / "05_momentary_impact_coefficients" / profile_id / "visuals",
             cycle_root / "02_momentary_impact_coefficients" / profile_id / "visuals",
+            cycle_root / "06_target_identification_and_model_update" / profile_id / "visuals",
             cycle_root / "03_treatment_target_handoff" / profile_id / "visuals",
+            cycle_root / "07_hapa_digital_intervention" / profile_id / "visuals",
             cycle_root / "03b_translation_digital_intervention" / profile_id / "visuals",
+            cycle_root / "09_impact_visualizations" / profile_id / "visuals",
             cycle_root / "04_impact_visualizations" / profile_id / "visuals",
         ]:
             if base.exists():
                 candidates.extend([p for p in base.rglob("*") if p.is_file() and p.suffix.lower() in {".png", ".svg", ".pdf"}])
+        # New stage layout stores visualization pointers in profile_visuals_index.
+        index_file = cycle_root / "09_impact_visualizations" / "profile_visuals_index" / f"{profile_id}.txt"
+        if index_file.exists():
+            try:
+                lines = [line.strip() for line in index_file.read_text(encoding="utf-8").splitlines() if line.strip()]
+                for line in lines:
+                    target = Path(line).expanduser().resolve()
+                    if target.is_dir():
+                        candidates.extend([p for p in target.rglob("*") if p.is_file() and p.suffix.lower() in {".png", ".svg", ".pdf"}])
+                    elif target.is_file() and target.suffix.lower() in {".png", ".svg", ".pdf"}:
+                        candidates.append(target)
+            except Exception:
+                pass
+        seen_rel: set[str] = set()
         for path in sorted(candidates):
             try:
                 rel = str(path.resolve().relative_to(session_root.resolve()))
             except Exception:
                 continue
+            if rel in seen_rel:
+                continue
+            seen_rel.add(rel)
             out.append({"name": path.name, "relative_path": rel})
         return out
 

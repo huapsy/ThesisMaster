@@ -1,0 +1,16 @@
+pseudoprofile_id: pseudoprofile_FTC_ID033
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Forgetting to eat during the day -> UNMAPPED (reason=No candidate leaf directly corresponds to daytime meal initiation failure/forgetting to eat during the day. The closest is daytime_memory_impairment (26318), which is not meal-specific, so mapping would be inaccurate.)
+- C02: Large hunger increase at night (compensatory starvation) -> CLINICAL / DSM-5TR / feeding and eating disorders / other specified feeding or eating disorder (osfed) / night eating syndrome / nighttime_food_craving (conf=0.72)
+- C03: Making poor food choices when very hungry -> CLINICAL / DSM-5TR / feeding and eating disorders / binge-eating disorder / night eating variant (binge-focused) / nighttime_craving_for_high_calorie_foods (conf=0.72)
+- C04: Perceived breakdown of internal hunger cues -> CLINICAL / ICD-10 / pain disorders / visceral pain disorders / functional dyspepsia / interoceptive_hypervigilance_gastric_signals (conf=0.72)
+- C05: Lack of intentional food restriction or dieting -> NON-CLINICAL / AGE-SPECIFIC / late_adolescence / physical_development / health_and_wellness / nutrition_and_diet / dietary_autonomy (conf=0.72)
+- C06: Daytime attention/organizational factors contributing to missed meals -> NON-CLINICAL / AGE-GENERAL / psychological / temporal perspective / time management / scheduling / creating schedules (conf=0.78)
+
+PREDICTORS:
+- P01: Meal_Planning_Structure -> BIO / nutrition_hydration_and_metabolic_health / eating_behavior_and_satiety_skills / planned_snack_structure (conf=0.78)
+- P02: Mindful_Eating_Practice -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / informal_everyday_mindfulness / mindful_eating_practice (conf=0.78)
+- P03: Environment_Design_For_Eating -> BIO / nutrition_hydration_and_metabolic_health / eating_behavior_and_satiety_skills / environment_design_for_eating (conf=0.92)
+- P04: Planned_Snack_Structure -> BIO / nutrition_hydration_and_metabolic_health / eating_behavior_and_satiety_skills / planned_snack_structure (conf=0.95)

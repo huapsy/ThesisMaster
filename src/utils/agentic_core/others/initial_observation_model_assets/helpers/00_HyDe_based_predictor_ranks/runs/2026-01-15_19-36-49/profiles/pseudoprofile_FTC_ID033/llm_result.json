@@ -1,0 +1,148 @@
+{
+  "pseudoprofile_id": "CASE_A1_OPTIMIZER_V1",
+  "summary": "The case shows daytime meal omission with compensatory nocturnal hunger, impaired hunger cue interpretation, and impulsive food choices under hunger. Modifiable levers span three domains (BIO, PSYCHO, SOCIAL) and their interactions: (1) stabilize daytime intake to reduce nocturnal hunger (C01/C02), (2) recalibrate interoceptive hunger cues and improve appetite awareness (C04), (3) plan and safeguard evening intake and snack quality (C02/C03), (4) enhance self-monitoring and feedback to support consistency (C01/C04), (5) optimize meal composition and hydration to support satiety (C01/C03), (6) align sleep/circadian factors to support appetite regulation (C02/C04), and (7) modify the environment to reduce late-night temptations (C03). Each lever is a changeable predictor (not a symptom label) with measurable outcomes and a realistic time horizon, designed to move toward more stable energy intake, better hunger cue alignment, and healthier food choices without dieting. Safety considerations include monitoring for disordered-eating risks and ensuring nourishment remains adequate.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Structured daytime meal schedule with reminders and portable options",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a fixed daytime meal schedule (e.g., breakfast within 1 hour of waking, lunch around midday, a light afternoon snack) with automated reminders on_phone and desk cues. Provide two portable, protein-rich options to ensure daytime intake during busy periods. Include a brief cue-to-eat micro-task when reminders fire to re-establish routine. Optional social accountability (check-in with a trusted person).",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Regular daytime intake reduces energy deprivation that fuels late-night hunger; reminders counteract forgetfulness and attention lapses contributing to missed daytime meals.",
+      "measurement": "Meal_count_day, time_to_first_meal_after_waking, reminder_completion_rate (0-1); days_with_0_daytime_meals; nocturnal eating episodes",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Ensure caloric adequacy; monitor for signs of eating-disorder risk; adjust if daytime intake becomes overly rigid.",
+      "mapping_query": "MAP:C01, MAP:C06"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Interoceptive training to recalibrate hunger cues",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Introduce a 6-week program of interoception exercises: mindful eating, paced eating (20-30 minutes per meal), and regular hunger/fullness cue checks with journaling. Use app prompts and brief reflection prompts to improve cue discrimination.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Enhancing interoceptive accuracy helps realign perceived hunger with physiological needs, reducing misinterpretation of signals (e.g., mistaking stress for hunger).",
+      "measurement": "Hunger/fullness cue alignment scores (0-10) vs. actual intake; weekly misinterpretation events; cue-resolution speed",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "If hunger signals become blunted or disordered eating patterns emerge, pause and consult clinician.",
+      "mapping_query": "MAP:C04"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Evening hunger management plan with healthy snack templates",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Create an evening routine with pre-portioned, protein-rich snack options and a simple decision tree to match hunger level. Add social accountability by sharing the plan with a partner or friend. Include a no-snack-after-dinner window if appropriate.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "A structured evening plan reduces impulsive nocturnal eating and guides choice toward more nutritious options during peak hunger periods.",
+      "measurement": "Nocturnal caloric intake; nights with planned snack adhered to; snack quality score; late-night cravings episodes",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "Avoid promoting excessive nighttime eating; ensure total daily energy intake remains adequate.",
+      "mapping_query": "MAP:C02, MAP:C03"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Hunger-signal reliability self-check-ins and cue clarity",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Weekly calibration exercises: rate hunger on a 0-10 scale before meals and annotate perceived vs. actual fullness after eating. Track coherence over time and adjust awareness strategies as needed.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Systematic self-monitoring improves interpretation of hunger and satiety signals, reducing mislabeling of feelings as hunger.",
+      "measurement": "Correlation between pre-meal hunger ratings and meal size/selection; frequency of misreadings per week",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Watch for heightened preoccupation with hunger; provide reassurance and scale back if anxiety increases.",
+      "mapping_query": "MAP:C04"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Balanced daytime meals with adequate protein, fiber, and hydration",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structure daytime meals to include protein 20-30g and 5-8g fiber per main meal plus at least 2 cups of water. Use macros-focused meal templates and a quick-checklist to ensure nutritional balance.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Protein, fiber, and hydration enhance satiety and stabilize energy, lowering the drive for late-night overeating and poor choices.",
+      "measurement": "Protein grams per main meal; fiber intake; water intake; post-meal satiety ratings",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Consider dietary restrictions/allergies; adjust templates accordingly.",
+      "mapping_query": "MAP:C01, MAP:C03"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep regularity and circadian alignment to stabilize appetite",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish a consistent sleep-wake schedule (±30-60 minutes), a fixed pre-sleep routine, and morning light exposure. Track with a wearable/app to reduce circadian misalignment that can disrupt appetite hormones.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Stable sleep-wake cycles modulate leptin/ghrelin and improve daytime energy, potentially reducing nocturnal hunger and cravings.",
+      "measurement": "Bedtime/wake-time variability (SD of times); total sleep duration; evening hunger levels",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "If suspected sleep disorder, consult clinician; avoid daytime sleep shortages.",
+      "mapping_query": "MAP:C02, MAP:C04"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Digital self-monitoring and feedback loop",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement daily self-monitoring logs for meals, hunger, sleep, and mood with automated feedback and weekly summaries. Use a brief weekly review to adjust plan.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Regular self-monitoring and feedback reinforce adaptive habits and allow timely adjustments to alignment between hunger cues and eating behavior.",
+      "measurement": "Log completion rate; alignment between logged hunger and intake; weekly plan-adjustment frequency",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Respect privacy; avoid excessive monitoring that increases stress about eating.",
+      "mapping_query": "MAP:C01, MAP:C04"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Environmental restructuring to reduce late-night cues",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Modify home environment to reduce late-night food cues: remove or portion-ize energy-dense snacks, reorganize kitchen layout to favor healthier options, and set up a simple cue-reducing routine (dim lights, no screens) in the evening.",
+      "targets_criteria_ids": [
+        "C03",
+        "C02"
+      ],
+      "mechanism_rationale": "Reducing exposure to energy-dense cues decreases impulse-driven night eating and supports adherence to evening snack plans.",
+      "measurement": "Snack availability index; nights with late-night snacking; self-reported cue exposure",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Ensure snacks remain accessible if needed for energy; avoid inducing deprivation or guilt.",
+      "mapping_query": "MAP:C03, MAP:C02"
+    }
+  ]
+}

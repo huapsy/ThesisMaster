@@ -1,0 +1,118 @@
+{
+  "pseudoprofile_id": "CASE_SLEEP_AWAKEN_01",
+  "summary": "The case shows an idiographic pattern of early-morning awakening with rapid cognitive arousal, active doomscrolling, and daytime impairment. Modifiable BIO/PSYCHO/SOCIAL levers targeting arousal regulation, screen/BED behaviors, circadian entrainment, and environmental factors are proposed. Each lever is atomic, measurable, and feasible to implement, with explicit mapping to the outcome criteria (C01–C06) and practical time horizons.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "No nocturnal device engagement during awakenings; implement a brief, non-screen rest protocol and limit doomscrolling in the 60-90 minute wake window",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "During any awakening around 04:30, enforce a 60–90 minute wake window where the person avoids screens and engages in a passive-rest alternative (e.g., 2–3 minutes of slow diaphragmatic breathing or a brief body scan, followed by journaling or a reflective cue to shift thoughts). Remove easy access to doomscroll content (phone out of reach, use grayscale/blackout mode if needed). Goal is to reduce immediate arousal (C03) and interrupt stimulant doomscrolling (C04, C05).",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "By replacing screen-driven arousal with brief, calming, non-stimulating activities, physiological arousal decreases and cognitive hyperactivation is interrupted, reducing time awake at the 04:30 wake and limiting nocturnal rumination that fuels daytime fatigue (C06).",
+      "measurement": "Average minutes of doomscrolling during nocturnal awakenings; self-reported time spent awake in bed after awakenings; frequency/duration of device use in the bed during awakenings.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns identified; monitor for increased anxiety if journal prompts elicit distress. If new or worsening suicidality or distress occurs, seek professional help.",
+      "mapping_query": "Map S01 to C03 (arousal), C04 (in-bed device engagement), and C05 (doomscrolling exposure); aiming to reduce arousal and screen-based activation during nocturnal awakenings."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Immediate arousal management upon waking (04:30 episodes) with a brief calming routine",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a 3-minute boxed breathing exercise followed by a 1–2 minute grounding or cognitive reframe (e.g., naming 3 things you can control) immediately upon awakening. If sleep pressure allows, return to bed only after the routine; otherwise shift to low-stimulation activity in a dim environment. This targets C03 and C04/C05 by dampening intrusions and reducing the urge to doomscroll.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "A quick, evidence-informed arousal regulation routine reduces physiological and cognitive activation, improving the ability to either resume sleep with lower arousal or transition to a calm wake state, thereby decreasing daytime fatigue (C06).",
+      "measurement": "Frequency of immediate arousal management use; self-rated arousal level within 5 minutes of waking (0–1); minutes of doomscrolling in the following 60 minutes.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "If the routine triggers distress or panic, discontinue and seek clinician guidance.",
+      "mapping_query": "Map S02 to C03 (arousal) and C04/C05 (screen use after awakening); evaluate arousal reduction and engagement with doomscrolling."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Morning circadian entrainment via targeted daytime light exposure",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Introduce 15–30 minutes of bright light exposure (natural daylight or a light-therapy device) soon after awakening (within 20–60 minutes) to stabilize circadian rhythm, promote alertness without prolonging wakefulness in the middle of the night, and reduce preference for doomscrolling.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Bright light after waking reinforces circadian cues and supports daytime alertness, reducing premature awakenings and hyperarousal, which indirectly lowers nightly disruption and daytime fatigue (C01, C03).",
+      "measurement": "Duration of morning light exposure; subjective sleep maintenance rating; perceived daytime energy by lunch (0–1 scale).",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "Ensure light exposure is non-distracting and avoid excessive light intensity for sensitive individuals; consult if any photophobia or eye discomfort arises.",
+      "mapping_query": "Map S03 to C01 (wake time consistency) and C03 (arousal) via circadian entrainment effects."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "CBT-I micro-skills delivery (stimulus control + sleep restriction adaptations)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Provide a compact CBT-I module or coaching focusing on sleep efficiency, consistent bed and wake times, and re-association of bed with sleep only. Include a simple sleep window, use of a pre-sleep routine, and urge-resistance to doomscrolling. This directly targets C01 and C04, with downstream effects on C03 and C05.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Structured CBT-I components improve sleep onset, maintenance, and reduce cognitive rumination and screen-based arousal, leading to more consolidated sleep and better daytime function.",
+      "measurement": "Bedtime/wake-time consistency (minutes variance); total time in bed vs. sleep time; self-reported arousal and doomscrolling episodes.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.8,
+      "priority": "HIGH",
+      "safety_notes": "If sleep restriction worsens daytime functioning, adjust plan or consult clinician.",
+      "mapping_query": "Map S04 to C01 (sleep maintenance), C04 (in-bed behaviors), and indirectly to C03/C05 via arousal reduction."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Evening digital content management and screen-curfew",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Establish a 60–90 minute digital curfew before bedtime, enable blue-light reduction settings, and replace doomscrolling with non-content-related wind-down activities (e.g., reading, stretching). This targets late-evening arousal and reduces late-night cognitive activation (C05) and improvised in-bed engagement (C04).",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reducing late-evening screen exposure reduces cognitive arousal and negative affective activation that feed into early-morning wakefulness and daytime fatigue.",
+      "measurement": "Window of last screen use before bed; minutes of doomscrolling after bedtime; self-reported sleep quality and wakefulness on following day.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Monitor for adherence; if social or occupational demands require late screen use, adapt plan.",
+      "mapping_query": "Map S05 to C05 (doomscrolling) and C04 (in-bed device engagement); evaluate impact on nighttime arousal."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep-environment optimization (darkness, coolness, noise control)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Enhance the sleep environment with blackout curtains, cooler room temperature (18–20°C), white-noise or fan, and minimized light/visual distractions. This reduces nocturnal sensory arousal and supports sleep maintenance (C01) and daytime functioning (C06).",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "An optimized environment lowers physiological arousal and facilitates easier sleep maintenance, reducing wakefulness after sleep onset and improving daytime energy.",
+      "measurement": "Room temperature, darkness quality (light leakage), presence of white-noise; self-reported sleep continuity; energy levels by lunchtime.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; ensure environmental changes are comfortable and adjustable.",
+      "mapping_query": "Map S06 to C01 (sleep maintenance) and C06 (midday functioning) via environmental stabilization."
+    }
+  ]
+}

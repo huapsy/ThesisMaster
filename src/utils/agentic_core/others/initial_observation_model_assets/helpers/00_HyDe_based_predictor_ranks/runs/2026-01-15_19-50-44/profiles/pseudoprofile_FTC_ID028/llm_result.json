@@ -1,0 +1,127 @@
+{
+  "pseudoprofile_id": "CASECONCUSSION_MILD_DEFICITS_2026-01",
+  "summary": "The case shows persistent post-concussive symptoms affecting concentration, sensory tolerance (screen-induced nausea), irritability, and beliefs about permanence of symptoms, with clear attribution to the prior concussion and measurable daily-life impairment. The proposed solutions span bio, psycho, and socially mediated levers, each as a modifiable predictor (lever) rather than symptom labels. Each lever targets a core mechanism (cognitive control, sensory tolerance, emotion regulation, adaptive beliefs, functional accommodations, sleep/activation) and is paired with concrete measurement, a feasible time horizon, and priority guidance to support safe, gradual improvement without medication dosing.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Attention_Systems_Training_and_External_Cognitive_Offloading",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a structured attention training program (computerized attention tasks) combined with external cognitive offloading strategies (task chunking, checklists, explicit planning, Pomodoro scheduling) to improve sustained attention and reduce cognitive load during screen tasks.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Targeted attention training can induce neuroplastic improvements in attention networks; external offloading reduces working memory load, helping task completion and reducing fatigue-related errors.",
+      "measurement": "Daily task-focused performance metrics (e.g., task completion rate, errors per task), self-rated focus 0-10, weekly objective attention task (e.g., sustained attention task) score.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for cognitive fatigue; adjust task difficulty to avoid frustration.",
+      "mapping_query": "CASE_PAYLOAD -> S01 mapping to C01; implement attention training and offloading plan; track task-focused metrics."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Graded_Sensory_Desensitization_and_Screen_Exposure_Reduction",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Optimize screen exposure through ergonomic/display adjustments (blue-light filters, brightness contrast, font size), implement 20-minute screen blocks with 5-10 minute breaks, gradually reintroduce screen tasks, promote non-screen alternatives (paper-based tasks, audio content), and monitor nausea responses.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Reducing sensory overload and reintroducing exposure gradually can decrease screen-provoked nausea, enabling gradual cognitive rehab and less avoidance.",
+      "measurement": "Nausea rating after screen exposure (0-10), daily total screen time, frequency of nauseous episodes, time-to-symptom plateau.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "If nausea worsens, pause exposure and reassess display settings; ensure medical evaluation if new symptoms arise.",
+      "mapping_query": "CASE_PAYLOAD -> S02 mapping to C02; implement graded exposure and screen-optimization plan; track nausea and screen time."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Emotion_Regulation_Skills_Training_and_Irritability_Management",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Provide emotion regulation skills training (DBT/CBT-based) with real-time coping strategies (paced breathing, urge surfing, cognitive reframing) and daily mood-irritability diaries.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Improved regulation of emotional responses lowers irritability thresholds, improving interactions and tolerance to cognitive effort.",
+      "measurement": "Daily irritability rating (0-10), frequency of escalations in common interactions, diary entries for triggers and coping use.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure coping strategies are safe; monitor for avoidance of needed social interactions.",
+      "mapping_query": "CASE_PAYLOAD -> S03 mapping to C03; implement emotion regulation skills training; track irritability and coping use."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Recovery_Psychoeducation_and_Cognitive_Belief_Modification",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver concussion-recovery psychoeducation modules focusing on realistic trajectories, non-permanent brain recovery, and cognitive pacing; integrate case formulation and collaborative planning to address permanence beliefs (C04).",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Psychoeducation and cognitive reframing reduce catastrophic beliefs about permanency, promoting engagement with rehab and reducing distress.",
+      "measurement": "Belief in permanence scale (0–100), engagement with rehab plan (check-ins completed), self-reported distress.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Avoid minimizing symptoms; validate experiences while guiding toward evidence-based recovery.",
+      "mapping_query": "CASE_PAYLOAD -> S04 mapping to C04; provide psychoeducation and belief-modification plan; monitor permanence beliefs."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Attribution_Reduction_and_Brain_Recovery_Expectations_Adjustment",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive restructuring to diversify attribution (not solely concussion-related) and emphasize controllable recovery factors (rest, pacing, hydration, sleep, reassurance about neuroplasticity).",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Balanced attribution reduces catastrophic expectations and supports adaptive care-seeking and engagement.",
+      "measurement": "Attribution style assessment, adherence to management plan, self-rated confidence in recovery movements.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for minimizing real symptoms; ensure that reassurance does not dismiss genuine concerns.",
+      "mapping_query": "CASE_PAYLOAD -> S05 mapping to C05; implement attribution-reframing module; track attribution style and adherence."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Daily_Routine_Optimization_and_School/Work_Accommodations",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Establish functional accommodations: scheduled screen breaks, ergonomic workstation setup, task prioritization, flexible deadlines, and communication with educators/work supervisors to support daily functioning (C06).",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Reducing cognitive load and aligning tasks with energy/attention cycles improves daily functioning and mood.",
+      "measurement": "Productivity/functioning metrics (tasks completed, on-time delivery), self-reported daily functioning (0–10), number of accommodations used.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Coordinate with workplace/education contacts and healthcare provider for suitability.",
+      "mapping_query": "CASE_PAYLOAD -> S06 mapping to C06; implement accommodations plan; monitor daily functioning."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Sleep_Regulation_and_Circadian_Optimization",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Implement consistent sleep-wake schedule, daytime light exposure, pre-sleep wind-down routine, reduced evening screen time, caffeine management, and strategic naps to stabilize neurocognitive function and mood; monitor sleep hygiene adherence.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Quality sleep enhances attention, reduces sensory sensitivity, and stabilizes irritability; circadian alignment supports recovery.",
+      "measurement": "Sleep diary (duration, efficiency), morning alertness, nap frequency, screen time before bed, current nausea and irritability trends.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "If sleep disturbances persist or worsen, consider specialist sleep evaluation.",
+      "mapping_query": "CASE_PAYLOAD -> S07 mapping to multiple criteria (C01-C03); implement sleep optimization plan; track sleep and daytime functioning."
+    }
+  ]
+}

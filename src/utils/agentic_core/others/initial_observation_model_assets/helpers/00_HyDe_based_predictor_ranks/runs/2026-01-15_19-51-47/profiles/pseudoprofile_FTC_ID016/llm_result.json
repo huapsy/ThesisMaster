@@ -1,0 +1,199 @@
+{
+  "pseudoprofile_id": "CASE01_BIOPSYCHO_SOCIAL_INTEROCEPTIVE_CASE",
+  "summary": "The case shows acute, fluctuating somatic symptoms (GI distress, tachycardia, dizziness) with high unpredictability distress, threat interpretation of bodily cues, skepticism toward medical reassurance, avoidance of leaving home, and notable interoceptive hypervigilance. A multi-domain, modifiable set of levers aiming to (a) dampen autonomic arousal and interoceptive salience, (b) reframe threat appraisals and improve tolerance of uncertainty, (c) reduce avoidance via graded exposure and social support, and (d) enhance data-informed self-management can plausibly move C01–C07. The plan emphasizes safety, ease of measurement, and scalable steps without pharmacology or unsafe practices. Regular monitoring with simple diaries and scales will guide progress and adjustments.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Interoceptive Exposure with Attentional Retraining (daily home practice + weekly in-session exposure)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Structured interoceptive exposure to common autonomic sensations (e.g., heartbeat, GI sensations, dizziness) combined with attentional retraining to shift focus from threat to non-threat appraisal.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Reduces interoceptive hypervigilance and catastrophic interpretation by slowly pairing exposure with non-threatening appraisals, thereby lowering episode intensity and distress, and improving daily functioning.",
+      "measurement": "Daily symptom/episode diary (count and peak intensity); interoceptive attention score; brief threat-appraisal rating after episodes; weekly check-ins.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "No pharmacology involved; monitor for symptom exacerbation during initial exposures; provide clinician oversight if pain worsens.",
+      "mapping_query": "Targets C06 and C03 primarily, with downstream effects on C01, C02, and C07; monitor via diaries and threat-appraisal ratings."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Sleep Regularization and Circadian Alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent bed/wake times, daytime light exposure, caffeine timing limits, and wind-down routine; consider light therapy if living in limited light.",
+      "targets_criteria_ids": [
+        "C01",
+        "C07",
+        "C06"
+      ],
+      "mechanism_rationale": "Improved sleep improves autonomic regulation and reduces misinterpretation of bodily cues, decreasing symptom intensity and emotional interference.",
+      "measurement": "Sleep diary (time to bed/wake, awakenings), occasional actigraphy, daytime fatigue scale, daily symptom log.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Low risk; adjust for shift work; seek clinician if sleep disorders suspected.",
+      "mapping_query": "Expect improvements in C01 via better autonomic regulation; track via sleep diary and symptom logs."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Structured Aerobic Exercise Program (3–4x/week)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Moderate-intensity cardiovascular program paired with breathing normalization techniques to reduce autonomic arousal.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Regular physical activity lowers baseline arousal, improves HRV, and reduces perceived symptom severity and functional disruption.",
+      "measurement": "Weekly activity log; resting heart rate and optional HRV tracking; daily symptom intensity; functional impact rating.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.8,
+      "priority": "HIGH",
+      "safety_notes": "Screen for cardiovascular risk; start gradually; adjust intensity as needed.",
+      "mapping_query": "Aim for reductions in C01 and C06 and downstream improvements in C07; monitor by diaries and physiology metrics."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Graded Exposure to Leaving Home / Travel (Behavioral Activation)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create a stepwise exposure ladder for leaving home and short trips, with coaching on coping strategies and post-activity review.",
+      "targets_criteria_ids": [
+        "C05",
+        "C07",
+        "C01"
+      ],
+      "mechanism_rationale": "Reducing avoidance enhances real-world functioning and reduces anticipatory anxiety, which in turn lowers somatic symptom intensity during outings.",
+      "measurement": "Number of outings per week; distance/time away from home; self-rated anxiety during/outside home; post-activity mood check.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.78,
+      "priority": "HIGH",
+      "safety_notes": "Proceed with gradual steps; ensure safety planning; monitor for escalation of avoidance or panic symptoms.",
+      "mapping_query": "Targets C05 primarily; observe downstream benefits to C01 and C07 via increased exposure and confidence."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Cognitive Restructuring of Threat Appraisals (CBT-based)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Identify and challenge automatic threat beliefs about bodily sensations; develop adaptive interpretations and coping strategies.",
+      "targets_criteria_ids": [
+        "C03",
+        "C02",
+        "C07"
+      ],
+      "mechanism_rationale": "Altering threat attributions reduces peak fear responses and distress, enabling better tolerance of unpredictable symptoms.",
+      "measurement": "Thought diary entries; threat-appraisal scale; daily distress/annoyance rating; functional interference notes.",
+      "time_horizon": "6–10 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; consider clinician support if rigid cognitive patterns persist.",
+      "mapping_query": "Expected to reduce C03 with downstream reductions in C02 and C07; track via thought logs and distress ratings."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Medical Reassurance Processing and Shared Decision-Making Skills",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Training in collaborative communication with clinicians; strategies to integrate test results with personal distress without dismissal of concerns.",
+      "targets_criteria_ids": [
+        "C04",
+        "C07",
+        "C03"
+      ],
+      "mechanism_rationale": "Improved acceptance of medical information and better sense of control reduces frustration and catastrophic thinking about symptoms.",
+      "measurement": "Clinician-patient communication check-ins; trust/satisfaction scales; frequency of reassurance-seeking behaviors; daily symptom impact.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Low risk; ensure access to clinician involvement and patient-centered communication.",
+      "mapping_query": "Addresses C04; aim for downstream improvements in C07 and C03 through validated reassurance."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Mindfulness-Based Distress Tolerance (MBCT-style)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "8-week mindfulness/acceptance training to reduce reactivity to sensations and increase value-driven action.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C07"
+      ],
+      "mechanism_rationale": "Enhances present-moment awareness and nonjudgmental response to sensations, reducing fear and avoidance.",
+      "measurement": "Mindfulness questionnaire scores; daily distress tolerance rating; symptom impact diary; days engaged in value-consistent activities.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.82,
+      "expected_impact_0_1": 0.7,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; ensure suitability for beginners; adapt for fatigue or concentration limits.",
+      "mapping_query": "Expected reductions in C02 and C03 with improved C07 outcomes; monitor with mindfulness measures."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Gut-Brain Axis Diet Strategy (Mediterranean pattern + fiber + fermented foods)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Nutrition plan focusing on anti-inflammatory foods, high fiber, and fermented foods to support GI function and mood.",
+      "targets_criteria_ids": [
+        "C01",
+        "C07",
+        "C03"
+      ],
+      "mechanism_rationale": "Improved GI function and gut microbiota signaling may reduce somatic episode intensity and threat perceptions.",
+      "measurement": "GI symptom diary; dietary intake logs; mood and energy ratings; occasional stool quality metrics.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "MED",
+      "safety_notes": "Monitor for dietary restrictions or intolerances; adjust as needed.",
+      "mapping_query": "Aims to lower C01 and downstream C07/C03 via gut-brain axis improvements."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Social Support Enhancement & Community Involvement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Activate a social support network (friends, family, peer groups) and/or social prescribing to reduce isolation and improve coping.",
+      "targets_criteria_ids": [
+        "C07",
+        "C05",
+        "C02"
+      ],
+      "mechanism_rationale": "Supportive relationships buffer stress, encourage adaptive coping, and reduce avoidance behaviors.",
+      "measurement": "Perceived social support scale; number of supportive interactions per week; social activity diary; distress during/after social exposure.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.68,
+      "priority": "MED",
+      "safety_notes": "Ensure boundaries and consent; monitor for caregiver burnout in some contexts.",
+      "mapping_query": "Directly targets C07; potential indirect effects on C05 and C02 through engagement and support."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Digital Monitoring and Feedback System (Measurement-Based Care)",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "App-based self-monitoring of symptoms, triggers, and activities with personalized feedback and prompts; optional wearables for physiological data.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Structured data feedback supports self-awareness, early intervention, and adaptive behavior changes, reducing variability and distress.",
+      "measurement": "Daily symptom/trigger log; adherence to monitoring; correlation of activity/HR with symptoms; weekly progress summaries.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.72,
+      "priority": "HIGH",
+      "safety_notes": "Data privacy; ensure user-friendly design; provide option to pause monitoring if overwhelmed.",
+      "mapping_query": "Facilitates monitoring of C01 and C02 with cross-domain improvements in C06 and C07 through feedback-driven adjustments."
+    }
+  ]
+}

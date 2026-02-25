@@ -1,0 +1,158 @@
+{
+  "pseudoprofile_id": "CASEP-2026-01-PSYOPT",
+  "summary": "To address episodic experiential alterations triggered by stress (C02) with accompanying dissociative-feeling (C03) and distress (C04), this plan proposes modifiable BIO/PSYCHO/SOCIAL levers that target arousal regulation, cognitive control, grounding, social buffering, nutrition, circadian/ambient factors, and self-monitoring. Each lever is a discrete, changeable predictor that can be implemented and measured, with explicit mappings to the case criteria (C01–C08). Priorities emphasize sleep and stress-management first (high feasibility and impact), while environmental, nutritional, social, and digital monitoring strategies serve as complementary pathways. No unsafe or pharmacologic instructions are provided. If acute risk emerges, seek professional help promptly.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep_Hygiene_Circadian_Entrainment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured sleep hygiene program plus circadian entrainment: fixed bed/wake times, morning light exposure, wind-down ritual, caffeine timing, and consistent daytime activity.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C08"
+      ],
+      "mechanism_rationale": "Improved sleep reduces baseline arousal and emotional reactivity, supports intact presence during episodes, lowers distress at onset, and dampens stress-related trigger probability.",
+      "measurement": "Sleep diary (-bed/wake times, duration), PSQI scores, episode frequency log, self-reported presence during episodes.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns anticipated; monitor for excessive sleepiness or alertness issues.",
+      "mapping_query": "Do improvements in sleep quality and circadian alignment associate with fewer episodes and lower distress?"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Stress_Reduction_Program_Mindfulness_ACT",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "8- to 12-week mindfulness/ACT program focusing on stress reactivity, present-moment awareness, and cognitive defusion.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C08"
+      ],
+      "mechanism_rationale": "Lower baseline stress reactivity reduces trigger likelihood and distress during episodes, enhances regulatory capacity, and stabilizes presence.",
+      "measurement": "Perceived Stress Scale (PSS), frequency of episodes, distress ratings during episodes, home practice adherence.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "None anticipated; ensure accessibility for gradual skill acquisition.",
+      "mapping_query": "Does reduced stress reactivity predict fewer episodes and reduced episode-related distress?"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "RealTime_Grounding_Skills_During_Episodes",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Brief training in grounding (5-4-3-2-1, sensory grounding, controlled breathing) with in-episode prompts and practice.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Grounding redirects attention to present-moment cues and interoceptive signals, reducing perceived unreality, enhancing presence, and diminishing distress during episodes.",
+      "measurement": "Self-reported presence during episodes (0–10 scale), frequency of episodes, distress ratings.",
+      "time_horizon": "Immediate to 4 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; provide coaching to avoid overreliance on grounding during symptoms.",
+      "mapping_query": "Do in-session and in-episode grounding practices reduce episode severity and disrupt the dissociative feel?"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Reality_Testing_and_Attentional_Control_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "CBT/Metacognitive training to enhance reality-testing, attentional control, and inhibitory learning for aberrant perceptions.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Strengthening cognitive control and reality-testing decreases misattribution during episodes and supports a steadier sense of presence.",
+      "measurement": "Usage of CBT skills (skill checklists), episode severity and frequency logs, cognitive-control task rehearsal.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None; ensure proper supervision if cognitive strategies provoke distress.",
+      "mapping_query": "Are cognitive control and reality-testing skills linked to fewer perceptual alterations and improved presence?"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Structured_Social_Support_and_Participation",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Enhance social connectedness through regular check-ins, peer support, and community-based activities (social prescribing where available).",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C08"
+      ],
+      "mechanism_rationale": "Social buffering reduces stress reactivity and distress during episodes and improves perceived safety, potentially lowering trigger frequency.",
+      "measurement": "Social support scales (MSPSS), episode frequency, distress during episodes, participation logs.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Respect privacy; obtain consent for sharing information; monitor for social overload.",
+      "mapping_query": "Does increased perceived social support correlate with reduced stress-related episodes?"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Nutrition_Micronutrient_Status_Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Assess dietary patterns and micronutrient status; implement nutrient-rich dietary adjustments and gut-brain axis supports.",
+      "targets_criteria_ids": [
+        "C02",
+        "C08"
+      ],
+      "mechanism_rationale": "Optimized nutrition can modulate neurotransmission and stress reactivity, supporting resilience against episode triggers and distress.",
+      "measurement": "Dietary intake logs, basic micronutrient markers (as available), self-reported episode rates.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Provide guidance; avoid unsafe supplements or self-prescribing; consult a clinician as needed.",
+      "mapping_query": "Is improved nutrient status associated with fewer episodes and lower stress reactivity?"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Circadian_Environment_Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Circadian-aligned environment changes: morning light exposure, dim evening lighting, improved sleep environment (air quality, comfort).",
+      "targets_criteria_ids": [
+        "C02",
+        "C08"
+      ],
+      "mechanism_rationale": "Environmental cues support circadian entrainment and autonomic balance, reducing vulnerability to stress-triggered episodes.",
+      "measurement": "Morning light exposure logs (lux), sleep quality metrics, episode frequency.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Monitor for photosensitivity or sleep disruption due to lighting changes.",
+      "mapping_query": "Do circadian-aligned environmental changes reduce stress-related episode occurrence?"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Self_Monitoring_and_Data_Feedback_Loop",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Daily self-monitoring diaries plus optional wearable-informed feedback; iterative, data-driven adjustments to routines and triggers.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C08"
+      ],
+      "mechanism_rationale": "Tracking provides awareness, early intervention, and personalized adjustments across biological, cognitive, and social domains, reducing episode probability and distress.",
+      "measurement": "Diary consistency, episode counts, physiological proxies (e.g., HRV if available), adherence to feedback recommendations.",
+      "time_horizon": "4-16 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Ensure data privacy; provide opt-in controls for data sharing.",
+      "mapping_query": "Does ongoing self-monitoring with feedback reduce episode frequency and improve coping and presence?"
+    }
+  ]
+}

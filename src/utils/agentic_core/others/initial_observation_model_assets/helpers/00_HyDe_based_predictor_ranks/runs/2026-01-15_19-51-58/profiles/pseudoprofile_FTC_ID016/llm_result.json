@@ -1,0 +1,125 @@
+{
+  "pseudoprofile_id": "CASE_BP-01_SomaticAnxiety_IntegratedPlan",
+  "summary": "The case presents a cluster of acute autonomic arousal symptoms (stomach cramps, nausea, heart racing, dizziness) driven by unpredictable episode timing, threat-perception of bodily sensations, limited trust in medical reassurance, interoceptive hypervigilance, and avoidance of leaving home, all contributing to functional disruption. A modular, biopsychosocial plan is proposed with seven modifiable levers (one per key variable) spanning physiology, cognition, emotion regulation, and social-context supports. Each lever is designed to be added or tuned over a 6–12 week horizon, with simple, scalable measurements to monitor change and guide adaptation while avoiding unsafe practices. The emphasis is on actionable, monitorable targets that can move single or multiple criteria (C01–C07) without relying on pharmacologic dosing instructions.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Paced breathing with optional HRV/biofeedback for autonomic regulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "10–15 minutes of daily paced breathing sessions, supplemented by a user-friendly HRV biofeedback app (optional), combined with progressive muscle relaxation as needed.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Reduces autonomic arousal and vagal imbalance, lowering peak intensity and frequency of somatic episodes by dampening sympathetic drive and improving autonomic flexibility.",
+      "measurement": "Weekly diary of episodes (count, peak intensity 0–10) plus resting HRV (RMSSD) if available.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Low risk; advise medical follow-up if new red flags appear; do not substitute urgent care for emergent symptoms.",
+      "mapping_query": "Targets C01: reduce acute somatic symptom intensity via autonomic regulation techniques."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Uncertainty tolerance and distress tolerance training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "A 6–8 session program (ACT/DBT-informed) delivering graded uncertainty exposure and coping skills to tolerate unpredictable symptoms.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Building tolerance to unpredictability diminishes distress amplification and avoidance activation in response to symptom onset.",
+      "measurement": "Distress related to unpredictability (0–10), worry frequency, number of avoidance events per week.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.68,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for transient increases in distress during exposure; ensure clinician supervision as needed.",
+      "mapping_query": "Targets C02: reduce distress from unpredictable symptoms through uncertainty tolerance training."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Cognitive reinterpretation of bodily sensations + interoceptive exposure",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "CBT-based cognitive restructuring to challenge danger beliefs about bodily cues, paired with graded interoceptive exposure to neutral sensations and GI cues; integrate psychoeducation about GI-gut brain axis.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Attenuates catastrophic interpretations of sensations, reducing fear response and physiological arousal during episodes.",
+      "measurement": "Threat interpretation rating (0–10), state anxiety ratings, avoidance frequency.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Provide supportive guidance during interoceptive work; pause if distress escalates; escalate to clinician as needed.",
+      "mapping_query": "Targets C03: reduce threat interpretation of bodily sensations via CBT + interoceptive exposure."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Structured medical reassurance and shared decision-making",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage in collaborative risk communication with clinicians; use shared decision-making tools and a patient-friendly plan outlining steps during episodes and when to seek care.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces perceived invalidation and mistrust, aligning reassurance with patient concerns and lowering resurgent worry after evaluations.",
+      "measurement": "Trust in clinician score (0–10), satisfaction with medical communication, perceived validity of reassurance (0–10).",
+      "time_horizon": "6–10 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Maintain access to care; ensure reassurance is accurate and not withheld when appropriate.",
+      "mapping_query": "Targets C04: improve response to medical reassurance through collaborative communication."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Graded exposure to leaving home + activity scheduling",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create a stepwise exposure plan to gradually increase distance/time away from home; pair with coping skills and social support for each rung.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Systematic exposure reduces avoidance behavior and builds confidence in navigating environments despite symptoms.",
+      "measurement": "Trips away from home per week; maximum distance traveled; self-efficacy during excursions (0–10).",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Start in safe environments; have a coping plan for panic-like episodes; maintain support contact.",
+      "mapping_query": "Targets C05: reduce avoidance of leaving home through graded exposure and activity scheduling."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Mindfulness-based interoceptive attention regulation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Daily mindfulness practice focusing on nonjudgmental observation of internal sensations, with optional therapist-guided interoceptive sessions.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Shifts attention from automatic alarms to nonreactive awareness, reducing hypervigilance and perceived severity of sensations.",
+      "measurement": "Interoceptive attention score (0–10); distress during sensations; drift/error rate in sensation tracking tasks.",
+      "time_horizon": "6–10 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Monitor for transient increases in distress during initial practice; provide support resources.",
+      "mapping_query": "Targets C06: reduce interoceptive hypervigilance via mindfulness and exposure to sensations."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Functional restoration through behavioral activation and coping skills",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Behavioral activation plan with scheduled meaningful activities, problem-solving strategies, and cognitive reframing to reduce functional impairment and distress.",
+      "targets_criteria_ids": [
+        "C07"
+      ],
+      "mechanism_rationale": "Rebuilding daily routines and coping repertoires decreases fear-driven interference and improves emotional well-being.",
+      "measurement": "Functional impairment checklists; daily activity log; mood/annoyance ratings (0–10).",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.66,
+      "priority": "HIGH",
+      "safety_notes": "Pace activities to avoid burn-out; monitor for depressive symptoms or withdrawal.",
+      "mapping_query": "Targets C07: reduce functional and emotional impact via activation and coping skills."
+    }
+  ]
+}

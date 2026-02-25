@@ -1,0 +1,122 @@
+{
+  "pseudoprofile_id": "CASEPROFILE_NIGHTMARE_001",
+  "summary": "Case presents with nightmare-induced awakenings, high dream vividness, anticipatory sleep fear, prominent autonomic arousal on awakening, prolonged post-awakening activation, and difficulty resuming sleep. Modifiable levers span cognitive-behavioral, somatic regulation, circadian/sleep environment, and social support systems. The plan emphasizes non-pharmacological, scalable predictors that directly target nocturnal arousal, nightmare distress, and sleep continuity, with measurable outcomes over 4–8 weeks. Each lever is designed to be implementable with minimal risk, while allowing escalation to more intensive interventions if needed.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Imagery Rehearsal Therapy (IRT) for nightmares",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured nightmare imagery rehearsal training: document the nightmare, write an altered, non-threatening ending, and rehearse vivid imagery of the new ending nightly (with notes or audio guide).",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "IRT reduces nightmare distress by modifying nightmare imagery and emotional associations, lowering nightmare frequency/intensity and reducing conditioned arousal responses on awakening; enhances perceived control over sleep.",
+      "measurement": "Weekly frequency of nightmares (nights with nightmares), nightmare distress rating (0-10), anticipatory sleep fear (0-10), post-awakening arousal (0-10).",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No medication or unsafe procedures. If trauma-related distress increases, coordinate with a clinician.",
+      "mapping_query": "nightmare frequency OR nightmare distress AND imagery_rehearsal_training"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Pre-sleep relaxation routine (diaphragmatic breathing + progressive muscle relaxation)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "5–10 minute guided diaphragmatic breathing plus progressive muscle relaxation before bed to dampen autonomic arousal.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Parasympathetic activation reduces night-time arousal and accelerates return to baseline after awakenings, facilitating sleep onset and reducing time to resume sleep.",
+      "measurement": "Adherence minutes per night, reported sleep onset latency, post-awakening arousal rating (0-10).",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Monitor for dizziness or hyperventilation; discontinue if uncomfortable.",
+      "mapping_query": "pre-sleep relaxation breathing PMR nights arousal"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Regular sleep-wake schedule with consistent Bed/Wake times",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish fixed bed and wake times with a wind-down routine and screen-free window (60 minutes before bed).",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Regular circadian cues stabilize sleep, reduce nocturnal awakenings, and decrease anticipatory fear by predictable sleep experience; improves sleep continuity.",
+      "measurement": "Bedtime/wake-time logs, awakenings per night, sleep onset latency.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "If work schedule requires shifts, adapt with a gradual delay/advance plan and ensure total sleep duration remains adequate.",
+      "mapping_query": "sleep_schedule regular wake time nightmare avoidance"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Imagery-based narrative rescripting for nightmare content",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Guided imagery rescripting (narrative rewriting of nightmare scenarios) before bed to alter dream meaning and emotional tone.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Imagery rescripting alters nightmare content and emotional associations, reducing future distress and arousal at night.",
+      "measurement": "Nightmare distress (0-10), nightmare vividness (0-10), post-awakening arousal (0-10).",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "If distress increases or trauma-related symptoms emerge, involve a clinician; ensure self-guided practice is used safely.",
+      "mapping_query": "imagery_rescripting nightmares distress"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Post-awakening grounding and calming protocol",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Immediate grounding (5-4-3-2-1 sensory cues) plus slow breathing after each nightmare to facilitate return to sleep.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Grounding interrupts ongoing sympathetic activation, shortens time to baseline, and supports re-entry to sleep after awakening.",
+      "measurement": "Time to calm after awakening, rate of awakenings requiring extended wakefulness, post-awakening arousal (0-10).",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "None specific; adjust for comfort with grounding techniques.",
+      "mapping_query": "post-awakening grounding nightmare resume_sleep"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Social support and sleep-environment optimization",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Involve a sleep-support person (partner/family) to provide reassurance, maintain a calming bedtime routine, and optimize bedroom environment (cool, dark, quiet).",
+      "targets_criteria_ids": [
+        "C03",
+        "C01",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Social support reinforces safety, reduces fear of sleep, and improves adherence to routines and environmental quality, promoting continuity of sleep.",
+      "measurement": "Partner involvement frequency, nights with supportive routine, self-reported sleep onset and awakenings.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.25,
+      "priority": "MED",
+      "safety_notes": "Respect boundaries; avoid family stress; adjust routines if household dynamics change.",
+      "mapping_query": "social_support sleep nightmare coping"
+    }
+  ]
+}

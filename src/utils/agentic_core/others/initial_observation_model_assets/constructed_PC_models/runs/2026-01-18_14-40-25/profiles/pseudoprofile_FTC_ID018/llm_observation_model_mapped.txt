@@ -1,0 +1,18 @@
+pseudoprofile_id: pseudoprofile_FTC_ID018
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Evening-onset persistent bleak/empty mood -> NON-CLINICAL / AGE-GENERAL / emotional / mood process / gloomy mood (conf=0.85)
+- C02: Low outward emotional expression (non-crying distress) -> NON-CLINICAL / AGE-GENERAL / emotional / emotional awareness / emotional expression / appropriate display / contextual emotional display (conf=0.66)
+- C03: Prolonged passive smartphone use in evenings -> NON-CLINICAL / AGE-GENERAL / environmental / digitalwellbeing / healthytechnologyuse / screentimemanagement / usage limits (conf=0.68)
+- C04: Perceived low energy / high effort barrier to other activities -> CLINICAL / DSM-5TR / depressive disorders / substance or medication-induced depressive disorder / other medication-induced depressive disorder / fatigue_or_low_energy (conf=0.66)
+- C05: Avoidant coping function of phone use -> CLINICAL / DSM-5TR / substance-related and addictive disorders / non-substance-related (behavioral) addictive disorders / digital media use disorders / smartphone addiction / mood_regulation_via_phone_use (conf=0.92)
+
+PREDICTORS:
+- P01: Evening Behavioral Activation (small planned activities) -> PSYCHO / cognitive_behavioral_therapies / behavior_change_and_activation / planning_and_grading / activation_design / behavioral_activity_planning_system (conf=0.82)
+- P02: Objective screen-time (past 3 hours) -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / context_and_behavioral_context_logs / screen_time_selfreport (conf=0.58)
+- P03: Sleep / circadian routine (prior night's timing & quality) -> BIO / medical_assessment_and_physiology_testing / sleep_and_respiratory_testing / circadian_and_sleep_tracking / sleep_diary (conf=0.92)
+- P04: Evening Social Engagement (supportive contact) -> SOCIAL / social_support_and_belonging / support_network_development / befriending_and_outreach / friendly_caller_program_connection (conf=0.70)
+- P05: Mindfulness / acceptance coping use -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / ecological_momentary_assessment_ema / momentary_coping_and_response / ema_coping_strategy_used (conf=0.92)
+- P06: Perceived initiation self-efficacy / momentary ability to start activities -> PSYCHO / core_psychological_skills_toolkits / executive_function_and_self_management / initiation_and_followthrough / start_and_persist / implementation_intention_self_management (conf=0.83)
+- P07: Measurement-feedback engagement (viewed personalized plan/feedback) -> PSYCHO / measurement_based_care_and_feedback / measurement_and_feedback_systems / activity_engagement_tracking (conf=0.65)

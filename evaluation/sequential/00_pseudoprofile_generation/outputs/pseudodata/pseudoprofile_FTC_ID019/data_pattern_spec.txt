@@ -1,0 +1,67 @@
+pseudoprofile_id: pseudoprofile_FTC_ID019
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID019/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.5506
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 0.80 * t + phase=1.56)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 4
+  * pulse_1: start_idx=85, length=2, amp=0.884
+  * pulse_2: start_idx=131, length=5, amp=1.239
+  * pulse_3: start_idx=59, length=2, amp=0.948
+  * pulse_4: start_idx=141, length=3, amp=0.881
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P01
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.267 | freq_hint=None
+  * P02: missing_rate=0.178 | freq_hint=None
+  * P03: missing_rate=0.161 | freq_hint=None
+  * P04: missing_rate=0.133 | freq_hint=None
+  * C01: missing_rate=0.117 | freq_hint=None
+  * C02: missing_rate=0.239 | freq_hint=None
+  * C04: missing_rate=0.283 | freq_hint=None
+  * C05: missing_rate=0.228 | freq_hint=None
+  * C06: missing_rate=0.256 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Sleep Quality (last night) | ontology_id=sleep_quality_rating | conf=0.85 | freq_hint=None
+- P02 (PREDICTOR): Diaphragmatic Breathing Practice | ontology_id=diaphragmatic_breathing_practice | conf=0.92 | freq_hint=None
+- P03 (PREDICTOR): Mindfulness Body Scan / Grounding | ontology_id=body_scan_grounding | conf=0.82 | freq_hint=None
+- P04 (PREDICTOR): Social Belonging / Perceived Support | ontology_id=belonging_and_community_fit_assessment | conf=0.78 | freq_hint=None
+- C01 (CRITERION): Exaggerated startle response to sudden cues | ontology_id=exaggerated_startle_response | conf=0.72 | freq_hint=None
+- C02 (CRITERION): Persistent subjective feeling 'on edge' | ontology_id=feeling_nervous_or_on_edge | conf=0.82 | freq_hint=None
+- C04 (CRITERION): Situational hypervigilance for cues | ontology_id=identifying | conf=0.82 | freq_hint=None
+- C05 (CRITERION): Negative emotional reaction to ongoing symptoms | ontology_id=feeling_nervous_or_on_edge | conf=0.72 | freq_hint=None
+- C06 (CRITERION): Expectation–reality mismatch about recovery | ontology_id=realistic | conf=0.62 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

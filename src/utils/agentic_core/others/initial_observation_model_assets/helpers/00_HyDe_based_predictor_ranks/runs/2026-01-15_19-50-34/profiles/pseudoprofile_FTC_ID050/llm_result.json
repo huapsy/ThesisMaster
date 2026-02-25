@@ -1,0 +1,132 @@
+{
+  "pseudoprofile_id": "BP_CASE_MEMWORD_2026_01",
+  "summary": "Integrated BIO-PSYCHO-SOCIAL plan to reduce word-retrieval lapses, diminish aging-related fears, decrease self-conscious speech monitoring, and restore verbal engagement. The levers span biological functions (cognition, sleep, processing), psychological processes (anxiety, cognitive flexibility, skills training), and social factors (exposure, support, communication aids), with explicit mappings to five observable criteria (C01–C05) and simple, repeatable measurements.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Verbal retrieval cueing + speech anxiety management",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Structured word-finding training using semantic cuing, phonological rehearsal, and sentence planning, combined with brief in-session anxiety reduction (diaphragmatic breathing, low-stakes exposure) and guided home speaking practice.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Directly strengthens word retrieval (C01) while reducing catastrophizing about aging (C02) and dampening self-conscious monitoring (C03). The exposure elements and practice reduce avoidance (C04) and anticipatory worry (C05.",
+      "measurement": "Frequency of word retrieval lapses per 15 minutes; momentary distress during speaking (0–10); number of speaking opportunities engaged per week; self-rated comfort with speaking.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No specific safety concerns; monitor for increased anxiety during initial exposures.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING_S01"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Sleep quality and circadian alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Regular sleep-wake schedule, morning light exposure, daytime activity, caffeine and napping management to optimize sleep quality and daytime cognitive function.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Improved sleep supports cognitive processing, memory consolidation, and daytime alertness, reducing lapses (C01) and daytime worry (C05) whileattenuating fear of cognitive decline (C02).",
+      "measurement": "PSQI score; average nightly sleep duration; daily word-retrieval lapses; speaking time per day; subjective alertness.",
+      "time_horizon": "4–12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Non-pharmacologic sleep strategies preferred; monitor for sleep disruption during transition.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING_S02"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness-based attention + cognitive load management during speaking",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Brief mindfulness exercises to reduce anticipatory worry and enhance cognitive flexibility during speaking; implement micro-exposures to speaking tasks with cognitive defusion techniques.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Reduces anxiety-driven self-monitoring and fear responses (C03, C05), decreases catastrophic interpretations about aging (C02), and preserves or enhances speech fluency (C01) through improved attentional control.",
+      "measurement": "State anxiety during speaking (0–10 scale); self-rated lapses frequency; average speaking duration per session; engagement in daily speaking tasks.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Monitor distress during exposure; provide opt-out if discomfort escalates.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING_S03"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Structured social exposure + communication skills coaching",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Small-group speaking practice with supportive coach; use of scripts and role-plays; gradual exposure to real-world conversations with feedback to reduce self-consciousness.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Capacity to engage socially while reducing self-monitoring and fear-related avoidance; incremental exposure strengthens speaking confidence and reduces lapses.",
+      "measurement": "Number of speaking opportunities per week; time actively speaking; self-rated comfort during speaking; lapses per 15 minutes.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Provide supportive environment; monitor for social anxiety flare in early sessions.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING_S04"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Cognitive processing training for verbal fluency and working memory",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Cognitive training focusing on language processing speed, verbal fluency, and working memory with weekly progress checks and integrated speaking tasks.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Enhances underlying cognitive mechanisms supporting word retrieval and fluent speech, reducing lapses and associated worry; improves resilience to cognitive aging perceptions.",
+      "measurement": "Baseline and post-training verbal fluency tasks; lapses frequency; daily speaking engagement; perceived ease of speaking.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; monitor fatigue or frustration during cognitive tasks.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING_S05"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "External aids and communication supports (prompts, sentence starters, pacing cues)",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Toolkit of prompts, sentence starters, and pacing cues; practice using external supports in conversations; gradually increase independence and incorporate supports into daily life.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces retrieval load during conversation, lowers self-consciousness by providing structure, and mitigates anticipatory worry through predictable supports.",
+      "measurement": "Usage frequency of aids; lapses frequency; speaking duration without supports; self-rated ease of speaking.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Ensure privacy and consent for sharing prompts in conversations; avoid over-reliance.",
+      "mapping_query": "CASE_PAYLOAD_MAPPING_S06"
+    }
+  ]
+}

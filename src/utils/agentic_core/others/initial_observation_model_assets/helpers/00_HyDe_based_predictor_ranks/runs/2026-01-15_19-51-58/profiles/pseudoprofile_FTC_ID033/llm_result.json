@@ -1,0 +1,204 @@
+{
+  "pseudoprofile_id": "CASE_HP_001",
+  "summary": "The case describes daytime meal omission with subsequent late-night hunger and impulsive food choices, accompanied by a perceived breakdown in hunger cues. Modifiable levers span nutrition/biological regulation, cognitive-behavioral strategies, and social/environmental supports. The proposed solutions aim to 1) re-anchor daytime eating through planning, reminders, and accountability; 2) recalibrate hunger signaling via interoception training and education; 3) stabilize nocturnal eating by pre-planned, healthier options and sleep-circadian alignment; 4) leverage digital tools and social supports to maintain consistent routines; and 5) reduce nighttime temptations with environmental tweaks. Each lever maps to specific criteria (C01–C06), includes concrete measurement metrics, and emphasizes feasibility and expected impact within a 4–12 week horizon.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Daytime_Meal_Reminders_and_Planning",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement scheduled daytime meals with automated reminders (phone/app notifications) and a simple daily meal plan template, including a pre-commitment to eat at set times.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Frequent daytime meal initiation reduces prolonged fasting, stabilizes energy, and improves attention to meals, lowering nocturnal hunger drive and impulsive night choices.",
+      "measurement": "Number of daytime meals per day; time to first meal after waking; missed daytime meals per day; proportion of days meeting at least 2 meals by 2pm.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "N/A",
+      "mapping_query": "Maps to C01 and C06; utilizes Meal_Planning_and_Structure (ID:43) and Digital_Tools_and_Supports (ID:112)."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Interoception_and_Mindful_Eating_Training",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Provide daily short interoception exercises to detect hunger/fullness cues, paired with mindful eating practices (5–10 minutes daily) and appetite journaling.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Improved accuracy of internal hunger cues reduces signals misalignment and may decrease late-night overeating.",
+      "measurement": "Cue accuracy ratings (hunger/fullness vs. intake); daily hunger cue correlation with meals; nights with impulsive eating episodes.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "N/A",
+      "mapping_query": "Maps to C04; aligns with Interoception/Mindfulness components (CBT/ACT-inspired)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Evening_Nighttime_Snack_Planning_and_Healthy_Options",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Plan and prep energy-dense but nutritious evening options; stock healthier items; implement pre-commitment to chosen options to avoid impulsive choices.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Having readily available healthy alternatives reduces reliance on impulsive, energy-dense choices during late-evening hunger surges.",
+      "measurement": "No. of nights with planned vs. unplanned snacks; late-night snack calories; nocturnal hunger episodes per week.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "N/A",
+      "mapping_query": "Links to C02 and C03; uses Meal_Planning_and_Structure (ID:43) and Eating_Behavior_and_Satiety_Skills (ID:41)."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Pre_Sleep_Protein_Snack_Plan",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Provide a protein-rich pre-sleep snack (20–30g) to stabilize overnight hunger and reduce late-night cravings.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Protein at night enhances satiety hormones and buffers hunger signals, reducing nocturnal eating and poor choices.",
+      "measurement": "Frequency of late-night snacks; overnight hunger intensity ratings; days with a pre-sleep protein snack.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "N/A",
+      "mapping_query": "Maps to C02 and C03; Nutrition_Tools (ID:41, 44)."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep_Routine_Regularization_and_Light_Exposure",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Establish consistent bed/wake times, morning light exposure, and a calming pre-sleep routine to align circadian rhythms.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Circadian alignment improves appetite hormone regulation and enhances reliability of hunger cues.",
+      "measurement": "Bed/wake time consistency (hours); average sleep duration; nights with hunger episodes.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "N/A",
+      "mapping_query": "Links to C02 and C04; Sleep_Circadian_and_Restoration (ID:60-64)."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Hydration_and_Micronutrient_Status_Assessment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Assess and optimize hydration (water intake) and micronutrient status (iron, B12, magnesium) to support energy and appetite regulation.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Hydration and micronutrient adequacy influence energy, cognitive function, and hunger signal processing.",
+      "measurement": "Daily water intake (ml); basic micronutrient status indicators (if available); daytime meals per day; hunger cue reliability ratings.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "N/A",
+      "mapping_query": "ID42 Hydration; ID47 Micronutrient; Maps to C04, C01."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Meal_Time_Partner_Support_and_Social_Structure",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage a meal buddy or family member to schedule and participate in daytime meals; leverage social accountability to reduce meal skipping.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Social cues and accountability promote adherence to daytime meals and daily structure.",
+      "measurement": "Days with meals due to social support; adherence rate to scheduled meals; self-reported social engagement around meals.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "N/A",
+      "mapping_query": "SOCIAL - Family/Interpersonal interventions (IDs 164, 109, 199)."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Digital_Meal_Log_and_Feedback",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Use a digital app to log meals, hunger levels, and cravings; provide automated feedback and optional sharing with a coach or support network.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Self-monitoring with feedback enhances awareness and habit formation; social sharing boosts accountability.",
+      "measurement": "Proportion of days with meals logged; correlation between hunger ratings and meals; adherence to meal timing.",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "N/A",
+      "mapping_query": "Maps to Self_Assessment_and_Logs (ID50) and Digital_Tools (ID112); targets C01, C04, C06."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Impulse_Control_Techniques_for_Night_Eating",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach urge surfing and 5–10 minute delay techniques, plus implementation intentions for nighttime snacking.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Enhances executive control over late-night urges, reducing nocturnal overeating and impulsive choices.",
+      "measurement": "No. of successful delay attempts; frequency of late-night snacks; self-rated urge strength.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "N/A",
+      "mapping_query": "PSYCHO - CBT/Behavioral_change/intervention strategies (IDs 79-82, 90)."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Hunger_Signal_Education",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver psychoeducation modules about hunger vs appetite and how to respond to cues.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Better understanding reduces misinterpretation of signals and supports appropriate meal timing and choices.",
+      "measurement": "Knowledge score on hunger cues; meal timing adherence; self-reported hunger-signal confidence.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "N/A",
+      "mapping_query": "PSYCHO - Psychoeducation modules (ID116) and related CBT resources."
+    },
+    {
+      "solution_id": "S11",
+      "predictor_variable": "Nighttime_Environment_Modification",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Modify the nighttime environment to reduce snack cues: store snacks out of reach, remove in-bed temptations, and set default non-eating routines.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Environmental cues strongly influence nighttime eating; reducing cues supports routine integrity.",
+      "measurement": "No. of nighttime snacks; time to last snack; self-reported snack temptations.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.38,
+      "priority": "LOW",
+      "safety_notes": "N/A",
+      "mapping_query": "SOCIAL - Environmental/household-level changes (IDs 18, 62)."
+    }
+  ]
+}

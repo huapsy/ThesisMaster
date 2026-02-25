@@ -1,0 +1,165 @@
+{
+  "pseudoprofile_id": "CASE_BEES_001",
+  "summary": "The patient reports persistent cognitive noise with racing thoughts, difficulty sustaining attention on a single task, and notable task-unrelated thinking during passive activities. Targetable levers span bio (neural/metabolic support, sleep, and exercise), psycho (CBT-based activation, mindfulness, psychoeducation), and social domains (support and belonging), plus cross-domain external cognitive aids. The proposed solutions aim to reduce internal cognitive load, improve attentional control, and re-engage with meaningful activities, while monitoring safety and feasibility. Treatments can be deployed individually or in combination, prioritizing high-impact, high-feasibility levers with clear measurement plans tied to C01–C06 criteria.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Attention_Systems_Training (BIO)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured attention-training program using computerized tasks and real-world attention-control drills to strengthen top-down control and reduce rapid thought-splitting and cognitive noise.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Improved sustained attention and cognitive control reduces frequency and intensity of racing thoughts and task-unrelated thinking, easing subjective mental noise and distress.",
+      "measurement": "Performance on sustained-attention tasks (e.g., computer-based tests); daily diary ratings of thought frequency and cognitive noise (0-10); episode-length tracking.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns identified; ensure task difficulty is matched to avoid frustration.",
+      "mapping_query": "Map S01 to C01-C04; track reduction in racing thoughts, attention drift, and perceived mental noise via objective tasks and daily self-reports."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Mindfulness_Based_Interventions (PSYCHO)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "8-week mindfulness program (guided or app-based) focusing on nonjudgmental awareness of thoughts to reduce reactivity and cognitive chaining.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Mindfulness reduces automatic thought elaboration and improves cognitive control, lowering intrusions and distress from mental chatter.",
+      "measurement": "Weekly practice logs; Five Facet Mindfulness Questionnaire; self-reported intrusion frequency (0-10); brief cognitive-control tasks.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None anticipated; provide optional support if anxiety increases.",
+      "mapping_query": "Link mindfulness practice to reductions in racing thoughts, attention drift, and distress; monitor with mindfulness scales and intrusion ratings."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep_Routines_and_Practices (BIO)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent sleep-wake times, optimize sleep environment, and reduce screen exposure before bed to improve sleep quality and daytime cognitive control.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06",
+        "C02"
+      ],
+      "mechanism_rationale": "Better sleep enhances executive function and emotional regulation, reducing mental noise and improving engagement with tasks.",
+      "measurement": "Sleep diary (bedtime, wake time, awakenings); Pittsburgh Sleep Quality Index (PSQI); daytime sleepiness scale; subjective changes in thought loudness.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Screen for sleep apnea or other sleep disorders; refer for evaluation if indicated.",
+      "mapping_query": "Assess sleep hygiene impact on cognitive noise and thought intrusion; track via sleep metrics and PSQI."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Behavioral_Activation_and_CBT_Skills (PSYCHO)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured behavioral activation with cognitive-behavioral techniques (thought-records, problem solving) to re-engage in activities and decrease rumination.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Increased engagement reduces idle cognitive processing and rumination, freeing cognitive resources for ongoing tasks and reducing distress from mental chatter.",
+      "measurement": "Activity diary (days/week with planned activities); rumination intensity scale; time-on-task during activities; perceived engagement.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for initial increases in anxiety with new activities; adjust pace accordingly.",
+      "mapping_query": "Link activation and CBT skills to C02-C04-C06; monitor with activity logs and rumination measures."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Aerobic_Cardiorespiratory_Exercise (BIO)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Regular moderate aerobic activity (e.g., 30 minutes, 3–5 days/week) with gradual progression; emphasize enjoyable activities and consistency.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Exercise enhances neurotrophic factors, sleep, mood, and executive control, which supports attentional stability and reduces internal cognitive noise.",
+      "measurement": "Weekly exercise minutes; step counts; self-reported cognitive noise and distraction during tasks; brief cognitive-task performance pre/post period.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Check medical clearance if starting new exercise; stay hydrated and listen to body cues.",
+      "mapping_query": "Relate aerobic activity to improvements in attention and cognitive noise measures; monitor weekly."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Structured_Social_Support_and_Belonging (SOCIAL)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Scheduled social connections or group activities to provide meaningful engagement, reduce rumination, and support cognitive control through social scaffolding.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Social interaction offers distraction from internal chatter, improves mood, and provides coping resources that support attention and task engagement.",
+      "measurement": "Social connectedness scale; number and quality of social interactions; perceived support; engagement duration in activities.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Be mindful of social overwhelm; respect boundaries and preferences.",
+      "mapping_query": "Assess impact of social engagement on intrusions and engagement; track with belonging scales and interaction counts."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "External_Cognitive_Aids_for_Task_Management (BIOxPSYCHO)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use digital calendars, checklists, timers, and environmental prompts to offload working memory and cue task transitions.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Externalizing cognitive load reduces internal cognitive noise and task-switching demands, promoting steadier attention and fewer intrusive thoughts.",
+      "measurement": "Usage logs (apps, reminders); task completion rate; self-reported drift frequency during tasks.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.52,
+      "priority": "MED",
+      "safety_notes": "Ensure privacy and data security; avoid over-reliance on external aids.",
+      "mapping_query": "Link offloading aids to C01-C04; monitor app usage and task performance."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Psychoeducation_on_Cognition_and_Self_Regulation (PSYCHO)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Psychoeducational modules detailing cognitive processes, stress response, and practical self-regulation strategies; includes practice with self-monitoring and values-based actions.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Increased awareness and coping skills empower the patient to modulate thought flow and maintain engagement.",
+      "measurement": "Psychoeducation engagement metrics; self-efficacy scales; pre/post cognitive-control task performance.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Content accessible and appropriate; provide support for comprehension as needed.",
+      "mapping_query": "Link psychoeducation to cognitive control and engagement variables; track with scales and cognitive tasks."
+    }
+  ]
+}

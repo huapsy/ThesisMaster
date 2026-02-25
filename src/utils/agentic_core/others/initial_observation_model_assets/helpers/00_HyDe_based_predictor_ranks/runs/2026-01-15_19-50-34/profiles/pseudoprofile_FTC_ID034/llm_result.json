@@ -1,0 +1,159 @@
+{
+  "pseudoprofile_id": "CASE-CHRONIC-PAIN-MH-01",
+  "summary": "In this case, chronic back pain coexists with pessimistic appraisals and mood disruptions that amplify disability and irritability during flares. The following modifiable BIO-PSYCHO-SOCIAL levers target pain biology, cognitive-affective processing, sleep, social context, and coping skills to reduce pain-related impairment and improve mood/hope without pharmacologic dosing. Levers are designed to be actionable, measurable, and combinable to address single or multiple criteria (C01–C07) identified in the case payload.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Cognitive Reappraisal and Behavioral Experiments for Pain Catastrophizing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured CBT-based intervention to identify catastrophic beliefs about pain (e.g., thinking 'this will never end'), reframe with realistic timelines, and design behavioral experiments to test beliefs and gradually increase activity.",
+      "targets_criteria_ids": [
+        "C03",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Reducing catastrophic pain beliefs lowers threat perception and hopelessness, increases perceived control, and enhances coping self-efficacy, which together reduce distress during flares.",
+      "measurement": "Pain Catastrophizing Scale (PCS) scores; optimism/hope measures; Pain Self-Efficacy Questionnaire (PSEQ) scores; daily mood ratings (0–10).",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Map to C03 (catastrophizing), C06 (optimism/hope), C07 (coping self-efficacy) through cognitive restructuring and behavioral experiments."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Pain Coping Self-Efficacy Skill-Building (mastery experiences)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Skills training to bolster self-efficacy in managing pain through problem-solving, activity pacing, and tracking small mastery experiences; journaling of successes.",
+      "targets_criteria_ids": [
+        "C07",
+        "C04"
+      ],
+      "mechanism_rationale": "Improved coping beliefs increase resilience to flare-associated mood dips and irritability, and raise perceived control over pain.",
+      "measurement": "PSEQ scores; mood ratings during flares; frequency of successful activity engagement (yes/no logs); daily pain interference rating.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Map to C07 (coping self-efficacy) and C04 (mood during flares) via mastery-focused training."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Graded Exercise and Activity Pacing with Pain Flare Monitoring",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Tailored, progressive physical activity program with pacing education to reduce baseline pain and flare frequency, plus cognitive reframing of activity goals to support mood.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Regular graded activity improves physical function and endorphin-mediated mood benefits, while pacing reduces flare severity and preserves coping resources.",
+      "measurement": "Average daily pain intensity (0–10); days with pain per week; number of flares per week; PSEQ scores; daily mood.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Map to C01 (baseline pain), C02 (flare frequency/severity), C04 (mood during flares), C07 (self-efficacy) via graded movement with pacing."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sleep Hygiene and Circadian Regulation Plan",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Systematic sleep routine, sleep environment optimization, and circadian cueing to improve sleep duration/quality and daytime mood.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Consistent sleep supports pain processing and mood regulation, reducing pain-related irritability and hopelessness.",
+      "measurement": "Sleep duration and efficiency (daily sleep diary); morning pain ratings; mood scores; optimism measures.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Map to C01 (pain baseline via sleep-related pain perception), C04 (mood), C06 (optimism) through sleep optimization."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Social Support Enhancement and Social Prescribing",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Active engagement with social networks and community resources to reduce isolation, provide accountability, and improve mood and problem-solving capacity.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Social connectedness buffers stress, improves mood during pain flares, and strengthens coping self-efficacy and hope.",
+      "measurement": "Perceived social support (MSPSS); mood ratings; frequency of social engagement; self-reported coping efficacy.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Map to C04 (mood), C06 (optimism), C07 (coping) via social support and community linkage."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Mindfulness-Based Pain Modulation (MBPM)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "8-week mindfulness program focused on nonjudgmental present-moment awareness of pain and reactions to flare-ups, with daily practice.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Mindfulness reduces pain catastrophizing, downregulates stress reactivity, and enhances perceived control over pain responses.",
+      "measurement": "PCS scores; mood during flares; self-reported coping efficacy; pain interference.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Map to C03 (catastrophizing), C04 (mood) and C07 (coping efficacy) via MBPM."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Meaning/Value-Driven Goal Setting and Hope Enhancement",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Values clarification and small, achievable goals to rebuild future orientation and hope, with regular reflection on progress.",
+      "targets_criteria_ids": [
+        "C06",
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Meaning-focused goal setting strengthens hope and optimism, buffers affective distress, and supports adaptive coping strategies.",
+      "measurement": "Hope scales; mood ratings; goal attainment tracking; coping self-efficacy scores.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Map to C06 (optimism/meaning), C04 (mood), C07 (self-efficacy) through values-driven goals."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Pain Flare Management Plan with Care Navigation",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Pre-emptive flare-management protocol including trigger assessment, early behavioral strategies, self-care routines, and care-navigation support to optimize access to resources during flares.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Proactive flare management reduces pain intensity and mood disruption, while navigation support boosts perceived control and timely access to resources.",
+      "measurement": "Flare frequency/severity; daily pain scores; mood during flares; self-management confidence.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Map to C01 (baseline pain), C02 (flare frequency/severity), C04 (mood), C07 (self-efficacy) via proactive flare plan and care navigation."
+    }
+  ]
+}

@@ -1,0 +1,471 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID040",
+  "source_raw_model": "llm_observation_model_raw.json",
+  "mapped_file": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID040/llm_observation_model_mapped.txt",
+  "n_timepoints": 180,
+  "freq": "D",
+  "start_date": "2025-01-01",
+  "regime_center_t_norm": 0.7204309117535128,
+  "driver_predictor_code": "P05",
+  "shared_osc_frequency": 1.0,
+  "shared_osc_phase": 2.592817156456845,
+  "pulse_specs": [
+    {
+      "start_idx": 38,
+      "length": 5,
+      "amp": 0.8887280051384012
+    },
+    {
+      "start_idx": 46,
+      "length": 4,
+      "amp": 0.3283762953227034
+    },
+    {
+      "start_idx": 43,
+      "length": 5,
+      "amp": 1.0468926691541787
+    },
+    {
+      "start_idx": 114,
+      "length": 5,
+      "amp": 0.9568683425755213
+    }
+  ],
+  "missing_rate_by_code": {
+    "P01": 0.13333333333333333,
+    "P02": 0.18333333333333332,
+    "P03": 0.17222222222222222,
+    "P04": 0.11666666666666667,
+    "P05": 0.2111111111111111,
+    "C01": 0.2388888888888889,
+    "C02": 0.07222222222222222,
+    "C03": 0.25,
+    "C04": 0.2388888888888889,
+    "C06": 0.25
+  },
+  "missing_rate_overall": 0.18666666666666668,
+  "predictor_generation_meta": {
+    "P01": {
+      "template": "generic",
+      "phi": 0.9217651917963318,
+      "noise_sd_mean": 0.10462732514680707,
+      "dropout": {
+        "start_idx": 37,
+        "length": 5,
+        "multiplier": 0.4080883390572857
+      }
+    },
+    "P02": {
+      "template": "generic",
+      "phi": 0.8193826329970888,
+      "noise_sd_mean": 0.10462732514680707,
+      "dropout": null
+    },
+    "P03": {
+      "template": "generic",
+      "phi": 0.8889306976662122,
+      "noise_sd_mean": 0.10462732514680707,
+      "dropout": {
+        "start_idx": 54,
+        "length": 6,
+        "multiplier": 0.3596995909872348
+      }
+    },
+    "P04": {
+      "template": "cognitive_regulation",
+      "phi": 0.8537299388334897,
+      "noise_sd_mean": 0.10462732514680707,
+      "dropout": null
+    },
+    "P05": {
+      "template": "sleep_light",
+      "phi": 0.8546951217457991,
+      "noise_sd_mean": 0.10462732514680707,
+      "dropout": null
+    }
+  },
+  "criterion_generation_meta": {
+    "C01": {
+      "phi": 0.7082188026246232,
+      "noise_sd_mean": 0.561174531907229,
+      "uses_shared_osc": false,
+      "predictor_weights": {
+        "P01": 0.19999999999988569,
+        "P02": 0.19999999999988569,
+        "P03": 0.19999999999988569,
+        "P04": 0.19999999999988569,
+        "P05": 0.19999999999988569
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P05",
+        "a1_pre": -0.08176783854422043,
+        "a2_post": -0.7681609135121723
+      },
+      "outlier_indices": [
+        63,
+        109
+      ]
+    },
+    "C02": {
+      "phi": 0.7830361851636356,
+      "noise_sd_mean": 0.561174531907229,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.19999999999988569,
+        "P02": 0.19999999999988569,
+        "P03": 0.19999999999988569,
+        "P04": 0.19999999999988569,
+        "P05": 0.19999999999988569
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": null,
+      "outlier_indices": [
+        93
+      ]
+    },
+    "C03": {
+      "phi": 0.7928235454025451,
+      "noise_sd_mean": 0.561174531907229,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.19999999999988569,
+        "P02": 0.19999999999988569,
+        "P03": 0.19999999999988569,
+        "P04": 0.19999999999988569,
+        "P05": 0.19999999999988569
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P05",
+        "a1_pre": -0.19389842645122224,
+        "a2_post": -1.4421068123554517
+      },
+      "outlier_indices": [
+        162
+      ]
+    },
+    "C04": {
+      "phi": 0.7296412253793753,
+      "noise_sd_mean": 0.561174531907229,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P04": 0.9999999999989999
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": null,
+      "outlier_indices": [
+        30
+      ]
+    },
+    "C06": {
+      "phi": 0.7323126612697919,
+      "noise_sd_mean": 0.561174531907229,
+      "uses_shared_osc": false,
+      "predictor_weights": {
+        "P04": 0.9999999999989999
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P05",
+        "a1_pre": -0.3463192124953377,
+        "a2_post": 0.5330711500366663
+      },
+      "outlier_indices": [
+        153,
+        37,
+        59
+      ]
+    }
+  },
+  "missingness_meta": {
+    "P01": {
+      "base_target": 0.16855776295310954,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 70,
+          "length": 5
+        }
+      ],
+      "mcar_fraction": 0.08888888888888889,
+      "mar_fraction": 0.022222222222222223
+    },
+    "P02": {
+      "base_target": 0.14581640417678865,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 54,
+          "length": 9
+        }
+      ],
+      "mcar_fraction": 0.1111111111111111,
+      "mar_fraction": 0.03888888888888889
+    },
+    "P03": {
+      "base_target": 0.09010124475795503,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 160,
+          "length": 10
+        },
+        {
+          "start_idx": 4,
+          "length": 9
+        }
+      ],
+      "mcar_fraction": 0.05555555555555555,
+      "mar_fraction": 0.016666666666666666
+    },
+    "P04": {
+      "base_target": 0.06564496197533437,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 82,
+          "length": 7
+        },
+        {
+          "start_idx": 47,
+          "length": 10
+        }
+      ],
+      "mcar_fraction": 0.011111111111111112,
+      "mar_fraction": 0.011111111111111112
+    },
+    "P05": {
+      "base_target": 0.2071989698469121,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 31,
+          "length": 6
+        },
+        {
+          "start_idx": 31,
+          "length": 10
+        }
+      ],
+      "mcar_fraction": 0.13333333333333333,
+      "mar_fraction": 0.05
+    },
+    "C01": {
+      "base_target": 0.3092700936489948,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 117,
+          "length": 3
+        }
+      ],
+      "mcar_fraction": 0.1388888888888889,
+      "mar_fraction": 0.08888888888888889
+    },
+    "C02": {
+      "base_target": 0.08104619358718405,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [],
+      "mcar_fraction": 0.03333333333333333,
+      "mar_fraction": 0.044444444444444446
+    },
+    "C03": {
+      "base_target": 0.22704686178368133,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 103,
+          "length": 7
+        },
+        {
+          "start_idx": 137,
+          "length": 8
+        }
+      ],
+      "mcar_fraction": 0.12777777777777777,
+      "mar_fraction": 0.05555555555555555
+    },
+    "C04": {
+      "base_target": 0.18895123940681652,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 23,
+          "length": 8
+        },
+        {
+          "start_idx": 138,
+          "length": 7
+        }
+      ],
+      "mcar_fraction": 0.1388888888888889,
+      "mar_fraction": 0.03888888888888889
+    },
+    "C06": {
+      "base_target": 0.2283001907559028,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 20,
+          "length": 4
+        },
+        {
+          "start_idx": 10,
+          "length": 6
+        }
+      ],
+      "mcar_fraction": 0.15555555555555556,
+      "mar_fraction": 0.06111111111111111
+    }
+  },
+  "patterns": [
+    "AR(1) inertia",
+    "weekly seasonality",
+    "slow drift trend",
+    "abrupt step change",
+    "smooth sigmoid transition",
+    "shared latent sinusoidal co-fluctuation",
+    "lagged predictor->criterion effects",
+    "bursts/pulses + decay",
+    "outliers/shocks",
+    "missingness: MCAR+MAR+block+schedule"
+  ],
+  "variables": [
+    {
+      "code": "P01",
+      "role": "PREDICTOR",
+      "label": "Migraine self-management diary (Migraine log)",
+      "ontology_id": "headache_migraine_log",
+      "conf": 0.92,
+      "freq_hint": null
+    },
+    {
+      "code": "P02",
+      "role": "PREDICTOR",
+      "label": "Avoidance/reduction of plan-avoidant behavior",
+      "ontology_id": "approach_behavior_planning",
+      "conf": 0.78,
+      "freq_hint": null
+    },
+    {
+      "code": "P03",
+      "role": "PREDICTOR",
+      "label": "Goal management training / mastery planning",
+      "ontology_id": "goal_management_training",
+      "conf": 0.89,
+      "freq_hint": null
+    },
+    {
+      "code": "P04",
+      "role": "PREDICTOR",
+      "label": "Mindfulness-based stress regulation / uncertainty tolerance",
+      "ontology_id": "mindful_response_to_stress_practice",
+      "conf": 0.92,
+      "freq_hint": null
+    },
+    {
+      "code": "P05",
+      "role": "PREDICTOR",
+      "label": "Sleep circadian optimization / sleep routine adherence",
+      "ontology_id": "consistent_morning_anchor_routine",
+      "conf": 0.72,
+      "freq_hint": null
+    },
+    {
+      "code": "C01",
+      "role": "CRITERION",
+      "label": "Migraine unpredictability",
+      "ontology_id": "circadian_rhythm_disturbance_headache",
+      "conf": 0.62,
+      "freq_hint": null
+    },
+    {
+      "code": "C02",
+      "role": "CRITERION",
+      "label": "Migraine-related functional impact",
+      "ontology_id": "functional_impairment_in_work_or_social_roles_due_to_pain",
+      "conf": 0.82,
+      "freq_hint": null
+    },
+    {
+      "code": "C03",
+      "role": "CRITERION",
+      "label": "Inability to commit to plans / avoidance",
+      "ontology_id": "avoiding",
+      "conf": 0.92,
+      "freq_hint": null
+    },
+    {
+      "code": "C04",
+      "role": "CRITERION",
+      "label": "Anticipatory anxiety about migraine onset",
+      "ontology_id": "anxiety_about_pain",
+      "conf": 0.58,
+      "freq_hint": null
+    },
+    {
+      "code": "C06",
+      "role": "CRITERION",
+      "label": "Perceived anxiety-driven exacerbation of migraines",
+      "ontology_id": "pain_related_anxiety_or_catastrophizing",
+      "conf": 0.72,
+      "freq_hint": null
+    }
+  ]
+}

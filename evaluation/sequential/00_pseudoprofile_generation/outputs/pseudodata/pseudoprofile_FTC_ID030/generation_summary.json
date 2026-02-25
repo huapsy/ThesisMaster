@@ -1,0 +1,536 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID030",
+  "source_raw_model": "llm_observation_model_raw.json",
+  "mapped_file": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID030/llm_observation_model_mapped.txt",
+  "n_timepoints": 180,
+  "freq": "D",
+  "start_date": "2025-01-01",
+  "regime_center_t_norm": 0.49641531996978633,
+  "driver_predictor_code": "P03",
+  "shared_osc_frequency": 0.8,
+  "shared_osc_phase": 1.0533370404195181,
+  "pulse_specs": [
+    {
+      "start_idx": 116,
+      "length": 2,
+      "amp": 0.5221368523700357
+    },
+    {
+      "start_idx": 17,
+      "length": 2,
+      "amp": 1.318103654265021
+    },
+    {
+      "start_idx": 121,
+      "length": 7,
+      "amp": 1.3110816236814
+    }
+  ],
+  "missing_rate_by_code": {
+    "P01": 0.13333333333333333,
+    "P02": 0.16111111111111112,
+    "P03": 0.16666666666666666,
+    "P04": 0.17777777777777778,
+    "P05": 0.15555555555555556,
+    "P06": 0.16111111111111112,
+    "C01": 0.2611111111111111,
+    "C02": 0.2777777777777778,
+    "C03": 0.34444444444444444,
+    "C04": 0.13333333333333333,
+    "C05": 0.10555555555555556,
+    "C08": 0.3
+  },
+  "missing_rate_overall": 0.19814814814814816,
+  "predictor_generation_meta": {
+    "P01": {
+      "template": "sleep_light",
+      "phi": 0.8551176409971263,
+      "noise_sd_mean": 0.10617467430349485,
+      "dropout": {
+        "start_idx": 121,
+        "length": 3,
+        "multiplier": 0.4635808230151333
+      }
+    },
+    "P02": {
+      "template": "cognitive_regulation",
+      "phi": 0.9286917656344654,
+      "noise_sd_mean": 0.10617467430349485,
+      "dropout": {
+        "start_idx": 99,
+        "length": 3,
+        "multiplier": 0.47411136537442045
+      }
+    },
+    "P03": {
+      "template": "generic",
+      "phi": 0.7997621506466549,
+      "noise_sd_mean": 0.10617467430349485,
+      "dropout": null
+    },
+    "P04": {
+      "template": "generic",
+      "phi": 0.7892584730377094,
+      "noise_sd_mean": 0.10617467430349485,
+      "dropout": {
+        "start_idx": 89,
+        "length": 5,
+        "multiplier": 0.2865378522343234
+      }
+    },
+    "P05": {
+      "template": "generic",
+      "phi": 0.8583883936153412,
+      "noise_sd_mean": 0.10617467430349485,
+      "dropout": null
+    },
+    "P06": {
+      "template": "social_support",
+      "phi": 0.95,
+      "noise_sd_mean": 0.10617467430349485,
+      "dropout": {
+        "start_idx": 98,
+        "length": 6,
+        "multiplier": 0.48225451213916887
+      }
+    }
+  },
+  "criterion_generation_meta": {
+    "C01": {
+      "phi": 0.7692601011932221,
+      "noise_sd_mean": 0.582945960752048,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.1666666666665873,
+        "P02": 0.1666666666665873,
+        "P03": 0.1666666666665873,
+        "P04": 0.1666666666665873,
+        "P05": 0.1666666666665873,
+        "P06": 0.1666666666665873
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P03",
+        "a1_pre": 0.33881563465228015,
+        "a2_post": -1.4653287901479688
+      },
+      "outlier_indices": [
+        160,
+        120
+      ]
+    },
+    "C02": {
+      "phi": 0.7682211366636145,
+      "noise_sd_mean": 0.582945960752048,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P02": 0.9999999999989999
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": null,
+      "outlier_indices": [
+        29
+      ]
+    },
+    "C03": {
+      "phi": 0.9041920323823833,
+      "noise_sd_mean": 0.582945960752048,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.1666666666665873,
+        "P02": 0.1666666666665873,
+        "P03": 0.1666666666665873,
+        "P04": 0.1666666666665873,
+        "P05": 0.1666666666665873,
+        "P06": 0.1666666666665873
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P03",
+        "a1_pre": -0.49743801019344003,
+        "a2_post": -1.2441946258017373
+      },
+      "outlier_indices": [
+        13,
+        169
+      ]
+    },
+    "C04": {
+      "phi": 0.7610600888037335,
+      "noise_sd_mean": 0.582945960752048,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P02": 0.6923076923074261,
+        "P06": 0.30769230769218936
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P03",
+        "a1_pre": -0.5872474109657964,
+        "a2_post": -0.42925979775341117
+      },
+      "outlier_indices": [
+        4,
+        19,
+        63
+      ]
+    },
+    "C05": {
+      "phi": 0.8146094218793022,
+      "noise_sd_mean": 0.582945960752048,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.1666666666665873,
+        "P02": 0.1666666666665873,
+        "P03": 0.1666666666665873,
+        "P04": 0.1666666666665873,
+        "P05": 0.1666666666665873,
+        "P06": 0.1666666666665873
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P03",
+        "a1_pre": -0.9091582725540746,
+        "a2_post": 0.5419709848734957
+      },
+      "outlier_indices": [
+        158,
+        38
+      ]
+    },
+    "C08": {
+      "phi": 0.95,
+      "noise_sd_mean": 0.582945960752048,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P02": 0.9999999999989999
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P03",
+        "a1_pre": 0.5948075922543601,
+        "a2_post": -0.3075800941727136
+      },
+      "outlier_indices": []
+    }
+  },
+  "missingness_meta": {
+    "P01": {
+      "base_target": 0.15556645142509512,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 67,
+          "length": 7
+        }
+      ],
+      "mcar_fraction": 0.06666666666666667,
+      "mar_fraction": 0.044444444444444446
+    },
+    "P02": {
+      "base_target": 0.17331251770849085,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 135,
+          "length": 6
+        },
+        {
+          "start_idx": 93,
+          "length": 4
+        }
+      ],
+      "mcar_fraction": 0.05,
+      "mar_fraction": 0.07222222222222222
+    },
+    "P03": {
+      "base_target": 0.09873941969733488,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 82,
+          "length": 10
+        }
+      ],
+      "mcar_fraction": 0.08888888888888889,
+      "mar_fraction": 0.03888888888888889
+    },
+    "P04": {
+      "base_target": 0.1828366466198474,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [],
+      "mcar_fraction": 0.12777777777777777,
+      "mar_fraction": 0.06111111111111111
+    },
+    "P05": {
+      "base_target": 0.1365489591238021,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 107,
+          "length": 9
+        }
+      ],
+      "mcar_fraction": 0.07777777777777778,
+      "mar_fraction": 0.05
+    },
+    "P06": {
+      "base_target": 0.20213244543818126,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [],
+      "mcar_fraction": 0.1,
+      "mar_fraction": 0.07222222222222222
+    },
+    "C01": {
+      "base_target": 0.23927470206683443,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 142,
+          "length": 8
+        },
+        {
+          "start_idx": 129,
+          "length": 9
+        }
+      ],
+      "mcar_fraction": 0.12777777777777777,
+      "mar_fraction": 0.07777777777777778
+    },
+    "C02": {
+      "base_target": 0.3412928819999549,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [],
+      "mcar_fraction": 0.17777777777777778,
+      "mar_fraction": 0.1111111111111111
+    },
+    "C03": {
+      "base_target": 0.3171595656106139,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 21,
+          "length": 7
+        }
+      ],
+      "mcar_fraction": 0.18333333333333332,
+      "mar_fraction": 0.12777777777777777
+    },
+    "C04": {
+      "base_target": 0.0975750833090804,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 80,
+          "length": 6
+        },
+        {
+          "start_idx": 12,
+          "length": 5
+        }
+      ],
+      "mcar_fraction": 0.022222222222222223,
+      "mar_fraction": 0.05555555555555555
+    },
+    "C05": {
+      "base_target": 0.08125230453726538,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 114,
+          "length": 9
+        }
+      ],
+      "mcar_fraction": 0.05,
+      "mar_fraction": 0.011111111111111112
+    },
+    "C08": {
+      "base_target": 0.3132037115159799,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 108,
+          "length": 9
+        }
+      ],
+      "mcar_fraction": 0.1388888888888889,
+      "mar_fraction": 0.14444444444444443
+    }
+  },
+  "patterns": [
+    "AR(1) inertia",
+    "weekly seasonality",
+    "slow drift trend",
+    "abrupt step change",
+    "smooth sigmoid transition",
+    "shared latent sinusoidal co-fluctuation",
+    "lagged predictor->criterion effects",
+    "bursts/pulses + decay",
+    "outliers/shocks",
+    "missingness: MCAR+MAR+block+schedule"
+  ],
+  "variables": [
+    {
+      "code": "P01",
+      "role": "PREDICTOR",
+      "label": "Sleep_Hygiene_and_Circadian_Regulation",
+      "ontology_id": "sleep_quality_rating",
+      "conf": 0.83,
+      "freq_hint": null
+    },
+    {
+      "code": "P02",
+      "role": "PREDICTOR",
+      "label": "Mindfulness_and_Grounding_Skills",
+      "ontology_id": "present_moment_orientation_practice",
+      "conf": 0.72,
+      "freq_hint": null
+    },
+    {
+      "code": "P03",
+      "role": "PREDICTOR",
+      "label": "Stress_Reduction_and_Coping_Skills",
+      "ontology_id": "ema_perceived_coping_effectiveness",
+      "conf": 0.78,
+      "freq_hint": null
+    },
+    {
+      "code": "P04",
+      "role": "PREDICTOR",
+      "label": "Regular_Aerobic_Exercise_Program",
+      "ontology_id": "step_counting_wearable",
+      "conf": 0.72,
+      "freq_hint": null
+    },
+    {
+      "code": "P05",
+      "role": "PREDICTOR",
+      "label": "In-the-moment_Grounding_Techniques",
+      "ontology_id": "five_senses_grounding_practice",
+      "conf": 0.72,
+      "freq_hint": null
+    },
+    {
+      "code": "P06",
+      "role": "PREDICTOR",
+      "label": "Structured_Social_Support_and_Belonging",
+      "ontology_id": "boundary_setting_with_support_network",
+      "conf": 0.57,
+      "freq_hint": null
+    },
+    {
+      "code": "C01",
+      "role": "CRITERION",
+      "label": "Episodic perceptual/experiential alteration",
+      "ontology_id": "derealization_environment_unreality",
+      "conf": 0.78,
+      "freq_hint": null
+    },
+    {
+      "code": "C02",
+      "role": "CRITERION",
+      "label": "Stress as proximal trigger",
+      "ontology_id": "stress",
+      "conf": 0.65,
+      "freq_hint": null
+    },
+    {
+      "code": "C03",
+      "role": "CRITERION",
+      "label": "Reduced sense of presence during episodes",
+      "ontology_id": "derealization_present",
+      "conf": 0.85,
+      "freq_hint": null
+    },
+    {
+      "code": "C04",
+      "role": "CRITERION",
+      "label": "Acute emotional distress when episodes occur",
+      "ontology_id": "distress_or_impairment_from_somatic_symptom",
+      "conf": 0.42,
+      "freq_hint": null
+    },
+    {
+      "code": "C05",
+      "role": "CRITERION",
+      "label": "Episode frequency (occasional)",
+      "ontology_id": "dpdr_episode_frequency",
+      "conf": 0.84,
+      "freq_hint": null
+    },
+    {
+      "code": "C08",
+      "role": "CRITERION",
+      "label": "Current baseline stress level",
+      "ontology_id": "stress",
+      "conf": 0.65,
+      "freq_hint": null
+    }
+  ]
+}

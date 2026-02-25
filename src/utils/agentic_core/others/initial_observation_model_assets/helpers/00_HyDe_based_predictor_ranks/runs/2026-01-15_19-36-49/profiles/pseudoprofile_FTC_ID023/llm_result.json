@@ -1,0 +1,177 @@
+{
+  "pseudoprofile_id": "CASE01_FIN_WORRY_OPTIMIZATION",
+  "summary": "The presentation is dominated by high-frequency intrusive financial worry, catastrophic expectations about expenses, and sustained low-level arousal tied to perceived economic insecurity. Modifiable levers span cognitive coping (reappraisal, problem solving), behavioral finance skills (budgeting, planning, routines), physiological regulation (arousal/sleep), and social/resource supports. Each predictor is atomically actionable, with explicit links to the financial worry criteria (C01–C06), practical measurement options, and feasible implementation amidst typical daily demands.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Cognitive_Reappraisal_Training_for_Financial_Stress",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured cognitive-behavioral reframing module focusing on challenging catastrophic interpretations of financial stress; includes thought records, probabilistic thinking, and Behavioral Experiments related to common bills and budgeting scenarios.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Alters appraisal dynamics to reduce intrusive thoughts (C01), weakens belief in total life collapse from a single expense (C02), and lowers sustained arousal when stressors arise (C03).",
+      "measurement": "Weekly intrusive-thought diary (0–10), catastrophizing belief scale (0–6), daily arousal rating (0–10).",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns. Standard CBT-based cognitive training.",
+      "mapping_query": "Explain how modifying financial stress appraisals can reduce C01 intrusiveness, C02 catastrophic thinking, and C03 arousal; summarize expected changes across criteria."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Budgeting_and_Emergency_Fund_Development",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Implement a budgeting routine with automatic transfers to an emergency fund and expense-tracking app; includes setting a small, immediately accessible fund (e.g., 1–2 months of essential expenses) and weekly budget reviews.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Improved perceived control over resources (C05) and greater confidence in meeting basic needs (C04) by building buffers; reducing uncertainty about near-term finances (C06) via tangible planning.",
+      "measurement": "Emergency-fund size (dollar amount), monthly budget adherence rate, number of unplanned expense concerns reported.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Ensure budgeting steps do not encourage risky debt; provide referrals if debt burden increases.",
+      "mapping_query": "Show how enhanced budgeting and emergency funds reduce perceived inability to meet basics (C04), confidence in financial resilience (C05), and future uncertainty (C06)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Physiological_Arousal_Regulation_and_Sleep_Hygiene",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Teach paced breathing, brief mindfulness, and sleep-hygiene routines to dampen baseline arousal and fatigue; include daily wind-down ritual and exposure to low-stakes financial information before sleep rather than during high-stress periods.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Reduces chronic low-level arousal (C03) that fuels persistent worry and fatigue, improving capacity to engage with financial planning.",
+      "measurement": "Average resting heart rate during the day, Perceived Stress Scale (daily), sleep quality index (PSQI or equivalent).",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "None beyond standard mindfulness/sleep practices; monitor for discomfort with breathing exercises.",
+      "mapping_query": "Describe how arousal regulation and sleep stabilization can directly lower C03 arousal and indirectly support reductions in worry (C01) and catastrophic thinking (C02)."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Financial_Forecasting_Tools_and_Education",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Provide forecast templates and visual decision aids (income/expense charts, bill timelines) plus brief education on probability of common expenses; train on interpreting variability and planning under uncertainty.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C06",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces cognitive load and uncertainty about the future, dampening intrusive thoughts (C01) and catastrophic expectations (C02) while improving confidence in managing future finances (C05) and meeting basics (C04).",
+      "measurement": "Forecast accuracy (actual vs forecast variance), frequency of budget updates, perceived future security score.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; ensure templates fit user's income pattern; tailor to local cost structures.",
+      "mapping_query": "Explain how forecasting tools reduce C01/C02 by clarifying future expenses and C06 by reducing uncertainty, with downstream effects on C04 and C05."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Behavioral_Experiments_to_Counter_Catastrophizing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "CBT-inspired behavioral experiments that test worst-case assumptions (e.g., “What happens if a bill is larger than expected?”) in controlled steps; track outcomes and update beliefs accordingly.",
+      "targets_criteria_ids": [
+        "C02",
+        "C06",
+        "C01"
+      ],
+      "mechanism_rationale": "Directly targets catastrophic thinking (C02) and future uncertainty (C06); by testing beliefs, reduces frequency/intensity of intrusive thoughts (C01) as predictive certainty improves.",
+      "measurement": "Catastrophizing scale scores, exposure task success rate, changes in intrusion frequency (C01).",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Ensure experiments are low-risk (no real harm); provide guidance for escalation if distress increases.",
+      "mapping_query": "Link behavioral experiments to reductions in C02 catastrophizing and C06 uncertainty, with secondary impact on C01 intrusion frequency."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Social_Support_and_Financial_Stress_Buffering",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Connect with community resources, financial counseling, and peer support networks to share strategies and provide practical assistance during tight months.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06",
+        "C01"
+      ],
+      "mechanism_rationale": "Social supports buffer perceived financial threat, improving basic-expense confidence (C04/C05) and reducing preoccupation with the future (C06) and intrusive worry (C01) via shared coping resources.",
+      "measurement": "Perceived social support scale, number of supportive contacts, utilization of counseling/resources.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Monitor for privacy concerns; ensure resources are accessible and non-stigmatizing.",
+      "mapping_query": "Describe how social support reduces perceived resource threat (C04), boosts coping confidence (C05), and lowers future uncertainty (C06) and intrusive worry (C01)."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Sleep_Circadian_Regulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement regular sleep windows, light exposure in the morning, and a stable evening wind-down; minimize late-evening financial problem-solving that can amplify arousal.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Improved sleep and circadian alignment reduces daytime fatigue and baseline arousal, facilitating better coping with financial stress (C03) and reducing spillover into worry (C01).",
+      "measurement": "Sleep onset latency, awakenings, energy during day, sleep quality score.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None beyond typical sleep hygiene recommendations; gradual changes favored.",
+      "mapping_query": "Explain how sleep regulation lowers C03 arousal, supporting reductions in C01 and C02 through better cognitive control."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Financial_Self_Efficacy_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Skills training to increase confidence in money management (planning, bill-payment routines, small wins) to bolster perceived control.",
+      "targets_criteria_ids": [
+        "C05",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Greater financial self-efficacy reduces perceived inability to meet expenses (C04) and boosts perceived control (C05); this curtails intrusive worry (C01) and mitigates looming uncertainty (C06 indirectly.",
+      "measurement": "Financial self-efficacy scale, number of successful financial tasks completed weekly.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Remain mindful of overconfidence; tailor tasks to realistic budgets.",
+      "mapping_query": "Connect increases in financial self-efficacy to reductions in C04/C05 and downstream reductions in C01."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Structured_Budgeting_and_Routine_Bill_Payments",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Establish fixed daily/weekly budgeting checks and a predictable bill-payment routine; anchor behaviors to reduce uncertainty and routine-based mastery.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Regular budgeting routines reduce intrusive thoughts (C01) by creating predictability around expenses (C04) and perceived control (C05); improved routine reduces future-oriented worry (C06).",
+      "measurement": "Adherence rate to budgeting checks, bill-payment punctuality, self-reported financial security.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "None beyond standard financial-management coaching; update plans if life changes occur.",
+      "mapping_query": "Explain how budgeting routines dampen C01 intrusion, stabilize C04/C05 confidence, and reduce C06 uncertainty."
+    }
+  ]
+}

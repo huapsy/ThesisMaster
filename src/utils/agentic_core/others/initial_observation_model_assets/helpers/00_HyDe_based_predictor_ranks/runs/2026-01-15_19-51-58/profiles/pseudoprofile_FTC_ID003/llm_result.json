@@ -1,0 +1,237 @@
+{
+  "pseudoprofile_id": "CASE2026-PANIC-01",
+  "summary": "The case reflects recurrent brief panic spikes with chest tightness, fear of fainting in public, and social-evaluative worry, maintained by safety behaviors (pulse checks, escape planning) and heightened attention to internal sensations. A modifiable set of BIO/PSYCHO/SOCIAL levers targeting interoceptive arousal, cognitive appraisals, safety-behavior reduction, social exposure, and lifestyle factors is proposed to reduce episode frequency/severity, improve perceived control, and enhance public functioning through graded exposure, cognitive techniques, and stability-building behaviors.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Interoceptive_Exposure_and_Panic_Specific_CBT_Skills",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "A structured 8–12 week program combining interoceptive exposure to panic-like sensations (e.g., brief dizziness, rapid breathing, lightheadedness) with cognitive restructuring to challenge catastrophic beliefs (eg, imminent fainting) and prevention of safety behaviors (pulse checking, escape planning) in real-world settings.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C06",
+        "C08",
+        "C07"
+      ],
+      "mechanism_rationale": "Reduces vulnerability to abrupt arousal by re-sensitizing the person to bodily sensations, reframing perceived threat, and decreasing reliance on safety behaviors that sustain anxiety.",
+      "measurement": "Episodes_per_week; Peak_anxiety_onset_0-10; Pulse_check_frequency_per_episode; Escape_planning_frequency_per_episode; Belief_fainting_rating_0-10; Social_evaluation_tension_0-10",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; implement with clinician guidance; monitor for initial distress during exposures.",
+      "mapping_query": "panic-focused_CBT_interoceptive_exposure_with_safety_behavior_prevention"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Mindfulness_and_Decentering_Skills",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "An 8-week mindfulness-based program emphasizing breath-focused practice, body scan, nonjudgmental awareness, and decentering from bodily sensations to reduce reactivity to interoceptive cues and distress tolerance. Integrate brief daily practice and in-session formal exercises.",
+      "targets_criteria_ids": [
+        "C01",
+        "C08",
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Nonjudgmental awareness reduces catastrophic interpretation and emotional reactivity to internal cues, thereby lowering the intensity and perceived threat of episodes and social worry.",
+      "measurement": "Daily_mindfulness_practice_days; Mindfulness_awareness_score; Episode_distress_0-10; Embarrassment_rating_0-10",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "mindfulness_interoceptive_awareness_panic_reduction"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Safety_Behavior_Reduction_and_Response_Prevention",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "A structured plan to identify safety behaviors (pulse checking, exit planning) and implement exposure with response prevention, including urge-surfing for arousal and progressive withdrawal of safety supports.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06",
+        "C01",
+        "C08"
+      ],
+      "mechanism_rationale": "Diminishing safety behaviors reduces negative reinforcement of anxiety and minimizes attention to internal cues, supporting tolerance and control.",
+      "measurement": "Pulse_check_frequency_per_day; Episodes_with_safety_behavior; Time_to_first_escape_before_episode; Arousal_monitoring_frequency",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.82,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor distress during exposure; adjust pace as needed",
+      "mapping_query": "safety_behavior_reduction_panic_CPT"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Pulse_Checking_Reduction_and_Bodily_Sensory_Coping",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Urge-awareness training with alternative coping strategies (paced breathing, grounding, or outward cues) to reduce immediate pulse-checking during episodes.",
+      "targets_criteria_ids": [
+        "C05",
+        "C08"
+      ],
+      "mechanism_rationale": "Replacing automatic monitoring with adaptive coping reduces salience of bodily signals and slows the escalation of panic.",
+      "measurement": "Pulse_check_frequency_per_episode; Urge_intensity_0-10; Coping_strategy_use_rate",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure coping strategies are safe and accessible in public settings",
+      "mapping_query": "urge_surfing_panic_pulse_checking_reduction"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Graded_Public_Exposure_with_Safety_Skills",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "A graded public-exposure plan with in-session coaching, starting in low-stakes environments and progressing to more crowded settings, paired with social skills practice and breathing/self-talk strategies.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Repeated social exposure reduces fear of evaluation, increases perceived control, and lowers unpredictability by creating predictable experiences.",
+      "measurement": "Number_of_social_exposure_tasks_completed; Social_anxiety_scale; Episode_frequency_in_public; Evoked_embarrassment_0-10",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Clinical supervision recommended; tailor pace to comfort levels",
+      "mapping_query": "graded_public_exposure_social_anxiety_panic"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Cognitive_Belief_Modification_for_Fainting_and_Unpredictability",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive restructuring focused on catastrophic beliefs (eg, 'I will faint in public') with behavioral experiments to test predictability and control, using Socratic questioning and evidence gathering.",
+      "targets_criteria_ids": [
+        "C03",
+        "C07"
+      ],
+      "mechanism_rationale": "Directly targets exaggerated threat appraisals and perceived lack of control, reducing avoidance and future symptom escalation.",
+      "measurement": "Fainting_belief_strength_0-10; Perceived_control_0-10; Number_of_distorted_beliefs_identified_and_challenged",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "May provoke distress; monitor and adjust.",
+      "mapping_query": "cognitive_restructuringpanic_fainting_expectancies"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social_Evaluative_Threat_Desensitization_with_Compassionate_Self_Validation",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Interventions to reduce embarrassment concerns through self-compassion training, group normalization of symptoms, and social coaching to improve belonging and reduce self-criticism.",
+      "targets_criteria_ids": [
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Reducing shame and increasing self-acceptance lowers social avoidance and fear of judgment, improving social engagement.",
+      "measurement": "Self-compassion_scale; Social_engagement_index; Embarrassment_rating_during_episodes; Frequency_of_avoidant_behaviors",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Group-format safety considerations; ensure supportive environment",
+      "mapping_query": "compassion_focused_interventions_social_anxiety_panic"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Attention_Control_and_External_Orientation_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Attention-training to anchor gaze outward during onset (environmental scanning tasks, 3-object grounding) to decrease rapid internal monitoring.",
+      "targets_criteria_ids": [
+        "C08",
+        "C01"
+      ],
+      "mechanism_rationale": "Shifting attention away from internal sensations reduces symptom salience and arousal amplification.",
+      "measurement": "Time_to_episode_onset_attention_shift; External_focus_tasks_completed; Self-report_attention_distribution_during_episodes",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.82,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "attention_training_panic_outward_focus"
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Sleep_Sleep_Routines_and_Circadian_Stabilization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene program with fixed bed/wake times, caffeine reduction, and a simple wind-down routine; track with a sleep diary to improve baseline arousal and autonomic regulation.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06",
+        "C07",
+        "C08"
+      ],
+      "mechanism_rationale": "Better sleep reduces baseline arousal and improves autonomic stability, lowering panic susceptibility and daytime dysregulation.",
+      "measurement": "Sleep_duration; Sleep_efficiency; Nighttime_awakenings; Next_day_anxiety_0-10",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "If sleep complaints persist, consider medical evaluation",
+      "mapping_query": "sleep_hygiene_anxiety_panic"
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Aerobic_Cardiorepiratory_Exercise_Program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Moderate-intensity aerobic program (3–4 days/week, 20–40 minutes) with progression and breathing control, aimed at reducing baseline autonomic arousal and improving resilience.",
+      "targets_criteria_ids": [
+        "C01",
+        "C07",
+        "C08"
+      ],
+      "mechanism_rationale": "Regular aerobic activity modulates autonomic tone and reduces panic reactivity; improves energy and coping.",
+      "measurement": "Weekly_exercise_minutes; Resting_heart_rate; HRV; Episode_severity_0-10",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Medical clearance if risk factors; monitor signals during progression",
+      "mapping_query": "aerobic_exercise_panic_disorder_autonomic_arousal"
+    },
+    {
+      "solution_id": "S11",
+      "predictor_variable": "Wearable_Biofeedback_and_Arousal_Regulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Use a wearable to monitor HRV and skin conductance with real-time feedback; train in paced breathing and autonomic regulation during episodes and daily life.",
+      "targets_criteria_ids": [
+        "C01",
+        "C08",
+        "C04"
+      ],
+      "mechanism_rationale": "Biofeedback enhances conscious control of arousal and helps decouple arousal from catastrophic interpretations.",
+      "measurement": "HRV_SNR; Biofeedback_usage_frequency; Perceived_control_during_episodes",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Data privacy considerations; not a substitute for clinical care",
+      "mapping_query": "biofeedback_panic_arousal_regulation"
+    },
+    {
+      "solution_id": "S12",
+      "predictor_variable": "Social_Support_and_Belonging_Strategies",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured social support: reconnect with trusted friends/family, engage in community social groups (social prescribing), and implement a 4–8 week check-in plan for ongoing companionship and accountability.",
+      "targets_criteria_ids": [
+        "C04",
+        "C07",
+        "C01"
+      ],
+      "mechanism_rationale": "Enhanced belonging and practical support buffer against social embarrassment and unpredictability, reducing avoidance and episode frequency.",
+      "measurement": "Perceived_social_support_scale; Number_of_social_contacts; Episode_frequency_in_social_context",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Respect boundaries; ensure inclusive and supportive groups",
+      "mapping_query": "social_support_panic_belonging"
+    }
+  ]
+}

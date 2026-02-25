@@ -1,0 +1,20 @@
+pseudoprofile_id: pseudoprofile_FTC_ID011
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Failure to accept memory of locking -> CLINICAL / DSM-5TR / neurocognitive disorders / mild neurocognitive disorder / due to alzheimer's disease / amnestic mci due to ad / impaired_ep isodic_memory_delayed_recall (conf=0.78)
+- C02: Compulsive checking repetitions -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / obsessive-compulsive disorder / thematic subtypes / checking / door_lock_verification_repetition (conf=0.82)
+- C03: Difficulty resisting the urge to re-check -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / unspecified obsessive-compulsive and related disorder / repetitive_checking_behaviors (conf=0.62)
+- C04: Time cost (lateness) -> NON-CLINICAL / AGE-GENERAL / psychological / temporal perspective / time management / meeting deadlines / adhering to deadlines (conf=0.66)
+- C05: Embarrassment in social context -> CLINICAL / DSM-5TR / elimination disorders / mixed elimination disorder (enuresis with encopresis) / social_embarrassment_or_withdrawal_present (conf=0.70)
+- C06: Self-directed irritation/negative self-evaluation -> CLINICAL / DSM-5TR / personality disorders / other personality disorders / depressive personality disorder / self_critical_rumination (conf=0.75)
+
+PREDICTORS:
+- P01: Metacognitive training: memory confidence -> PSYCHO / cognitive_and_metacognitive_interventions / metacognitive_and_attention_based_interventions / cognitive_confidence_recalibration (conf=0.78)
+- P02: ERP with Delay to Check -> PSYCHO / cognitive_behavioral_therapies / exposure_and_inhibitory_learning / response_prevention_and_urge_work / delay_and_alternatives / delay_and_distract_urge_skills (conf=0.82)
+- P03: Implementation intentions for exit -> PSYCHO / change_process_and_therapeutic_phases / behavior_change_theories_and_modern_protocol_arcs / control_theory_and_self_regulation_solutions / implementation_intentions_ifthen_design_routine (conf=0.82)
+- P04: Door lock status indicator and auto-lock -> BIO / sleep_circadian_and_restoration / sleep_environment / bedroom_safety_and_security / bedroom_door_lock_function_check (conf=0.55)
+- P05: Self-compassion and self-talk training -> PSYCHO / core_psychological_skills_toolkits / compassionate_self_relating_and_inner_support / compassionate_cognition / reframes_and_voice / supportive_inner_voice_practice (conf=0.78)
+- P06: Accountability partner support -> SOCIAL / social_support_and_belonging / support_network_development / mentorship_and_buddying / accountability_partner_matching (conf=0.72)
+- P07: Digital measurement and feedback system -> PSYCHO / measurement_based_care_and_feedback / measurement_and_feedback_systems / activity_engagement_tracking (conf=0.82)
+- P08: Sleep circadian regularization -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / consistent_morning_anchor_routine (conf=0.72)

@@ -1,0 +1,155 @@
+{
+  "pseudoprofile_id": "CASE_01_SOCIAL_RUMINATION_OPTIMIZER",
+  "summary": "This case centers on social avoidance driven by a belief of being annoying, followed by post-event rumination, loneliness, and self-criticism. A multi-domain, modifiable lever set is proposed to systematically reduce avoidance, challenge distorted self-perceptions, curb rumination, and rebuild social connectedness. Levers span the BIO (sleep circadian alignment), PSYCHO (cognitive restructuring, mindfulness, self-compassion, behavioral activation, interpersonal skills), and SOCIAL (belonging and social connectedness) domains, with cross-domain measurement-based feedback to tailor progress. Each predictor is a changeable lever mapped to specific criteria (C01–C06), with concrete measurement approaches, time horizons, feasibility/impact estimates, and safety notes where relevant. The plan is non-diagnostic and focuses on actionable, modifiable factors that plausibly move the targeted mental-health-related states.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep Regularity & Circadian Alignment (Bio)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement fixed sleep-wake schedule (e.g., 10pm–6am), morning light exposure 15–30 minutes, and caffeine timing to reduce sleep disruption; track with daily sleep diary and optional actigraphy.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Improved sleep enhances emotional regulation, cognitive control, and resilience to rumination and loneliness by stabilizing mood and reducing reactivity to social stressors.",
+      "measurement": "Sleep diary entries; Pittsburgh Sleep Quality Index (PSQI) scores; post-event rumination and loneliness ratings.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Standard sleep hygiene; avoid late caffeine; monitor mood shifts; escalate if sleep problems persist or mood worsens.",
+      "mapping_query": "CASE_PAYLOAD -> S01 maps to C03, C05 (rumination and loneliness)"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Graded Social Exposure & Activation (Behavioral Activation)",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Create a graded plan of social engagements with pre-commitment and low-stakes starts (text a friend, attend a small gathering, join a brief online group) to systematically reduce avoidance and cancellations.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Gradual approach to social contexts reinforces positive experiences, decreases avoidance, and increases relevant social reinforcement, which can reduce loneliness.",
+      "measurement": "Number of social engagements per week; rate of cancellations; UCLA Loneliness Scale scores.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for social anxiety spikes; adjust pace to comfort; provide alternative low-pressure options.",
+      "mapping_query": "CASE_PAYLOAD -> S02 maps to C01, C04, C05"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Cognitive Restructuring of Belief “I am annoying”",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Use cognitive restructuring with thought records to challenge the automatic belief of being annoying; implement behavioral experiments to test and revise beliefs about others’ reactions.",
+      "targets_criteria_ids": [
+        "C02",
+        "C06"
+      ],
+      "mechanism_rationale": "Directly targets intrusive negative self-beliefs that drive withdrawal and self-criticism, while promoting adaptive self-appraisal.",
+      "measurement": "Belief intensity scale (0–1); frequency of self-criticizing thoughts; brief Self-Criticism rating.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "If distortions persist or mood worsens, integrate with clinician-guided CBT techniques.",
+      "mapping_query": "CASE_PAYLOAD -> S03 maps to C02, C06"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Post-Event Rumination Reduction (Mindfulness/Metacognitive)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach brief mindfulness or decentering techniques to interrupt rumination after social events; practice 5–10 minutes daily or post-event.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": " reduces perseverative thinking after social interactions, diminishing distress and preventing escalation into longer rumination cycles.",
+      "measurement": "Post-event rumination diary entries; rumination scale scores (RRS) pre/post intervention.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None beyond typical mindfulness guidance; monitor for initial discomfort when approaching thoughts.",
+      "mapping_query": "CASE_PAYLOAD -> S04 maps to C03"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Self-Compassion Training to Reduce Self-Criticism",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver self-compassion exercises (loving-kindness, common humanity) to reduce self-criticism related to loneliness; integrate short daily practice.",
+      "targets_criteria_ids": [
+        "C06",
+        "C05"
+      ],
+      "mechanism_rationale": "Fosters warmer self-relating, buffers against loneliness, and mitigates harsh self-judgments following social setbacks.",
+      "measurement": "Self-Compassion Scale scores; loneliness scores; mood ratings.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure culturally sensitive approaches; adapt pace to individual comfort.",
+      "mapping_query": "CASE_PAYLOAD -> S05 maps to C06, C05"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Structured Social Support & Belonging Building",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Establish a social buddy system or small peer group; regular (e.g., weekly) check-ins and shared activities targeting belonging and connectedness.",
+      "targets_criteria_ids": [
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Enhances social integration and perceived support, reducing loneliness and avoidance through accountable social ties.",
+      "measurement": "Loneliness ratings; attendance and active participation in group activities; perceived belonging scales.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Screen for safety and inclusivity within groups; provide opt-out options.",
+      "mapping_query": "CASE_PAYLOAD -> S06 maps to C05, C01"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Interpersonal Effectiveness & Communication Skills Training",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Provide training in assertive communication, reflective listening, and relational repair; practice through role-plays and real-life applications.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Improved social performance reduces avoidance, corrects misperceived negative feedback, and supports consistent social engagement.",
+      "measurement": "Observed social skill use; self-reported communication confidence; invitations extended/accepted.",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.58,
+      "priority": "MED",
+      "safety_notes": "If anxiety spikes occur, adjust exposure level; consider supervision.",
+      "mapping_query": "CASE_PAYLOAD -> S07 maps to C01, C02, C04"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Measurement-Based Self-Monitoring & Feedback System",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Implement daily self-monitoring logs for C01–C06 with weekly feedback review; use digital prompts to adjust plans and increase accountability.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Continuous feedback enables dynamic tailoring, early detection of worsening patterns, and reinforcement of progress across domains.",
+      "measurement": "Composite daily/weekly index of C01–C06; trend analyses; adherence metrics.",
+      "time_horizon": "Ongoing (initial 4–6 weeks to detect signal)",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "Ensure data privacy; have escalation protocol if self-harm risk indicators emerge.",
+      "mapping_query": "CASE_PAYLOAD -> S08 maps to C01..C06"
+    }
+  ]
+}

@@ -73,6 +73,24 @@ def _fallback_summary(stage: str, evidence: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
+def _resolve_provider_config() -> tuple[str, str, str]:
+    openrouter_api_key = str(os.environ.get("OPENROUTER_API_KEY") or "").strip()
+    openai_api_key = str(os.environ.get("OPENAI_API_KEY") or "").strip()
+    openai_base_url = str(os.environ.get("OPENAI_BASE_URL") or "").strip()
+    if openrouter_api_key:
+        return openrouter_api_key, (openai_base_url or "https://openrouter.ai/api/v1"), "openrouter_responses_api"
+    if openai_api_key:
+        return openai_api_key, openai_base_url, "openai_responses_api"
+    return "", "", ""
+
+
+def _resolve_model(provider: str, model: str) -> str:
+    token = str(model).strip() or "gpt-5-nano"
+    if provider == "openrouter_responses_api" and "/" not in token and token.startswith("gpt-"):
+        return f"openai/{token}"
+    return token
+
+
 def _extract_response_text(resp: Any) -> str:
     text = getattr(resp, "output_text", "") or ""
     if text:
@@ -108,11 +126,11 @@ def generate_communication_summary(
         payload["llm_enabled"] = False
         return payload
 
-    api_key = str(os.environ.get("OPENAI_API_KEY") or "").strip()
+    api_key, base_url, provider = _resolve_provider_config()
     if not api_key:
         payload["summary"] = _fallback_summary(stage, evidence)
         payload["llm_enabled"] = False
-        payload["llm_error"] = "OPENAI_API_KEY missing."
+        payload["llm_error"] = "OPENROUTER_API_KEY missing (fallback OPENAI_API_KEY also not set)."
         return payload
 
     system_prompt = (
@@ -136,15 +154,27 @@ def generate_communication_summary(
     try:
         from openai import OpenAI  # type: ignore
 
-        client = OpenAI(api_key=api_key)
-        resp = client.responses.create(
-            model=llm_model,
-            input=[
+        kwargs: Dict[str, Any] = {"api_key": api_key}
+        if str(base_url).strip():
+            kwargs["base_url"] = str(base_url).strip()
+        client = OpenAI(**kwargs)
+        resolved_model = _resolve_model(provider, llm_model)
+        create_kwargs = {
+            "model": resolved_model,
+            "input": [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
             ],
-            response_format={"type": "json_object"},
-        )
+        }
+        try:
+            resp = client.responses.create(
+                **create_kwargs,
+                text={"format": {"type": "json_object"}},
+            )
+        except TypeError:
+            resp = client.responses.create(
+                **create_kwargs,
+            )
         text = _extract_response_text(resp)
         parsed = json.loads(text)
         payload["summary"] = {
@@ -154,6 +184,8 @@ def generate_communication_summary(
             "risks": [str(item) for item in (parsed.get("risks") or [])[:8]],
             "recommended_next_actions": [str(item) for item in (parsed.get("recommended_next_actions") or [])[:8]],
         }
+        payload["provider"] = provider
+        payload["llm_model"] = resolved_model
         return payload
     except Exception as exc:
         payload["summary"] = _fallback_summary(stage, evidence)

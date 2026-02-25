@@ -1,0 +1,1352 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID034",
+  "model_summary": "This initial gVAR-ready observation model targets seven modifiable criteria reflecting the pain–cognition–mood–coping loop described in the complaint (C01–C07) and pairs them with seven actionable predictors (P01–P07) representing salutogenic levers (cognitive reappraisal, self-efficacy, activity pacing, sleep hygiene, social support, mindfulness, and meaning-focused goals). Measurements rely on brief, repeated, Likert-scale EMA items to maximize within-person variance while remaining feasible. The design emphasizes non-redundant constructs, explicit measurement timing, and a coherent 14-day sampling plan to enable future graphical VAR modeling while preserving the complaint’s resolution (pain catastrophizing, mood disruption, and reduced optimism) as outcomes.",
+  "variable_selection_notes": "Criteria C01–C07 were chosen to cover chronic pain baseline, flare dynamics, catastrophic thoughts, mood disruption, irritability, optimism, and perceived control. Predictor variables P01–P07 map onto high-yield, modifiable levers with established theoretical links to the criteria (CBT/CC strategies, coping self-efficacy, graded activity, sleep regulation, social support, MBPM, and values/meaning). Rationale integrates HyDe rankings and LLM mappings emphasizing sleep/circadian factors, CBT-based activation, mindfulness, self-efficacy, and meaning-focused plans. Trade-offs include potential overlap between CBT and metacognitive strategies; to minimize collinearity, each predictor emphasizes a distinct facet of salutogenic influence. Bias/uncertainty: effects are likely domain-general and may vary by pain type; we will monitor cross-predictor correlations and adjust through gVAR feature-selection as data accumulate.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 5,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:00-11:00",
+        "11:30-13:30",
+        "15:00-17:00",
+        "19:00-21:00",
+        "21:30-23:30"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 70,
+      "notes": "Prompts evenly distributed across waking hours with mild jitter to reduce anticipation effects."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "22:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "One end-of-day reflection on sleep quality, mood, and everyday coping."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Passive signals (sensor-derived sleep, activity, and circadian proxies) feed daily aggregates to bolster variance and context without overburdening prompts."
+    },
+    "minimum_total_observations_target": 84,
+    "gvar_readiness_notes": "Feasible with 14-day EMA and daily diary; plan for retention strategies and automated reminders.",
+    "variance_support_notes": "Use 1–9 Likert scales for all EMA items; consider z-scoring within-person for predictors/criteria during analysis.",
+    "missingness_risk_notes": "Implement reminders, incentivize completion, and runtime checks; apply simple imputation rules if missingness is random."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "",
+      "label": "Chronic baseline back pain intensity/frequency",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Rate your current background back pain intensity on a 0–9 scale (0 = no pain, 9 = worst imaginable). Also estimate typical presence today (0 = none, 9 = constant presence) on the same 0–9 scale.",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Baseline pain dimension with ongoing variability; use 0–9 scale for both intensity and typical presence."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "",
+      "label": "Pain flare-up frequency and acute intensity",
+      "criterion_path": "",
+      "polarity": "unknown",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, how often have you experienced a pain flare-up and how intense were those flares (0–9 scale for peak intensity)?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures episodic amplification; aim to separate baseline from flare dynamics."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "",
+      "label": "Future-oriented catastrophic belief (permanence)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the moment, how strongly do you believe this pain will never end? (0 = not at all, 9 = completely).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures negative cognitive appraisal linked to pessimism about recovery."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "logit_scale_if_bounded",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "",
+      "label": "Low mood / feeling very down during flares",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "During pain flare-ups, rate the intensity of low mood (0–9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Mood vulnerability during pain increases; track fluctuations across days."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "",
+      "label": "Irritability linked to pain flare-ups",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate how irritable or short-tempered you felt when pain increased (0–9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures affective reactivity to pain."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "",
+      "label": "Reduced optimism / diminished hope about future",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Rate your overall optimism about your ability to improve or enjoy daily life in the near future (0–9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures perceived future-oriented hope as a salutogenic resource."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C07",
+      "source_variable_id": "",
+      "label": "Perceived control / coping self-efficacy for managing pain",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, rate your perceived ability to influence or cope with your pain (self-efficacy) on a 0–9 scale.",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Coping self-efficacy as a proximal predictor of mood/pain adjustments."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "S01: Cognitive Reappraisal and Behavioral Experiments for Pain Catastrophizing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Cognitive_Behavioral_Therapies > Behavior_Change_and_Activation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.92,
+      "mechanism_rationale": "Directly targets catastrophic interpretation and active problem-solving; supports reframe of pain experience.",
+      "intervention_examples_safe": "Brief cognitive reframing, behavioral experiments, small mastery tasks.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, to what extent did you use cognitive reappraisal or behavioral experiments to challenge pain catastrophizing? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Can be used to create a composite cognitive regulation index."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reduced catastrophizing should lower frequency/intensity of persistent negative thoughts."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reappraisal expected to dampen low mood during pain flares."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Cognitive reframing may bolster optimism about recovery."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Perceived control may increase with successful cognitive strategies."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Safe psychological strategy; no risk with self-guided exercises.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "High feasibility in smartphone-based EMA."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "S02: Pain Coping Self-Efficacy Skill-Building",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Change_Process_and_Therapeutic_Phases > Protection_Motivation_Theory_Solutions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.89,
+      "mechanism_rationale": "Boosts confidence in managing pain, enabling more adaptive responses during flares.",
+      "intervention_examples_safe": "Mini-mastery tasks, guided coping plan rehearsals.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, how confident are you in coping with your pain in the next few hours? (1-9)",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures dynamic self-efficacy fluctuations related to coping tasks."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C07",
+        "C04",
+        "C06",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Higher coping efficacy strengthens perceived control."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better coping can buffer mood dips during pain."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increased self-efficacy supports optimism."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "No risk; standard self-efficacy assessments.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "High feasibility with brief prompts."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "S03: Graded Exercise and Activity Pacing with Pain Flare Monitoring",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Movement_and_Bodywork > Aerobic_Movement_Modalities",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.88,
+      "mechanism_rationale": "Structured activity pacing reduces pain flare intensity and promotes function.",
+      "intervention_examples_safe": "Brief walk, light stretching, pacing plan.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, to what extent did you pace activities and engage in graded exercise (1-9)?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures pacing behaviors and activity engagement per day."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improved pacing may lower background pain impact over time."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Better pacing may reduce flare frequency/intensity via load management."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Activity management can stabilize mood during flares."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Consistent activity reduces irritability risk via mastery experiences."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Active coping strategies enhance perceived control."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Exercising with pain requires safety guidance; include thresholds to avoid harmful activity.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.86,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": "Moderate burden; ensure user-friendly pacing plan prompts."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "S04: Sleep Hygiene and Circadian Regulation Plan",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Sleep_Circadian_and_Restoration > Circadian_Entrainment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Sleep quality and circadian alignment influence pain sensitivity, mood, and optimism.",
+      "intervention_examples_safe": "Consistent bed-time, reduced evening screens, light exposure timing.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate your sleep quality last night (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "past_night",
+        "expected_within_person_variability": "high",
+        "notes": "Sleep quality proxy; contributes to mood/hope and pain perception."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 8,
+          "rationale": "Improved sleep supports optimism and perceived control."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 8,
+          "rationale": "Better sleep reduces mood dips during pain."
+        },
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 8,
+          "rationale": "Sleep regularity may decrease background pain perception."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Non-pharmacologic; safe; watch for sleep disorders if persistent.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.84,
+        "notes": "Sleep questions are robust with high compliance when embedded in prompts."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "S05: Social Support Enhancement and Social Prescribing",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] > Social_Support_and_Belonging > Network_Building_And_Maintenance",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Social connectedness buffers mood impairment and pain-related distress; prompts social resources and linkage.",
+      "intervention_examples_safe": "Reach out to a friend, join a support group, or use community resources.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, to what extent did you engage with social support (1-9)?",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures real-time social engagement and perceived support quality."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Social support buffers negative mood during pain."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Support networks sustain optimism."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Perceived social support enhances coping efficacy."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Encourage privacy-respecting sharing; avoid sensitive disclosures in prompts.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.82,
+        "notes": "Moderate participant burden; use lightweight prompts."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "S06: Mindfulness-Based Pain Modulation (MBPM)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Third_Wave_and_Contextual_Therapies > Mindfulness_Based_Interventions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.87,
+      "mechanism_rationale": "Nonjudgmental present-moment awareness reduces pain appraisal and affective distress.",
+      "intervention_examples_safe": "5-minute mindful breathing, body-scan, or brief mindful movement.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate your engagement with mindfulness/attention to pain (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Assesses immediate mindfulness practice and reactivity to pain."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindfulness reduces pain-related distress and mood dips."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Enhanced present-moment focus supports optimistic outlook."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Mindfulness fosters coping self-efficacy in pain contexts."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Safe and non-pharmacologic; ensure mindful practices are non-triggering.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.89,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Mindfulness tasks are brief and well-tolerated."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "S07: Meaning/Value-Driven Goal Setting and Hope Enhancement",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Positive_Psychology_and_Wellbeing > Meaning_Purpose_and_Future_Orientation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.86,
+      "mechanism_rationale": "Engagement with valued goals boosts motivation, purpose, and resilience against pain impacts.",
+      "intervention_examples_safe": "Identify one value-consistent goal; break into achievable steps.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate how connected you feel to a meaningful goal or value today (1-9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures existential motivation and future orientation."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C04",
+        "C06",
+        "C07",
+        "C01"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Meaning-focused goals support a hopeful outlook."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Value-aligned actions enhance perceived control."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Purpose-driven activity can stabilize mood during pain."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Promotes adaptive goal setting; monitor for potential frustration if goals are unmet.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.87,
+        "gvar_feasibility_0_1": 0.83,
+        "notes": "Value-based prompts align with daily life meaning."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,68000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,72000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Immediate effect on background pain perception; exploratory.",
+      "estimated_relevance_0_1": 0.35
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Indirect via reduced pain catastrophizing; potential impact on flare frequency.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Direct target of catastrophizing beliefs.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Lower cognitive distress linked to mood during flares.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Reduce irritability via cognitive regulation.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Improved cognitive framing supports hope.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Enhanced coping self-efficacy; perceived control.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Coping efficacy reduces perceived pain impact.",
+      "estimated_relevance_0_1": 0.25
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Self-efficacy moderates flare experience.",
+      "estimated_relevance_0_1": 0.45
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Ongoing self-efficacy supports cognitive restructuring.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Improved coping linked to mood during pain.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Better coping reduces irritability risk.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Self-efficacy supports optimistic outlook.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Coping confidence enhances perceived control.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Pacing reduces background pain burden.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Activity pacing may reduce flare frequency.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Dynamic activity may influence catastrophic thinking indirectly.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Better pacing improves mood during pain.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Mastery experiences from pacing reduce irritability.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Pacing can support optimism via control.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Active engagement enhances coping efficacy.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Sleep quality modulates baseline pain perception.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Sleep timing influences flare dynamics.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Sleep quality can reduce catastrophic cognitions indirectly.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Sleep improves mood during pain episodes.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Restorative sleep reduces irritability risk.",
+      "estimated_relevance_0_1": 0.45
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Sleep quality supports hopeful outlook.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Sleep supports perceived control over pain.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Social connectedness reduces pain impact.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Social support buffers flare experience.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Supportive context reduces catastrophic thinking.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Social engagement improves mood during pain.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Social resources reduce irritability risk.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Positive social contexts support hopeful outlook.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Social validation boosts coping efficacy.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Present-moment awareness reduces pain amplification.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness reduces flare intensity via nonreactivity.",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Lower catastrophic rumination with MBPM.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Reduced negative affect during pain via mindfulness.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness supports emotional regulation reducing irritability.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Hope and meaning can be reinforced through MBPM.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Enhanced coping efficacy via mindful strategies.",
+      "estimated_relevance_0_1": 0.68
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Meaning-oriented activity may reduce perceived pain burden.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Goal pursuit can modulate flare perception.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Value-driven actions may reduce catastrophic thoughts.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Meaning alignment supports mood during pain.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Purpose-driven activity reduces irritibility risk.",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Hopeful meaning enhances optimism.",
+      "estimated_relevance_0_1": 0.62
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Beliefs in meaningful goals boost coping efficacy.",
+      "estimated_relevance_0_1": 0.72
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "low between P01 and P02 (cognitive strategies) not expected to be highly collinear",
+      "moderate potential overlap between P04 and P06 (sleep/mindfulness affect)"
+    ],
+    "expected_floor_ceiling_risks": [
+      "no immediate floor at 0; ceiling near 9 for some items may occur under extreme relief or distress"
+    ],
+    "variance_enhancement_suggestions": [
+      "center variables within-person (z-scoring) for modeling",
+      "include time-of-day as a covariate to account for circadian effects",
+      "consider lag-structure exploration (0-6h, 6-24h) in model later"
+    ],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": "Feasible with 14-day EMA and 1 daily diary; 7 predictors provide diverse yet parsimonious coverage."
+  },
+  "safety_notes": "Not a diagnosis. No medication dosing or unsafe recommendations. If acute risk signs emerge (e.g., self-harm risk), escalate to appropriate clinical resources per local guidelines."
+}

@@ -44,7 +44,7 @@ Defaults follow the current evaluation pipeline:
     04_initial_observation_analysis/02_momentary_impact_coefficients
   integrated runs:
     /Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/
-    05_integrated_pipeline_runs/<run_id>/02_momentary_impact_coefficients
+    integrated_pipeline/runs/<run_id>/02_momentary_impact_coefficients
   pattern: pseudoprofile_FTC_
 
 Usage
@@ -66,6 +66,7 @@ import argparse
 import math
 import os
 import json
+import tempfile
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -73,6 +74,21 @@ from typing import Any, Dict, List, Tuple
 
 import numpy as np
 import pandas as pd
+import matplotlib as mpl
+
+
+def _prepare_matplotlib_runtime() -> None:
+    cfg = str(os.environ.get("MPLCONFIGDIR", "")).strip()
+    if cfg:
+        Path(cfg).mkdir(parents=True, exist_ok=True)
+        return
+    fallback = Path(tempfile.gettempdir()) / "phoenix_mplconfig"
+    fallback.mkdir(parents=True, exist_ok=True)
+    os.environ["MPLCONFIGDIR"] = str(fallback)
+
+
+_prepare_matplotlib_runtime()
+mpl.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch
 
@@ -91,7 +107,7 @@ def _find_repo_root() -> Path:
 
 REPO_ROOT = _find_repo_root()
 DEFAULT_ROOT = str(
-    REPO_ROOT / "evaluation/04_initial_observation_analysis/02_momentary_impact_coefficients"
+    REPO_ROOT / "evaluation/sequential/05_momentary_impact_quantification/outputs"
 )
 DEFAULT_PATTERN = "pseudoprofile_FTC_"
 DEFAULT_MATRIX_NAME = "impact_matrix.csv"

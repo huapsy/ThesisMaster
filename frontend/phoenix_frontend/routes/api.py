@@ -60,6 +60,20 @@ def session_snapshot(session_id: str):
         return _error(str(exc), 500)
 
 
+@api_bp.get("/llm/models")
+def list_llm_models():
+    query = str(request.args.get("q") or "").strip()
+    try:
+        limit = int(request.args.get("limit") or 80)
+    except Exception:
+        limit = 80
+    try:
+        models = _service().list_llm_models(query=query, limit=limit)
+        return jsonify({"status": "ok", "models": models})
+    except Exception as exc:
+        return _error(str(exc), 500)
+
+
 def _start_initial_model_job(session_id: str, payload: Dict[str, Any]) -> str:
     manager = _job_manager()
     service = _service()
@@ -76,6 +90,7 @@ def _start_initial_model_job(session_id: str, payload: Dict[str, Any]) -> str:
             critic_max_iterations=int(payload.get("critic_max_iterations") or 2),
             critic_pass_threshold=float(payload.get("critic_pass_threshold") or 0.74),
             max_workers=int(payload.get("max_workers") or 12),
+            generate_communication=False,
             log=log,
         ),
     )
@@ -134,7 +149,53 @@ def _start_cycle_job(session_id: str, payload: Dict[str, Any]) -> str:
             request_model_refinement=bool(payload.get("request_model_refinement") or False),
             profile_memory_window=int(payload.get("profile_memory_window") or 3),
             handoff_critic_max_iterations=int(payload.get("handoff_critic_max_iterations") or 2),
+            handoff_critic_pass_threshold=float(payload.get("handoff_critic_pass_threshold") or 0.74),
             intervention_critic_max_iterations=int(payload.get("intervention_critic_max_iterations") or 2),
+            intervention_critic_pass_threshold=float(payload.get("intervention_critic_pass_threshold") or 0.74),
+            network_boot=int(payload.get("network_boot") or 40),
+            network_block_len=int(payload.get("network_block_len") or 14),
+            network_jobs=int(payload.get("network_jobs") or 4),
+            run_impact_visualizations=bool(payload.get("run_impact_visualizations", True)),
+            run_treatment_communication=bool(payload.get("run_treatment_communication", True)),
+            parallel_branches=bool(payload.get("parallel_branches", True)),
+            log=log,
+        ),
+    )
+
+
+def _start_full_cohort_job(session_id: str, payload: Dict[str, Any]) -> str:
+    manager = _job_manager()
+    service = _service()
+    disable_llm = _llm_globally_disabled() or bool(payload.get("disable_llm") or False)
+    return manager.start_job(
+        session_id=session_id,
+        kind="full_cohort",
+        target=lambda log: service.run_full_cohort(
+            seed_session_id=session_id,
+            patient_count=int(payload.get("patient_count") or 10),
+            parallel_patients=int(payload.get("parallel_patients") or 2),
+            llm_model=str(payload.get("llm_model") or "gpt-5-nano"),
+            disable_llm=disable_llm,
+            hard_ontology_constraint=bool(payload.get("hard_ontology_constraint") or False),
+            model_prompt_budget_tokens=int(payload.get("prompt_budget_tokens") or 400000),
+            model_critic_max_iterations=int(payload.get("critic_max_iterations") or 2),
+            model_critic_pass_threshold=float(payload.get("critic_pass_threshold") or 0.74),
+            model_max_workers=int(payload.get("max_workers") or 12),
+            pseudodata_n_points=int(payload.get("n_points") or 84),
+            pseudodata_missing_rate=float(payload.get("missing_rate") or 0.1),
+            pseudodata_seed=int(payload.get("seed") or 42),
+            include_intervention=bool(payload.get("include_intervention", True)),
+            profile_memory_window=int(payload.get("profile_memory_window") or 3),
+            handoff_critic_max_iterations=int(payload.get("handoff_critic_max_iterations") or 2),
+            handoff_critic_pass_threshold=float(payload.get("handoff_critic_pass_threshold") or 0.74),
+            intervention_critic_max_iterations=int(payload.get("intervention_critic_max_iterations") or 2),
+            intervention_critic_pass_threshold=float(payload.get("intervention_critic_pass_threshold") or 0.74),
+            network_boot=int(payload.get("network_boot") or 40),
+            network_block_len=int(payload.get("network_block_len") or 14),
+            network_jobs=int(payload.get("network_jobs") or 4),
+            run_impact_visualizations=bool(payload.get("run_impact_visualizations", True)),
+            run_treatment_communication=bool(payload.get("run_treatment_communication", True)),
+            parallel_branches=bool(payload.get("parallel_branches", True)),
             log=log,
         ),
     )
@@ -188,6 +249,18 @@ def start_pipeline_cycle_job(session_id: str):
         return _error(str(exc), 400)
 
 
+@api_bp.post("/sessions/<session_id>/jobs/full-cohort")
+def start_full_cohort_job(session_id: str):
+    try:
+        payload = request.get_json(silent=True) or {}
+        job_id = _start_full_cohort_job(session_id, payload)
+        return jsonify({"status": "ok", "job_id": job_id})
+    except FileNotFoundError:
+        return _error("Session not found.", 404)
+    except Exception as exc:
+        return _error(str(exc), 400)
+
+
 @api_bp.get("/jobs/<job_id>")
 def get_job(job_id: str):
     try:
@@ -225,10 +298,16 @@ def stream_job_logs(job_id: str):
         manager.get_job(job_id)
     except KeyError:
         return _error("Job not found.", 404)
+    try:
+        after = max(0, int(request.args.get("after", 0)))
+    except Exception:
+        after = 0
 
     @stream_with_context
     def _event_stream():
-        cursor = 0
+        cursor = int(after)
+        keepalive_seconds = 12.0
+        last_emit = time.time()
         while True:
             try:
                 job = manager.get_job(job_id)
@@ -239,6 +318,17 @@ def stream_job_logs(job_id: str):
                 cursor = max(cursor, int(row["index"]))
                 payload = {"type": "log", "job_id": job_id, "entry": row}
                 yield f"data: {json.dumps(payload, ensure_ascii=False)}\n\n"
+                last_emit = time.time()
+
+            if not rows and (time.time() - last_emit) >= keepalive_seconds:
+                payload = {
+                    "type": "heartbeat",
+                    "job_id": job_id,
+                    "cursor": cursor,
+                    "timestamp": time.time(),
+                }
+                yield f"data: {json.dumps(payload, ensure_ascii=False)}\n\n"
+                last_emit = time.time()
 
             if job.status in TERMINAL_STATUSES:
                 payload = {
@@ -248,6 +338,7 @@ def stream_job_logs(job_id: str):
                     "kind": job.kind,
                     "error": job.error,
                     "finished_at": job.finished_at,
+                    "cursor": cursor,
                 }
                 yield f"data: {json.dumps(payload, ensure_ascii=False)}\n\n"
                 break

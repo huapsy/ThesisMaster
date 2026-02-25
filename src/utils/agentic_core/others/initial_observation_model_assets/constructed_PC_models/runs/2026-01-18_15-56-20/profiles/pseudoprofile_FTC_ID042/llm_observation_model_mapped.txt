@@ -1,0 +1,16 @@
+pseudoprofile_id: pseudoprofile_FTC_ID042
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Daily in-person contact frequency -> NON-CLINICAL / AGE-GENERAL / social / social integration / social connectedness / network of friends / maintaining friendships / regular communication / frequency of interaction / daily (conf=0.72)
+- C02: Subjective loneliness / unmet social connection -> NON-CLINICAL / AGE-GENERAL / emotional / self-compassion / common humanity / isolation reduction / combatting loneliness (conf=0.66)
+- C03: Work-from-home limiting incidental interactions -> NON-CLINICAL / AGE-GENERAL / social / social integration / social connectedness / network of friends / maintaining friendships / regular communication / communication channels / in-person (conf=0.78)
+- C04: Perceived shrinkage of social presence / reduced social initiative -> CLINICAL / DSM-5TR / schizophrenia spectrum and other psychotic disorders / attenuated or clinical high-risk states / genetic risk with functional deterioration / social_withdrawal_subclinical (conf=0.72)
+- C05: Proportion of superficial vs meaningful interactions -> NON-CLINICAL / AGE-GENERAL / social / positive relationships / intimacy / deep connections / meaningful relationships (conf=0.82)
+
+PREDICTORS:
+- P01: Daily values-aligned social activation plan -> PSYCHO / change_process_and_therapeutic_phases / behavioral_integration / lifestyle_performance_and_wellbeing_integration / social_connection_investment_plan (conf=0.88)
+- P02: Social initiation practice -> PSYCHO / core_psychological_skills_toolkits / interpersonal_effectiveness_and_relational_repair / connection_and_social_fluency / initiate_and_deepen / social_initiation_practice (conf=0.92)
+- P03: Community participation -> SOCIAL / community_participation_and_social_prescribing / community_participation_library / social_and_service / prosocial_action_and_volunteering / volunteer_service_community (conf=0.78)
+- P04: Sleep quality (bio–circadian anchor) -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / sleep_quality_rating (conf=0.92)
+- P05: Online social engagement plan -> SOCIAL / digital_social_environment / digital_social_environment_solutions / healthy_online_community_engagement / prosocial_online_participation_plan (conf=0.82)

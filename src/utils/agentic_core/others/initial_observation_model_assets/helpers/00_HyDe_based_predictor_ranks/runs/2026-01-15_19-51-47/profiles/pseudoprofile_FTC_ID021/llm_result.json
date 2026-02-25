@@ -1,0 +1,91 @@
+{
+  "pseudoprofile_id": "CASE_SLEEP_EARLYMORNING_001",
+  "summary": "The case presents reliable sleep onset but early-morning awakening around 04:30 with rapid cognitive arousal, doomscrolling after awakening, and same-day daytime impairment. The proposed levers span BIO (circadian alignment, sleep environment, daytime energy), PSYCHO (arousal regulation, cognitive-behavioral strategies), and SOCIAL (digital environment management) to produce modular, measurable shifts in C01–C06. Each lever is atomic (targets a specific predictor/criteria) and modifiable without pharmacology or unsafe practices. Implementation can be tracked with simple sleep/activity diaries, objective wearables where available, and targeted behavior logs over a 2–4 week horizon.\"",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Morning light exposure and fixed wake time for circadian entrainment",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Establish a fixed wake time (e.g., 06:30) and implement a brief morning light exposure within 15-30 minutes of waking (prefer bright light or outdoor exposure ~10–20 minutes). Gradually shift bedtime earlier by 15–30 minutes to achieve 7–8 hours of sleep. Maintain consistent weekend times.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Regularized wake times and morning light cue strengthen circadian stability, reducing nocturnal awakenings and premature arousal at ~04:30 by aligning sleep pressure and melatonin rhythm.",
+      "measurement": "Sleep diary entries for wake time consistency; actigraphy-derived sleep maintenance metrics; morning energy/mood rating.",
+      "time_horizon": "14–21 days",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for light sensitivity or sleep-onset issues if bedtime is moved too early.",
+      "mapping_query": "MAPS01_to_C01_SleepMaintenance_C01_Clock_Rhythm."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "In-bed device-free wind-down and pre-sleep routine",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Implement a strict 60-minute device-free pre-sleep window with a consistent wind-down (e.g., reading, breathing exercises, journaling). Remove devices from the bed and use blue-light filters when needed. Establish a ritual that signals sleep readiness without stimulating content.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Reducing bed-time cognitive engagement prevents activation and supports relaxation, lowering the likelihood of arousal-driven awakenings.",
+      "measurement": "In-bed device usage logs; adherence to pre-sleep routine; subjective calm before intended sleep; time to fall back asleep after awakening.",
+      "time_horizon": "14 days",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure accessible alternative activities for stress management; avoid isolation.",
+      "mapping_query": "MAPS02_to_C04_InBed_DeviceEngagement."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Digital content boundaries to reduce doomscroll exposure",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create a digital boundary plan: schedule doomscroll windows (e.g., 2x daily for 10–15 minutes) and curate content to reduce negative reactivity; incorporate adaptive coping strategies (breathing, grounding) during these windows.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Limiting exposure to distressing content reduces overnight cognitive activation and negative affect, decreasing morning arousal and rumination.",
+      "measurement": "Minutes spent doomscrolling; mood and anxiety ratings after wakeups; diary entries on content type.",
+      "time_horizon": "14–21 days",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Escalate if distress worsens; maintain social connection in healthy ways.",
+      "mapping_query": "MAPS03_to_C05_Distressful_ContentExposure."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Awakening arousal management with brief breathing/grounding",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Upon awakening (~04:30), perform 4–6 cycles of paced breathing (about 4–6 breaths per minute) plus a 60–90 second grounding exercise; if sleep does not resume within 15–20 minutes, rise calmly and engage in a quiet, non-stimulating activity until sleep pressure returns.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Immediate autonomic downregulation and cognitive grounding reduce racing thoughts and facilitate either a smoother return to sleep or a restful wakeful period.",
+      "measurement": "Subjective arousal rating on waking; time to fall back asleep after awakening; sleep diary latency after awakening.",
+      "time_horizon": "7–14 days",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "MAPS04_to_C03_ArousalOnAwakening."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Structured daytime activity to reduce daytime impairment (C06)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Introduce a daily, scheduled 15–20 minute moderate-intensity activity (e.g., brisk walk) in the early afternoon with 10–20 minutes of outdoor light exposure, consistent hydration and meals to support energy regulation and daytime functioning.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Enhanced daytime energy and neurophysiological regulation improve daytime functioning and reduce negative cognitive spillover into the night.",
+      "measurement": "Midday energy/alertness ratings; daily activity log or step count; subjective daytime functioning scores.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Consult clinician if medical conditions limit activity.",
+      "mapping_query": "MAPS05_to_C06_DaytimeImpairment."
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "pseudoprofile_id": "CASE-CHAT-MH-CASE-001",
+  "summary": "The case reflects a cognitive-behavioral pattern of anticipatory social judgment leading to repetitive proofreading, long reply times, and beliefs that others interpret delays as ignoring. Key modifiable levers lie in (1) reducing cognitive load and uncertainty around “send” thresholds (behavioral/CBT style), (2) addressing fear of negative evaluation and misinterpretation (psychological), and (3) adjusting social-environmental factors and boundaries (social/digital ecology). Interventions should target the immediate, observable predictors (C01–C06) with scalable, time-bounded plans, and include simple metrics to monitor edits, latency, and perceived social impact. No acute safety concerns are indicated; standard professional guidelines apply if distress escalates.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "TimeBoxed_Message_Drafting_Rule",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Adopt a time-boxed drafting protocol: require at least a brief first draft, then a fixed 2-pass review with a strict send-ready threshold (e.g., 1 concise revision, then send or use a template). Use a short 60-90 second final review to confirm tone before sending.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Provides explicit decision criteria to reduce repetitive checking (C01) and indecision (C05), and trims unnecessary delays (C03) by standardizing the final send-point.",
+      "measurement": "Average edits per message; mean time from draft to sent; self-reported certainty before sending (0-10)",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; ensure templates preserve respectful tone and confidentiality.",
+      "mapping_query": "Map S01 to C01, C03, C05; evaluate reductions in edits, delay, and threshold ambiguity."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Cognitive_Belief_Restructuring_about_Messaging_Evaluation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "CBT-informed reframing to challenge beliefs about sounding stupid/rude; develop alternative, non-catastrophic appraisals (e.g., 'I can be clear and kind even if imperfect').",
+      "targets_criteria_ids": [
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Directly targets anticipatory fear (C02) and perceived social interpretation (C04), reducing avoidance and checking.",
+      "measurement": "Fear of negative evaluation (0-10) pre/post; frequency of proofreading incidents; self-rated accuracy of message tone",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "None beyond standard CBT precautions; monitor for increased distress if during sessions.",
+      "mapping_query": "Map S02 to C02, C04."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Digital_Environment_Optimization_for_Messaging",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Modify digital context: disable read receipts where possible, silence non-urgent notifications, use ready-made templates, and employ a 'send later' feature to reduce compulsive checking and speed up decision thresholds.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Alters external cues that drive checking (C01) and delay (C03); reduces time spent due to constant monitoring (C06) via environmental supports.",
+      "measurement": "Edits per message; average reply latency; time spent drafting",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure privacy and personal data safety; avoid unintended sharing via templates.",
+      "mapping_query": "Map S03 to C01, C03, C06."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Graded_Messaging_Exposure_Plan",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "A stepped exposure program: practice sending small, low-stakes messages, gradually increasing stakes; monitor anxiety, response speed, and perceived feedback.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Habituation to feared evaluation reduces anticipatory anxiety (C02), decreases avoidance/latency (C03), and mitigates beliefs about negative social interpretation (C04).",
+      "measurement": "Anxiety during tasks (0-10); time to send; perceived feedback quality",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Exposures should be low-risk; stop if distress escalates significantly.",
+      "mapping_query": "Map S04 to C02, C03, C04."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Good_Enough_Message_Criterion_Toolkit",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Create an explicit 'good-enough' rubric for message content (minimum viable content, tone, and length) to reduce indecision (C05) and prevent over-editing (C01).",
+      "targets_criteria_ids": [
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Externalizes internal standards to reduce endless revisions and premature tightening of content quality (C05, C01).",
+      "measurement": "Proportion of messages revised after initial draft; subjective clarity of send-threshold (0-10)",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Balance quality with efficiency; avoid overly lax standards.",
+      "mapping_query": "Map S05 to C05 and C01."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Response_Time_Boundaries_with_Key_Contacts",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Set expectations with key contacts about typical response times; implement a policy of replying within a defined window; use polite, brief clarifications as needed.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Clarifies social expectations (reduces perceived neglect in C04) and shortens unwarranted delays (C03).",
+      "measurement": "Actual vs. expected response times; perceived adequacy of replies; misunderstandings related to delays",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Maintain flexibility for urgent matters; communicate boundaries clearly.",
+      "mapping_query": "Map S06 to C03, C04."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Self_Compassion_and_Self_Talk_Interventions",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cultivate self-compassion to soften self-criticism about tone and adequacy; micro-interventions before drafting (brief self-kindness prompts).",
+      "targets_criteria_ids": [
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces self-criticism and fear-based interpretations of social feedback, lowering checking and delay.",
+      "measurement": "Self-compassion scores; changes in fear of evaluation; changes in beliefs about others' interpretations",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "None beyond standard self-compassion training.",
+      "mapping_query": "Map S07 to C02, C04."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Interpersonal_Communication_Coaching_and_Feedback",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage in coaching with a trusted contact to improve tone/clarity and reduce misinterpretation; receive feedback on drafts and adjust messaging approach accordingly.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "External feedback accelerates calibration of tone (C04) and reduces over-editing (C01) by improving initial drafts.",
+      "measurement": "Peer feedback quality ratings; edits per message; perceived clarity (0-10)",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.35,
+      "priority": "LOW",
+      "safety_notes": "Protect privacy and boundaries; avoid dependence on others for all messages.",
+      "mapping_query": "Map S08 to C01, C04."
+    }
+  ]
+}

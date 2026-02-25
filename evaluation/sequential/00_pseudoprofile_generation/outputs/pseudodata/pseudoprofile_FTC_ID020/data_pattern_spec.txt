@@ -1,0 +1,77 @@
+pseudoprofile_id: pseudoprofile_FTC_ID020
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID020/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.5383
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 0.80 * t + phase=3.88)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 2
+  * pulse_1: start_idx=56, length=4, amp=1.096
+  * pulse_2: start_idx=131, length=5, amp=1.503
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P03
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.217 | freq_hint=None
+  * P02: missing_rate=0.083 | freq_hint=None
+  * P03: missing_rate=0.139 | freq_hint=None
+  * P04: missing_rate=0.217 | freq_hint=None
+  * P05: missing_rate=0.256 | freq_hint=None
+  * P06: missing_rate=0.067 | freq_hint=None
+  * P07: missing_rate=0.100 | freq_hint=None
+  * C01: missing_rate=0.328 | freq_hint=None
+  * C02: missing_rate=0.289 | freq_hint=None
+  * C03: missing_rate=0.111 | freq_hint=None
+  * C04: missing_rate=0.300 | freq_hint=None
+  * C05: missing_rate=0.417 | freq_hint=None
+  * C06: missing_rate=0.378 | freq_hint=None
+  * C07: missing_rate=0.244 | freq_hint=None
+  * C08: missing_rate=0.194 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): External time-management scaffolds and routines | ontology_id=plan_do_review_self_management | conf=0.92 | freq_hint=None
+- P02 (PREDICTOR): Financial management automation and coaching | ontology_id=financial | conf=None | freq_hint=None
+- P03 (PREDICTOR): Household task management system | ontology_id=task_breakdown_skill | conf=0.92 | freq_hint=None
+- P04 (PREDICTOR): Social accountability platform | ontology_id=peer_support_checkin_template_for_digital_use_goals | conf=0.78 | freq_hint=None
+- P05 (PREDICTOR): Health self-management optimization | ontology_id=adherence_reminder_device | conf=0.62 | freq_hint=None
+- P06 (PREDICTOR): Self-compassion and cognitive reframing | ontology_id=compassionate_self_evaluation_reframe | conf=0.92 | freq_hint=None
+- P07 (PREDICTOR): Mastery experiences and strength-based framing | ontology_id=graded_task_mastery_planning | conf=0.92 | freq_hint=None
+- C01 (CRITERION): Perceived lack of practical life knowledge | ontology_id=system | conf=0.72 | freq_hint=None
+- C02 (CRITERION): Financial-management backlog | ontology_id=budgeting | conf=0.72 | freq_hint=None
+- C03 (CRITERION): Household task completion backlog | ontology_id=organizing | conf=0.66 | freq_hint=None
+- C04 (CRITERION): Social-maintenance deficit | ontology_id=avoiding | conf=0.72 | freq_hint=None
+- C05 (CRITERION): Health self-management gap | ontology_id=self | conf=0.62 | freq_hint=None
+- C06 (CRITERION): Time-management and organizational skills deficit | ontology_id=organizing | conf=0.72 | freq_hint=None
+- C07 (CRITERION): Negative self-evaluation / shame about life progress | ontology_id=shame | conf=0.78 | freq_hint=None
+- C08 (CRITERION): Preserved basic functional capacity | ontology_id=optimal | conf=0.72 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

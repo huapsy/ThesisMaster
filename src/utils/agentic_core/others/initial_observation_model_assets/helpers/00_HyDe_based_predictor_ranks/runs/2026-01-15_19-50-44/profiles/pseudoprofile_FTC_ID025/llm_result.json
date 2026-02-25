@@ -1,0 +1,180 @@
+{
+  "pseudoprofile_id": "CASE01_BIOPSYCHO_SOCIAL_PLANNER_V1",
+  "summary": "The presenting pattern is rapid, automatic social comparisons that trigger transient positive affect followed by sharp negative self-evaluation and a looping rumination about being inadequate. Modifiable levers should target (a) cognitive control over appraisal and rumination (psychology), (b) regulation through sleep, exercise and neurophysiological regulation (biology), and (c) exposure and rebalancing of social context and belonging signals (social). The proposed solutions include cognitive-behavioral skills, self-compassion and mindfulness practices, sleep and activity optimization, social-media boundary setting, identity/values work, and compassion-focused interpersonal strategies. Each lever is a measurable, actionable behavior with time-bounded horizons and varying feasibility, designed to reduce C01 frequency, attenuate C02-C08 reactivity, and sustain positive affect after observing others’ successes. Safety considerations are included; no pharmacology or unsafe interventions are proposed. A mix of individual, brief-therapy-compatible and digitally supported approaches is included to support scalability and monitoring in real-world settings.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Cognitive reappraisal skill strength (CBT-based)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured cognitive reappraisal training: weekly 6-session CBT-based module with daily 10-minute practice focusing on reframing social comparisons as neutral or informative; use thought records and cognitive rehearsals.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Improves top-down cognitive control over automatic appraisal, interrupts the immediate negative self-evaluation after triggers, and reduces the intensity/duration of rumination.",
+      "measurement": "EMA count of comparisons per day; post-trigger self-worth rating; daily thought-record completion rate; brief cognitive-behavioral skills quiz.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "None anticipated; monitor for unexpected distress during cognitive restructuring; provide fallback if distress increases.",
+      "mapping_query": "Map S01 to reduce C01 frequency and dampen C03/C04 cascades after C02 triggers; track pre/post-change in comparison frequency."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Self-compassion and mindful awareness practice adherence",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Daily 15-minute mindfulness with loving-kindness/compassion practices plus a 5-minute body-scan to enhance interoceptive regulation.",
+      "targets_criteria_ids": [
+        "C06",
+        "C04",
+        "C07",
+        "C05"
+      ],
+      "mechanism_rationale": "Promotes nonjudgmental awareness of triggers, reduces harsh self-criticism, and stabilizes affect, which dampens rumination and negative self-appraisal after comparisons.",
+      "measurement": "Self-compassion scale; rumination frequency; next-day affect ratings; sleep quality proxy.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Assess impact on post-trigger self-worth (C04) and rumination (C06) with adherence to compassionate practices."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Pause-and-label urge surfing (pre-response labeling)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implementation intention: on noticing a trigger (peer achievement), pause for 5 seconds, label the emotion, then reframe; use cue cards and a mobile reminder.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C06",
+        "C03"
+      ],
+      "mechanism_rationale": "Delays automatic response, interrupts rumination cycles, and facilitates cognitive reappraisal and emotional labeling.",
+      "measurement": "Latency to respond after trigger; percentage of triggers with label applied; post-trigger mood change.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Evaluate changes in reaction speed to C02 triggers and C06 rumination after implementing pause-label routine."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sleep quality and circadian regularity",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene program: fixed bedtimes, optimized sleep environment, caffeine timing, and daytime light exposure; track with wearables; target 7–9 hours per night.",
+      "targets_criteria_ids": [
+        "C06",
+        "C03",
+        "C07"
+      ],
+      "mechanism_rationale": "Improved sleep supports executive function and emotion regulation, reducing susceptibility to rapid negative self-evaluation and rumination.",
+      "measurement": "Sleep duration/efficiency; wake after sleep onset; next-day mood and cognitive-control tasks.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Screen for sleep disorders; refer if suspected (e.g., sleep apnea).",
+      "mapping_query": "Link objective sleep metrics to post-trigger C06/C03/C07 changes; track if sleep regularity moderates rumination."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Regular aerobic exercise engagement",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "3x/week 30-minute moderate-intensity exercise (e.g., brisk walk, cycling); options for social exercise to support adherence; track via wearable.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Exercise reduces rumination and negative affect, enhances cognitive control and resilience, and broadens positive affect that can buffer jealousy-related reactions.",
+      "measurement": "Weekly exercise minutes; post-exercise mood; frequency of rumination episodes; self-reported comparison urge.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.82,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Adjust for medical fitness; tailor intensity.",
+      "mapping_query": "Examine association between weekly exercise dose and reductions in C06 and C01 occurrences."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Social media exposure limit and monitoring",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Gradual reduction of time on social platforms and deliberate scheduling of 'comparison-free' windows; implement screen-time boundaries and accountability checks.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Lower exposure to external achievements reduces triggering observations and the automatic comparison loop.",
+      "measurement": "Daily screen time on targeted apps; number of observation-linked triggers; distress during exposure.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Maintain social connectedness; ensure alternative activities and supports.",
+      "mapping_query": "Correlate reduced C01 exposure with decreased C02-triggered reactions."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Values-aligned identity clarity and self-worth resilience",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Identity work: values clarification, strengths inventory, and an identity narrative emphasizing intrinsic worth beyond social comparisons; integrate into daily routines.",
+      "targets_criteria_ids": [
+        "C04",
+        "C08",
+        "C07",
+        "C05"
+      ],
+      "mechanism_rationale": "Strengthened self-worth from internal sources reduces reliance on social benchmarks and decreases jealousy intensity.",
+      "measurement": "Self-worth scales; frequency of jealousy episodes; alignment check with stated values.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Track relationship between identity clarity metrics and post-trigger self-worth and jealousy intensity."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Compassion-focused self-relating and inner voice training",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Compassion-focused brief interventions: daily compassionate self-talk, reducing inner judgement, and resourcing exercises; 5–10 minutes daily.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C07",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces harsh self-criticism, disrupts negative spirals after comparisons, and buffers jealousy by fostering self-compassion and emotional regulation.",
+      "measurement": "Self-criticism frequency; post-trigger negative thought count; mood reactivity after C02 events.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Assess impact of self-compassion training on post-trigger self-criticism and jealousy episodes."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Savoring and positive affect maintenance after others' successes",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Deliberate savoring of personal strengths and achievements after hearing about someone else’s success; practice gratitude for self-capacities; written3-bullet summary daily.",
+      "targets_criteria_ids": [
+        "C01",
+        "C07"
+      ],
+      "mechanism_rationale": "Counteracts the automatic negative shift by reinforcing positive affect and internal resources, reducing rumination and avoidance of jealousy.",
+      "measurement": "Savoring frequency; post-event mood ratings; count of negative cognitions after C02 exposure.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Monitor changes in C01 and C07 with savoring practice; assess whether positive affect mediates rumination reductions."
+    }
+  ]
+}

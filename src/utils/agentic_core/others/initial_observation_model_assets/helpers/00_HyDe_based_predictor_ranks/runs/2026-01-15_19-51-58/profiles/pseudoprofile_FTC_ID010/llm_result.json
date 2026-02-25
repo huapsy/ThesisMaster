@@ -1,0 +1,170 @@
+{
+  "pseudoprofile_id": "CASE01_BIOPSYCHO_SOCIAL_OPTIMIZATION",
+  "summary": "The case describes rapid cycles of high activation (initiating many projects, increased talkativeness and impulsive spending) followed by crashes with low energy and social withdrawal, leading to exhaustion and routine disruption. The proposed predictors are modifiable levers across bio, psycho, and social domains (and their interactions) aimed at stabilizing energy/mood cycles, improving follow-through on goals, reducing impulsive behaviors, and preserving daily routines through circadian regulation, structured planning, mindfulness, social supports, nutrition, and digital self-monitoring.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep regularity and circadian entrainment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish fixed bed/wake times, optimize morning light exposure, limit late caffeine and heavy evening activities, and implement a consistent wind-down routine to promote stable sleep-wake cycles.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Stabilizes energy availability and cognitive control, reducing mood/energy volatility that drives cycling between highs and crashes; supports recovery and routine maintenance.",
+      "measurement": "Average sleep duration; variability in bed/wake times (SD); daily energy and mood ratings; number of high-activation episodes with subsequent crashes.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "MAP_CASE_C04_C05_C06 Sleep circadian alignment; energy stabilization via circadian entrainment."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Structured task initiation pacing with energy budgeting",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Plan elevated periods with explicit limits on the number of new projects; use time-blocking and weekly priorities; establish exit criteria and post-episode debriefs to reallocate tasks.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Prevents overcommitment during highs and supports sustainable follow-through, reducing likelihood of post-episode exhaustion and withdrawal.",
+      "measurement": "Count of initiated projects per elevated episode; proportion completed; average time to respond post-episode; self-reported energy level.",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "MAP_CASE_C01_C04_C07 Task pacing and maintenance of routines."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Impulsive spending pre-commitment and financial self-regulation",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Set automatic rules (e.g., daily/weekly spending limits), implement delay-before-purchase with a brief cooling-off period, involve a trusted accountability partner, and avoid high-risk spending contexts during elevated periods.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Directly dampens impulsive financial behaviors during mood elevations, reducing downstream disruption to routines and social functioning.",
+      "measurement": "Number of impulse purchases; adherence to budget; subjective craving intensity; time between desire and action.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "MAP_CASE_C03_C05 Impulse control and social accountability through pre-commitment."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Mindfulness-based emotion regulation and distress tolerance",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce a brief daily mindfulness practice (5-15 minutes) plus emotion regulation strategies (reappraisal, urge-surfing) to reduce reactivity during highs and crashes.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Increases tolerance of fluctuating energy and mood states, reducing impulsive reactions and promoting steadier engagement with tasks.",
+      "measurement": "Daily mood variability; self-reported reactivity; frequency of reactive episodes.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "MAP_CASE_C04_C06 Mindfulness to regulate energy/mood volatility."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Structured social check-ins and support network activation",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Schedule regular brief check-ins with a trusted friend/coach during elevated periods and after episodes; create quick-response protocols to maintain social contact during low-energy phases.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Maintains social engagement and accountability, reducing withdrawal and helping sustain routines after high-activation periods.",
+      "measurement": "Response rate to check-ins; perceived social support score; number of check-ins attended.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "MAP_CASE_C05_C06 Social support to buffer withdrawal and maintain routines."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Nutritional adequacy and micronutrient status optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Screen for nutritional gaps; promote balanced meals with routine meal patterns; consider clinician-guided micronutrient optimization to support energy metabolism and cognitive function; monitor hydration and caffeine timing.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Improved metabolic energy and neurocognitive function support steadier mood and reduce fatigue-related crashes.",
+      "measurement": "Dietary intake logs; sleep-energy correlations; simple labs if available; subjective energy levels.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Coordinate with clinician; avoid self-prescribing high-dose nutrients.",
+      "mapping_query": "MAP_CASE_C04_C06 Nutrition to support energy and routine stability."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Morning light exposure and consistent wake/sleep times",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement regular morning bright light exposure (15-30 minutes) and maintain a fixed wake time; reduce evening bright screens and optimize the sleep environment.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reinforces circadian alignment, improving daytime alertness and mood stability to blunt energy cycling.",
+      "measurement": "Wake time consistency; minutes of morning light exposure; subjective energy/mood.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Monitor for light sensitivity; adjust as needed.",
+      "mapping_query": "MAP_CASE_C04_C05 Circadian entrainment and energy stabilization."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Digital self-monitoring with real-time feedback",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use a simple app or journaling framework to track daily mood, energy, and task initiation; provide automatic feedback to adjust plans; optionally incorporate wearables for activity tracking.",
+      "targets_criteria_ids": [
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Data-driven insight into patterns supports proactive pacing and maintenance of progress across cycles.",
+      "measurement": "Logging frequency; data completeness; correlation between tracked metrics and outcomes.",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Privacy considerations; data security.",
+      "mapping_query": "MAP_CASE_C04_C07 Measurement-based care and proactive pacing."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Problem-solving training and maintenance planning",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Provide a brief CBT-based problem-solving module; teach maintenance planning and strategies to sustain progress across cycles; implement plan-then-commit routines for ongoing projects.",
+      "targets_criteria_ids": [
+        "C07",
+        "C06"
+      ],
+      "mechanism_rationale": "Strengthens durable engagement with tasks and reduces relapse into non-productive cycling, promoting routine integration.",
+      "measurement": "Number of tasks completed; routine adherence; lapse-rate across cycles.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None.",
+      "mapping_query": "MAP_CASE_C07_C06 Problem-solving and maintenance planning to stabilize routines."
+    }
+  ]
+}

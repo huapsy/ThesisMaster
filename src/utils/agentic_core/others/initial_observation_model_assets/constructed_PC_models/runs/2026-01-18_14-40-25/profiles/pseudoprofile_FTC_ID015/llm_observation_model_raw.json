@@ -1,0 +1,1156 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID015",
+  "model_summary": "Initial observation model for postpartum emotional distress focusing on eight operationalized criteria (identity change, bonding, entrapment, guilt, overwhelm, tearfulness, self-criticism, perceived invalidation). Predictors prioritized to be modifiable and measurable at the EMA / daily / passive timescales: sleep (subjective + passive), self-compassion practice, cognitive reappraisal use, perceived social validation, respite hours, physical activity (steps), and social-media/screen exposure. Design emphasizes within-person variance (1–9 Likert where possible), coherent sampling (6 EMA prompts/day for momentary states, 1 daily morning diary for sleep/trait items, passive daily/ per-prompt aggregation), and parsimony to support later gVAR estimation while preserving coverage of BIO/PSYCHO/SOCIAL levers.",
+  "variable_selection_notes": "Selected criteria preserve full complaint resolution (all 8 original criterion variables retained). Predictor selection prioritized high HyDe/LLM signals and mechanistic plausibility: sleep (top-ranked in LLM mappings), self-compassion/emotion-regulation (HyDe top-ranked), cognitive reappraisal/behavioral activation (CBT signals), social support/respite (SOCIAL signals), activity and passive digital exposures as contextual modifiers. Trade-offs: limited number of overlapping constructs to reduce collinearity (chose one broad self-compassion measure and one cognitive-reappraisal measure rather than multiple overlapping self-regulation items). Passive signals chosen to increase objective variance but are optional if device access is lacking. Uncertainty/bias notes: identity-change (C01) is more trait-like (low within-person variability) and will likely require detrending or differencing; perceived bonding (C02) shows ceiling risk; screen-time effects are potentially nonlinear, so we model them as such rather than forcing monotonic signs.",
+  "design_recommendations": {
+    "study_days": 28,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:30-10:30",
+        "10:30-12:30",
+        "12:30-14:30",
+        "14:30-17:00",
+        "17:00-19:30",
+        "20:30-22:30"
+      ],
+      "recall_window": "since last prompt",
+      "expected_total_prompts": 168,
+      "notes": "Fixed 6 blocks with small random jitter to reduce predictability and memory biases. Use single-screen short EMA (<30s) per prompt to minimize burden."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "07:30"
+      ],
+      "expected_total_entries": 28,
+      "notes": "Morning diary (07:30) capturing last-night sleep subjective rating and previous day's respite hours / summary of major events. Use brief structured items."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "passive_continuous then aggregate per-prompt and daily",
+      "notes": "Collect continuous phone/wearable-derived steps and screen-time and sleep-tracking where available. Aggregate steps and screen-time into 'since last prompt' windows for per-prompt alignment; sleep minutes aggregated nightly for morning diary."
+    },
+    "minimum_total_observations_target": 200,
+    "gvar_readiness_notes": "Expect ~168 momentary + 28 daily observations; after preprocessing (imputation, detrending, z-scoring), gVAR with this individual time series is feasible. Control for nonstationarity (C01 low within-person variance) by detrending or treating C01 as slow-moving exogenous or using difference series. Use person-mean centering for predictors and criteria before VAR modeling.",
+    "variance_support_notes": "Use 1–9 Likert scales for subjective constructs to increase variance. Passive step/screen aggregates will add continuous variability. Encourage wearing phone/wearable and enable OS sleep tracking to support objective sleep minutes.",
+    "missingness_risk_notes": "EMA burden (6/day) may induce missingness; implement brief prompts, user reminders, and allow Grace windows. Passive streams mitigate missingness but depend on permissions and device availability; collect meta-data on missingness and device status."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Altered sense of self since childbirth",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone morning diary",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "Thinking about the period since having your baby, how much do you feel like 'yourself' compared to before the baby? (1 = completely like myself, 9 = not at all like myself)",
+        "response_scale_or_unit": "1-9 Likert (higher = more altered)",
+        "sampling_per_day": 1,
+        "recall_window": "since childbirth / last night (trait-like)",
+        "expected_within_person_variability": "low",
+        "notes": "Trait-like; expect slow changes across weeks. Recommended to model as slow-moving or difference series in gVAR."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "person-mean centering and detrend (first-difference or low-pass filter); consider modeling as exogenous slow variable",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Positive emotional bond with the baby",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how strongly did you feel affectionate/connected to your baby? (1 = not at all, 9 = extremely)",
+        "response_scale_or_unit": "1-9 Likert (higher = stronger bond)",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Ceiling risk possible because 'love' is present; measure intensity to preserve variance."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering (z-score)",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Perceived entrapment / loss of autonomy",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, to what extent did you feel trapped or limited by your caregiving role? (1 = not at all, 9 = extremely)",
+        "response_scale_or_unit": "1-9 Likert (higher = more trapped)",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Momentary fluctuations expected (respite, help, naps may alter)."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering; consider logit transform if bounded clustering",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Excessive guilt about feelings/parenting",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how guilty did you feel about your feelings or parenting? (1 = not at all, 9 = extremely)",
+        "response_scale_or_unit": "1-9 Likert (higher = more guilt)",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Direct target of self-compassion and cognitive reappraisal interventions."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering (z-score)",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Subjective overwhelm / low coping capacity",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how overwhelmed or unable to cope did you feel? (1 = not at all, 9 = completely overwhelmed)",
+        "response_scale_or_unit": "1-9 Likert (higher = more overwhelmed)",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "High expected within-person variance; sensitive to sleep, respite, and coping skills."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Low frustration tolerance / frequent tearfulness",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how tearful or emotionally reactive were you to small triggers? (1 = not at all, 9 = extremely)",
+        "response_scale_or_unit": "1-9 Likert (higher = more tearful)",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Responsive to sleep, self-regulation skills, and short-term supports."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering; consider square-root for skewed distributions",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C07",
+      "source_variable_id": "custom",
+      "label": "Self-criticism after emotional episodes",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, after feeling upset, how much did you judge yourself negatively (e.g., 'bad parent')? (1 = not at all, 9 = extremely)",
+        "response_scale_or_unit": "1-9 Likert (higher = more self-criticism)",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Direct target for compassion-focused and cognitive reappraisal interventions."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C08",
+      "source_variable_id": "custom",
+      "label": "Perceived minimization / lack of validation from others",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, to what extent did you feel that others dismissed or minimized how you feel? (1 = not at all, 9 = extremely)",
+        "response_scale_or_unit": "1-9 Likert (higher = more invalidation)",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Important social-context variable; may moderate responsiveness to interventions."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Subjective sleep quality (last night)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Sleep_Circadian_and_Restoration > Sleep_Routines_and_Practices",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Poor sleep quality increases emotional reactivity, low coping capacity, and tearfulness; improving sleep can rapidly reduce negative affect.",
+      "intervention_examples_safe": "Establish consistent sleep window, optimize sleep environment (dark, cool), brief sleep hygiene routines; discuss with clinician if persistent.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone morning diary",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "Last night, how well did you sleep overall? (1 = very poorly, 9 = very well)",
+        "response_scale_or_unit": "1-9 Likert (higher = better)",
+        "sampling_per_day": 1,
+        "recall_window": "last night",
+        "expected_within_person_variability": "medium",
+        "notes": "Morning diary item aligned with passive sleep minutes; subjectivity captures restfulness."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score within-person; consider detrending",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 12,
+          "typical_lag_hours_max": 48,
+          "rationale": "Improved sleep over nights gradually supports restored sense of self; lag may be days."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Feeling rested may modestly strengthen positive affect toward baby."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Poor sleep increases perceived entrapment via reduced coping capacity."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep reduces negative affect and guilt intensity."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Sleep has strong immediate effects on subjective overwhelm and coping."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Sleep improves emotional reactivity and reduces tearfulness the next day."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 72,
+          "rationale": "Sustained better sleep reduces negative self-evaluation over days."
+        },
+        {
+          "criterion_var_id": "C08",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 48,
+          "rationale": "Indirect effect: better sleep increases capacity to tolerate invalidation."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Sleep items are low risk; if severe insomnia suspected, recommend clinical follow-up.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Morning diary is low burden; high compliance expected."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Objective sleep minutes (night)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Sleep_Circadian_and_Restoration > Sleep_Devices_and_Technologies",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.6,
+      "mechanism_rationale": "Total sleep minutes objectively index recovery; shorter sleep is linked to worse mood and coping.",
+      "intervention_examples_safe": "Align sleep schedule; obtain wearable/phone-based sleep tracking; discuss clinical options if severely short.",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "phone/wearable sleep tracking (OS/native app or connected wearable)",
+        "assessment_type": "passive_daily_aggregate",
+        "item_or_signal": "Total sleep minutes last night (device-estimated)",
+        "response_scale_or_unit": "minutes",
+        "sampling_per_day": 1,
+        "recall_window": "last night",
+        "expected_within_person_variability": "medium",
+        "notes": "Requires user permission for sleep data; fallbacks to self-report if unavailable."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p for extreme tails; person-mean centering",
+        "collinearity_risk": "high",
+        "distribution_hint": "other"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Shorter sleep linked to greater next-day overwhelm."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Objective sleep loss increases emotional reactivity."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Passive collection requires consent; be transparent about data use.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.7,
+        "gvar_feasibility_0_1": 0.75,
+        "notes": "Feasible if user grants permissions and has device; otherwise missingness likely."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Self-compassion practice / self-soothing (use intensity)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Core_Psychological_Skills_Toolkits > Compassionate_Self_Relating_and_Inner_Support",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Self-compassion practices directly reduce guilt and self-criticism and improve emotion regulation.",
+      "intervention_examples_safe": "Brief self-compassion scripts, compassionate phrasing, short guided audio (1-5 minutes).",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, when you were upset, how compassionate were you toward yourself? (1 = not at all, 9 = extremely)",
+        "response_scale_or_unit": "1-9 Likert (higher = more self-compassion)",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Directly targets guilt and self-criticism mechanisms highlighted in the complaint."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering; z-score",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Self-compassion should rapidly reduce guilt and shame-related reactions."
+        },
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Direct reduction in self-criticism following compassionate self-talk."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Low risk; ensure practices are brief and grounding.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "EMA items short and tied to prompts; training examples can be provided."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Cognitive reappraisal / thought reframing frequency",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Cognitive_Behavioral_Therapies > Cognitive_Restructuring",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Reappraisal reduces guilt and self-blame by changing appraisal of events; supports identity updating over time.",
+      "intervention_examples_safe": "Short reappraisal prompts: 'What evidence supports/against that thought?', cognitive cards; guided reframes.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how often did you try to reframe or challenge negative thoughts? (1 = not at all, 9 = very often)",
+        "response_scale_or_unit": "1-9 Likert (higher = more reappraisal)",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Behavioral/cognitive skill use item."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C07",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reappraisal reduces immediate self-critical thoughts after emotional episodes."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Reframing reduces guilt intensity over short timescales."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Cognitive strategies are low risk; encourage professional support if intrusive thoughts escalate.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Feasible as short EMA items."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Perceived social support / validation",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] > Social_Support_and_Belonging > Support_Network_Development",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Perceived validation reduces feelings of invalidation and isolation and can moderate guilt and entrapment.",
+      "intervention_examples_safe": "Short validation scripts, brief supportive check-ins, scheduling a trusted person to listen.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how supported or understood did you feel by others? (1 = not at all, 9 = completely supported)",
+        "response_scale_or_unit": "1-9 Likert (higher = more support/validation)",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures social-context fluctuations; targets perceived minimization (C08) directly."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "person-mean centering",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C08"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C08",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Immediate reductions in perceived invalidation following support/validation."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Perceived support alleviates feelings of entrapment by enabling resource sharing."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Asking about social support may surface relationship issues; provide referral options if distress increases.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Simple EMA item; likely high compliance."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Respite / childcare hours (available help)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] > Family_Parenting_and_Household_Systems > Caregiving_and_Respite_Solutions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Objective access to respite directly relieves overwhelm and perceived entrapment and yields immediate improvements in coping.",
+      "intervention_examples_safe": "Scheduling short breaks, arranging family/friend or paid childcare, micro-respite planning.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone morning diary",
+        "assessment_type": "momentary",
+        "item_or_signal": "Yesterday, how many hours of childcare/respite (by others) did you receive? (enter number of hours)",
+        "response_scale_or_unit": "hours (decimal allowed)",
+        "sampling_per_day": 1,
+        "recall_window": "previous day",
+        "expected_within_person_variability": "medium",
+        "notes": "Captured in morning diary as sum for previous day; can be sensitive; anonymize if storing free-text."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "log1p for skewed hours; person-mean centering",
+        "collinearity_risk": "low",
+        "distribution_hint": "other"
+      },
+      "targets_criteria_var_ids": [
+        "C03",
+        "C05",
+        "C06",
+        "C04",
+        "C08"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Respite has immediate effect on perceived entrapment and overwhelm."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Respite increases coping capacity quickly."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Asking about childcare access may reveal lack of resources; provide resources/referral options.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Daily reporting reduces recall bias vs. momentary."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "Physical activity (steps per prompt-window)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Movement_Physical_Function_and_Somatic_Care > Aerobic_and_Cardiorespiratory_Movement",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.6,
+      "mechanism_rationale": "Light activity influences mood and fatigue and can reduce tearfulness and overwhelm over short timescales.",
+      "intervention_examples_safe": "Short walks, paced activity during baby naps.",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "phone/wearable step counts",
+        "assessment_type": "passive_aggregated_per_prompt",
+        "item_or_signal": "Steps recorded in the window since last prompt (device-derived)",
+        "response_scale_or_unit": "steps",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Aggregate into per-prompt windows to align with EMA."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "log1p for steps; person-mean centering",
+        "collinearity_risk": "low",
+        "distribution_hint": "count"
+      },
+      "targets_criteria_var_ids": [
+        "C05",
+        "C06",
+        "C01",
+        "C03"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Short activity bursts can reduce immediate emotional reactivity in some individuals."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Passive step data requires permission; may be missing if phone not carried.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.75,
+        "notes": "Useful objective covariate but optional if devices unavailable."
+      }
+    },
+    {
+      "var_id": "P08",
+      "label": "Screen time / social media minutes (since last prompt)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] > Digital_Social_Environment > Digital_Social_Environment_Solutions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.6,
+      "mechanism_rationale": "Digital exposure/social media may have nonlinear effects on mood — short social connection vs. longer passive browsing increasing guilt/comparison.",
+      "intervention_examples_safe": "Time-limited social-media use, curated content, brief social-media breaks.",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "phone screen-time API (minutes per app or aggregated)",
+        "assessment_type": "passive_aggregated_per_prompt",
+        "item_or_signal": "Minutes of screen time (or social-media app usage) since last prompt",
+        "response_scale_or_unit": "minutes",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Expect nonlinear associations; measure continuously and test for U-shaped patterns."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "log1p; also consider quadratic terms or splines in modeling",
+        "collinearity_risk": "low",
+        "distribution_hint": "other"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "nonlinear",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Short social contact may reduce tearfulness, while prolonged passive browsing may increase negative comparisons and tearfulness."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Privacy-sensitive; obtain explicit consent and explain aggregation; do not collect content.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.7,
+        "gvar_feasibility_0_1": 0.7,
+        "notes": "Depends on OS permissions and app-level aggregation availability."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,95000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,95000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,95000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,95000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,20000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,15000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,10000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P08",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,25000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Better subjective sleep last night expected to reduce next-day overwhelm.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Self-compassion practice expected to reduce guilt quickly.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Perceived validation/support reduces perceived entrapment.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Additional respite hours directly lower entrapment and overwhelm.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Cognitive reappraisal reduces immediate self-criticism.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Activity bursts may reduce tearfulness within hours.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P08",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "nonlinear",
+      "lag_spec": "0-6h",
+      "notes": "Screen time may have U-shaped effects on tearfulness (short contact vs prolonged passive browsing).",
+      "estimated_relevance_0_1": null
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "P03 (self-compassion) vs P04 (reappraisal): moderate collinearity of adaptive emotion-regulation skill use.",
+      "P01 (subjective sleep quality) vs P02 (objective sleep minutes): high collinearity expected; choose single or orthogonalize if necessary."
+    ],
+    "expected_floor_ceiling_risks": [
+      "C02 (positive bond) may show ceiling effects (responses clustered toward high values); consider modeling limited variance.",
+      "P06 (respite hours) may be zero-inflated leading to floor effects on many days."
+    ],
+    "variance_enhancement_suggestions": [
+      "Use 1-9 Likert anchored scales (already applied) to increase within-person variance.",
+      "Encourage passive data capture to add continuous variance (steps, screen-time).",
+      "If C01 shows too little variance, treat as slow-moving covariate or collect weekly identity-reflection items."
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "Pharmacotherapy and invasive neuromodulation (e.g., TMS) deprioritized for initial within-person gVAR exploration due to complexity and need for clinical oversight.",
+      "Highly overlapping self-regulation subscales were avoided to reduce collinearity (kept one self-compassion and one cognitive reappraisal measure)."
+    ],
+    "gvar_feasibility_summary": "With 28 days, 6 EMA prompts/day (168 momentary points) + 28 daily diaries and passive streams, there is sufficient temporal resolution for single-subject gVAR with 8 criterion and 8 predictor nodes after preprocessing. Recommend person-mean centering, detrending for slow-moving variables, and handling missingness with interpolation or multiple imputation tailored to time-series."
+  },
+  "safety_notes": "No immediate acute self-harm or psychosis signals in the complaint text. Monitor responses for emergent safety risk (explicit suicidal ideation, intent, or severe functioning loss); if reported, encourage immediate contact with local emergency services or a clinician. For questions about resource scarcity (childcare), provide referral options. Passive data collection requires explicit consent and clear privacy explanations."
+}

@@ -1,0 +1,18 @@
+pseudoprofile_id: pseudoprofile_FTC_ID013
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Increased alcohol use beyond intended -> CLINICAL / DSM-5TR / substance-related and addictive disorders / substance use disorders / alcohol use disorder / larger_amount_than_intended (conf=0.85)
+- C02: Anticipatory urges/ preoccupation about drinking -> CLINICAL / DSM-5TR / substance-related and addictive disorders / substance use disorders / alcohol use disorder / craving_urge_to_use_alcohol (conf=0.92)
+- C03: Perceived loss of voluntary control over drinking -> CLINICAL / DSM-5TR / substance-related and addictive disorders / substance use disorders / opioid use disorder / heroin use disorder / loss_of_control_over_use (conf=0.56)
+- C04: Alcohol used as post-work coping/relaxation -> UNMAPPED (reason=No suitable leaf exists for an alcohol-coping-after-work mechanism; closest options address withdrawal, sleep effects, or generic coping strategies, none of which precisely encode the C04 trigger as a momentary coping state.)
+- C05: Morning mood/energy impairment linked to drinking -> CLINICAL / DSM-5TR / depressive disorders / major depressive disorder (unipolar depression) / recurrent episode / melancholic type / morning_mood_worsening (conf=0.85)
+- C06: Worry/concern about current drinking -> NON-CLINICAL / AGE-GENERAL / emotional / affective process / emotion process / worry (conf=0.72)
+- C01_C02_C03_C04_C05_C06_targets: Targets for C01–C06 -> NON-CLINICAL / AGE-SPECIFIC / unspecified_stage / cognitive_development / executive_development / planning_and_organization / goal_setting (conf=0.72)
+
+PREDICTORS:
+- P01: Mindful drinking practice -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / informal_everyday_mindfulness / mindful_drinking_practice (conf=0.95)
+- P02: Alcohol-free social plan -> BIO / nutrition_hydration_and_metabolic_health / alcohol_and_other_intake_modulation / alcohol_free_social_plan (conf=0.95)
+- P03: Coping_skills_training_use -> PSYCHO / substance_use_recovery_and_behavior_change / cbt_based_recovery_skills / coping_skills_training / coping_with_social_pressure_without_use (conf=0.92)
+- P04: Sleep routine regularity -> BIO / sleep_circadian_and_restoration / sleep_routines_and_practices / presleep_downshift / wind_down_routine (conf=0.72)
+- P05: Wearable-derived sleep quality -> BIO / personalization_monitoring_and_data_feedback / wearables_and_home_monitoring / physiology / sleep_and_circadian / wearables / sleep_tracker_wrist_wearable (conf=0.78)

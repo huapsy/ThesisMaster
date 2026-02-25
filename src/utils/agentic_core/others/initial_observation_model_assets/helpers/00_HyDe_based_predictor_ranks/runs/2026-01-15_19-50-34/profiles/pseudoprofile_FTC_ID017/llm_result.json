@@ -1,0 +1,108 @@
+{
+  "pseudoprofile_id": "CASE001_BPS_PSEUDO",
+  "summary": "The case reflects burnout with compulsive work engagement during designated rest, perceived lack of restorative benefit from rest, guilt when resting, difficulty stopping work, poor boundary implementation, and social minimization. Six modifiable levers are mapped one-to-one to the current factors (C01–C06), spanning biological/sleep-related restoration, cognitive-emotional appraisals, self-regulatory skills, boundary control, and social-context support. Interventions emphasize actionable, observable behavior changes and simple metrics to track impact over 4–8 weeks, with cross-domain levers when appropriate to enhance feasibility and safety.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "C01",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Implement enforced off-duty periods by enabling an automated email pause and notifications filter; use an auto-reply that signals unavailability and designate a specific time to check emails.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Directly reduces engagement with work during rest, lowering cognitive arousal and breaking the work-first habit loop; environments that support boundaries enhance sustainable rest.",
+      "measurement": "Proportion of off-days with zero work activity logged; number of emails opened on days off; self-reported restfulness (0–10 scale).",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Extract off-duty days from calendar/email metadata; compute percent days with no work actions; correlate with self-reported restoration."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "C02",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Institute a structured micro-rest protocol (short naps or quiet rest sessions with light exposure control) plus sleep hygiene plan and brief cognitive appraisal journaling to aid restoration perception.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Combines physiological rest strategies with cognitive framing to enhance the perception of restoration and actual recovery.",
+      "measurement": "Daily restoration_score (0–10); average nap duration; sleep duration/efficiency; self-reported rested feeling.",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.78,
+      "expected_impact_0_1": 0.62,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Collect daily rest/restoration self-report; track naps and sleep duration; correlate with mood and energy levels."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "C03",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive reframing and acceptance strategy to normalize rest as productive; implement brief self-compassion prompts and values-aligned rest planning to reduce guilt.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Addresses guilt by changing appraisal of rest, decreasing negative affect, and supporting adaptive rest behavior.",
+      "measurement": "Guilt rating on rest days (0–10); frequency of rest with guilt; adherence to rest plan.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.82,
+      "expected_impact_0_1": 0.58,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Assess guilt levels before/after rest prompts; track rest frequency; relate to mood and energy."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "C04",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured shutdown ritual + timeboxing to create perceived control over work; use calendar blocks and a pre-commit end-of-day routine.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Enhances self-regulation and control, reducing compulsive work engagement by providing concrete stopping cues.",
+      "measurement": "Days with shutdown ritual completed; self-rated sense of control (0–10); time spent working after planned end.",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Monitor end-of-day routines and subsequent work activity; correlate with burnout symptoms and control perception."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "C05",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Boundary skills training plus tech-enabled boundary aids (notification scheduling, auto-responders, clear communication scripts); include practice sessions.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Develops concrete boundary behaviors and reduces leakage of work into rest by providing tools and rehearsal.",
+      "measurement": "Boundary adherence score (% days with notifications off); usage of boundary tools; self-reported ease of boundary enforcement.",
+      "time_horizon": "4–12 weeks",
+      "feasibility_0_1": 0.79,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Track usage of boundary tools; survey perceived boundary effectiveness; relate to rest quality."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "C06",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Social-support engagement strategies to address minimization by social network: facilitate explicit validation discussions with close friends, request concrete support, and join supportive peer groups.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Improves perceived social support and reduces minimizing responses, increasing useful guidance and emotional validation.",
+      "measurement": "Perceived social support score; frequency of supportive interactions; reported instances of minimization.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Assess social support quality and minimization experiences; track changes in burnout and rest-related distress."
+    }
+  ]
+}

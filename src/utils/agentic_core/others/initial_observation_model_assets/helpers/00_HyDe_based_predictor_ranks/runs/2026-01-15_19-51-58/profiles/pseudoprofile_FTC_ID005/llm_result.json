@@ -1,0 +1,164 @@
+{
+  "pseudoprofile_id": "GRIEF-NUMB-01",
+  "summary": "The case presents grief-related numbness, cue-triggered distress, rapid affective shifts, work concentration impairment, and perceived social invalidation. The proposed solutions introduce modifiable levers across biological, psychological, and social domains (and their interactions) to enhance emotional processing, stabilize arousal, improve sleep and energy, re-engage in valued activities, strengthen social validation, and enable measurement-based adjustments. Each lever targets specific criteria (C01–C06) while remaining safe, non-pharmacological, and action-oriented, with monitored feasibility and impact expectations.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Grief_processing_and_activation_schedule",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured grief processing combined with behavioral activation: weekly sessions to process grandmother's death using narrative journaling, evoked memory revisits, and scheduling meaningful activities aligned with personal values. Include behavioral experiments to reduce avoidance and increase engagement in daily life.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Processing the loss directly reduces experiential numbness by re-engaging with emotional content, decreases avoidance of grief triggers, and builds positive daily activities that counteract anhedonia. This also provides a framework for integrating distress cues into adaptive coping, improving concentration via mood stabilization and goal-directed activity.",
+      "measurement": "Numbness 0–10 scale (weekly); distress episode count per week (daily diary); momentary mood/affect diary (EMA); work task concentration rating (0–100); adherence to activity plan (days implemented per week).",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "MAP to C01–C06 via grief-processing and activation pathway; prioritize non-pharmacological, non-diagnostic approach."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Grounding_and_Mindfulness_practices_for_cue_trigger_distress",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach 3–4 grounding techniques (5-4-3-2-1 sensory grounding, paced breathing, emotion labeling) plus a brief daily mindfulness practice to reduce spike intensity of cue-triggered distress. Include 2 weekly check-ins to adjust practice.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Grounding and present-moment awareness reduce automatic reactivity to sensory cues, lowering peak distress and stabilizing moment-to-moment fluctuations, which supports better focus and emotional regulation.",
+      "measurement": "Cue-triggered distress episodes per week; peak distress intensity (0–10); minutes of mindfulness practice per day; work concentration rating (0–100); frequency of grounding technique use.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "MAP to C02–C04; add C01 consideration via reduced avoidance and enhanced presence."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep_regularization_and_circadian_alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a consistent sleep-wake schedule with wind-down routine, reduced evening screen time, morning light exposure, and sleep environment optimization to improve daytime alertness and cognitive function.",
+      "targets_criteria_ids": [
+        "C04",
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Improved sleep quality and regular circadian cues enhance cognitive functioning and emotional regulation, attenuating morning fatigue that compounds concentration problems and numbness.",
+      "measurement": "Sleep diary metrics (bedtime, wake time, total sleep, awakenings); Pittsburgh Sleep Quality Index (PSQI) or simplified sleep quality rating; daytime concentration rating; distress intensity proxy.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "MAP to C04 and C03 via sleep–cognition links; monitor effects on numbness (C01) indirectly."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Regular_aerobic_exercise_program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured aerobic activity plan (moderate-intensity cardio 3 times/week, 30–40 minutes per session) with outdoor exposure when possible; track adherence and mood/energy changes.",
+      "targets_criteria_ids": [
+        "C04",
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Physical activity elevates mood, enhances executive function, and reduces reactivity to distress cues through endorphin release and neurochemical modulation, which can improve concentration and reduce experiential numbness.",
+      "measurement": "Weekly exercise sessions completed; average mood rating post-exercise; daily concentration rating; distress episodes per week.",
+      "time_horizon": "6–10 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "MAP to C04 and C03 via mood–cognition pathway; assess secondary effects on C01."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Grief_support_group_and_peer_support",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Enrollment in a grief support group or structured peer-support circle to normalize experiences, reduce isolation, and validate feelings; optionally include family engagement sessions.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Social validation and shared narrative processing reduce perceived minimization and provide adaptive coping scripts, facilitating emotional access and ongoing processing of the loss.",
+      "measurement": "Group attendance/frequency; perceived social support (validated scale); loneliness score; engagement in grief processing tasks; work concentration impact.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "MAP to C01 and C05; leverage social support mechanisms to buffer isolation and promote processing."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Empathetic_communication_scripts_for_friends_and_family",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Provide brief psychoeducation and scripted responses to common reactions from friends/family (e.g., “time heals”) to improve validation and reduce invalidating experiences; encourage proactive supportive interactions.",
+      "targets_criteria_ids": [
+        "C05",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Improved social validation reduces ongoing invalidation (C05), which in turn supports emotional processing and reduces distress-related work impairment.",
+      "measurement": "Perceived validation score; frequency of supportive interactions; self-reported impact on focus during work meetings; numbness rating (0–10).",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.3,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "MAP to C05; social-context modification to support processing and reduce distress interference."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Measurement-Based_Care_and_Feedback_Loop",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Implement daily self-monitoring (brief mood/distress logs) with clinician review and adaptive plan adjustments; utilize automated feedback to tailor interventions across domains.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Frequent data-driven adjustments enable timely targeting of numbness, cue distress, and concentration issues, increasing the likelihood of improvement across multiple domains through personalized care.",
+      "measurement": "Log completion rate; trend slopes in mood/distress; frequency of plan adjustments; adherence to interventions; objective work performance metrics.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "MAP to all six criteria via integrated feedback loop; supports cross-domain optimization."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Imagery-based_reframing_of_triggers",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Imagery-based processing and rescripting to reframe triggering cues and embed positive memory associations; include brief in-session practice and home exercises.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Targeted imagery work can lessen cue-reactivity and facilitate integration of the loss into adaptive memory networks, reducing rapid fluctuations and promoting processing.",
+      "measurement": "Trigger-related distress intensity (0–10); frequency of distress episodes per week; engagement in imagery exercises; self-reported processing engagement.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.35,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "MAP to C02 and C03 via cue-reactivity attenuation and C06 via processing engagement."
+    }
+  ]
+}

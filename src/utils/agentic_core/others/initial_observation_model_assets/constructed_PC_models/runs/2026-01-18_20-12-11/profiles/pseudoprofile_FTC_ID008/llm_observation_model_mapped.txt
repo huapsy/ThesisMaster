@@ -1,0 +1,17 @@
+pseudoprofile_id: pseudoprofile_FTC_ID008
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Elevated resting muscle tension in shoulders and jaw -> CLINICAL / ICD-10 / pain disorders / orofacial pain disorders / temporomandibular joint disorders / neck_muscle_tension_associated_with_tmjd (conf=0.72)
+- C02: Low moment-to-moment awareness of bodily tension -> NON-CLINICAL / AGE-GENERAL / physical / physical self-care / listening to body signals / symptom awareness / awareness of physical changes (conf=0.56)
+- C03: Headaches triggered by muscular tension -> CLINICAL / ICD-10 / headache disorders / primary headache disorders / tension-type headache / pressing_tightening_quality (conf=0.75)
+- C04: Persistent anticipatory threat expectation -> CLINICAL / DSM-5TR / personality disorders / cluster a (odd, eccentric) / paranoid personality disorder / hypervigilance_to_potential_threats (conf=0.72)
+- C05: Difficulty relaxing on low-stress days -> NON-CLINICAL / AGE-GENERAL / emotional / positive emotions / contentment / relaxation / mental relaxation (conf=0.72)
+- C06: Habitual anticipatory muscle bracing in absence of immediate threat -> CLINICAL / DSM-5TR / bipolar and related disorders / bipolar i disorder / specifiers / with anxious distress / headache_or_muscle_tension_due_to_anxiety (conf=0.62)
+
+PREDICTORS:
+- P01: Daily progressive muscle relaxation (PMR) adherence -> PSYCHO / core_psychological_skills_toolkits / stress_resilience_and_downregulation / physiological_downshift / breath_and_relaxation_skills / progressive_muscle_relaxation_practice (conf=0.78)
+- P02: Interoceptive awareness training uptake -> PSYCHO / integrative_creative_and_body_oriented_interventions / somatic_and_body_oriented_psychotherapies / interoceptive_awareness_training (conf=0.72)
+- P03: Sleep optimization adherence and circadian alignment -> BIO / medical_assessment_and_physiology_testing / sleep_and_respiratory_testing / circadian_and_sleep_tracking / sleep_diary (conf=0.78)
+- P04: Social support engagement -> SOCIAL / digital_social_environment / digital_social_environment_solutions / healthy_online_community_engagement / moderated_support_community_enrollment (conf=0.66)
+- P05: Mindfulness/Attention regulation practice -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / body_based_mindfulness / body_scan_practice (conf=0.78)

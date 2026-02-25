@@ -1,0 +1,17 @@
+pseudoprofile_id: pseudoprofile_FTC_ID035
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Baseline health-related worry frequency/intensity -> CLINICAL / DSM-5TR / anxiety disorders / specific phobia / other type / nosophobia / health_anxiety_rumination (conf=0.72)
+- C02: Catastrophic interpretation of minor bodily symptoms -> CLINICAL / DSM-5TR / somatic symptom and related disorders / somatic symptom disorder / catastrophizing_thoughts_about_symptoms (conf=0.85)
+- C03: Compulsive online health-checking (duration) -> CLINICAL / DSM-5TR / somatic symptom and related disorders / cyberchondria / compulsive_internet_health_searching (conf=0.75)
+- C04: Failure to inhibit checking despite recognizing irrationality -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / obsessive-compulsive disorder / insight or belief forms / with good or fair insight / resists_obsessive_behaviors_when_possible (conf=0.74)
+- C05: Subjective sense of loss of control and distress about it -> CLINICAL / DSM-5TR / anxiety disorders / panic disorder / without agoraphobia / fear_of_losing_control_present (conf=0.62)
+- C06: Acute panic-level fear when a symptom appears -> CLINICAL / DSM-5TR / movement disorders and other side effects of medication / other (secondary) side effects of medication / class-specific adverse effects / stimulants / insomnia or anxiety / panic_like_anxiety_spikes (conf=0.42)
+
+PREDICTORS:
+- P01: CBT_Behavior_Change_Activation -> PSYCHO / cognitive_behavioral_therapies / behavior_change_and_activation / planning_and_grading / activation_design / graded_task_assignment (conf=0.84)
+- P02: CBT_Exposure_and_Inhibitory_Learning -> PSYCHO / cognitive_behavioral_therapies / exposure_and_inhibitory_learning / safety_behavior_work / identify_and_remove / competing_response_prevention (conf=0.78)
+- P03: Metacognitive_Stop_Monitoring -> PSYCHO / cognitive_and_metacognitive_interventions / metacognitive_and_attention_based_interventions / stop_threat_monitoring_and_checking (conf=0.85)
+- P04: Sleep_Routines_and_Practices -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / sleep_quality_rating (conf=0.72)
+- P05: Psychoeducation_Modules -> PSYCHO / foundations_and_common_factors / psychoeducation_modules / cognition_and_thinking / metacognition_and_beliefs_about_thinking / psychoeducation_meta_worry_and_safety_seeking (conf=0.72)

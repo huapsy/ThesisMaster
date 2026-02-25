@@ -1,0 +1,161 @@
+{
+  "pseudoprofile_id": "CASE_noise_overload_v1",
+  "summary": "The case presents a pattern of heightened sensory reactivity to ambient noise with rapid urges to escape, avoidance of noisy contexts, physiological hyperarousal, cognitive overload, concerns about social invalidation, and functional impairment. Modifiable levers span bio (sensory regulation, sleep, environment), psycho (exposure, cognitive restructuring, skills training), and social (accommodation, support, communication) domains, including their interactions. A staged approach combining graded exposure, arousal regulation, cognitive reframing, environmental adjustments, sleep optimization, activity engagement, social supports, and mindfulness-based grounding is proposed to reduce noise tolerance thresholds, decrease urge-to-escape and avoidance, dampen hyperarousal and cognitive overload, and restore daily functioning. Measurements are simple, scalable, and aligned with each lever to track progress over approximately 6–12 weeks. Priorities emphasize high-impact, feasible strategies with safety considerations for gradual implementation.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Graded auditory exposure with sensory regulation and social communication planning",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Graded noise exposure protocol combined with sensory-regulation skills and proactive social-communication strategies (e.g., requesting quieter settings, planning breaks)",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C07",
+        "C06"
+      ],
+      "mechanism_rationale": "Gradual exposure promotes habituation to noise, reducing threshold for tolerating ambient sound; sensory regulation lowers immediate arousal; planning and communication reduce distress and avoidance by clarifying needs.",
+      "measurement": "Noise tolerance rating (0–10) in progressively noisier settings; urge-to-escape rating (0–10); weekly avoidance episodes; subjective hyperarousal rating (0–10); daily functioning log (e.g., shopping/tasks completed); social-response quality (0–10)",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "Proceed with careful pacing; monitor for panic symptoms; provide opt-out options and professional support if distress escalates.",
+      "mapping_query": "CASE:S01 graded_noise_exposure_sensory_regulation_social_plan"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Arousal-regulation skills training (diaphragmatic breathing, grounding, affect regulation)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach and practice diaphragmatic breathing, grounding techniques, and affect regulation to reduce physiological arousal during exposure",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Regulated breathing and grounding reduce autonomic arousal and cognitive flooding, leading to lower perceived noise distress and improved processing",
+      "measurement": "Arousal rating during tasks (0–10); frequency of skill use; state anxiety scale (short form or 0–10); self-reported cognitive clarity (0–10)",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure correct technique; no contraindications; encourage practice in safe settings before real-world exposure.",
+      "mapping_query": "CASE:S02 arousal_regulation_training"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Cognitive restructuring to reduce perceived social invalidation and threat appraisal",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive restructuring to reframe others’ reactions as context-driven rather than personal invalidation; integrate with threat appraisal and coping",
+      "targets_criteria_ids": [
+        "C06",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Altering interpretation of social cues lowers social threat, reduces cognitive load during exposure, and lessens distress responses",
+      "measurement": "Perceived social judgment scale (0–10); cognitive flexibility index; distress in social settings (0–10)",
+      "time_horizon": "6–10 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Monitor for rumination; adjust pacing if increases distress or negative self-referential thinking.",
+      "mapping_query": "CASE:S03 cognitive_restructure_social_threat"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Environmental sensory accommodations and personal noise-reduction tools",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Use sensory-friendly spaces (shopping windows) and personal noise reduction (ear protection, quiet modes) to lower ambient load",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C07"
+      ],
+      "mechanism_rationale": "Reducing external auditory load and providing control over the environment decreases distress, lowers avoidance, and supports participation",
+      "measurement": "Weekly count of visits to sensory-friendly settings; self-reported noise tolerance (0–10); avoidance frequency",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Coordinate with venues for accessibility; ensure comfort and safety in use of devices.",
+      "mapping_query": "CASE:S04 sensory_accommodations"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep and circadian optimization for arousal regulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured sleep hygiene program with consistent schedule, light exposure, and circadian alignment",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C07"
+      ],
+      "mechanism_rationale": "Improved sleep quality and circadian alignment reduce baseline hyperarousal and cognitive overwhelm, supporting better functioning in noisy contexts",
+      "measurement": "Sleep duration/quality (diary or brief PSQI or 0–10 scale); daytime functioning; distress during exposure",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "If sleep disorders are suspected, consult a clinician; avoid unsafe sleep aids.",
+      "mapping_query": "CASE:S05 sleep_circadian_optimization"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Structured behavioral activation with graded exposure to daily tasks",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Systematic re-engagement in shopping, meals, and social activities with graded exposure and supports",
+      "targets_criteria_ids": [
+        "C03",
+        "C07",
+        "C02"
+      ],
+      "mechanism_rationale": "Re-engagement reduces avoidance, improves daily functioning, and lowers distress in common noisy contexts through practice and mastery",
+      "measurement": "Activities engaged per week; time in noisy contexts with manageable distress (0–10); task completion rate",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Progression should be slow and customizable; monitor for overload and adjust pacing.",
+      "mapping_query": "CASE:S06 behavioral_activation_and_exposure"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social support and accommodations via coaching and social prescribing",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Coaching in requesting accommodations, building supportive networks, and linking to community resources",
+      "targets_criteria_ids": [
+        "C06",
+        "C03",
+        "C07"
+      ],
+      "mechanism_rationale": "Enhanced support and accepted accommodations reduce perceived invalidation, broaden participation, and reduce functional impairment",
+      "measurement": "Perceived social support scale; weekly social participation count; distress in social/meal settings",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Respect boundaries; obtain consent for sharing information with third parties; ensure privacy.",
+      "mapping_query": "CASE:S07 social_support_and_accommodation"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Mindfulness-based sensory grounding to reduce reactivity",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Mindfulness-based interventions emphasizing body-sensory grounding during noisy exposure",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Mindfulness fosters nonreactive awareness of sensory input, dampening hypervigilance and cognitive overload during exposure",
+      "measurement": "Mindfulness attention/disentanglement scale; distress during exposure (0–10); functional rating (0–10)",
+      "time_horizon": "8–10 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Typically safe; provide guided instruction to avoid misapplication; ensure proper facilitation.",
+      "mapping_query": "CASE:S08 mindfulness_sensory_grounding"
+    }
+  ]
+}

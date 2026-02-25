@@ -1,0 +1,180 @@
+{
+  "pseudoprofile_id": "CASE- loneliness-wfh-social-v1",
+  "summary": "Proposed modifiable BIO-PSYCHO-SOCIAL levers target the social isolation pattern from extended work-from-home life by increasing meaningful in-person contact, bridging incidental social opportunities, and strengthening social initiation, belonging, and related mood. Levers combine environmental adjustments, active social engagement, skill-building, and self-regulation to move C01 (daily in-person contact), C02 (loneliness), C04 (perceived shrinkage), and C05 (meaningful vs superficial interactions), with measurable short- to mid-term horizons and practical feasibility.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Daily meaningful in-person contact scheduling (Structured social contact plan)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Implement a concrete plan to achieve at least 2 meaningful face-to-face contacts per weekday (each 15–45 minutes) with friends, family, or colleagues, ensuring a rotation of social roles (e.g., friend, neighbor, coworker).",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Increases quantity and quality of social interactions, directly addressing loneliness and the sense of social shrinking by promoting reciprocal, emotionally meaningful exchanges.",
+      "measurement": "Mean daily meaningful in-person interactions (via simple diary) and weekly loneliness rating (0–10); track number of distinct social contacts per week.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; ensure the plan is realistic to avoid overcommitment or social burnout (adjust pace as needed).",
+      "mapping_query": "Map S01 to C01–C05; align with decomp notes."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Hybrid work with in-person days + micro-incidental social slots",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Negotiate a hybrid schedule that includes 2 days per week of in-person work or co-working with built-in opportunities for casual social contact (coffee chats, lunch with colleagues).",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C05",
+        "C02"
+      ],
+      "mechanism_rationale": "Reintroduces incidental social contact in the work environment, increasing opportunities for meaningful interaction beyond transactional encounters.",
+      "measurement": "In-person work days per week; number of meaningful conversations per week; loneliness rating.",
+      "time_horizon": "6–10 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "If employer constraints apply, adapt schedule; ensure boundaries around work time.",
+      "mapping_query": "Map S02 to C01, C03, C05, C02; align with case notes."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Join community groups / hobby clubs or volunteering",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Identify 1–2 local or online groups aligned with interests; commit to 2 hours/week and attend at least 1 group event weekly; rotate to diversify social exposure.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Structured group participation fosters reciprocal interactions, reduces loneliness, and expands meaningful networks beyond immediate circles.",
+      "measurement": "Hours/week in group; self-reported belonging (0–10); number of group interactions.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for social anxiety triggers; adjust group choice as needed.",
+      "mapping_query": "Map S03 to C01, C02, C05; reference decomp notes."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Social initiation skills training (CBT-based) and micro-experiments",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Engage in weekly micro-experiments to initiate conversations (e.g., 1 new social initiation per day) using simple scripts; track attempts and outcomes; reinforce success with brief reflection.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces withdrawal and negative beliefs about social interactions, increasing initiation habits and perceived social efficacy.",
+      "measurement": "Number of initiation attempts per week; success rate; loneliness score.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "If frustration arises, adjust pacing; provide optional coaching support.",
+      "mapping_query": "Map S04 to C01, C02, C04, C05; link to decomp notes."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Structured online social time bridging (bridging to in-person)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create a weekly 60-minute moderated video chat with 4–6 peers; use prompts to share experiences; gradually shift to in-person when feasible; maintain consistency.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Maintains social connectedness during remote periods and primes a pathway to offline interactions, reducing loneliness and social withdrawal.",
+      "measurement": "Number of weekly online interactions; loneliness rating; perceived connection.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure inclusive group norms; avoid triggering topics.",
+      "mapping_query": "Map S05 to C02, C01, C04, C05."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Compassion-focused self-relating and mindfulness to reduce social withdrawal",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Weekly practice of self-compassion and cognitive reframing to challenge beliefs about others’ judgments; 10-minute daily practice with a weekly reflection; optional coaching support.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Improves self-efficacy for social engagement by reducing self-criticism and social threat appraisal, diminishing perceived shrinkage.",
+      "measurement": "Loneliness score; self-criticism scale; frequency of avoidance thoughts.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Low risk; monitor for any worsenings in mood; adjust practice duration.",
+      "mapping_query": "Map S06 to C02, C04."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Sleep optimization to support social energy",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Improve sleep routine: consistent bed/wake times, morning light exposure, and aim for 7–9 hours; track sleep quality and daytime energy to support social engagement.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Adequate sleep and daytime energy enhance motivation, mood, and willingness to engage socially, thereby addressing loneliness and perceived shrinkage.",
+      "measurement": "Sleep duration/quality (diary or simple checklist); daytime energy; loneliness score.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; monitor for sleep disturbances; adjust as needed.",
+      "mapping_query": "Map S07 to C02, C04, C01."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Social network mapping and outreach plan",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create a map of 8–12 potential social contacts (friends, neighbors, colleagues) and plan 1–2 outreach messages per week; prioritize reconnecting with diverse contacts.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Active network planning expands opportunities for meaningful interactions and belonging, reducing loneliness and social shrinkage.",
+      "measurement": "Outreach attempts per week; number of confirmed meetings; loneliness.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Respect boundaries; avoid pressure to reconnect with uncomfortable contacts.",
+      "mapping_query": "Map S08 to C01, C02, C04, C05."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Environmental social exposure: micro-activations in local community",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Set up bi-weekly micro-social events in the local area (coffee chats, park talks, doorstep chats); track attendance and perceived connection.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Creates low-friction, accessible social opportunities that can gradually build meaningful interactions and a sense of belonging.",
+      "measurement": "Event attendance; perceived belonging (0–10); subsequent social engagement.",
+      "time_horizon": "6–10 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure events are inclusive and safe; allow opting out.",
+      "mapping_query": "Map S09 to C01, C02."
+    }
+  ]
+}

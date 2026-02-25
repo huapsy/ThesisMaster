@@ -1,0 +1,139 @@
+{
+  "pseudoprofile_id": "CASE_PAYLOAD_2026_01_MHOP",
+  "summary": "The case describes rapid irritability to minor interpersonal triggers (e.g., dishes, tone), followed by post-episode emotional collapse and distress about self-behavior, with an explicit intention to be kind but difficulty enacting it. Core mechanisms to target include: (1) improved impulse control and prefrontal regulation during triggers; (2) stronger in-the-moment emotion regulation to prevent escalation; (3) reducing post-episode distress and ruminative self-criticism; (4) repairing interpersonal ruptures and aligning behavior with values; (5) enhancing self-compassion to bridge the gap between intent and action; (6) increasing adaptive mood-supportive activity (sleep, physical activity, social engagement) that supports regulation; and (7) leveraging social resources to dampen reactivity. The proposed levers span BIO, PSYCHO, and SOCIAL domains and include practical, changeable predictors with clear measures and short- to medium-term horizons. None of the recommendations rely on pharmacology or unsafe practices, and safety monitoring is included given the expressed distress. For acute risk, seek professional help immediately as needed.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep regularization and circadian alignment (BIO)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish a consistent sleep/wake schedule, optimize the sleep environment (dark/light, cool temp), limit caffeine after noon, and implement a 20–30 minute wind-down routine each evening. Track sleep duration/quality and daytime alertness.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Regular sleep supports prefrontal control and emotional regulation, reducing irritability and reactivity, and improving recovery from dysregulated episodes.",
+      "measurement": "Sleep duration (hrs), perceived sleep quality (1–5), daytime alertness (1–5).",
+      "time_horizon": "short-term (1–2 weeks) with ongoing maintenance",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; monitor for excessive fatigue or sleep disturbances; seek professional help ifSI symptoms arise.",
+      "mapping_query": "MAP_TO: C01,C03,C04,C05; DOMAIN: BIO; Sleep regularization."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "In-the-moment regulation during triggers (PSYCHO)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach and practice rapid regulation strategies to apply when triggers arise (e.g., box breathing, 4-7-8 breath, urge surfing, pause-respond-not-react). Build a brief trigger log with pre/post arousal ratings.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Immediate regulation reduces escalation in response to recurring cues, preserving relationship safety and personal control.",
+      "measurement": "Arousal before/after trigger (0–10), frequency of snapping episodes per week, adherence to practice.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "MAP_TO: C01,C02; DOMAIN: PSYCHO; In-the-moment regulation."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Structured emotion regulation training (CBT/DBT skills) with daily practice (PSYCHO)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Weekly skills session (emotion regulation, distress tolerance, cognitive reappraisal) plus daily 10-minute home practice and a coping-skills log; optionally couple-supported practice.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Enhanced skills for modulating affect and behaviors reduces impulsive reactions, improves post-episode recovery, and aligns actions with values.",
+      "measurement": "Daily practice adherence, DERS scores, mood variability (0–10), self-reported impulse control after episodes.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; monitor for frustration with new skills; escalate to therapy if needed.",
+      "mapping_query": "MAP_TO: C01,C02,C03,C04,C05; DOMAIN: PSYCHO; Emotion regulation training."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Post-episode repair script and partner communication protocol (SOCIAL)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Implement a two-minute post-episode repair plan: acknowledge impact on partner, state intent to repair, request a short break if needed, and schedule a follow-up 24–48 hours later for a calm discussion.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05",
+        "C07"
+      ],
+      "mechanism_rationale": "Structured repair conversations rebuild trust, reduce ongoing hostility, and bridge the gap between intention and action.",
+      "measurement": "Number of repair attempts, partner-rated warmth/trust (0–10), frequency of conflict escalation.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None beyond standard relational etiquette; ensure boundaries and safety for both partners.",
+      "mapping_query": "MAP_TO: C03,C05,C07; DOMAIN: SOCIAL; Post-episode repair protocol."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Self-compassion and cognitive reframing practice (PSYCHO)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Daily brief self-compassion journaling and cognitive reframing after distressing moments; develop affirmations that align with values and kindness toward self.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reducing self-criticism and aligning actions with personal values fosters patience and the ability to act in line with kindness.",
+      "measurement": "Self-Compassion Scale (brief), frequency of negative self-talk, mood after distress, perceived alignment with values.",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.58,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; monitor for rumination or ruminative mood if overused.",
+      "mapping_query": "MAP_TO: C04,C05; DOMAIN: PSYCHO; Self-compassion and cognitive reframing."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Regular aerobic exercise to support mood regulation (BIO)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Engage in 3x30 minutes of moderate aerobic activity per week (prefer outdoors, daylight exposure), with simple motion-tracking and mood check-ins.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Exercise improves executive function, reduces irritability, and stabilizes mood, aiding regulation during interpersonal stress.",
+      "measurement": "Weekly exercise minutes, 0–10 mood rating post-exercise, incident frequency of irritability.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure medical clearance if indicated; avoid overexertion; hydrate.",
+      "mapping_query": "MAP_TO: C01,C03; DOMAIN: BIO; Exercise for mood regulation."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Strengthened social support and partner-inclusive coping (SOCIAL)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Identify 1–2 trusted support people and schedule regular emotional-support conversations; invite partner to participate in 1–2 coping-skills practices; reduce isolation during distress.",
+      "targets_criteria_ids": [
+        "C02",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Social support buffers stress, reduces reliance on withdrawal, and improves relational safety and warmth.",
+      "measurement": "Number of supportive contacts per week, Social Support Questionnaire score, frequency of withdrawal episodes.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Set healthy boundaries; watch for codependency dynamics.",
+      "mapping_query": "MAP_TO: C02,C06,C07; DOMAIN: SOCIAL; Social support and coping network."
+    }
+  ]
+}

@@ -15,6 +15,8 @@
   --danger: #ff667a;
   --info: #6ab7ff;
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --font-ui: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
 }
 
 * {
@@ -23,7 +25,7 @@
 
 body {
   margin: 0;
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: var(--font-ui);
   color: var(--text);
   background:
     radial-gradient(1300px 700px at -10% -30%, #1a2d52 0%, transparent 70%),
@@ -154,6 +156,7 @@ a {
 .panel h4 {
   margin: 0 0 10px;
   color: #f2f7ff;
+  letter-spacing: 0.01em;
 }
 
 .panel p {
@@ -268,11 +271,54 @@ label {
 
 .mono {
   white-space: pre-wrap;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-family: var(--font-mono);
   background: rgba(5, 11, 22, 0.9);
   border: 1px solid var(--border);
   padding: 8px;
   border-radius: 10px;
+}
+
+.quick-run-form {
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(8, 14, 27, 0.7);
+}
+
+.advanced-settings {
+  margin-top: 10px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(7, 13, 24, 0.65);
+  overflow: hidden;
+}
+
+.advanced-settings > summary {
+  cursor: pointer;
+  padding: 10px 12px;
+  font-weight: 600;
+  color: #d7e6ff;
+  list-style: none;
+  user-select: none;
+}
+
+.advanced-settings > summary::-webkit-details-marker {
+  display: none;
+}
+
+.advanced-settings > summary::after {
+  content: " +";
+  float: right;
+  color: var(--muted);
+}
+
+.advanced-settings[open] > summary::after {
+  content: " -";
+}
+
+.advanced-settings-body {
+  padding: 10px 12px 12px;
+  border-top: 1px solid rgba(72, 104, 156, 0.32);
 }
 
 .meta-grid {
@@ -293,6 +339,32 @@ label {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+.runtime-flow-card {
+  margin-top: 10px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(7, 13, 25, 0.86);
+  padding: 10px;
+}
+
+.runtime-events-list {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 6px;
+}
+
+.runtime-events-list li {
+  font-size: 12px;
+  color: #cedcf3;
+}
+
+.runtime-events-list code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #a4bee4;
 }
 
 .runtime-item {
@@ -638,6 +710,10 @@ label {
   border-color: #2ea378;
 }
 
+.runtime-card.runtime-card-hidden {
+  display: none;
+}
+
 .log-console {
   background: #040912;
   color: #dce9f5;
@@ -647,9 +723,17 @@ label {
   max-height: calc(100vh - 180px);
   overflow: auto;
   padding: 10px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   line-height: 1.45;
+}
+
+.cohort-summary {
+  margin-top: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: rgba(8, 14, 27, 0.72);
+  padding: 10px;
 }
 
 .json-view {
@@ -711,13 +795,46 @@ label {
   background: rgba(8, 15, 28, 0.8);
 }
 
+.chart-card-wide {
+  grid-column: 1 / -1;
+}
+
+.chart-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
 .chart-card h3 {
   font-size: 14px;
   margin: 0 0 8px;
 }
 
+.chart-card-head h3 {
+  margin: 0;
+}
+
 .chart-card canvas {
   min-height: 220px;
+}
+
+.compact-select {
+  min-width: 130px;
+  display: grid;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.compact-select select {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 8px;
+  font: inherit;
+  color: var(--text);
+  background: rgba(8, 14, 26, 0.85);
 }
 
 .dashboard-detail-grid {

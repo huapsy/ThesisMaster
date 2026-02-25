@@ -1,0 +1,190 @@
+{
+  "pseudoprofile_id": "case_2669_psych_worry_mgmt_v1",
+  "summary": "Propose 9 actionable, modifiable BIO/PSYCHO/SOCIAL levers targeting the case-identified worry processes: frequency of hypothetical thoughts, persistent rumination, breadth of worry topics, belief that worry is useful, and emotional distress. Interventions span cognitive-behavioral techniques, mindfulness/acceptance, sleep/exercise, social support, digital self-monitoring, and nutrition. Each lever maps to specific criteria (C01–C05), includes simple measurements, realistic time horizons, and feasibility/impact estimates to guide implementation and prioritization.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Structured worry scheduling with a fixed worry window and attentional redirection practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a daily fixed worry window (e.g., 20–30 minutes) during which the individual processes potential future threats, followed by deliberate attention-control strategies (grounding, 5-4-3-2-1, or brief distraction) to redirect attention outside the window. Use brief thought records to separate problem-solving from perpetual rumination and gradually extend the window only as distress decreases.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Confining worry reduces cumulative episode frequency and rumination; cognitive offloading and attention redirection decrease engagement with worry chains; evidencing non-useful beliefs about worry through records weakens perceived usefulness.",
+      "measurement": "Daily diary: number of worry episodes >2 minutes, average duration; ability to redirect within 1–2 minutes post-worry cue; weekly self-rated usefulness of worry.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for avoidance of important tasks; adjust worry window if distress increases; seek professional help if anxiety escalates or self-harm risk emerges.",
+      "mapping_query": "Maps to C01 by reducing frequency; C02 by improving disengagement; C04 by reducing perceived usefulness."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Mindfulness/Acceptance and Commitment Therapy (ACT)-informed daily practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce 10–15 minutes of mindfulness/defusion practice daily (breathing, body scan, labeling thoughts, cognitive defusion) and short acceptance exercises to reduce automatic reactivity to worries and cultivate decentering.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Nonjudgmental awareness decreases automatic engagement with worry; cognitive defusion reduces rumination and distress; acceptance reduces avoidance-based intensification of worry.",
+      "measurement": "Daily practice minutes; self-reported distress during worry episodes; brief state mindfulness rating scale (end-of-day).",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "If distress worsens or becomes intolerable, adjust practice intensity; maintain routine; escalate to clinician if necessary.",
+      "mapping_query": "Targets C01 and C02 via decentering; C05 via reduced distress."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Behavioral Activation to increase engagement in meaningful activities",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Schedule and complete a minimum set of meaningful activities (creative, social, work-related, or hobby activities) to reduce idle time and disrupt worry loops. Use activity tracking and brief problem-solving to re-engage with valued routines.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Increased engagement provides cognitive load, reduces opportunity for worry to dominate, and improves mood through reinforcement and sense of mastery.",
+      "measurement": "Weekly count of completed activities; mood/distress ratings before/after activities; diary of time spent on worry vs. activity.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Monitor for over-commitment;.modify load if fatigue increases.",
+      "mapping_query": "Aims to reduce frequency (C01) and distress (C05) through behavioral engagement."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Cognitive restructuring to challenge the belief that worry is preparation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Use cognitive restructuring to test the belief that worry prevents harm: generate alternative outcomes, collect evidence for and against the belief, and create a balanced probability/appraisal during worry episodes.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Modifying maladaptive metacognitive beliefs reduces perceived usefulness of worry and lowers distress.",
+      "measurement": "Weekly measure of belief in usefulness of worry; frequency and intensity of worry; distress ratings.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Ensure coaching focuses on realistic assessment; avoid discouraging coping strategies. If anxiety escalates, adjust pacing.",
+      "mapping_query": "Directly targets C04; secondary effects on C05."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep hygiene optimization to support emotional regulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a consistent sleep schedule, wind-down routine, and circadian-aligned light exposure; minimize caffeine late in the day and create a conducive sleep environment.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Better sleep improves emotion regulation and reduces distress linked to worry.",
+      "measurement": "Sleep duration/quality logs; sleep onset latency; next-day mood ratings.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "If sleep apnea or other sleep disorders suspected, consult a clinician.",
+      "mapping_query": "Anticipated improvement in distress (C05) via sleep quality."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Regular aerobic/exercise program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Engage in moderate-intensity aerobic activity 3–4 times per week (e.g., brisk walking, cycling) plus light daily movement on non-exercise days.",
+      "targets_criteria_ids": [
+        "C05",
+        "C02"
+      ],
+      "mechanism_rationale": "Exercise enhances mood, reduces rumination, and improves cognitive control over intrusive thoughts.",
+      "measurement": "Weekly minutes of aerobic activity; pre/post exercise mood; rumination frequency after workouts.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Consult clinician if cardiovascular concerns; start gradually to avoid injury.",
+      "mapping_query": "Targets C02 (rumination) and C05 (distress) via mood and cognitive control improvements."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social support and communication skills enhancement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Develop a plan to bolster social support: scheduled check-ins with trusted others, clear communication of needs, and seeking empathetic listening. Consider joining supportive groups or peer coaching.",
+      "targets_criteria_ids": [
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Social buffering lowers distress and can reduce reliance on worry; improved interpersonal skills may reduce maladaptive beliefs about worry usefulness.",
+      "measurement": "Number of supportive contacts; perceived social support score; distress during worrying episodes.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure boundaries; monitor for overreliance on others; seek professional help if social conflict arises.",
+      "mapping_query": "Social buffering reduces distress (C05) and may lessen belief in worry usefulness (C04)."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Problem-solving skills training to address worry topics",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach a structured problem-solving framework: define the problem, generate options, evaluate options, implement, and review outcomes for each worry topic. Emphasize solvable items to reduce breadth (C03) and increase coping efficacy (C04).",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Providing concrete steps reduces fear-based hypothetical thinking and expands sense of control over outcomes, lowering frequency and distress.",
+      "measurement": "Number of problems identified and solvable; proportion of implemented solutions; changes in worry frequency.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Avoid over-structuring to the point of rigidity; adapt pace to client comfort.",
+      "mapping_query": "Addresses breadth (C03) and perceived usefulness (C04); may indirectly reduce C01."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Digital self-monitoring and feedback platform with thought records and progress visualization",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Use a guided digital diary to log worry episodes, complete brief cognitive-behavioral exercises, and visualize progress (e.g., weekly trend graphs). Include reminders and optional clinician review.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Externalizing thoughts supports cognitive offloading, improves metacognitive awareness, and provides feedback loops for behavior change across domains.",
+      "measurement": "Daily entries; weekly episode frequency; compliance rate; changes in distress and breadth scales.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Protect data privacy; ensure user consent; escalate if entries indicate crisis or self-harm risk.",
+      "mapping_query": "Broad mapping to all criteria (C01–C05) via monitoring and feedback."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Nutritional optimization focusing on omega-3s, B-vitamins, and magnesium (nutrition-first approach)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Collaborate with a clinician to optimize dietary patterns for mood support, emphasizing foods rich in omega-3s, B-vitamins, and magnesium; consider appropriate supplementation under supervision if needed.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Nutritional status influences brain function and emotional regulation, contributing to lower distress during worry.",
+      "measurement": "Dietary intake logs; symptom/mood diary; relevant biomarkers if available.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Follow clinician guidance for supplements; monitor for interactions with medications or conditions.",
+      "mapping_query": "Directly targets distress (C05) via nutritional support."
+    }
+  ]
+}

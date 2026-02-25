@@ -1,0 +1,122 @@
+{
+  "pseudoprofile_id": "CASE_PAYLOAD_MessagingAnxiety_Profile_S01_to_S06",
+  "summary": "The case shows a cognitive-behavioral loop of checking, anticipatory social-evaluative fear, and reply-delay driving functional time cost and interpersonal distress. Modifiable levers span (1) psychoeducational and behavioral strategies to reframe beliefs and manage the checking cycle, (2) cognitive-offloading and external aids to reduce uncertainty in “good enough” messaging, and (3) social skills and structured communication to align expectations and reduce perceived negative evaluation. The proposed solutions are designed as practical, measurable levers that can be implemented incrementally, with attention to safety and flexibility as needed. Each lever targets specific criteria (C01–C06) with plausible mechanisms and simple metrics to monitor change over a 2–6 week horizon.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Message_drafting_boundary_and_template_protocol",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a structured 5-minute drafting window before sending any outgoing message, plus a small library of neutral, polite templates (e.g., acknowledgment, brief question, or hello) and a single “finalize and send” click. The protocol enforces a timebox and reduces compulsive editing by externalizing structure (cognitive offloading within a psychosocial framework). Users log edits per message and aim to limit active edits to 2–3 cycles; if more edits occur, they re-evaluate the need for changes in a fixed 5-minute cycle.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "A timed drafting window provides external constraints that diminish repetitive checking (C01) and indecision about sufficiency (C05). Templates reduce fear of sounding stupid/rude (C02) by standardizing tone, thereby shortening reply delays (C03) and reducing misinterpretation risk (C04). The approach also lowers time cost (C06) by creating a predictable, efficient workflow.",
+      "measurement": "Average number of edits per message; median drafting time; proportion of messages sent within the 5-minute window; self-reported confidence in message adequacy; perceived misinterpretation incidents.",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.72,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns. Monitor for frustration if templates feel inauthentic; adapt templates to fit voice; escalate if avoidance worsens.",
+      "mapping_query": "Map S01 to C01–C06 to examine how structured timing and templates constrain repetitive checking and improve perceived adequacy of messages."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Cognitive_Behavioral_Reframing_and_Social_Feedback_Experiments",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Provide brief CBT-based reframing exercises focused on anticipatory fear of negative evaluation and small behavioral experiments in real messaging. Examples: after preparing a message, perform a 1-item behavioral experiment (send a minimal reply) and document outcomes; use simple thought records to challenge beliefs about being judged as stupid or rude. Include a quick breathing/grounding script before sending to reduce arousal.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Directly targets fear of evaluation (C02) and the belief that delayed replies imply ignoring (C04). Behavioral experiments test maladaptive beliefs (C05) and provide corrective feedback via real-world data, reducing excessive checking (C01) and hesitation indirectly.",
+      "measurement": "Belief strength scales (pre/post) regarding being judged; number of completed behavioral experiments; percentage of messages sent after minimal preparation; self-rated anxiety during messaging sessions.",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.68,
+      "priority": "MED",
+      "safety_notes": "No acute risk; encourage continuing assessment of anxiety levels; seek professional help if avoidance increases or functioning worsens.",
+      "mapping_query": "Link S02 to C02, C04, and C05 to assess impact of cognitive reframing and small experiments on social-evaluative fear and perceived message adequacy."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Structured_social_script_and_response_pacing",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Create a shared library of one-line response templates and a plan to set expectations with frequent contacts (e.g., “I usually reply within 24 hours”). Encourage using predetermined response pacing to normalize delays. Pair with a brief social-support check-in with a friend or coach to validate that slower replies are acceptable and not interpreted as neglect.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Social scripting reduces reply delays (C03) and the misinterpretation risk (C04) by clarifying intent and expectations. Social pacing also reduces time cost by providing a clear framework, improving daily functioning (C06).",
+      "measurement": "Time to first reply after receipt, adherence to pacing goal (e.g., 24-hour rule), self-reported clarity of others’ expectations, incidents of perceived neglect.",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Monitor for rigidity; keep flexibility to adjust pacing based on relationship context.",
+      "mapping_query": "Map S03 to C03, C04, C06 to assess whether social scripts and pacing improve response speed and reduce misinterpretation."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Cognitive_Offloading_and_External_Aids_for_Message_Composition",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Introduce external aids (checklists, bullet-point templates, and a pre-drafted “message skeleton”) to reduce cognitive load during composition. Use a digital tool to auto-fill core points (intent, tone, questions) and allow rapid finalization after a short review. Track time spent drafting and edits.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "External cognitive aids decrease the mental load that drives delayed replies (C03) and permit more stable standards for message content (C05). By scaffolding structure, users can complete messages faster (C06) with less fear of inadequacy.",
+      "measurement": "Drafting time per message; number of edits; proportion of messages sent after using the skeleton; user-reported ease of composing messages.",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure templates reflect personal voice; avoid robotic phrasing that could reduce relational warmth.",
+      "mapping_query": "Map S04 to C03, C05, C06 to evaluate impact of cognitive offloading on timing and content adequacy."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Pre-message_Relaxation_and_Mindfulness_Practices",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Brief grounding or diaphragmatic breathing (2–5 minutes) or a short mindfulness micro-practice before drafting and sending messages. This reduces physiological arousal and anticipatory anxiety, which can lower checking frequency and perceived need for perfection in wording.",
+      "targets_criteria_ids": [
+        "C02",
+        "C06"
+      ],
+      "mechanism_rationale": "Anxiety reduction prior to messaging decreases fear of negative evaluation (C02) and may support faster, more confident sending (C06) by reducing arousal-driven hesitation.",
+      "measurement": "State anxiety ratings before/after pre-message practice; average edits per message; time to send after opening a message; user-rated sense of send-ready readiness.",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "If mindfulness triggers distress for some individuals, adjust to a lighter or alternative grounding technique.",
+      "mapping_query": "Map S05 to C02 and C06 to evaluate whether pre-message relaxation lowers evaluative fear and improves sending efficiency."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Assertiveness_Communication_Skills_Training",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Provide targeted training in assertive communication and tone calibration (e.g., “I” statements, clear intent, and polite boundaries). Include brief practice messages with feedback from a coach or peer group. Encourage applying skills in real conversations and track perceived efficacy.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C03"
+      ],
+      "mechanism_rationale": "Enhancing communication skills reduces fear of condemnation (C02) and improves accuracy in social interpretation (C04) while enabling more efficient replies (C03).",
+      "measurement": "Self-efficacy in communication (pre/post), rate of misinterpretations reported, time to reply after training sessions, coach feedback scores.",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure skills are context-appropriate to avoid perceived harshness; tailor to relationship dynamics.",
+      "mapping_query": "Map S06 to C02, C04, C03 to assess impacts on fear, interpretation accuracy, and response timing."
+    }
+  ]
+}

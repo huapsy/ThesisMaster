@@ -1,0 +1,195 @@
+{
+  "pseudoprofile_id": "CaseTextureNoise-2026-01",
+  "summary": "The client shows modality-specific sensory reactivity (auditory trigger sensitivity to chewing sounds, and texture sensitivity) with a disproportionate emotional reaction (anger), intrusive post-trigger replay, and self-criticism. Interventions should target (1) sensory-specific triggers (auditory and tactile) and attentional-habituation processes, (2) emotion regulation and self-evaluation, (3) autonomic arousal regulation, and (4) environmental/social context to reduce exposure and provide support. The proposed BIO/PSYCHO/SOCIAL levers are changeable predictors with measurable outcomes and can be implemented progressively over roughly 4–12 weeks. Safety monitoring is advised for any escalation in distress, though no acute risk is indicated presently.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Auditory_trigger_sensitivity_graduated_exposure_protocol",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured graded exposure to chewing sounds with response prevention, delivered in a cognitive-behavioral framework (e.g., brief daily sessions; start with non-trigger sounds and gradually increase difficulty).",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C02"
+      ],
+      "mechanism_rationale": "Repeated controlled exposure reduces aversive reactivity (sensory desensitization) and decreases automatic perseverative attention by pairing triggers with non-aversive responses; improved controllability may reduce anger intensity.",
+      "measurement": "SUDS ratings during exposure; frequency/length of intrusive 'cannot stop hearing' episodes; self-reported anger intensity (0–10) after exposure tasks.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Exposure tasks should be guided by a clinician or structured program; monitor for escalating distress or frustration; discontinue if severe anxiety occurs.",
+      "mapping_query": "Explain how graded auditory exposure to chewing sounds reduces C01 reactivity and C03 perseverative attention, and potentially lowers C02 anger intensity."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Emotion_Regulation_Skills_Training_for_Impulse_Control",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach and practice cognitive reappraisal, stress tolerance, and impulse-control strategies (e.g., STOP technique, urge surfing) to reduce disproportionate anger responses to triggers.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C03"
+      ],
+      "mechanism_rationale": "Better emotion regulation lowers automatic anger responses and distress about reactions; reduces rumination about triggers.",
+      "measurement": "Anger intensity (0–10) during and after triggers; frequency of self-criticizing thoughts; self-rated distress about reactions (0–100).",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "None specific; ensure practice aligns with personal values and reduces self-criticism.",
+      "mapping_query": "Describe how emotion regulation training lowers C02 anger intensity and C04 distress from reactions."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness_Acceptance_and_Observance_Practices",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Mindfulness-based stress reduction or acceptance-based skills to observe triggers non-judgmentally and reduce automatic reactivity.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04",
+        "C01"
+      ],
+      "mechanism_rationale": "Nonjudgmental awareness reduces automatic reactivity to triggers (C01) and the intrusive replay (C03) and self-criticism (C04), potentially improving controllability of anger (C02).",
+      "measurement": "State mindfulness ratings; SUDS during triggers; frequency of intrusive thoughts; self-criticism scale scores.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.8,
+      "priority": "HIGH",
+      "safety_notes": "None; some people may find mindfulness uncomfortable at first; provide options and support.",
+      "mapping_query": "Explain how mindfulness/acceptance practices reduce C01 sensitivity, C03 perseveration, C04 distress, and improve C02 control."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Autonomic_Regulation_and_HRV_Biofeedback",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "HRV biofeedback and paced breathing to modulate physiological arousal during exposure to triggers.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Improved autonomic balance reduces rapid anger surges and intrusive arousal while exposing triggers.",
+      "measurement": "HRV coherence index during tasks; subjective arousal ratings; breath rate during exposures.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Safe; ensure proper guidance to avoid hyperventilation; consult clinician if dizziness occurs.",
+      "mapping_query": "Describe how HRV biofeedback and paced breathing reduce C02 intensity and C03 perseverative activation."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Texture_and_Sensory_Integration_Desensitization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Graded tactile exposure and sensory integration strategies to reduce texture aversion, aligned with sound-trigger management.",
+      "targets_criteria_ids": [
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Reducing texture sensitivity may lessen overall sensory irritability and cross-sensitization with auditoryTriggers; potential indirect effects on C01.",
+      "measurement": "Texture tolerance scale; distress ratings during tactile tasks; self-reported sensory profile changes.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Ensure tactile stimuli are safe and not aversive to avoid worsening distress.",
+      "mapping_query": "Explain how tactile desensitization contributes to reductions in C01 and C05."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sound_Environment_Modification_and_Social_Accommodation",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Use of noise-reducing environments, headphones, and social strategies to control exposure and support coping.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "By creating a less triggering environment and relying on social support, user can reduce aversive reactivity and intrusive thoughts; improved controllability via environment.",
+      "measurement": "Usage rate of noise-cancelling tools; self-reported trigger exposure frequency; anger intensity in controlled settings.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Non-pharmacologic; monitor for social withdrawal; encourage gradual exposure within comfort limits.",
+      "mapping_query": "Describe how environmental and social accommodations reduce C01 exposure and C03 intrusion."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Self_Compassion_and_Shame_Resilience_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "CFT-based self-compassion practices to reduce self-criticism and distress about reactions.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces self-judgment and distress (C04), which may lower overall emotional reactivity to triggers.",
+      "measurement": "Self-Compassion Scale scores; distress about reactions; frequency of self-criticism remarks.",
+      "time_horizon": "4–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Explain how self-compassion work reduces C04 distress."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Sleep_Wake_Rhythm_Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene routines and circadian alignment to support daytime regulation and reduce irritability.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Better sleep improves emotional regulation and reduces intrusive rumination on triggers.",
+      "measurement": "PSQI score; sleep duration; next-day irritability scale; morning arousal.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "None; monitor for sleep disturbances.",
+      "mapping_query": "Describe how sleep optimization reduces C02 intensity, C03 intrusion, and C04 distress."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Dietary_Brain_Support_Strategy",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Dietary pattern improvements and omega-3/B-vitamin rich foods to support brain function and reduce inflammation that can heighten sensory irritability.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Nutritional support may improve neurotransmitter function and overall brain resilience, reducing reactivity and rumination.",
+      "measurement": "Dietary intake logs; mood/irritability ratings; auditory and texture sensitivity diaries.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "No dosing; avoid self-prescribing supplements; consult nutrition professional if needed.",
+      "mapping_query": "Explain how nutritional strategies support brain function to reduce multiple criteria."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Attention_Control_and_Cognitive_Offloading_Strategies",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive strategies to redirect attention away from triggers; use of external cues or task-based redirection.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Improved attentional control reduces perseverative hearing and reduces reactivity and anger by interrupting trigger processing.",
+      "measurement": "Attention task performance; self-reported frequency of trigger-focused thoughts; anger intensity after triggers.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Describe how attention-control strategies reduce C03 intrusion and C01 sensitivity."
+    }
+  ]
+}

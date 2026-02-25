@@ -1,0 +1,139 @@
+{
+  "pseudoprofile_id": "CASE_MIGRAINE_MGMT_V1",
+  "summary": "This plan targets actionable Bio/Psych/Social levers to reduce migraine unpredictability, associated anxiety, and functional disruption by strengthening sleep and autonomic regulation, enhancing self-monitoring and contingency planning, applying cognitive-behavioral and mindfulness strategies to anticipatory distress, increasing social accountability, and leveraging digital personalization for feedback. All levers are changeable predictors designed to improve C01 (unpredictability), C02 (functional impact), C03 (planning/commitment), C04 (anticipatory anxiety), C05 (anxiety-driven exacerbation), and C06 (perceived control). Interventions span self-management behaviors, brief therapies, and supportive social-ecological adjustments with clear, simple measurements to track progress over 6–12 weeks, while avoiding unsafe or pharmacological instructions.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Fixed Sleep-Wake Schedule with Sleep Hygiene",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a consistent sleep-wake schedule (e.g., same bedtime and wake time within ±30 minutes daily) plus a simple sleep routine and caffeine/alcohol timing rules. Use a lightweight sleep diary or app to track sleep onset, awakenings, and perceived sleep quality, aiming to stabilize circadian inputs that influence migraine thresholds.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C02",
+        "C06"
+      ],
+      "mechanism_rationale": "Regular sleep strengthens brain energetics and autonomic regulation, reducing cortical hyperexcitability and anticipatory arousal that contribute to unpredictability and planning distress; improved sleep quality can lessen migraine severity and improve perceived control.",
+      "measurement": "Adherence rate to fixed schedule; average sleep onset latency; nocturnal awakenings per week; number of migraine days per 28 days; planning-related anxiety rating.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for sleep disruption if schedules shift; adjust times gradually if insomnia emerges.",
+      "mapping_query": "Map to CASE_PAYLOAD: C01, C04, C02, C06."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Migraine Diary with Predictive Planning and Contingency Options",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use a daily migraine diary capturing onset probability, duration, and intensity; generate a simple daily probability estimate and pre-plan low-stimulation alternatives for high-probability days. Create a back-up plan (e.g., canceling or postponing nonessential activities) to reduce avoidance and improve perceived control.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Self-monitoring increases predictability and creates structured contingency planning, reducing avoidance (C03) and anticipatory anxiety (C04); data supports a sense of control (C06).",
+      "measurement": "Diary completion rate; days with planned activities adjusted due to migraine; self-rated planning efficacy; migraine days per 28 days.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.92,
+      "expected_impact_0_1": 0.68,
+      "priority": "HIGH",
+      "safety_notes": "Ensure data privacy; avoid over-monitoring leading to stress; provide user-friendly entry formats.",
+      "mapping_query": "Map to CASE_PAYLOAD: C01, C03, C04, C06."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Cognitive-Behavioral Therapy for Anticipatory Anxiety & Anxiety-Migraine Beliefs",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "A brief CBT module (8–12 sessions) focusing on worry management, cognitive restructuring of beliefs that anxiety worsens migraines, and graded exposure to uncertainty around plans. Emphasize behavioral activation for chosen activities to counter avoidance.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Reducing catastrophic thinking and enhancing adaptive appraisal lowers anticipatory distress and disrupts the feedback loop where anxiety exacerbates migraine vulnerability, improving self-efficacy and perceived control.",
+      "measurement": "State anxiety scores (e.g., short anxiety scale) pre/post; weekly migraine days; migraine-related functional status; migraine management self-efficacy scale.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for distress during exposure tasks; provide safety plan and referral if needed.",
+      "mapping_query": "Map to CASE_PAYLOAD: C04, C05, C06."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Mindfulness-Based Stress Reduction (MBSR) for Migraine Distress",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Offer an 8-week mindfulness program (or brief Mindfulness-Based Cognitive Therapy module) with daily home practice (10–20 minutes). Focus on nonjudgmental awareness of sensations, thoughts, and planning-related distress to reduce reactivity to unpredictability.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Increased mindfulness reduces rumination about migraines, lowers autonomic arousal, and weakens the link between anticipatory anxiety and migraine onset, enhancing perceived control.",
+      "measurement": "Mindfulness instrument score (brief version); anxiety level; number of migraine days; perceived control scale.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.78,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "None; encourage regular practice; adjust intensity if distress arises.",
+      "mapping_query": "Map to CASE_PAYLOAD: C04, C05, C06."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Social Support & Planning Accountability",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage a trusted friend/family member or migraine support group to provide accountability for plans, assist with scheduling, and offer contingency-friendly activity ideas. Use shared calendars or check-in messages to reduce plan cancellations.",
+      "targets_criteria_ids": [
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Social accountability reduces avoidance and increases perceived support, contributing to greater plan commitment and self-efficacy in migraine management.",
+      "measurement": "Number of planned activities kept vs. canceled; satisfaction with support; perceived social support scale; migraine days.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Respect privacy and boundaries; avoid over-reliance on others.",
+      "mapping_query": "Map to CASE_PAYLOAD: C03, C06."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Aerobic Activity & Hydration Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Introduce a gradual aerobic program (e.g., 20–30 minutes, 3x/week) plus a daily hydration and caffeine modulation plan. Pair with a simple tracking method (short log) to monitor exercise, water intake, and migraine occurrence.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Regular aerobic activity improves vascular resilience and reduces pain sensitivity, while hydration and controlled caffeine intake can stabilize triggers, lowering unpredictability and anticipatory distress.",
+      "measurement": "Weekly minutes of aerobic activity; daily water intake; migraine days per 28 days; anxiety rating related to planning.",
+      "time_horizon": "12 weeks",
+      "feasibility_0_1": 0.82,
+      "expected_impact_0_1": 0.62,
+      "priority": "MED",
+      "safety_notes": "Start at low intensity; adjust based on migraine response; monitor signs of overexertion.",
+      "mapping_query": "Map to CASE_PAYLOAD: C01, C04."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Digital Personalization & Data Feedback via Wearables",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Leverage wearables to monitor sleep, activity, stress indicators, and migraine episodes; provide weekly, personalized feedback with actionable adjustments (sleep, activity pacing, and planning). Integrate with diary and CBT/MBSR elements for reinforced self-management.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Data-driven feedback enhances pattern recognition, improves predictability, and strengthens perceived control; personalized guidance supports adherence and reduces planning avoidance.",
+      "measurement": "Wearable adherence rate; pattern clarity (detectable trigger patterns); changes in migraine days and planning confidence; user satisfaction with feedback.",
+      "time_horizon": "8-16 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.66,
+      "priority": "MED",
+      "safety_notes": "Ensure data privacy and consent; avoid excessive monitoring; provide opt-out option.",
+      "mapping_query": "Map to CASE_PAYLOAD: C01, C04, C06."
+    }
+  ]
+}

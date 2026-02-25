@@ -1,0 +1,139 @@
+{
+  "pseudoprofile_id": "CASE_BP_SO_evenings_001",
+  "summary": "The case presents an evenings-specific pattern: recurring heavy/bleak mood, minimal outward distress, and persistent passive smartphone scrolling driven by perceived high effort to engage in alternative activities and avoidance. Modifiable levers span the bio-psychological-social spectrum: stabilize sleep and energy (bio), reduce avoidance and increase activation (psycho), implement social connections and environmental supports (social), and employ measurement-based feedback to tailor the plan. The proposed solutions emphasize brief, scalable, low-friction changes that target evening behaviors, energy, and mood, with clear metrics and iterative monitoring over 2–6 weeks.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Evening Behavioral Activation Scheduling (3x 10–15 min activities)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured evening plan with 3 brief, enjoyable activities (e.g., 15-min walk, 10-min puzzle, 10-min call) initiated via a written/simple plan, with explicit daily completion tracking and weekly adjustments to ensure at least 3 activation moments per week.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Provides low-friction access to rewarding experiences, counteracts inertia, reduces reliance on passive scrolling, and lowers perceived effort by buffering with short, manageable tasks.",
+      "measurement": "Evenings with at least one planned activity completed; number of activation tasks completed per week; self-rated evening energy before/after activity",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for mood worsening or overwhelm; if nocturnal mood shifts or self-harm risk emerges, escalate to a clinician and activate safety plan.",
+      "mapping_query": "Link to CASE_PAYLOAD: reduce evening bleak mood via proactive activation; target C01/C03/C04/C05 with a 3-activation/week plan."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Evening phone-use boundary and replacement cue",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Establish a 7–9 pm phone-free window; place devices out of reach; pre-plan alternative low-attack activities (e.g., journaling, light stretching); use reminders nudges to maintain boundary and track violations.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces automatic, prolonged scrolling that reinforces avoidance and drains executive energy, creating cognitive space for engaging in non-phone activities and reducing perceived effort to start.",
+      "measurement": "Evening screen time (minutes) before vs during the boundary window; number of boundary violations; self-reported urge to scroll",
+      "time_horizon": "2–3 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "If device-boundary causes distress or withdrawal, provide alternative coping options and ensure social contact remains available.",
+      "mapping_query": "MAPS to C03/C05 by reducing avoidance-driven scrolling and facilitating engagement in alternative activities."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep circadian alignment and light exposure in evenings",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Stabilize sleep with fixed bed (e.g., 10:30 pm) and wake times (7:30 am); dim evening lighting; reduce blue light; maximize morning light exposure; limit caffeine after 2 pm.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Circadian stabilization improves mood regulation and daytime energy, lowering evening heaviness and facilitating initiation of activities.",
+      "measurement": "Bedtime/wake time logs; minutes of morning light exposure; evening energy/mood ratings",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "If sleep problems persist or worsen (insomnia), seek sleep assessment.",
+      "mapping_query": "Biological rhythm optimization to attenuate C01 and support C04 via energy/mood improvement."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Evening mindfulness/ACT-based distress tolerance",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "5-minute daily mindfulness or ACT exercise in the evening (breath, defusion, values-aligned action); brief cognitive defusion to reduce avoidance, commit to one small action post-practice.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces experiential avoidance and distress amplification, increasing willingness to engage in non-phone activities despite bleak mood.",
+      "measurement": "Daily practice minutes; distress tolerance rating; number of evenings with non-phone activity after practice",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "No special safety concerns; monitor for anxiety escalation.",
+      "mapping_query": "Relates to C01/C04/C05 by improving tolerance and reducing avoidance in evenings."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Evening social connection and belonging activities",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Schedule 2 short (10–15 min) social interactions per week in the evening (call a friend, online chat, or brief in-person) to counter isolation and bleak affect.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Social connectedness enhances mood and reduces rumination, increasing energy and reducing reliance on phone-based avoidance behaviors.",
+      "measurement": "Number of evening social interactions; self-reported mood before/after interactions; belonging/connectedness ratings",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Ensure activities are supportive; adjust if social conflict arises.",
+      "mapping_query": "SOCIAL action to improve mood and reduce avoidance, addressing C01/C02/C04/C05."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Daily mood-activity self-monitoring and feedback",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a brief daily diary (2 minutes) capturing mood, energy, evening activities, and phone use; weekly review with simple plan adjustments; optional automated summaries.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Measurement-based feedback increases self-awareness, guides tuning of activation strategies, and maintains motivation for behavior change.",
+      "measurement": "Diary completion rate; correlation between mood/energy and activities; weekly plan adjustment log",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Maintain privacy of entries; no sensitive data exposure.",
+      "mapping_query": "MAP to C01/C03/C04/C05 via data-informed adjustments."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Evening nutrition/hydration optimization for energy",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Provide a light, balanced evening snack and adequate hydration to sustain energy; limit high-sugar items late evening; maintain hydration; avoid late caffeine; align with energy needs to facilitate activity.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Stable energy availability supports motivation to initiate activities and reduces perceived barrier.",
+      "measurement": "Evening snack logs; hydration intake; self-rated energy in the evening",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "LOW",
+      "safety_notes": "Consider dietary restrictions, allergies.",
+      "mapping_query": "BIO-level energy optimization to support C04 by reducing fatigue and barriers to action."
+    }
+  ]
+}

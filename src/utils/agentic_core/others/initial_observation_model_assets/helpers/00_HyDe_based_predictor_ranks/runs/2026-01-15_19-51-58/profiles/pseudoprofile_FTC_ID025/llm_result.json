@@ -1,0 +1,148 @@
+{
+  "pseudoprofile_id": "CASEPROFILE-JealousLoop-01",
+  "summary": "The case describes a pattern of frequent automatic social comparisons driven by others’ achievements, followed by a rapid shift to negative self-evaluation and rumination, with asymmetric motivation to change. The proposed levers span psychoeducational techniques (CBT, mindfulness, compassion), social-environment adjustments (reduced triggering exposure, strengthened social supports), and foundational biological regulation (sleep and stress management) to reduce trigger sensitivity, slow negative appraisal, and bolster positive affect and self-worth. Each lever is designed as a modifiable predictor (a lever), with measurable targets aligned to the case’s criteria and a realistic time horizon for observable change.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Mindfulness-based cognitive defusion + Attention Regulation for social comparison",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Mindfulness-based cognitive defusion training combined with attention regulation and brief exposure to triggers to slow reactivity and reduce automatic comparison responses.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Enhances decentering from evaluative thoughts about others' achievements, interrupts the automatic comparison loop, reduces rapid negative appraisal, and stabilizes affect.",
+      "measurement": "EMA measures of C01 frequency, C02 exposure, C03 reaction speed, C06 rumination episodes; optional HRV during tasks; daily mood assessments (PANAS).",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; monitor distress; escalate if self-harm risk emerges.",
+      "mapping_query": "MAP(S01)->Targets=[C01,C02,C03,C06,C07]; data_sources=[EMA_prompts, app_logs, mood_scales]; timeframe=4-8 weeks."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Cognitive Behavioral Coping for Social Comparison (CBT-SSC): Cognitive restructuring + behavioral experiments",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured CBT modules to challenge automatic thought content linked to social comparisons; practice behavioral experiments to test beliefs about self-worth following others' success.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08"
+      ],
+      "mechanism_rationale": "Reduces reliance on social comparison as a cue to self-worth; builds self-efficacy and resilience to negative affect; reduces rumination.",
+      "measurement": "Self-report scales for self-esteem (state), Self-Compassion Scale, rumination (RRS), daily mood.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None specific.",
+      "mapping_query": "MAP(S02)->Targets=[C01,C04,C05,C06,C07,C08]; data_sources=[weekly CBT_check-ins, EMA, self-report scales]; timeframe=8 weeks."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Compassion-Focused Interventions for Self-Relating: self-kindness, common humanity, and shame resilience",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Compassion-focused therapy components to decrease self-criticism and envy, increase positive self-relating and warmth toward others, which dampens rapid negative self-evaluation.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06",
+        "C08"
+      ],
+      "mechanism_rationale": "Shifts appraisal from 'I am a failure' to 'I'm imperfect and human'; reduces jealousy-related aversive reactions; broadens affective regulation.",
+      "measurement": "Self-Compassion Scale (SCS), Shame scale, rumination frequency (RRS), motivation to change (C08).",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Monitor for distress; ensure pacing to avoid overwhelm.",
+      "mapping_query": "MAP(S03)->Targets=[C04,C05,C06,C08]; data_sources=[SCS,SS,EMA,weekly_check-ins]; timeframe=9 weeks."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Social media exposure management: scheduled limits, content filters, and notification controls",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Implement digital boundaries to reduce exposure to triggers (peers' achievements), plus training in reflective pauses when confronted with posts to counter immediate comparisons.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C07"
+      ],
+      "mechanism_rationale": "Reducing trigger frequency and evaluative cues lowers automatic comparison frequency and sustains more stable positive affect after seeing others' successes.",
+      "measurement": "Time on social platforms (device logs), EMA of comparison frequency after exposure, post-exposure mood ratings.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; ensure digital well-being resources are used safely.",
+      "mapping_query": "MAP(S04)->Targets=[C01,C02,C07]; data_sources=[screen_time_logs, EMA_mood, user-reported triggers]; timeframe=6 weeks."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Behavioral activation and structured social engagement to build positive experiences and reduce jealousy loops",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Schedule low-stress social activities that counteract comparison loops and foster positive affect and belonging (e.g., collaborative projects, supportive conversations).",
+      "targets_criteria_ids": [
+        "C01",
+        "C07",
+        "C08"
+      ],
+      "mechanism_rationale": "Engagement in supportive contexts provides alternative reward signals and reduces reliance on social comparison as primary mood driver.",
+      "measurement": "Number of social engagements per week, positive affect after activities, daily mood ratings; motivation to change.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure activities align with comfort level; monitor social stress.",
+      "mapping_query": "MAP(S05)->Targets=[C01,C07,C08]; data_sources=[activity_logs, EMA_mood, self-report]; timeframe=8 weeks."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep circadian optimization and stress regulation to support cognitive control",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured sleep hygiene, light exposure, consistent wake times, and wind-down routines to improve executive control and reduce rapid negative evaluation.",
+      "targets_criteria_ids": [
+        "C03",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Improved sleep supports emotion regulation and cognitive control, reducing speed of negative self-evaluation and rumination, and sustaining positive affect.",
+      "measurement": "Sleep duration/quality (actigraphy/app diary), daily mood, rumination frequency, reaction speed to triggers.",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "If sleep disorders emerge, assess underlying conditions; consult clinician if persistent insomnia.",
+      "mapping_query": "MAP(S06)->Targets=[C03,C06,C07]; data_sources=[sleep_logs, mood EMA, rumination diary]; timeframe=12 weeks."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Interpersonal skills training and relational repair to strengthen social buffers to comparisons",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Group or individual interpersonal therapy skills (assertive communication, boundary setting, positive feedback processing) to improve self-concept and reduce envy responses.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08"
+      ],
+      "mechanism_rationale": "Improved social skills and support networks reduce reliance on comparisons as coping and create buffers for jealousy and self-worth.",
+      "measurement": "Interpersonal skills rating, social support index, frequency of jealousy episodes, negative self-talk minutes.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Screen for group dynamics; ensure inclusive, non-judgmental environment.",
+      "mapping_query": "MAP(S07)->Targets=[C01,C04,C05,C06,C07,C08]; data_sources=[therapist_observations, self-report scales, EMA]; timeframe=12 weeks."
+    }
+  ]
+}

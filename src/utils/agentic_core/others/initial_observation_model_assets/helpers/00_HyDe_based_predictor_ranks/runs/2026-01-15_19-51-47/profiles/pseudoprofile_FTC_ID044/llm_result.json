@@ -1,0 +1,139 @@
+{
+  "pseudoprofile_id": "CASE-WhatIfWorry-01",
+  "summary": "The case presents perseverative, multi-domain worry ('what if' scenarios) with difficulty disengaging, breadth across life domains, a belief that worrying is prep, and notable distress. Optimal modification requires a coordinated, modifiable BIO-PSYCHO-SOCIAL set of levers that (a) shrink spontaneous worry frequency and rumination, (b) weaken the perceived usefulness of worry as a coping strategy, (c) enhance attentional control and affect regulation, (d) broaden engagement in meaningful activities and social connectedness, and (e) leverage digital/self-monitoring to sustain change. Below are candidate predictors (levers) with rationale, measurable targets, timelines, and feasibility/impact estimates to guide implementation without prescribing medications or unsafe interventions.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Structured Worry Scheduling (Worry Window) with time-limited daily worry period",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a fixed daily 'worry window' (e.g., 20-30 minutes) at a consistent time; outside window, redirect attention and practice grounding when worry arises.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Constrains spontaneous worry (reduces frequency and length of rumination), lowers perceived usefulness of worry by creating a controlled context, and diminishes distress through planned processing.",
+      "measurement": "Daily diary: number of worry episodes (C01); subjective control of thoughts (C02); belief in worry usefulness (C04); distress during/after worry (C05)",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; monitor initial days for anxiety spike; provide safety plan if distress worsens.",
+      "mapping_query": "Assess whether adherence to worry window decreases C01, improves ability to disengage (C02), reduces distress (C05), and lowers belief in worry usefulness (C04)."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Metacognitive Beliefs Modification (reduce usefulness of worry)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Brief metacognitive approach to challenge the belief that worry helps prepare; replace with adaptive coping expectations.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Diminishing the belief that worry is an effective coping strategy decreases worry frequency (C01) and rumination (C02) and weakens the drive to worry by altering perceived utility (C04).",
+      "measurement": "Belief in usefulness of worry (0-1 scale); daily worry frequency; self-reported interruptions in worry (C02)",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for adverse emotional reactions to challenging beliefs; provide support if distress increases.",
+      "mapping_query": "Track changes in C04, observe secondary effects on C01 and C02; relate to distress (C05)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Attention Control Training to Reduce Rumination",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Brief attention-shifting tasks and cue-based redirection to disrupt worry sequences; progressively increase task complexity to build cognitive flexibility.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Improved attentional regulation reduces persistence and frequency of worry episodes by interrupting automatic rumination.",
+      "measurement": "Performance on attention-alignment tasks; self-reported inability to interrupt thinking; daily worry diary counts (C01)",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure tasks are appropriately challenging but doable; adjust pace if frustration increases.",
+      "mapping_query": "Does better attentional control correlate with reductions in C02 and C01, and any accompanying drop in distress (C05)?"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Behavioral Activation and Values-Driven Engagement (psychosocial)",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Structured scheduling of meaningful activities across life domains to reduce time available for worry and improve mood.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Active engagement with valued activities reduces cognitive space for worry (lower breadth C03) and improves mood (C05); withdrawal from activities often sustains worry frequency (C01).",
+      "measurement": "Weekly domains of activity engaged; mood ratings; worry frequency (C01); self-reported breadth of worry topics (C03)",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Monitor for overcommitment; pace to sustainable levels.",
+      "mapping_query": "Evaluate impact on C03 breadth and C05 distress; observe changes in C01 frequency via activity engagement logs."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep Regularization and Circadian Alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent bed/wake times, limit evening screen exposure, optimize sleep environment; target 7-9 hours nightly.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Better sleep improves executive control and emotional regulation, reducing rumination (C02), distress (C05), and potentially worry frequency (C01) via enhanced cognitive resilience.",
+      "measurement": "Sleep duration/quality logs; morning mood; worry diary counts",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Screen for possible sleep disorders; refer if sleep problems persist.",
+      "mapping_query": "Link sleep improvements with reductions in C02 and distress (C05); assess changes in worry frequency (C01)."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Emotion Regulation and Self-Compassion Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Brief program to enhance compassionate self-relating and adaptive emotion regulation (reappraisal, distress tolerance).",
+      "targets_criteria_ids": [
+        "C05",
+        "C02"
+      ],
+      "mechanism_rationale": "Enhanced emotion regulation and self-compassion reduce distress during worry (C05) and lower rumination persistence (C02) by providing adaptive coping frames.",
+      "measurement": "Emotion Regulation (short form), Self-Compassion scale, daily worry diary",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None beyond typical behavioral interventions.",
+      "mapping_query": "Assess changes in C05 and C02; monitor spillover to C01 via coping improvements."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Digital Self-Monitoring and Feedback System",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "App-based diary with prompts and simple analytics; optional wearable sleep/arousal data; includes reminders for worry window and redirect strategies.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Real-time feedback enhances awareness and accountability, supporting reductions in worry frequency (C01), rumination (C02), and distress (C05); insights may shift beliefs about worry usefulness (C04).",
+      "measurement": "App engagement metrics; worry episodes; mood; worry usefulness belief; sleep metrics if integrated",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure data privacy and user control; provide opt-out options; avoid alarmist alerts.",
+      "mapping_query": "Examine associations between tracking adherence and reductions in C01-C05; assess moderation by C04 beliefs about worry usefulness."
+    }
+  ]
+}

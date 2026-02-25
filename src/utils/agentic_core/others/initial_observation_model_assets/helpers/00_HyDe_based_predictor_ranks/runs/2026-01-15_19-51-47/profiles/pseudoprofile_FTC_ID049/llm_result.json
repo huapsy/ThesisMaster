@@ -1,0 +1,217 @@
+{
+  "pseudoprofile_id": "CASE_TinglingAnxiety_V1",
+  "summary": "The case shows episodic tingling with immediate anxiety and a fear-driven amplification loop, plus uncertainty about medical cause and heightened interoceptive monitoring. Modifiable predictors span BIO (aerobic activity, sleep, nutrition, interoceptive exposure), PSYCHO (cognitive restructuring, mindfulness, ACT-based acceptance, somatic symptom education), and SOCIAL domains (care navigation, social support) and their interactions (BIOxPSYCHO, PSYCHOxSOCIAL, BIOxSOCIAL). The proposed levers are atomic, actionable, and trackable, with clear links to C01–C06, feasible time horizons, and simple measurements to monitor progress and safety.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Interoceptive exposure with controlled diaphragmatic breathing during tingling episodes",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Graded interoceptive exposure to tingling sensations in safe contexts, paired with paced diaphragmatic breathing (e.g., 4–6 breaths) to reduce acute arousal and break the symptom–anxiety amplification loop.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C06",
+        "C04"
+      ],
+      "mechanism_rationale": "Exposure promotes extinction of the fear response to sensations and reduces automatic arousal; diaphragmatic breathing helps regulate autonomic arousal, diminishing monitoring and threat interpretation.",
+      "measurement": "Episode frequency per week; average anxiety during episodes (0–10); tingling intensity (0–10); interoceptive arousal 로그.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Coordinate with medical evaluation; avoid unsafe or invasive sensations; monitor for signs of worsening neurological symptoms.",
+      "mapping_query": "interoceptive exposure breathing tingling"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Cognitive restructuring to challenge catastrophic beliefs about tingling",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "CBT-based reframing with behavioral experiments to test beliefs (e.g., testing whether tingling predicts nerve damage vs. anxiety).",
+      "targets_criteria_ids": [
+        "C04",
+        "C02"
+      ],
+      "mechanism_rationale": "Alters threat appraisals and reduces anxiety-driven amplification, decreasing the likelihood that sensations escalate into a full-blown fear response.",
+      "measurement": "Catastrophic beliefs rating (0–10); episode-related anxiety (0–10); frequency of anxious anticipations.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Align with ongoing medical workup; stop if new neuro signs emerge.",
+      "mapping_query": "cognitive restructuring interoceptive beliefs"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness-based attention regulation to reduce interoceptive monitoring",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "8-week mindfulness training to cultivate nonjudgmental awareness of sensations and reduce automatic monitoring and reactivity.",
+      "targets_criteria_ids": [
+        "C02",
+        "C06",
+        "C04"
+      ],
+      "mechanism_rationale": "Enhances emotional regulation and reduces reactivity to bodily sensations, thereby dampening the feedback loop between sensation and anxiety.",
+      "measurement": "Mindfulness/acceptance scores (e.g., FFMQ); interoceptive attention scale; episode anxiety (0–10).",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; ensure practice under guidance.",
+      "mapping_query": "mindfulness interoceptive awareness anxiety"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sleep regularization and circadian alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene program with consistent wake times, wind-down routine, and caffeine modulation to reduce baseline arousal and improve neurobiological resilience.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C06",
+        "C05"
+      ],
+      "mechanism_rationale": "Improved sleep reduces overall arousal and reactivity to sensations, diminishing the likelihood of amplification and uncertainty-driven worry.",
+      "measurement": "Sleep quality (PSQI), wake-time consistency (minutes), caffeine intake days/week, episode anxiety.",
+      "time_horizon": "6–10 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Assess for sleep disorders; adjust plan with clinician.",
+      "mapping_query": "sleep circadian regulation anxiety interoception"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Structured social support and care navigation to reduce uncertainty",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Establish regular check-ins, caregiver support, and shared symptom logs with a clinician to reduce uncertainty and provide reassurance.",
+      "targets_criteria_ids": [
+        "C05",
+        "C04",
+        "C02"
+      ],
+      "mechanism_rationale": "Social buffering and professional reassurance attenuate threat beliefs and anxious responses via external validation and information sharing.",
+      "measurement": "Perceived social support scale; number of weekly supportive contacts; reassurance rating.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Respect autonomy; avoid pressure; coordinate with medical team.",
+      "mapping_query": "care navigation social support anxiety"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Regular aerobic exercise program to lower baseline arousal and improve autonomic regulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured plan reaching ~150 minutes/week of moderate-intensity aerobic exercise, with gradual progression and monitoring of response.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Exercise reduces baseline anxiety, improves mood, and enhances neurophysiological resilience, lowering sensitivity to intermittent sensations.",
+      "measurement": "Weekly exercise minutes; resting heart rate; episode anxiety; tingling intensity.",
+      "time_horizon": "8–16 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Consult clinician if new neurological symptoms appear; tailor to fitness level.",
+      "mapping_query": "aerobic exercise anxiety reduction interoception"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Nutritional optimization and micronutrient status",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Assess and optimize nutrition/micronutrients (e.g., B12, D, magnesium) and hydration to support neural function and energy.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Adequate micronutrient status supports nerve function and neurotransmitter systems, potentially reducing sensitivity and reactivity.",
+      "measurement": "Blood nutrient panels (as available); energy level; episode anxiety and tingling frequency.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.3,
+      "priority": "LOW",
+      "safety_notes": "Do not self-prescribe; coordinate with clinician.",
+      "mapping_query": "nutrition magnesium vitamin D B12 neurological symptoms"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Wearable-enabled self-monitoring with clinician feedback",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Daily symptom logs with wearable metrics (e.g., HRV during episodes) and weekly dashboards; clinician review to guide adjustments.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Objective data provides feedback to disconfirm catastrophic beliefs and optimize arousal regulation, reducing monitoring.",
+      "measurement": "HRV during episodes; daily logs of tingling and anxiety; adherence to logging.",
+      "time_horizon": "4–12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Protect data privacy; use as complement to clinical evaluation.",
+      "mapping_query": "wearable symptom logging HRV anxiety"
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Acceptance and Commitment Therapy (ACT) based strategies",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "ACT skills to reduce experiential avoidance and increase value-based action during episodes.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Acceptance reduces reactivity to sensations; values-based action reduces avoidance and distress, dampening the amplification cycle.",
+      "measurement": "Acceptance scales; values-congruence measures; episode frequency.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "No safety concerns.",
+      "mapping_query": "ACT mindfulness anxiety interoception"
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Structured medical reassurance and diagnostic clarity",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Coordinate with clinician for clear explanations, red flags protocol, and routine follow-ups to reduce uncertainty about medical cause (C05).",
+      "targets_criteria_ids": [
+        "C05",
+        "C04",
+        "C02"
+      ],
+      "mechanism_rationale": "Trust in medical evaluation reduces catastrophic thinking and anxiety about the unknown cause.",
+      "measurement": "Satisfaction with medical explanations; worry about cause; need for reassurance.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Ensure ongoing medical assessment; escalate if new red flags appear.",
+      "mapping_query": "medical reassurance nerve tingling"
+    },
+    {
+      "solution_id": "S11",
+      "predictor_variable": "Psychoeducation about somatic symptoms and benign interpretation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Educational module clarifying benign sensory phenomena, warning signs, and the distinction between nerve-related possibilities and anxiety-driven symptoms.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C02"
+      ],
+      "mechanism_rationale": "Normalizing sensations and distinguishing medical risk reduces threat interpretation and uncertainty, diminishing monitoring.",
+      "measurement": "Belief in danger scale; fear rating during episodes; frequency of monitoring.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Provide medical context; avoid alarmist language.",
+      "mapping_query": "somatic symptom education anxiety"
+    }
+  ]
+}

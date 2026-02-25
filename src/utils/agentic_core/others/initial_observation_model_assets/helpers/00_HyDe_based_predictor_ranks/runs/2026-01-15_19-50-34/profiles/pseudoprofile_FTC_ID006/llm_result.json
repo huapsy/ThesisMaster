@@ -1,0 +1,113 @@
+{
+  "pseudoprofile_id": "CASE_BPS_INSIGHT_01",
+  "summary": "The case presents nocturnal cognitive arousal with content-specific replay (C01), anticipatory worry (C02), global nighttime arousal (C03), delayed sleep onset around 3am (C04), and morning irritability (C05). Modifiable levers span cognitive-behavioral sleep strategies, circadian/rhythm tweaks, environmental optimization, and structured social/behavioral routines. The proposed predictors aim to (a) reduce nocturnal cognitive load and arousal, (b) strengthen sleep–wake associations and advance circadian timing, (c) offload ruminative content, and (d) improve morning reactivity through consistent routines and social support. Each lever links to specific criteria, includes simple measurements, emphasizes feasibility, and notes safety considerations if distress or risk emerges.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Evening worry-limiting routine (scheduled worry time + cognitive diffusion)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a structured 30-minute 'worry time' window 60–90 minutes before habitual sleep, followed by 10–15 minutes of paced breathing and a 5-minute cognitive diffusion exercise; record residual concerns in a worry log and avoid problem-solving during worry-time.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Delays worry processing and introduces cognitive distancing, reducing nocturnal anticipatory thinking and overall cognitive hyperarousal.",
+      "measurement": "Worry time per night (minutes); sleep onset latency (minutes); self-rated cognitive arousal before bed (0–4 scale)",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for distress or escalation of rumination; provide support resources if needed.",
+      "mapping_query": "Targets C02 and C03 by scheduling worry time and diffusion to reduce nocturnal anticipatory worry and cognitive arousal."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Stimulus control and bed-sleep association optimization",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Enforce strict stimulus-control: bed/room reserved for sleep and intimacy only; if not asleep within 20–25 minutes, leave the bed and return when sleepy; maintain a consistent wake time and avoid daytime naps.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Strengthens sleep-wake associations and reduces conditioned arousal, improving sleep onset and alignment with desired bedtime.",
+      "measurement": "SOL (minutes); sleep efficiency (%); time in bed vs. actual sleep (diary); bedtime consistency (HH:MM)",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "N/A",
+      "mapping_query": "Biological and psychological conditioning to reduce nighttime arousal and delay in sleep onset (C03, C04)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Morning circadian entrainment via daily morning light exposure",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Obtain 20–30 minutes of outdoor light exposure within 30–60 minutes of waking; avoid bright screens for 1–2 hours before bedtime; maintain a consistent wake time; consider light-friendly clothing and a simple wind-down routine.",
+      "targets_criteria_ids": [
+        "C04",
+        "C03"
+      ],
+      "mechanism_rationale": "Advances circadian phase and reduces late-night hyperarousal, improving sleep timing and daytime alertness.",
+      "measurement": "Wake time consistency; SOL; actigraphy-based sleep onset; morning energy/alertness rating",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Caution for photosensitivity or glare; use sunglasses outdoors if needed.",
+      "mapping_query": "Biological circadian entrainment to reduce late sleep onset (C04) and daytime arousal (C03)."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Evening expressive writing to offload replayed conversations",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Engage in 10–15 minutes of expressive writing focused on past conversations before bed, emphasizing closure and reframing; incorporate a narrative reframe to create cognitive distance from ruminations.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Externalizes content-specific replay and reduces general cognitive arousal through cognitive processing and reframing.",
+      "measurement": "Frequency of replay episodes per night; duration of writing; sleep onset latency; rumination scale (0–4)",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Content may provoke distress; provide support resources if distress escalates.",
+      "mapping_query": "Targets C01 and C03 by offloading repetitive content and reducing nocturnal arousal."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Structured morning routine with light exposure and gentle activity",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Implement a 20–30 minute morning routine: brief brisk walk or light exercise, 10 minutes of mindfulness/breathing, and natural light exposure within 30 minutes of waking; pair with a consistent wake time and a positive social cue (shared routine with someone if possible).",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Enhances daytime regulation and social buffering, reducing morning irritability through circadian stability and mood-enhancing activity.",
+      "measurement": "Morning irritability rating (0–10) upon waking; time to full alertness; mood scores during the first 2 hours of day",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Monitor for added time burden; adjust if stress increases.",
+      "mapping_query": "Targets C05 via structured morning routine and daytime circadian/mood regulation."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep environment optimization (darkness, cool temperature, noise reduction, screen-free pre-sleep)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Create a sleep-friendly environment: blackout curtains, cool room (60–67°F), white-noise or earplugs, remove screens 60 minutes before bed, and use blue-light filters in the evenings.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces sensory arousal and environmental triggers that perpetuate cognitive hyperarousal and delayed sleep onset.",
+      "measurement": "Subjective sleep quality; SOL; nighttime awakenings; environmental checklist compliance",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Ensure a safe sleep environment (e.g., cord management, heater safety).",
+      "mapping_query": "Biological optimization of sleep environment to mitigate hyperarousal (C03) and improve onset timing (C04)."
+    }
+  ]
+}

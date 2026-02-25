@@ -1,0 +1,214 @@
+{
+  "pseudoprofile_id": "CASE_BPCASE_001",
+  "summary": "Case presents chronic shoulder/jaw muscle tension with headaches, plus strong anticipatory threat and difficulty relaxing, indicating a tightly coupled bio-physiological arousal system and habitual bracing. The proposed predictors leverage modifiable levers across bio, psycho, and social domains (and their interactions) to reduce baseline muscle tension, heighten interoceptive awareness, diminish anticipatory arousal, improve sleep and recovery, and enhance social support and adaptive coping. Solutions emphasize non-pharmacological, safe, and scalable strategies with clear measurement plans, aiming to move multiple related criteria simultaneously (C01–C06) by dampening physiological arousal, increasing tension cue detection, reducing threat appraisal, and promoting relaxation in everyday contexts.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Diaphragmatic breathing with progressive muscle relaxation (PMR)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Daily 10-minute guided diaphragmatic breathing plus progressive muscle relaxation to reduce baseline muscle tone and autonomic arousal, with cues to practice when tension is noticed.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Activates parasympathetic pathways, decreases overall muscle tension and arousal, and interrupts automatic bracing responses.",
+      "measurement": "Daily tension 0-10; frequency of headaches; adherence minutes per day; self-reported relaxation after practice.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Safe for general use; adjust if dizziness occurs; no medical device required.",
+      "mapping_query": "Relaxation protocol to lower muscle tension and anticipatory arousal (C01, C05, C06) via diaphragmatic breathing + PMR."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Hourly posture checks with micro-breaks and ergonomic adjustments",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement reminders for 2-minute neck/shoulder mobility micro-breaks each hour and optimize desk ergonomics to reduce sustained bracing.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Interrupts habitual bracing cycles, improves proprioceptive feedback, and lowers sustained muscle load.",
+      "measurement": "Wearable posture score or self-rating; daily tension diary; headache frequency.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "None specific; ensure proper technique to avoid strain.",
+      "mapping_query": "Posture optimization and micro-breaks to reduce shoulder/jaw tension and bracing (C01, C05, C06)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Interoceptive awareness training (mindfulness/body scan)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Weekly guided body-scan plus daily 5-minute mindful check-ins to notice tension earlier and differentiate tension from headaches.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Improves detection of rising muscle tension and reduces automatic threat cues by nonjudgmental awareness; supports relaxation readiness.",
+      "measurement": "MAIA or similar interoceptive awareness measure pre/post; daily tension rating; headache logs.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for distress with trauma history; adapt exercises accordingly.",
+      "mapping_query": "Interoceptive body awareness to improve tension detection and reduce anticipatory arousal (C02, C04, C05, C01)."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "CBT-based threat reappraisal and exposure to safe contexts",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Psychoeducation plus brief behavioral experiments to test catastrophic beliefs and reinforce safe handling of low-stress days.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Alters threat appraisal, reducing chronic arousal and facilitating relaxation on calm days.",
+      "measurement": "Threat appraisal scales; tension/headache diaries; adherence to homework.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Monitor distress during challenging tasks; adjust pace.",
+      "mapping_query": "CBT-based threat reframing to lower anticipatory arousal and tension (C04, C05)."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep circadian optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured sleep-wake schedule with morning light exposure and reduced evening screen time; caffeine timing adjustments.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Improves autonomic regulation and recovery, diminishing baseline arousal and tension reactivity.",
+      "measurement": "Sleep duration/quality logs; headache frequency; perceived daytime alertness.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "If sleep disorders are suspected, seek clinical evaluation.",
+      "mapping_query": "Sleep optimization to reduce arousal and tension-related threat (C04, C05)."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Mindfulness-based stress reduction (MBSR) and emotion regulation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "8-week MBSR program with daily practice to cultivate nonreactivity to tension and enhance emotion regulation.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Reduces reactive arousal to perceived threats and decreases muscle-tension reactivity via improved regulation.",
+      "measurement": "Mindfulness scales; daily tension diary; headache counts.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Assess for emotional distress if trauma history present; tailor practice.",
+      "mapping_query": "Mindfulness to downregulate anticipatory arousal and muscle tension (C04, C05, C01)."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social support and belonging enhancement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Weekly supportive contacts and participation in a belonging activity; social prescribing to improve perceived support.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Social connectedness buffers stress reactivity and promotes calmer baselines, aiding relaxation.",
+      "measurement": "Social support questionnaires; tension logs; headache frequency.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Ensure consent and boundaries; coordinate with support networks.",
+      "mapping_query": "Social support interventions to reduce anticipatory arousal and promote relaxation (C04, C05)."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Biofeedback-based interoceptive training",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "HRV or skin conductance biofeedback sessions to learn autonomic downregulation and early tension detection.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Provides real-time cues to modulate arousal and tension, reducing habitual bracing and enhancing awareness.",
+      "measurement": "HRV metrics; device-recorded tension; headache frequency.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Follow device safety guidelines; ensure proper coaching.",
+      "mapping_query": "HRV/biofeedback to reduce muscle tension, interoceptive awareness, and anticipatory arousal (C01, C02, C04, C05, C06)."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Gentle somatic therapies (massage/myofascial release)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Weekly gentle massage or self-myofascial release to reduce resting muscle tension in shoulders/jaw.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Direct mechanical reduction of muscle tone and improvement in tissue flexibility supporting relaxation.",
+      "measurement": "Tension/pain ratings; headache frequency; session adherence.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.35,
+      "priority": "LOW",
+      "safety_notes": "Licensed practitioner; screen for contraindications.",
+      "mapping_query": "Massage/myofascial work to decrease shoulder/jaw tension and bracing (C01, C06)."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Dietary optimization and hydration for neuromuscular support",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Targeted micronutrient optimization (e.g., magnesium/B vitamins) and hydration adjustments to support neuromuscular function.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Nutritional support enhances nerve/muscle function and mood regulation, reducing baseline tension and arousal.",
+      "measurement": "Nutrient/hydration intake diaries; symptom logs; headache frequency.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.3,
+      "priority": "LOW",
+      "safety_notes": "Consult clinician; avoid high-dose self-prescribing.",
+      "mapping_query": "Nutrition/hydration optimization to support tension reduction and mood regulation (C01, C05, C04)."
+    },
+    {
+      "solution_id": "S11",
+      "predictor_variable": "Composite sleep-light-exercise regimen",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Evening light management, morning exercise, and daylight exposure to support arousal regulation and muscle recovery.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Synergistic effects on sleep, circadian entrainment, and autonomic balance to reduce tension reactivity.",
+      "measurement": "Actigraphy sleep metrics; headache/tension diaries; daytime energy.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "None specific; monitor for overtraining signs.",
+      "mapping_query": "Light exposure + exercise to improve arousal regulation and reduce muscle tension (C01, C04, C05)."
+    }
+  ]
+}

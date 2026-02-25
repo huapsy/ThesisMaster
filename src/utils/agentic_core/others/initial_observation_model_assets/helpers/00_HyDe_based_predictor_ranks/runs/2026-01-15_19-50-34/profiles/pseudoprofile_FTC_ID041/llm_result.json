@@ -1,0 +1,170 @@
+{
+  "pseudoprofile_id": "CASE_NIGHTMARE_SLEEP_OPT",
+  "summary": "The case centers on recurrent nightmare-triggered awakenings with high perceived vividness, anticipatory sleep fear, and prolonged post-awakening arousal that disrupts returning to sleep. The proposed levers span psychological techniques for extinguishing fear and modifying nightmare content, autonomic regulation to lower arousal, sleep-environment and circadian alignment, social-context supports, and data-informed monitoring. Each lever is modifiable, non-pharmacological, and targets one or more of the core criteria (C01–C06) with clear measurement plans. Priorities emphasize high-impact, feasible psychoeducation and CBT-I–informed strategies (IRT, routine, relaxation), supplemented by physiological regulation (HRV biofeedback), grounding techniques, environmental optimization, social support, and measurement-based feedback to optimize adherence and track progress. Safety notes are included to escalate to professional care if distress worsens or risk emerges.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Imagery_Rehearsal_Therapy_training_in_bedtime_routine",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Imagery rehearsal therapy (IRT) to rewrite nightmare endings, with nightly cognitive rehearsal and dream journaling to reduce nightmare frequency and intensity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "IRT reduces nightmare frequency and distress by modifying nightmare imagery and emotional reactivity, decreasing anticipatory fear and post-awakening arousal.",
+      "measurement": "Weekly metrics: nights with nightmare awakenings; nightmare vividness rating (Likert 1-5); self-rated sleep anxiety; time to calm after awakened; time to fall back asleep.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "If distress worsens or PTSD symptoms are suspected, coordinate with a sleep or trauma-focused clinician; provide crisis resources if needed.",
+      "mapping_query": "IRT directly targets C01-C06 by altering nightmare content and emotional response to sleep, reducing fear of sleep and improving return to sleep."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "CBT-I_components_with_sleep_environment_optimization",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Combine CBT-I elements (consistent sleep-wake schedule, stimulus control, relaxation techniques) with environmental optimization (cool, dark, quiet bedroom; reduced blue light; caffeine timing) and wind-down routines.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Circadian alignment reduces awakenings and arousal; CBT-I components address sleep-related fears and behavioral barriers; environment reduces external triggers.",
+      "measurement": "Sleep diary (bed time, wake time, sleep onset latency, awakenings); bedroom environment logs (light, temperature, noise); caffeine/alcohol intake logs.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for insomnia symptoms or caffeine-induced sleep disturbances; adjust plan if shift-work or irregular schedules exist.",
+      "mapping_query": "CBT-I + Environmental optimization target C01-C06 through circadian regularity, arousal reduction, and reduced sleep threat cues."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "HRV_biofeedback_training_before_sleep",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "10–15 minutes of HRV biofeedback or paced breathing before bed to downregulate sympathetic arousal and promote autonomic balance, facilitating quicker calm after awakenings.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Autonomic regulation lowers immediate arousal on awakening and speeds return to baseline, supporting quicker resumption of sleep and less lingering activation.",
+      "measurement": "HRV metrics (RMSSD, SDNN) during practice; self-reported arousal post-awakening; time to fall back asleep.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Discontinue if dizziness, lightheadedness, or discomfort occurs; ensure proper device use and supervision if needed.",
+      "mapping_query": "BIO lever (HRV) to attenuate C04-C06 via autonomic regulation and quicker sleep resumption."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Mindfulness_sleep_related_interoceptive_awareness_training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "6–8 sessions of mindfulness-based sleep practices (breath-focused, body scan) plus cognitive reframing of nightmare fears to reduce anticipatory anxiety and arousal.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C05",
+        "C02"
+      ],
+      "mechanism_rationale": "Mindfulness reduces anticipatory fear and arousal, dampens distress associated with dream imagery, and may indirectly lower nightmare vividness.",
+      "measurement": "Sleep anxiety scales (pre/post), subjective nocturnal arousal ratings, nightmare vividness; sleep diary for onset latency.",
+      "time_horizon": "8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Monitor for trauma-related distress; integrate with clinician if symptoms worsen.",
+      "mapping_query": "Mindfulness-based approach targets C03, C04, C05, and potentially C02 by reducing arousal and distress around sleep and dreams."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Post_awakening_grounding_and_paced_breathing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach a 1–2 minute grounding protocol (5-4-3-2-1) with paced breathing immediately after nightmare awakenings to reduce arousal and ease re-entry to sleep.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Immediate non-pharmacological grounding rapidly reduces physiological arousal, decreasing time to calm and facilitating sleep resumption.",
+      "measurement": "Time to calm after awakening; time to fall back asleep; subjective arousal scores.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure patient can perform technique safely in the moment; adjust for any dizziness or discomfort.",
+      "mapping_query": "Post-awakening grounding lowers C04-C06 arousal and supports sleep resumption."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep_environment_optimization_bedroom_physical_factors",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Optimize bedroom factors (cool temperature 60–67°F/15–19°C, blackout curtains, white noise, comfortable bedding) and pre-sleep lighting to support circadian rhythm and reduce arousal.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "A stable, comfortable environment reduces physiologic arousal and external triggers for awakenings, facilitating smoother sleep and resumption.",
+      "measurement": "Subjective sleep quality; nightly awakenings count; bedroom environment checklist; light and noise levels.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Coordinate with household members; ensure environment changes do not disrupt others.",
+      "mapping_query": "Biological sleep environment improvements reduce C01, C04, and C06 by lowering external reactivity and arousal."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Partner_assisted_sleep_routine_and_support",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Involve a partner in a structured pre-sleep routine (emotional check-in, shared wind-down) to enhance perceived safety and reduce anticipatory sleep fear.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Social support enhances safety, reduces bedtime anxiety, and provides a cue for returning to sleep after awakenings.",
+      "measurement": "Couple-based sleep routine adherence; self-reported sleep anxiety; awakenings due to nightmares; time to fall asleep after awakenings.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.42,
+      "priority": "MED",
+      "safety_notes": "Ensure expectations are balanced to prevent caregiver burden; adjust as needed.",
+      "mapping_query": "Social support lever to reduce C03 and facilitate quicker resumption of sleep after awakenings."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Wearable_sleep_and_arousal_monitoring_with_feedback",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Use a wearable device to track awakenings, heart rate, and sleep efficiency with weekly feedback sessions to tailor behavior changes and improve sleep confidence.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Objective data increases self-awareness and adherence to sleep plans, enabling targeted adjustments to reduce awakenings and arousal.",
+      "measurement": "Nightly awakenings count; HRV/HR metrics; sleep efficiency; adherence to recommended changes; weekly feedback summaries.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Protect privacy; avoid obsessive data checking; ensure data use is supportive rather than stress-inducing.",
+      "mapping_query": "Measurement-based care using wearables to guide multi-domain sleep optimization and monitor impact on C01-C06."
+    }
+  ]
+}

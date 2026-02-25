@@ -1,0 +1,16 @@
+pseudoprofile_id: pseudoprofile_FTC_ID040
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Migraine unpredictability -> CLINICAL / ICD-10 / headache disorders / secondary headache disorders / headache attributed to homeostatic disorder / circadian_rhythm_disturbance_headache (conf=0.62)
+- C02: Migraine-related functional impact -> CLINICAL / ICD-10 / pain disorders / functional pain disorders / pain disorder associated with psychological factors / functional_impairment_in_work_or_social_roles_due_to_pain (conf=0.82)
+- C03: Inability to commit to plans / avoidance -> NON-CLINICAL / AGE-GENERAL / psychological / autonomy / boundary setting / protecting personal time / avoiding overcommitment (conf=0.92)
+- C04: Anticipatory anxiety about migraine onset -> CLINICAL / ICD-10 / pain disorders / musculoskeletal pain disorders / rheumatoid arthritis pain / anxiety_about_pain (conf=0.58)
+- C06: Perceived anxiety-driven exacerbation of migraines -> CLINICAL / ICD-10 / pain disorders / functional pain disorders / pain disorder associated with psychological factors / pain_related_anxiety_or_catastrophizing (conf=0.72)
+
+PREDICTORS:
+- P01: Migraine self-management diary (Migraine log) -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / somatic_and_interoceptive_selfreports / headache_migraine_log (conf=0.92)
+- P02: Avoidance/reduction of plan-avoidant behavior -> PSYCHO / cognitive_behavioral_therapies / behavior_change_and_activation / assessment_and_functional_analysis / monitoring / approach_behavior_planning (conf=0.78)
+- P03: Goal management training / mastery planning -> PSYCHO / cognitive_and_metacognitive_interventions / cognitive_remediation_and_rehabilitation / goal_management_training (conf=0.89)
+- P04: Mindfulness-based stress regulation / uncertainty tolerance -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / applied_mindfulness_for_stress_and_reactivity / mindful_response_to_stress_practice (conf=0.92)
+- P05: Sleep circadian optimization / sleep routine adherence -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / consistent_morning_anchor_routine (conf=0.72)

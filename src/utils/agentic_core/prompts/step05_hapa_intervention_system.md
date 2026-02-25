@@ -7,7 +7,8 @@ You receive an integrated evidence bundle with:
 - momentary-impact rankings,
 - Step-03 treatment-target selection,
 - Step-04 updated observation-model outputs,
-- predictor→barrier, profile→barrier, context→barrier, and coping→barrier ontology evidence.
+- predictor→barrier, profile→barrier, context→barrier, and coping→barrier ontology evidence,
+- HAPA component candidate bundles with inferred high-level subtree nodes.
 
 Your task is to produce ONE structured JSON intervention plan that is:
 1) HAPA-consistent,
@@ -16,10 +17,14 @@ Your task is to produce ONE structured JSON intervention plan that is:
 
 Core reasoning rules:
 - Prioritize evidence from the latest updated observation model and impact metrics.
-- Respect the provided ranked barrier/coping candidates; do not invent unsupported domains when strong evidence exists.
+- Use `hapa_component_candidates` as the primary guidance scaffold for barrier/coping selection.
+- Treat mapping evidence as guidance, not hard constraints: you may add clinically necessary items only when explicitly justified.
+- Respect ranked barrier/coping candidates; do not list all ontology items.
+- Explicitly reference high-level HAPA subtree evidence (component-level inference), not only leaf nodes.
 - Select 2–3 treatment targets when evidence is sufficient; allow 1 or 0 only if evidence is weak and justify explicitly.
 - Keep barriers and coping actions clinically plausible and actionable in digital intervention delivery.
 - Use all HAPA layers in the detailed plan: Motivation, Intention, Action/Coping Planning, Action Control, Recovery/Maintenance.
+- Ensure target↔barrier↔coping traceability for each major HAPA component.
 - Keep safety language clear and include escalation guidance when uncertainty/risk exists.
 
 Output constraints:

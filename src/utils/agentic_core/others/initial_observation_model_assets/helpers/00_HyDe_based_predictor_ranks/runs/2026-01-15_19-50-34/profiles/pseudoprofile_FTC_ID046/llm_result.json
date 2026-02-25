@@ -1,0 +1,155 @@
+{
+  "pseudoprofile_id": "CASE-2026-01-15-MLS",
+  "summary": "The case presents a pattern of aversive auditory trigger sensitivity (especially chewing sounds) with abrupt anger, persistent replay of trigger sounds, distress about these reactions, and concurrent texture sensitivity. The dysregulation appears to involve heightened arousal, limited habituation to triggers, negative self-evaluation, and potential sensory over-responsivity. Modifiable levers span autonomic regulation, graded exposure and learning, mindfulness and self-compassion, sensory environment optimization, sleep quality, nutrition/gut-brain support, and social resources. Implementing integrative bio-psycho-social interventions targeting trigger reactivity, controllability of anger, perseverative attention to sounds, and self-criticism can plausibly reduce symptom intensity and improve functional coping.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Autonomic arousal regulation via paced breathing and HRV biofeedback",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement daily 10–15 minute HRV-guided breathing and biofeedback practice (with optional wearables) to enhance autonomic balance and vagal tone during exposure to triggers.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Improved autonomic regulation lowers rapid arousal during trigger exposure, reducing anger intensity, intrusive replay, and distress, while increasing tolerance to sensory inputs.",
+      "measurement": "Daily logs of perceived arousal (0–10), anger intensity (0–10), and intrusion frequency; RMSSDHRV during practice/exposures; weekly self-report mood.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Generally safe; monitor for dizziness or discomfort with prolonged standing or rapid breathing; contraindicated in certain cardiopulmonary conditions without guidance.",
+      "mapping_query": "Map to C01 (auditory trigger sensitivity), C02 (anger intensity/controllability), C03 (perseverative auditory attention), and C04 (self-directed distress) via autonomic regulation of trigger response."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Graded auditory exposure with inhibitory learning (CBT-based exposure)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured, gradual exposure to chewing sounds with response prevention and counterconditioning, progressing through predefined steps with coping-skill reinforcement.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Systematic exposure weakens aversive associations, reduces reactivity and intrusive replay, and improves perceived controllability over the trigger.",
+      "measurement": "Session-by-session distress and anger ratings (0–10); frequency of trigger intrusion; progression of exposure steps; self-reported coping efficacy.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None anticipated beyond standard exposure-related discomfort; monitor distress and adjust pace as needed.",
+      "mapping_query": "Targets C01 (auditory trigger sensitivity), C02 (intensity/controllability of anger), and C03 (perseverative auditory attention) through graded exposure."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness-based sensory acceptance and decentering (ACT/MBCT)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver an 6–8 week mindfulness/acceptance-based program focusing on noticing sensory experiences nonjudgmentally, decentering from distressing thoughts, and reducing avoidance.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Nonjudgmental awareness and cognitive decentering can dampen automatic anger responses, reduce intrusive processing, and lessen self-criticism.",
+      "measurement": "Mindfulness (5F-MQ) scores; daily distress and trigger acceptance ratings; self-criticism/affect regulation measures.",
+      "time_horizon": "6–10 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Addresses C01–C04 via increased decentering and acceptance of sensory experiences."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Compassion-focused self-relating practice to reduce self-criticism",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Incorporate a 6–8 week compassion-focused approach to cultivate self-kindness toward sensory distress and reduce negative self-judgment.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Enhanced self-compassion can mitigate self-criticism and distress, improving overall emotional regulation and resilience to triggers.",
+      "measurement": "Self-Compassion Scale scores; daily distress and self-criticism ratings; mood logs.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Directly targets C04 (self-directed distress) by fostering compassionate self-relating."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sensory environment design and texture-safe integration",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Modify the sensory environment to reduce trigger exposure (noise control, background masking, comfortable textures, scheduled quiet periods) and encourage safe sensory experiences.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Reducing external trigger salience supports habituation and limits maladaptive responses to textures and mouth sounds.",
+      "measurement": "Usage of noise-cancelling or masking devices; subjective trigger intensity; texture comfort ratings; sleep quality metrics.",
+      "time_horizon": "4–12 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Environmental adjustments to dampen auditory/textural triggers (C01/C05) to support habituation."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep hygiene and circadian regularity",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent sleep-wake schedules, optimize sleep environment, and limit stimulants near bedtime to support emotional and sensory regulation.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Better sleep enhances executive control and emotional regulation, reducing reactivity to triggers and distress.",
+      "measurement": "Sleep diary metrics (duration, timing), PSQI scores, daytime mood/arousal ratings.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Sleep improvements to bolster emotion regulation and sensory processing affecting C02/C03/C04."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Gut-brain axis nutrition optimization (anti-inflammatory diet and micronutrient sufficiency)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Adopt a nutrition pattern aimed at supporting neuroinflammation balance and micronutrient adequacy without dosing specifics; emphasize whole foods and hydration.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Nutrition-related inflammatory status and micronutrient balance can influence mood and stress reactivity, aiding anger regulation and distress tolerance.",
+      "measurement": "Dietary logs; mood/anger diaries; optional inflammation-related markers if available; sleep quality.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Nutrition and microbiome-linked strategy to support mood and distress regulation (affecting C02/C04)."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Social support and belonging enhancement (social prescribing)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage with supportive networks and community-based activities; establish regular check-ins and supportive group engagement.",
+      "targets_criteria_ids": [
+        "C04",
+        "C02"
+      ],
+      "mechanism_rationale": "Expanded social support buffers distress, reduces self-criticism through connectedness, and improves coping with triggers.",
+      "measurement": "Perceived social support scales; loneliness scales; engagement metrics; mood diaries.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Social support to mitigate self-criticism and distress, with potential indirect effects on anger regulation (C02)"
+    }
+  ]
+}

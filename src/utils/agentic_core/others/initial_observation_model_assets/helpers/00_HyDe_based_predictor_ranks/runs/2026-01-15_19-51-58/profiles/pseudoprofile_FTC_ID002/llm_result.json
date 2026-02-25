@@ -1,0 +1,182 @@
+{
+  "pseudoprofile_id": "CASE_A1_BIOPSYCHO_SOCIAL_OPTIMIZER",
+  "summary": "The case reveals blunted affect, autopilot-driven routines, outward masking as “fine,” and guilt about not enjoying positive moments. Targeting multiple modifiable levers across bio, psycho, and social domains — including Behavioral Activation, mindfulness, sleep, social belonging, values-driven action, external accountability, nutrition, self-monitoring, and relational skills — can plausibly elevate reward responsiveness, restore present-moment engagement, and gradually restore motivation. Interventions are chosen to complement one another (e.g., activate positive experiences, improve sleep, enhance authentic connection, and increase self-awareness) while keeping safety and feasibility in view.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "BehavioralActivation_ScheduledPleasantActivities",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured weekly plan of 3-4 enjoyable activities interspersed with routine tasks; use cue-based triggers; track engagement and affect after activity; include external accountability (brief weekly check-in).",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Increases exposure to rewarding stimuli and intentional engagement, counteracts autopilot, reduces broad affective blunting, and boosts motivational drive by linking action with small positive experiences.",
+      "measurement": "Number of activities completed per week; self-rated affect before/after activities; daily savoring notes.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None beyond standard monitoring for mood changes; screen for fatigue or overcommitment.",
+      "mapping_query": "How does scheduled activation targeting C01/C03/C04/C06 interact with underlying autopilot and guilt mechanisms?"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Mindfulness_Awareness_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "8-week mindfulness-based intervention focusing on present-moment awareness, nonjudgmental noticing, and acceptance; brief daily practice and weekly group session.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C02"
+      ],
+      "mechanism_rationale": "Enhances nonreactive awareness of positive events, reduces automatic reactivity and rumination, and lessens self-criticism tied to not enjoying experiences.",
+      "measurement": "Daily mindfulness minutes; Five Facets Mindfulness Questionnaire (FFMQ) scores; self-reported guilt frequency.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Monitor for transient anxiety or distress during practice; provide optional brief grounding strategies.",
+      "mapping_query": "Link mindfulness practice to reductions in autopilot (C03) and reactivity to positive events (C01/C04/C02)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep_Routine_and_Circadian_Regularization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Set fixed bed and wake times, optimize sleep environment, minimize evening screens, morning light exposure, and caffeine timing; track with a simple sleep hygiene plan.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Improved sleep quality supports emotional processing, cognitive control, and energy, reducing daytime blunting and enhancing motivation and reactivity to positive cues.",
+      "measurement": "Sleep diary entries; actigraphy data (if available); subjective sleep quality; daytime energy ratings.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "Standard sleep-disorder precautions; ensure no dangerous sleep strategies.",
+      "mapping_query": "Assess how sleep improvements correlate with mood/reactivity and autopilot reductions (C01/C03/C04)."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Structured_Social_Presence_and_Participation",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Weekly planned social activity with supportive networks; integrate social prescribing pathways; track belonging and perceived social support.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Affiliation and social reward can reintroduce authentic emotional exchange, counter masking, and provide external reinforcement for engagement.",
+      "measurement": "Number of social contacts per week; belongingness scale; post-interaction mood ratings.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Be mindful of social fatigue; respect boundaries and consent in new groups.",
+      "mapping_query": "Evaluate how increased social engagement affects C01/C03/C04 and reductions in masking (C05)."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Values_Clarification_and_Meaning_Orientation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Values-focused work to identify personal meaning and align small actions with core values; journaling and weekly reflection to reduce guilt about not enjoying experiences.",
+      "targets_criteria_ids": [
+        "C02",
+        "C06",
+        "C01"
+      ],
+      "mechanism_rationale": "Shifts focus from hedonic attainment to value-consistent action, reducing guilt from not enjoying events and boosting intrinsic motivation.",
+      "measurement": "Guilt frequency scale; motivation and goal progress ratings; values alignment score.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "No safety concerns beyond standard reflective practice; monitor for value conflict distress.",
+      "mapping_query": "Can values-aligned action increase engagement and decrease guilt when positive experiences occur (C02, C06, C01)?"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Habit_Formation_with_External_accountability",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use apps or coaching to cue short, manageable behaviors (e.g., 5-minute post-lunch walk) with daily check-ins and reinforcement schedules.",
+      "targets_criteria_ids": [
+        "C03",
+        "C06",
+        "C01"
+      ],
+      "mechanism_rationale": "External structure lowers cognitive load, promotes automaticity, and sustains engagement with positive activities.",
+      "measurement": "Adherence rate to micro-behaviors; time-to-completion; post-behavior energy/affect rating.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Privacy considerations; ensure data handling and consent.",
+      "mapping_query": "How does external accountability shift autopilot (C03) and motivation (C06) towards more consistent positive engagement?"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Dietary_Patterns_and_Micronutrient_Sufficiency",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Balanced diet emphasizing omega-3s, B-vitamins, magnesium, fiber; hydration; monitor mood-nutrition correlations; consider gradual dietary adjustments.",
+      "targets_criteria_ids": [
+        "C04",
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Nutrient status supports neurotransmitter synthesis and energy, potentially enhancing mood reactivity and initiative.",
+      "measurement": "Food diary with mood correlation notes; simple mood diaries; optional nutrient screening results.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.3,
+      "priority": "LOW",
+      "safety_notes": "Account for allergies/intolerances; ensure caloric adequacy.",
+      "mapping_query": "Link nutritional changes with shifts in emotional intensity (C04) and positive reactivity (C01/C06)."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Daily_Mood_and_Activity_Self_Monitoring",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Brief daily log of mood, activities, energy; weekly feedback; digital tool for trend analysis; adjust plan based on data.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Increases self-awareness of patterns, enables rapid optimization, and reinforces engagement with positive activities.",
+      "measurement": "Daily mood score; number of activities logged; weekly trend analyses; correlation between mood and activity.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Data privacy; ensure user-friendly interface.",
+      "mapping_query": "How does ongoing self-monitoring facilitate detection of improvements across C01/C03/C04/C06?"
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Interpersonal_Therapy_Skills_and_Relational_Repair",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Short-term interpersonal skills coaching focusing on authentic communication, boundary-setting, and reducing masking; improve relational safety and satisfaction.",
+      "targets_criteria_ids": [
+        "C05",
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Improved vulnerability and relational safety can decrease outward masking (C05) and enhance genuine positive exchanges, boosting affective experiences (C01/C04).",
+      "measurement": "Authenticity scale; observed relational interactions; self-reported relationship satisfaction.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.35,
+      "priority": "LOW",
+      "safety_notes": "Consider family/partner dynamics; plan for safety and boundaries as needed.",
+      "mapping_query": "Does reducing masking in relationships elevate authentic affect and improve mood/engagement (C01/C04/C05)?"
+    }
+  ]
+}

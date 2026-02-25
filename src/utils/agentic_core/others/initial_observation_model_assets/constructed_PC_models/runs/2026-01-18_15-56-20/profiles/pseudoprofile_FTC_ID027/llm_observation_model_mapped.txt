@@ -1,0 +1,19 @@
+pseudoprofile_id: pseudoprofile_FTC_ID027
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Low task-directed motivation -> NON-CLINICAL / AGE-GENERAL / psychological / self-efficacy / achievement motivation / drive to succeed / goal-oriented behavior (conf=0.72)
+- C02: Elevated anticipatory anxiety -> CLINICAL / DSM-5TR / anxiety disorders / social anxiety disorder / performance only / anticipatory_anxiety_before_performance (conf=0.88)
+- C03: Difficulty initiating tasks (action initiation deficit) -> CLINICAL / DSM-5TR / neurodevelopmental disorders / attention-deficit or hyperactivity disorder (adhd) / predominantly inattentive presentation / loss_of_items_needed_for_tasks (conf=0.75)
+- C04: Perseverative feedback loop between anxiety and inaction -> CLINICAL / DSM-5TR / anxiety disorders / generalized anxiety disorder / with cognitive rumination / repetitive_negative_rumination_cycles (conf=0.92)
+- C05: Behavioral avoidance/inactivity -> CLINICAL / ICD-10 / pain disorders / functional pain disorders / psychogenic pain disorder / activity_avoidance_due_to_pain (conf=0.52)
+- C06: Negative emotional state (feeling awful) -> NON-CLINICAL / AGE-GENERAL / emotional / subjective affective feeling / feeling bad (conf=0.85)
+- C07: Self-critical interpretation of the situation -> CLINICAL / DSM-5TR / personality disorders / other personality disorders / depressive personality disorder / self_critical_rumination (conf=0.78)
+
+PREDICTORS:
+- P01: Behavioral Activation (structured scheduling + micro-goals) -> PSYCHO / change_process_and_therapeutic_phases / skill_acquisition / behavioral_planning_and_execution_skills / behavioral_activation_scheduling (conf=0.85)
+- P02: Task initiation cues (start rituals) -> PSYCHO / cognitive_behavioral_therapies / behavior_change_and_activation / planning_and_grading / activation_design / task_initiation_cues (conf=0.92)
+- P03: Self-monitoring, feedback loop (progress monitoring) -> PSYCHO / change_process_and_therapeutic_phases / behavior_change_theories_and_modern_protocol_arcs / social_cognitive_theory_solutions / sct_self_monitoring_goals_and_feedback_loop (conf=0.90)
+- P04: Implementation intentions/self-management priming -> PSYCHO / foundations_and_common_factors / goals_values_and_maintenance_planning / implementation_intention_ifthen_plans (conf=0.92)
+- P05: Sleep circadian entrainment (circadian alignment) -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / dawn_simulation_alarm (conf=0.75)
+- P06: Brief daily movement (neurochemical activation) -> BIO / movement_physical_function_and_somatic_care / aerobic_and_cardiorespiratory_movement / lifestyle_energy_expenditure / walking_meetings_framework (conf=0.72)

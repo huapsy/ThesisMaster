@@ -1,0 +1,1216 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID003",
+  "model_summary": "This initial observation model targets situationally predisposed panic waves in public with prominent chest tightness, fear of fainting, embarrassment, and pulse-checking. We retain five high-variance, momentary criteria (spike intensity, chest tightness, fainting belief, social embarrassment, and pulse-checking) and pair them with seven modifiable predictors spanning physiology (slow breathing use, sleep quality, caffeine), attention/cognition/behavior (grounding, reappraisal use, urge tolerance/response prevention), and contextual exposure (time in public). A 21-day EMA protocol with 5 prompts/day (since-last-prompt recall) plus a morning sleep diary balances statistical power and burden, optimizing within-person variance for gVAR while minimizing redundancy.",
+  "variable_selection_notes": "Criteria were selected to preserve the core complaint dynamics while controlling collinearity: we included panic spike intensity (C01), chest tightness (C02), imminent-fainting belief (C03), embarrassment concern (C04), and pulse-checking (C05). We deprioritized escape planning (overlaps with safety behaviors), perceived unpredictability (risk of trait-like stationarity), and internal-attention shift (covered mechanistically by grounding predictor). Predictors were chosen to represent distinct, modifiable levers with strong literature and ranking support: physiological downshift (slow breathing), attentional grounding, cognitive reappraisal use, urge tolerance/response prevention, social exposure dose (nonlinear acute vs. longer-term effects), sleep quality (baseline arousal), and caffeine intake (arousal sensitizer). Trade-offs: we avoided wearables/neuromodulation/pharmacotherapy due to feasibility/scope and to keep a clean EMA-first model. Bias/uncertainty: social exposure effects are context-dependent and likely nonlinear; sleep has weekly cycles; caffeine effects vary by sensitivity. We use 1–9 Likert anchors to maximize variance and approximate continuity, and separate morning diary for sleep to avoid recall bias.",
+  "design_recommendations": {
+    "study_days": 21,
+    "momentary_ema": {
+      "prompts_per_day": 5,
+      "schedule_type": "randomized_within_blocks",
+      "time_blocks_local": [
+        "08:00-11:00",
+        "11:00-14:00",
+        "14:00-17:00",
+        "17:00-20:00",
+        "20:00-22:30"
+      ],
+      "recall_window": "since last prompt",
+      "expected_total_prompts": 105,
+      "notes": "Randomize within each 2–3h block with ±10–20 min jitter. Snooze up to 10 min once per prompt. Encourage immediate responding to capture near-real-time states."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "07:00"
+      ],
+      "expected_total_entries": 21,
+      "notes": "Morning entry within 06:00–09:00 window to rate last night’s sleep. If missed, allow same-day catch-up by noon."
+    },
+    "passive_streams": {
+      "enabled": false,
+      "aggregation_strategy": "N/A",
+      "notes": "Optional future add-ons: wearable HR/HRV and GPS crowd density; start EMA-only to reduce burden and simplify modeling."
+    },
+    "minimum_total_observations_target": 400,
+    "gvar_readiness_notes": "5 EMA prompts/day over 21 days yields ~105 time points/variable (minus missingness). 1–9 Likert approximates continuous distributions for gVAR. Lags of 0–6h and 0–24h are compatible with the sampling interval. Daily diary (sleep) provides exogenous baseline input.",
+    "variance_support_notes": "Use anchored 1–9 scales; measure ‘since last prompt’ peak/intensity to avoid zeros. Include both symptom (C01–C02) and cognitive/behavioral (C03–C05) components to diversify within-person variance sources.",
+    "missingness_risk_notes": "Higher evening nonresponse risk; use reminders and brief items (<10s/item). Consider adherence nudges on day 3 and 7. Define allowable ‘missed’ handling (carry-forward prohibited; listwise deletion or FIML later)."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "C01",
+      "label": "Sudden intense anxiety episodes",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, what was the highest level of sudden anxiety or panic you experienced?",
+        "response_scale_or_unit": "1–9 (1=none, 5=moderate, 9=extreme)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "If no spike, answer 1."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "C02",
+      "label": "Acute chest tightness during episodes",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how tight did your chest feel at its worst?",
+        "response_scale_or_unit": "1–9 (1=not at all, 9=extremely tight)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Momentary somatic intensity, not diagnosis."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "C03",
+      "label": "Belief of imminent fainting in public",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how strongly did you believe you might faint if symptoms continued (in public)?",
+        "response_scale_or_unit": "1–9 (1=not at all, 9=certain)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures catastrophic misinterpretation intensity during/after spikes."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "C04",
+      "label": "Social-evaluative embarrassment concern",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how embarrassed or worried about others’ judgment did you feel when symptoms showed up?",
+        "response_scale_or_unit": "1–9 (1=not at all, 9=extremely)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Targets social-evaluative component in context."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "C05",
+      "label": "Immediate safety-checking behavior (pulse checking)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how much did you check your pulse or other bodily signs?",
+        "response_scale_or_unit": "1–9 (1=not at all, 9=very often/compulsively)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures both urge and enactment level."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Slow breathing/arousal regulation use",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "ontology_path": "PSYCHO / Core_Psychological_Skills_Toolkits / Stress_Resilience_and_Downregulation",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Longer-exhale/smooth breathing increases vagal tone and reduces sympathetic arousal, dampening panic intensity and somatic symptoms.",
+      "intervention_examples_safe": "Box breathing, 4-6 breathing, paced breathing via app or watch prompt.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how much did you use slow breathing (longer exhales) to calm your body?",
+        "response_scale_or_unit": "1–9 (1=not at all, 9=a lot)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "If no use, answer 1."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Physiological downshift reduces peak panic intensity."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reduces chest muscle tension and perceived constriction."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Lower arousal weakens catastrophic fainting appraisals."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Lower arousal decreases social-evaluative distress during spikes."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Less arousal reduces checking urges and enactment."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Breathing should be comfortable and not hyperventilatory; stop if lightheaded.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Simple EMA item with high moment-to-moment variability."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Attentional grounding (external focus)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Cognitive_Behavioral_Therapies / Cognitive_Bias_and_Attention_Modification",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Shifting attention outward counters interoceptive amplification and threat monitoring, reducing catastrophic interpretations and safety behaviors.",
+      "intervention_examples_safe": "5-senses grounding, counting external sounds, describing surroundings.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how much did you deliberately focus outward on sights/sounds/people (grounding) when anxious?",
+        "response_scale_or_unit": "1–9 (1=not at all, 9=very much)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures skill use dose, not ability."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reduces attention to internal threat cues driving panic surges."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Less interoceptive focus reduces perceived tightness intensity."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Disengaging from bodily cues reduces fainting expectancy."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Focus on environment dampens self-conscious processing."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Less internal scanning reduces checking behavior."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Use only when safe to attend to environment (e.g., not while driving beyond normal attention).",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "High day-to-day and intra-day variability expected."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Cognitive reappraisal use (sensations are safe/temporary)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Cognitive_Behavioral_Therapies / Cognitive_Restructuring",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Reattributing sensations to benign arousal reduces catastrophic fainting beliefs and social-evaluative fear, dampening panic spirals.",
+      "intervention_examples_safe": "‘This is uncomfortable, not dangerous’; probability reframe; window-of-tolerance framing.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how much did you remind yourself that these sensations are intense but safe and temporary?",
+        "response_scale_or_unit": "1–9 (1=not at all, 9=a lot)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Measures reappraisal use, not belief trait level."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reduces perceived threat, lowering panic peaks."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Cognitive safety framing can reduce somatic vigilance and tension."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Directly targets fainting belief appraisals."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Safety reframe reduces embarrassment concern."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Lower perceived danger reduces checking behavior."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Ensure reappraisal remains realistic (not suppression/denial).",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Brief, face-valid item with good variability."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Urge tolerance/response prevention (stay vs. escape/check)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / Cognitive_Behavioral_Therapies / Exposure_and_Inhibitory_Learning",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Inhibiting escape/checking increases safety learning and reduces reliance on safety behaviors, attenuating panic over time.",
+      "intervention_examples_safe": "Urge surfing; stay-in-place for 1–3 minutes; compassionate self-talk while riding the wave.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, when you felt urges to escape or check your pulse, how much did you stay and ride it out?",
+        "response_scale_or_unit": "1–9 (1=not at all, 9=a lot)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "If no urge occurred, answer 1 (no opportunity) to keep scale consistent."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Acute containment reduces escalation and reinforces mastery."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Less escape checking reduces somatic amplification."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Successful tolerance updates beliefs about collapsing/fainting."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Mastery experiences reduce embarrassment concern."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Directly substitutes for checking/escape response."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Only practice in safe settings; do not persist if medically concerning symptoms occur.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Frequent opportunities create good variance; item wording clarifies if no urge occurred."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Time in public/social places (exposure dose)",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "ontology_path": "PSYCHO / Cognitive_Behavioral_Therapies / Exposure_and_Inhibitory_Learning",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Greater exposure can transiently raise anxiety but promotes long-term inhibitory learning and reduced evaluative fear.",
+      "intervention_examples_safe": "Graded in-vivo exposure (e.g., brief visits to crowded spaces, gradually increasing duration).",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how much time did you spend in public or social places?",
+        "response_scale_or_unit": "1–9 (1=none, 9=a lot)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures context dose; effect likely nonlinear/lagged."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score; consider day-of-week indicator",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "nonlinear",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 48,
+          "rationale": "May acutely increase spikes but reduce over 24–48h via learning."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "nonlinear",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 48,
+          "rationale": "Somatic sensations may rise during exposure but reduce with practice."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "nonlinear",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 48,
+          "rationale": "Belief of fainting may initially increase, then decline with mastery."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "nonlinear",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 48,
+          "rationale": "Embarrassment may spike in-session and decrease with repeated exposure."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "nonlinear",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 48,
+          "rationale": "Checking may rise in-session but fall over time as safety learning accrues."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Use graded exposure; do not force high-intensity situations abruptly. Safety first.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Context is common in daily life; EMA recall is feasible."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Sleep quality (last night)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "Sleep_Circadian_and_Restoration / Sleep_Routines_and_Practices",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Better sleep reduces baseline arousal and cognitive reactivity, lowering next-day panic susceptibility.",
+      "intervention_examples_safe": "Consistent schedule, wind-down, light control, caffeine cut-off.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "This morning: How restorative was your sleep last night?",
+        "response_scale_or_unit": "1–9 (1=very poor, 9=very restorative)",
+        "sampling_per_day": 1,
+        "recall_window": "last night",
+        "expected_within_person_variability": "medium",
+        "notes": "Single-item global sleep quality."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score; include weekday/weekend indicator",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Improved sleep reduces next-day panic intensity risk."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Lower baseline tension decreases chest tightness reactivity."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep reduces catastrophic bias."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Improved affect regulation reduces embarrassment concern."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Lower arousal decreases checking urges."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Sleep hygiene advice only; no pharmacotherapy recommendations.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.75,
+        "notes": "1-item morning diary is low burden and robust."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "Caffeine intake (since last prompt)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "Nutrition_Hydration_and_Metabolic_Health / Caffeine_and_Stimulant_Intake_Modulation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Caffeine can increase sympathetic arousal and interoceptive sensations, elevating panic risk and checking.",
+      "intervention_examples_safe": "Delay first caffeine, reduce dose, switch to lower-caffeine beverages.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how much caffeine did you consume (coffee, tea, energy drinks)?",
+        "response_scale_or_unit": "1–9 (1=none, 9=a lot)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "No need to estimate mg; relative amount suffices for within-person modeling."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score; include time-of-day controls in analysis",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Stimulant effects elevate arousal and panic likelihood shortly after intake."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increases palpitations and muscle tension perception."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Amplified sensations boost fainting expectations."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Higher arousal can heighten social-evaluative concern."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Greater arousal increases checking urges/behavior."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Avoid advising abrupt cessation if dependence suspected; suggest gradual adjustments.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Simple scalar; frequent day-to-day variability."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,25000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,30000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Vagal activation lowers acute panic intensity.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reduces muscle tension and perceived constriction.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Lower arousal weakens fainting conviction.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Less arousal reduces social-evaluative distress.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Downshift reduces checking urge/enactment.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "External focus counters interoceptive amplification.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Less attention to chest reduces perceived tightness.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Threat disengagement reduces fainting expectation.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Less self-focused attention reduces embarrassment.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Decreased internal scanning reduces checking.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reappraisal lowers perceived threat driving spikes.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Safety framing reduces somatic vigilance.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Directly targets fainting belief.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Reappraisal reduces evaluative concerns.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Lower danger appraisal reduces checking.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Staying reduces escalation; builds tolerance.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Less escape keeps arousal manageable; less somatic focus.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Mastery updates belief about fainting.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Successful tolerance reduces embarrassment.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Response prevention substitutes for checking.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "nonlinear",
+      "lag_spec": "multi_lag",
+      "notes": "Likely acute increase then longer-term reduction.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "nonlinear",
+      "lag_spec": "multi_lag",
+      "notes": "Somatic sensations may spike in-session then drop.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "nonlinear",
+      "lag_spec": "multi_lag",
+      "notes": "Beliefs may initially worsen then improve with learning.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "nonlinear",
+      "lag_spec": "multi_lag",
+      "notes": "Evaluative fear may spike then reduce over time.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "nonlinear",
+      "lag_spec": "multi_lag",
+      "notes": "Checking may rise during exposure but fall with repetition.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Better sleep lowers next-day reactivity.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Lower tension reduces chest tightness risk.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Improved sleep reduces catastrophic bias.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Affect regulation improves with sleep.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Less arousal diminishes checking urges.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Caffeine acutely increases arousal and panic risk.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Increases palpitations/tension perception.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Amplified sensations feed fainting belief.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Higher arousal heightens evaluative concern.",
+      "estimated_relevance_0_1": null
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Stimulated arousal increases checking behavior.",
+      "estimated_relevance_0_1": null
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "C01 with C02 (shared arousal base)",
+      "P01 with P02 (both reduce arousal/attention to threat)",
+      "P03 with C03 (conceptual proximity; mitigated by measuring P03 as use-of-reappraisal vs. belief strength)",
+      "P04 inversely related to C05 (behavioral substitution)",
+      "P05 with C04 during exposure windows (state coupling)"
+    ],
+    "expected_floor_ceiling_risks": [
+      "C05 pulse-checking may be low outside public contexts (floor risk)",
+      "P04 urge tolerance may be inapplicable in blocks without urges (floor risk)",
+      "P05 exposure dose may be near-zero on stay-at-home days (floor risk)"
+    ],
+    "variance_enhancement_suggestions": [
+      "Keep prompts across social hours (late afternoon/evening included)",
+      "Anchor scales with clear extremes (1 and 9) to encourage full-range use",
+      "Encourage brief practice of skills (P01–P04) to generate variance",
+      "Sample weekends to capture different exposure and caffeine patterns",
+      "Add weekday/weekend indicators in modeling to handle cycles"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "C06 Immediate escape/exit planning (overlaps with safety-checking; kept P04 instead)",
+      "C07 Perceived unpredictability/lack of control (trait-like; risk of low within-person variance)",
+      "C08 Attention shift to internal sensations (covered by P02 grounding inverse)",
+      "Wearable HRV/HR (feasible later; excluded to simplify)",
+      "Pharmacotherapy and neuromodulation families (out of scope for self-guided EMA model)"
+    ],
+    "gvar_feasibility_summary": "12 variables total (5 criteria + 7 predictors) with ~105 time points each (minus missingness) and clear lag structure (0–6h, 0–24h, multi-lag for exposure). Ordinal 1–9 items approximate continuous; within-person z-scoring recommended. Collinearity monitored; constructs are mechanism-distinct."
+  },
+  "safety_notes": "This is not a diagnosis. If chest pain is new, severe, or different from usual anxiety sensations, or if you have cardiac risk factors, seek urgent medical care. If panic or fainting concerns escalate, consult a qualified clinician. Use graded exposure safely; do not place yourself in unsafe situations. Reduce caffeine gradually if needed."
+}

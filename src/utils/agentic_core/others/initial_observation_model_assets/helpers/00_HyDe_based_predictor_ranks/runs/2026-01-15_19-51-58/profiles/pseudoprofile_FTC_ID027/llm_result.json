@@ -1,0 +1,134 @@
+{
+  "pseudoprofile_id": "CASE01_BIO_PSYCHO_SOCIAL_OPTIMIZER_01",
+  "summary": "The case shows a self-reinforcing cycle of low motivation (C01) with high anticipatory anxiety (C02), resulting in difficulty initiating tasks (C03) and persistent avoidance (C05), accompanied by negative affect (C06) and self-criticism (C07). Modifiable levers across bio/psycho/social domains and their interactions are proposed to lower initiation barriers, regulate arousal, enhance self-efficacy, and increase engagement. Each lever targets specific predictors, with clear measurement hooks (simple, actionable metrics) and feasible horizons (2–6 weeks). The plan emphasizes non-pharmacologic, safe, and scalable strategies that can be combined or piloted variably depending on response and preference.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "C03",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Behavioral Activation with micro-steps and scheduled daily task planning (start with 2-minute tasks, then progressively increase complexity).",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Directly lowers initiation threshold, provides immediate win, and dampens the anxiety-inaction feedback loop by creating predictable, controllable actions.",
+      "measurement": "Tasks started per day; time to first action after planning (minutes); self-reported initiation ease on a 0–10 scale.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.92,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "S01 targets initiation deficits (C03) and reduces associated anxiety-driven inaction (C04) and avoidance (C05) by creating small, repeatable actions."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "C02",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Pre-task anxiety regulation via brief paced breathing and grounding (2–3 minutes) plus a short body-scan to reduce physiological arousal before task attempts.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Lowered physiological arousal and cognitive load before task initiation diminishes anticipatory anxiety and the likelihood of avoidance cycles.",
+      "measurement": "Pre-task anxiety rating (0–10); time to first task start after regulation; frequency of avoidance episodes.",
+      "time_horizon": "2-3 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "Ensure breathing techniques are comfortable; avoid over-breathing or dizziness.",
+      "mapping_query": "Anxiety regulation before task initiation is expected to reduce C02-driven arousal and the C04 avoidance loop."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "C07",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Compassion-focused self-talk and cognitive reframing with a brief daily self-compassion journaling routine to counter self-criticism (e.g., transforming 'Great system' into constructive cues).",
+      "targets_criteria_ids": [
+        "C07",
+        "C01"
+      ],
+      "mechanism_rationale": "Reduces harsh self-judgment, boosts self-efficacy, and thereby increases motivation to initiate tasks (C01).",
+      "measurement": "Self-criticism score; daily motivation rating; number of initiation attempts.",
+      "time_horizon": "2-3 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Monitor for rumination; pause if distress increases; seek guidance if suicidality emerges.",
+      "mapping_query": "Lowering self-criticism (C07) is expected to improve motivation (C01) and initiation (C03)."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "C03",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implementation intentions (If-Then planning) for common initiation contexts, with explicit cues and action steps to trigger first action.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Pre-commitment to specific actions increases automatic initiation, reducing cognitive load and hesitation that feed the C04 loop.",
+      "measurement": "Plan adherence rate; time-to-start after cue; number of initiated tasks per day.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "If-Then planning reduces initiation barriers (C03) and dampens the C04 loop."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "C05",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured peer-support with daily check-ins and shared micro-goals; an accountability buddy to reinforce task engagement.",
+      "targets_criteria_ids": [
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Social accountability increases reinforcement for task engagement and reduces passive inactivity (C05) and associated avoidance (C04).",
+      "measurement": "Check-in completion rate; days with at least one task started; self-reported avoidance episodes.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.82,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Respect privacy; ensure voluntary participation.",
+      "mapping_query": "Social accountability supports initiation and reduces avoidance loops (C05, C04)."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep_Circadian_Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene protocol and circadian alignment: consistent bed/wake times, morning light exposure, wind-down routine, and limiting late-day stimulants.",
+      "targets_criteria_ids": [
+        "C02",
+        "C06"
+      ],
+      "mechanism_rationale": "Better sleep improves baseline anxiety and negative mood, increasing energy and motivational capacity to initiate tasks.",
+      "measurement": "Average sleep duration; sleep efficiency; morning mood; pre-task anxiety rating.",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.78,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Improved sleep quality reduces C02/C06 burden and supports initiation (C03)."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "C01",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Values-based motivation coaching with meaning-focused reflection; weekly micro-reflections on values alignment and progress toward personal goals.",
+      "targets_criteria_ids": [
+        "C01",
+        "C07"
+      ],
+      "mechanism_rationale": "Reinforces intrinsic motivation and reduces self-criticism by aligning tasks with personal values, boosting willingness to act.",
+      "measurement": "Motivation rating; alignment of tasks to values; initiation attempts.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.74,
+      "expected_impact_0_1": 0.35,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Values-aligned motivation can enhance initiation (C01) and reduce negative self-judgment (C07)."
+    }
+  ]
+}

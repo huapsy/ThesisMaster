@@ -1,0 +1,16 @@
+pseudoprofile_id: pseudoprofile_FTC_ID050
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Speech-related word-retrieval lapses -> CLINICAL / DSM-5TR / neurodevelopmental disorders / communication disorders / other specified communication disorder / word_retrieval_difficulty (conf=0.82)
+- C02: Fear about aging/cognitive decline -> NON-CLINICAL / AGE-SPECIFIC / middle_adulthood / emotional_development / identity_reformation / aging_self_perception / wisdom_versus_relevance_tension (conf=0.62)
+- C03: Self‑consciousness during conversation -> CLINICAL / DSM-5TR / anxiety disorders / social anxiety disorder / generalized / fear of negative evaluation / self_consciousness_in_social_performance (conf=0.86)
+- C04: Reduction in verbal engagement -> CLINICAL / DSM-5TR / neurocognitive disorders / mild neurocognitive disorder / substance or medication-induced / oncologic or radiation therapy–related / verbal_fluency_reduction (conf=0.77)
+- C05: Anticipatory worry about speaking -> CLINICAL / DSM-5TR / anxiety disorders / social anxiety disorder / performance only / anticipatory_anxiety_before_performance (conf=0.82)
+
+PREDICTORS:
+- P01: Word retrieval strategy practice (cued retrieval strategies during conversation) -> PSYCHO / cognitive_capacity_enhancement_and_stimulation / language_and_verbal_cognition / lexical_and_semantic_fluency / access_and_retrieve_words / word_retrieval_strategy_practice (conf=0.92)
+- P02: Lexical and semantic fluency training (word retrieval practice) -> PSYCHO / cognitive_capacity_enhancement_and_stimulation / language_and_verbal_cognition / lexical_and_semantic_fluency / access_and_retrieve_words / word_retrieval_strategy_practice (conf=0.78)
+- P03: Self-talk transcription practice (monitoring) -> PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / elicit_and_capture / monitoring_and_noticing / self_talk_transcription_practice (conf=0.77)
+- P04: Self-talk for delay and choice (urge management) -> PSYCHO / cognitive_behavioral_therapies / exposure_and_inhibitory_learning / response_prevention_and_urge_work / urge_tolerance_and_surfing / compassionate_self_talk_during_urge (conf=0.92)
+- P05: Spaced retrieval practice (memory retrieval strategy) -> PSYCHO / cognitive_and_metacognitive_interventions / cognitive_remediation_and_rehabilitation / spaced_retrieval_practice (conf=0.92)

@@ -1,0 +1,3030 @@
+{
+  "meta": {
+    "profile_id": "pseudoprofile_FTC_ID041",
+    "generated_at": "2026-01-19T16:09:21",
+    "script": "apply_regular_time_series_analysis.py",
+    "paths": {
+      "readiness_report": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/04_initial_observation_analysis/00_readiness_check/pseudoprofile_FTC_ID041/readiness_report.json",
+      "raw_csv": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/Evaluation/01_pseudoprofile(s)/time_series_data/pseudodata/pseudoprofile_FTC_ID041/pseudodata_wide.csv"
+    },
+    "dependencies": {
+      "scipy": true,
+      "statsmodels": true
+    },
+    "config": {
+      "prefer_tier": "tier1",
+      "min_nonmissing_for_any_analysis": 8,
+      "enable_imputation": true,
+      "kalman_min_nonmissing": 20,
+      "kalman_max_missing_pct": 0.6,
+      "interpolation_max_missing_pct": 0.85,
+      "trend_min_points": 8,
+      "nominal_max_levels": 12,
+      "nominal_min_per_level": 5,
+      "weekday_min_total_n": 10,
+      "hour_min_total_n": 20,
+      "hour_min_per_bin": 5,
+      "alpha": 0.05,
+      "adf_alpha": 0.05,
+      "kpss_alpha": 0.05
+    }
+  },
+  "inputs_from_readiness": {
+    "recommended_tier_from_readiness": "Tier3_LaggedDynamicNetwork",
+    "readiness_score_from_readiness": 94.64037698412699,
+    "time_regularity_from_readiness": "regular_or_quasi_regular",
+    "selection_info": {
+      "strategy": "tier1",
+      "notes": []
+    }
+  },
+  "dataset_overview": {
+    "n_rows": 180,
+    "n_cols": 16,
+    "time_col": "t_index",
+    "date_col": "date",
+    "ordering": {
+      "sorted": true,
+      "sort_key": "date",
+      "time_parse_ok_fraction": 1.0,
+      "notes": []
+    },
+    "time_index": {
+      "index_type": "datetime",
+      "used_col": "date",
+      "parse_ok_fraction": 1.0,
+      "notes": []
+    },
+    "nominal_columns_detected": []
+  },
+  "variables_analyzed": [
+    "P01",
+    "P02",
+    "P03",
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06"
+  ],
+  "variable_results": {
+    "P01": {
+      "type_inferred": "proportion",
+      "n_total": 180,
+      "n_nonmissing_raw": 163,
+      "missing_pct_raw": 0.09444444444444444,
+      "max_consecutive_missing_raw": 5,
+      "imputation": {
+        "used": true,
+        "details": {
+          "enabled": true,
+          "chosen": "kalman_ucm",
+          "notes": [
+            "Proportion: kept scale; clip to [0,1] after smoothing."
+          ],
+          "ok": true
+        }
+      },
+      "n_used_for_analysis": 180,
+      "descriptives": {
+        "n": 180,
+        "mean": 0.2948091905686759,
+        "std": 0.21508809778105042,
+        "median": 0.26683743912431807,
+        "min": 0.0,
+        "max": 0.9912224193256696,
+        "iqr": 0.28217100143418505,
+        "mad": 0.14213959412767838,
+        "skew": 0.9168487546171219,
+        "kurtosis_fisher": 0.7838495309678817
+      },
+      "autocorrelation": {
+        "autocorr_lag1": 0.8423859372917859,
+        "ljung_box_p": 1.1688826863815592e-101
+      },
+      "stationarity": {
+        "adf_p": 0.0016221286604446421,
+        "kpss_p": 0.01,
+        "stationary_flag": false,
+        "notes": []
+      },
+      "trend": {
+        "model": "ols",
+        "n": 180,
+        "slope": 0.0017561506870519637,
+        "intercept": 0.13763370407752518,
+        "p_slope": 5.186248847771318e-07,
+        "r2": 0.1809925222929777,
+        "notes": []
+      },
+      "progress": {
+        "regressed": {
+          "regressed_start": 0.13763370407752518,
+          "regressed_end": 0.45198467705982664,
+          "regressed_delta": 0.31435097298230147,
+          "regressed_pct_change_vs_scale": 31.713464793921332,
+          "scale_reference": 0.9912224193256696
+        },
+        "raw_first": 0.6601736181563861,
+        "raw_last": 0.0,
+        "raw_delta": -0.6601736181563861,
+        "raw_pct_change_vs_scale": -66.60196594478799,
+        "scale_reference": 0.9912224193256696
+      }
+    },
+    "P02": {
+      "type_inferred": "proportion",
+      "n_total": 180,
+      "n_nonmissing_raw": 150,
+      "missing_pct_raw": 0.16666666666666663,
+      "max_consecutive_missing_raw": 10,
+      "imputation": {
+        "used": true,
+        "details": {
+          "enabled": true,
+          "chosen": "kalman_ucm",
+          "notes": [
+            "Proportion: kept scale; clip to [0,1] after smoothing."
+          ],
+          "ok": true
+        }
+      },
+      "n_used_for_analysis": 180,
+      "descriptives": {
+        "n": 180,
+        "mean": 0.3967934950191981,
+        "std": 0.244095902807578,
+        "median": 0.37656041794737216,
+        "min": 0.0,
+        "max": 0.9343299513938632,
+        "iqr": 0.3750865392571169,
+        "mad": 0.19948949997900756,
+        "skew": 0.0720202918554922,
+        "kurtosis_fisher": -0.9253296332913847
+      },
+      "autocorrelation": {
+        "autocorr_lag1": 0.8935419438232498,
+        "ljung_box_p": 2.92881727913415e-175
+      },
+      "stationarity": {
+        "adf_p": 0.19848860156917436,
+        "kpss_p": 0.01,
+        "stationary_flag": false,
+        "notes": []
+      },
+      "trend": {
+        "model": "ols",
+        "n": 180,
+        "slope": 0.0031140605880238554,
+        "intercept": 0.11808507239106296,
+        "p_slope": 6.484181286451595e-24,
+        "r2": 0.441878601174299,
+        "notes": []
+      },
+      "progress": {
+        "regressed": {
+          "regressed_start": 0.11808507239106296,
+          "regressed_end": 0.675501917647333,
+          "regressed_delta": 0.5574168452562701,
+          "regressed_pct_change_vs_scale": 59.659528673430394,
+          "scale_reference": 0.9343299513938632
+        },
+        "raw_first": 0.8712851479230741,
+        "raw_last": 0.6543047672861111,
+        "raw_delta": -0.216980380636963,
+        "raw_pct_change_vs_scale": -23.223100181393605,
+        "scale_reference": 0.9343299513938632
+      }
+    },
+    "P03": {
+      "type_inferred": "proportion",
+      "n_total": 180,
+      "n_nonmissing_raw": 148,
+      "missing_pct_raw": 0.1777777777777778,
+      "max_consecutive_missing_raw": 3,
+      "imputation": {
+        "used": true,
+        "details": {
+          "enabled": true,
+          "chosen": "kalman_ucm",
+          "notes": [
+            "Proportion: kept scale; clip to [0,1] after smoothing."
+          ],
+          "ok": true
+        }
+      },
+      "n_used_for_analysis": 180,
+      "descriptives": {
+        "n": 180,
+        "mean": 0.2690151205598863,
+        "std": 0.20847605945966577,
+        "median": 0.2244866119481881,
+        "min": 0.0,
+        "max": 0.8749372456823592,
+        "iqr": 0.2706476805000599,
+        "mad": 0.13504204410864318,
+        "skew": 0.6786755092686407,
+        "kurtosis_fisher": -0.36936840395170467
+      },
+      "autocorrelation": {
+        "autocorr_lag1": 0.88774637761943,
+        "ljung_box_p": 1.5549162568238936e-107
+      },
+      "stationarity": {
+        "adf_p": 0.018586600821338724,
+        "kpss_p": 0.08295681113807712,
+        "stationary_flag": true,
+        "notes": []
+      },
+      "trend": {
+        "model": "ols",
+        "n": 180,
+        "slope": 0.0013160678688700048,
+        "intercept": 0.1512270462960208,
+        "p_slope": 7.721715151294151e-08,
+        "r2": 0.10819670302767614,
+        "notes": []
+      },
+      "progress": {
+        "regressed": {
+          "regressed_start": 0.1512270462960208,
+          "regressed_end": 0.38680319482375164,
+          "regressed_delta": 0.23557614852773084,
+          "regressed_pct_change_vs_scale": 26.924919437394184,
+          "scale_reference": 0.8749372456823592
+        },
+        "raw_first": 0.2430214699615308,
+        "raw_last": 0.37399700714673895,
+        "raw_delta": 0.13097553718520816,
+        "raw_pct_change_vs_scale": 14.969706436838335,
+        "scale_reference": 0.8749372456823592
+      }
+    },
+    "P04": {
+      "type_inferred": "proportion",
+      "n_total": 180,
+      "n_nonmissing_raw": 168,
+      "missing_pct_raw": 0.06666666666666665,
+      "max_consecutive_missing_raw": 7,
+      "imputation": {
+        "used": true,
+        "details": {
+          "enabled": true,
+          "chosen": "kalman_ucm",
+          "notes": [
+            "Proportion: kept scale; clip to [0,1] after smoothing."
+          ],
+          "ok": true
+        }
+      },
+      "n_used_for_analysis": 180,
+      "descriptives": {
+        "n": 180,
+        "mean": 0.5502053991577098,
+        "std": 0.27871988332515674,
+        "median": 0.5457402460065095,
+        "min": 0.0,
+        "max": 1.0,
+        "iqr": 0.47242037180944363,
+        "mad": 0.2317726944992887,
+        "skew": 0.0036248535638424215,
+        "kurtosis_fisher": -1.0533530497327597
+      },
+      "autocorrelation": {
+        "autocorr_lag1": 0.8776948504474875,
+        "ljung_box_p": 6.547068434043776e-100
+      },
+      "stationarity": {
+        "adf_p": 0.01213510917854761,
+        "kpss_p": 0.01,
+        "stationary_flag": false,
+        "notes": []
+      },
+      "trend": {
+        "model": "ols",
+        "n": 180,
+        "slope": 0.0025973778544797444,
+        "intercept": 0.31774008118177255,
+        "p_slope": 1.1090360289021509e-11,
+        "r2": 0.23577849846920063,
+        "notes": []
+      },
+      "progress": {
+        "regressed": {
+          "regressed_start": 0.31774008118177255,
+          "regressed_end": 0.7826707171336469,
+          "regressed_delta": 0.46493063595187434,
+          "regressed_pct_change_vs_scale": 46.49306359518744,
+          "scale_reference": 1.0
+        },
+        "raw_first": 0.4984916810828552,
+        "raw_last": 0.7261301311447288,
+        "raw_delta": 0.2276384500618736,
+        "raw_pct_change_vs_scale": 22.76384500618736,
+        "scale_reference": 1.0
+      }
+    },
+    "P05": {
+      "type_inferred": "proportion",
+      "n_total": 180,
+      "n_nonmissing_raw": 149,
+      "missing_pct_raw": 0.17222222222222228,
+      "max_consecutive_missing_raw": 8,
+      "imputation": {
+        "used": true,
+        "details": {
+          "enabled": true,
+          "chosen": "kalman_ucm",
+          "notes": [
+            "Proportion: kept scale; clip to [0,1] after smoothing."
+          ],
+          "ok": true
+        }
+      },
+      "n_used_for_analysis": 180,
+      "descriptives": {
+        "n": 180,
+        "mean": 0.4094086985330296,
+        "std": 0.2784852748236171,
+        "median": 0.3703802373492054,
+        "min": 0.0,
+        "max": 1.0,
+        "iqr": 0.4296838643825944,
+        "mad": 0.19576156844158765,
+        "skew": 0.3147833270333433,
+        "kurtosis_fisher": -0.8648328856507206
+      },
+      "autocorrelation": {
+        "autocorr_lag1": 0.9000372663366104,
+        "ljung_box_p": 1.7716144881070834e-151
+      },
+      "stationarity": {
+        "adf_p": 0.019048482896849836,
+        "kpss_p": 0.01,
+        "stationary_flag": false,
+        "notes": []
+      },
+      "trend": {
+        "model": "ols",
+        "n": 180,
+        "slope": 0.0029235140974604354,
+        "intercept": 0.1477541868103206,
+        "p_slope": 6.804265988171666e-14,
+        "r2": 0.29920975321703147,
+        "notes": []
+      },
+      "progress": {
+        "regressed": {
+          "regressed_start": 0.1477541868103206,
+          "regressed_end": 0.6710632102557386,
+          "regressed_delta": 0.523309023445418,
+          "regressed_pct_change_vs_scale": 52.3309023445418,
+          "scale_reference": 1.0
+        },
+        "raw_first": 0.8385742346320177,
+        "raw_last": 0.2180930005630347,
+        "raw_delta": -0.620481234068983,
+        "raw_pct_change_vs_scale": -62.048123406898306,
+        "scale_reference": 1.0
+      }
+    },
+    "P06": {
+      "type_inferred": "proportion",
+      "n_total": 180,
+      "n_nonmissing_raw": 148,
+      "missing_pct_raw": 0.1777777777777778,
+      "max_consecutive_missing_raw": 10,
+      "imputation": {
+        "used": true,
+        "details": {
+          "enabled": true,
+          "chosen": "kalman_ucm",
+          "notes": [
+            "Proportion: kept scale; clip to [0,1] after smoothing."
+          ],
+          "ok": true
+        }
+      },
+      "n_used_for_analysis": 180,
+      "descriptives": {
+        "n": 180,
+        "mean": 0.33482668076228783,
+        "std": 0.24124325429273,
+        "median": 0.3050172238233916,
+        "min": 0.0,
+        "max": 1.0,
+        "iqr": 0.3674905197137299,
+        "mad": 0.18838910527399486,
+        "skew": 0.4187999436926666,
+        "kurtosis_fisher": -0.5766260221283126
+      },
+      "autocorrelation": {
+        "autocorr_lag1": 0.8917841325835782,
+        "ljung_box_p": 3.1969867826816535e-133
+      },
+      "stationarity": {
+        "adf_p": 0.018185136922139022,
+        "kpss_p": 0.01,
+        "stationary_flag": false,
+        "notes": []
+      },
+      "trend": {
+        "model": "ols",
+        "n": 180,
+        "slope": 0.0023482571394722873,
+        "intercept": 0.12465766677951806,
+        "p_slope": 9.431609194909705e-17,
+        "r2": 0.25724727326529995,
+        "notes": []
+      },
+      "progress": {
+        "regressed": {
+          "regressed_start": 0.12465766677951806,
+          "regressed_end": 0.5449956947450575,
+          "regressed_delta": 0.42033802796553943,
+          "regressed_pct_change_vs_scale": 42.03380279655394,
+          "scale_reference": 1.0
+        },
+        "raw_first": 0.5303088224317152,
+        "raw_last": 0.3876717154384004,
+        "raw_delta": -0.14263710699331478,
+        "raw_pct_change_vs_scale": -14.263710699331478,
+        "scale_reference": 1.0
+      }
+    },
+    "P07": {
+      "type_inferred": "proportion",
+      "n_total": 180,
+      "n_nonmissing_raw": 141,
+      "missing_pct_raw": 0.21666666666666667,
+      "max_consecutive_missing_raw": 9,
+      "imputation": {
+        "used": true,
+        "details": {
+          "enabled": true,
+          "chosen": "kalman_ucm",
+          "notes": [
+            "Proportion: kept scale; clip to [0,1] after smoothing."
+          ],
+          "ok": true
+        }
+      },
+      "n_used_for_analysis": 180,
+      "descriptives": {
+        "n": 180,
+        "mean": 0.31679791510868194,
+        "std": 0.21264480250614629,
+        "median": 0.2895560365841874,
+        "min": 0.0,
+        "max": 0.906066876984,
+        "iqr": 0.33210258821384725,
+        "mad": 0.1572832748796343,
+        "skew": 0.31966954882426313,
+        "kurtosis_fisher": -0.5785373210310012
+      },
+      "autocorrelation": {
+        "autocorr_lag1": 0.8694897015193848,
+        "ljung_box_p": 1.238651930407551e-91
+      },
+      "stationarity": {
+        "adf_p": 0.008037951242057865,
+        "kpss_p": 0.1,
+        "stationary_flag": true,
+        "notes": []
+      },
+      "trend": {
+        "model": "ols",
+        "n": 180,
+        "slope": -0.00034176675583236937,
+        "intercept": 0.34738603975567894,
+        "p_slope": 0.20753327193142657,
+        "r2": 0.007013259709673703,
+        "notes": []
+      },
+      "progress": {
+        "regressed": {
+          "regressed_start": 0.34738603975567894,
+          "regressed_end": 0.2862097904616848,
+          "regressed_delta": -0.06117624929399412,
+          "regressed_pct_change_vs_scale": -6.751847004674735,
+          "scale_reference": 0.906066876984
+        },
+        "raw_first": 0.3839933086566482,
+        "raw_last": 0.19531205938325633,
+        "raw_delta": -0.1886812492733919,
+        "raw_pct_change_vs_scale": -20.824207800361272,
+        "scale_reference": 0.906066876984
+      }
+    },
+    "P08": {
+      "type_inferred": "proportion",
+      "n_total": 180,
+      "n_nonmissing_raw": 152,
+      "missing_pct_raw": 0.15555555555555556,
+      "max_consecutive_missing_raw": 5,
+      "imputation": {
+        "used": true,
+        "details": {
+          "enabled": true,
+          "chosen": "kalman_ucm",
+          "notes": [
+            "Proportion: kept scale; clip to [0,1] after smoothing."
+          ],
+          "ok": true
+        }
+      },
+      "n_used_for_analysis": 180,
+      "descriptives": {
+        "n": 180,
+        "mean": 0.22285173652490306,
+        "std": 0.17357663864479678,
+        "median": 0.21741729184042097,
+        "min": 0.0,
+        "max": 0.7627234745994562,
+        "iqr": 0.29537492231585677,
+        "mad": 0.13406478810835307,
+        "skew": 0.401739453130274,
+        "kurtosis_fisher": -0.44077832957506446
+      },
+      "autocorrelation": {
+        "autocorr_lag1": 0.8227431436548593,
+        "ljung_box_p": 1.4362035545809854e-88
+      },
+      "stationarity": {
+        "adf_p": 0.0005919409767701314,
+        "kpss_p": 0.01,
+        "stationary_flag": false,
+        "notes": []
+      },
+      "trend": {
+        "model": "ols",
+        "n": 180,
+        "slope": 0.0020995947799537697,
+        "intercept": 0.03493800371904067,
+        "p_slope": 5.704478207034388e-18,
+        "r2": 0.3972448310144734,
+        "notes": []
+      },
+      "progress": {
+        "regressed": {
+          "regressed_start": 0.03493800371904067,
+          "regressed_end": 0.41076546933076546,
+          "regressed_delta": 0.3758274656117248,
+          "regressed_pct_change_vs_scale": 49.27440653496215,
+          "scale_reference": 0.7627234745994562
+        },
+        "raw_first": 0.4285157265060154,
+        "raw_last": 0.3035420276075357,
+        "raw_delta": -0.1249736988984797,
+        "raw_pct_change_vs_scale": -16.385191102726917,
+        "scale_reference": 0.7627234745994562
+      }
+    },
+    "C01": {
+      "type_inferred": "continuous",
+      "n_total": 180,
+      "n_nonmissing_raw": 160,
+      "missing_pct_raw": 0.11111111111111116,
+      "max_consecutive_missing_raw": 8,
+      "imputation": {
+        "used": true,
+        "details": {
+          "enabled": true,
+          "chosen": "kalman_ucm",
+          "notes": [],
+          "ok": true
+        }
+      },
+      "n_used_for_analysis": 180,
+      "descriptives": {
+        "n": 180,
+        "mean": 4.553948410732,
+        "std": 1.564898646604734,
+        "median": 4.241552575634145,
+        "min": 1.8865841430918744,
+        "max": 8.92207003252662,
+        "iqr": 1.7162006350365964,
+        "mad": 0.8006345960845058,
+        "skew": 0.8676377847994201,
+        "kurtosis_fisher": 0.32281931350372384
+      },
+      "autocorrelation": {
+        "autocorr_lag1": 0.9063599046006884,
+        "ljung_box_p": 1.1107431274048249e-137
+      },
+      "stationarity": {
+        "adf_p": 0.015903605484933445,
+        "kpss_p": 0.1,
+        "stationary_flag": true,
+        "notes": []
+      },
+      "trend": {
+        "model": "ols",
+        "n": 180,
+        "slope": -0.001869490757349864,
+        "intercept": 4.721267833514813,
+        "p_slope": 0.20373537151930599,
+        "r2": 0.003874753228137795,
+        "notes": []
+      },
+      "progress": {
+        "regressed": {
+          "regressed_start": 4.721267833514813,
+          "regressed_end": 4.386628987949187,
+          "regressed_delta": -0.3346388455656255,
+          "regressed_pct_change_vs_scale": -4.756442565937853,
+          "scale_reference": 7.035485889434745
+        },
+        "raw_first": 5.037728833007094,
+        "raw_last": 4.04702112150164,
+        "raw_delta": -0.9907077115054541,
+        "raw_pct_change_vs_scale": -14.08158195574252,
+        "scale_reference": 7.035485889434745
+      }
+    },
+    "C02": {
+      "type_inferred": "continuous",
+      "n_total": 180,
+      "n_nonmissing_raw": 145,
+      "missing_pct_raw": 0.19444444444444442,
+      "max_consecutive_missing_raw": 7,
+      "imputation": {
+        "used": true,
+        "details": {
+          "enabled": true,
+          "chosen": "kalman_ucm",
+          "notes": [],
+          "ok": true
+        }
+      },
+      "n_used_for_analysis": 180,
+      "descriptives": {
+        "n": 180,
+        "mean": 3.7216613260942064,
+        "std": 1.3637357167715936,
+        "median": 3.760544577298739,
+        "min": 0.4675836304067577,
+        "max": 7.028766373423171,
+        "iqr": 1.8741666086671094,
+        "mad": 0.9361488064925969,
+        "skew": -0.06984568791789426,
+        "kurtosis_fisher": -0.5787232434416829
+      },
+      "autocorrelation": {
+        "autocorr_lag1": 0.8692530016997786,
+        "ljung_box_p": 8.366864902256664e-99
+      },
+      "stationarity": {
+        "adf_p": 0.006480954423350123,
+        "kpss_p": 0.1,
+        "stationary_flag": true,
+        "notes": []
+      },
+      "trend": {
+        "model": "ols",
+        "n": 180,
+        "slope": -0.005591391205215924,
+        "intercept": 4.222090838961031,
+        "p_slope": 0.0029062049277377793,
+        "r2": 0.045640370571287,
+        "notes": []
+      },
+      "progress": {
+        "regressed": {
+          "regressed_start": 4.222090838961031,
+          "regressed_end": 3.2212318132273805,
+          "regressed_delta": -1.0008590257336505,
+          "regressed_pct_change_vs_scale": -15.254247060851094,
+          "scale_reference": 6.561182743016413
+        },
+        "raw_first": 5.389369741818781,
+        "raw_last": 5.011863515336032,
+        "raw_delta": -0.37750622648274934,
+        "raw_pct_change_vs_scale": -5.753630728919403,
+        "scale_reference": 6.561182743016413
+      }
+    },
+    "C03": {
+      "type_inferred": "continuous",
+      "n_total": 180,
+      "n_nonmissing_raw": 140,
+      "missing_pct_raw": 0.2222222222222222,
+      "max_consecutive_missing_raw": 4,
+      "imputation": {
+        "used": true,
+        "details": {
+          "enabled": true,
+          "chosen": "kalman_ucm",
+          "notes": [],
+          "ok": true
+        }
+      },
+      "n_used_for_analysis": 180,
+      "descriptives": {
+        "n": 180,
+        "mean": 3.7530880204753823,
+        "std": 1.7503903814949302,
+        "median": 3.825602065799255,
+        "min": -0.3762934869512933,
+        "max": 7.857956047048432,
+        "iqr": 2.026142144789673,
+        "mad": 1.0469625803070475,
+        "skew": -0.25722122279477,
+        "kurtosis_fisher": -0.19792775294188258
+      },
+      "autocorrelation": {
+        "autocorr_lag1": 0.9327750031344251,
+        "ljung_box_p": 9.136980809049798e-160
+      },
+      "stationarity": {
+        "adf_p": 0.13909753444340278,
+        "kpss_p": 0.011171202609287703,
+        "stationary_flag": false,
+        "notes": []
+      },
+      "trend": {
+        "model": "ols",
+        "n": 180,
+        "slope": 0.01804795247236368,
+        "intercept": 2.1377962741988314,
+        "p_slope": 2.709550300037556e-15,
+        "r2": 0.2886395739493991,
+        "notes": []
+      },
+      "progress": {
+        "regressed": {
+          "regressed_start": 2.1377962741988314,
+          "regressed_end": 5.36837976675193,
+          "regressed_delta": 3.230583492553099,
+          "regressed_pct_change_vs_scale": 39.2334903042933,
+          "scale_reference": 8.234249533999726
+        },
+        "raw_first": 4.515521996281911,
+        "raw_last": 5.395790878977317,
+        "raw_delta": 0.8802688826954057,
+        "raw_pct_change_vs_scale": 10.690335276587392,
+        "scale_reference": 8.234249533999726
+      }
+    },
+    "C04": {
+      "type_inferred": "continuous",
+      "n_total": 180,
+      "n_nonmissing_raw": 142,
+      "missing_pct_raw": 0.21111111111111114,
+      "max_consecutive_missing_raw": 5,
+      "imputation": {
+        "used": true,
+        "details": {
+          "enabled": true,
+          "chosen": "kalman_ucm",
+          "notes": [],
+          "ok": true
+        }
+      },
+      "n_used_for_analysis": 180,
+      "descriptives": {
+        "n": 180,
+        "mean": 4.627679211408334,
+        "std": 1.5224811307664254,
+        "median": 4.793231863778317,
+        "min": 0.5434660029613474,
+        "max": 7.959530386103618,
+        "iqr": 1.9265691992052663,
+        "mad": 0.8993965724369266,
+        "skew": -0.28061855907322064,
+        "kurtosis_fisher": -0.028700020725137776
+      },
+      "autocorrelation": {
+        "autocorr_lag1": 0.8598367853063992,
+        "ljung_box_p": 2.249337782314581e-88
+      },
+      "stationarity": {
+        "adf_p": 0.004302518651817431,
+        "kpss_p": 0.1,
+        "stationary_flag": true,
+        "notes": []
+      },
+      "trend": {
+        "model": "ols",
+        "n": 180,
+        "slope": -0.0034151232365659005,
+        "intercept": 4.9333327410809815,
+        "p_slope": 0.11731491940991971,
+        "r2": 0.01366088251629305,
+        "notes": []
+      },
+      "progress": {
+        "regressed": {
+          "regressed_start": 4.9333327410809815,
+          "regressed_end": 4.322025681735686,
+          "regressed_delta": -0.6113070593452958,
+          "regressed_pct_change_vs_scale": -8.243011761533252,
+          "scale_reference": 7.416064383142271
+        },
+        "raw_first": 6.467475128848528,
+        "raw_last": 6.144275910898328,
+        "raw_delta": -0.3231992179501999,
+        "raw_pct_change_vs_scale": -4.358096171398889,
+        "scale_reference": 7.416064383142271
+      }
+    },
+    "C05": {
+      "type_inferred": "continuous",
+      "n_total": 180,
+      "n_nonmissing_raw": 115,
+      "missing_pct_raw": 0.36111111111111116,
+      "max_consecutive_missing_raw": 9,
+      "imputation": {
+        "used": true,
+        "details": {
+          "enabled": true,
+          "chosen": "kalman_ucm",
+          "notes": [],
+          "ok": true
+        }
+      },
+      "n_used_for_analysis": 180,
+      "descriptives": {
+        "n": 180,
+        "mean": 4.121782369810271,
+        "std": 1.4284738466628852,
+        "median": 3.9153594196710793,
+        "min": 1.598887717929283,
+        "max": 7.694032405977181,
+        "iqr": 2.239789932526357,
+        "mad": 1.028552457582422,
+        "skew": 0.5594741985236614,
+        "kurtosis_fisher": -0.3625160468748696
+      },
+      "autocorrelation": {
+        "autocorr_lag1": 0.9125713941719581,
+        "ljung_box_p": 9.42494111253346e-132
+      },
+      "stationarity": {
+        "adf_p": 0.03575493807141899,
+        "kpss_p": 0.05680406543920009,
+        "stationary_flag": true,
+        "notes": []
+      },
+      "trend": {
+        "model": "ols",
+        "n": 180,
+        "slope": -0.008246077404705194,
+        "intercept": 4.859806297531386,
+        "p_slope": 3.263809227819162e-05,
+        "r2": 0.09047322288556336,
+        "notes": []
+      },
+      "progress": {
+        "regressed": {
+          "regressed_start": 4.859806297531386,
+          "regressed_end": 3.3837584420891567,
+          "regressed_delta": -1.4760478554422294,
+          "regressed_pct_change_vs_scale": -24.216781241250008,
+          "scale_reference": 6.095144688047897
+        },
+        "raw_first": 5.925323698368518,
+        "raw_last": 4.200039452468233,
+        "raw_delta": -1.7252842459002853,
+        "raw_pct_change_vs_scale": -28.30587843605145,
+        "scale_reference": 6.095144688047897
+      }
+    },
+    "C06": {
+      "type_inferred": "continuous",
+      "n_total": 180,
+      "n_nonmissing_raw": 140,
+      "missing_pct_raw": 0.2222222222222222,
+      "max_consecutive_missing_raw": 3,
+      "imputation": {
+        "used": true,
+        "details": {
+          "enabled": true,
+          "chosen": "kalman_ucm",
+          "notes": [],
+          "ok": true
+        }
+      },
+      "n_used_for_analysis": 180,
+      "descriptives": {
+        "n": 180,
+        "mean": 4.0792817052003105,
+        "std": 1.7537817859448754,
+        "median": 4.116507391650265,
+        "min": 0.3208237106266416,
+        "max": 8.603840496959876,
+        "iqr": 2.487093379306326,
+        "mad": 1.3245663892372315,
+        "skew": -0.04642903134408336,
+        "kurtosis_fisher": -0.45409286116751524
+      },
+      "autocorrelation": {
+        "autocorr_lag1": 0.9248557713615106,
+        "ljung_box_p": 6.823143255645286e-144
+      },
+      "stationarity": {
+        "adf_p": 0.08492492314448385,
+        "kpss_p": 0.1,
+        "stationary_flag": false,
+        "notes": []
+      },
+      "trend": {
+        "model": "ols",
+        "n": 180,
+        "slope": 0.0045691943380703065,
+        "intercept": 3.670338811943017,
+        "p_slope": 0.07019415940641663,
+        "r2": 0.018428839305889566,
+        "notes": []
+      },
+      "progress": {
+        "regressed": {
+          "regressed_start": 3.670338811943017,
+          "regressed_end": 4.4882245984576015,
+          "regressed_delta": 0.8178857865145845,
+          "regressed_pct_change_vs_scale": 9.874250017989523,
+          "scale_reference": 8.283016786333235
+        },
+        "raw_first": 4.822360371924076,
+        "raw_last": 4.508342739696108,
+        "raw_delta": -0.3140176322279684,
+        "raw_pct_change_vs_scale": -3.7911022074238634,
+        "scale_reference": 8.283016786333235
+      }
+    }
+  },
+  "timestamp_feature_analysis": {
+    "enabled": true,
+    "notes": [],
+    "weekday": {
+      "P01": {
+        "group_summaries": {
+          "friday": {
+            "n_total": 26,
+            "n_nonmissing": 23,
+            "missing_rate": 0.11538461538461539,
+            "mean": 0.32080977606911665,
+            "std": 0.23557635323757334,
+            "median": 0.2767333127715437,
+            "min": 0.0203510552340355,
+            "max": 0.9019361130698864,
+            "iqr": 0.2584865037015756,
+            "mad": 0.13415897357311313,
+            "n": 23.0
+          },
+          "monday": {
+            "n_total": 25,
+            "n_nonmissing": 23,
+            "missing_rate": 0.08,
+            "mean": 0.2762280799493504,
+            "std": 0.20846153799396558,
+            "median": 0.2501447512426511,
+            "min": 0.0,
+            "max": 0.8460989669719281,
+            "iqr": 0.2501231341954776,
+            "mad": 0.13181639537109663,
+            "n": 23.0
+          },
+          "saturday": {
+            "n_total": 26,
+            "n_nonmissing": 23,
+            "missing_rate": 0.11538461538461539,
+            "mean": 0.32352363218846075,
+            "std": 0.2197871625274192,
+            "median": 0.3374689827215655,
+            "min": 0.0,
+            "max": 0.8446240886331514,
+            "iqr": 0.3195082508914755,
+            "mad": 0.1386365490920088,
+            "n": 23.0
+          },
+          "sunday": {
+            "n_total": 26,
+            "n_nonmissing": 23,
+            "missing_rate": 0.11538461538461539,
+            "mean": 0.27611876079992576,
+            "std": 0.20914628101608784,
+            "median": 0.2644577962785543,
+            "min": 0.0,
+            "max": 0.7340372239059271,
+            "iqr": 0.3008349752002477,
+            "mad": 0.1652656626940562,
+            "n": 23.0
+          },
+          "thursday": {
+            "n_total": 26,
+            "n_nonmissing": 24,
+            "missing_rate": 0.07692307692307693,
+            "mean": 0.28733500178511545,
+            "std": 0.21929716011227282,
+            "median": 0.245925172119539,
+            "min": 0.0233823761411661,
+            "max": 0.9912224193256696,
+            "iqr": 0.22501594666182656,
+            "mad": 0.1179667145095735,
+            "n": 24.0
+          },
+          "tuesday": {
+            "n_total": 25,
+            "n_nonmissing": 24,
+            "missing_rate": 0.04,
+            "mean": 0.2829989356953811,
+            "std": 0.238187012839788,
+            "median": 0.2140117921715162,
+            "min": 0.0,
+            "max": 0.9264043992326352,
+            "iqr": 0.33108569745485145,
+            "mad": 0.17730679303339075,
+            "n": 24.0
+          },
+          "wednesday": {
+            "n_total": 26,
+            "n_nonmissing": 23,
+            "missing_rate": 0.11538461538461539,
+            "mean": 0.27761487520919437,
+            "std": 0.24429257785348374,
+            "median": 0.1990340581346496,
+            "min": 0.0126846292868101,
+            "max": 0.9547990541028112,
+            "iqr": 0.3127076148551521,
+            "mad": 0.12441597907387061,
+            "n": 23.0
+          }
+        },
+        "omnibus_test": {
+          "test": "Kruskal-Wallis",
+          "statistic": 1.7179696938367577,
+          "p_value": 0.943725560815327,
+          "effect_size": {
+            "epsilon_squared": -0.02744891221899514
+          },
+          "notes": [
+            "Kruskal-Wallis used (assumptions not met)."
+          ]
+        }
+      },
+      "P02": {
+        "group_summaries": {
+          "friday": {
+            "n_total": 26,
+            "n_nonmissing": 22,
+            "missing_rate": 0.15384615384615385,
+            "mean": 0.45119561329936064,
+            "std": 0.2887050109075604,
+            "median": 0.48390790315353716,
+            "min": 0.0,
+            "max": 0.9343299513938632,
+            "iqr": 0.48509250458937814,
+            "mad": 0.23511573580720885,
+            "n": 22.0
+          },
+          "monday": {
+            "n_total": 25,
+            "n_nonmissing": 21,
+            "missing_rate": 0.16,
+            "mean": 0.37352554314569425,
+            "std": 0.219086551937748,
+            "median": 0.3645131494944632,
+            "min": 0.0,
+            "max": 0.7738366495559571,
+            "iqr": 0.1913451772117628,
+            "mad": 0.10487728695372633,
+            "n": 21.0
+          },
+          "saturday": {
+            "n_total": 26,
+            "n_nonmissing": 19,
+            "missing_rate": 0.2692307692307692,
+            "mean": 0.4041618713737031,
+            "std": 0.26668785882396623,
+            "median": 0.3689300007359872,
+            "min": 0.0,
+            "max": 0.8158225958671657,
+            "iqr": 0.39420698145981353,
+            "mad": 0.2086576600502557,
+            "n": 19.0
+          },
+          "sunday": {
+            "n_total": 26,
+            "n_nonmissing": 24,
+            "missing_rate": 0.07692307692307693,
+            "mean": 0.39989392335093393,
+            "std": 0.23442106942827598,
+            "median": 0.405882713746952,
+            "min": 0.0,
+            "max": 0.8192091630877147,
+            "iqr": 0.23553485776755767,
+            "mad": 0.14545915753103744,
+            "n": 24.0
+          },
+          "thursday": {
+            "n_total": 26,
+            "n_nonmissing": 20,
+            "missing_rate": 0.23076923076923078,
+            "mean": 0.4023289803027593,
+            "std": 0.2629678434693839,
+            "median": 0.3420754514839628,
+            "min": 0.0475337649257759,
+            "max": 0.924978412585536,
+            "iqr": 0.42079812564297886,
+            "mad": 0.17635449790350288,
+            "n": 20.0
+          },
+          "tuesday": {
+            "n_total": 25,
+            "n_nonmissing": 22,
+            "missing_rate": 0.12,
+            "mean": 0.36787074178095286,
+            "std": 0.24891785315336362,
+            "median": 0.39004306405656963,
+            "min": 0.0,
+            "max": 0.8220464554682034,
+            "iqr": 0.32565651940617724,
+            "mad": 0.17864656044826652,
+            "n": 22.0
+          },
+          "wednesday": {
+            "n_total": 26,
+            "n_nonmissing": 22,
+            "missing_rate": 0.15384615384615385,
+            "mean": 0.4079675116804383,
+            "std": 0.2553842723651624,
+            "median": 0.3529841906308095,
+            "min": 0.0,
+            "max": 0.8712851479230741,
+            "iqr": 0.2825643399094531,
+            "mad": 0.18834466852905185,
+            "n": 22.0
+          }
+        },
+        "omnibus_test": {
+          "test": "ANOVA",
+          "statistic": 0.2495779970331065,
+          "p_value": 0.9588005640418216,
+          "effect_size": {
+            "eta_squared": null
+          },
+          "notes": [
+            "ANOVA used (assumption checks passed)."
+          ]
+        }
+      },
+      "P03": {
+        "group_summaries": {
+          "friday": {
+            "n_total": 26,
+            "n_nonmissing": 21,
+            "missing_rate": 0.19230769230769232,
+            "mean": 0.28588766150892786,
+            "std": 0.20306304079371149,
+            "median": 0.2859133340760055,
+            "min": 0.0,
+            "max": 0.7056552858072429,
+            "iqr": 0.28838670448892223,
+            "mad": 0.1517548637605013,
+            "n": 21.0
+          },
+          "monday": {
+            "n_total": 25,
+            "n_nonmissing": 22,
+            "missing_rate": 0.12,
+            "mean": 0.21159470449120324,
+            "std": 0.20629120115681945,
+            "median": 0.1829722245165906,
+            "min": 0.0,
+            "max": 0.7476798105251996,
+            "iqr": 0.24902232322693735,
+            "mad": 0.12014008198914855,
+            "n": 22.0
+          },
+          "saturday": {
+            "n_total": 26,
+            "n_nonmissing": 19,
+            "missing_rate": 0.2692307692307692,
+            "mean": 0.3326177950264187,
+            "std": 0.2329474778106651,
+            "median": 0.2580605562761755,
+            "min": 0.0,
+            "max": 0.7666709196946202,
+            "iqr": 0.30500540119621844,
+            "mad": 0.11622516192785176,
+            "n": 19.0
+          },
+          "sunday": {
+            "n_total": 26,
+            "n_nonmissing": 24,
+            "missing_rate": 0.07692307692307693,
+            "mean": 0.27251563540285634,
+            "std": 0.23580060955947477,
+            "median": 0.22016194427396762,
+            "min": 0.0,
+            "max": 0.8749372456823592,
+            "iqr": 0.246094742267296,
+            "mad": 0.1321897076087517,
+            "n": 24.0
+          },
+          "thursday": {
+            "n_total": 26,
+            "n_nonmissing": 21,
+            "missing_rate": 0.19230769230769232,
+            "mean": 0.2393314445638867,
+            "std": 0.20340763791893618,
+            "median": 0.1522121535875433,
+            "min": 0.0,
+            "max": 0.6400851497175534,
+            "iqr": 0.3648293295704936,
+            "mad": 0.1476896214021421,
+            "n": 21.0
+          },
+          "tuesday": {
+            "n_total": 25,
+            "n_nonmissing": 19,
+            "missing_rate": 0.24,
+            "mean": 0.25448325153591334,
+            "std": 0.22656258512047206,
+            "median": 0.2639833593900046,
+            "min": 0.0,
+            "max": 0.746703813985584,
+            "iqr": 0.3161538181034333,
+            "mad": 0.18927709432830553,
+            "n": 19.0
+          },
+          "wednesday": {
+            "n_total": 26,
+            "n_nonmissing": 22,
+            "missing_rate": 0.15384615384615385,
+            "mean": 0.24302071131774475,
+            "std": 0.20572001793328643,
+            "median": 0.2263400158649525,
+            "min": 0.0,
+            "max": 0.7062537474529,
+            "iqr": 0.2875256120174008,
+            "mad": 0.16183203358295994,
+            "n": 22.0
+          }
+        },
+        "omnibus_test": {
+          "test": "Kruskal-Wallis",
+          "statistic": 4.131156020314858,
+          "p_value": 0.6589326359003624,
+          "effect_size": {
+            "epsilon_squared": -0.013254212621880439
+          },
+          "notes": [
+            "Kruskal-Wallis used (assumptions not met)."
+          ]
+        }
+      },
+      "P04": {
+        "group_summaries": {
+          "friday": {
+            "n_total": 26,
+            "n_nonmissing": 24,
+            "missing_rate": 0.07692307692307693,
+            "mean": 0.546658208817717,
+            "std": 0.25931170406687903,
+            "median": 0.522843191189326,
+            "min": 0.0,
+            "max": 1.0,
+            "iqr": 0.39018512729069027,
+            "mad": 0.19511816058541007,
+            "n": 24.0
+          },
+          "monday": {
+            "n_total": 25,
+            "n_nonmissing": 23,
+            "missing_rate": 0.08,
+            "mean": 0.5433898505473068,
+            "std": 0.2865605713376871,
+            "median": 0.6364523270501329,
+            "min": 0.0830149816896056,
+            "max": 1.0,
+            "iqr": 0.5144437541750414,
+            "mad": 0.24054048391713867,
+            "n": 23.0
+          },
+          "saturday": {
+            "n_total": 26,
+            "n_nonmissing": 24,
+            "missing_rate": 0.07692307692307693,
+            "mean": 0.5419794480178739,
+            "std": 0.28597531594074205,
+            "median": 0.6034619117358055,
+            "min": 0.0,
+            "max": 0.999073368771642,
+            "iqr": 0.43597794799165246,
+            "mad": 0.21870549041708964,
+            "n": 24.0
+          },
+          "sunday": {
+            "n_total": 26,
+            "n_nonmissing": 25,
+            "missing_rate": 0.038461538461538464,
+            "mean": 0.5356826365666755,
+            "std": 0.26477384694654393,
+            "median": 0.5691473587888116,
+            "min": 0.0151224514646934,
+            "max": 1.0,
+            "iqr": 0.37776068481238906,
+            "mad": 0.1932366331422618,
+            "n": 25.0
+          },
+          "thursday": {
+            "n_total": 26,
+            "n_nonmissing": 24,
+            "missing_rate": 0.07692307692307693,
+            "mean": 0.5466551961418468,
+            "std": 0.25139533672972514,
+            "median": 0.49996523222245615,
+            "min": 0.1590335364540878,
+            "max": 1.0,
+            "iqr": 0.4086321338900288,
+            "mad": 0.18050829872978424,
+            "n": 24.0
+          },
+          "tuesday": {
+            "n_total": 25,
+            "n_nonmissing": 24,
+            "missing_rate": 0.04,
+            "mean": 0.5376602827885761,
+            "std": 0.27979729388537994,
+            "median": 0.5323907790152039,
+            "min": 0.0793960688870647,
+            "max": 1.0,
+            "iqr": 0.4648732223524377,
+            "mad": 0.24141311001112106,
+            "n": 24.0
+          },
+          "wednesday": {
+            "n_total": 26,
+            "n_nonmissing": 24,
+            "missing_rate": 0.07692307692307693,
+            "mean": 0.49363986759857587,
+            "std": 0.28013114600835387,
+            "median": 0.45837384544389914,
+            "min": 0.0049058100895292,
+            "max": 1.0,
+            "iqr": 0.39353098991230806,
+            "mad": 0.18783219996112316,
+            "n": 24.0
+          }
+        },
+        "omnibus_test": {
+          "test": "ANOVA",
+          "statistic": 0.11325819315226625,
+          "p_value": 0.9947776740895513,
+          "effect_size": {
+            "eta_squared": null
+          },
+          "notes": [
+            "ANOVA used (assumption checks passed)."
+          ]
+        }
+      },
+      "P05": {
+        "group_summaries": {
+          "friday": {
+            "n_total": 26,
+            "n_nonmissing": 24,
+            "missing_rate": 0.07692307692307693,
+            "mean": 0.46529659919501737,
+            "std": 0.2778696779969009,
+            "median": 0.4288009396879683,
+            "min": 0.0,
+            "max": 0.9890253794182386,
+            "iqr": 0.39625795950898857,
+            "mad": 0.20154734454375328,
+            "n": 24.0
+          },
+          "monday": {
+            "n_total": 25,
+            "n_nonmissing": 23,
+            "missing_rate": 0.08,
+            "mean": 0.4450487578724513,
+            "std": 0.2602332735115191,
+            "median": 0.3728480317374936,
+            "min": 0.0,
+            "max": 0.8672821377222794,
+            "iqr": 0.42795469417529686,
+            "mad": 0.1311328660254468,
+            "n": 23.0
+          },
+          "saturday": {
+            "n_total": 26,
+            "n_nonmissing": 22,
+            "missing_rate": 0.15384615384615385,
+            "mean": 0.4107211656958517,
+            "std": 0.24385396470192333,
+            "median": 0.3823186300703352,
+            "min": 0.0,
+            "max": 0.8670137407548583,
+            "iqr": 0.2999191666209082,
+            "mad": 0.18264980332009734,
+            "n": 22.0
+          },
+          "sunday": {
+            "n_total": 26,
+            "n_nonmissing": 23,
+            "missing_rate": 0.11538461538461539,
+            "mean": 0.4298441576381347,
+            "std": 0.2825021224944162,
+            "median": 0.3536685666698896,
+            "min": 0.0,
+            "max": 0.9270455305830044,
+            "iqr": 0.4474837722413996,
+            "mad": 0.20674104327598436,
+            "n": 23.0
+          },
+          "thursday": {
+            "n_total": 26,
+            "n_nonmissing": 17,
+            "missing_rate": 0.34615384615384615,
+            "mean": 0.47241369069856004,
+            "std": 0.29482516739404674,
+            "median": 0.3546822387045178,
+            "min": 0.0134413468447167,
+            "max": 1.0,
+            "iqr": 0.467674328168935,
+            "mad": 0.16767403047838464,
+            "n": 17.0
+          },
+          "tuesday": {
+            "n_total": 25,
+            "n_nonmissing": 18,
+            "missing_rate": 0.28,
+            "mean": 0.364959511741368,
+            "std": 0.22810664286793833,
+            "median": 0.32605950784066023,
+            "min": 0.0,
+            "max": 0.757448159676029,
+            "iqr": 0.2894306719088703,
+            "mad": 0.124731186516048,
+            "n": 18.0
+          },
+          "wednesday": {
+            "n_total": 26,
+            "n_nonmissing": 22,
+            "missing_rate": 0.15384615384615385,
+            "mean": 0.4292675749121667,
+            "std": 0.2955489582284266,
+            "median": 0.4183635738531245,
+            "min": 0.0,
+            "max": 1.0,
+            "iqr": 0.43424667039131204,
+            "mad": 0.22495034306471196,
+            "n": 22.0
+          }
+        },
+        "omnibus_test": {
+          "test": "Kruskal-Wallis",
+          "statistic": 1.4007246857197988,
+          "p_value": 0.965814317178297,
+          "effect_size": {
+            "epsilon_squared": -0.03238926277662114
+          },
+          "notes": [
+            "Kruskal-Wallis used (assumptions not met)."
+          ]
+        }
+      },
+      "P06": {
+        "group_summaries": {
+          "friday": {
+            "n_total": 26,
+            "n_nonmissing": 21,
+            "missing_rate": 0.19230769230769232,
+            "mean": 0.3210930252310797,
+            "std": 0.244912852742903,
+            "median": 0.3045810224905219,
+            "min": 0.0,
+            "max": 0.9888294365366072,
+            "iqr": 0.31732685631189683,
+            "mad": 0.18420620275401248,
+            "n": 21.0
+          },
+          "monday": {
+            "n_total": 25,
+            "n_nonmissing": 20,
+            "missing_rate": 0.2,
+            "mean": 0.28807457806959236,
+            "std": 0.2524396677136337,
+            "median": 0.20553057477777248,
+            "min": 0.0,
+            "max": 0.9687518806343804,
+            "iqr": 0.3090285448753606,
+            "mad": 0.09843778340993856,
+            "n": 20.0
+          },
+          "saturday": {
+            "n_total": 26,
+            "n_nonmissing": 22,
+            "missing_rate": 0.15384615384615385,
+            "mean": 0.3205940265589409,
+            "std": 0.23172850458420666,
+            "median": 0.30470313061187293,
+            "min": 0.0,
+            "max": 0.8607972811136664,
+            "iqr": 0.3760578871218446,
+            "mad": 0.18637931398227678,
+            "n": 22.0
+          },
+          "sunday": {
+            "n_total": 26,
+            "n_nonmissing": 23,
+            "missing_rate": 0.11538461538461539,
+            "mean": 0.3263810433252317,
+            "std": 0.23972250843086257,
+            "median": 0.2611317865587093,
+            "min": 0.0147484783321846,
+            "max": 0.7360155822931123,
+            "iqr": 0.44725582191438773,
+            "mad": 0.16858943417285058,
+            "n": 23.0
+          },
+          "thursday": {
+            "n_total": 26,
+            "n_nonmissing": 23,
+            "missing_rate": 0.11538461538461539,
+            "mean": 0.3293045122291056,
+            "std": 0.19338856293490983,
+            "median": 0.3569672891138697,
+            "min": 0.0,
+            "max": 0.7580303556707887,
+            "iqr": 0.2508647243445512,
+            "mad": 0.12540570424043282,
+            "n": 23.0
+          },
+          "tuesday": {
+            "n_total": 25,
+            "n_nonmissing": 17,
+            "missing_rate": 0.32,
+            "mean": 0.2806660240857233,
+            "std": 0.2664756117456747,
+            "median": 0.1801023846754011,
+            "min": 0.0,
+            "max": 1.0,
+            "iqr": 0.1958269997318252,
+            "mad": 0.1536380163198993,
+            "n": 17.0
+          },
+          "wednesday": {
+            "n_total": 26,
+            "n_nonmissing": 22,
+            "missing_rate": 0.15384615384615385,
+            "mean": 0.33213411154202205,
+            "std": 0.22355430791976957,
+            "median": 0.31459303852543224,
+            "min": 0.0,
+            "max": 0.8558896667834068,
+            "iqr": 0.26602349558075505,
+            "mad": 0.141083305630878,
+            "n": 22.0
+          }
+        },
+        "omnibus_test": {
+          "test": "Kruskal-Wallis",
+          "statistic": 2.1482062474538797,
+          "p_value": 0.9055757526934067,
+          "effect_size": {
+            "epsilon_squared": -0.02731768618827036
+          },
+          "notes": [
+            "Kruskal-Wallis used (assumptions not met)."
+          ]
+        }
+      },
+      "P07": {
+        "group_summaries": {
+          "friday": {
+            "n_total": 26,
+            "n_nonmissing": 20,
+            "missing_rate": 0.23076923076923078,
+            "mean": 0.3308112074710792,
+            "std": 0.21899841046157364,
+            "median": 0.3588834662439937,
+            "min": 0.00288081474676,
+            "max": 0.754500298954254,
+            "iqr": 0.2966135646748377,
+            "mad": 0.16495270245049715,
+            "n": 20.0
+          },
+          "monday": {
+            "n_total": 25,
+            "n_nonmissing": 21,
+            "missing_rate": 0.16,
+            "mean": 0.3221337101778014,
+            "std": 0.2333620476613465,
+            "median": 0.309014993146822,
+            "min": 0.0,
+            "max": 0.9010468949408728,
+            "iqr": 0.3094703790087363,
+            "mad": 0.17375713549988123,
+            "n": 21.0
+          },
+          "saturday": {
+            "n_total": 26,
+            "n_nonmissing": 23,
+            "missing_rate": 0.11538461538461539,
+            "mean": 0.3037742071434781,
+            "std": 0.19357608153778869,
+            "median": 0.3410210438226145,
+            "min": 0.0,
+            "max": 0.6247802286922393,
+            "iqr": 0.3073762808335005,
+            "mad": 0.1438500387864069,
+            "n": 23.0
+          },
+          "sunday": {
+            "n_total": 26,
+            "n_nonmissing": 18,
+            "missing_rate": 0.3076923076923077,
+            "mean": 0.33317780740782527,
+            "std": 0.22093283574515066,
+            "median": 0.3401574731280435,
+            "min": 0.0108564619339666,
+            "max": 0.858848771690073,
+            "iqr": 0.3061619197429528,
+            "mad": 0.1624502432525603,
+            "n": 18.0
+          },
+          "thursday": {
+            "n_total": 26,
+            "n_nonmissing": 18,
+            "missing_rate": 0.3076923076923077,
+            "mean": 0.3022453351875591,
+            "std": 0.2104167935390698,
+            "median": 0.3193122935282277,
+            "min": 0.0,
+            "max": 0.6770245895197591,
+            "iqr": 0.28450851888487627,
+            "mad": 0.15180540768063777,
+            "n": 18.0
+          },
+          "tuesday": {
+            "n_total": 25,
+            "n_nonmissing": 19,
+            "missing_rate": 0.24,
+            "mean": 0.2273686324690869,
+            "std": 0.15156456289621406,
+            "median": 0.20127846404984,
+            "min": 0.0,
+            "max": 0.5489625644522712,
+            "iqr": 0.14422213025363378,
+            "mad": 0.0728879277182051,
+            "n": 19.0
+          },
+          "wednesday": {
+            "n_total": 26,
+            "n_nonmissing": 22,
+            "missing_rate": 0.15384615384615385,
+            "mean": 0.2734845237802104,
+            "std": 0.1972222059537303,
+            "median": 0.2580771390405539,
+            "min": 0.0,
+            "max": 0.694983488744371,
+            "iqr": 0.2281738694574417,
+            "mad": 0.125631334441225,
+            "n": 22.0
+          }
+        },
+        "omnibus_test": {
+          "test": "ANOVA",
+          "statistic": 0.6537629237038377,
+          "p_value": 0.6870222098027738,
+          "effect_size": {
+            "eta_squared": null
+          },
+          "notes": [
+            "ANOVA used (assumption checks passed)."
+          ]
+        }
+      },
+      "P08": {
+        "group_summaries": {
+          "friday": {
+            "n_total": 26,
+            "n_nonmissing": 22,
+            "missing_rate": 0.15384615384615385,
+            "mean": 0.26830379528479653,
+            "std": 0.19689100098667336,
+            "median": 0.2579849306281817,
+            "min": 0.0,
+            "max": 0.7627234745994562,
+            "iqr": 0.2288705356491728,
+            "mad": 0.131780238248886,
+            "n": 22.0
+          },
+          "monday": {
+            "n_total": 25,
+            "n_nonmissing": 22,
+            "missing_rate": 0.12,
+            "mean": 0.17578253648945347,
+            "std": 0.1517082995060198,
+            "median": 0.17168427721595614,
+            "min": 0.0,
+            "max": 0.4588624940872696,
+            "iqr": 0.2626799678910184,
+            "mad": 0.17168427721595614,
+            "n": 22.0
+          },
+          "saturday": {
+            "n_total": 26,
+            "n_nonmissing": 22,
+            "missing_rate": 0.15384615384615385,
+            "mean": 0.26385495704310014,
+            "std": 0.18328743091530655,
+            "median": 0.2868137146394142,
+            "min": 0.0,
+            "max": 0.6932200323478506,
+            "iqr": 0.19986094118912884,
+            "mad": 0.09575598239583989,
+            "n": 22.0
+          },
+          "sunday": {
+            "n_total": 26,
+            "n_nonmissing": 21,
+            "missing_rate": 0.19230769230769232,
+            "mean": 0.18735923086239628,
+            "std": 0.17438151141795133,
+            "median": 0.1904438863914755,
+            "min": 0.0,
+            "max": 0.5787429172183575,
+            "iqr": 0.2711568702513667,
+            "mad": 0.13671784025969919,
+            "n": 21.0
+          },
+          "thursday": {
+            "n_total": 26,
+            "n_nonmissing": 21,
+            "missing_rate": 0.19230769230769232,
+            "mean": 0.23739443486888648,
+            "std": 0.1960368132768212,
+            "median": 0.2168936918182969,
+            "min": 0.0,
+            "max": 0.6133317268225984,
+            "iqr": 0.30189516960770524,
+            "mad": 0.1717723668317811,
+            "n": 21.0
+          },
+          "tuesday": {
+            "n_total": 25,
+            "n_nonmissing": 23,
+            "missing_rate": 0.08,
+            "mean": 0.1794777709911294,
+            "std": 0.143136483002411,
+            "median": 0.1441790490284283,
+            "min": 0.0,
+            "max": 0.4600449951413508,
+            "iqr": 0.1895386713467687,
+            "mad": 0.1164192143397201,
+            "n": 23.0
+          },
+          "wednesday": {
+            "n_total": 26,
+            "n_nonmissing": 21,
+            "missing_rate": 0.19230769230769232,
+            "mean": 0.2081622892651973,
+            "std": 0.16407990168009615,
+            "median": 0.2389803930250864,
+            "min": 0.0,
+            "max": 0.473443697998325,
+            "iqr": 0.2615823565241352,
+            "mad": 0.1534668284288725,
+            "n": 21.0
+          }
+        },
+        "omnibus_test": {
+          "test": "Kruskal-Wallis",
+          "statistic": 6.186873958672401,
+          "p_value": 0.4025854414308941,
+          "effect_size": {
+            "epsilon_squared": 0.0012887859218786296
+          },
+          "notes": [
+            "Kruskal-Wallis used (assumptions not met)."
+          ]
+        }
+      },
+      "C01": {
+        "group_summaries": {
+          "friday": {
+            "n_total": 26,
+            "n_nonmissing": 24,
+            "missing_rate": 0.07692307692307693,
+            "mean": 4.576518337045256,
+            "std": 1.5681430648269608,
+            "median": 4.4567554901755875,
+            "min": 2.077157632821625,
+            "max": 8.143276227601662,
+            "iqr": 1.9394592333042358,
+            "mad": 0.9855527333532861,
+            "n": 24.0
+          },
+          "monday": {
+            "n_total": 25,
+            "n_nonmissing": 21,
+            "missing_rate": 0.16,
+            "mean": 4.638896263325423,
+            "std": 1.8136831459726517,
+            "median": 4.2840983949347375,
+            "min": 1.9070415454039735,
+            "max": 8.479681073157806,
+            "iqr": 1.4668867011546354,
+            "mad": 0.7731424606868194,
+            "n": 21.0
+          },
+          "saturday": {
+            "n_total": 26,
+            "n_nonmissing": 24,
+            "missing_rate": 0.07692307692307693,
+            "mean": 4.3372459029135415,
+            "std": 1.427543413432332,
+            "median": 4.150053963307036,
+            "min": 1.8865841430918744,
+            "max": 8.198488626001007,
+            "iqr": 1.1884416236490187,
+            "mad": 0.6049984425285637,
+            "n": 24.0
+          },
+          "sunday": {
+            "n_total": 26,
+            "n_nonmissing": 23,
+            "missing_rate": 0.11538461538461539,
+            "mean": 4.4606138810665295,
+            "std": 1.7058299231033058,
+            "median": 4.04702112150164,
+            "min": 1.9690168506206325,
+            "max": 8.280052070213031,
+            "iqr": 1.5437670199911389,
+            "mad": 0.6544663140064113,
+            "n": 23.0
+          },
+          "thursday": {
+            "n_total": 26,
+            "n_nonmissing": 21,
+            "missing_rate": 0.19230769230769232,
+            "mean": 4.556216939175432,
+            "std": 1.360562709126615,
+            "median": 4.537157153469303,
+            "min": 2.310201771308275,
+            "max": 7.684995512886262,
+            "iqr": 1.5361224226886163,
+            "mad": 0.7708125143577842,
+            "n": 21.0
+          },
+          "tuesday": {
+            "n_total": 25,
+            "n_nonmissing": 23,
+            "missing_rate": 0.08,
+            "mean": 4.821524478372241,
+            "std": 1.6378152095204224,
+            "median": 4.421146320526918,
+            "min": 2.613222354714874,
+            "max": 8.654273628453556,
+            "iqr": 1.5712662509954178,
+            "mad": 0.7434909335996087,
+            "n": 23.0
+          },
+          "wednesday": {
+            "n_total": 26,
+            "n_nonmissing": 24,
+            "missing_rate": 0.07692307692307693,
+            "mean": 4.742925101465578,
+            "std": 1.4635090108051216,
+            "median": 4.296249014344648,
+            "min": 2.6557936429346456,
+            "max": 8.872270780821038,
+            "iqr": 1.3188484916604097,
+            "mad": 0.6928436611699529,
+            "n": 24.0
+          }
+        },
+        "omnibus_test": {
+          "test": "Kruskal-Wallis",
+          "statistic": 2.0970909204891655,
+          "p_value": 0.9105559705004248,
+          "effect_size": {
+            "epsilon_squared": -0.025509209670005455
+          },
+          "notes": [
+            "Kruskal-Wallis used (assumptions not met)."
+          ]
+        }
+      },
+      "C02": {
+        "group_summaries": {
+          "friday": {
+            "n_total": 26,
+            "n_nonmissing": 18,
+            "missing_rate": 0.3076923076923077,
+            "mean": 3.6392332477978826,
+            "std": 1.3275261026957748,
+            "median": 3.8727510433679786,
+            "min": 1.563629212454008,
+            "max": 5.67913463612675,
+            "iqr": 1.4580118217872915,
+            "mad": 0.9315359200982618,
+            "n": 18.0
+          },
+          "monday": {
+            "n_total": 25,
+            "n_nonmissing": 18,
+            "missing_rate": 0.28,
+            "mean": 4.01717255314832,
+            "std": 1.3599619192539858,
+            "median": 4.25457618546705,
+            "min": 0.7119592956713211,
+            "max": 6.05797473465702,
+            "iqr": 1.7989920285263636,
+            "mad": 0.8148379200133078,
+            "n": 18.0
+          },
+          "saturday": {
+            "n_total": 26,
+            "n_nonmissing": 23,
+            "missing_rate": 0.11538461538461539,
+            "mean": 3.680657073166554,
+            "std": 1.5313344154659108,
+            "median": 3.6661516143373185,
+            "min": 1.3427151121491097,
+            "max": 7.028766373423171,
+            "iqr": 2.0227541697697893,
+            "mad": 1.0169881796930933,
+            "n": 23.0
+          },
+          "sunday": {
+            "n_total": 26,
+            "n_nonmissing": 21,
+            "missing_rate": 0.19230769230769232,
+            "mean": 3.7429741749704006,
+            "std": 1.449586168304763,
+            "median": 3.861658556183092,
+            "min": 0.8418310442697967,
+            "max": 6.207565325518059,
+            "iqr": 1.976621600142467,
+            "mad": 0.9905662519986311,
+            "n": 21.0
+          },
+          "thursday": {
+            "n_total": 26,
+            "n_nonmissing": 20,
+            "missing_rate": 0.23076923076923078,
+            "mean": 4.020676155219244,
+            "std": 1.4172086864971998,
+            "median": 4.030479670109413,
+            "min": 1.4616452154407615,
+            "max": 6.54799347584734,
+            "iqr": 1.6736135332060642,
+            "mad": 0.8649930802849997,
+            "n": 20.0
+          },
+          "tuesday": {
+            "n_total": 25,
+            "n_nonmissing": 23,
+            "missing_rate": 0.08,
+            "mean": 3.822337765437823,
+            "std": 1.311650384456915,
+            "median": 3.7079160791363,
+            "min": 0.4675836304067577,
+            "max": 5.9720830549408355,
+            "iqr": 1.491386988095332,
+            "mad": 0.7738609322905381,
+            "n": 23.0
+          },
+          "wednesday": {
+            "n_total": 26,
+            "n_nonmissing": 22,
+            "missing_rate": 0.15384615384615385,
+            "mean": 3.8711368907843395,
+            "std": 1.117704718819842,
+            "median": 3.7213400527989924,
+            "min": 1.9252735916532744,
+            "max": 5.82570307002351,
+            "iqr": 1.7029816941965707,
+            "mad": 0.7940275551784275,
+            "n": 22.0
+          }
+        },
+        "omnibus_test": {
+          "test": "ANOVA",
+          "statistic": 0.2431012684067506,
+          "p_value": 0.9613416592349001,
+          "effect_size": {
+            "eta_squared": null
+          },
+          "notes": [
+            "ANOVA used (assumption checks passed)."
+          ]
+        }
+      },
+      "C03": {
+        "group_summaries": {
+          "friday": {
+            "n_total": 26,
+            "n_nonmissing": 20,
+            "missing_rate": 0.23076923076923078,
+            "mean": 3.7126800070389194,
+            "std": 1.5192097814404801,
+            "median": 3.7160038156717876,
+            "min": 0.0,
+            "max": 6.944523451240143,
+            "iqr": 1.3198749300774004,
+            "mad": 0.6959713728427543,
+            "n": 20.0
+          },
+          "monday": {
+            "n_total": 25,
+            "n_nonmissing": 20,
+            "missing_rate": 0.2,
+            "mean": 4.076540834277559,
+            "std": 1.85785179290976,
+            "median": 4.113037566132391,
+            "min": 0.0,
+            "max": 7.62681603139652,
+            "iqr": 1.8468354796119915,
+            "mad": 0.9934388785166746,
+            "n": 20.0
+          },
+          "saturday": {
+            "n_total": 26,
+            "n_nonmissing": 21,
+            "missing_rate": 0.19230769230769232,
+            "mean": 3.276134067308273,
+            "std": 1.606742437633603,
+            "median": 3.5451687638541145,
+            "min": 0.0,
+            "max": 5.542275427983136,
+            "iqr": 2.041701967030569,
+            "mad": 1.1634605492018997,
+            "n": 21.0
+          },
+          "sunday": {
+            "n_total": 26,
+            "n_nonmissing": 21,
+            "missing_rate": 0.19230769230769232,
+            "mean": 3.703295592435252,
+            "std": 1.701553935438598,
+            "median": 3.8067225106556544,
+            "min": 0.0,
+            "max": 6.91928747959912,
+            "iqr": 2.0669558468030185,
+            "mad": 1.0262920032628768,
+            "n": 21.0
+          },
+          "thursday": {
+            "n_total": 26,
+            "n_nonmissing": 20,
+            "missing_rate": 0.23076923076923078,
+            "mean": 3.716513289715247,
+            "std": 1.66845037742367,
+            "median": 3.6445846629773406,
+            "min": 0.5837556130017916,
+            "max": 6.962054760592129,
+            "iqr": 1.6046742255068285,
+            "mad": 0.9876992928039947,
+            "n": 20.0
+          },
+          "tuesday": {
+            "n_total": 25,
+            "n_nonmissing": 21,
+            "missing_rate": 0.16,
+            "mean": 4.26207861571564,
+            "std": 1.7097693063622201,
+            "median": 4.160895703649077,
+            "min": 0.8036289392381823,
+            "max": 7.857956047048432,
+            "iqr": 2.3548544275319987,
+            "mad": 1.2767661674122786,
+            "n": 21.0
+          },
+          "wednesday": {
+            "n_total": 26,
+            "n_nonmissing": 17,
+            "missing_rate": 0.34615384615384615,
+            "mean": 3.985165790502061,
+            "std": 2.036044557978778,
+            "median": 3.974023513242384,
+            "min": 0.3934319862275277,
+            "max": 7.263323121710054,
+            "iqr": 2.05745238153415,
+            "mad": 1.5178296747106228,
+            "n": 17.0
+          }
+        },
+        "omnibus_test": {
+          "test": "ANOVA",
+          "statistic": 0.7164835592264198,
+          "p_value": 0.6369532531135456,
+          "effect_size": {
+            "eta_squared": null
+          },
+          "notes": [
+            "ANOVA used (assumption checks passed)."
+          ]
+        }
+      },
+      "C04": {
+        "group_summaries": {
+          "friday": {
+            "n_total": 26,
+            "n_nonmissing": 19,
+            "missing_rate": 0.2692307692307692,
+            "mean": 4.186681610289227,
+            "std": 1.1239852910393369,
+            "median": 4.399036911197659,
+            "min": 1.430918750279612,
+            "max": 5.649024580103137,
+            "iqr": 1.8021338734058885,
+            "mad": 0.8430788874254826,
+            "n": 19.0
+          },
+          "monday": {
+            "n_total": 25,
+            "n_nonmissing": 21,
+            "missing_rate": 0.16,
+            "mean": 4.5105857524207,
+            "std": 1.4908214871802534,
+            "median": 4.5660606733279225,
+            "min": 1.1606428235124642,
+            "max": 6.804891499934487,
+            "iqr": 1.4974837872466216,
+            "mad": 0.8765636717094059,
+            "n": 21.0
+          },
+          "saturday": {
+            "n_total": 26,
+            "n_nonmissing": 23,
+            "missing_rate": 0.11538461538461539,
+            "mean": 4.474346094345753,
+            "std": 1.7195761108026446,
+            "median": 4.758395146835964,
+            "min": 0.5434660029613474,
+            "max": 7.820978288954211,
+            "iqr": 1.9600987044472218,
+            "mad": 1.023814378315782,
+            "n": 23.0
+          },
+          "sunday": {
+            "n_total": 26,
+            "n_nonmissing": 18,
+            "missing_rate": 0.3076923076923077,
+            "mean": 4.59853902544804,
+            "std": 1.3210274868578522,
+            "median": 4.353436425086682,
+            "min": 2.3051798548255347,
+            "max": 6.832794168807908,
+            "iqr": 1.7089452357763393,
+            "mad": 1.1513367731911874,
+            "n": 18.0
+          },
+          "thursday": {
+            "n_total": 26,
+            "n_nonmissing": 19,
+            "missing_rate": 0.2692307692307692,
+            "mean": 4.642192008302946,
+            "std": 1.330694204365792,
+            "median": 5.000955142352733,
+            "min": 1.6892660929989392,
+            "max": 7.09432366081138,
+            "iqr": 1.7614039440632956,
+            "mad": 0.8306606091898194,
+            "n": 19.0
+          },
+          "tuesday": {
+            "n_total": 25,
+            "n_nonmissing": 19,
+            "missing_rate": 0.24,
+            "mean": 4.982414271097447,
+            "std": 1.1390392461920287,
+            "median": 4.880854969002757,
+            "min": 2.752051938159509,
+            "max": 6.94817994572886,
+            "iqr": 1.4526502529716971,
+            "mad": 0.8720070552779449,
+            "n": 19.0
+          },
+          "wednesday": {
+            "n_total": 26,
+            "n_nonmissing": 23,
+            "missing_rate": 0.11538461538461539,
+            "mean": 4.62059245556963,
+            "std": 1.3952782107975559,
+            "median": 4.879517721158666,
+            "min": 1.9069176580505445,
+            "max": 6.898892035063615,
+            "iqr": 1.783682741314177,
+            "mad": 1.031452738716517,
+            "n": 23.0
+          }
+        },
+        "omnibus_test": {
+          "test": "ANOVA",
+          "statistic": 0.5608668065554122,
+          "p_value": 0.7608029828803472,
+          "effect_size": {
+            "eta_squared": null
+          },
+          "notes": [
+            "ANOVA used (assumption checks passed)."
+          ]
+        }
+      },
+      "C05": {
+        "group_summaries": {
+          "friday": {
+            "n_total": 26,
+            "n_nonmissing": 17,
+            "missing_rate": 0.34615384615384615,
+            "mean": 4.231912363833446,
+            "std": 1.5511381554130916,
+            "median": 3.980469189278771,
+            "min": 2.356136408582966,
+            "max": 7.5967090670780255,
+            "iqr": 1.7396466582509622,
+            "mad": 0.878809097618487,
+            "n": 17.0
+          },
+          "monday": {
+            "n_total": 25,
+            "n_nonmissing": 15,
+            "missing_rate": 0.4,
+            "mean": 3.979793883569634,
+            "std": 1.353563253528151,
+            "median": 3.86660123600232,
+            "min": 1.866736133183537,
+            "max": 7.1467778131397655,
+            "iqr": 1.5020282478080103,
+            "mad": 0.8749401815550666,
+            "n": 15.0
+          },
+          "saturday": {
+            "n_total": 26,
+            "n_nonmissing": 19,
+            "missing_rate": 0.2692307692307692,
+            "mean": 4.007286299856131,
+            "std": 1.5813142572370062,
+            "median": 3.601881023854675,
+            "min": 1.598887717929283,
+            "max": 7.694032405977181,
+            "iqr": 1.8409620858494504,
+            "mad": 0.9221885326994768,
+            "n": 19.0
+          },
+          "sunday": {
+            "n_total": 26,
+            "n_nonmissing": 20,
+            "missing_rate": 0.23076923076923078,
+            "mean": 3.8567116398569405,
+            "std": 1.388327486514891,
+            "median": 3.5043946520912463,
+            "min": 2.1289166314468053,
+            "max": 7.116851217297715,
+            "iqr": 1.3710671594406891,
+            "mad": 0.7205828857305854,
+            "n": 20.0
+          },
+          "thursday": {
+            "n_total": 26,
+            "n_nonmissing": 12,
+            "missing_rate": 0.5384615384615384,
+            "mean": 4.40994578480943,
+            "std": 1.4447685730999211,
+            "median": 4.1193926758346,
+            "min": 1.9033833593439264,
+            "max": 6.881988319619007,
+            "iqr": 1.7111076914850267,
+            "mad": 0.7886578714167254,
+            "n": 12.0
+          },
+          "tuesday": {
+            "n_total": 25,
+            "n_nonmissing": 15,
+            "missing_rate": 0.4,
+            "mean": 4.043393301370136,
+            "std": 1.5259572657794005,
+            "median": 3.701486260643723,
+            "min": 2.4433431192139787,
+            "max": 7.349639616539639,
+            "iqr": 1.9046228411160495,
+            "mad": 0.9261182892650419,
+            "n": 15.0
+          },
+          "wednesday": {
+            "n_total": 26,
+            "n_nonmissing": 17,
+            "missing_rate": 0.34615384615384615,
+            "mean": 4.392257946222431,
+            "std": 1.454628393124361,
+            "median": 4.295925625158118,
+            "min": 1.62782642338505,
+            "max": 7.491270385159997,
+            "iqr": 1.9225338261440887,
+            "mad": 0.9152773336983961,
+            "n": 17.0
+          }
+        },
+        "omnibus_test": {
+          "test": "Kruskal-Wallis",
+          "statistic": 3.4676818247222627,
+          "p_value": 0.7482644072078574,
+          "effect_size": {
+            "epsilon_squared": -0.0234473905118309
+          },
+          "notes": [
+            "Kruskal-Wallis used (assumptions not met)."
+          ]
+        }
+      },
+      "C06": {
+        "group_summaries": {
+          "friday": {
+            "n_total": 26,
+            "n_nonmissing": 18,
+            "missing_rate": 0.3076923076923077,
+            "mean": 4.180909652134479,
+            "std": 1.6352142814711899,
+            "median": 4.221420962283382,
+            "min": 1.5352179535180872,
+            "max": 6.966626325525722,
+            "iqr": 2.388164780371227,
+            "mad": 1.2357866588977946,
+            "n": 18.0
+          },
+          "monday": {
+            "n_total": 25,
+            "n_nonmissing": 22,
+            "missing_rate": 0.12,
+            "mean": 4.067597671884889,
+            "std": 1.767938131153404,
+            "median": 3.836519381039935,
+            "min": 0.5549154312260229,
+            "max": 8.203632505410576,
+            "iqr": 1.8000422296033518,
+            "mad": 1.0346976007524242,
+            "n": 22.0
+          },
+          "saturday": {
+            "n_total": 26,
+            "n_nonmissing": 20,
+            "missing_rate": 0.23076923076923078,
+            "mean": 4.055578389952406,
+            "std": 1.692333049054606,
+            "median": 4.268637735352739,
+            "min": 1.1106331435321006,
+            "max": 7.24759249887376,
+            "iqr": 2.4130944233776015,
+            "mad": 1.0670690599210535,
+            "n": 20.0
+          },
+          "sunday": {
+            "n_total": 26,
+            "n_nonmissing": 22,
+            "missing_rate": 0.15384615384615385,
+            "mean": 3.5947875229978123,
+            "std": 1.7138872627588784,
+            "median": 3.610213943427656,
+            "min": 0.3208237106266416,
+            "max": 6.327075442418732,
+            "iqr": 2.2047854904294093,
+            "mad": 1.1492874967706208,
+            "n": 22.0
+          },
+          "thursday": {
+            "n_total": 26,
+            "n_nonmissing": 19,
+            "missing_rate": 0.2692307692307692,
+            "mean": 4.152815530503967,
+            "std": 1.9845671745610176,
+            "median": 4.3454344636245645,
+            "min": 0.7323465180567015,
+            "max": 7.238004290013059,
+            "iqr": 3.268400369817323,
+            "mad": 1.980004472922031,
+            "n": 19.0
+          },
+          "tuesday": {
+            "n_total": 25,
+            "n_nonmissing": 20,
+            "missing_rate": 0.2,
+            "mean": 4.37764241172064,
+            "std": 1.9698395346833337,
+            "median": 4.387186095305907,
+            "min": 0.7915217531247094,
+            "max": 8.603840496959876,
+            "iqr": 2.404262271492619,
+            "mad": 1.2152522000363153,
+            "n": 20.0
+          },
+          "wednesday": {
+            "n_total": 26,
+            "n_nonmissing": 19,
+            "missing_rate": 0.2692307692307692,
+            "mean": 4.464667289937501,
+            "std": 1.6396649961700402,
+            "median": 4.378645187868668,
+            "min": 1.7627821446343,
+            "max": 8.106247325551555,
+            "iqr": 2.1874438434249956,
+            "mad": 1.2166012333701008,
+            "n": 19.0
+          }
+        },
+        "omnibus_test": {
+          "test": "ANOVA",
+          "statistic": 0.5212751963138182,
+          "p_value": 0.7913876591230844,
+          "effect_size": {
+            "eta_squared": null
+          },
+          "notes": [
+            "ANOVA used (assumption checks passed)."
+          ]
+        }
+      }
+    },
+    "weekend_split": {
+      "P01": {
+        "group_summaries": {
+          "Weekday": {
+            "n_total": 128,
+            "n_nonmissing": 117,
+            "missing_rate": 0.0859375,
+            "mean": 0.28893185741682154,
+            "std": 0.22613284798834835,
+            "median": 0.2457704054912221,
+            "min": 0.0,
+            "max": 0.9912224193256696,
+            "iqr": 0.2909223250279168,
+            "mad": 0.13560180520801562,
+            "n": 117.0
+          },
+          "Weekend": {
+            "n_total": 52,
+            "n_nonmissing": 46,
+            "missing_rate": 0.11538461538461539,
+            "mean": 0.29982119649419325,
+            "std": 0.21348491759915975,
+            "median": 0.3271940201407367,
+            "min": 0.0,
+            "max": 0.8446240886331514,
+            "iqr": 0.3189630343325433,
+            "mad": 0.16245391021108946,
+            "n": 46.0
+          }
+        },
+        "two_group_test": {
+          "test": "Mann_Whitney_U",
+          "statistic": 2524.0,
+          "p_value": 0.5392351097680339,
+          "effect_size": {
+            "rank_biserial_b_minus_a": 0.06205871423262732
+          },
+          "notes": []
+        }
+      },
+      "P02": {
+        "group_summaries": {
+          "Weekday": {
+            "n_total": 128,
+            "n_nonmissing": 107,
+            "missing_rate": 0.1640625,
+            "mean": 0.40079776711075976,
+            "std": 0.2531232065819499,
+            "median": 0.3748448285955014,
+            "min": 0.0,
+            "max": 0.9343299513938632,
+            "iqr": 0.37833905910791865,
+            "mad": 0.19674500658088578,
+            "n": 107.0
+          },
+          "Weekend": {
+            "n_total": 52,
+            "n_nonmissing": 43,
+            "missing_rate": 0.17307692307692307,
+            "mean": 0.4017797608493667,
+            "std": 0.2461281649177042,
+            "median": 0.402064898801618,
+            "min": 0.0,
+            "max": 0.8192091630877147,
+            "iqr": 0.31305804103082036,
+            "mad": 0.1743188545180553,
+            "n": 43.0
+          }
+        },
+        "two_group_test": {
+          "test": "Mann_Whitney_U",
+          "statistic": 2259.5,
+          "p_value": 0.8662992877058806,
+          "effect_size": {
+            "rank_biserial_b_minus_a": 0.017822212562486395
+          },
+          "notes": []
+        }
+      },
+      "P03": {
+        "group_summaries": {
+          "Weekday": {
+            "n_total": 128,
+            "n_nonmissing": 105,
+            "missing_rate": 0.1796875,
+            "mean": 0.24634592528103152,
+            "std": 0.20616661692064536,
+            "median": 0.2041095073407302,
+            "min": 0.0,
+            "max": 0.7476798105251996,
+            "iqr": 0.3169223415187914,
+            "mad": 0.14426697012010178,
+            "n": 105.0
+          },
+          "Weekend": {
+            "n_total": 52,
+            "n_nonmissing": 43,
+            "missing_rate": 0.17307692307692307,
+            "mean": 0.2990724036086165,
+            "std": 0.2337027356968212,
+            "median": 0.2307265015323266,
+            "min": 0.0,
+            "max": 0.8749372456823592,
+            "iqr": 0.25977056639449225,
+            "mad": 0.1407209540504332,
+            "n": 43.0
+          }
+        },
+        "two_group_test": {
+          "test": "Mann_Whitney_U",
+          "statistic": 1965.0,
+          "p_value": 0.21699648957616913,
+          "effect_size": {
+            "rank_biserial_b_minus_a": 0.12956810631229232
+          },
+          "notes": []
+        }
+      },
+      "P04": {
+        "group_summaries": {
+          "Weekday": {
+            "n_total": 128,
+            "n_nonmissing": 119,
+            "missing_rate": 0.0703125,
+            "mean": 0.533518419251338,
+            "std": 0.26778008379911594,
+            "median": 0.5098431176348927,
+            "min": 0.0,
+            "max": 1.0,
+            "iqr": 0.4533146245911456,
+            "mad": 0.21788260801843595,
+            "n": 119.0
+          },
+          "Weekend": {
+            "n_total": 52,
+            "n_nonmissing": 49,
+            "missing_rate": 0.057692307692307696,
+            "mean": 0.5387667891142012,
+            "std": 0.2724882772460226,
+            "median": 0.6018705448717465,
+            "min": 0.0,
+            "max": 1.0,
+            "iqr": 0.406736505489074,
+            "mad": 0.2250886547820135,
+            "n": 49.0
+          }
+        },
+        "two_group_test": {
+          "test": "Mann_Whitney_U",
+          "statistic": 2866.5,
+          "p_value": 0.865596272508738,
+          "effect_size": {
+            "rank_biserial_b_minus_a": 0.01680672268907568
+          },
+          "notes": []
+        }
+      },
+      "P05": {
+        "group_summaries": {
+          "Weekday": {
+            "n_total": 128,
+            "n_nonmissing": 104,
+            "missing_rate": 0.1875,
+            "mean": 0.43699452320225585,
+            "std": 0.2700617128002506,
+            "median": 0.3910817422528955,
+            "min": 0.0,
+            "max": 1.0,
+            "iqr": 0.4011324555557306,
+            "mad": 0.17695185199826644,
+            "n": 104.0
+          },
+          "Weekend": {
+            "n_total": 52,
+            "n_nonmissing": 45,
+            "missing_rate": 0.1346153846153846,
+            "mean": 0.4204951393552407,
+            "std": 0.26149203570577456,
+            "median": 0.3536685666698896,
+            "min": 0.0,
+            "max": 0.9270455305830044,
+            "iqr": 0.3864413559649764,
+            "mad": 0.1934584999993717,
+            "n": 45.0
+          }
+        },
+        "two_group_test": {
+          "test": "Mann_Whitney_U",
+          "statistic": 2405.0,
+          "p_value": 0.7897038192814948,
+          "effect_size": {
+            "rank_biserial_b_minus_a": -0.02777777777777768
+          },
+          "notes": []
+        }
+      },
+      "P06": {
+        "group_summaries": {
+          "Weekday": {
+            "n_total": 128,
+            "n_nonmissing": 103,
+            "missing_rate": 0.1953125,
+            "mean": 0.31220118190190027,
+            "std": 0.23146061027687523,
+            "median": 0.2657703485711849,
+            "min": 0.0,
+            "max": 1.0,
+            "iqr": 0.29965605580347704,
+            "mad": 0.16187229126974195,
+            "n": 103.0
+          },
+          "Weekend": {
+            "n_total": 52,
+            "n_nonmissing": 45,
+            "missing_rate": 0.1346153846153846,
+            "mean": 0.32355183512837843,
+            "std": 0.23317512201470428,
+            "median": 0.2989186269087189,
+            "min": 0.0,
+            "max": 0.8607972811136664,
+            "iqr": 0.40580591576693403,
+            "mad": 0.2051231475048934,
+            "n": 45.0
+          }
+        },
+        "two_group_test": {
+          "test": "Mann_Whitney_U",
+          "statistic": 2238.0,
+          "p_value": 0.7419050211984748,
+          "effect_size": {
+            "rank_biserial_b_minus_a": 0.03430420711974114
+          },
+          "notes": []
+        }
+      },
+      "P07": {
+        "group_summaries": {
+          "Weekday": {
+            "n_total": 128,
+            "n_nonmissing": 100,
+            "missing_rate": 0.21875,
+            "mean": 0.2915811163660876,
+            "std": 0.20403453049697878,
+            "median": 0.2563636200352856,
+            "min": 0.0,
+            "max": 0.9010468949408728,
+            "iqr": 0.2724573255907047,
+            "mad": 0.1324749479058559,
+            "n": 100.0
+          },
+          "Weekend": {
+            "n_total": 52,
+            "n_nonmissing": 41,
+            "missing_rate": 0.21153846153846154,
+            "mean": 0.3166831048205085,
+            "std": 0.20389334562330969,
+            "median": 0.3410210438226145,
+            "min": 0.0,
+            "max": 0.858848771690073,
+            "iqr": 0.31065733037607646,
+            "mad": 0.14862749081945298,
+            "n": 41.0
+          }
+        },
+        "two_group_test": {
+          "test": "Mann_Whitney_U",
+          "statistic": 1880.0,
+          "p_value": 0.44147259184543886,
+          "effect_size": {
+            "rank_biserial_b_minus_a": 0.08292682926829265
+          },
+          "notes": []
+        }
+      },
+      "P08": {
+        "group_summaries": {
+          "Weekday": {
+            "n_total": 128,
+            "n_nonmissing": 109,
+            "missing_rate": 0.1484375,
+            "mean": 0.21334476365729577,
+            "std": 0.1719114416045281,
+            "median": 0.1987620780275475,
+            "min": 0.0,
+            "max": 0.7627234745994562,
+            "iqr": 0.2887229547530769,
+            "mad": 0.1507731633062849,
+            "n": 109.0
+          },
+          "Weekend": {
+            "n_total": 52,
+            "n_nonmissing": 43,
+            "missing_rate": 0.17307692307692307,
+            "mean": 0.2264965791408959,
+            "std": 0.18103727561937222,
+            "median": 0.228047409851978,
+            "min": 0.0,
+            "max": 0.6932200323478506,
+            "iqr": 0.25839345234316197,
+            "mad": 0.11984217065885208,
+            "n": 43.0
+          }
+        },
+        "two_group_test": {
+          "test": "Mann_Whitney_U",
+          "statistic": 2238.0,
+          "p_value": 0.6664531899445181,
+          "effect_size": {
+            "rank_biserial_b_minus_a": 0.04501813526776188
+          },
+          "notes": []
+        }
+      },
+      "C01": {
+        "group_summaries": {
+          "Weekday": {
+            "n_total": 128,
+            "n_nonmissing": 113,
+            "missing_rate": 0.1171875,
+            "mean": 4.669549405126897,
+            "std": 1.5492055237122972,
+            "median": 4.3483834456609385,
+            "min": 1.9070415454039735,
+            "max": 8.872270780821038,
+            "iqr": 1.680763094495838,
+            "mad": 0.8162538084655884,
+            "n": 113.0
+          },
+          "Weekend": {
+            "n_total": 52,
+            "n_nonmissing": 47,
+            "missing_rate": 0.09615384615384616,
+            "mean": 4.397617466690536,
+            "std": 1.5538648907947528,
+            "median": 4.142882009897936,
+            "min": 1.8865841430918744,
+            "max": 8.280052070213031,
+            "iqr": 1.3460504592469844,
+            "mad": 0.6625622600974737,
+            "n": 47.0
+          }
+        },
+        "two_group_test": {
+          "test": "Mann_Whitney_U",
+          "statistic": 2985.0,
+          "p_value": 0.2177639512655194,
+          "effect_size": {
+            "rank_biserial_b_minus_a": -0.12408209376765211
+          },
+          "notes": []
+        }
+      },
+      "C02": {
+        "group_summaries": {
+          "Weekday": {
+            "n_total": 128,
+            "n_nonmissing": 101,
+            "missing_rate": 0.2109375,
+            "mean": 3.874332749740019,
+            "std": 1.2864638094817626,
+            "median": 3.8518190852406775,
+            "min": 0.4675836304067577,
+            "max": 6.54799347584734,
+            "iqr": 1.8154647517992646,
+            "mad": 0.9272101863407505,
+            "n": 101.0
+          },
+          "Weekend": {
+            "n_total": 52,
+            "n_nonmissing": 44,
+            "missing_rate": 0.15384615384615385,
+            "mean": 3.7103993263002066,
+            "std": 1.4758387649375597,
+            "median": 3.769711016571054,
+            "min": 0.8418310442697967,
+            "max": 7.028766373423171,
+            "iqr": 2.0572907882453992,
+            "mad": 1.08690380925172,
+            "n": 44.0
+          }
+        },
+        "two_group_test": {
+          "test": "Welch_t",
+          "statistic": 0.6386506232934169,
+          "p_value": 0.5250557663634406,
+          "effect_size": {
+            "cohens_d_b_minus_a": -0.12177380440003602
+          },
+          "notes": []
+        }
+      },
+      "C03": {
+        "group_summaries": {
+          "Weekday": {
+            "n_total": 128,
+            "n_nonmissing": 98,
+            "missing_rate": 0.234375,
+            "mean": 3.9527158366244692,
+            "std": 1.734191724350303,
+            "median": 3.8298828391599056,
+            "min": 0.0,
+            "max": 7.857956047048432,
+            "iqr": 1.9517849028539063,
+            "mad": 0.8960151659314497,
+            "n": 98.0
+          },
+          "Weekend": {
+            "n_total": 52,
+            "n_nonmissing": 42,
+            "missing_rate": 0.19230769230769232,
+            "mean": 3.489714829871762,
+            "std": 1.6487544766244042,
+            "median": 3.6759456372548844,
+            "min": 0.0,
+            "max": 6.91928747959912,
+            "iqr": 2.0530914861628498,
+            "mad": 1.092480541919374,
+            "n": 42.0
+          }
+        },
+        "two_group_test": {
+          "test": "Welch_t",
+          "statistic": 1.4989302022089581,
+          "p_value": 0.13776178346307721,
+          "effect_size": {
+            "cohens_d_b_minus_a": -0.27087896855411475
+          },
+          "notes": []
+        }
+      },
+      "C04": {
+        "group_summaries": {
+          "Weekday": {
+            "n_total": 128,
+            "n_nonmissing": 101,
+            "missing_rate": 0.2109375,
+            "mean": 4.588221754287514,
+            "std": 1.309463440314352,
+            "median": 4.733149867350465,
+            "min": 1.1606428235124642,
+            "max": 7.09432366081138,
+            "iqr": 1.683823742835409,
+            "mad": 0.8302975949352955,
+            "n": 101.0
+          },
+          "Weekend": {
+            "n_total": 52,
+            "n_nonmissing": 41,
+            "missing_rate": 0.21153846153846154,
+            "mean": 4.5288698201955375,
+            "std": 1.540092523086426,
+            "median": 4.3795409325994585,
+            "min": 0.5434660029613474,
+            "max": 7.820978288954211,
+            "iqr": 1.9351750544449429,
+            "mad": 1.0833876929493877,
+            "n": 41.0
+          }
+        },
+        "two_group_test": {
+          "test": "Welch_t",
+          "statistic": 0.21697151941020792,
+          "p_value": 0.8289133408671272,
+          "effect_size": {
+            "cohens_d_b_minus_a": -0.043030534662458805
+          },
+          "notes": []
+        }
+      },
+      "C05": {
+        "group_summaries": {
+          "Weekday": {
+            "n_total": 128,
+            "n_nonmissing": 76,
+            "missing_rate": 0.40625,
+            "mean": 4.2089217429310475,
+            "std": 1.4414150816293552,
+            "median": 3.9153594196710793,
+            "min": 1.62782642338505,
+            "max": 7.5967090670780255,
+            "iqr": 1.8148652365453626,
+            "mad": 0.9248228477319964,
+            "n": 76.0
+          },
+          "Weekend": {
+            "n_total": 52,
+            "n_nonmissing": 39,
+            "missing_rate": 0.25,
+            "mean": 3.930068525497571,
+            "std": 1.4676557640929464,
+            "median": 3.5515546287889155,
+            "min": 1.598887717929283,
+            "max": 7.694032405977181,
+            "iqr": 1.7139207925718898,
+            "mad": 0.7926809477818533,
+            "n": 39.0
+          }
+        },
+        "two_group_test": {
+          "test": "Mann_Whitney_U",
+          "statistic": 1685.0,
+          "p_value": 0.23157149952319456,
+          "effect_size": {
+            "rank_biserial_b_minus_a": -0.13697705802968962
+          },
+          "notes": []
+        }
+      },
+      "C06": {
+        "group_summaries": {
+          "Weekday": {
+            "n_total": 128,
+            "n_nonmissing": 98,
+            "missing_rate": 0.234375,
+            "mean": 4.2451892279866215,
+            "std": 1.7770070773292759,
+            "median": 4.276520961346643,
+            "min": 0.5549154312260229,
+            "max": 8.603840496959876,
+            "iqr": 2.478742967388915,
+            "mad": 1.1865261246890308,
+            "n": 98.0
+          },
+          "Weekend": {
+            "n_total": 52,
+            "n_nonmissing": 42,
+            "missing_rate": 0.19230769230769232,
+            "mean": 3.814211745357144,
+            "std": 1.6988218534221806,
+            "median": 4.002219158568781,
+            "min": 0.3208237106266416,
+            "max": 7.24759249887376,
+            "iqr": 2.327525604551111,
+            "mad": 1.2193032363821683,
+            "n": 42.0
+          }
+        },
+        "two_group_test": {
+          "test": "Welch_t",
+          "statistic": 1.356535556717818,
+          "p_value": 0.17870037136316277,
+          "effect_size": {
+            "cohens_d_b_minus_a": -0.2456913244101299
+          },
+          "notes": []
+        }
+      }
+    },
+    "hour_of_day": {},
+    "time_of_day_bins": {}
+  },
+  "nominal_factor_effects": {
+    "enabled": false,
+    "notes": [
+      "No nominal factors detected (or scipy unavailable)."
+    ]
+  },
+  "summary_highlights": {
+    "top_trends": [
+      "C03: coef=0.01805, p=2.71e-15",
+      "C05: coef=-0.008246, p=3.26e-05",
+      "C02: coef=-0.005591, p=0.00291",
+      "C06: coef=0.004569, p=0.0702",
+      "C04: coef=-0.003415, p=0.117"
+    ],
+    "top_progress_regressed_pct": [
+      "P02: 59.7% (regressed vs scale)",
+      "P05: 52.3% (regressed vs scale)",
+      "P08: 49.3% (regressed vs scale)",
+      "P04: 46.5% (regressed vs scale)",
+      "P06: 42.0% (regressed vs scale)"
+    ],
+    "significant_time_effects": {
+      "weekday": [],
+      "weekend_split": [],
+      "hour_of_day": [],
+      "time_of_day_bins": []
+    }
+  }
+}

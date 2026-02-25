@@ -1,0 +1,131 @@
+{
+  "pseudoprofile_id": "CASE_WS_01",
+  "summary": "The case presents social isolation from remote work, with low meaningful in-person contact and a shrinking social self-concept. Modifiable levers span the bio, psycho, and social domains and their interactions: increasing meaningful in-person contact, reintroducing incidental social exposure via hybrid work, building social initiation skills, engaging in meaningful community activities, leveraging social prescribing, social activation in daily routines, and optimizing sleep to support energy and mood. Each lever targets specific operationalized criteria (C01–C05), includes a clear measurement plan, and considers feasibility and safety. The plan emphasizes gradual, sustainable changes, alignment with the person’s values, and monitoring to prevent overload or burnout.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Daily meaningful in-person contact frequency (C01)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Schedule 4–5 meaningful in-person social engagements per week (60–90 minutes each) with friends, neighbors, or group activities. Create a shared calendar, rotate activity types, and prioritize reciprocal conversations over transactional encounters.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Directly expands opportunities for meaningful social exchange, improves perceived social connectedness, and reduces chronic isolation by building habit formation around quality interactions.",
+      "measurement": "Weekly tally of meaningful in-person contacts; self-rated loneliness (0–10); contact quality rating (brief standard questions)",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Guard against over-scheduling; start with 2–3 sessions/week and adjust based on fatigue and stress.",
+      "mapping_query": "S01 targets C01 and C02; evaluate changes via contact logs and loneliness assessments."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Hybrid work arrangement to increase incidental interactions (C03)",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Implement a structured hybrid work schedule with at least 2 days/week on-site or in a coworking space to reclaim incidental workplace social contact.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Increases opportunities for casual and meaningful interactions in natural settings, boosting social exposure and mood; supports routine social encounters beyond transactions.",
+      "measurement": "On-site days per week; number of on-site interactions; loneliness score (0–10)",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "Coordinate with employer policies; ensure reasonable commute and workload balance.",
+      "mapping_query": "S02 targets C03 (primary); also affects C01 and C02 indirectly."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Structured social skills coaching to increase initiation/reciprocity (C04)",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Deliver a 8–10 week social engagement training (role-plays, real-life practice, feedback) plus brief digital prompts to initiate conversations and maintain reciprocity.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Enhances self-efficacy for initiating social contact and sustaining reciprocal interactions, reducing withdrawal and social shrinking.",
+      "measurement": "Weekly count of initiated conversations; self-rated social initiative (0–10); satisfaction with social interactions",
+      "time_horizon": "8–10 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor distress during exposure tasks; adjust activities to comfort level.",
+      "mapping_query": "S03 targets C04; track changes in initiation and social confidence."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Participation in meaningful social groups/volunteering (C05)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Join one local club or volunteer program aligned with personal interests; commit to a weekly session; track ratio of meaningful vs superficial interactions in group contexts.",
+      "targets_criteria_ids": [
+        "C05",
+        "C02"
+      ],
+      "mechanism_rationale": "Provides structured contexts for reciprocal, emotionally meaningful interactions, reducing reliance on transactional encounters and improving belonging.",
+      "measurement": "Weekly count of meaningful interactions; ratio meaningful/total interactions; loneliness score",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Choose low-stress groups; ensure manageable time commitment.",
+      "mapping_query": "S04 targets C05 (primary) and C02 (secondary) to improve meaningful contact and reduce loneliness."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Community social prescribing & network development (C02)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage with social prescribing to connect to community activities; use digital tools to discover and schedule group events; build an expanded support network.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Broadens available social resources, accelerates access to meaningful activities, and reduces loneliness through new social ties.",
+      "measurement": "Number of new social connections formed; frequency of group participation; loneliness score",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Coordinate with community resources; avoid overcommitment; verify accessibility.",
+      "mapping_query": "S05 targets C02 primarily and C01 secondarily; assess changes in loneliness and contact frequency."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Daily social activation plan anchored in values (CBT-based activation) (C01/C02)",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Create a simple daily plan (15–30 minutes) to pursue valued social activities, with self-monitoring and weekly review to adjust tasks; emphasize consistency over intensity.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Promotes purposeful social engagement, reduces avoidance, and aligns actions with personal values, thereby improving both contact frequency and loneliness.",
+      "measurement": "Daily task completion log; weekly loneliness rating; number of meaningful interactions",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Watch for fatigue; scale tasks to avoid burnout.",
+      "mapping_query": "S06 targets C01 and C02; track via daily logs and weekly loneliness assessments."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Sleep quality and circadian alignment (BIO)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement sleep hygiene plan (consistent bedtime, morning light exposure, screen-light management, caffeine timing) to improve energy and mood that support social engagement.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Improved sleep enhances mood, energy, and cognitive function, enabling greater willingness and capacity for social interaction, thus reducing loneliness.",
+      "measurement": "Sleep quality rating (0–10); awakenings/night; loneliness score",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Monitor for sleep disruption during changes; adjust caffeine/screen use.",
+      "mapping_query": "S07 targets C02; assess loneliness changes in relation to sleep improvements."
+    }
+  ]
+}

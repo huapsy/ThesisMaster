@@ -1,0 +1,19 @@
+pseudoprofile_id: pseudoprofile_FTC_ID038
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Repetitive intrusive thoughts about global issues -> CLINICAL / DSM-5TR / anxiety disorders / generalized anxiety disorder / with cognitive rumination / intrusive_ruminative_thoughts_present (conf=0.78)
+- C02: Persistent background dread / low-grade anxiety -> NON-CLINICAL / AGE-GENERAL / emotional / negative emotions / anxiety / worry (conf=0.82)
+- C03: Catastrophic expectations about the future -> CLINICAL / DSM-5TR / trauma- and stressor-related disorders / posttraumatic stress spectrum / posttraumatic stress disorder / by precipitating trauma / natural disaster / persistent_negative_beliefs_about_safety_and_world (conf=0.72)
+- C04: Impaired long-term planning and goal-setting -> NON-CLINICAL / AGE-GENERAL / psychological / temporal perspective / future orientation / goal planning / long-term objective setting (conf=0.78)
+- C05: Attention and cognitive resources occupied by worry -> CLINICAL / DSM-5TR / anxiety disorders / generalized anxiety disorder / with cognitive rumination / rumination_impairs_concentration_or_task_performance (conf=0.62)
+- P01: Attention_Systems_Training -> NON-CLINICAL / AGE-SPECIFIC / unspecified_stage / cognitive_development / executive_development / attention_control / sustained_attention (conf=0.78)
+- P02: Worry_Rumination_Postponement -> CLINICAL / DSM-5TR / anxiety disorders / generalized anxiety disorder / with cognitive rumination / future_oriented_worry_rumination (conf=0.66)
+- P03: Mindfulness_Distancing -> NON-CLINICAL / AGE-GENERAL / spiritual / spiritualpractices / mindfulness / nonjudgmentalobservation / observingthoughts (conf=0.85)
+- P04: Structured_Goal_Planning_and_Value_Mapping -> NON-CLINICAL / AGE-GENERAL / psychological / self-acceptance / self-respect / living according to values / aligning actions with values (conf=0.72)
+
+PREDICTORS:
+- P01: Attention_Systems_Training -> PSYCHO / cognitive_capacity_enhancement_and_stimulation / attention_systems_training / sustained_attention / vigilance_and_consistency / sustained_attention_practice (conf=0.75)
+- P02: Worry_Rumination_Postponement -> PSYCHO / cognitive_and_metacognitive_interventions / metacognitive_and_attention_based_interventions / worry_rumination_postponement (conf=0.92)
+- P03: Mindfulness_Distancing -> PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions / open_monitoring_and_meta_awareness / decentering_practice (conf=0.78)
+- P04: Structured_Goal_Planning_and_Value_Mapping -> PSYCHO / foundations_and_common_factors / goals_values_and_maintenance_planning / smart_goal_specification (conf=0.85)

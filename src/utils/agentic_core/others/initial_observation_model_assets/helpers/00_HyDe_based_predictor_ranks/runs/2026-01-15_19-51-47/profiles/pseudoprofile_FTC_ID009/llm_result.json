@@ -1,0 +1,116 @@
+{
+  "pseudoprofile_id": "CASE-2026-PSY-SOC-BIO-01",
+  "summary": "Six modifiable BIO-PSYCHO-SOCIAL levers tailored to the six changeable factors identified in the case (social avoidance, belief of being annoying, post-event rumination, plan-cancellation, loneliness, and self-criticism). Each lever targets a specific predictor with cross-domain effects (e.g., CBT-based belief work reduces avoidance and rumination, mindfulness lowers rumination and self-criticism, sleep and social support improve mood and social engagement). The plan emphasizes practical, measurable actions, clear time horizons, and safety considerations, aiming for incremental improvements in social contact, cognitive-bias reduction, and emotional regulation without pharmacology or unsafe practices. The predictors are designed as actionable levers that can be incrementally adjusted and monitored, with explicit mappings to the targeted criteria (C01–C06).",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Graded social exposure and behavioral activation plan (structured invitation acceptance and attendance targets)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Implement a graded social exposure plan with weekly invitations; start with low-pressure social interactions (e.g., brief chats, small groups) and progressively attend planned events. Use a simple ladder: 1) respond to an invitation, 2) attend a small group, 3) attend a medium-sized gathering, 4) initiate a social plan with a friend. Track attendance, cancellations, and mood after events.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reducing social avoidance increases real-contact opportunities, which can decrease loneliness and reduce the reinforcing cycle of avoidance and plan cancellations. Gradual exposure plus behavioral activation improves approach behavior and perceived social efficacy.",
+      "measurement": "Attendance count per week; cancellation rate; UCLA Loneliness Scale score; post-event mood (0–10)",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for heightened social anxiety; provide opt-out and alternative low-pressure activities; escalate to professional support if panic or severe distress occurs.",
+      "mapping_query": "S01 maps to C01, C04, C05"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Belief modification via cognitive restructuring and behavioral experiments to test the belief 'I am annoying'",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach cognitive restructuring using thought records, evidence gathering, and behavioral experiments to test the belief that I am annoying. Generate alternative self-appraisals (e.g., 'I sometimes say things that are useful' ) and schedule micro-experiments in real social contexts.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Directly targets a core maladaptive belief that drives avoidance and rumination. Challenging evidence and controlled experiments reduce conviction in the belief and decrease perseverative thinking.",
+      "measurement": "Belief conviction scale; frequency/duration of post-event rumination; number of social approaches initiated",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "S02 maps to C02, C03"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness-based strategies to reduce perseverative thinking and self-criticism",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement an 8- to 12-week mindfulness program (e.g., MBCT-lite) with daily 10–15 minute practices, focusing on cognitive defusion and nonjudgmental awareness of thoughts (including self-criticism).",
+      "targets_criteria_ids": [
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Mindfulness reduces repetitive negative thinking and self-criticism, improving cognitive control over rumination and negative self-appraisal, which supports social engagement.",
+      "measurement": "Perseverative Thinking Questionnaire (PTQ); self-criticism scale; daily diaries of rumination frequency/duration and mood",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "S03 maps to C03, C06"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Self-compassion training to reduce self-criticism and loneliness",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver compassionate self-talk exercises and loving-kindness journaling to reduce self-criticism (C06) and indirectly encourage social re-engagement by improving mood and self-worth.",
+      "targets_criteria_ids": [
+        "C06",
+        "C05"
+      ],
+      "mechanism_rationale": "Lowering self-criticism reduces negative mood and distress linked to loneliness, increasing willingness to seek social contact and sustain connections.",
+      "measurement": "Self-Compassion Scale; loneliness scale; frequency of social engagements",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "S04 maps to C06, C05"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep hygiene and circadian alignment to support emotion regulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent sleep-wake times, optimize sleep environment, limit evening screen exposure, and use morning light exposure to stabilize mood and cognitive control.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Improved sleep enhances executive control, reduces daytime mood lability, lowers rumination, and mitigates loneliness-related distress.",
+      "measurement": "PSQI score; average nightly sleep duration; daytime mood ratings; loneliness scale",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "If sleep aids are considered, consult with a clinician; avoid unsafe self-treatment",
+      "mapping_query": "S05 maps to C03, C05"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Structured social support network and community linkage (social prescribing)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Assign a social buddy, facilitate participation in community groups or clubs, and implement weekly check-ins to build a reliable support network; encourage attendance at social activities with smaller, supportive groups.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Enhanced belonging and predictable social contact reduce avoidance, decrease loneliness, and reduce plan-cancellation by creating supportive expectations and accountability.",
+      "measurement": "Number of social connections maintained; invitations accepted; loneliness score; cancellation frequency",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for distress in new social contexts; provide opt-out options; ensure activities are safe and comfortable",
+      "mapping_query": "S06 maps to C01, C04, C05"
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "pseudoprofile_id": "CASE2026_REL_MOODDOUBT_OPT",
+  "summary": "The case reveals active mood variability (some days loving, others numb), acute panic about being broken, attribution ambiguity about whether relationship issues are real or mood-driven, and emotion-regulation challenges that influence relationship decisions. Modifiable levers span: (1) psycho skills to stabilize affect and reactivity; (2) social/relationship processes to clarify issues and reduce avoidance; (3) bio factors that underlie mood dynamics (sleep, activity) to support consistency. The proposed predictors aim to (a) reduce short-term mood swings and panic, (b) improve clarity about real relationship problems versus mood, (c) enhance decision-making related to the relationship, and (d) leverage bio-psycho-social interactions for durable improvement. Each lever is a changeable predictor with measurable metrics and feasible implementation pathways.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Emotion Regulation Skills Training (cognitive reappraisal, distress tolerance, paced breathing) in moments of doubt",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured emotion-regulation coaching with a focus on identifying triggers, practicing 2-3 quick skills (breathing, reappraisal, cue-based grounding), and recording affective responses during moments of relationship doubt.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Improved regulation reduces the amplitude of mood shifts, clarifies whether negative affect is mood-driven vs. relationship-driven, and lowers panic reactivity that fuels misattribution and avoidance.",
+      "measurement": "Daily mood rating (0–10), panic episode count, attribution clarity rating (0–10) during episodes, and a brief weekly reflection.",
+      "time_horizon": "6–8 weeks to establish pattern and feedback loop.",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns. If distress escalates, adjust pace and involve a clinician. Seek immediate help if thoughts of self-harm or unsafe behavior occur.",
+      "mapping_query": "C02|C04|C05|C06 -> S01"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Structured relationship check-ins and collaborative problem-solving",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Weekly 20–30 minute guided conversations with prompts for: (a) sharing current doubts with non-accusatory language, (b) identifying concrete relationship issues vs. mood shifts, (c) jointly brainstorming small, concrete steps.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Promotes clarity about real issues, reduces misattribution to mood, and aligns actions with jointly identified feasible solutions, reducing avoidance and impulsive decisions.",
+      "measurement": "Relationship clarity score (0–10), weekly communication quality rating, one concrete action completed per week.",
+      "time_horizon": "8–12 weeks.",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "If conflict escalates, consider facilitator support (therapist or couple coach).",
+      "mapping_query": "C01|C04|C07 -> S02"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep regularity and circadian alignment (sleep hygiene protocol)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement consistent bedtimes/wake times, light exposure in morning, and wind-down routines to stabilize sleep patterns and daytime energetic consistency.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Better sleep regularity dampens daytime mood variability and reduces susceptibility to panic upon numbness/doubt, improving both affect regulation and mood stability.",
+      "measurement": "Sleep diary (bedtime, wake time, awakenings), morning mood, and daytime energy ratings (0–10).",
+      "time_horizon": "6–10 weeks.",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Ensure no hazardous sleep aids are used without professional guidance; monitor for sleep disorders if persistent symptoms occur.",
+      "mapping_query": "C02|C05 -> S03"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Regular aerobic exercise program (3–4 days/week)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Assisted plan for moderate-intensity exercise (e.g., brisk walk, cycling) with progressive goals and a simple tracking system.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Physical activity improves mood regulation neurochemistry, reduces anxious reactivity to ambivalence, and enhances cognitive control over emotional responses.",
+      "measurement": "Weekly exercise minutes, mood variability index (SD of daily mood), panic episode frequency.",
+      "time_horizon": "8–12 weeks.",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Check with a clinician if preexisting medical conditions; start gradual to avoid injury.",
+      "mapping_query": "C02|C05|C06 -> S04"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Values clarification and meaning-oriented reflection about relationship",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Brief values-mapping exercise to align personal values with relationship goals; identify if doubts arise from value-misalignment or external stressors.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C07"
+      ],
+      "mechanism_rationale": "Clarifies whether doubts reflect real compatibility issues or value conflicts, reducing ambivalence-driven inaction and strengthening commitment decisions.",
+      "measurement": "Values alignment score (0–10), commitment clarity questionnaire, decision-motivation rating.",
+      "time_horizon": "4–6 weeks.",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Process may surface uncomfortable feelings; proceed with supportive structure and optional facilitator.",
+      "mapping_query": "C01|C04|C07 -> S05"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Digital self-monitoring and feedback loop (mood diary with automated insights)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Daily brief mood-symptom entries with automated trend feedback and weekly clinician/coach review to tailor interventions.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Continuous data enables fast detection of mood-related patterns, improves attribution accuracy, and supports timely adjustment of coping strategies.",
+      "measurement": "Daily diary completion rate, mood trend slope, attribution confidence, panic readiness score.",
+      "time_horizon": "6–12 weeks.",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Ensure data privacy; escalate to care if distress escalates or privacy concerns arise.",
+      "mapping_query": "C02|C04|C05|C06 -> S06"
+    }
+  ]
+}

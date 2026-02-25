@@ -1,0 +1,73 @@
+pseudoprofile_id: pseudoprofile_FTC_ID002
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID002/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.4939
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 1.30 * t + phase=0.37)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 4
+  * pulse_1: start_idx=31, length=2, amp=1.012
+  * pulse_2: start_idx=138, length=3, amp=1.196
+  * pulse_3: start_idx=34, length=6, amp=1.003
+  * pulse_4: start_idx=26, length=2, amp=0.928
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P05
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.111 | freq_hint=None
+  * P02: missing_rate=0.172 | freq_hint=None
+  * P03: missing_rate=0.167 | freq_hint=None
+  * P04: missing_rate=0.156 | freq_hint=None
+  * P05: missing_rate=0.117 | freq_hint=None
+  * P06: missing_rate=0.189 | freq_hint=None
+  * C01: missing_rate=0.289 | freq_hint=None
+  * C02: missing_rate=0.178 | freq_hint=None
+  * C03: missing_rate=0.317 | freq_hint=None
+  * C04: missing_rate=0.317 | freq_hint=None
+  * C05: missing_rate=0.161 | freq_hint=None
+  * C06: missing_rate=0.161 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Behavioral Activation Scheduling (S01) | ontology_id=behavioral_activation_scheduling | conf=0.92 | freq_hint=None
+- P02 (PREDICTOR): Gratitude and Savoring (S02) | ontology_id=savoring_positive_moments_practice | conf=0.92 | freq_hint=None
+- P03 (PREDICTOR): Sleep Circadian Regularity / Sleep Routines | ontology_id=sleep_diary | conf=0.78 | freq_hint=None
+- P04 (PREDICTOR): Morning Light Exposure | ontology_id=morning_bright_light_exposure | conf=0.86 | freq_hint=None
+- P05 (PREDICTOR): Structured Social Reconnection and Belonging | ontology_id=reconnection_with_lapsed_contacts | conf=0.78 | freq_hint=None
+- P06 (PREDICTOR): Micro-Activation Protocol (5-min Energizers) | ontology_id=task_initiation_cues | conf=0.68 | freq_hint=None
+- C01 (CRITERION): Diminished positive emotional response to pleasant events | ontology_id=blunted_affective_reactions_to_emotional_stimuli | conf=0.74 | freq_hint=None
+- C02 (CRITERION): Guilt about not enjoying positive experiences | ontology_id=guilt | conf=0.78 | freq_hint=None
+- C03 (CRITERION): Behavioral autopilot / low moment-to-moment engagement | ontology_id=continuous | conf=0.72 | freq_hint=None
+- C04 (CRITERION): General emotional blunting (low affect intensity) | ontology_id=flat_affect | conf=0.78 | freq_hint=None
+- C05 (CRITERION): External presentation of being 'fine' despite internal disengagement | ontology_id=emotion | conf=0.75 | freq_hint=None
+- C06 (CRITERION): Reduced motivation/interest in non-routine pleasurable activities | ontology_id=diminished_interest_or_pleasurable_engagement_in_activities | conf=0.68 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

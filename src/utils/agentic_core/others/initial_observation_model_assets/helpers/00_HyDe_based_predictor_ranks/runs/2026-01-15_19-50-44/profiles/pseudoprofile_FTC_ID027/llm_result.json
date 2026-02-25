@@ -1,0 +1,180 @@
+{
+  "pseudoprofile_id": "CASE-2026-01-15-OPTIMABIOPSYCHO",
+  "summary": "The presented case reveals a self-reinforcing loop: high anticipatory anxiety, difficulty initiating tasks, sustained avoidance, negative mood, and self-criticism. The optimization plan targets modifiable BIO/PSYCHO/SOCIAL levers that can disrupt the cycle by (1) increasing manageable activation without overwhelming anxiety, (2) reducing physiological/cognitive arousal that blocks initiation, (3) improving mood regulation and self-efficacy, and (4) leveraging social and digital feedback structures to sustain engagement. Interventions are designed as non-pharmacologic, scalable levers with clear measurement, feasible implementation, and explicit links to the observed criteria (C01–C07). Safety monitoring remains in place for any escalation in distress.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Behavioral Activation with Implementation Intentions for Task Initiation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured Behavioral Activation plan that converts intention into action via small, concrete tasks paired with implementation intentions (if-then plans) and a daily task schedule.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C05"
+      ],
+      "mechanism_rationale": "Activates approach behaviors, increases reinforcement from goal-directed activity, and weakens avoidance by breaking tasks into tiny, doable steps; reduces the negative feedback loop where anxiety delays initiation and in turn increases anxiety.",
+      "measurement": "Weekly count of tasks initiated/completed; initiation latency (time from decision to start); self-reported motivation on 0–10 scale.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; monitor for task overload early; adjust task size to patient capacity.",
+      "mapping_query": "What is the impact of Behavioral Activation with implementation intentions on task initiation and motivation in anxious, low-motivation individuals?"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Anxiety Regulation Micro-Practices (diaphragmatic breathing, brief mindfulness)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach 3–5 minute diaphragmatic breathing and brief mindfulness exercises to reduce anticipatory anxiety prior to task engagement.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Autonomic arousal reduction lowers perceived threat of tasks and shortens initiation latency; improved calm fosters first-step action.",
+      "measurement": "Momentary anxiety rating before planned tasks (0–100 scale); time-to-start after planning; post-practice anxiety change.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None; ensure breathing guidance is comfortable and non-harmful.",
+      "mapping_query": "Effect of brief anxiety regulation on task initiation latency in anxious individuals."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Compassion-Focused Self-Talk and Cognitive Restructuring",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Interventions to reduce self-criticism and enhance self-efficacy through compassionate inner dialogue and reframing negative appraisals of the initiation cycle.",
+      "targets_criteria_ids": [
+        "C07",
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Reducing harsh self-evaluation increases willingness to start tasks and decreases perseverative rumination about inability, thereby lowering avoidance reinforcement.",
+      "measurement": "Self-criticism score; perceived self-efficacy; initiation latency; task completion rate.",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "If there is trauma history, tailor content; monitor for distress during self-appraisal shifts.",
+      "mapping_query": "Impact of self-compassion interventions on self-criticism and task initiation in anxious individuals."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Sleep Regularity and Circadian Alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent sleep-wake times, morning light exposure, and pre-sleep routines to improve daytime energy and mood.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Better sleep supports executive function, reduces irritability, and increases energy and cognitive capacity for task initiation.",
+      "measurement": "Sleep diary/actigraphy (duration, latency, efficiency); next-day energy/motivation 0–10; initiation latency.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; accommodate irregular schedules if needed; monitor for oversleeping or sleep debt.",
+      "mapping_query": "Effect of sleep regularity on anxiety and motivation in adults with initiation difficulties."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Physical Activity Micro-Goals (daily 10-minute movement)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Introduce a brief, non-intense daily physical activity routine (e.g., 10-minute brisk walk) to elevate mood and reduce arousal.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Exercise-induced neurochemical changes and increased energy can bolster motivation and decrease anxiety-driven avoidance; creates positive reinforcement for initiation.",
+      "measurement": "Daily activity minutes; mood change after activity (0–10); initiation rate for planned tasks.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Tailor intensity to fitness; check for physical limitations; adjust as needed.",
+      "mapping_query": "Impact of daily short-duration aerobic activity on motivation and initiation in anxious individuals."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Social Accountability and Support (buddy checks)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Pair with a trusted person for daily check-ins on task goals and progress; create a lightweight accountability structure.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Social support and accountability enhance self-efficacy and provide external reinforcement, reducing isolation and avoidance.",
+      "measurement": "Number of check-ins; proportion of planned tasks started/completed; perceived support rating.",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Obtain consent; respect privacy; avoid overburdening the person.",
+      "mapping_query": "Effect of buddy-based accountability on task initiation and anxiety in adults with avoidance patterns."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Digital Self-Monitoring & Feedback System (daily mood/motivation logs with weekly review)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use a simple digital diary to log mood, motivation, and initiation; generate weekly feedback to guide plan adjustments and reinforce progress.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Continuous self-monitoring creates awareness and data-driven adjustments, enhancing self-regulation and breaking the cycle via feedback loops.",
+      "measurement": "Daily entries completed; weekly trend in motivation/anxiety/initiative; correlation between log entries and task initiation.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure data privacy; secure storage; transparent use of data.",
+      "mapping_query": "Does digital self-monitoring with weekly feedback improve initiation and mood in anxious individuals?"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Problem-Solving Skills Training for Task Planning",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach a structured problem-solving framework to decompose tasks, generate action plans, and implement solutions.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Equips with a concrete method to translate intention into action, reducing overwhelm and increasing perceived control over tasks.",
+      "measurement": "Number of task plans created; time to initiate tasks after planning; task completion rate.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Adapt to cognitive style; avoid over-structuring if too rigid for user.",
+      "mapping_query": "Impact of problem-solving training on initiation and anxiety-driven avoidance."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Nutrition/Hydration Basics for Mood Regulation",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Improve regular meal patterns and hydration; reduce late-day caffeine; promote balanced meals to stabilize energy and mood.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C06"
+      ],
+      "mechanism_rationale": "Stable energy and hydration support cognitive function and emotional regulation, aiding initiation and reducing distress.",
+      "measurement": "Meal/hydration logs; mood/motivation ratings; initiation latency.",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "LOW",
+      "safety_notes": "Consider dietary restrictions; consult if medical conditions require guidance.",
+      "mapping_query": "Effect of regular meals and hydration on motivation and anxiety in adults with initiation difficulties."
+    }
+  ]
+}

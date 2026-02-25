@@ -1,0 +1,168 @@
+{
+  "pseudoprofile_id": "CASE2026-BIOPSYCHO_SOCIAL_OPT1",
+  "summary": "The case shows a self-reinforcing cycle of low motivation and high anticipatory anxiety that freezes task initiation, with avoidance, negative mood, and self-criticism sustaining inaction. A set of modifiable BIO/PSYCHO/SOCIAL levers spanning activation, anxiety modulation, affect, self-relations, social connectedness, sleep/physical energy, and data-driven tailoring are proposed. Each lever targets specific case criteria (C01–C07), provides a plausible mechanism of change, feasible implementation, and simple metrics to monitor progress over 4–12 weeks, enabling multi-domain synergy to disrupt the avoidance loop and restore action readiness and functioning.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Behavioral Activation with structured scheduling and micro-goals",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured Behavioral Activation: implement daily 2–3 short tasks with explicit start times, pre-commitment, and 2–3 minute planning; celebrate small completions to reinforce task engagement.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Activates behavior to counteract avoidance and builds mastery, reducing the anxiety–inaction cycle and increasing self-efficacy.",
+      "measurement": "Daily initiated tasks count; time from plan to start; self-rated motivation (0–10); weekly mood",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Ensure tasks are safe and within capability; monitor for overload; adjust as needed.",
+      "mapping_query": "Evaluate changes in C01/C03/C04/C05 relative to baseline with weekly task-start metrics."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Implementation intentions and start rituals",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Create specific If-Then plans for initiating tasks and a brief start ritual (e.g., 2-minute routine) to cue action.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Pre-commitment reduces cognitive load and anticipatory anxiety, enabling automatic initiation.",
+      "measurement": "Proportion of days with planned task start executed; initiation latency; pre-task anxiety (0–10)",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Plans should be safe and attainable; avoid overload.",
+      "mapping_query": "Track adherence to If-Then plans and relation to initiation speed (C03) and anxiety (C02)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness/ACT-based anxiety regulation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Weekly 20–30 min mindfulness/defusion practice plus values-driven action planning to reduce reactivity to anxiety.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Reduces experiential avoidance and reactivity to worry, promoting flexible engagement with tasks.",
+      "measurement": "State anxiety before tasks (0–10); avoidance episodes per week; practice completion rate",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Approach to distress should be non-triggering; adapt for distress levels.",
+      "mapping_query": "Monitor changes in C02 and C04 as mindfulness exposure increases."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Compassion-focused self-relating and self-kindness training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Daily compassionate self-talk and self-forgiveness exercises to counter self-criticism; journaling of self-supportive responses.",
+      "targets_criteria_ids": [
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Calibrates negative affect and self-judgment, boosting motivation and resilience to initiate tasks.",
+      "measurement": "Self-compassion scale scores; frequency of self-criticism thoughts; daily mood",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Maintain respectful self-relations; avoid harsh self-denigration.",
+      "mapping_query": "Assess shifts in C06/C07 via self-report and journaling correlations with initiation attempts."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Social support and belonging through social prescriptions",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Identify 1–2 supportive social connections and/or small-group activities; schedule weekly interactions; escalate to community supports if needed.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Social buffering reduces anxiety, provides reinforcement for activity, and enhances motivation via belonging.",
+      "measurement": "Number of social interactions/week; perceived support (scale); anxiety before/after social contact",
+      "time_horizon": "4–12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Set boundaries; protect privacy; monitor for social overload.",
+      "mapping_query": "Examine relation between social engagement frequency and changes in initiation and anxiety (C01–C04)."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep hygiene and circadian stabilization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Regular sleep-wake schedule, optimize sleep environment, limit evening screen time; brief daytime grounding to reduce arousal.",
+      "targets_criteria_ids": [
+        "C02",
+        "C06",
+        "C01"
+      ],
+      "mechanism_rationale": "Better sleep reduces daytime anxiety reactivity and improves cognitive energy for starting tasks.",
+      "measurement": "Sleep duration/quality logs; sleep onset latency; morning mood; readiness to initiate tasks",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "If sleep problems persist, screen for sleep disorders; avoid unsupervised sedatives.",
+      "mapping_query": "Correlate sleep metrics with initiation and mood changes (C01, C02, C06)."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Brief daily movement to boost energy and neurochemistry",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Engage in 15-minute brisk walk or equivalent daily; track adherence; incorporate micro-breaks to reduce resting inertia.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Exercise enhances mood and energy, lowers anxiety reactivity, and supports initiation capacity.",
+      "measurement": "Daily movement minutes; mood change pre/post activity; initiation latency",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Adjust to medical status; avoid overexertion; consult if chest pain or dizziness occurs.",
+      "mapping_query": "Link days with activity to improvements in initiation (C03/C04) and mood (C06)."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Measurement-based care and feedback with self-monitoring",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Daily brief self-check-ins capturing motivation, anxiety, and mood; weekly review; iterative plan adjustments; optional wearables/app dashboards.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Quantified feedback enables rapid tailoring, accountability, and reinforcement of progress across domains.",
+      "measurement": "Composite daily scores; adherence to logs; changes in C01–C07; engagement metrics",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Ensure data privacy; obtain consent; escalate if distress increases.",
+      "mapping_query": "Use daily self-monitoring to map predictor changes to all criteria and track time-to-improvement."
+    }
+  ]
+}

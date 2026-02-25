@@ -1,0 +1,224 @@
+{
+  "pseudoprofile_id": "bp_sleepwake_case_001",
+  "summary": "Case presents a pattern of early-morning awakenings around 04:30 with rapid cognitive arousal and return-to-bed difficulty, followed by doomscrolling and daytime fatigue by lunch. The objective is to deploy modifiable, atomic BIO/PSYCHO/SOCIAL levers that (a) stabilize circadian timing and sleep maintenance, (b) reduce wake-time arousal and rumination, (c) curb in-bed digital activation, (d) limit distressing content exposure, (e) implement CBT-based sleep skills, (f) optimize daytime energy to support night-time sleep, and (g) leverage social support and self-monitoring for adherence. Solutions emphasize feasibility and measurable impact over 4–6 weeks, with clear linkage to the specified sleep-maintenance (C01), sleep-onset (C02), awakening arousal (C03), in-bed device use (C04), doomscrolling content exposure (C05), and daytime functioning (C06) criteria.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Regular sleep-wake schedule with structured wind-down and morning light cue",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Establish a fixed bedtime window (e.g., 22:45–23:15) and a fixed wake time (e.g., 06:30) for 14–28 days, with a 30-minute pre-sleep wind-down (dim lights, unplug screens, relaxing routine) and a brief morning light exposure within 30–60 minutes of waking. This supports circadian entrainment and reduces cognitive arousal at night.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Consistent timing strengthens circadian stability, reduces nocturnal awakenings, and lowers pre-sleep cognitive activation; wind-down mitigates rumination and helps initiate sleep.",
+      "measurement": "Sleep diary (bedtime, sleep onset latency SOL, awakenings, 04:30 wake time), actigraphy if available, morning alertness mood rating.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.92,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "CASE_PAYLOAD_NARRATIVE → S01 targets C01/C02"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Immediate arousal regulation on awakening",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Upon waking around 04:30, engage in 60–90 seconds of diaphragmatic breathing (e.g., box breathing 4x4), followed by 1–2 minutes of progressive muscle relaxation or grounding. Return to bed if calmness allows; if sleep continues, repeat breathing as needed.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Directly attenuates hyperarousal and racing thoughts at the critical awakening, reducing wake-time and improving chances to resume sleep.",
+      "measurement": "Self-rated arousal 0–10 after awakening; time to fall back asleep; number of awakenings logged.",
+      "time_horizon": "2–3 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.45,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "C03/C01 mapping for awakenings arousal management"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "In-bed device-free rest protocol during awakenings",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "During awakenings, stay in bed and transition to passive rest (breathing, brief mindfulness, or guided relaxation) without phone/doomscrolling; place phone out of reach or use DND. If necessary, a short seated rest within bed boundaries.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces stimulus-driven arousal from device use and negative content, enabling calmer re-entry to sleep.",
+      "measurement": "Time spent awake on device during awakenings; mood/arousal before attempting sleep; sleep efficiency.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "C04/C05 mapping for in-bed engagement and doomscrolling reduction"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Digital content boundaries to limit doomscrolling",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Implement a digital boundary plan: set 4–6 wake windows for content use; employ doomscrolling filters; remove access during the 60–90 minutes around the 04:30 awakening; use only neutral or calming content in the morning window.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Reducing exposure to distressing online content diminishes morning cognitive arousal and negative affect, aiding sleep continuity.",
+      "measurement": "Frequency and duration of doomscroll episodes; affect mood pre/post-awakening; diary logs.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "C05 mapping for digital content exposure control"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep-focused CBT and activation routines",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a small CBT_sleep module: 15 minutes of worry journaling before bed or worry time window; cognitive restructuring for sleep-related fears; brief bedtime activation (light activity or mental rehearsal) to dissociate pre-sleep rumination from wakefulness.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Mitigates perseverative cognition and anticipatory anxiety that amplify arousal at awakenings and disturb sleep onset/maintenance.",
+      "measurement": "Worry diary entries; sleep onset latency; pre-sleep arousal scores.",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.82,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "C03 mapping for sleep-related cognitive interventions"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Daytime bright-light exposure and energy management",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Schedule 15–30 minutes of outdoor light exposure within 60 minutes of waking, plus 15–30 minutes of brisk outdoor activity later in the day; maintain consistent daytime routine to reduce daytime fatigue and support nighttime sleep.",
+      "targets_criteria_ids": [
+        "C06",
+        "C01"
+      ],
+      "mechanism_rationale": "Morning light and daytime activity enhance alertness and stabilize circadian cues, reducing daytime fatigue that can worsen pre-sleep arousal and maintenance.",
+      "measurement": "Midday energy/mood rating; steps/activity tracking; light-exposure log.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "C06/C01 mapping for daytime energy and circadian alignment"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Caffeine and stimulant timing optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Log caffeine intake and adjust timing to minimize evening impact: avoid caffeine after a chosen cutoff (e.g., early afternoon); monitor changes in sleep maintenance and onset.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Stimulant timing can worsen nocturnal arousal and sleep fragmentation; optimizing timing supports sleep maintenance and onset.",
+      "measurement": "Caffeine log; SOL; awakenings around 04:30.",
+      "time_horizon": "2 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.3,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "C01/C02 mapping for stimulant timing effects on sleep"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Sleep-environment optimization (dark, cool, quiet room)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Enhance bedroom conditions: blackout curtains, cool ambient temperature (approx 18–20C), white noise or fan, reduce light/ambient noise; remove screens in the near-sleep environment.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Improved sleep environment reduces awakenings and arousal triggers, supporting sleep initiation and maintenance.",
+      "measurement": "Bedroom environment checklist; sleep quality ratings; awakenings count.",
+      "time_horizon": "2–3 weeks",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "C01/C02/C03 mapping for environmental optimization"
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Self-monitoring and feedback loop",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Maintain a simple 14-day sleep diary capturing bedtime, SOL, number of awakenings, wake time, and daytime energy; conduct weekly feedback and plan adjustments.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C06"
+      ],
+      "mechanism_rationale": "Structured self-monitoring improves adherence to sleep interventions and provides objective data to guide iterative adjustments.",
+      "measurement": "Diary completeness/adherence; trend in awakenings; midday functioning scores.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.92,
+      "expected_impact_0_1": 0.4,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "C01/C02/C06 mapping for self-monitoring and feedback"
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Social support and accountability mechanisms",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Incorporate weekly 15-minute check-ins with a supportive person (partner, friend, or coach); share sleep logs and progress; escalate if 04:30 awakenings persist despite adherence.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Social accountability and support bolster adherence to sleep routines and improve daytime functioning through mood and effortful engagement.",
+      "measurement": "Number of check-ins; perceived support scale; changes in awakenings and daytime energy.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "C01/C06 mapping for social support and accountability"
+    },
+    {
+      "solution_id": "S11",
+      "predictor_variable": "Micronutrient optimization for sleep and cognition",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Incorporate magnesium-rich foods, B vitamins, omega-3s, and adequate hydration; minimize late-evening heavy meals and alcohol; monitor dietary intake.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Adequate micronutrient status supports cognitive control, sleep regulation, and daytime energy, potentially reducing nocturnal arousal and daytime fatigue.",
+      "measurement": "Dietary logs; mood/energy ratings; sleep metrics.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.35,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "C03/C01/C06 mapping for nutritional optimization"
+    },
+    {
+      "solution_id": "S12",
+      "predictor_variable": "Morning light therapy as circadian cue",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Use a 20–30 minute morning bright-light therapy session or light box within 60 minutes of waking; track usage and sleep response.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Bright morning light strengthens circadian entrainment, reduces nocturnal arousal, and improves daytime energy and functioning.",
+      "measurement": "Device usage data; sleep diary metrics (SOL, awakenings); energy/mood ratings.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.65,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "C01/C03/C06 mapping for morning light therapy effects"
+    }
+  ]
+}

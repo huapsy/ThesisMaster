@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 from flask import Flask
 
@@ -9,9 +10,27 @@ from .routes.api import api_bp
 from .routes.ui import ui_bp
 from .services import JobManager, PhoenixService, SessionStore
 
+try:
+    from dotenv import load_dotenv  # type: ignore
+except Exception:  # pragma: no cover - optional dependency
+    load_dotenv = None  # type: ignore[assignment]
+
+
+def _bootstrap_env(repo_root: Path) -> None:
+    dotenv_path = repo_root / ".env"
+    if load_dotenv is not None and dotenv_path.exists():
+        load_dotenv(dotenv_path=str(dotenv_path), override=False)
+
+    openrouter_api_key = str(os.environ.get("OPENROUTER_API_KEY") or "").strip()
+    if openrouter_api_key:
+        os.environ["OPENAI_API_KEY"] = openrouter_api_key
+        if not str(os.environ.get("OPENAI_BASE_URL") or "").strip():
+            os.environ["OPENAI_BASE_URL"] = "https://openrouter.ai/api/v1"
+
 
 def create_app() -> Flask:
     paths = load_paths()
+    _bootstrap_env(paths.repo_root)
     paths.workspace_root.mkdir(parents=True, exist_ok=True)
     paths.sessions_root.mkdir(parents=True, exist_ok=True)
 

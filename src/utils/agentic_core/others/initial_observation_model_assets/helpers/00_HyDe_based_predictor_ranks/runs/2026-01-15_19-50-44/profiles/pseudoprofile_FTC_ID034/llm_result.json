@@ -1,0 +1,160 @@
+{
+  "pseudoprofile_id": "CASE-BPS-001-CHRONIC-PAIN-MOOD",
+  "summary": "This plan targets the bidirectional relationship between chronic back pain and mental health by selecting modifiable BIO, PSYCHO, and SOCIAL levers that plausibly reduce pain-related catastrophizing, improve mood, and increase perceived control. Core mechanisms include improving sleep and circadian alignment (BIO), enhancing adaptive pain coping and activation (PSYCHO), increasing meaningful social support and perceived belonging (SOCIAL), and boosting exercise, nutrition, and self-efficacy as leverage points. Solutions emphasize feasibility and safety, with clear metrics (brief mood and pain scales, sleep quality, activity logs, and standardized questionnaires) and time horizons that allow iterative refinement without pharmacologic dosing instructions. If mood worsens or suicidality emerges, escalate to professional care immediately.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep_Routines_and_Circadian_Entrainment (Sleep_Circadian_and_Restoration -> Sleep_Routines_and_Practices)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a structured sleep hygiene program with consistent bed/wake times, reduced caffeine after midday, a calming pre-sleep routine, and morning light exposure to normalize circadian rhythm and improve daytime mood.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Improved sleep reduces pain sensitivity and emotional reactivity, lowering risk of negative mood and catastrophic thinking while increasing daytime energy and perceived control.",
+      "measurement": "PSQI score; daily sleep diary (duration, awakenings); daytime mood ratings; days with adequate sleep (≥7h)",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for persistent insomnia or mood worsening; seek professional help if suicidality or hopelessness emerges.",
+      "mapping_query": "Maps to C04 (low mood), C06 (optimism/hope), and C07 (perceived control) via sleep-mood-cognition pathways."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Cognitive_Restructuring_and_Belief_Modification (CBT_Foundations)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver brief CBT-based pain coping skills focusing on reframing permanence beliefs (e.g., 'this will end') and challenging catastrophizing through thought records and behavioral experiments.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Reducing catastrophic appraisals diminishes negative affect and enhances perceived control, supporting more optimistic outlooks and adaptive coping.",
+      "measurement": "Pain Catastrophizing Scale (PCS); PHQ-9; PSEQ; daily worry log",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Ensure material is aligned with a clinician if depressive symptoms deepen; monitor for increased distress during exposure tasks.",
+      "mapping_query": "Targets C03 (catastrophizing), C04 (low mood), C06 (optimism), and C07 (self-efficacy) via cognitive restructuring."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Behavioral_Activation_for_Mood (Behavioral_Activation_Library)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Incorporate a graded schedule of pleasurable and meaningful activities to counter anhedonia, with activity planning aligned to pain limits and values.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Engagement in rewarding activities improves mood, reduces rumination, and strengthens self-efficacy and sense of control over daily life.",
+      "measurement": "PHQ-9; activity logs (frequency/duration); pain ratings; brief mood survey",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Watch for activity pacing; adjust plan if pain flares exceed baseline tolerance; reinforce pacing strategies.",
+      "mapping_query": "Links to C04 (mood), C06 (optimism), and C07 (control) via increased engagement and mastery."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Mindfulness_and_ACT_Contextual_Behavioral_Therapy",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Provide mindfulness-based or ACT-informed training to reduce pain reactivity, increase acceptance, and improve nonjudgmental appraisal of pain.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Nonjudgmental awareness reduces catastrophizing and emotional amplification, enhances present-mocused coping, and boosts perceived control.",
+      "measurement": "Five Facets Mindfulness Questionnaire (FFMQ) or MAAS; PCS; PHQ-9; PSEQ",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "If distress increases, refer to a clinician; mindfulness practices should be adapted for pain levels.",
+      "mapping_query": "Aims to reduce C03 (catastrophizing), improve C04 (mood), C06 (optimism), and C07 (control) through acceptance and present-mocused strategies."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Pain_Self_Efficacy_Enhancement (PSEQ_Training)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver targeted exercises to build confidence in pacing, activity engagement, and coping with pain, emphasizing gradual mastery and real-world task success.",
+      "targets_criteria_ids": [
+        "C07",
+        "C04"
+      ],
+      "mechanism_rationale": "Higher self-efficacy for pain management strengthens perceived control, reduces avoidance-based mood deterioration, and supports sustainable activity.",
+      "measurement": "Pain Self-Efficacy Questionnaire (PSEQ); PHQ-9; daily pain/functional log",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Adjust demands to avoid overexertion; escalate if pain worsens beyond planned progression.",
+      "mapping_query": "Directly targets C07 (control) and C04 (mood) by building confidence in daily functioning."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Structured_Social_Support_and_Belonging",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Introduce social-prescribing options and structured social engagement (peer groups, family/friend check-ins) to reduce isolation and bolster meaning.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Social connectedness buffers distress, enhances mood, and increases perceived support and control over circumstances.",
+      "measurement": "Lubben Social Network Scale; PHQ-9; mood ratings; pain diary",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure fits with patient preferences; monitor for social overload or boundary issues.",
+      "mapping_query": "Improves mood and optimism (C04, C06) and perceived support/control (C07) via social engagement."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Aerobic_Cardiorespiratory_Movement_and_Skeletal_Mobility",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a graded aerobic and strength/mobility program with pain-informed pacing, progressive load, and regular monitoring.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Regular movement reduces baseline pain, flare severity, and improves mood and self-efficacy; supports functional control over daily life.",
+      "measurement": "Weekly MVPA minutes; average pain intensity (0-10); flare frequency; PHQ-9; PSEQ",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.78,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Screen for contraindications; progress gradually to avoid exacerbation; coordinate with clinician if new symptoms arise.",
+      "mapping_query": "Movement improves C01 (baseline pain), C02 (flare severity), plus mood/control (C04, C07) via physical capability."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Nutritional_Micronutrient_Status_Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Assess micronutrient status (e.g., vitamin D, iron, omega-3) and implement targeted dietary improvements or clinician-guided supplementation to support energy and mood.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Optimized nutrition may reduce fatigue, support immune signaling, and improve mood, indirectly diminishing pain impact and negative cognitions.",
+      "measurement": "Diet quality score; serum 25(OH)D; ferritin; omega-3 index; self-reported energy; pain mood log",
+      "time_horizon": "8-16 weeks",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Coordinate with healthcare provider to avoid interactions and oversupplementation; monitor for adverse effects.",
+      "mapping_query": "Aims to improve pain baseline and mood via nutritional/micronutrient optimization affecting C01 and C04."
+    }
+  ]
+}

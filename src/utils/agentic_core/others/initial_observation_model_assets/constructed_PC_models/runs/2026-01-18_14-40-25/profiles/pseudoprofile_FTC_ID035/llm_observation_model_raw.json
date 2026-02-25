@@ -1,0 +1,1102 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID035",
+  "model_summary": "Select all six complaint-derived criteria (health-focused worry, catastrophic symptom interpretation, compulsive internet checking, failure to inhibit checking, perceived loss of control, acute panic on symptom onset) and seven modifiable, high-signal predictors drawn from the PSYCHO domain: cognitive restructuring/probabilistic thinking (P01), scheduled checking & digital-hygiene (P02), interoceptive exposure (P03), mindfulness/acceptance & distress-tolerance (P04), executive-inhibition/urge-control training (P05), sleep/circadian stabilization (P06), and social support/accountability (P07). Measurement uses intensive EMA (6 prompts/day, 28 days) for momentary state and skill-practice adherence, a single morning diary for sleep anchoring, and optional passive phone streams (per-prompt aggregation of screen minutes and unlock counts). The design prioritizes within-person variance, minimal collinearity (one broad self-regulation/inhibition predictor), clear recall windows, and a feasible observation count for later gVAR estimation (≈168 momentary observations + 28 morning diaries).",
+  "variable_selection_notes": "All six complaint-derived criteria (C01–C06) are retained to preserve the complaint's full resolution and to enable multivariate outcome modeling. Predictors were chosen to (1) map directly to high-ranked HyDe / LLM solution nodes (cognitive restructuring, metacognitive/attention training, exposure/urge-work, digital hygiene, inhibitory control, sleep, social accountability), (2) be modifiable by brief interventions or behavioral routines, and (3) have realistic EMA or passive measures with expected within-person variability. Trade-offs: many HyDe nodes are closely related (e.g., various CBT skill families); to reduce collinearity we merged overlapping concepts into single, broader predictors (e.g., P01 covers cognitive restructuring and probabilistic thinking; P04 covers mindfulness/acceptance/distress tolerance). Passive measures (screen minutes/unlocks) are included but optional (consent-dependent) because they increase objectivity for checking behavior but risk missingness. Uncertainty/bias notes: self-report of checking duration may be biased; passive phone signals are a proxy (not content-specific) and may miss non-phone checking. We prioritized constructs most directly tied to the complaint's mechanisms (catastrophizing, threat monitoring, reassurance-seeking/compulsivity, urge-inhibition, arousal) to keep the model estimable for gVAR.",
+  "design_recommendations": {
+    "study_days": 28,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:00-10:00",
+        "10:00-13:00",
+        "13:00-15:00",
+        "15:00-18:00",
+        "18:00-21:00",
+        "21:00-23:00"
+      ],
+      "recall_window": "since last prompt",
+      "expected_total_prompts": 168,
+      "notes": "Six prompts/day balances temporal resolution (0-6h lag sensitivity) and participant burden. Blocks include jitter to avoid predictability. EMA items below are asked at each prompt unless otherwise noted."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "07:30 (morning diary about prior night sleep)"
+      ],
+      "expected_total_entries": 28,
+      "notes": "Morning diary captures prior-night sleep timing and quality for P06 (sleep/circadian stabilization)."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "passive_continuous then passive_aggregated_per_prompt",
+      "notes": "If participant consents, collect phone OS aggregated screen_time_minutes and screen_unlock_count; aggregate into the same recall window as EMA (since last prompt). Passive data increases objectivity for checking behavior but may be unavailable for some participants (iOS/Android privacy limits)."
+    },
+    "minimum_total_observations_target": 150,
+    "gvar_readiness_notes": "Expected ~168 momentary observations + 28 daily diaries per participant (if adherence high). This should be sufficient for gVAR with 13 time-series (6 criteria + 7 predictors) after variable selection/reduction; initial gVAR may require pruning to the strongest predictors or dimension reduction if effective sample drops below targets.",
+    "variance_support_notes": "Use 1–9 anchored Likert for subjective items to maximize within-person variance. For duration-oriented items (checking) record self-reported minutes (continuous) and an intensity/urge 1–9 scale to avoid rare-event issues.",
+    "missingness_risk_notes": "Main risks: passive stream opt-out, skipped EMA prompts, and missing passive windows (OS restrictions). Recommend push reminders, brief items (<30s), and incentives for adherence. Plan for multiple imputation and time-series appropriate missing-data methods; include per-prompt passive-availability flags."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Baseline health-related worry frequency/intensity",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how much have you worried about your health? (1 = Not at all, 9 = Extremely)",
+        "response_scale_or_unit": "1-9 Likert (anchored)",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures momentary fluctuation in worry; asked each prompt."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "person-mean centering and z-scoring per participant; consider detrending if systematic drift",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Catastrophic interpretation of minor bodily symptoms",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, if you noticed bodily sensations, to what extent did you interpret them as indicating something very serious (e.g., convinced you might be dying)? (1 = Not at all, 9 = Completely)",
+        "response_scale_or_unit": "1-9 Likert (anchored) plus conditional event flag if no sensation",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "If no sensations occurred, record 1 on intensity and set event_flag=false. This measures appraisal intensity rather than trait belief."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "person-mean centering; treat as approx-continuous",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Compulsive online health-checking (duration)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app + optional passive phone sensor",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, did you search for health information online? If yes, how many minutes did you spend? (enter minutes). Also rate how strong the urge was on a 1-9 scale (1 = No urge, 9 = Very strong urge).",
+        "response_scale_or_unit": "minutes (self-reported, continuous) + 1-9 urge Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt (minutes aggregated)",
+        "expected_within_person_variability": "high",
+        "notes": "If passive consent is given, also collect screen_time_minutes_browser_since_last_prompt and screen_unlock_count as passive proxies to cross-validate self-report."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "log1p(minutes) for skewed duration; person-mean center urge ratings",
+        "collinearity_risk": "medium",
+        "distribution_hint": "other"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Failure to inhibit checking despite recognizing irrationality",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, to what extent did you try and fail to resist checking/searching even though you knew it was irrational? (1 = Not at all, 9 = Completely)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures repeated engagement and perceived failure to inhibit; complements objective duration measures."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "person-mean centering; consider binary flag for any failure events if distribution highly zero-inflated",
+        "collinearity_risk": "medium",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Subjective sense of loss of control and distress about it",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how much did you feel that your health worries were out of control and how distressed did that make you? (1 = Not at all, 9 = Extremely)",
+        "response_scale_or_unit": "1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures perceived control and associated distress; central to user's complaint."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "person-mean centering and z-score",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Acute panic-level fear when a symptom appears",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "If you noticed a bodily symptom since the last prompt, how intense was your immediate fear/panic? (1 = Not at all, 9 = Extreme panic). Also mark event_flag if a symptom occurred.",
+        "response_scale_or_unit": "1-9 Likert + event_flag boolean",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Event-anchored intensity is recorded; if no symptom, intensity = 1 and event_flag=false. This supports modeling of cue-triggered panic events."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "person-mean centering; consider event-based models for event_flag-conditioned analyses",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Cognitive restructuring / probabilistic thinking practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Teaches reappraisal and probabilistic estimates to reduce catastrophic interpretations and global health worry; directly targets appraisal processes.",
+      "intervention_examples_safe": "Brief guided reappraisal exercises (identify thought, evidence for/against, alternative explanations; probability estimation exercises).",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, did you use a cognitive reappraisal/probability-checking strategy? If yes, rate how effective it was (1=Not at all,9=Very effective) and record minutes spent practicing.",
+        "response_scale_or_unit": "binary + 1-9 Likert for effectiveness + minutes practiced",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Practice frequency and perceived effectiveness will be used as time-varying predictors; minutes practice often low but effective for short-term shifts."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "use minutes (log1p) and effectiveness (person-mean center); binary practice flag as additional covariate",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Reappraisal reduces momentary worry; effects can accumulate over hours."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Directly targets catastrophic interpretation schemas."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Reducing threat appraisals should reduce checking driven by reassurance-seeking, though effect may be indirect and slower."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Increased cognitive control over appraisals supports resisting checks."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 48,
+          "rationale": "Improved appraisals increase perceived influence and reduce distress about loss of control."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Lower catastrophic appraisals can reduce panic intensity when symptoms occur."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Low risk; ensure exercises do not increase avoidance. If exposure is used in conjunction, supervise.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Self-report practice and minutes are easy to collect; expected to vary within-person across days."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Scheduled checking & digital hygiene (if-then plans and limits)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / lifestyle_philosophies / digital_minimalism_and_intentional_tech",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Creates rules and boundaries for information-search behavior, reducing compulsive, unstructured checking and long search sessions.",
+      "intervention_examples_safe": "Set specific 20-minute scheduled windows for health information seeking, use website blockers, implement 'urge-if/then' plans.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app + optional passive phone sensor",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, did you check health information outside scheduled windows? (Y/N). Self-reported minutes spent searching and perceived adherence to schedule on 1-9 scale. Passive proxy: browser_time_minutes_since_last_prompt and screen_unlock_count.",
+        "response_scale_or_unit": "binary + minutes + 1-9 adherence Likert; passive minutes if available",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Pairs with passive streams to capture objective phone activity; ideal for modeling immediate antecedents of checking episodes."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "log1p(minutes) for durations; use adherence Likert person-mean centered",
+        "collinearity_risk": "medium",
+        "distribution_hint": "other"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Reduced uncontrolled searching reduces maintenance of worry over the day."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "nonlinear",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Sometimes brief checking reduces uncertainty; excessive unstructured checking increases catastrophic interpretations — effect may be nonlinear."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Directly targets checking duration; close temporal effects expected."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Scheduled checking and if-then plans increase capacity to inhibit checking impulses."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 48,
+          "rationale": "Regaining behavioral control should increase perceived control over time."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Indirect effect via reduced reassurance-seeking; timing uncertain."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "If implementing website blockers, ensure user can access health services in case of real concerns.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.8,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Passive phone metrics improve measurement but require consent and may be unavailable on some devices."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Interoceptive exposure to feared bodily sensations",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / cognitive_behavioral_therapies / exposure_and_inhibitory_learning",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Repeated planned exposure to benign bodily sensations reduces catastrophic conditioned fear and panic reactivity via inhibitory learning.",
+      "intervention_examples_safe": "Guided low-intensity interoceptive exercises (light hyperventilation-like exercises, spinning head movements in low-intensity controlled setting) with grounding and safety plan.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, did you practice interoceptive exposure exercises? (Y/N). If yes, minutes practiced and peak fear during exercise (1-9).",
+        "response_scale_or_unit": "binary + minutes practiced + 1-9 fear intensity",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Exposure sessions may be infrequent initially; capture both practice and intensity to model habituation effects."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "minutes: log1p; peak fear: person-mean centering",
+        "collinearity_risk": "low",
+        "distribution_hint": "other"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 72,
+          "rationale": "Repeated exposure reduces baseline worry over days via extinction/inhibitory learning."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 48,
+          "rationale": "Targets catastrophic associations directly; reductions expected after sessions."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 72,
+          "rationale": "Less fear-driven checking expected as interoceptive tolerance improves."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 72,
+          "rationale": "Greater tolerance supports resisting checking impulses."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 24,
+          "typical_lag_hours_max": 72,
+          "rationale": "Mastery of bodily tolerance increases perceived control over time."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 48,
+          "rationale": "Primarily reduces acute panic reactivity to bodily cues."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Exposure can transiently increase arousal; provide safety instructions and stop rules. Avoid high-intensity exercises without clinician support.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.75,
+        "gvar_feasibility_0_1": 0.75,
+        "notes": "Practice sessions may be sparse; consider modeling session-level effects with multi-timescale lags."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Mindfulness/acceptance & distress-tolerance skills",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / third_wave_and_contextual_therapies / mindfulness_based_interventions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Reduces reactivity and fused identification with worry and bodily sensations; increases urge-surfing capacity.",
+      "intervention_examples_safe": "Brief mindful body scans, urge-surfing instructions, acceptance prompts, and paced breathing practices.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, did you use a mindfulness/acceptance or breathing exercise? If yes, how many minutes and rate immediate relief (1-9).",
+        "response_scale_or_unit": "binary + minutes practiced + 1-9 relief Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Mindfulness practice frequency and perceived relief will be used to model short-term downregulation of arousal and urges."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "minutes log1p; relief rating person-mean center",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reduces momentary worry via downregulating arousal and shifting attention."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Decentering reduces fusion with catastrophic thoughts."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "May reduce urge-driven checking in the short term by increasing tolerance."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Improves ability to tolerate urges and resist checking."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Less reactivity reduces distress about loss of control."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Breathing and mindfulness can acutely lower panic intensity."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Low risk; ensure guidance for participants with trauma history (use grounding techniques).",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "High feasibility; short practices easily tracked by EMA."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Executive function / inhibition training (urge pause & response prevention)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "PSYCHO / cognitive_capacity_enhancement_and_stimulation / executive_function_training",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Specific practice of inhibitory control and urge delay reduces compulsive checking and failure-to-inhibit behaviors.",
+      "intervention_examples_safe": "Short stop-and-think routines, if-then delay plans, brief computerized inhibitory-control exercises (where available).",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, did you use an urge-pause/inhibition exercise when you felt the urge to check? (Y/N). If yes, rate success resisting (1-9) and minutes practiced.",
+        "response_scale_or_unit": "binary + 1-9 success Likert + minutes",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Directly targets C03 and C04; measure perceived success and practice minutes."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "success rating person-mean center; minutes log1p",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "By reducing checking, worry maintenance may reduce over hours."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 48,
+          "rationale": "Less compulsive checking weakens reinforcement of catastrophic beliefs."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Direct immediate effect on checking episodes."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Directly trains inhibition; expected strong short-term effects."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 72,
+          "rationale": "Successful inhibition increases perceived control (polarity: higher inhibition practice increases control -> lower C05; sign reported relative to predictor: more P05 -> lower C05 so expected_sign is '-' but we include '+' only if variable denotes failure; to avoid confusion, we use '-' below)."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 48,
+          "rationale": "Reducing habitual checking and improving inhibition may reduce panic escalation in some contexts."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Low risk. For computerized inhibitory training, ensure it's brief and optional.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Feasible for EMA; effects may manifest at multiple timescales."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Sleep and circadian stabilization",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "ontology_path": "BIO / Sleep_Circadian_and_Glymphatic_Support / Sleep_Routines_and_Practices",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.65,
+      "mechanism_rationale": "Better sleep reduces baseline anxiety and arousal reactivity, indirectly reducing worry and panic vulnerability.",
+      "intervention_examples_safe": "Consistent sleep/wake schedule, reduce nocturnal checking, pre-sleep constructive worry planning.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app + morning diary",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "Morning diary: last night's sleep onset time, wake time, sleep quality (1-9). Also nightly adherence to sleep routine (1-9). Optional passive: sleep_duration_minutes via wearable / phone (if available).",
+        "response_scale_or_unit": "times + 1-9 Likert + minutes if passive",
+        "sampling_per_day": 1,
+        "recall_window": "last night",
+        "expected_within_person_variability": "medium",
+        "notes": "Daily morning diary anchors sleep measures; sleep changes will be modeled as a slow-moving predictor (24-72h effects)."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "sleep minutes: z-score per participant; quality: person-mean center",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 24,
+          "typical_lag_hours_max": 72,
+          "rationale": "Improved sleep reduces baseline anxiety across days."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 24,
+          "typical_lag_hours_max": 72,
+          "rationale": "Lower arousal reduces catastrophic appraisals."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 24,
+          "typical_lag_hours_max": 72,
+          "rationale": "Less fatigue may reduce impulsive checking, though indirect."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 24,
+          "typical_lag_hours_max": 72,
+          "rationale": "Better sleep may improve inhibition capacity (operationalized as decreased C04). For clarity, expected_sign here is '-' (more P06 -> lower C04)."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 24,
+          "typical_lag_hours_max": 72,
+          "rationale": "Improved sleep supports sense of control and reduces distress."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 72,
+          "rationale": "Sleep effects on panic vulnerability often manifest across nights."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Recommend medical evaluation if serious sleep disorder suspected.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.7,
+        "notes": "Daily diary makes this feasible; passive wearable increases accuracy but is optional."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "Social support & accountability mechanisms",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "SOCIAL / Social_Support_and_Belonging / Support_Network_Development",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Brief social accountability (check-ins, buddy plans) can reduce avoidance-driven worry and provide alternative feedback to catastrophizing.",
+      "intervention_examples_safe": "Daily check-in with a trusted person or accountability partner about scheduled checking & coping plans.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, did you reach out to or receive a supportive/check-in message from your accountability partner? (Y/N). Rate perceived helpfulness 1-9 and whether they reminded you of your plan (Y/N).",
+        "response_scale_or_unit": "binary + 1-9 Likert",
+        "sampling_per_day": 6,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Social reminders often moderate urge-driven behaviors; variability occurs across days."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "binary flags as-is; helpfulness person-mean center",
+        "collinearity_risk": "low",
+        "distribution_hint": "other"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Support reduces immediate worry through reassurance and plan reminders (when adaptive)."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "External reality checks can help challenge catastrophic appraisals in the moment."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Accountability reduces unplanned checking episodes."
+        },
+        {
+          "criterion_var_id": "C04",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Support can help enact inhibition plans when urges arise."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 48,
+          "rationale": "Regular social support improves perceived control and reduces distress about losing control."
+        },
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "unknown",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "May help reduce panic intensity situationally but effects are context-dependent."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Ensure confidentiality planning; avoid recommending reliance on untrained others for medical advice.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.7,
+        "notes": "Feasible as EMA flags; actual social-contact variability depends on participant network."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,95000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,95000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,90000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,40000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Cognitive restructuring expected to reduce catastrophic interpretations within hours to a day.",
+      "estimated_relevance_0_1": 0.95
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Scheduled checking and digital hygiene should quickly reduce unplanned checking episodes and duration.",
+      "estimated_relevance_0_1": 0.95
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-48h",
+      "notes": "Interoceptive exposure directly targets panic reactivity to bodily cues; effects can be immediate to several days post-session.",
+      "estimated_relevance_0_1": 0.9
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Mindfulness/acceptance increases tolerance and decreases failure-to-inhibit checking.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Inhibition/urge-control training directly targets failure to resist checking; strong immediate effects possible.",
+      "estimated_relevance_0_1": 0.9
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "24-72h",
+      "notes": "Sleep stabilization is a slower-moving predictor reducing baseline worry across days.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-48h",
+      "notes": "Social support and accountability can rapidly improve perceived control and reduce distress about loss of control.",
+      "estimated_relevance_0_1": 0.85
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "P01 (cognitive restructuring) and P04 (mindfulness) can correlate—both target appraisal/attention processes; monitor VIF and consider residualizing or combining if very high.",
+      "P02 (scheduled checking) and passive screen_time proxies for C03 will be correlated; treat passive minutes and self-report minutes as complementary but watch collinearity.",
+      "P05 (inhibition training) overlaps mechanistically with P04 (distress tolerance) but differs in action orientation; moderate risk."
+    ],
+    "expected_floor_ceiling_risks": [
+      "C06 (panic intensity) may be zero-inflated if symptoms are infrequent; capture event_flag and consider event-conditioned modeling.",
+      "P03 interoceptive exposure minutes may be sparse early, creating floor effects—model as session-level binary + continuous minutes when present."
+    ],
+    "variance_enhancement_suggestions": [
+      "Use 1–9 Likert anchored scales to increase variance for subjective constructs.",
+      "Collect both duration (minutes) and intensity (1–9) for checking episodes to avoid rare-event binary problems.",
+      "Encourage at least brief daily practice of P01/P04 to increase within-person variance in predictors."
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "Many BIO neuromodulation/pharmacology nodes (TMS, meds) are deprioritized at this behavioral early-intervention stage for feasibility and safety in EMA-only gVAR setup.",
+      "Avoid multiple separate CBT-skill variables (e.g., separate reappraisal, metacognitive, and problem-solving) to minimize redundancy—combined into P01."
+    ],
+    "gvar_feasibility_summary": "With 6 criteria + 7 predictors (13 time series) and ~168 momentary observations, an initial gVAR is feasible if adherence is ≥70%. If adherence lower, reduce predictors to top 3–5 (P01, P02, P05, P03 prioritized by likely short-term effects) or use lagged shrinkage priors."
+  },
+  "safety_notes": "No explicit self-harm or psychosis risk indicated in the complaint. However, intense panic and impairment warrant a recommendation to seek professional evaluation if symptoms include severe functional impairment, syncope, chest pain, or suicidal ideation. Exposure (P03) should be done with safety instructions and stop rules; do not recommend high-intensity interoceptive exposure without clinician oversight. Passive data collection requires informed consent and clear privacy safeguards."
+}

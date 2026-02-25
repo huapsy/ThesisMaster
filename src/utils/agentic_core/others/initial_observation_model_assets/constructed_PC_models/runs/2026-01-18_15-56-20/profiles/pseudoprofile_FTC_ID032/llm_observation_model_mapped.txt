@@ -1,0 +1,18 @@
+pseudoprofile_id: pseudoprofile_FTC_ID032
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Frequency of being sought for others' problems -> NON-CLINICAL / AGE-GENERAL / social / social integration / social connectedness / network of friends / social support from friends / emotional support / listening to concerns (conf=0.88)
+- C02: Difficulty requesting help -> NON-CLINICAL / AGE-GENERAL / existential / adaptability / abilitytocope / seekingsupport / askingforhelp (conf=0.84)
+- C03: Emotion suppression / masking -> NON-CLINICAL / AGE-GENERAL / emotional / emotional awareness / emotional expression / appropriate display / emotion regulation in displays (conf=0.62)
+- C04: Delayed breakdowns after suppression -> CLINICAL / DSM-5TR / disruptive, impulse-control, and conduct disorders / cross-cutting or developmental course (for any of the above) / episodic / episode_emotional_lability (conf=0.78)
+- C05: Role fatigue / resentment about 'being strong' -> NON-CLINICAL / AGE-GENERAL / emotional / subjective affective feeling / feeling exhausted (conf=0.62)
+- C06: Boundary-setting and refusal skills -> NON-CLINICAL / AGE-GENERAL / psychological / autonomy / boundary setting / saying no when necessary / protecting personal time (conf=0.88)
+
+PREDICTORS:
+- P01: Boundary_setting_and_decline_scripts -> PSYCHO / core_psychological_skills_toolkits / interpersonal_effectiveness_and_relational_repair / assertiveness_and_boundaries / ask_say_no_negotiate / boundary_setting_scripts (conf=0.82)
+- P02: Assertive_help_seeking_training -> PSYCHO / cognitive_behavioral_therapies / cbt_skills_training_libraries / assertiveness_and_boundaries / core_skills / assertiveness_training (conf=0.72)
+- P03: Emotion_expression_training -> PSYCHO / integrative_creative_and_body_oriented_interventions / creative_and_expressive_interventions / art_based_emotion_expression_practice (conf=0.62)
+- P04: Self_compassion_and_resilience_training -> PSYCHO / core_psychological_skills_toolkits / compassionate_self_relating_and_inner_support / self_compassion_practices / warmth_and_common_humanity / self_compassion_break_practice (conf=0.78)
+- P05: Sleep_circadian_optimization_and_awareness -> BIO / sleep_circadian_and_restoration / sleep_devices_and_technologies / tracking_and_feedback / actigraphy_device (conf=0.64)
+- P06: Mindfulness_and_ACT_based_regulation -> PSYCHO / third_wave_and_contextual_therapies / act_contextual_behavioral_therapy / present_moment_awareness / mindfulness_of_emotions (conf=0.72)

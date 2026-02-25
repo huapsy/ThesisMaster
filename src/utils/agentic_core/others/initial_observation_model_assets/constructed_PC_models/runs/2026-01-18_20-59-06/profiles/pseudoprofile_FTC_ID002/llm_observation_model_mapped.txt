@@ -1,0 +1,20 @@
+pseudoprofile_id: pseudoprofile_FTC_ID002
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Diminished positive emotional response to pleasant events -> NON-CLINICAL / AGE-SPECIFIC / infancy / emotional_development / emotional_expressions / positive_emotions / pleasure_responses (conf=0.86)
+- C02: Guilt about not enjoying positive experiences -> CLINICAL / DSM-5TR / depressive disorders / substance or medication-induced depressive disorder / alcohol-induced depressive disorder / guilt (conf=0.72)
+- C03: Behavioral autopilot / low moment-to-moment engagement -> NON-CLINICAL / AGE-GENERAL / psychological / temporal perspective / present orientation / being in the moment / immediate awareness (conf=0.85)
+- C04: General emotional blunting (low affect intensity) -> CLINICAL / DSM-5TR / movement disorders and other side effects of medication / other (secondary) side effects of medication / organ-system effects / psychiatric or behavioral / emotional blunting / blunted_affective_reactions_to_emotional_stimuli (conf=0.82)
+- C05: External presentation of being 'fine' despite internal disengagement -> NON-CLINICAL / AGE-GENERAL / emotional / emotional awareness / emotional expression / appropriate display / emotion regulation in displays (conf=0.75)
+- C06: Reduced motivation/interest to pursue non-routine pleasurable activities -> NON-CLINICAL / AGE-GENERAL / physical / physical comfort / relaxation / leisure engagement / pursuing interests (conf=0.78)
+
+PREDICTORS:
+- P01: Behavioral activation: planned pleasant/activity adherence -> PSYCHO / change_process_and_therapeutic_phases / skill_acquisition / behavioral_planning_and_execution_skills / behavioral_activation_scheduling (conf=0.72)
+- P02: Positive-event noticing / savoring practice engagement -> PSYCHO / positive_psychology_and_wellbeing / gratitude_and_savoring / savoring_positive_moments_practice (conf=0.82)
+- P03: Self-compassion / guilt-reduction practice use -> PSYCHO / third_wave_and_contextual_therapies / dbt_skills_based_therapy / emotion_regulation_skills / self_relating_and_repair / validate_and_soothe / self_compassion_practice (conf=0.92)
+- P04: Micro-activation energizers (5-minute activations) -> PSYCHO / change_process_and_therapeutic_phases / readiness_and_engagement / wellbeing_optimization_entry_path / positive_emotion_micropractices_plan (conf=0.85)
+- P05: Brief mindful present-moment check-ins (attention) -> PSYCHO / third_wave_and_contextual_therapies / act_contextual_behavioral_therapy / present_moment_awareness / brief_checkin_practice (conf=0.92)
+- P06: Social connectedness: brief interactions / outreach -> SOCIAL / social_support_and_belonging / belonging_isolation_and_meaning / loneliness_reduction_planning / micro_connection_opportunities_plan (conf=0.72)
+- P07: Sleep quality and regularity (previous night) -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / sleep_quality_rating (conf=0.78)
+- P08: Morning light exposure / early activity (minutes bright) -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / morning_bright_light_exposure (conf=0.92)

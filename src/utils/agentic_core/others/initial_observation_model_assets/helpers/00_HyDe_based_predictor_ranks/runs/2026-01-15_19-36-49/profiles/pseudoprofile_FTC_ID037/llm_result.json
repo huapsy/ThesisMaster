@@ -1,0 +1,151 @@
+{
+  "pseudoprofile_id": "CASE_PAYLOAD_PROFILE_001",
+  "summary": "The case reveals chronic lateness driven by planning-errors (underestimating durations), gaps in pre-departure organization (keys/items), and a negative self-evaluation that may reinforce avoidance of preparatory steps. The modifiable levers span cognitive calibration, habitual routines, environmental supports, sleep/executive-function optimization, and social accountability. A multi-domain strategy is warranted: calibrate time estimates, build reliable pre-departure checklists, schedule with guaranteed buffers, reduce duration variability through consistent routines, soften negative self-talk with self-compassion, optimize sleep, and leverage social accountability. Key metrics should track lateness frequency, estimate accuracy, checklist/address readiness, buffer adherence, task-duration variability, and self-criticism to gauge impact of interventions over 4–12 weeks.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Structured time-block scheduling with built-in buffers and reminders",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a daily and weekly calendar that blocks time for each upcoming commitment, inserts a guaranteed buffer (e.g., 15–30 minutes) before each departure, and uses automated reminders 30 minutes and 5 minutes prior. Start with one predictable routine (e.g., morning departure) and expand. Train the person to estimate arrival/delay probabilities using past data to adjust buffers.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "External structure reduces planning fallacy and cognitive load, buffers absorb unanticipated delays, and calibrated task pacing improves accuracy of duration estimates and reduces variability.",
+      "measurement": "On-time rate (% of events started within 5 minutes of start time); average buffer used per event; mean absolute error between estimated and actual task durations; standard deviation of task durations for a fixed task set",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "MAP to C01/C02/C04/C05 via time-blocking, buffering, and estimation calibration; monitor on-time performance and duration accuracy."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Pre-departure organizational checklist (keys, phone, clothes, etc.)",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Create a 60-second pre-departure checklist used before every departure. Pair with a small, reliable physical or digital container (e.g., keyhook, tray, or checklist app) and train to complete the checklist prior to grabbing the bag. Include a designated place for essentials.",
+      "targets_criteria_ids": [
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Ensures essential items are ready and reduces time spent searching, thereby decreasing delays and reinforcing a departure routine.",
+      "measurement": "Checklist completion rate per departure; time from decision to departure; self-reported ease of departure",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "MAP to C03; potential secondary effects on C01 through improved prep reliability."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Task duration estimation calibration using time-tracking and feedback",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use a simple mobile/app-based time-tracking protocol for routine prep tasks (showering, keys, walking to car). After each task, record estimated vs. actual duration and adjust estimates accordingly in a weekly review. Include a brief cognitive reflection to counter planning fallacy.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Promotes metacognitive calibration of time estimates, reducing systematic underestimation and smoothing duration variability over tasks with similar characteristics.",
+      "measurement": "Mean absolute error between estimated and actual durations; within-task duration SD over 4-week window",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.78,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "MAP to C02 and C05 via estimation calibration and variability reduction."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Default scheduling with fixed buffers for all departures",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Establish a policy: every event has a default buffer (e.g., 15–20 minutes) and a fixed lead time. Use calendar templates to enforce pre-defined buffer blocks and prompts.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Habitual buffering lowers lateness risk and creates predictable departure dynamics, reinforcing a proactive planning mindset.",
+      "measurement": "Buffer adherence rate; proportion of events with default buffer used; on-time rate",
+      "time_horizon": "6–10 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "MAP to C01/C04 through automated buffering policy and adherence tracking."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Routines to reduce variability in routine tasks",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Create fixed sequences and standardize routines (e.g., always shower, dress, grab keys in same order). Use visual or auditory cues to cue the next action. Gradually extend to other routine tasks; minimize day-to-day variability in task order and duration.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Standardization reduces unplanned deviations, stabilizing task durations and improving predictability of departure readiness.",
+      "measurement": "Within-subject SD of durations for a fixed set of tasks; CV of task times per week",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "MAP to C05 via duration variability stabilization."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Self-compassion and cognitive reframe to reduce negative self-evaluation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce brief self-compassion exercises and cognitive reframing after lateness episodes (e.g., compassionate notes, non-judgmental language). Use a daily 5-minute reflection to counter shame and self-criticism.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Reduces affective impact of lateness and promotes adaptive self-talk, potentially increasing engagement with planning tasks.",
+      "measurement": "Daily self-criticism rating; mood ratings; frequency of self-judgment statements",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "MAP to C06 via emotional regulation and self-worth work."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Sleep optimization to support executive functioning",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a consistent sleep routine (fixed bed/wake times, dark/light exposure, screen hygiene) and daytime light exposure. Monitor sleep quality weekly and adjust bedtime cues as needed.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Better sleep supports executive functions (planning, estimation, initiation) and reduces daytime fatigue that contributes to lateness and duration misestimation.",
+      "measurement": "Sleep quality and consistency metrics (subjective sleep quality, wake time consistency); on-time rate",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "MAP to C01/C05 through sleep-related cognitive & behavioral improvements."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Social accountability and support network",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Establish accountability partners (friend/colleague/family member) or a small group that checks in on readiness, lateness, and task prep. Use shared goals and progress updates to reinforce adherence.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Social accountability increases commitment to routines, improves prep readiness, and sustains buffer usage; social environment shapes behavior.",
+      "measurement": "Frequency of check-ins completed; partner-rated on-time performance; self-reported readiness before departures",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "MAP to C01/C03/C04 via accountability, readiness, and buffering support."
+    }
+  ]
+}

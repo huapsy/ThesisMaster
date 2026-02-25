@@ -1,0 +1,915 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID019",
+  "model_summary": "Initial gVAR-ready observation model targets hyperarousal with four criterions (startle intensity, momentary on-edge tension, cue-linked physiological reactivity, and distress about symptoms) and six modifiable predictors spanning BIO and PSYCHO mechanisms (sleep quality, caffeine intake, paced breathing, mindfulness/grounding use, cognitive reappraisal, and gentle trigger approach). Sampling uses 5 EMA prompts/day (since-last-prompt or momentary) plus a morning diary for sleep across 21 days. Measures favor 1–9 Likert or low-burden counts to maximize within-person variance and minimize redundancy, with careful attention to potential collinearity (e.g., mindfulness and breathing) and nonlinear exposure effects (gentle trigger approach).",
+  "variable_selection_notes": "Chosen criterions preserve the complaint’s resolution: (1) exaggerated startle (C01), (2) persistent on-edge tension (C02), (3) conditioned cue-reactivity (C03), and (4) distress about symptoms (C05). C04 (hypervigilance) overlaps with C02/C01 and was excluded to reduce collinearity; C06 (expectation–reality mismatch) is slower-moving and better captured via predictors (reappraisal) and outcome distress, so excluded to maintain estimability. Predictors emphasize high-signal, tractable levers supported by rankings and literature: sleep quality, caffeine modulation, autonomic downregulation (paced breathing), mindfulness/grounding, cognitive reappraisal, and graded trigger approach/exposure. Social/biomedical and passive-sensor options (e.g., HRV, broad social support) were deprioritized in this first pass to keep burden low and reduce construct redundancy. Uncertainty: gentle trigger approach can acutely increase arousal before longer-term reduction; marked as nonlinear with multi-lag. Within-person variance is expected to be adequate with 5/day sampling and since-last-prompt framing.",
+  "design_recommendations": {
+    "study_days": 21,
+    "momentary_ema": {
+      "prompts_per_day": 5,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:30",
+        "12:30",
+        "15:30",
+        "18:30",
+        "21:30"
+      ],
+      "recall_window": "since last prompt",
+      "expected_total_prompts": 105,
+      "notes": "~3–10 min jitter around anchors; reminders allowed once per prompt. Keep per-prompt item set short (~8–10 items)."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "07:30"
+      ],
+      "expected_total_entries": 21,
+      "notes": "Morning diary asks about last night’s sleep before day EMA begins."
+    },
+    "passive_streams": {
+      "enabled": false,
+      "aggregation_strategy": "N/A",
+      "notes": "Optional future add-ons: HRV (nightly), ambient noise events, step counts; start with EMA-only to reduce complexity."
+    },
+    "minimum_total_observations_target": 90,
+    "gvar_readiness_notes": "With 5 EMA prompts/day over 21 days, expect ~105 momentary observations/variable (pre-missingness) plus 21 sleep diaries. This supports person-specific gVAR with 10 variables (4 criteria, 6 predictors).",
+    "variance_support_notes": "Use 1–9 Likert anchors, since-last-prompt recall, and time-block jitter to increase within-person variability and reduce recall bias. Include brief counts for skills use (log1p suggested).",
+    "missingness_risk_notes": "Highest risk is evening fatigue and weekend irregularity. Use 1 reminder/prompt, streak feedback, and <60s completion time. Monitor compliance; consider micro-incentives if drop-off >20%."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "C01",
+      "label": "Exaggerated startle intensity to sudden cues",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how strong were any startle/flinch reactions to sudden sounds or unexpected approaches?",
+        "response_scale_or_unit": "1–9 Likert (1=None/very mild, 9=Extremely strong)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Optional event flag can be added later if needed; intensity captures both occurrence and magnitude."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_z",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "C02",
+      "label": "Momentary on-edge/tense feeling",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how tense or on edge do you feel?",
+        "response_scale_or_unit": "1–9 Likert (1=Not at all, 9=Extremely)",
+        "sampling_per_day": 5,
+        "recall_window": "right now",
+        "expected_within_person_variability": "high",
+        "notes": "Core hyperarousal criterion with strong momentary variance."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_z",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "C03",
+      "label": "Cue-linked physiological reactivity (reminders)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how strong was your body’s reaction when reminded of the past incident or similar cues? (If not reminded, choose 1)",
+        "response_scale_or_unit": "1–9 Likert (1=Not reminded/no reaction, 9=Very strong reaction)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Combines reminder occurrence and intensity to avoid branching and reduce burden."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_z",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "C05",
+      "label": "Distress about being jumpy/on edge",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how much do you dislike or feel bothered by being jumpy/on edge?",
+        "response_scale_or_unit": "1–9 Likert (1=Not at all, 9=Extremely)",
+        "sampling_per_day": 5,
+        "recall_window": "right now",
+        "expected_within_person_variability": "high",
+        "notes": "Captures emotional burden and motivation to change."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_z",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Sleep quality last night",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "Sleep_Circadian_and_Restoration / Sleep_Routines_and_Practices",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.6,
+      "mechanism_rationale": "Restorative sleep downregulates baseline arousal and improves emotion regulation, reducing startle and tension the following day.",
+      "intervention_examples_safe": "Regular sleep/wake window, wind-down routine, light/dark management, bedroom noise reduction.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "morning_diary",
+        "item_or_signal": "Overall, how restorative was your sleep last night?",
+        "response_scale_or_unit": "1–9 Likert (1=Not at all, 9=Extremely)",
+        "sampling_per_day": 1,
+        "recall_window": "last night",
+        "expected_within_person_variability": "medium",
+        "notes": "Pairs with optional items later (sleep duration, awakenings) if needed."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within_person_z",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep lowers baseline hyperarousal and reduces startle reactivity across the day."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Poor sleep increases subjective tension; high-quality sleep decreases on-edge feelings next day."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Rested state improves inhibitory control and reduces cue-reactivity."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 6,
+          "typical_lag_hours_max": 24,
+          "rationale": "Restorative sleep buffers negative affect and symptom distress."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Non-pharmacologic sleep hygiene focus only; no dosing guidance.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Single-item morning diary is low burden."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Caffeine intake since last prompt",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "Nutrition_Hydration_and_Metabolic_Health / Caffeine_and_Stimulant_Intake_Modulation",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Caffeine increases sympathetic arousal and can heighten startle/tension; reducing intake may lower hyperarousal.",
+      "intervention_examples_safe": "Cap intake earlier in day; swap to lower-caffeine or decaf; avoid energy drinks.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how much caffeine did you consume (coffee, tea, soda, energy drinks)?",
+        "response_scale_or_unit": "0–9 scale (0=None, 9=Very high)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Simple ordinal captures dose without complex mg estimation."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "within_person_z",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Acute stimulant effects increase startle probability/intensity."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Increases subjective jitteriness and tension."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Elevated arousal can potentiate cue-reactivity."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Jitteriness can raise frustration/distress about symptoms."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Avoids medical advice; reminds to consider personal sensitivity and timing.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Single item per prompt; minimal burden."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Paced/diaphragmatic breathing minutes",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "ontology_path": "Movement_Physical_Function_and_Somatic_Care / Respiratory_and_Autonomic_Physiology_Tools",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Slow breathing (4–6 breaths/min) increases vagal tone and rapidly downshifts arousal, reducing on-edge tension and startle.",
+      "intervention_examples_safe": "Box breathing, 4-6 breaths/min diaphragmatic breathing for 2–10 minutes when tense.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, about how many minutes did you do slow/paced breathing (e.g., 4–6 breaths/min)?",
+        "response_scale_or_unit": "Minutes (0–60), numeric entry",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Minutes often zero-inflated; transformation recommended."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "log1p then within_person_z",
+        "collinearity_risk": "medium",
+        "distribution_hint": "count"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Immediate autonomic downregulation reduces startle magnitude."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reduces momentary arousal and tension."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "May blunt physiological reactivity when reminders occur."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Lower arousal decreases frustration about symptoms."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Stop if lightheaded; practice seated; avoid breath-holds if uncomfortable.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Brief numeric entry; optional future passive timer integration."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Mindfulness/grounding use",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "Third_Wave_and_Contextual_Therapies / Mindfulness_Based_Interventions",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Present-moment, nonjudgmental attention and sensory grounding reduce threat monitoring and reactivity.",
+      "intervention_examples_safe": "5-senses grounding, mindful breathing, brief body scan, orientation to present cues.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, how much did you use mindfulness/grounding (e.g., 5-senses, body scan, mindful breaths)?",
+        "response_scale_or_unit": "1–9 Likert (1=None, 9=A lot)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures frequency/intensity without multiple sub-items."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "within_person_z",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Grounding counters startle amplification via attentional reset."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Decreases subjective on-edge feelings."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Improves tolerance of reminders and dampens reactivity."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Nonjudgmental stance reduces secondary distress about symptoms."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Keep practices brief and non-invasive; avoid prolonged eyes-closed if uncomfortable in public.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Single Likert per prompt; low burden."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Cognitive reappraisal use",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "Cognitive_Behavioral_Therapies / Cognitive_Restructuring",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Reattributing sensations (e.g., ‘my body is sensitive, not in danger’) reduces perceived threat and distress.",
+      "intervention_examples_safe": "Labeling sensations, probability reframe, safety reframe, normalizing startle.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, to what extent did you reframe or reinterpret your arousal as safe/temporary?",
+        "response_scale_or_unit": "1–9 Likert (1=Not at all, 9=A lot)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Captures skill application without content capture."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "within_person_z",
+        "collinearity_risk": "medium",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reduced perceived threat may modestly reduce startle magnitude."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Threat reinterpretation can lower on-edge feelings."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Reframing reminders as safe reduces physiological reactivity."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Directly targets secondary distress about symptoms."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Keep reappraisals realistic; avoid invalidating experiences.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Single Likert per prompt; clear anchors."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Gentle trigger approach (graded exposure)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "Cognitive_Behavioral_Therapies / Exposure_and_Inhibitory_Learning",
+      "ontology_level": "tertiary_or_deeper",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Planned, gentle approach to avoided cues reduces conditioned responding via inhibitory learning; may transiently raise arousal.",
+      "intervention_examples_safe": "Small, safe steps toward benign cues (e.g., walking in mildly busy areas with supports), brief practice, plan exit options.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "smartphone EMA app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "Since the last prompt, to what extent did you gently approach situations or cues you usually avoid because of jumpiness?",
+        "response_scale_or_unit": "1–9 Likert (1=None, 9=A lot)",
+        "sampling_per_day": 5,
+        "recall_window": "since last prompt",
+        "expected_within_person_variability": "medium",
+        "notes": "Nonlinear effects expected (short-term up, longer-term down)."
+      },
+      "gvar_handling": {
+        "likely_stationary": true,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "within_person_z",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "nonlinear",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 48,
+          "rationale": "May briefly increase startle during/after practice, with delayed reductions."
+        },
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "nonlinear",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 48,
+          "rationale": "Tension may spike acutely, then decrease with learning."
+        },
+        {
+          "criterion_var_id": "C03",
+          "expected_sign": "nonlinear",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 72,
+          "rationale": "Core target for reducing conditioned reactivity via inhibitory learning over days."
+        },
+        {
+          "criterion_var_id": "C05",
+          "expected_sign": "nonlinear",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 48,
+          "rationale": "Distress may rise during practice and fall as mastery increases."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "User-led pacing; avoid dangerous contexts. If distress is overwhelming or safety is uncertain, stop and seek guidance.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.8,
+        "notes": "Single Likert per prompt; coachable via brief instructions."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,45000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Next-day effect of sleep quality on startle.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Sleep quality inversely related to on-edge tension the following day.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Rested baseline lowers cue-reactivity.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Sleep buffers negative affect/distress.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Acute stimulant effects heighten startle.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Caffeine increases jitteriness/on-edge feelings.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Elevated arousal can potentiate reactivity to reminders.",
+      "estimated_relevance_0_1": 0.45
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Caffeine-related jitteriness may raise frustration about symptoms.",
+      "estimated_relevance_0_1": 0.4
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Vagal upshift reduces startle magnitude.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Rapid downregulation of arousal lowers on-edge state.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Breathing can blunt cue-reactivity when reminders occur.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Lower arousal reduces distress.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Grounding reduces amplification of startle via attention control.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Mindfulness reduces momentary tension.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Improves tolerance of reminders; dampens reactivity.",
+      "estimated_relevance_0_1": 0.55
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Nonjudgment reduces secondary distress.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Threat reinterpretation modestly reduces startle.",
+      "estimated_relevance_0_1": 0.35
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Lower perceived threat reduces on-edge feelings.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Cognitive reframing can weaken cue-reactivity.",
+      "estimated_relevance_0_1": 0.45
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Directly targets distress about symptoms.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "nonlinear",
+      "lag_spec": "multi_lag",
+      "notes": "Possible short-term increase, delayed decrease with learning.",
+      "estimated_relevance_0_1": 0.5
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "nonlinear",
+      "lag_spec": "multi_lag",
+      "notes": "Acute tension rise during approach; later reductions.",
+      "estimated_relevance_0_1": 0.45
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "nonlinear",
+      "lag_spec": "multi_lag",
+      "notes": "Primary target for long-term reduction in cue-reactivity.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "nonlinear",
+      "lag_spec": "multi_lag",
+      "notes": "Distress may transiently rise then fall as mastery grows.",
+      "estimated_relevance_0_1": 0.45
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "C02 (on-edge) with C05 (distress)",
+      "P03 (paced breathing) with P04 (mindfulness/grounding)",
+      "P05 (reappraisal) with P04 (mindfulness)"
+    ],
+    "expected_floor_ceiling_risks": [
+      "C03 may have low values if reminders are infrequent; Likert design mitigates by allowing 1=not reminded.",
+      "P03 minutes may be zero-inflated on non-practice days."
+    ],
+    "variance_enhancement_suggestions": [
+      "Use since-last-prompt framing and jitter to increase event capture.",
+      "Provide brief in-app nudge suggestions to practice breathing/grounding when tense to create natural variance.",
+      "If C03 is persistently floor, consider adding a binary reminder flag or broaden to similar safety cues."
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "C04 Situational hypervigilance (overlaps with on-edge/startle)",
+      "C06 Expectation–reality mismatch (slower-moving; captured via P05 and C05)",
+      "Physical activity minutes (initially excluded to keep burden low)",
+      "Generic social support items (less proximal to startle; add later if needed)",
+      "Passive HRV or noise sensors (phase 2 if compliance is strong)"
+    ],
+    "gvar_feasibility_summary": "10 variables total (4 criteria, 6 predictors) with ~105 momentary samples and 21 morning diaries over 21 days is suitable for person-specific gVAR. Transformations (z-scoring, log1p for counts) and potential detrending will support model assumptions."
+  },
+  "safety_notes": "This is not a diagnosis or treatment. If symptoms sharply worsen, if you experience panic, intrusive memories you cannot manage, thoughts of self-harm, or safety concerns, seek professional help or urgent care. Keep all exposure steps small and in clearly safe contexts; stop if overwhelmed."
+}

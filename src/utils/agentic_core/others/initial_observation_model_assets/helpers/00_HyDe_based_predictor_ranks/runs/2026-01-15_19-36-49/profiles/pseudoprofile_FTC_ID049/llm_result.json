@@ -1,0 +1,168 @@
+{
+  "pseudoprofile_id": "BIOPSY_CASE_001",
+  "summary": "The case shows episodic tingling with an immediate anxiety response and a bidirectional reinforcement loop (sensations amplify anxiety, which worsens sensations, fueled by catastrophic interpretations and medical uncertainty). Targetable levers span the BIO (neurophysiological arousal, sleep/nutrition, movement/proprioception), PSYCHO (cognitive appraisals, mindfulness, education), and SOCIAL (support, care navigation) domains. The following candidate predictors are atomic, modifiable levers designed to disrupt the cycle, reduce threat interpretation, lower interoceptive vigilance, and improve coping during episodes, while incorporating simple, scalable measures for tracking impact over 6–12 weeks.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Interoceptive exposure during tingling episodes (behavioral activation to sensations)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Structured interoceptive exposure protocol: when tingling begins or is anticipated, systematically induce and then tolerate sensations at tolerable intensities (e.g., gentle limb movements, held postures, mild breathing rhythm changes) paired with acceptance strategies and nonjudgmental labeling of sensations.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Reduces fear/avoidance of bodily sensations, dampens the sensory-to-anxiety amplification loop, and decreases hypervigilant monitoring by promoting habituation to internal cues.",
+      "measurement": "Episode-level anxiety rating (0–10) during tingling; number of tingling episodes per week; self-rated tingling intensity (0–10); daily diary notes of exposure steps completed.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "If tingling worsens or new neurological signs emerge (e.g., weakness, asymmetry), pause and seek medical evaluation.",
+      "mapping_query": "Targets C02, C03, C06 via exposure to sensations; use episode diary to monitor changes in anxiety, frequency, and interoceptive focus."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Cognitive restructuring of catastrophic beliefs about sensations",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "CBT-informed cognitive restructuring: identify and challenge threat-laden interpretations (e.g., 'this must be dangerous' or 'my body is failing') and generate balanced explanations for tingling; include behavioral experiments to test beliefs.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C03"
+      ],
+      "mechanism_rationale": "Directly alters maladaptive appraisals, reducing threat interpretation (C04) and medical uncertainty-driven worry (C05); also reduces the amplification loop (C03) by detaching anxiety from somatic sensations.",
+      "measurement": "Frequency of catastrophic interpretations per week (0–4 scale); confidence in alternative explanations; belief revision score; episode-related worry (0–10).",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.8,
+      "priority": "HIGH",
+      "safety_notes": "Ensure guidance is collaborative; avoid reinforcing catastrophizing with overly reassuring statements; monitor for increasing avoidance.",
+      "mapping_query": "Addresses C04 and C05; monitors reduction in C03 via belief change; use belief-tracking and worry scores."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Mindfulness-based body awareness during sensations",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Mindfulness-based interventions (body scan, nonjudgmental observation of sensations) practiced daily with brief meditations and in-the-moment acceptance during episodes.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Reduces interoceptive attention reactivity and distress associated with sensations, dampening monitoring and emotional reactivity.",
+      "measurement": "Daily mindfulness practice days; self-reported interoceptive focus during episodes (0–10); change in episode anxiety (0–10).",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Some individuals may find mindfulness uncomfortable; offer shorter practices and optional grounding alternatives.",
+      "mapping_query": "Targets C06 (interoceptive monitoring) with mindfulness to reduce reactivity; track practice adherence and episode-based distress."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Psychoeducation on benign nature of tingling and medical uncertainty",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Brief psychoeducation module explaining common causes of tingling, variability, and what constitutes red flags, with a plan for when to seek care.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces threat interpretations and uncertainty by improving knowledge and expectancy, thereby lowering hypervigilance and fear-based amplification.",
+      "measurement": "Knowledge quiz score (0–100); worry about medical cause (0–10); reliance on medical information (0–5 scale).",
+      "time_horizon": "3–5 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Provide balanced information; avoid creating false reassurance; include red-flag guidance.",
+      "mapping_query": "Addresses C04 and C05 through education; measure knowledge and worry change."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep circadian optimization to reduce arousal and interoceptive sensitivity",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Sleep hygiene program focusing on regular bedtimes, consistent wake times, light exposure management, and wind-down routines to normalize arousal and improve autonomic regulation.",
+      "targets_criteria_ids": [
+        "C02",
+        "C06",
+        "C01"
+      ],
+      "mechanism_rationale": "Improved sleep quality reduces baseline anxiety and physiological arousal, which lowers the likelihood and intensity of tingling-related anxiety and interoceptive vigilance.",
+      "measurement": "Sleep quality (brief 3-item sleep screen or sleep diary); wake time regularity; episode anxiety during tingling (0–10); tingling frequency/intensity (0–10).",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Monitor for excessive caffeine or screen exposure late in day; adjust for individual sleep needs.",
+      "mapping_query": "Targets C02, C06, and C01 via improved sleep-related autonomic regulation; track sleep and episode metrics."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Gentle movement and proprioceptive training",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Light aerobic activity and proprioceptive exercises (balance, coordination tasks, gradual strength work) to support nervous system functioning and reduce bodily monitoring.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "Enhances neurophysiological resilience and reduces fixation on subtle sensations by improving sensory integration and confidence in bodily signals.",
+      "measurement": "Daily step count; balance/proprioception task performance; tingling episode frequency/intensity; anxiety during episodes (0–10).",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Start at low intensity; stop if numbness/tingling worsens; check with clinician if progression occurs.",
+      "mapping_query": "BIO lever targeting C01 and C06 through movement and proprioception; monitor changes in episode metrics."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social support and coached check-ins for anxiety reduction",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured social support: regular, supportive check-ins with a trusted person or coach to discuss sensations, coping strategies, and progress; includes a safety/strategy plan for episodes.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Social connectedness buffers anxiety responses and reduces vigilance; modeling and accountability reduce amplification and improve coping behaviors.",
+      "measurement": "Weekly mood rating; perceived social support scale; number of sensations discussed with support person; episode-related anxiety (0–10).",
+      "time_horizon": "4–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure support contacts are healthy and non-judgmental; avoid enabling health-anxiety spirals.",
+      "mapping_query": "SOCIAL lever aiming at lowering C02 and C03 via supportive interaction; track weekly support engagement and episode distress."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Care navigation and coordinated medical follow-up to reduce uncertainty",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "A coordinated care plan with a single point of contact to streamline medical assessments, rule out urgent conditions, and provide consistent information about the tingling",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Reduces medical uncertainty and inconsistent messaging that can fuel anxiety and threat interpretations.",
+      "measurement": "Satisfaction with care navigation (0–10); number of medical contacts; worry about medical cause (0–10).",
+      "time_horizon": "2–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure access when symptoms change; avoid unnecessary medical testing; provide clear red-flag criteria.",
+      "mapping_query": "Social care pathway to address C05; monitor medical worry and care satisfaction."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Nutritional optimization for nerve health (dietary adequacy)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Dietary assessment with emphasis on adequate micronutrients (e.g., B vitamins, magnesium) and hydration to support nerve function and reduce systemic arousal; avoid unproven supplements.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Adequate nutrition supports nerve conduction and reduces susceptibility to stress-induced sensations; improved physiological baseline may lower episode intensity and frequency.",
+      "measurement": "Diet quality score (brief screen); nutrient intake adequacy; tingling episode frequency/intensity (0–10).",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.4,
+      "priority": "LOW",
+      "safety_notes": "Do not substitute medical advice; seek clinician guidance for suspected deficiencies.",
+      "mapping_query": "BIO lever targeting C01 via nutritional status; track diet quality and tingling metrics."
+    }
+  ]
+}

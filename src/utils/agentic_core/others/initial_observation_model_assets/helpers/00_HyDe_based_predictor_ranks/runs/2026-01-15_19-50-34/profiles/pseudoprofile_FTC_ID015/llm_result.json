@@ -1,0 +1,157 @@
+{
+  "pseudoprofile_id": "postpartum_case_S1",
+  "summary": "The case shows a new-parent, postpartum distress characterized by altered self-perception since childbirth (C01), strong positive bond with the baby (C02) coexisting with overwhelm, guilt, tearfulness, and perceived entrapment (C03-C07), and concern about validation from others (C08). Modifiable predictors span sleep biology, emotion regulation, self-compassion and identity work, CBT-based cognitive-behavioral skills, social support, and mindfulness-based approaches. The proposed levers are practical, non-pharmacologic, and targeted to reduce distress by improving sleep, coping capacity, self-relief from guilt, sense of autonomy, and social validation, while leveraging interactions among BIO/PSYCHO/SOCIAL domains to maximize impact within a 4–12 week horizon. Each lever links to measurable and actionable outcomes and includes safety considerations for escalation if noted risk emerges.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep_quality_and_circadian_alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured sleep improvement plan including consistent bedtime and wake time, daytime nap management, optimized sleep environment (dark, quiet, comfortable), light exposure/darkness cues, and sleep diary tracking with a weekly review.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Improved sleep stabilizes mood regulation, reduces emotional reactivity (tearfulness), and diminishes guilt amplification by increasing cognitive bandwidth for parenting tasks.",
+      "measurement": "Weekly sleep diary (duration, awakenings), Pittsburgh Sleep Quality Index (PSQI) score, days with ≥7 hours sleep.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for sleep deprivation risk; refer to clinician if insomnia persists or worsens; non-pharmacologic sleep aids only.",
+      "mapping_query": "CASE_POSTPARTUM Sleep optimization mapped to C05 (overwhelm), C06 (tearfulness), C07 (self-criticism)"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Emotion_Regulation_Skills_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "A brief CBT/DBT-inspired skills program focusing on identifying emotions, cognitive reappraisal, distress tolerance, and urge surfing; 4–6 modules with at-home practice and weekly check-ins.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C07",
+        "C05"
+      ],
+      "mechanism_rationale": "Enhanced ability to label and modulate emotions reduces reactive crying, self-criticism after emotional episodes, and perceived overwhelm by providing coping-based responses.",
+      "measurement": "ERQ (Emotion Regulation Questionnaire) or DERS short form; weekly counts of emotional episodes; self-rated regulation quality.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No medication involved; monitor for escalation of distress; adjust support if crying persists with functional impairment.",
+      "mapping_query": "PSYCHO: emotion regulation training mapped to C04, C06, C07, C05"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Self_Compassion_and_Compassionate_Self_Relating",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Compassion-focused self-talk and self-forgiveness; 6-week guided exercises (e.g., compassionate letters, self-kindness prompts, and mindful self‑compassion routines).",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C07",
+        "C05"
+      ],
+      "mechanism_rationale": "Reducing self-criticism after emotional episodes decreases guilt amplification (C04, C07) and supports re-integration of postpartum identity (C01) while enhancing coping capacity (C05).",
+      "measurement": "Self-Compassion Scale (short), frequency of self-critical thoughts, subjective sense of identity coherence.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; monitor for mood flare if distress increases; provide supportive supervision as needed.",
+      "mapping_query": "PSYCHO: self-compassion training mapped to C01, C04, C07, C05"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Identity_Consolidation_and_Meaning_Update",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Identity-focused work to harmonize maternal role with personal self through values exploration, role redefinition, and future-oriented meaning-making; 3–4 sessions plus journaling.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Clarifying and integrating postpartum identity reduces distress from altered self-perception and improves engagement in parenting and personal goals.",
+      "measurement": "Identity integration scales; pre/post self-report on meaning and coherence of self-concept.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Monitor for identity-related rumination or distress; adjust pace accordingly.",
+      "mapping_query": "PSYCHO: identity consolidation mapping to C01"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Social_Support_and_Respite_Planning",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured plan to mobilize practical support: involve partner/family, arrange limited respite/childcare, and enroll in postpartum support groups; include care navigation to access resources.",
+      "targets_criteria_ids": [
+        "C03",
+        "C05",
+        "C08"
+      ],
+      "mechanism_rationale": "Increased practical and emotional support reduces entrapment (C03), perceived overwhelm (C05), and validates distress (C08).",
+      "measurement": "Number of supportive contacts per week; respite hours per week; social support scales (MSPSS).",
+      "time_horizon": "4-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure boundaries and caregiver safety; coordinate with partner and family to prevent burnout.",
+      "mapping_query": "SOCIAL: social support planning mapped to C03, C05, C08"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "CBT_Based_CognitiveRestructuring_and_Behavioral_Activation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Hybrid CBT approach targeting parenting guilt and depressive-like rumination, plus behavioral activation to re-engage in daily routines; include small, graded tasks.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C07"
+      ],
+      "mechanism_rationale": "Cognitive restructuring reduces self-blame (C04) and guilt (C07); behavioral activation alleviates overwhelm by increasing functioning and routine (C05).",
+      "measurement": "Thought records; activity scheduling adherence; weekly monitoring of task completion and mood.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Non-pharmacologic; monitor for worsening mood; escalate if suicidality emerges.",
+      "mapping_query": "PSYCHO: CBT-based to C04,C05,C07"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Mindfulness_Based_Contextual_Therapy_Interventions",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Mindfulness/ACT-inspired practices to cultivate present-moment awareness, acceptance of distressing emotions, and values-driven action; 8–12 weeks with guided practice.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Enhances tolerance for distress, reduces self-judgment post-emotional episodes, and supports adaptive actions in line with values, addressing identity strain (C01) and overwhelm (C05).",
+      "measurement": "FFMQ (short form); distress tolerance tasks; weekly values-aligned actions log.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "No safety risk; ensure appropriate support for emotional overwhelm.",
+      "mapping_query": "PSYCHO: mindfulness/ACT to C01,C04,C05,C06"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Validation_and_Psychoeducation_Enhancement",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured psychoeducation about postpartum distress and validation strategies; clinician/coach feedback to counter minimization by others; practical scripts for seeking support.",
+      "targets_criteria_ids": [
+        "C08"
+      ],
+      "mechanism_rationale": "Directly addresses perceived minimization and invalidation, enhancing validation and helping the individual feel understood.",
+      "measurement": "Validation perception scale; satisfaction with clinician/coach feedback; distress rating.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "No safety concerns; provide supportive resources if distress increases.",
+      "mapping_query": "PSYCHO: validation/psychoeducation mapping to C08"
+    }
+  ]
+}

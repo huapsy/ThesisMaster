@@ -1,0 +1,841 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID022",
+  "model_summary": "One-paragraph overview of the chosen criterion and predictor set (mechanisms + constraints).",
+  "variable_selection_notes": "Why these variables were chosen; include bias/uncertainty notes and trade-offs.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 5,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "09:00-10:00",
+        "12:00-13:00",
+        "15:00-16:00",
+        "18:00-19:00",
+        "21:00-22:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 70,
+      "notes": "Blocks arranged to cover daytime symptoms; jitter reduces predictability."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "20:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "Capture end-of-day reflections on social plans, mood, and guilt exposure."
+    },
+    "passive_streams": {
+      "enabled": false,
+      "aggregation_strategy": "N/A",
+      "notes": "Optional future extension to integrate wearables/phone sensors."
+    },
+    "minimum_total_observations_target": 84,
+    "gvar_readiness_notes": "Feasible with smartphone EMA and wearable sleep/activity integration; subjects may miss prompts; plan for reminders.",
+    "variance_support_notes": "Use 1–9 scales to maximize variance; ensure per-subject z-scoring in preprocessing.",
+    "missingness_risk_notes": "Mitigate with push reminders, brief training, and compensation for high adherence; impute with within-subject methods in later modeling."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "",
+      "label": "Recurrent headache episodes",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "since_last_prompt",
+        "item_or_signal": "How many headache episodes have you experienced since the last prompt? Rate on a 0–9 scale (0 = none, 9 = many).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Episode count that disrupts functioning."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "",
+      "label": "Headache intensity/unpleasant sensory quality",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "At the time of headache onset, rate peak pain intensity on a 0–9 scale (0 = no pain, 9 = maximum).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures sensory unpleasantness during episodes."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "",
+      "label": "Acute mood collapse in response to pain",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "During headache onset, rate your mood from 0 (worst) to 9 (best).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures mood drop during headaches."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "",
+      "label": "Behavioral avoidance of social plans",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Today, how many planned social activities did you cancel or avoid due to headaches or anticipatory concerns? Rate on a 0–9 scale (0 = none, 9 = many).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 1,
+        "recall_window": "past_1_day",
+        "expected_within_person_variability": "high",
+        "notes": "Frequency of cancellations/avoidance."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "",
+      "label": "Guilt after cancelling / self-blame",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Today, rate the intensity of guilt or self-blame you felt after cancelling plans (0–9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 1,
+        "recall_window": "past_1_day",
+        "expected_within_person_variability": "high",
+        "notes": "Post-cancellation self-blame signal."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "",
+      "label": "Subjective social isolation / reduced social contact",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Right now, how isolated do you feel or how reduced is your social contact? Rate 0–9 with 9 = extremely isolated.",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Current perception of isolation."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C07",
+      "source_variable_id": "",
+      "label": "Reinforcing pain–shame cycle (maintenance loop)",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "To what extent does today’s headache relate to a cycle of pain → low mood/avoidance → shame/guilt → social withdrawal? Rate 0–9 (0 = no cycle, 9 = strong cycle).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Cycle strength indicator."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person_z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Behavioral Activation for social engagement",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "ontology_path": "[PSYCHO] / Cognitive_Behavioral_Therapies / Behavior_Change_and_Activation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Increases approach to social activity, disrupts avoidance, improves mood via rewarding social contact.",
+      "intervention_examples_safe": "Brief scheduled social activities; structured outreach; activation prompts",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, to what extent did you initiate or engage in a social activity? Rate 1–9 (1 = none, 9 = full engagement).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Cross-domain activation signal."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "High feasibility with EMA; moderate burden."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Sleep regularity and circadian optimization",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Sleep_and_Circadian > Circadian_Entrainment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Regular sleep-wake cycles improve pain processing, mood stability, and headache burden.",
+      "intervention_examples_safe": "Consistent bed/wake times, light exposure management",
+      "measurement": {
+        "mode": "wearable_sensor",
+        "channel": "wearable_device",
+        "assessment_type": "passive_continuous",
+        "item_or_signal": "Nightly sleep duration (hours) and variability over the past week (mean ± SD).",
+        "response_scale_or_unit": "hours (mean); SD",
+        "sampling_per_day": 1,
+        "recall_window": "past_7_days",
+        "expected_within_person_variability": "high",
+        "notes": "Wearable-derived sleep metrics."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-person z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Requires wearables; ensure device compatibility."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "Moderate aerobic activity",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Movement_and_Bodywork > Aerobic_Movement_Modalities",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Regular aerobic activity reduces headache burden and elevates mood via endorphins and neuroplastic changes.",
+      "intervention_examples_safe": "Brisk walking 20–30 minutes, 3×/week",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "In the past 3 days, rate your moderate aerobic activity intensity/frequency on a 1–9 scale (1 = none, 9 = daily).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "past_3_days",
+        "expected_within_person_variability": "high",
+        "notes": "Subjective activity proxy; can be triangulated with wearables."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "within-subject z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Effort-based; align with EMA prompts."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Mindfulness-based intervention",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Third_Wave_and_Contextual_Therapies > Mindfulness_Based_Interventions",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.7,
+      "mechanism_rationale": "Mindfulness improves reactivity to pain and reduces rumination, aiding mood regulation.",
+      "intervention_examples_safe": "Brief mindfulness sessions; body-scan; mindful breathing",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Rate today’s mindfulness experience (attention to present moment) on a 1–9 scale.",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "high",
+        "notes": "State mindfulness snapshot."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.95,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Low burden; integrates well with EMA."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Pain education + coping skills",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Cognitive_Behavioral_Therapies > Pain_Coping_Skills",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Coping skills education enhances perceived control, reducing symptom amplification and distress.",
+      "intervention_examples_safe": "Brief coping skill rehearsals; guided problem-solving",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since last prompt, rate your use and perceived effectiveness of pain coping strategies on a 0–9 scale (0 = none, 9 = highly effective).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Coping effectiveness signal."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.92,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "Coping skill prompts; ensure clear prompts to avoid fatigue."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Cognitive restructuring to reduce self-blame",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Cognitive_Behavioral_Therapies > Cognitive_Reframing",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Reducing self-blame disrupts guilt–withdrawal patterns that escalate headache-related distress.",
+      "intervention_examples_safe": "Brief cognitive reframing exercises; thought records",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Rate your current level of self-blame in response to headaches (1–9; 1 = none, 9 = high).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 5,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "State-level self-blame signal."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.93,
+        "gvar_feasibility_0_1": 0.87,
+        "notes": "Cognitive restructuring prompts; keep sessions brief."
+      }
+    },
+    {
+      "var_id": "P07",
+      "label": "Social prescribing & community engagement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] > Community_Participation_and_Social_Prescribing",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.75,
+      "mechanism_rationale": "Structured social connections and community resources enhance belonging and reduce isolation-related distress.",
+      "intervention_examples_safe": "Stepwise engagement plans; community activities; guided social linking",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "mobile_EMA_app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, rate your engagement with community activities or social plans (1–9).",
+        "response_scale_or_unit": "1-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Social engagement signal."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "z-score",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [],
+      "expected_effects": [],
+      "include_priority": "MED",
+      "risk_ethics_notes": "",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Leverages existing social-integration opportunities; monitor for accessibility barriers."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,30000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P07",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,80000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-6h",
+      "notes": "Activation may reduce avoidance in near-term windows.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Activation may disrupt pain–shame cycle over rest of day.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Better sleep regularity linked to fewer headaches longitudinally.",
+      "estimated_relevance_0_1": 0.6
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Sleep quality can improve mood during headaches.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Recent activity reduces headache burden via central fatigue/mood effects.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Activity can attenuate peak pain perception.",
+      "estimated_relevance_0_1": 0.65
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Mindfulness may reduce perceived isolation via nonjudgmental awareness.",
+      "estimated_relevance_0_1": 0.58
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Pain coping reduces post-cancellation guilt over time.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Cognitive reframing lowers self-blame after events.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C04",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Social prescribing increases engagement, reducing cancellations.",
+      "estimated_relevance_0_1": 0.75
+    },
+    {
+      "from_predictor_var_id": "P07",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Structured engagement can counteract perceived isolation.",
+      "estimated_relevance_0_1": 0.7
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "Moderate correlation between C01 and C03 due to pain–mood coupling.",
+      "C04 and C07 may reflect overlapping social withdrawal signals.",
+      "C05 and C06 show potential mutual reinforcement via guilt and isolation."
+    ],
+    "expected_floor_ceiling_risks": [
+      "Scale 0–9 may saturate at high symptom levels for some participants.",
+      "Diary prompts could produce missingness on low-pain days."
+    ],
+    "variance_enhancement_suggestions": [
+      "Maintain 5 EMA prompts/day to maximize within-person variance.",
+      "Include occasional longer follow-up prompts for trend detection.",
+      "Center predictors within-subject during preprocessing."
+    ],
+    "excluded_or_deprioritized_candidates": [],
+    "gvar_feasibility_summary": "Feasible with moderate participant burden; primary risk is EMA missingness which can be mitigated with reminders and compensation."
+  },
+  "safety_notes": "Not a diagnosis. No medication dosing recommended. If acute risk emerges (e.g., suicidality, mania), escalate to clinical care per local guidelines."
+}

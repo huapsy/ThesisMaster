@@ -10,8 +10,8 @@ Profile-level readiness and network modeling modules.
 
 ## Recommended Usage
 
-Run via the integrated orchestrator to preserve standardized paths, logs, and contracts:
+Run via the integrated pipeline launcher to preserve standardized paths, logs, and contracts:
 
 ```bash
-python evaluation/00_pipeline_orchestration/run_pipeline.py --mode synthetic_v1
+python evaluation/integrated_pipeline/run_pipeline.py --mode synthetic_v1
 ```

@@ -1,0 +1,114 @@
+{
+  "pseudoprofile_id": "CASE_MigraineAnxiety_Profile_001",
+  "summary": "This case reflects migraine unpredictability driving plan avoidance and anticipatory anxiety, which in turn may amplify migraines via a bidirectional feedback loop. The proposed BIO-PSYCHO-SOCIAL levers target (1) improving predictability and perceived control over migraines, (2) reducing avoidance and uncertainty in planning, (3) directly addressing anticipatory anxiety and its belief about migraine exacerbation, (4) optimizing sleep and lifestyle factors that influence migraine frequency, and (5) enhancing physical activity as a resilience-building input. Interventions are designed as modifiable levers that can be tracked with simple metrics and gradually integrated across bio, psycho, and social domains to reduce functional impairment and distress without pharmacologic dosing instructions.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Migraine Predictability Enhancement via Structured Diary and Data-Feedback Loop",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a structured daily migraine diary with objective data entry (timing, intensity, duration) plus automated feedback dashboards and optional predictive risk flags to guide simple, flexible planning.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Systematic tracking reduces timing uncertainty, reinforces cue-based planning, and enhances perceived control, thereby dampening anticipatory anxiety and potential anxiety-driven amplification of migraines.",
+      "measurement": "Diary completion rate; days with reliable migraine timing predictions; self-rated predictability (1–5); daily anticipatory anxiety rating; self-efficacy in migraine management (0–10).",
+      "time_horizon": "0–8 weeks for stabilization; 2–3 months for maintenance",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns anticipated. Ensure data privacy and provide support resources if anxiety escalates.",
+      "mapping_query": "Frequent migraine attacks with high timing variability; unpredictability; planning avoidance; anticipatory anxiety"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Flexible Planning and Contingency Scheduling with Communication Tools",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Develop a flexible commitment framework (tentative RSVP with opt-out options), shared calendar with trusted support person, and planned backup activities to reduce avoidance while preserving social engagement.",
+      "targets_criteria_ids": [
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Providing adaptive commitments and social support reduces fear-based avoidance and enhances perceived control, potentially lowering anxiety and improving adherence to valued activities.",
+      "measurement": "Proportion of plans kept vs. canceled due to migraine; number of contingency options engaged; self-reported planning confidence (0–10); social support perception scales.",
+      "time_horizon": "0–12 weeks for integration; quarterly follow-up",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for social withdrawal; encourage proactive engagement and escalation to professional support if avoidance worsens.",
+      "mapping_query": "Inability to commit to plans / avoidance; planning logistics; perceived control"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Anticipatory Anxiety Management via CBT Skills Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Provide brief CBT-based modules focused on anxiety reduction (breathing, cognitive restructuring, exposure to uncertainty in small steps) and a practice plan for planning with uncertainty.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Explicit skills reduce distress when anticipating migraine onset and promote adaptive responses to uncertainty without avoidance.",
+      "measurement": "State anxiety scores before/after sessions (short form); usage of CBT skills (frequency); readiness to plan under uncertainty (0–10); daily worry duration (minutes).",
+      "time_horizon": "0–8 weeks for initial skill acquisition; ongoing maintenance",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.68,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; ensure materials are trauma-informed and accessible; provide clinician contact if anxiety worsens.",
+      "mapping_query": "Anticipation-related anxiety; planning distress"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Belief Modification: Reframe Anxiety's Impact on Migraines",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Deliver psychoeducation and cognitive reframing to reduce the belief that anxiety worsens migraines, emphasizing coping strategies that decouple autonomic arousal from migraine triggers.",
+      "targets_criteria_ids": [
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Altering maladaptive beliefs can reduce the feedback loop between anxiety and migraine onset, lowering overall symptom severity and planning distress.",
+      "measurement": "Belief about anxiety-migraine link (0–100 scale); frequency of anxiety-related migraine attributions (per week); migraine day count; anxiety intensity ratings.",
+      "time_horizon": "0–6 weeks for belief modification; longer-term monitoring",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Provide balanced information; avoid minimizing legitimate migraine experiences; escalate if distress remains high.",
+      "mapping_query": "Belief that anxiety worsens migraines; perceived exacerbation"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Sleep Circadian Optimization and Sleep Hygiene",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement sleep-wocused routines, circadian alignment, and environmental sleep improvements (consistent sleep times, wind-down rituals, light exposure management) to reduce migraine susceptibility and anxiety.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Improved sleep quality reduces migraine frequency and stabilizes mood/anticipatory processes, thereby reducing functional disruption and planning-related anxiety.",
+      "measurement": "Sleep duration/efficiency (sleep diary); Pittsburgh Sleep Quality Index score; migraine days per week; next-day functional impairment; anxiety levels in the morning.",
+      "time_horizon": "0–12 weeks for sleep pattern stabilization; maintenance ongoing",
+      "feasibility_0_1": 0.82,
+      "expected_impact_0_1": 0.66,
+      "priority": "MED",
+      "safety_notes": "No pharmacologic interventions; monitor for sleep disorder symptoms and refer if persistent.",
+      "mapping_query": "Sleep quality and circadian disruptions; sleep-related triggers"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Aerobic Movement Plan to Reduce Migraine Frequency and Anxiety",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Introduce a guided, scalable aerobic exercise program (e.g., brisk walking or cycling), with gradual progression and self-monitoring of exertion and mood.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Regular aerobic activity improves vascular health and stress resilience, potentially reducing migraine frequency and anticipatory anxiety linked to unpredictability.",
+      "measurement": "Weekly exercise sessions logged; average duration/intensity; migraine days per week; perceived stress scale; mood ratings.",
+      "time_horizon": "0–12 weeks for initial adaptation; ongoing maintenance",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.62,
+      "priority": "MED",
+      "safety_notes": "Screen for contraindications; start gradually; consult clinician if pain or migraines worsen with exercise.",
+      "mapping_query": "Migraine frequency and anxiety; unpredictability via activity engagement"
+    }
+  ]
+}

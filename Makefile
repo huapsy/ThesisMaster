@@ -15,4 +15,4 @@ qa-all:
 	PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 MPLBACKEND=Agg $(PYTHON) -m pytest -m "not smoke"
 
 pipeline-smoke:
-	$(PYTHON) Evaluation/00_pipeline_orchestration/run_pipeline.py --mode synthetic_v1 --pattern pseudoprofile_FTC_ID002 --max-profiles 1 --network-boot 3 --network-block-len 10 --network-jobs 1 --run-id smoke_makefile
+	$(PYTHON) evaluation/integrated_pipeline/run_pipeline.py --mode synthetic_v1 --pattern pseudoprofile_FTC_ID002 --max-profiles 1 --network-boot 3 --network-block-len 10 --network-jobs 1 --run-id smoke_makefile

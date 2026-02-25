@@ -1,0 +1,549 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID012",
+  "source_raw_model": "llm_observation_model_raw.json",
+  "mapped_file": "/Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID012/llm_observation_model_mapped.txt",
+  "n_timepoints": 180,
+  "freq": "D",
+  "start_date": "2025-01-01",
+  "regime_center_t_norm": 0.6324734567278015,
+  "driver_predictor_code": "P05",
+  "shared_osc_frequency": 1.3,
+  "shared_osc_phase": 2.912874091296951,
+  "pulse_specs": [
+    {
+      "start_idx": 120,
+      "length": 3,
+      "amp": 0.7599634116277254
+    },
+    {
+      "start_idx": 121,
+      "length": 4,
+      "amp": 0.7340994355555306
+    },
+    {
+      "start_idx": 6,
+      "length": 6,
+      "amp": 0.7240370876021294
+    },
+    {
+      "start_idx": 10,
+      "length": 7,
+      "amp": 1.19666184972594
+    }
+  ],
+  "missing_rate_by_code": {
+    "P01": 0.18333333333333332,
+    "P02": 0.09444444444444444,
+    "P03": 0.20555555555555555,
+    "P04": 0.16666666666666666,
+    "P05": 0.10555555555555556,
+    "P06": 0.24444444444444444,
+    "C01": 0.10555555555555556,
+    "C02": 0.07777777777777778,
+    "C03": 0.26666666666666666,
+    "C04": 0.18888888888888888,
+    "C05": 0.3277777777777778,
+    "C06": 0.12777777777777777
+  },
+  "missing_rate_overall": 0.17453703703703702,
+  "predictor_generation_meta": {
+    "P01": {
+      "template": "sleep_light",
+      "phi": 0.8113393041562291,
+      "noise_sd_mean": 0.11025556226410971,
+      "dropout": null
+    },
+    "P02": {
+      "template": "generic",
+      "phi": 0.95,
+      "noise_sd_mean": 0.11025556226410971,
+      "dropout": {
+        "start_idx": 36,
+        "length": 4,
+        "multiplier": 0.39419252761605705
+      }
+    },
+    "P03": {
+      "template": "generic",
+      "phi": 0.7532501548426926,
+      "noise_sd_mean": 0.11025556226410971,
+      "dropout": null
+    },
+    "P04": {
+      "template": "sleep_light",
+      "phi": 0.8246440855338498,
+      "noise_sd_mean": 0.11025556226410971,
+      "dropout": {
+        "start_idx": 142,
+        "length": 3,
+        "multiplier": 0.3605604795657641
+      }
+    },
+    "P05": {
+      "template": "sleep_light",
+      "phi": 0.7,
+      "noise_sd_mean": 0.11025556226410971,
+      "dropout": {
+        "start_idx": 44,
+        "length": 3,
+        "multiplier": 0.34570675351038804
+      }
+    },
+    "P06": {
+      "template": "generic",
+      "phi": 0.8460583945951766,
+      "noise_sd_mean": 0.11025556226410971,
+      "dropout": null
+    }
+  },
+  "criterion_generation_meta": {
+    "C01": {
+      "phi": 0.789394920808399,
+      "noise_sd_mean": 0.5888665265127782,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.1666666666665873,
+        "P02": 0.1666666666665873,
+        "P03": 0.1666666666665873,
+        "P04": 0.1666666666665873,
+        "P05": 0.1666666666665873,
+        "P06": 0.1666666666665873
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P05",
+        "a1_pre": -0.24317691428333488,
+        "a2_post": -0.6583465406523028
+      },
+      "outlier_indices": []
+    },
+    "C02": {
+      "phi": 0.7679129689529262,
+      "noise_sd_mean": 0.5888665265127782,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.1666666666665873,
+        "P02": 0.1666666666665873,
+        "P03": 0.1666666666665873,
+        "P04": 0.1666666666665873,
+        "P05": 0.1666666666665873,
+        "P06": 0.1666666666665873
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P05",
+        "a1_pre": 0.11066446521295603,
+        "a2_post": 0.2067185068721784
+      },
+      "outlier_indices": []
+    },
+    "C03": {
+      "phi": 0.95,
+      "noise_sd_mean": 0.5888665265127782,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.1666666666665873,
+        "P02": 0.1666666666665873,
+        "P03": 0.1666666666665873,
+        "P04": 0.1666666666665873,
+        "P05": 0.1666666666665873,
+        "P06": 0.1666666666665873
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P05",
+        "a1_pre": 0.08715431007419183,
+        "a2_post": -0.6586381929661203
+      },
+      "outlier_indices": [
+        12
+      ]
+    },
+    "C04": {
+      "phi": 0.95,
+      "noise_sd_mean": 0.5888665265127782,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.1666666666665873,
+        "P02": 0.1666666666665873,
+        "P03": 0.1666666666665873,
+        "P04": 0.1666666666665873,
+        "P05": 0.1666666666665873,
+        "P06": 0.1666666666665873
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P05",
+        "a1_pre": -0.850137882363269,
+        "a2_post": -0.7090459292497737
+      },
+      "outlier_indices": [
+        130,
+        102
+      ]
+    },
+    "C05": {
+      "phi": 0.8668585187543362,
+      "noise_sd_mean": 0.5888665265127782,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.1666666666665873,
+        "P02": 0.1666666666665873,
+        "P03": 0.1666666666665873,
+        "P04": 0.1666666666665873,
+        "P05": 0.1666666666665873,
+        "P06": 0.1666666666665873
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P05",
+        "a1_pre": -0.9779563716465445,
+        "a2_post": 1.0418571303200839
+      },
+      "outlier_indices": []
+    },
+    "C06": {
+      "phi": 0.6825741125676319,
+      "noise_sd_mean": 0.5888665265127782,
+      "uses_shared_osc": true,
+      "predictor_weights": {
+        "P01": 0.1666666666665873,
+        "P02": 0.1666666666665873,
+        "P03": 0.1666666666665873,
+        "P04": 0.1666666666665873,
+        "P05": 0.1666666666665873,
+        "P06": 0.1666666666665873
+      },
+      "lags": [
+        2,
+        4,
+        7
+      ],
+      "lag_weights": [
+        0.5,
+        0.35,
+        0.15
+      ],
+      "driver_effect": {
+        "code": "P05",
+        "a1_pre": 0.2930015481352788,
+        "a2_post": 1.3868824193573257
+      },
+      "outlier_indices": [
+        115,
+        57,
+        86
+      ]
+    }
+  },
+  "missingness_meta": {
+    "P01": {
+      "base_target": 0.129119882120307,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 3,
+          "length": 7
+        },
+        {
+          "start_idx": 148,
+          "length": 5
+        }
+      ],
+      "mcar_fraction": 0.06111111111111111,
+      "mar_fraction": 0.06111111111111111
+    },
+    "P02": {
+      "base_target": 0.07108752537273326,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 99,
+          "length": 8
+        }
+      ],
+      "mcar_fraction": 0.027777777777777776,
+      "mar_fraction": 0.022222222222222223
+    },
+    "P03": {
+      "base_target": 0.1685485646319234,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 6,
+          "length": 10
+        }
+      ],
+      "mcar_fraction": 0.1111111111111111,
+      "mar_fraction": 0.06111111111111111
+    },
+    "P04": {
+      "base_target": 0.1848809119609594,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 66,
+          "length": 4
+        }
+      ],
+      "mcar_fraction": 0.08333333333333333,
+      "mar_fraction": 0.07222222222222222
+    },
+    "P05": {
+      "base_target": 0.1273084570743736,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [],
+      "mcar_fraction": 0.06666666666666667,
+      "mar_fraction": 0.05
+    },
+    "P06": {
+      "base_target": 0.21736533996539487,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 38,
+          "length": 10
+        }
+      ],
+      "mcar_fraction": 0.10555555555555556,
+      "mar_fraction": 0.10555555555555556
+    },
+    "C01": {
+      "base_target": 0.0984213422440151,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [],
+      "mcar_fraction": 0.06666666666666667,
+      "mar_fraction": 0.044444444444444446
+    },
+    "C02": {
+      "base_target": 0.08748070433530986,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [],
+      "mcar_fraction": 0.03888888888888889,
+      "mar_fraction": 0.03888888888888889
+    },
+    "C03": {
+      "base_target": 0.2816886087611351,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 45,
+          "length": 9
+        }
+      ],
+      "mcar_fraction": 0.15,
+      "mar_fraction": 0.07777777777777778
+    },
+    "C04": {
+      "base_target": 0.09912136083981228,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 159,
+          "length": 3
+        },
+        {
+          "start_idx": 149,
+          "length": 10
+        }
+      ],
+      "mcar_fraction": 0.08333333333333333,
+      "mar_fraction": 0.06111111111111111
+    },
+    "C05": {
+      "base_target": 0.3344653413456229,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 17,
+          "length": 4
+        },
+        {
+          "start_idx": 149,
+          "length": 5
+        }
+      ],
+      "mcar_fraction": 0.2,
+      "mar_fraction": 0.13333333333333333
+    },
+    "C06": {
+      "base_target": 0.08057154777247005,
+      "schedule_hint": null,
+      "schedule_observed_fraction": 1.0,
+      "block_segments": [
+        {
+          "start_idx": 62,
+          "length": 10
+        }
+      ],
+      "mcar_fraction": 0.05,
+      "mar_fraction": 0.03333333333333333
+    }
+  },
+  "patterns": [
+    "AR(1) inertia",
+    "weekly seasonality",
+    "slow drift trend",
+    "abrupt step change",
+    "smooth sigmoid transition",
+    "shared latent sinusoidal co-fluctuation",
+    "lagged predictor->criterion effects",
+    "bursts/pulses + decay",
+    "outliers/shocks",
+    "missingness: MCAR+MAR+block+schedule"
+  ],
+  "variables": [
+    {
+      "code": "P01",
+      "role": "PREDICTOR",
+      "label": "Sleep Regularization and Circadian Alignment",
+      "ontology_id": "consistent_morning_anchor_routine",
+      "conf": 0.72,
+      "freq_hint": null
+    },
+    {
+      "code": "P02",
+      "role": "PREDICTOR",
+      "label": "Meal Planning and Structure",
+      "ontology_id": "recipe_rotation_system",
+      "conf": 0.82,
+      "freq_hint": null
+    },
+    {
+      "code": "P03",
+      "role": "PREDICTOR",
+      "label": "Mindful Eating Practice",
+      "ontology_id": "mindful_eating_practice",
+      "conf": 0.78,
+      "freq_hint": null
+    },
+    {
+      "code": "P04",
+      "role": "PREDICTOR",
+      "label": "Environmental Nighttime Access Reduction",
+      "ontology_id": "environment_design_for_eating",
+      "conf": 0.62,
+      "freq_hint": null
+    },
+    {
+      "code": "P05",
+      "role": "PREDICTOR",
+      "label": "Pre-Sleep Wind-Down and Screen Time Constraints",
+      "ontology_id": "presleep_detachment_routine_design_psychological",
+      "conf": 0.72,
+      "freq_hint": null
+    },
+    {
+      "code": "P06",
+      "role": "PREDICTOR",
+      "label": "Self-Monitoring and Appetite/Satiety Logs",
+      "ontology_id": "appetite_and_satiety_log",
+      "conf": 0.92,
+      "freq_hint": null
+    },
+    {
+      "code": "C01",
+      "role": "CRITERION",
+      "label": "Appetite lability (no hunger vs intense hunger)",
+      "ontology_id": "craving",
+      "conf": 0.75,
+      "freq_hint": null
+    },
+    {
+      "code": "C02",
+      "role": "CRITERION",
+      "label": "Nighttime uncontrolled eating episodes",
+      "ontology_id": "loss_of_control_during_night_eating",
+      "conf": 0.82,
+      "freq_hint": null
+    },
+    {
+      "code": "C03",
+      "role": "CRITERION",
+      "label": "Post-eating negative self-evaluation and physical disgust",
+      "ontology_id": "embarrassment_or_shame_about_binge_eating",
+      "conf": 0.72,
+      "freq_hint": null
+    },
+    {
+      "code": "C04",
+      "role": "CRITERION",
+      "label": "Rigid 'be good tomorrow' dieting intent",
+      "ontology_id": "dietary_restriction_or_food_rule_persistence",
+      "conf": 0.78,
+      "freq_hint": null
+    },
+    {
+      "code": "C05",
+      "role": "CRITERION",
+      "label": "Nighttime food accessibility",
+      "ontology_id": "kitchensorbedsidefoodaccessduringepisodes",
+      "conf": 0.86,
+      "freq_hint": null
+    },
+    {
+      "code": "C06",
+      "role": "CRITERION",
+      "label": "Late-night wakefulness/opportunity",
+      "ontology_id": "awakenings_during_sleep",
+      "conf": 0.72,
+      "freq_hint": null
+    }
+  ]
+}

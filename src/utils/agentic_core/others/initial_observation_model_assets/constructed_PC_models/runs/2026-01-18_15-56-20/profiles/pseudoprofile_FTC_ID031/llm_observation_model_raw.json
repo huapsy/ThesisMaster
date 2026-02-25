@@ -1,0 +1,881 @@
+{
+  "pseudoprofile_id": "pseudoprofile_FTC_ID031",
+  "model_summary": "Initial gVAR-ready observation model comprising eight core experiential criteria (C01–C08) derived from the complaint of sudden anger spikes, body arousal, trigger sensitivity, unexpectedness, post-episode shame, identity conflict, inhibition capacity, and motivation to change. It pairs these criteria with six modifiable predictors (P01–P06) spanning biological (sleep circadian regulation), emotional regulation practices, cognitive-behavioral anger-regulation skills, identity-alignment/self-compassion, trigger-context management, and readiness-motivation. The plan emphasizes within-person variance via brief EMA self-reports and lightweight passive sensing (sleep, activity) over a two-week window with six momentary prompts per day plus a daily diary, aiming for a compact, estimable network suitable for early gVAR use while preserving the complaint’s resolution and trajectory.",
+  "variable_selection_notes": "Variables were chosen to (a) preserve the original complaint’s core processes (episodic anger, arousal, triggers, surprise, post-episode shame, identity conflict, inhibition, and change motivation), (b) minimize redundancy by selecting broad, non-overlapping constructs (e.g., one primary self-regulation construct with action-oriented subskills), (c) maximize within-person variance via frequent momentary assessments, and (d) enable integrative modeling across biological, psychological, and social/environmental domains. Trade-offs include a modest predictor set to maintain estimability and a measurement schedule that balances burden against data richness. Missingness risks are mitigated with passive sleep sensing and fixed EMA blocks, but occasional nonresponse remains possible. Safety and ethics notes accompany the protocol to ensure appropriate safeguards if risk signals appear.",
+  "design_recommendations": {
+    "study_days": 14,
+    "momentary_ema": {
+      "prompts_per_day": 6,
+      "schedule_type": "fixed_blocks_with_jitter",
+      "time_blocks_local": [
+        "08:30",
+        "11:00",
+        "13:30",
+        "16:00",
+        "19:30",
+        "22:00"
+      ],
+      "recall_window": "since_last_prompt",
+      "expected_total_prompts": 84,
+      "notes": "Prompts are time-blocked with light jitter to reduce anticipatory responding."
+    },
+    "daily_diary": {
+      "enabled": true,
+      "entries_per_day": 1,
+      "anchor_times_local": [
+        "22:00"
+      ],
+      "expected_total_entries": 14,
+      "notes": "End-of-day diary for C01 (daily anger-spike accounting) and overall mood context."
+    },
+    "passive_streams": {
+      "enabled": true,
+      "aggregation_strategy": "per_prompt_aggregation",
+      "notes": "Sleep/wake regularity and activity metrics collected passively; no imposed burden."
+    },
+    "minimum_total_observations_target": 150,
+    "gvar_readiness_notes": "Moderate data density (84 EMA prompts + 14 diary entries + passive streams) should support a stable initial gVAR structure with informative cross-predictor–criterion edges.",
+    "variance_support_notes": "Use 0–9 scales for EMA items to maximize within-person variance; where appropriate, passively-derived sleep/activity signals provide additional variance and context.",
+    "missingness_risk_notes": "Passive streams reduce missingness for Sleep; EMA may have structured nonresponse windows; include reminders and brief applicability checks to maintain engagement."
+  },
+  "criteria_variables": [
+    {
+      "var_id": "C01",
+      "source_variable_id": "custom",
+      "label": "Occurrence of sudden anger episodes",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "How many new anger spikes occurred today that surprised you (0–9 scale; 0 indicates none).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 1,
+        "recall_window": "today",
+        "expected_within_person_variability": "high",
+        "notes": "End-of-day daily diary capture of episode counts with surprise modifier."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "count"
+      }
+    },
+    {
+      "var_id": "C02",
+      "source_variable_id": "custom",
+      "label": "Intensity of bodily rage/arousal during episodes",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Immediately after an anger episode, rate the peak bodily arousal (0–9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "during_episode",
+        "expected_within_person_variability": "high",
+        "notes": "Capture peak arousal inline with episodes; corroborate with passive arousal proxies if available."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      }
+    },
+    {
+      "var_id": "C03",
+      "source_variable_id": "custom",
+      "label": "Sensitivity to minor external triggers",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "How likely is a minor external event (e.g., being cut off in traffic) to provoke anger in the next few hours? (0–9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "past_4_hours",
+        "expected_within_person_variability": "high",
+        "notes": "Short-term trigger sensitivity probe with multiple daily probes."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C04",
+      "source_variable_id": "custom",
+      "label": "Unexpectedness of emotional response",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Degree to which the anger was unexpected or inconsistent with your usual reactions (0–9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "during_episode",
+        "expected_within_person_variability": "high",
+        "notes": "Capture deviation from expectancies at/around onset."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C05",
+      "source_variable_id": "custom",
+      "label": "Post-episode shame/embarrassment",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Intensity of shame or self-criticism immediately after an anger episode (0–9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "immediately_after_episode",
+        "expected_within_person_variability": "high",
+        "notes": "Immediate post-episode affective context."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C06",
+      "source_variable_id": "custom",
+      "label": "Perceived mismatch between behavior and self-identity",
+      "criterion_path": "",
+      "polarity": "higher_is_worse",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "To what extent did your angry reactions feel misaligned with your self-image today? (0–9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 2,
+        "recall_window": "today",
+        "expected_within_person_variability": "high",
+        "notes": "Reflective index of identity threat across the day."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C07",
+      "source_variable_id": "custom",
+      "label": "Ability to inhibit outward aggressive behavior",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "During an anger episode, how effectively did you prevent outward aggression (0–9)?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "during_episode",
+        "expected_within_person_variability": "high",
+        "notes": "Direct assessment of inhibitory control during episodes."
+      },
+      "include_priority": "MED",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    },
+    {
+      "var_id": "C08",
+      "source_variable_id": "custom",
+      "label": "Motivation/readiness to change reactive anger",
+      "criterion_path": "",
+      "polarity": "higher_is_better",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Smartphone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, how motivated/ready are you to change these anger responses? (0–9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 2,
+        "recall_window": "current",
+        "expected_within_person_variability": "high",
+        "notes": "Snapshot of readiness to change with reflective context."
+      },
+      "include_priority": "HIGH",
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      }
+    }
+  ],
+  "predictor_variables": [
+    {
+      "var_id": "P01",
+      "label": "Sleep quality and circadian regularity (biological driver)",
+      "bio_psycho_social_domain": "BIO",
+      "ontology_path": "[BIO] > Sleep_and_Circadian > Circadian_Entrainment",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Consistent sleep/wake timing supports autonomic regulation; irregular sleep elevates arousal and impulsivity.",
+      "intervention_examples_safe": "Regular sleep window, dark-room environment, limit screen time before bed.",
+      "measurement": {
+        "mode": "passive_phone_sensor",
+        "channel": "Phone-based sleep tracking (accelerometer, screen state, duration, bedtime/wake time)",
+        "assessment_type": "passive_continuous",
+        "item_or_signal": "Sleep duration, bedtime/wake-time regularity, and a circadian-entrainment proxy score (0–1).",
+        "response_scale_or_unit": "mixed",
+        "sampling_per_day": 1,
+        "recall_window": "past_24_hours",
+        "expected_within_person_variability": "medium",
+        "notes": "Aggregated nightly sleep metrics; nightly variations influence daytime regulation."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": true,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "approx_continuous"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Better sleep reduces daytime reactivity and episode frequency."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "None beyond standard data collection risks.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "High feasibility with passive sleep sensors."
+      }
+    },
+    {
+      "var_id": "P02",
+      "label": "Acute emotion regulation practice during triggers",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Cognitive_Behavioral_Therapies > Behavior_Change_and_Activation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.85,
+      "mechanism_rationale": "Active regulation during triggers dampens arousal and prevents escalation.",
+      "intervention_examples_safe": "Grounding, STOP technique, paced breathing.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Phone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, how often did you use an acute emotion-regulation skill (0–9 scale)?",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Captures real-time use of regulation strategies."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C07"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C02",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 6,
+          "rationale": "Acute regulation should reduce immediate arousal."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Ensure tasks are brief to avoid overload.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Requires reliable prompt-following responses; feasible with app-based prompts."
+      }
+    },
+    {
+      "var_id": "P03",
+      "label": "CBT-based anger regulation skills (pause/plan, behavioral experiments)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Cognitive_Behavioral_Therapies > Behavior_Change_and_Activation",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Structured skills reduce impulsive reactions and enhance coping.",
+      "intervention_examples_safe": "Pause/Plan, behavioral experiments, cognitive restructuring.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Phone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Since the last prompt, how often did you apply CBT anger-regulation skills? (0–9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 4,
+        "recall_window": "since_last_prompt",
+        "expected_within_person_variability": "high",
+        "notes": "Skill usage proxy during episodes."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C02",
+        "C07",
+        "C08"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Use of CBT strategies should lower episode frequency/proneness."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "No active skill coaching limitations; ensure user comfort.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.88,
+        "gvar_feasibility_0_1": 0.88,
+        "notes": "CBT-based prompts are well established in apps; moderate burden."
+      }
+    },
+    {
+      "var_id": "P04",
+      "label": "Identity alignment and compassionate self-relating",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "ontology_path": "[PSYCHO] > Core_Psychological_Skills_Toolkits > Compassionate_Self_Relating",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Values-aligned self-relating reduces shame and identity conflict.",
+      "intervention_examples_safe": "Values-clarification; compassionate self-talk.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Phone EMA app",
+        "assessment_type": "end_of_day",
+        "item_or_signal": "Today, to what extent did your anger feel aligned with your values/self-identity? (0–9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 2,
+        "recall_window": "today",
+        "expected_within_person_variability": "high",
+        "notes": "Reflective identity-context linkage."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C06",
+        "C05",
+        "C08"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C06",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Identity alignment should reduce perceived mismatch."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Careful handling of self-identity content; ensure privacy.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Value-based prompts are generally acceptable; ensure brevity."
+      }
+    },
+    {
+      "var_id": "P05",
+      "label": "Environmental/trigger-context modification",
+      "bio_psycho_social_domain": "SOCIAL",
+      "ontology_path": "[SOCIAL] > Interpersonal_Therapy_Solutions > Trigger_Modification",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.8,
+      "mechanism_rationale": "Modifying triggering contexts reduces exposure to high-arousal drivers.",
+      "intervention_examples_safe": "Driving context adjustments; avoid high-stress routes when possible.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Phone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Have you modified your triggering contexts today to reduce affective drivers? (0–9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 2,
+        "recall_window": "today",
+        "expected_within_person_variability": "medium",
+        "notes": "Contextual control efforts."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C01",
+          "expected_sign": "-",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 24,
+          "rationale": "Trigger-context management should reduce episode occurrence."
+        }
+      ],
+      "include_priority": "MED",
+      "risk_ethics_notes": "Practicality of context changes varies; document feasibility.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.85,
+        "gvar_feasibility_0_1": 0.85,
+        "notes": "Context modifications rely on user behavior and environment; feasible but heterogeneous."
+      }
+    },
+    {
+      "var_id": "P06",
+      "label": "Motivation/readiness to change reactive anger",
+      "bio_psycho_social_domain": "PSYCHO",
+      "ontology_path": "[PSYCHO] > Brief_and_Motivational_Approaches > Motivational_Interviewing_Approach",
+      "ontology_level": "secondary",
+      "modifiability_0_1": 0.9,
+      "mechanism_rationale": "Higher readiness amplifies engagement with other strategies and sustained change.",
+      "intervention_examples_safe": "MI-informed goal setting; small-step plans.",
+      "measurement": {
+        "mode": "EMA_self_report",
+        "channel": "Phone EMA app",
+        "assessment_type": "momentary",
+        "item_or_signal": "Today, how motivated/ready are you to change these anger responses? (0–9).",
+        "response_scale_or_unit": "0-9",
+        "sampling_per_day": 2,
+        "recall_window": "current",
+        "expected_within_person_variability": "high",
+        "notes": "Captures dynamic readiness to change."
+      },
+      "gvar_handling": {
+        "likely_stationary": false,
+        "needs_detrending_or_seasonal_controls": false,
+        "suggested_transformation": "zscore_within_person",
+        "collinearity_risk": "low",
+        "distribution_hint": "ordinal"
+      },
+      "targets_criteria_var_ids": [
+        "C08"
+      ],
+      "expected_effects": [
+        {
+          "criterion_var_id": "C08",
+          "expected_sign": "+",
+          "typical_lag_hours_min": 0,
+          "typical_lag_hours_max": 12,
+          "rationale": "Higher readiness should facilitate engagement with regulation skills and reduce episode severity."
+        }
+      ],
+      "include_priority": "HIGH",
+      "risk_ethics_notes": "Maintain autonomy and respect for values during MI-like prompts.",
+      "feasibility": {
+        "data_collection_feasibility_0_1": 0.9,
+        "gvar_feasibility_0_1": 0.9,
+        "notes": "Readiness items are well-suited to short EMA prompts; high feasibility."
+      }
+    }
+  ],
+  "predictor_criterion_relevance": [
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,86000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,78000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,54000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,58000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,64000"
+    },
+    {
+      "predictor_var_id": "P01",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,62000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P02",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,80000"
+    },
+    {
+      "predictor_var_id": "P03",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,95000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P04",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,75000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,65000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,85000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P05",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C01",
+      "relevance_score_0_1_comma5": "0,40000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C02",
+      "relevance_score_0_1_comma5": "0,35000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C03",
+      "relevance_score_0_1_comma5": "0,50000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C04",
+      "relevance_score_0_1_comma5": "0,45000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C05",
+      "relevance_score_0_1_comma5": "0,70000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C06",
+      "relevance_score_0_1_comma5": "0,60000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C07",
+      "relevance_score_0_1_comma5": "0,55000"
+    },
+    {
+      "predictor_var_id": "P06",
+      "criterion_var_id": "C08",
+      "relevance_score_0_1_comma5": "0,95000"
+    }
+  ],
+  "edges": [
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C01",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Sleep improvements expected to lower episode frequency.",
+      "estimated_relevance_0_1": 0.86
+    },
+    {
+      "from_predictor_var_id": "P01",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Consistent sleep reduces peak arousal.",
+      "estimated_relevance_0_1": 0.78
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C02",
+      "expected_sign": "-",
+      "lag_spec": "0-6h",
+      "notes": "Acute regulation should dampen arousal.",
+      "estimated_relevance_0_1": 0.7
+    },
+    {
+      "from_predictor_var_id": "P03",
+      "to_criterion_var_id": "C07",
+      "expected_sign": "+",
+      "lag_spec": "0-12h",
+      "notes": "CBT skills increase inhibitory control.",
+      "estimated_relevance_0_1": 0.8
+    },
+    {
+      "from_predictor_var_id": "P04",
+      "to_criterion_var_id": "C06",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Identity-aligned self-relating lowers identity-discrepancy.",
+      "estimated_relevance_0_1": 0.95
+    },
+    {
+      "from_predictor_var_id": "P05",
+      "to_criterion_var_id": "C03",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Trigger-context modifications reduce trigger sensitivity.",
+      "estimated_relevance_0_1": 0.85
+    },
+    {
+      "from_predictor_var_id": "P06",
+      "to_criterion_var_id": "C08",
+      "expected_sign": "+",
+      "lag_spec": "0-24h",
+      "notes": "Higher readiness predicts engagement with change strategies.",
+      "estimated_relevance_0_1": 0.9
+    },
+    {
+      "from_predictor_var_id": "P02",
+      "to_criterion_var_id": "C05",
+      "expected_sign": "-",
+      "lag_spec": "0-24h",
+      "notes": "Acute regulation reduces post-episode shame.",
+      "estimated_relevance_0_1": 0.6
+    }
+  ],
+  "diagnostics": {
+    "expected_collinearity_risks": [
+      "low",
+      "medium"
+    ],
+    "expected_floor_ceiling_risks": [
+      "low",
+      "high"
+    ],
+    "variance_enhancement_suggestions": [
+      "standardize within-person",
+      "z-score per subject",
+      "scale to 0-1 where applicable"
+    ],
+    "excluded_or_deprioritized_candidates": [
+      "extreme_biomarkers_and_diagnostic_tests",
+      "rare_passive_signals"
+    ],
+    "gvar_feasibility_summary": "Predictor set is compact with feasible data collection (EMA + passive sleep). Moderate risk of missingness from EMA; mitigations include reminders and anchoring prompts."
+  },
+  "safety_notes": "This is not a diagnosis and should not inform medication or dosing. If acute risk is identified (self-harm, severe deterioration), escalate to professional care per local guidelines."
+}

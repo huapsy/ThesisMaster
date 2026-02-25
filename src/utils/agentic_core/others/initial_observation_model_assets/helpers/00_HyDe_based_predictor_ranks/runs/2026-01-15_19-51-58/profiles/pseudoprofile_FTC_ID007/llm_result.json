@@ -1,0 +1,135 @@
+{
+  "pseudoprofile_id": "CASE_PAYLOAD_2026_01",
+  "summary": "This plan targets six modifiable BIO/PSYCHO/SOCIAL levers corresponding to the presented difficulties: failure to initiate, substitution with easy tasks, distractibility by digital stimuli, loss of time perception during off-task activity, panic when deadlines appear, and uncertainty/self-blame about causes. Six to seven evidence-informed interventions across domains (cognition/attention, behavior, anxiety management, self-compassion, sleep/energy, and social accountability) are proposed with clear mappings to the operational criteria, simple metrics, and a 4–8 week horizon. The approach emphasizes actionable, non-invasive levers, with safety monitoring and prioritization for high feasibility and impact.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Implementation_Intentions_for_Task_Initiation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Establish specific if-then plans for starting each planned task (e.g., 'If it is 9:00 AM, I will open Task X and set a 2-minute timer, then begin for 2 minutes'). Pair with a visual cue (sticky note, calendar reminder).",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Preloads action steps to reduce initiation energy and decision paralysis, lowering likelihood of delay and reducing self-blame by creating predictable first steps.",
+      "measurement": "Average initiation latency (minutes) per task; proportion of tasks started within 5 minutes; self-reported activation level at task start (0–10).",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns; if frustration arises, shorten start steps and use flexible timing.",
+      "mapping_query": "Targets C01 primarily (task initiation) with potential spillover to C04 via earlier task engagement."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Structured_Task_Scheduling_with_Distraction_Blocking",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Implement a 4-week routine of time-blocked work windows (e.g., 25-minute focused blocks with 5-minute breaks) plus digital blockers to limit distracting sites; use a shared calendar and brief accountability check-ins with a buddy.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Combines initiation cueing, reduction of low-effort substitutions, improved attention via distraction limits, and paced time management to enhance time perception.",
+      "measurement": "Adherence rate to schedule (percent blocks completed); distractions per block; task start latency; time-on-task per block.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "If blockers induce stress, allow short exception windows; ensure schedule remains flexible for tasks of variable length.",
+      "mapping_query": "Targets C01–C04 through structured scheduling and distraction control; includes social accountability via buddy."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Attention_Control_Training_and_Cognitive_Offloading",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Deliver a 6-week program combining computerized attention-control exercises with external offloading aids (checklists, timers, visual prompts) to reduce interference from digital stimuli and support task re-engagement.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Strengthens top-down attention and provides external scaffolds to limit distraction and time misperception, reducing reliance on willpower.",
+      "measurement": "Attention task performance scores; interruptions per session; time to re-engage after distraction; self-rated focus (0–10).",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Monitor fatigue or cognitive overload; adjust task difficulty as needed.",
+      "mapping_query": "Targets C03 and C04 via attention training and external cognitive aids."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Deadline_Anxiety_Management_Mindfulness_and_Breathing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce quick 3–5 minute anxiety-reduction practices (paced breathing, grounding, cognitive reframing) timed to deadlines; provide advance deadline notices to reduce surprise and panic.",
+      "targets_criteria_ids": [
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Directly reduces acute deadline-triggered anxiety and reframes threat appraisal, potentially lowering self-judgment by reducing perceived consequences of delays.",
+      "measurement": "Frequency of deadline-related anxiety episodes; self-reported anxiety (0–10) at deadline onset; time to resume work after deadlines.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "If anxiety escalates, escalate to targeted anxiety management or clinical support; consider adjusting exposure intensity.",
+      "mapping_query": "Targets C05 primarily (panic near deadlines) with potential secondary effect on C06."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Cognitive_Reframing_and_Self_Compassion_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Weekly CBT-based cognitive restructuring for negative self-talk plus daily self-compassion prompts; include brief in-session exercises to reduce self-blame after missteps.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Directly targets uncertainty about causes and self-criticism, fostering adaptive beliefs and persistence in task engagement.",
+      "measurement": "C06 self-blame severity (0–10); self-compassion scores; frequency of self-criticism episodes; rate of task resumption after missteps.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "If self-criticism becomes severe, introduce supportive prompts and consider supervision or therapy referral.",
+      "mapping_query": "Targets C06 through cognitive reframing and self-compassion."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Sleep_Circadian_Synchronization_and_Energy_Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish a consistent sleep-wake schedule with morning light exposure and caffeine timing adjustments; align daytime activities to promote daytime energy and cognitive control.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Better sleep and circadian alignment enhances executive control, reduces distractibility, and improves initiation and time perception.",
+      "measurement": "Sleep duration, sleep onset latency, sleep efficiency; morning alertness (0–10); initiation latency; distractions per session.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "If sleep aids are used, consult clinician; monitor for sleep restriction effects.",
+      "mapping_query": "Biological lever improving energy and cognition affecting C01, C03, C04."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social_Accountability_Partner_and_Support",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Pair with an accountability partner or small group; weekly check-ins to review task progress, problem-solve barriers, and celebrate completions (C01–C04).",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "External accountability and social support increase motivation, reduce procrastination, and provide scaffolding against distraction and mis-timed shifts.",
+      "measurement": "Weekly completed-task count; plan adherence rate; perceived accountability (0–10); meeting attendance.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure supportive environment; allow opt-out or adjustments if social pressure increases anxiety.",
+      "mapping_query": "Targets C01–C04 via social accountability and support."
+    }
+  ]
+}

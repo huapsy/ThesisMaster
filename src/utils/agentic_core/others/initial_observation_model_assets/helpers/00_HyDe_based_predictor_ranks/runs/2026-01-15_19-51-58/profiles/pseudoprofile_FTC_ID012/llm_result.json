@@ -1,0 +1,154 @@
+{
+  "pseudoprofile_id": "CASE_BINGE_EATING_01",
+  "summary": "This solution set offers a tightly integrated mix of BIO (sleep and metabolism), PSYCHO (cognitive regulation and craving management), and SOCIAL (environment and support) levers aimed at reducing nocturnal overeating, appetite lability, and the punitive dieting cycle described. Levers include circadian-aligned sleep routines, kitchen/food-access adjustments, cognitive self-regulation and self-compassion strategies, structured meal timing, mindfulness-based craving management, self-monitoring with feedback, and enhanced social support. Each lever targets specific case-criteria (C01–C04 plus C05–C06) and is paired with simple, feasible measurements and a clear time horizon to enable iterative optimization while avoiding unsafe practices.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep regularization and circadian alignment (consistent bed/wake times, structured wind-down, light exposure management)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Establish a fixed sleep-wake schedule (e.g., lights out 10:30pm, wake at 6:30am on weekdays, 7:00am weekends), a 20–30 minute wind-down routine, dim lighting 1–2 hours before bed, and morning daylight exposure. Limit late caffeine and create a bedroom environment conducive to sleep. Pair with a brief cognitive check-in to anticipate hunger cues tied to sleep loss.",
+      "targets_criteria_ids": [
+        "C06",
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Stabilizing the circadian rhythm reduces nocturnal awakenings and hunger signals that arise with sleep disruption, improves impulse control around late-night eating, and dampens hunger fluctuations.",
+      "measurement": "Sleep diary (bedtime, wake time, awakenings), count of midnight eating episodes, self-reported hunger levels (0–10) before bed and upon waking.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for initial adjustment difficulties (fatigue, grogginess) during the first 1–2 weeks.",
+      "mapping_query": "Will a consistent sleep-wake schedule reduce midnight eating and hunger swings, and improve impulse control around eating?"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Nighttime food accessibility reduction (environmental and household support)",
+      "bio_psycho_social_domain": "BIOxSOCIAL",
+      "solution_candidate": "Create a nighttime kitchen protocol: remove or relocate high‑sugar snacks after dinner, store snacks out of obvious sight, and involve a household partner to enforce a nighttime curfew (e.g., 9:00–9:30pm last access). Prepare a simple, healthy, pre-portioned evening snack if hunger is anticipated. Develop a shared “snack plan” with agreed options.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Reducing near-midnight food cues and access decreases the likelihood of impulsive eating and the post-episode dieting pressure that fuels the cycle.",
+      "measurement": "Count of nighttime eating episodes, snack inventory/ease of access, self-reported episodes after implementing protocol.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Ensure adequate caloric intake across day to prevent under-eating; maintain healthy snack options.",
+      "mapping_query": "Will restricting late-night food access reduce nocturnal episodes and post-eating guilt?"
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Post-eating affect regulation via self-compassion and cognitive reframing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach a brief self-compassion protocol and cognitive reframing after eating episodes (e.g., labeling the episode as a data point, not a moral failure; replacing “I’m gross” with neutral observations; identifying coping alternatives). Practice 2–3 times weekly with predictable prompts.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces negative self-evaluation and all-or-nothing dieting pressures that amplify subsequent restriction and binge risk.",
+      "measurement": "Momentary mood ratings post-episodes (e.g., 0–10 scale for self-criticism); frequency of self-critical thoughts.",
+      "time_horizon": "6–10 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "None.",
+      "mapping_query": "Does increased self-compassion after eating reduce shame and dieting rigidity, thereby lowering recurrence of binges?"
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Structured meal timing and satiety optimization",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Implement a daily meal framework with balanced protein/fiber at dinner, a scheduled healthy snack in the early evening, and avoidance of large gaps between meals. Encourage a non-punitive approach to occasional deviations and emphasize consistency over perfection.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Regularized energy intake and satiety cues decrease hunger swings and late-night urges while reducing the load of punitive dieting thoughts.",
+      "measurement": "Daily hunger scores; number of nighttime episodes; adherence to meal template.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for creating rigidity; adjust if meal timing interferes with sleep or social life.",
+      "mapping_query": "Will consistent meal timing and satiety-focused choices reduce hunger swings and midnight eating?"
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Mindfulness-based craving management (urge surfing)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Incorporate a brief mindfulness/urge-surfing protocol (4–6 minutes) at first cravings, with a plan to delay action by a fixed interval (e.g., 5–10 minutes) and to observe sensations nonjudgmentally.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Nonjudgmental awareness of cravings weakens automatic binge responses and lengthens the delay between urge and action, reducing frequency of episodes.",
+      "measurement": "Craving intensity (0–10) and time to action during episodes; number of episodes per week.",
+      "time_horizon": "4–8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "N/A",
+      "mapping_query": "Can mindfulness urge surfing delay or reduce nighttime eating and appetite swings?"
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": " Sleep environment optimization (circadian support)",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Optimize the sleep environment and routines to support circadian stability: maintain a dark, cool room; limit screen exposure before bed; avoid caffeine after noon; consistent morning light exposure.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "A stable sleep environment supports circadian alignment, reduces sleep fragmentation, and lowers risk of nocturnal awakenings and associated late-night eating.",
+      "measurement": "Bedtime/wake time consistency; nighttime awakenings; caffeine intake logs.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "None.",
+      "mapping_query": "Will optimizing the sleep environment reduce late-night awakenings and food access opportunities?"
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Daily self-monitoring with feedback and data-driven coaching",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Implement a simple daily food and mood log (hunger, episodes, mood after eating) with automated weekly feedback and guidance.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Regular self-monitoring increases awareness, enables timely adjustments, and provides personalized feedback to disrupt binge cycles.",
+      "measurement": "Completeness of daily logs; weekly feedback engagement; trend in episodes and mood.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "N/A",
+      "mapping_query": "Will daily self-monitoring with feedback improve adherence to eating patterns and reduce nocturnal binges?"
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Social support and accountability structures",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage a supportive partner or small peer group for regular check-ins, shared goals, and accountability around eating behaviors and post-episode coping.",
+      "targets_criteria_ids": [
+        "C04",
+        "C03",
+        "C02"
+      ],
+      "mechanism_rationale": "Social accountability reduces dieting rigidity, decreases post-eating distress, and provides practical coping resources during cravings or binges.",
+      "measurement": "Frequency of check-ins; perceived support; episode frequency.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "None.",
+      "mapping_query": "Will enhanced social support and accountability reduce binge episodes and post-eating distress?"
+    }
+  ]
+}

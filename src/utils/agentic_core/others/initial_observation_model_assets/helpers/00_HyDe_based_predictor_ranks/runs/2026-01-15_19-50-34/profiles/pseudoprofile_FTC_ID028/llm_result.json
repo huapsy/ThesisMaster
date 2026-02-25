@@ -1,0 +1,197 @@
+{
+  "pseudoprofile_id": "CASE2026-CONCUSSION-OPTIMIZATION-01",
+  "summary": "The case reflects post-concussion cognitive vulnerability (concentration lapses), sensory intolerance to screens, emotional reactivity, and maladaptive beliefs about permanence and attribution to the prior concussion. Modifiable levers span three domains (BIO, PSYCHO, SOCIAL) and their interplay (e.g., sleep, activity, and environmental design). The goal is to reduce cognitive load and sensory provocation, improve emotion regulation, recalibrate maladaptive beliefs and attributions, and strengthen daily functioning through accommodations, social support, and healthy routines. Levers are chosen for feasibility, measurability, and potential for multi-domain impact (e.g., sleep and aerobic activity improve attention and mood; cognitive offloading reduces task demand; psychoeducation and attribution work target beliefs that sustain distress). The plan emphasizes graduated exposure, skill-building, and practical adaptations rather than medical dosing or risky interventions.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Attention_Systems_Training_and_Cognitive_Offloading",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Structured attention training program combined with external task-offloading (checklists, templates, and cognitive aids) to improve sustained attention and reduce cognitive load.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Directly targets sustained attention deficits by enhancing neural efficiency and employing compensatory strategies, potentially improving task completion and reducing mental fatigue.",
+      "measurement": "Daily self-rated attention 0-10; weekly task completion rate; brief objective attention task (2-3 minutes) administered weekly; track cognitive offloading use (frequency of checklists/templates).",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Map attention-focused interventions to C01; monitor task performance and self-reported focus levels to assess impact."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Screen_Time_Graded_Exposure_and_BlueLight_Filtering",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Gradual reintroduction to screen use with blue-light filters, longer breaks, and ergonomic screen setup to desensitize visual-provoked nausea.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Exposure with safeguards builds tolerance to visual stimuli while reducing nausea risk through filtering and paced exposure.",
+      "measurement": "Weekly nausea/queasiness rating 0-10; average daily screen time; time to onset of nausea during screen tasks; number of breaks per screen session.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Monitor for migraine triggers; avoid excessive screen exposure during acute symptoms.",
+      "mapping_query": "Align screening exposure plan with C02; assess nausea trajectory as screen time is reintroduced."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Emotion_Regulation_Skills_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach and practice DBT-informed emotion regulation skills (mindfulness, emotion labeling, distress tolerance) to reduce irritability and reactivity.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Improved regulation dampens rapid irritability, enhances response flexibility, and supports better social interactions.",
+      "measurement": "Irritability 0-10; number of irritability episodes per week; daily mood diary; use of skills in real-life situations tracked.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Apply emotion regulation skills to reduce C03-related irritability; track frequency and intensity of irritability and skill use."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Psychoeducation_on_Recovery_Trajectory_and_Permanence_Beliefs",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Provide clear, evidence-based education about concussion recovery timelines and variability; reframe beliefs about permanence of symptoms.",
+      "targets_criteria_ids": [
+        "C04"
+      ],
+      "mechanism_rationale": "Accurate timelines reduce catastrophic beliefs and distress, promoting engagement in rehabilitation.",
+      "measurement": "Belief in permanence rating (0-10); engagement with rehab tasks; perceived control over recovery.",
+      "time_horizon": "3-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Address C04 through targeted psychoeducation; assess changes in permanence beliefs and rehab engagement."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Adaptive_Attribution_Style_Retraining",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Attribution retraining to shift explanations from permanent brain change to episodic, modifiable symptoms with realistic expectations.",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Adaptive attributions reduce hopelessness and promote proactive care seeking and adherence to rehab.",
+      "measurement": "Attribution style assessment (e.g., bias/flexibility items); adherence to rehabilitation tasks; self-reported explanatory narratives regarding symptoms.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Modify C05-related attributions via cognitive reframing; monitor attribution style shifts and rehab engagement."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Daily_Accommodations_and_Task_Structuring",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Implement work/study accommodations: shorter work blocks, explicit breaks, use of reminders and task segmentation; optimize workload to reduce cognitive load.",
+      "targets_criteria_ids": [
+        "C06"
+      ],
+      "mechanism_rationale": "Reduces functional impairment by aligning tasks with current cognitive capacity and providing external supports.",
+      "measurement": "Daily functioning score (0-10); number of completed tasks; perceived cognitive load; time spent on screen-based tasks.",
+      "time_horizon": "2-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Provide accommodations to reduce C06-related functional impairment; track task completion and perceived load."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Sleep_Optimization_and_Circadian_Rhythm_Stabilization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish consistent sleep-wake schedules, reduce evening screen exposure, and optimize light exposure to support cognitive function and mood.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Improved sleep enhances attention and emotional regulation; circadian alignment supports learning and irritability control.",
+      "measurement": "Bedtime/wake-time consistency; sleep duration and quality (simple metric); morning alertness; daytime functioning.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Sleep optimization expected to influence C01 and C03; monitor sleep metrics and daytime functioning."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Sensory_Environment_Design_and_Modifications",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Redesign workspace to reduce sensory load: lower glare, quieter zones, controlled lighting, and reduced background noise; micro-breaks for sensory resets.",
+      "targets_criteria_ids": [
+        "C02"
+      ],
+      "mechanism_rationale": "Altering the sensory environment diminishes nausea and cognitive distraction, supporting concentration.",
+      "measurement": "Nausea episodes per day; screen time; perceived sensory overload (0-10); task performance in different environments.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Environment design interventions to mitigate C02; assess changes in nausea and attention across settings."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Structured_Aerobic_Exercise_Program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "A regular, progressive aerobic program (e.g., 30 minutes brisk walking 5 days/week) to enhance cerebral blood flow and neurotrophic factors.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Physical activity improves attention, executive function, and mood; supports recovery after concussion.",
+      "measurement": "Weekly minutes of aerobic activity; steps; self-reported focus; irritability diary entries.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "",
+      "mapping_query": "Leverage exercise to improve C01 and C03; monitor adherence and cognitive/mood outcomes."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "External_Cognitive_Offloading_and_Aids",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Systematic use of external memory aids (checklists, calendars, reminders) and habit formation for task management to reduce cognitive load.",
+      "targets_criteria_ids": [
+        "C01",
+        "C06"
+      ],
+      "mechanism_rationale": "External supports decrease cognitive strain, enabling better concentration and daily functioning.",
+      "measurement": "Usage frequency of aids; task completion rate; perceived cognitive effort during tasks.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Employ cognitive offloading to address C01 and C06; track aid usage and task outcomes."
+    },
+    {
+      "solution_id": "S11",
+      "predictor_variable": "Social_Support_and_Belonging_Enhancement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Increase social support and meaningful social engagement (peer support, family involvement, short social activities) to buffer irritability and enhance mood.",
+      "targets_criteria_ids": [
+        "C03",
+        "C06"
+      ],
+      "mechanism_rationale": "Social connectedness improves mood regulation and daily functioning, reducing reactive irritability and cognitive burden.",
+      "measurement": "Perceived social support scale; number of social interactions per week; irritability and daily functioning ratings.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "",
+      "mapping_query": "Boost social support to influence C03 and C06; monitor social engagement and mood/functioning."
+    }
+  ]
+}

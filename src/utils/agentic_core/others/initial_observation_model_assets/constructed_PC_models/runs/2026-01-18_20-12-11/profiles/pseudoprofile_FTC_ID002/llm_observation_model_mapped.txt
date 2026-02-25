@@ -1,0 +1,18 @@
+pseudoprofile_id: pseudoprofile_FTC_ID002
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Diminished positive emotional response to pleasant events -> NON-CLINICAL / AGE-GENERAL / emotional / subjective affective feeling / feeling good (conf=0.70)
+- C02: Guilt about not enjoying positive experiences -> CLINICAL / DSM-5TR / depressive disorders / other specified depressive disorder / recurrent brief depression / guilt_present (conf=0.72)
+- C03: Behavioral autopilot / low moment-to-moment engagement -> CLINICAL / DSM-5TR / sleep-wake disorders / central disorders of hypersomnolence / unspecified hypersomnolence disorder / automatic_behavior_during_mundane_tasks (conf=0.60)
+- C04: General emotional blunting (low affect intensity) -> CLINICAL / DSM-5TR / movement disorders and other side effects of medication / other (secondary) side effects of medication / organ-system effects / psychiatric or behavioral / emotional blunting / blunted_affective_reactions_to_emotional_stimuli (conf=0.72)
+- C05: External presentation of being 'fine' despite internal disengagement -> CLINICAL / DSM-5TR / obsessive-compulsive and related disorders / body dysmorphic disorder / behavior patterns / camouflaging or comparing or seeking reassurance / camouflaging_public_appearance (conf=0.82)
+- C06: Reduced motivation/interest to pursue non-routine pleasurable activities -> NON-CLINICAL / AGE-GENERAL / emotional / emotional intelligence / motivation / intrinsic motivation / passion-driven actions (conf=0.92)
+
+PREDICTORS:
+- P01: Behavioral Activation & Scheduling of Daily Pleasurable Activities -> PSYCHO / change_process_and_therapeutic_phases / skill_acquisition / behavioral_planning_and_execution_skills / behavioral_activation_scheduling (conf=0.92)
+- P02: Gratitude and Savoring Practice -> PSYCHO / positive_psychology_and_wellbeing / gratitude_and_savoring / savoring_positive_moments_practice (conf=0.92)
+- P03: Self-Compassion & Guilt Reduction Training -> PSYCHO / core_psychological_skills_toolkits / compassionate_self_relating_and_inner_support / self_compassion_practices / warmth_and_common_humanity / self_compassion_break_practice (conf=0.72)
+- P04: Sleep Health & Circadian Regularity -> BIO / medical_assessment_and_physiology_testing / sleep_and_respiratory_testing / circadian_and_sleep_tracking / sleep_diary (conf=0.85)
+- P05: Morning Light Exposure & Light-Boosted Activity -> BIO / sleep_circadian_and_restoration / circadian_entrainment / light_cues / morning_bright_light_exposure (conf=0.78)
+- P06: Structured Social Reconnection & Belonging -> SOCIAL / social_support_and_belonging / network_building_and_maintenance / reconnection_and_repair / reconnection_with_lapsed_contacts (conf=0.78)

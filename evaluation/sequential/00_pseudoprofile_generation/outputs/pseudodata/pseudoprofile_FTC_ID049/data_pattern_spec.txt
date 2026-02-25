@@ -1,0 +1,77 @@
+pseudoprofile_id: pseudoprofile_FTC_ID049
+mapped_file: /Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/03_construction_initial_observation_model/constructed_PC_models/runs/2026-01-18_15-56-20/profiles/pseudoprofile_FTC_ID049/llm_observation_model_mapped.txt
+source_raw_model: llm_observation_model_raw.json
+
+TIME AXIS
+- n_timepoints: 180
+- freq (base axis): D  (measurement schedules may enforce extra missingness)
+- start_date: 2025-01-01
+
+REGIME SHIFT (Patterns 4 & 5)
+- center (t_norm): 0.5714
+- abrupt step: activates at t >= center
+- smooth transition: sigmoid around center (width ~0.04 in t_norm)
+
+LATENT DRIVERS
+- stress: AR(1) + smooth shift + weekly sinusoid + drift + pulses
+- sleep_disruption: AR(1) + improvement after shift + weekly sinusoid + drift + pulses
+
+SHARED CO-FLUCTUATION (Pattern 6)
+- shared_osc: sin(2π * 0.80 * t + phase=4.18)
+
+PULSES / EVENTS (Pattern 8)
+- number_of_pulses: 4
+  * pulse_1: start_idx=147, length=2, amp=1.288
+  * pulse_2: start_idx=88, length=7, amp=1.050
+  * pulse_3: start_idx=15, length=3, amp=0.644
+  * pulse_4: start_idx=50, length=6, amp=1.269
+
+CROSS-VARIABLE EFFECTS (Pattern 7)
+- driver_predictor_code (regime-dependent effect): P06
+- criteria receive lagged predictor influence via lags [2,4,7] (weights [0.50,0.35,0.15])
+
+MISSINGNESS (Pattern 10)
+- MCAR + MAR(stress-related) + block-missing + measurement schedule (freq hints)
+- realized missingness rates by code:
+  * P01: missing_rate=0.100 | freq_hint=None
+  * P02: missing_rate=0.183 | freq_hint=None
+  * P03: missing_rate=0.122 | freq_hint=None
+  * P04: missing_rate=0.111 | freq_hint=None
+  * P05: missing_rate=0.144 | freq_hint=None
+  * P06: missing_rate=0.178 | freq_hint=None
+  * P07: missing_rate=0.089 | freq_hint=None
+  * P08: missing_rate=0.200 | freq_hint=None
+  * C01: missing_rate=0.178 | freq_hint=None
+  * C02: missing_rate=0.233 | freq_hint=None
+  * C03: missing_rate=0.072 | freq_hint=None
+  * C04: missing_rate=0.239 | freq_hint=None
+  * C05: missing_rate=0.167 | freq_hint=None
+  * C06: missing_rate=0.239 | freq_hint=None
+
+VARIABLES
+- P01 (PREDICTOR): Threat reinterpretation via cognitive reappraisal (CBT) usage | ontology_id=threat_appraisal_reframe | conf=0.82 | freq_hint=None
+- P02 (PREDICTOR): Interoceptive mindfulness engagement | ontology_id=interoceptive_awareness_practice | conf=0.89 | freq_hint=None
+- P03 (PREDICTOR): Structured medical communication clarity | ontology_id=informed_consent_clarity | conf=0.72 | freq_hint=None
+- P04 (PREDICTOR): Diaphragmatic breathing and paced respiration | ontology_id=diaphragmatic_breathing_practice | conf=0.85 | freq_hint=None
+- P05 (PREDICTOR): Behavioral activation and reduction of bodily monitoring | ontology_id=behavioral_activity_planning_system | conf=0.72 | freq_hint=None
+- P06 (PREDICTOR): Social support and sense of belonging | ontology_id=boundary_setting_with_support_network | conf=0.72 | freq_hint=None
+- P07 (PREDICTOR): Sleep optimization and circadian regularity | ontology_id=sleep_diary | conf=0.76 | freq_hint=None
+- P08 (PREDICTOR): Digital tools usage for well-being (Care_Delivery_Formats) | ontology_id=mood_and_context_tracking_tool | conf=0.72 | freq_hint=None
+- C01 (CRITERION): Episodic tingling in hands/feet | ontology_id=paresthesias_distal_extremities | conf=0.87 | freq_hint=None
+- C02 (CRITERION): Acute anxiety when sensations occur | ontology_id=alarm_response_to_normal_bodily_signs | conf=0.75 | freq_hint=None
+- C03 (CRITERION): Symptom–anxiety amplification loop | ontology_id=alarm_response_to_normal_bodily_signs | conf=0.81 | freq_hint=None
+- C04 (CRITERION): Catastrophic/threat interpretation of sensations | ontology_id=hypervigilance_to_body_sensations | conf=0.72 | freq_hint=None
+- C05 (CRITERION): Uncertainty about medical cause | ontology_id=misinterpretation_of_bodily_sensations | conf=0.72 | freq_hint=None
+- C06 (CRITERION): Heightened bodily monitoring/interoceptive focus | ontology_id=hypervigilance_to_body_sensations | conf=0.72 | freq_hint=None
+
+PATTERN CHECKLIST
+1) AR(1) inertia
+2) weekly seasonality
+3) slow drift trend
+4) abrupt step change
+5) smooth sigmoid transition
+6) shared latent sinusoidal co-fluctuation
+7) lagged predictor->criterion effects
+8) bursts/pulses + decay
+9) outliers/shocks
+10) missingness: MCAR+MAR+block+schedule

@@ -1,0 +1,159 @@
+{
+  "pseudoprofile_id": "CASE-2026-01-PSYS-OPTIMIZER",
+  "summary": "The case describes chronic shoulder/jaw muscle tension with headache triggered by anticipatory threat, poor interoceptive awareness, and habitual bracing, especially on low-stress days. Targeted, modifiable BIO/PSYCHO/SOCIAL levers should reduce resting muscle tension (C01), enhance bodily awareness (C02), lower tension-triggered headaches (C03), decrease persistent threat anticipation (C04), improve ability to relax (C05), and disrupt habitual bracing (C06). The proposed solutions combine somatic regulation, sleep and movement optimization, cognitive regulation, interoceptive training, social support, and lifestyle adjustments to produce synergistic improvements across the six variables.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Progressive Muscle Relaxation (PMR) with paced breathing (daily 15-20 minutes)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Guided PMR sessions combined with slow diaphragmatic breathing to systematically reduce shoulder/jaw tension and parasympathetically downregulate arousal, lowering anticipatory threat and improving ease of relaxation.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "PMR directly reduces resting muscle tension (C01) and, via enhanced parasympathetic activity and cognitive focus on bodily sensations, lowers perceived threat (C04) and facilitates relaxation (C05). Habitual bracing (C06) is dampened as muscle tone becomes more modulatable and less automatic.",
+      "measurement": "Daily tension rating (0-10) for shoulders/jaw; headache diary (frequency/intensity); frequency of perceived bracing; brief interoceptive notes.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "None anticipated beyond ensuring comfortable practice; adjust duration if fatigue occurs.",
+      "mapping_query": "CASE_PAYLOAD mapping for S01 targets C01, C04, C05, C06 via PMR + paced breathing to reduce muscle tension and anticipatory arousal."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Mindfulness-based interoceptive awareness training (daily 10-15 minutes)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Short daily mindfulness/bodyscan practice to heighten interoceptive clarity, improve noticing of early tension, and reduce automatic threat appraisal.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Enhanced interoceptive awareness (C02) allows early detection of rising tension, interrupting the escalation that leads to headaches (C03) and anticipatory threat (C04). Improved present-moment regulation supports downregulation of arousal (C05) and reduces habitual bracing (C06).",
+      "measurement": "MAIA interoceptive awareness scores pre/post; self-report tension moments; headache frequency; perceived threat scale. ",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Safe for most; monitor if mindfulness triggers distress in some individuals.",
+      "mapping_query": "CASE_PAYLOAD mapping for S02 targets C02, C04, C05, C06 via mindfulness-driven interoception to improve tension awareness and regulate threat responses."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Sleep regularization and circadian entrainment (consistent bed/wake times; sleep environment optimization)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Establish fixed sleep schedule, optimize light exposure in mornings, and improve sleep environment to lower global arousal and headache susceptibility.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Consistent sleep supports autonomic balance and reduces daytime arousal, which dampens anticipatory threat (C04) and improves relaxation capacity (C05). Lower baseline arousal may also reduce muscle tension (C01) and headache susceptibility (C03).",
+      "measurement": "Sleep diary with bed/wake times; PSQI score; headache frequency/intensity; self-reported tension.",
+      "time_horizon": "6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "MED",
+      "safety_notes": "Progress gradually to avoid sleep disruption; monitor for daytime sleepiness.",
+      "mapping_query": "CASE_PAYLOAD mapping for S03 targets C04, C05, C01 via circadian sleep optimization to reduce arousal and tension."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Ergonomic posture optimization + micro-break movement program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Ergonomic assessment with chair/workstation adjustments plus brief, regular stretches to counteract sustained muscle tension.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Better posture and regular micro-movements reduce chronic shoulder/jaw tension (C01) and facilitate arousal downregulation (C05); less bracing occurs when posture is optimized (C06).",
+      "measurement": "Posture check-ins (0-3 scale), frequency/duration of stretches, self-reported tension, headache events.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.55,
+      "priority": "MED",
+      "safety_notes": "Ensure no injuries; adapt movements to current physical tolerance.",
+      "mapping_query": "CASE_PAYLOAD mapping for S04 targets C01, C05, C06 through ergonomic/postural changes and movement breaks."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "CBT-based threat reappraisal and exposure to safe, low-threat contexts",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Cognitive restructuring and graded exposure to low-threat situations to reduce anticipatory threat (C04) and automatic bracing responses (C06).",
+      "targets_criteria_ids": [
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "CBT techniques reduce catastrophic threat appraisal and disrupt learned bracing habits by providing corrective experiences and coping strategies in safe contexts.",
+      "measurement": "Threat appraisal scale scores; frequency of jaw/shoulder tension episodes; observed bracing behaviors; mood rating.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Should be delivered by trained clinician or guided self-help; monitor for distress during exposure.",
+      "mapping_query": "CASE_PAYLOAD mapping for S05 targets C04, C06 via CBT-based threat regulation and exposure to reduce anticipatory tension."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Interoceptive awareness training with optional HRV biofeedback",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Combine body-scan/interoception practice with optional heart-rate-variability (HRV) biofeedback to train early tension detection and autonomic regulation.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Enhanced interoceptive skills (C02) enable earlier guidance of arousal and tension, moderating threat expectation (C04) and improving relaxation (C05) while reducing habitual bracing (C06). HRV biofeedback provides real-time cues to shift toward parasympathetic dominance.",
+      "measurement": "MAIA (interoceptive awareness) pre/post; HRV metrics if available; self-reported tension/bracing; headache frequency.",
+      "time_horizon": "6-8 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "HRV biofeedback is optional; ensure user-friendly setup; discontinue if discomfort occurs.",
+      "mapping_query": "CASE_PAYLOAD mapping for S06 targets C02, C04, C05, C06 via interoception training with optional HRV biofeedback to enhance regulatory skills."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social support and group-based relaxation sessions (social prescribing)",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Structured group relaxation or support sessions to reduce perceived threat and provide social buffering against tension and headaches.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "mechanism_rationale": "Social connection reduces perceived threat, promotes state of relaxation, and interrupts habitual bracing by providing external: social regulation and norms for relaxation.",
+      "measurement": "Perceived social support scale; frequency of group participation; self-reported tension/headache count.",
+      "time_horizon": "6-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure privacy and consent; screen for social anxiety triggers and tailor group size.",
+      "mapping_query": "CASE_PAYLOAD mapping for S07 targets C04, C05 via social support interventions to reduce threat and arousal."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Caffeine intake modulation and hydration optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Adjust caffeine timing and total daily intake; optimize hydration to reduce physiologic arousal and muscular tension.",
+      "targets_criteria_ids": [
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Caffeine and dehydration can amplify arousal and muscle tension; moderating intake and ensuring adequate hydration can smooth arousal fluctuations, aiding relaxation (C05) and reducing muscle tension (C01).",
+      "measurement": "Daily caffeine log; water intake; self-reported tension; headache frequency.",
+      "time_horizon": "2-4 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.4,
+      "priority": "LOW",
+      "safety_notes": "Monitor for withdrawal effects if consumption is reduced abruptly.",
+      "mapping_query": "CASE_PAYLOAD mapping for S08 targets C05 and C01 via caffeine/hydration adjustments impacting arousal and tension."
+    }
+  ]
+}

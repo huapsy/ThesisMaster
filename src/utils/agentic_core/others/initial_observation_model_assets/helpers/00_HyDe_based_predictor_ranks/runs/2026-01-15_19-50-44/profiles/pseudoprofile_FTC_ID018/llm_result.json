@@ -1,0 +1,118 @@
+{
+  "pseudoprofile_id": "CASE_PAYLOAD_001",
+  "summary": "The case shows an evenings-specific cluster of modifiable states: persistent bleak/empty mood in the evenings (C01), low outward emotional expression (C02), prolonged passive phone scrolling (C03), a high perceived energy/effort barrier to evening activity (C04), and avoidant coping via phone use (C05). Targeted, changeable levers spanning behavioral activation, stimulus control, circadian alignment, emotion regulation, social connection, and nutrition can be deployed in the evenings to move these predictors in concert. Each lever is designed to be feasible without medical treatment, prioritizing short- to mid-term impact, measurable with simple metrics, and adaptable to individual preferences and safety needs.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Evening Behavioral Activation Schedule (micro-activities with cues)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured Evening Activation Plan: select 1–2 micro-activities (e.g., short walk, quick chore, brief hobby) lasting 5–15 minutes each; pair with a reminder cue and a short post-activity mood check.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Activation creates momentary rewarding experiences, lowers the perceived effort barrier by breaking tasks into tiny steps, reduces avoidance-driven phone scrolling, and supports mood elevation.",
+      "measurement": "Evening mood rating (0–10) after activities; total minutes of intentional evening activity; evenings with no phone use during planned windows (yes/no or minutes).",
+      "time_horizon": "2–4 weeks for pattern stabilization; reassess monthly",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns anticipated; tailor activities to energy level and safety; if fatigue worsens, adjust intensity.",
+      "mapping_query": "Assess impact of structured evening activation on C01, C03, C04, and C05."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Evening smartphone-use reduction with stimulus-control",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Evening device-curfew plan: establish a 60-minute phone-free window before target sleep time, enable app limits and blue-light filters, place phone in another room after 9pm.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Reducing late-night scrolling reduces rumination/negative affect reinforcement and blue-light interference with sleep, improving energy and mood, while decreasing avoidance via phone-based coping.",
+      "measurement": "Evening screen time (minutes) tracked; number of phone-free windows per week; self-reported evening mood.",
+      "time_horizon": "2–3 weeks to observe changes in sleep/energy and mood",
+      "feasibility_0_1": 0.88,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for temporary inconvenience; ensure safety if the person uses the phone for critical communication.",
+      "mapping_query": "Evaluate how reducing evening phone use affects C03, C04, C01, and C05."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Evening circadian alignment via light exposure and consistent sleep routine",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Circadian-environment plan: 20–30 minutes of natural light exposure earlier in the evening or morning, maintain consistent bed/wake times, and reduce blue light after 7pm; implement a simple wind-down routine.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Stabilizing circadian cues improves alertness in the evening and sleep efficiency, reducing fatigue and improving mood and perceived energy; consistent routines lower perceived barrier to activity.",
+      "measurement": "Evening light exposure minutes; bed/wake times; sleep onset latency (minutes); evening mood rating.",
+      "time_horizon": "3–6 weeks for circadian alignment to manifest in daily functioning",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "Keep routine flexible to individual schedule; adjust light timing to avoid sleep disruption if sensitive.",
+      "mapping_query": "Assess influence of circadian-light strategy on C01 and C04."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Evening emotion-regulation skills training (CBT/ACT-informed)",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Mini evening emotion-regulation module: 4-week program with brief daily practices (2–5 minutes) focusing on labeling emotions, acceptance, and a brief mood check-in; incorporate a 60-second cognitive reframe when distress arises.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Enhancing emotion-regulation reduces outward distress signaling (C02) and dampens negative mood reactivity (C01), supporting persistence through evenings.",
+      "measurement": "Self-reported emotional expressiveness (brief scale) and evening mood rating (0–10); frequency of distress episodes per week.",
+      "time_horizon": "4 weeks with weekly check-ins",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Provide options to pause or adjust if distress increases; offer clinician contact if feelings intensify.",
+      "mapping_query": "Determine effect of evening emotion-regulation practice on C02 and C01."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Evening social connection and accountability",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Plan for brief social interactions in evenings: schedule 2–3 short check-ins per week (phone/video) or join an online group activity; establish a buddy system for accountability.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Social engagement elevates mood via belonging signals and reduces reliance on avoidance coping; accountability supports adherence to other evening levers.",
+      "measurement": "Number of evening social interactions per week; loneliness scores; evening mood rating.",
+      "time_horizon": "2–4 weeks for behavioral pattern to stabilize",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Respect boundaries; avoid over-commitment if energy is low; ensure activities are voluntary.",
+      "mapping_query": "Assess impact of evening social connection on C01 and C05."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Evening nutrition/hydration optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Evening nutrition plan: moderate protein + complex carbohydrates, balanced hydration, limit high-sugar/large meals late; avoid caffeine after early afternoon.",
+      "targets_criteria_ids": [
+        "C01",
+        "C04"
+      ],
+      "mechanism_rationale": "Nutritional steadiness supports energy and mood regulation; stable energy reduces perceived effort to engage in activities, lowering avoidance.",
+      "measurement": "Evening caloric and macronutrient balance; daily water intake; evening mood rating.",
+      "time_horizon": "2–3 weeks to observe metabolic-mood effects",
+      "feasibility_0_1": 0.6,
+      "expected_impact_0_1": 0.3,
+      "priority": "LOW",
+      "safety_notes": "Monitor for any dietary restrictions or allergies; adjust as needed.",
+      "mapping_query": "Evaluate the link between evening nutrition/hydration and C01/C04."
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "pseudoprofile_id": "CASE_NIGHT_EATING_OPTIMIZER_01",
+  "summary": "The case shows appetite lability with nocturnal overeating, post-episode distress, and all-or-nothing dieting thoughts, set against accessible nighttime food and late-night wakefulness. The following modifiable predictors span bio (physiological appetite/sleep), psycho (cognitive processes and skills), and social/environmental domains (habits, access, and accountability). Each lever targets one or multiple operationalized criteria (C01–C06) and includes simple measures to track impact, a feasible implementation plan, and safety guidance.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep Regularization and Circadian Alignment",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Establish a consistent sleep-wake schedule with fixed bed and wake times, morning light exposure, a 60–90 minute wind-down routine, and a caffeine/screen-time cutoff to stabilize circadian rhythm and reduce late-night opportunities for eating.",
+      "targets_criteria_ids": [
+        "C06",
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Stable sleep improves circadian hormonal balance (ghrelin/leptin) and executive control over impulses, which can reduce nocturnal cravings, late-night eating, and swings in appetite. Improved mood and reduced nocturnal awakenings lower post-eating distress.",
+      "measurement": "Sleep diary (bedtime, wake time, duration, awakenings), frequency of nighttime eating episodes, hunger ratings (0–10) across 24h.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "If sleep symptoms worsen or mood declines, assess for sleep disorders or mood/anxiety contributors with a clinician.",
+      "mapping_query": "Which sleep/circadian lever reduces nighttime eating and appetite lability (C06, C02, C01)?"
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Structured Meal Planning and Satiety Skills",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Create a simple, repeatable meal pattern with balanced macronutrients, regular eating intervals, and pre-planned, portion-controlled evening snack to prevent midnight hunger spikes; include a protein-rich dinner to promote satiety.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Regular, balanced meals stabilize appetite signals and reduce impulsive nighttime intake. Pre-planned snacks can curb post-episode cravings and diminish the demand for “be good tomorrow” dieting, lowering the cycle of restriction and bingeing.",
+      "measurement": "Daily meal log with meal timing, portion sizes, and hunger/fullness ratings; track nighttime eating episodes.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for rigid adherence; flexibility may be needed to avoid dieting rigidity. Seek professional help if medical concerns arise from dietary changes.",
+      "mapping_query": "Map meal planning and satiety strategies to C01 and C02 (and reduce dieting rigidity C04)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Cognitive-Behavioral Reframing of Post-Eating Self-Evaluation",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement brief cognitive-behavioral techniques to interrupt negative self-talk after eating (e.g., cueing with a 5-minute pause, reframing “gross” feelings into neutral observations, and replacing punishments with compassionate self-talk).",
+      "targets_criteria_ids": [
+        "C03",
+        "C04"
+      ],
+      "mechanism_rationale": "Reducing post-eating shame and all-or-nothing dieting thoughts decreases future restrictive cycles and emotional distress that fuel subsequent eating episodes.",
+      "measurement": "Frequency of self-criticism after meals (brief diary entries) and post-eating mood ratings (0–10); track days with successful cognitive reframing.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "If self-criticism escalates toward self-harm ideation, seek immediate professional support.",
+      "mapping_query": "Target C03 and C04 through cognitive-behavioral reframing techniques."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Environmental Nighttime Access Reduction",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Modify home environment to limit late-night food accessibility (e.g., store high-risk foods out of easy reach, establish “kitchen closed” times, and pre-harvested snack alternatives).",
+      "targets_criteria_ids": [
+        "C05",
+        "C02"
+      ],
+      "mechanism_rationale": "Reducing available food at night directly lowers opportunities to binge and breaks the link between wakefulness and eating episodes.",
+      "measurement": "Nighttime food exposure/availability checklist; count of nighttime eating episodes; pantry/fridge accessibility audit.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Ensure basic nutrition remains adequate; sudden access restrictions should be discussed with a clinician if weight or health concerns arise.",
+      "mapping_query": "Map environmental food-access controls to C05 and reduce nighttime eating episodes C02."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Daytime Behavioral Activation to Reduce Nighttime Wakefulness",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Schedule engaging daytime activities and structured routines to reduce idle time and rumination, which often precede midnight awakenings and cravings.",
+      "targets_criteria_ids": [
+        "C06",
+        "C01"
+      ],
+      "mechanism_rationale": "Increased daytime activation improves mood regulation and reduces cue-driven nocturnal arousal that triggers nighttime eating.",
+      "measurement": "Daily activity log (number of structured activities), affect ratings, and frequency of nighttime awakenings.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Avoid over-scheduling to prevent burnout; adjust plan based on energy levels.",
+      "mapping_query": "Link daytime activation to reductions in late-night wakefulness (C06) and appetite lability (C01)."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Pre-Sleep Wind-Down and Sleep Hygiene Practices (Caffeine/Screen Time Constraints)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Institute a structured 60-minute wind-down before bed with dim lighting, reduced screens, and a cutoff for caffeine after early afternoon to promote sleep onset and reduce nocturnal eating opportunities.",
+      "targets_criteria_ids": [
+        "C06",
+        "C02"
+      ],
+      "mechanism_rationale": "Improved sleep initiation and maintenance reduces nocturnal awakenings and associated eating episodes, and lowers nighttime cognitive arousal that fuels cravings.",
+      "measurement": "Sleep onset latency, time in bed, number of awakenings, nighttime eating events.",
+      "time_horizon": "2–4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "If caffeine avoidance disrupts energy or mood, adjust timing or consider non-caffeine alternatives.",
+      "mapping_query": "Apply sleep hygiene and caffeine/screen-time regulation to decrease C06 and C02."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Self-Monitoring and Feedback via Simple Logs",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Use a simple daily log to track hunger cues, meals, nighttime awakenings, and mood, with weekly brief review to identify triggers and patterns.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Regular self-monitoring enhances awareness of triggers and supports behavioral adjustments, reducing lability and nighttime episodes.",
+      "measurement": "Daily entries (hunger 0–10, meals, nighttime eats, mood); weekly trend summary.",
+      "time_horizon": "3–6 weeks",
+      "feasibility_0_1": 0.7,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "Ensure privacy and comfort with journaling; discontinue if it increases distress.",
+      "mapping_query": "Link self-monitoring data to appetite lability (C01) and post-eating affect (C03)."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Social Support and Accountability Structures",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Engage a trusted accountability partner (family or friend) for meal planning, bedtime routines, and check-ins to reinforce adherence and reduce isolation in dealing with nighttime eating.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C05"
+      ],
+      "mechanism_rationale": "Social accountability buffers stress, discourages all-or-nothing dieting, and supports environmental and sleep hygiene changes, promoting consistency.",
+      "measurement": "Frequency of accountability contacts (per week), partner feedback on adherence, and reported nocturnal eating events.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Respect boundaries; ensure support person is trained to provide nonjudgmental feedback and escalation if distress increases.",
+      "mapping_query": "Utilize social support to influence C04, C06, and environmental controls C05."
+    }
+  ]
+}

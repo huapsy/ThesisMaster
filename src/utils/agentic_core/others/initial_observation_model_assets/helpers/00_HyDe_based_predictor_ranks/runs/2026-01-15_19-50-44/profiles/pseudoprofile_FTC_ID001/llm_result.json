@@ -1,0 +1,110 @@
+{
+  "pseudoprofile_id": "case_s1_profile_v1",
+  "summary": "The case centers on non-restorative sleep with daytime fog, episodic cognitive lapses, reactive self-criticism, and rumination. The best leverage points are: stabilize circadian timing and sleep restoration (bio), reduce cognitive load and support attentional control (bio/psycho), implement cognitive-emotional regulation to curb self-criticism and rumination (psycho), boost daytime activity to improve energy and interrupt rumination (psycho), and foster social supports for accountability (social). The proposed predictors are modifiable, feasible in a typical clinical or coaching context, and designed to produce measurable shifts in C01–C05 over a 4–6 week horizon, using simple self-report and behavioral metrics. No unsafe or illegal guidance is provided; safety monitoring remains in place for worsening symptoms. ",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Regular Sleep-Wake Schedule + Morning Light",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Regularize sleep-wake timing with a fixed wake time and consistent bedtimes, paired with 10–30 minutes of morning light exposure to strengthen circadian entrainment.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Stabilizes circadian rhythms to improve perceived sleep restoration and daytime alertness, reducing nightly variability that contributes to morning fatigue and cognitive fog.",
+      "measurement": "Daily sleep diary (bedtime, wake time, perceived restfulness 0–10), minutes of morning light exposure, 0–10 morning alertness scale; optional actigraphy.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns. Adjust wake time if persistent insomnia or excessive sleepiness develops.",
+      "mapping_query": "MAP to C01: circadian entrainment and restoration via consistent schedule + morning light; track with sleep diary and morning alertness."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Sleep Environment Optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Enhance sleep quality by optimizing the sleep environment (darkness, cool temperature, quiet) and implementing a brief pre-sleep wind-down with screen-time reduction.",
+      "targets_criteria_ids": [
+        "C01"
+      ],
+      "mechanism_rationale": "Improved sleep efficiency and reduced nocturnal awakenings contribute to a more restorative subjective sleep experience and better daytime functioning.",
+      "measurement": "Evening environment checklist (darkness, temperature, noise) + nightly sleep quality rating (0–10) + morning alertness; optional sleep diary entries.",
+      "time_horizon": "4 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Monitor for sleep initiation difficulties if environment changes are too restrictive; adjust as needed.",
+      "mapping_query": "MAP to C01: sleep quality restoration via environmental optimization; monitor with environment checklist and sleep quality ratings."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Compassionate Self-Talk & Cognitive Reframing",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Teach and practice compassionate self-talk and CBT-based cognitive reframing to counter self-criticism after lapses and to reduce escalation into global worry.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Improves emotion regulation and reduces the likelihood of spiraling into rumination and overall functioning concerns after cognitive lapses.",
+      "measurement": "Post-lapse thought records (1–3 items), self-rated self-criticism 0–10, mini-Ruminative Thoughts scale weekly.",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Provide supportive coaching; monitor for excessive rumination during early practice.",
+      "mapping_query": "MAP to C04/C05: reduce self-criticism and rumination via cognitive reframing; assess with thought records and rumination items."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Cognitive Offloading Tools + Brief Attentional Training",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Use external memory aids (checklists, reminders, task organization) plus short daily attentional training to reduce lapses in attention/memory.",
+      "targets_criteria_ids": [
+        "C03"
+      ],
+      "mechanism_rationale": "Reduces cognitive load and supports ongoing task completion, lowering frequency of attentional lapses and related frustration.",
+      "measurement": "Frequency of lapses logged; weekly brief cognitive task performance (e.g., simple attention task scores); self-reported attention difficulty (0–10).",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Ensure tools are user-friendly to avoid added frustration; monitor for overreliance on external aids.",
+      "mapping_query": "MAP to C03: lessen lapses via cognitive offloading and attention training; track via lapse logs and cognitive task performance."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Structured Daytime Activity Scheduling + Light Aerobic Movement",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Implement a daily schedule with planned activities and brief aerobic movement to boost daytime energy and disrupt rumination.",
+      "targets_criteria_ids": [
+        "C02",
+        "C05"
+      ],
+      "mechanism_rationale": "Increases physiological arousal and engagement during the day, improving alertness and reducing time for rumination.",
+      "measurement": "Daily activity log (planned vs. actual), energy/motivation rating (0–10), number of rumination episodes (brief check-ins).",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Adjust activity intensity to fitness level; ensure gradual buildup to prevent fatigue.",
+      "mapping_query": "MAP to C02/C05: improve daytime energy and reduce rumination through activity scheduling and light exercise; measure with daily logs and energy ratings."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Regular Social Check-Ins / Accountability Partner",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Establish brief, regular social check-ins or an accountability partner to provide support and reduce rumination",
+      "targets_criteria_ids": [
+        "C05"
+      ],
+      "mechanism_rationale": "Social support and accountability provide distraction from rumination and improve mood regulation via interpersonal processes.",
+      "measurement": "Weekly check-in occurrence count; perceived social support 0–10; rumination episodes per week (self-report).",
+      "time_horizon": "4–6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure boundaries and privacy; offer alternatives if social contact increases distress.",
+      "mapping_query": "MAP to C05: reduce rumination via social support; track with weekly checks and rumination counts."
+    }
+  ]
+}

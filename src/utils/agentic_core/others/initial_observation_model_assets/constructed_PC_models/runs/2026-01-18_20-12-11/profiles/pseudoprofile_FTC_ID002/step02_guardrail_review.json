@@ -1,0 +1,30 @@
+{
+  "decision": "REVISE",
+  "composite_score_0_1": 0.7501,
+  "weighted_dimensions_0_1": {
+    "schema_integrity": 0.61,
+    "gvar_design_quality": 0.9333333333333333,
+    "evidence_grounding": 0.88,
+    "feasibility_alignment": 0.52,
+    "safety_scope": 0.8799999999999999
+  },
+  "weighted_dimensions_used": {
+    "schema_integrity": 0.25,
+    "gvar_design_quality": 0.18,
+    "evidence_grounding": 0.22,
+    "feasibility_alignment": 0.2,
+    "safety_scope": 0.15
+  },
+  "critical_issues": [
+    "hard_ontology_violations:9"
+  ],
+  "actionable_feedback": [
+    "Align predictor ontology_path and criterion_path fields to valid PHOENIX ontology paths."
+  ],
+  "rationale": "Composite critic score combines schema integrity, gVAR design quality, evidence grounding, feasibility alignment, and safety/scope consistency.",
+  "hard_ontology_constraint_applied": true,
+  "feasibility_alignment_summary": {
+    "n_parent_domains_considered": 0,
+    "mean_feasibility_0_1": 0.52
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "pseudoprofile_id": "case1_biopsy_plan_v1",
+  "summary": "This plan targets a self-perpetuating work-cycle: errors feed anxiety and overwork, which increases fatigue and further errors. By modulating sleep health, cognitive load, threat appraisal, overtime practices, fatigue recovery, attention training, and social support, we introduce modifiable levers across BIO/PSYCHO/SOCIAL domains and their interactions. Each lever is linked to specific case variables (C01–C05), has a feasible implementation path, measurable outcomes, and a clear short-to-mid horizon to interrupt the cycle and improve daily work performance without pharmacology or unsafe interventions.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Sleep duration consistency and circadian regularity; pre-sleep wind-down practices",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a fixed sleep-wake schedule (same bedtime and wake time daily within 1 hour), 10–20 minute wind-down routine, and screen-curfew (60 minutes before bed) to improve restorative sleep and daytime alertness.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05",
+        "C01"
+      ],
+      "mechanism_rationale": "Improved sleep quality and regularity enhance cerebrovascular/neuronal efficiency, reducing daytime fatigue and attentional lapses that contribute to minor work errors and self-perceived threat when mistakes occur.",
+      "measurement": "Sleep diary tracking nightly duration and consistency; morning energy rating (0–10); errors per shift; brief simple reaction-time check-ins",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "No safety concerns. If insomnia persists or worsens, consult a clinician; avoid over-restrictive schedules that cause stress.",
+      "mapping_query": "Assess whether improved sleep consistency reduces C04 fatigue and C05 attention lapses, and whether reduced fatigue correlates with lower C01 error rates."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "External cognitive offloading and task structure (checklists; scheduled micro-breaks)",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Create standardized task checklists for routine tasks; institute 2–3 minute micro-breaks every 75–90 minutes; maintain an error-spot log and brief post-task review.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "External aids reduce working-memory load and sustain attention, diminishing minor mistakes and fatigue-related processing slowdowns after long tasks.",
+      "measurement": "Checklist adoption rate; errors per shift; breaks logged; self-reported fatigue pre/post-work",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "None",
+      "mapping_query": "Track changes in C01 and C05 after checklist and break implementation; correlate with fatigue reports."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Cognitive restructuring to reduce catastrophic employment fears",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Introduce a brief cognitive-behavioral module: daily thought records for firing-related thoughts with reframing and uncertainty tolerance; short practice conversations or journaling.",
+      "targets_criteria_ids": [
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Reducing intensity/frequency of firing-related thoughts lowers anticipatory anxiety, decreases overcompensatory behaviors, and stabilizes cognitive load during work.",
+      "measurement": "Frequency/intensity of firing-related thoughts; state anxiety scale; errors per shift",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.55,
+      "priority": "HIGH",
+      "safety_notes": "If panic escalates, provide access to clinical support and crisis resources.",
+      "mapping_query": "Examine whether reductions in C02 thoughts correspond to decreases in C01 error rate via improved cognitive bandwidth."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Overtime boundary setting and supervisor-supported workload management",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Co-create a daily/weekly workload boundary with supervisor (e.g., max late work once per week; scheduled decompression after late shifts); implement brief workload reviews.",
+      "targets_criteria_ids": [
+        "C03",
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Explicit limits on overtime promote recovery, reduce fatigue, and preserve attentional control, thereby lowering both errors and fatigue-induced cognitive decline.",
+      "measurement": "Weekly overtime hours; recovery time after late shifts; fatigue ratings; errors per shift",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "HIGH",
+      "safety_notes": "Ensure policy aligns with job responsibilities and fairness; escalate if overtime remains systemically high.",
+      "mapping_query": "Monitor changes in C03/C04/C05 as overtime boundaries are implemented."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Structured fatigue management: breaks, movement, hydration, and sleep-recovery alignment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Incorporate scheduled 2–3 minute movement breaks every hour, regular hydration reminders, and light work-rest cycles to support recovery and sustain cognitive function.",
+      "targets_criteria_ids": [
+        "C04",
+        "C05"
+      ],
+      "mechanism_rationale": "Active recovery and hydration support metabolic and neural efficiency, reducing daytime fatigue and attentional lapses that drive errors.",
+      "measurement": "Break frequency; self-rated fatigue (0–10) during shifts; simple on-task performance measures",
+      "time_horizon": "3-4 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.4,
+      "priority": "MED",
+      "safety_notes": "No risk; adapt to job demands; avoid disruptive interruptions during high-stakes tasks.",
+      "mapping_query": "Assess associations between fatigue management practices and reductions in C04 and C05, and consequent impact on C01."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Attention and cognitive control training with external aids",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Implement a brief daily attention-training routine (5–7 minutes) and use external prompts (notes, reminders) to support working memory and task monitoring.",
+      "targets_criteria_ids": [
+        "C01",
+        "C05"
+      ],
+      "mechanism_rationale": "Targeted cognitive training enhances vigilance and updating, reducing error susceptibility and maintaining performance when fatigued.",
+      "measurement": "Performance on attention-task probes; error rate per shift; self-reported effort/fatigue",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "If cognitive load becomes burdensome, adjust training intensity.",
+      "mapping_query": "Link attention training gains to decreases in C01 and C05 occurrences."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Social support and belonging at work",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Establish weekly 15-minute peer-support/check-in rounds and manager-initiated supportive communications to reduce perceived threat of firing and enhance recovery.",
+      "targets_criteria_ids": [
+        "C02",
+        "C04"
+      ],
+      "mechanism_rationale": "Enhanced social connectedness and supervisor support reduce threat perception, lower stress responses, and improve fatigue resilience, indirectly stabilizing performance.",
+      "measurement": "Perceived organizational support scale; loneliness and stress measures; fatigue; error rate",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.45,
+      "priority": "MED",
+      "safety_notes": "None",
+      "mapping_query": "Evaluate whether increases in perceived social support correlate with reductions in C02 and C04."
+    }
+  ]
+}

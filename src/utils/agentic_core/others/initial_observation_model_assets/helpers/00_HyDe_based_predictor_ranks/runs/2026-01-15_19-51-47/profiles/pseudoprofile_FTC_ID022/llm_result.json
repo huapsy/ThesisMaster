@@ -1,0 +1,194 @@
+{
+  "pseudoprofile_id": "case_headache_mood_cycle_v1",
+  "summary": "The case shows a recurrent squeezing-type headache paired with abrupt mood downturn and a pain–shame–isolation loop. High-yield levers are proposed across bio, psycho, and social domains (and their intersections) to reduce headache frequency/intensity, stabilize mood during episodes, decrease avoidance/guilt, and rebuild social connectedness. Each lever is modifiable, measurable, and time-bounded, with attention to potential interactions (e.g., sleep, hydration, activity, mindfulness, and social support) to disrupt the maintenance cycle.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Regular sleep-wake routine and optimized sleep environment",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Establish a consistent sleep schedule (same bedtime and wake time within ±30 minutes), optimize the sleep environment (dark, cool, quiet), and limit screen exposure 1 hour before bed; track nightly sleep duration and sleep quality; adjust caffeine timing if needed.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03"
+      ],
+      "mechanism_rationale": "Improved sleep supports autonomic regulation, pain processing, and mood stabilization, reducing headache frequency/severity and acute mood dips.",
+      "measurement": "Average nightly sleep duration, sleep efficiency, number of headache days per week, peak pain rating during episodes, and mood rating during episodes.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Safe; monitor for daytime sleepiness or insomnia if maladaptive sleep strategies are used.",
+      "mapping_query": "Map sleep regularity and environment to C01 (headache frequency), C02 (intensity), and C03 (mood during episodes); sleep quality moderates pain/mood dynamics."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Hydration and electrolyte balance optimization",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Daily water intake target with balanced electrolytes; maintain consistent hydration throughout the day; monitor fluid intake and headache episodes.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Adequate hydration supports cerebral perfusion and nerve function, potentially reducing headache frequency/intensity and stabilizing mood fluctuations linked to headaches.",
+      "measurement": "Daily fluid intake, number of headache days per week, average headache intensity during episodes.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.9,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Avoid excessive water intake in short timeframes to prevent hyponatremia; tailor targets to body weight and activity level.",
+      "mapping_query": "Relates hydration status to C01 and C02 (headache frequency and intensity)."
+    },
+    {
+      "solution_id": "S03",
+      "predictor_variable": "Breathing-based relaxation and PMR for pain and mood regulation",
+      "bio_psycho_social_domain": "BIOxPSYCHO",
+      "solution_candidate": "Structured diaphragmatic breathing (4–6 breaths per minute) and progressive muscle relaxation to downregulate arousal during onset and after headaches; practice 5–10 minutes daily.",
+      "targets_criteria_ids": [
+        "C02",
+        "C03",
+        "C07"
+      ],
+      "mechanism_rationale": "Physiological calming reduces pain perception and prevents escalations in negative mood and avoidance tendencies; interrupts the pain–shame cycle.",
+      "measurement": "Minutes of practice per day; headache intensity during episodes; mood rating during episodes; self-reported levels of pain-related rumination.",
+      "time_horizon": "2-4 weeks (initial) with ongoing use",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for hyperventilation symptoms; adjust pace if discomfort occurs.",
+      "mapping_query": "Targets C02 (intensity) and C03 (mood) and C07 (pain–shame cycle) via autonomic regulation."
+    },
+    {
+      "solution_id": "S04",
+      "predictor_variable": "Behavioral activation and social engagement plan",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Schedule 1–2 small social activities per week or structured social contact (phone/video) to counter avoidance; create contingency plans for headaches and communicate needs with trusted others.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06"
+      ],
+      "mechanism_rationale": "Active engagement reduces social isolation and guilt stemming from cancellations; reduces reinforcement of withdrawal and strengthens mood resilience.",
+      "measurement": "Number of planned activities attended per week; self-reported loneliness scale; mood before/after activities.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Ensure activities align with energy levels and headache comfort; adjust if headaches worsen with activity.",
+      "mapping_query": "Addresses C04 (avoidance) and C06 (isolation) through structured social engagement."
+    },
+    {
+      "solution_id": "S05",
+      "predictor_variable": "Self-compassion training to reduce guilt and self-blame",
+      "bio_psycho_social_domain": "PSYCHOxSOCIAL",
+      "solution_candidate": "Brief daily self-compassion prompts and cognitive reappraisal to reframe cancellations; practice forgiving self and reframing actions as adaptive strategy rather than failure.",
+      "targets_criteria_ids": [
+        "C05",
+        "C04"
+      ],
+      "mechanism_rationale": "Reduces guilt-driven avoidance amplification by softening self-criticism; supports continued social activity and adherence to plans.",
+      "measurement": "Frequency/intensity of guilt episodes; self-compassion intermediary scale; cancellations per week.",
+      "time_horizon": "4-6 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Provide gentle prompts to avoid triggering defensiveness; tailor language to individual values.",
+      "mapping_query": "Targets C05 (guilt) and C04 (avoidance) via self-compassion and reframing."
+    },
+    {
+      "solution_id": "S06",
+      "predictor_variable": "Mindfulness-based pain acceptance practice",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Daily short mindfulness practice (body scan, nonjudgmental observation) to decouple pain from negative mood reactions and reduce ruminative focus on pain.",
+      "targets_criteria_ids": [
+        "C07",
+        "C03",
+        "C01"
+      ],
+      "mechanism_rationale": "Promotes adaptive response to pain, reduces pain-related distress, and weakens the pain–shame–isolation cycle by shifting perception and response.",
+      "measurement": "Daily mindfulness minutes; mood during episodes; headache frequency.",
+      "time_horizon": "4-8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.7,
+      "priority": "HIGH",
+      "safety_notes": "None significant; monitor distress if mindfulness provokes strong memories.",
+      "mapping_query": "Targets C07 (pain–shame cycle) and C03 (mood) with acceptance-based strategies; potential downstream effects on C01."
+    },
+    {
+      "solution_id": "S07",
+      "predictor_variable": "Daily symptom diary with automatic feedback (Measurement-based care)",
+      "bio_psycho_social_domain": "BIOxPSYCHOxSOCIAL",
+      "solution_candidate": "Maintain a simple daily diary tracking headaches, mood, social plans, and activity; weekly review with feedback to tailor plan; use dashboards to show trends.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Promotes self-awareness, supports timely adjustments, and strengthens engagement by visualizing connections between behaviors, mood, and headaches.",
+      "measurement": "Diary completion rate; correlation between diary entries and headache/mood changes; adherence to plan.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.95,
+      "expected_impact_0_1": 0.8,
+      "priority": "HIGH",
+      "safety_notes": "Ensure privacy and simplicity to avoid data fatigue.",
+      "mapping_query": "Leverages data to map across all criteria C01–C07 and guide personalized adjustments."
+    },
+    {
+      "solution_id": "S08",
+      "predictor_variable": "Mediterranean-style dietary pattern with anti-inflammatory focus",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Adopt a regular Mediterranean-style eating pattern with adequate micronutrients (e.g., magnesium, B-vitamins) and consistent hydration; track 3-day food diary.",
+      "targets_criteria_ids": [
+        "C01",
+        "C02"
+      ],
+      "mechanism_rationale": "Chronic inflammation and micronutrient status can influence pain processing and mood; a stable diet supports vascular and neural health relevant to headaches and affect.",
+      "measurement": "3-day food diary quality score; headache days; average headache intensity; mood ratings.",
+      "time_horizon": "6–8 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.5,
+      "priority": "MED",
+      "safety_notes": "Ensure dietary changes suit individual health needs; monitor for GI symptoms.",
+      "mapping_query": "Links diet quality to headache frequency/intensity (C01/C02) via inflammatory and metabolic pathways."
+    },
+    {
+      "solution_id": "S09",
+      "predictor_variable": "Structured aerobic exercise program",
+      "bio_psycho_social_domain": "BIO",
+      "solution_candidate": "Engage in moderate aerobic activity (e.g., 150 minutes/week) with gradual progression; track sessions and impact on headaches and mood.",
+      "targets_criteria_ids": [
+        "C01",
+        "C03"
+      ],
+      "mechanism_rationale": "Regular aerobic activity improves vascular function and endorphin-mediated mood regulation, potentially reducing headache frequency/severity and improving mood during episodes.",
+      "measurement": "Weekly exercise minutes; headache days per week; average mood during episodes.",
+      "time_horizon": "6–12 weeks",
+      "feasibility_0_1": 0.85,
+      "expected_impact_0_1": 0.75,
+      "priority": "HIGH",
+      "safety_notes": "Start gradually; account for headache triggers with heat/cold or dehydration; medical clearance if needed.",
+      "mapping_query": "Activity increases may reduce C01 and stabilize C03 via improved vascular/metabolic health."
+    },
+    {
+      "solution_id": "S10",
+      "predictor_variable": "Social support network development and community engagement",
+      "bio_psycho_social_domain": "SOCIAL",
+      "solution_candidate": "Connect with peer support or community programs; weekly check-ins; foster belonging and reduce isolation through structured social links.",
+      "targets_criteria_ids": [
+        "C04",
+        "C06",
+        "C07"
+      ],
+      "mechanism_rationale": "Strengthened social networks buffer stress responses, reduce isolation, and attenuate mood erosion during headaches.",
+      "measurement": "Number of new social connections; weekly social interactions; loneliness/belonging scale; mood during episodes in social contexts.",
+      "time_horizon": "8–12 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.6,
+      "priority": "MED",
+      "safety_notes": "Respect boundaries; ensure supportive environments; avoid exposure to unsafe social situations.",
+      "mapping_query": "Targets avoidance/isolation and pain–shame dynamics via enhanced social connectedness (C04, C06, C07)."
+    }
+  ]
+}

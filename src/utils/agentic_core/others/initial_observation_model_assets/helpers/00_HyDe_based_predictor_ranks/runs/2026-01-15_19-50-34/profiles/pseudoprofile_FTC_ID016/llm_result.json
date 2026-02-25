@@ -1,0 +1,44 @@
+{
+  "pseudoprofile_id": "CASE001_BIOPSYCHO_SOC_SOLUTIONS_V1",
+  "summary": "This plan targets the seven changeable predictors identified in the case (somatic episode intensity, unpredictability distress, threat interpretation, medical reassurance acceptance, avoidance of leaving home, interoceptive hypervigilance, and functional impact) with a mix of psychoeducational, behavioral, mindfulness, sleep/biological regulation, social support, and digital monitoring levers. The proposed predictors are modifiable levers designed to reduce fear and avoidance, recalibrate interpretation of bodily sensations, improve tolerance of uncertainty and uncertainty-related distress, and enhance overall daily function. Interventions emphasize safe, graded exposures, cognitive restructuring, acceptance-based strategies, interoceptive calibration, sleep optimization, social connectedness, and data-driven personalization. Each lever links to measurable targets (C01–C07) and includes feasibility and safety notes to guide real-world implementation.",
+  "solutions": [
+    {
+      "solution_id": "S01",
+      "predictor_variable": "Threat_Interpretation_Reframing_Skills",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Structured CBT-based cognitive restructuring to reinterpret bodily sensations as non-dangerous and controllable, with behavioral experiments to test beliefs under safe conditions.",
+      "targets_criteria_ids": [
+        "C03",
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Reduces threat appraisal of bodily sensations, lowers automatic fear and catastrophic thinking, which in turn can lessen interoceptive amplification and distress.",
+      "measurement": "Threat appraisal rating (0-1 scale); average daily intensity of symptoms (0-10); episode count per week.",
+      "time_horizon": "8-12 weeks",
+      "feasibility_0_1": 0.8,
+      "expected_impact_0_1": 0.6,
+      "priority": "HIGH",
+      "safety_notes": "Low-risk; monitor for distress during reframing; provide clinician support if panic signs emerge.",
+      "mapping_query": "Map to C03 primary; assess downstream effects on C02 and C01 via reduced fear and avoidance."
+    },
+    {
+      "solution_id": "S02",
+      "predictor_variable": "Interoceptive_Exposure_Skills_Training",
+      "bio_psycho_social_domain": "PSYCHO",
+      "solution_candidate": "Guided laddered exposure to internal sensations (e.g., paced breathing, lightheadedness, mild dizziness) in a controlled, progressive sequence with coping skills.",
+      "targets_criteria_ids": [
+        "C06",
+        "C02",
+        "C01"
+      ],
+      "mechanism_rationale": "Desensitizes exaggerated responses to internal cues, reducing interoceptive hypervigilance and overall symptom amplification.",
+      "measurement": "Completion rate of exposure ladder; peak intensity during exposures (0-10); weekly episode frequency.",
+      "time_horizon": "6-10 weeks",
+      "feasibility_0_1": 0.75,
+      "expected_impact_0_1": 0.65,
+      "priority": "HIGH",
+      "safety_notes": "Monitor for panic or distress; pause exposures if signs of decompensation occur; ensure supervision.\"mapping_query\":\"S02 maps to C06; aims to decrease distress (C02) and somatic intensity (C01) via reduced internal cue sensitivity.\"},{",
+      "mapping_query": "S03 maps to C04; aims to reduce distress related to reassurance and enhance uncertainty tolerance."
+    }
+  ]
+}

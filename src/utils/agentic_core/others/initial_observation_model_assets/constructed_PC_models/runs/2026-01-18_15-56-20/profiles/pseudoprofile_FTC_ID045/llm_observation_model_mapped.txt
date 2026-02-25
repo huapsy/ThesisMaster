@@ -1,0 +1,18 @@
+pseudoprofile_id: pseudoprofile_FTC_ID045
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Rate of small work errors -> CLINICAL / DSM-5TR / neurodevelopmental disorders / attention-deficit or hyperactivity disorder (adhd) / unspecified adhd / careless_errors_in_tasks (conf=0.82)
+- C02: Catastrophic job-loss expectation (anticipatory fear) -> CLINICAL / DSM-5TR / bipolar and related disorders / bipolar i disorder / specifiers / with anxious distress / fear_that_something_awful_may_happen (conf=0.58)
+- C03: Compensatory overwork (working late) -> CLINICAL / DSM-5TR / substance-related and addictive disorders / non-substance-related (behavioral) addictive disorders / work addiction (workaholism) / excessive_work_hours_persisting_outside_expectations (conf=0.78)
+- C04: Daytime tiredness/fatigue -> CLINICAL / DSM-5TR / sleep-wake disorders / medication or substance-induced sleep-wake disorders / medication or substance-induced hypersomnolence / alcohol-related residual hypersomnolence / daytime_fatigue_intensity (conf=0.85)
+- C05: Attention/cognitive performance decline linked to fatigue -> CLINICAL / ICD-10 / diseases of the nervous system / other disorders of the nervous system / other disorders of nervous system in diseases classified elsewhere / cognitive_fatigue (conf=0.82)
+
+PREDICTORS:
+- P01: Sleep regularization and sleep hygiene -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / sleep_quality_rating (conf=0.92)
+- P02: Structured fatigue-energy management with planned microbreaks -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / cognition_and_energy_selfreports / mental_energy_rating (conf=0.78)
+- P03: Pre-task checklists and error-proofing routines -> PSYCHO / cognitive_capacity_enhancement_and_stimulation / cognitive_offloading_and_external_aids / external_memory_systems / design_and_use / checklists_for_error_prevention (conf=0.92)
+- P04: Boundary-setting and supervisor alignment to cap overtime -> PSYCHO / change_process_and_therapeutic_phases / behavioral_integration / lifestyle_performance_and_wellbeing_integration / stress_load_boundary_setting_practice (conf=0.85)
+- P05: External cognitive offloading tools and prompts -> PSYCHO / cognitive_capacity_enhancement_and_stimulation / cognitive_offloading_and_external_aids / external_memory_systems / design_and_use / external_aids_use_training (conf=0.78)
+- P06: Cognitive restructuring and resilience training (threat appraisal) -> PSYCHO / cognitive_behavioral_therapies / cognitive_restructuring / emotion_linked_reappraisal / threat_and_anxiety / threat_appraisal_reframe (conf=0.82)
+- P07: Structured social support and supervisor feedback loop -> SOCIAL / work_education_and_role_functioning / work_and_occupational_solutions / workplace_relationships_and_team_functioning / feedback_conversation_support (conf=0.85)

@@ -1,0 +1,19 @@
+pseudoprofile_id: pseudoprofile_FTC_ID005
+source_raw_model: llm_observation_model_raw.json
+
+CRITERIA:
+- C01: Emotional numbness / detachment -> CLINICAL / DSM-5TR / trauma- and stressor-related disorders / unspecified trauma- and stressor-related disorder / emotional_numbing_detachment (conf=0.86)
+- C02: Sensory-cued acute distress episodes -> CLINICAL / DSM-5TR / trauma- and stressor-related disorders / acute stress responses / acute stress disorder / distress_to_cues (conf=0.72)
+- C03: Rapid emotional fluctuations -> CLINICAL / ICD-10 / diseases of the nervous system / other disorders of the nervous system / other disorders of brain in diseases classified elsewhere / mood_lability (conf=0.72)
+- C04: Work-related concentration impairment -> CLINICAL / DSM-5TR / bipolar and related disorders / bipolar i disorder / specifiers / with anxious distress / difficulty_concentrating_due_to_worry (conf=0.62)
+- C05: Perceived social minimization / unhelpful responses -> NON-CLINICAL / AGE-GENERAL / social / social integration / social connectedness / network of friends / social support from friends / appraisal support / validation of feelings (conf=0.68)
+- C06: Limited active processing of the loss -> NON-CLINICAL / AGE-GENERAL / emotional / arousal / attending / sustained attention / continuous engagement (conf=0.65)
+
+PREDICTORS:
+- P01: Grief_Processing_Engagement -> PSYCHO / change_process_and_therapeutic_phases / experiential_disconfirmation / emotion_processing_and_transformational_experiences / grief_processing_and_integration_practice (conf=0.68)
+- P02: Mindfulness_and_Affective_Regulation -> PSYCHO / third_wave_and_contextual_therapies / dbt_skills_based_therapy / mindfulness_skills / mindfulness_of_current_emotion (conf=0.82)
+- P03: Sleep_Regulation_and_Circadian_Alignment -> BIO / personalization_monitoring_and_data_feedback / self_assessment_and_logs / daily_and_retrospective_logs / sleep_quality_rating (conf=0.92)
+- P04: Social_Support_Validation_and_Affirmation -> UNMAPPED (reason=No exact leaf for EMA-based perceived social support rating under SOCIAL; available leaves either focus on validation processes in relationships or network-building/mobilization, not on momentary perceived social support from others.)
+- P05: Meaning_Making_and_Purpose_Reorientation -> PSYCHO / change_process_and_therapeutic_phases / readiness_and_engagement / wellbeing_optimization_entry_path / meaning_and_purpose_checkin (conf=0.72)
+- P06: Self_Monitoring_and_Data_Feedback -> PSYCHO / change_process_and_therapeutic_phases / behavior_change_theories_and_modern_protocol_arcs / social_cognitive_theory_solutions / sct_self_monitoring_goals_and_feedback_loop (conf=0.65)
+- P07: Grief_Group_Participation_and_Social_Prescribing -> SOCIAL / social_support_and_belonging / support_network_development / group_based_connection / grief_support_group_enrollment (conf=0.58)
