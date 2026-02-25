@@ -77,3 +77,71 @@ def test_job_stream_supports_cursor_resume(repo_root):
     assert '"line": "alpha"' not in text_after_one
     assert '"line": "beta"' in text_after_one
     assert '"type": "status"' in text_after_one
+
+
+def test_full_session_pipeline_job_endpoint(repo_root, monkeypatch):
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from frontend.phoenix_frontend import create_app
+
+    app = create_app()
+    store = app.extensions["phoenix.session_store"]
+    service = app.extensions["phoenix.service"]
+    session = store.create_session(complaint_text="Low mood with unstable energy and concentration.")
+
+    def _fake_run_full_session_pipeline(**kwargs):
+        log = kwargs["log"]
+        log("[component:full_session_pipeline] status=running", "INFO")
+        log("[component:full_session_pipeline] status=succeeded", "INFO")
+        return {"cycles_requested": 1, "cycles_completed": 1}
+
+    monkeypatch.setattr(service, "run_full_session_pipeline", _fake_run_full_session_pipeline)
+
+    client = app.test_client()
+    resp = client.post(f"/api/sessions/{session.session_id}/jobs/run-full", json={"cycles": 1})
+    assert resp.status_code == 200
+    payload = resp.get_json() or {}
+    assert payload.get("status") == "ok"
+    job_id = str(payload.get("job_id") or "")
+    assert job_id.startswith("job_")
+
+    terminal_status = ""
+    for _ in range(40):
+        poll = client.get(f"/api/jobs/{job_id}")
+        assert poll.status_code == 200
+        row = poll.get_json() or {}
+        terminal_status = str(((row.get("job") or {}).get("status") or "")).lower()
+        if terminal_status in {"succeeded", "failed"}:
+            break
+    assert terminal_status == "succeeded"
+
+
+def test_update_session_intake_endpoint(repo_root):
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from frontend.phoenix_frontend import create_app
+
+    app = create_app()
+    store = app.extensions["phoenix.session_store"]
+    session = store.create_session(
+        complaint_text="Old complaint text.",
+        person_text="Old person context.",
+        context_text="Old environment context.",
+    )
+
+    client = app.test_client()
+    resp = client.patch(
+        f"/api/sessions/{session.session_id}/intake",
+        json={
+            "complaint_text": "Updated complaint text for testing.",
+            "person_text": "Updated person context.",
+            "context_text": "Updated environment context.",
+            "reset_outputs": True,
+        },
+    )
+    assert resp.status_code == 200
+    payload = resp.get_json() or {}
+    assert payload.get("status") == "ok"
+    assert (payload.get("session") or {}).get("complaint_text") == "Updated complaint text for testing."
+    intake_sync = payload.get("intake_sync") or {}
+    assert intake_sync.get("matches") is True

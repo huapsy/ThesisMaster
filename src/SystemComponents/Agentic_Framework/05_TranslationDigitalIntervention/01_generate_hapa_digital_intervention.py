@@ -1836,6 +1836,109 @@ def main() -> int:
                 json.dumps(step05_output.model_dump(mode="json"), indent=2, ensure_ascii=False),
                 encoding="utf-8",
             )
+            step05_md_lines: List[str] = [
+                f"# {step05_output.intervention_title}",
+                "",
+                f"Profile: `{profile_id}`",
+                "",
+                "## User Summary",
+                step05_output.user_friendly_summary.strip() or "No user summary provided.",
+                "",
+                "## Personalized Message",
+                step05_output.personalized_message.strip() or "No personalized message provided.",
+                "",
+                "## Clinical Case Formulation",
+                step05_output.clinical_case_formulation.strip() or "No clinical case formulation provided.",
+                "",
+                "## Selected Treatment Targets",
+            ]
+            if step05_output.selected_treatment_targets:
+                for row in step05_output.selected_treatment_targets:
+                    step05_md_lines.append(
+                        "- "
+                        f"{row.predictor_label} ({row.predictor}) "
+                        f"[priority={float(row.priority_0_1):.3f}] "
+                        f"→ {row.rationale}"
+                    )
+            else:
+                step05_md_lines.append("- None.")
+            step05_md_lines.extend(["", "## Selected Barriers"])
+            if step05_output.selected_barriers:
+                for row in step05_output.selected_barriers:
+                    step05_md_lines.append(
+                        "- "
+                        f"{row.barrier_name} "
+                        f"[score={float(row.score_0_1):.3f}] "
+                        f"({row.barrier_parent_domain}) → {row.rationale}"
+                    )
+            else:
+                step05_md_lines.append("- None.")
+            step05_md_lines.extend(["", "## Selected Coping Strategies"])
+            if step05_output.selected_coping_strategies:
+                for row in step05_output.selected_coping_strategies:
+                    linked = ", ".join(row.linked_barriers) if row.linked_barriers else "n/a"
+                    step05_md_lines.append(
+                        "- "
+                        f"{row.coping_name} "
+                        f"[score={float(row.score_0_1):.3f}] "
+                        f"(linked barriers: {linked}) → {row.rationale}"
+                    )
+            else:
+                step05_md_lines.append("- None.")
+            step05_md_lines.extend(["", "## HAPA Component Plan"])
+            if step05_output.hapa_component_plan:
+                for row in step05_output.hapa_component_plan:
+                    step05_md_lines.append(f"- **{row.component}**: {row.objective}")
+                    if row.actions:
+                        for action in row.actions:
+                            step05_md_lines.append(f"  - action: {action}")
+                    if row.measurement_signals:
+                        step05_md_lines.append(f"  - measurement signals: {', '.join(row.measurement_signals)}")
+                    if row.digital_delivery:
+                        step05_md_lines.append(f"  - digital delivery: {row.digital_delivery}")
+            else:
+                step05_md_lines.append("- None.")
+            step05_md_lines.extend(["", "## Phased Delivery Plan"])
+            if step05_output.phased_delivery_plan:
+                for row in step05_output.phased_delivery_plan:
+                    step05_md_lines.append(f"- **{row.phase}** ({row.time_window}): {row.primary_goal}")
+                    if row.concrete_actions:
+                        for action in row.concrete_actions:
+                            step05_md_lines.append(f"  - action: {action}")
+                    if row.linked_targets:
+                        step05_md_lines.append(f"  - linked targets: {', '.join(row.linked_targets)}")
+                    if row.linked_barriers:
+                        step05_md_lines.append(f"  - linked barriers: {', '.join(row.linked_barriers)}")
+            else:
+                step05_md_lines.append("- None.")
+            step05_md_lines.extend(["", "## Monitoring Plan"])
+            if step05_output.monitoring_plan:
+                for item in step05_output.monitoring_plan:
+                    step05_md_lines.append(f"- {item}")
+            else:
+                step05_md_lines.append("- None.")
+            step05_md_lines.extend(["", "## Safety Notes"])
+            if step05_output.safety_notes:
+                for item in step05_output.safety_notes:
+                    step05_md_lines.append(f"- {item}")
+            else:
+                step05_md_lines.append("- None.")
+            step05_md_lines.extend(
+                [
+                    "",
+                    "## Confidence and Limitations",
+                    f"- confidence_0_1: {float(step05_output.confidence_0_1):.3f}",
+                ]
+            )
+            if step05_output.limitations:
+                for item in step05_output.limitations:
+                    step05_md_lines.append(f"- limitation: {item}")
+            else:
+                step05_md_lines.append("- limitation: none reported.")
+            (out_profile_dir / "step05_hapa_intervention.md").write_text(
+                "\n".join(step05_md_lines).strip() + "\n",
+                encoding="utf-8",
+            )
             if step05_guardrail is not None:
                 (out_profile_dir / "step05_guardrail_review.json").write_text(
                     json.dumps(step05_guardrail.model_dump(mode="json"), indent=2, ensure_ascii=False),

@@ -64,19 +64,86 @@
       <div><strong>Updated:</strong> <span id="session-updated">{{ session.updated_at }}</span></div>
     </div>
     <div class="stack">
-      <div>
-        <h4>Complaint</h4>
-        <p class="mono">{{ session.complaint_text or "—" }}</p>
+      <div class="form-group">
+        <label>Complaint</label>
+        <textarea id="intake-complaint" rows="3">{{ session.complaint_text or "" }}</textarea>
       </div>
-      {% if session.person_text %}<div>
-        <h4>Person Context</h4>
-        <p class="mono">{{ session.person_text }}</p>
-      </div>{% endif %}
-      {% if session.context_text %}<div>
-        <h4>Environment Context</h4>
-        <p class="mono">{{ session.context_text }}</p>
-      </div>{% endif %}
+      <div class="form-group">
+        <label>Person Context</label>
+        <textarea id="intake-person" rows="2">{{ session.person_text or "" }}</textarea>
+      </div>
+      <div class="form-group">
+        <label>Environment Context</label>
+        <textarea id="intake-context" rows="2">{{ session.context_text or "" }}</textarea>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <label class="checkline"><input id="intake-reset-outputs" type="checkbox" checked> Reset model/data/cycle artifacts after intake change</label>
+        <button id="save-intake-btn" class="btn ghost">Save Intake</button>
+      </div>
+      <p id="intake-sync-status" class="muted compact">Intake file sync status will appear here.</p>
     </div>
+  </div>
+
+  <!-- ── ONE-CLICK FULL RUN — End-to-end from free-text complaint ── -->
+  <div class="panel">
+    <div class="panel-header">
+      <h2>Full PHOENIX Run (End-to-End)</h2>
+      <span class="badge badge-primary">Complaint → Step 05 (+ optional support)</span>
+    </div>
+    <p class="muted text-sm">
+      Runs model creation, pseudodata acquisition, and iterative analysis cycles in one job. This is the fastest way to
+      verify full backend integration from intake to intervention.
+    </p>
+    <div class="inline-form" style="margin-top:10px">
+      <label>
+        LLM Model
+        <input id="full-llm-model" type="text" value="gpt-5-nano" placeholder="Search models…" autocomplete="off" {% if
+          llm_globally_disabled %}disabled{% endif %}>
+      </label>
+      <label>Cycles <input id="full-cycles" type="number" min="1" max="6" value="1"></label>
+      <label class="checkline"><input id="full-include-intervention" type="checkbox" checked> Include intervention</label>
+      <button id="run-full-btn" class="btn primary">Run Full PHOENIX</button>
+    </div>
+    <details class="advanced-settings">
+      <summary>Advanced full-run controls</summary>
+      <div class="advanced-settings-body">
+        <div class="inline-form">
+          <label>Model prompt budget <input id="full-prompt-budget" type="number" min="2000" step="1000"
+              value="400000"></label>
+          <label>Model max workers <input id="full-max-workers" type="number" min="1" max="64" value="12"></label>
+          <label>Critic iterations <input id="full-critic-iterations" type="number" min="1" max="6" value="2"></label>
+          <label>Critic threshold <input id="full-critic-threshold" type="number" min="0.5" max="1" step="0.01"
+              value="0.74"></label>
+          <label>Pseudodata points <input id="full-points" type="number" min="10" max="365" value="84"></label>
+          <label>Missing rate <input id="full-missing" type="number" step="0.01" min="0" max="0.7" value="0.10"></label>
+          <label>Seed <input id="full-seed" type="number" min="0" value="42"></label>
+          <label>Memory window <input id="full-memory-window" type="number" min="1" max="10" value="3"></label>
+          <label>Network boot <input id="full-network-boot" type="number" min="20" max="200" value="40"></label>
+          <label>Network block <input id="full-network-block-len" type="number" min="6" max="60" value="14"></label>
+          <label>Network jobs <input id="full-network-jobs" type="number" min="1" max="16" value="4"></label>
+          <label>
+            Network policy
+            <select id="full-network-policy">
+              <option value="readiness_aligned" selected>readiness_aligned</option>
+              <option value="all_methods">all_methods</option>
+            </select>
+          </label>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:10px">
+          <label class="checkline"><input id="full-request-refinement" type="checkbox"> Request model refinement on
+            intermediate cycles</label>
+          <label class="checkline"><input id="full-auto-refresh-acquisition" type="checkbox" checked> Auto-refresh
+            pseudodata between cycles</label>
+          <label class="checkline"><input id="full-run-visualizations" type="checkbox" checked> Impact visuals</label>
+          <label class="checkline"><input id="full-run-communication" type="checkbox" checked> Treatment
+            communication</label>
+          <label class="checkline"><input id="full-parallel-branches" type="checkbox" checked> Parallel branches</label>
+          <label class="checkline"><input id="full-hard-ontology" type="checkbox"> Hard ontology</label>
+          <label class="checkline"><input id="full-disable-llm" type="checkbox" {% if llm_globally_disabled %}checked
+              disabled{% endif %}> Deterministic mode</label>
+        </div>
+      </div>
+    </details>
   </div>
 
   <!-- ── STEP 01 — Complaint Operationalization ── -->
@@ -302,6 +369,13 @@
           <label>Network bootstrap <input id="cycle-network-boot" type="number" min="20" max="200" value="40"></label>
           <label>Block length <input id="cycle-network-block-len" type="number" min="6" max="60" value="14"></label>
           <label>Network jobs <input id="cycle-network-jobs" type="number" min="1" max="16" value="4"></label>
+          <label>
+            Network policy
+            <select id="cycle-network-policy">
+              <option value="readiness_aligned" selected>readiness_aligned</option>
+              <option value="all_methods">all_methods</option>
+            </select>
+          </label>
         </div>
         <p class="muted compact" style="margin-top:6px">
           Parallel network jobs are used when possible. If the environment blocks parallel workers, PHOENIX retries once
@@ -387,10 +461,103 @@
               <option value="60" selected>60</option>
               <option value="30">30</option>
             </select></label>
+          <label class="checkline compact-inline"><input id="timeseries-normalize" type="checkbox"> Normalize (0-1)</label>
         </div>
       </div>
       <canvas id="chart-timeseries"></canvas>
       <p id="timeseries-status" class="muted compact">No pseudodata loaded.</p>
+      <ul id="timeseries-signal-diagnostics" class="detail-list"></ul>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header">
+      <h2>Intermediate Stage Analytics</h2>
+      <span id="dashboard-live-refresh-status" class="status-chip status-idle">LIVE SYNC IDLE</span>
+    </div>
+    <p class="muted compact">
+      Computed directly from PHOENIX stage artifacts (readiness, network, impact, and runtime contracts).
+    </p>
+    <div class="detail-grid" style="margin-top:10px">
+      <article class="detail-card">
+        <h3>Readiness Overview</h3>
+        <div id="dashboard-readiness-overview"></div>
+      </article>
+      <article class="detail-card">
+        <h3>Network Overview</h3>
+        <div id="dashboard-network-overview"></div>
+      </article>
+      <article class="detail-card">
+        <h3>Impact Overview</h3>
+        <div id="dashboard-impact-overview"></div>
+      </article>
+      <article class="detail-card">
+        <h3>Runtime Overview</h3>
+        <div id="dashboard-runtime-overview"></div>
+      </article>
+      <article class="detail-card">
+        <h3>Cycle Logic State</h3>
+        <div id="dashboard-flow-state"></div>
+      </article>
+      <article class="detail-card">
+        <h3>Stage Status Snapshot</h3>
+        <div id="dashboard-stage-status"></div>
+      </article>
+      <article class="detail-card">
+        <h3>Stage Status Rows</h3>
+        <ul id="dashboard-stage-status-rows" class="detail-list"></ul>
+      </article>
+      <article class="detail-card">
+        <h3>Phase Outputs</h3>
+        <ul id="dashboard-phase-outputs" class="detail-list"></ul>
+      </article>
+      <article class="detail-card">
+        <h3>Variable Quality (Readiness)</h3>
+        <ul id="dashboard-readiness-variables" class="detail-list"></ul>
+      </article>
+      <article class="detail-card">
+        <h3>Live Stage Events</h3>
+        <ul id="dashboard-live-events" class="detail-list"></ul>
+      </article>
+      <article class="detail-card">
+        <h3>Artifact Stage Events</h3>
+        <ul id="dashboard-stage-events" class="detail-list"></ul>
+      </article>
+      <article class="detail-card">
+        <h3>Component Runtime Matrix</h3>
+        <ul id="dashboard-component-runtime" class="detail-list"></ul>
+      </article>
+      <article class="detail-card">
+        <h3>LLM + Critic Signals</h3>
+        <ul id="dashboard-llm-signals" class="detail-list"></ul>
+      </article>
+      <article class="detail-card">
+        <h3>Operationalization Provenance</h3>
+        <ul id="dashboard-operationalization-overview" class="detail-list"></ul>
+      </article>
+    </div>
+    <div class="chart-grid" style="margin-top:10px">
+      <div class="chart-card">
+        <h3>Readiness Score Components</h3><canvas id="chart-readiness-components"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Network Method Comparison</h3><canvas id="chart-network-methods"></canvas>
+      </div>
+      <div class="chart-card chart-card-wide">
+        <h3>Temporal Network Dynamics</h3><canvas id="chart-network-temporal"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Predictor Importance (Network Stage)</h3><canvas id="chart-network-predictor-importance"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Impact Decomposition</h3><canvas id="chart-impact-decomposition"></canvas>
+      </div>
+      <div class="chart-card chart-card-wide">
+        <h3>Stage Runtime (seconds)</h3><canvas id="chart-stage-runtime"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Stage Status Count</h3><canvas id="chart-stage-status"></canvas>
+      </div>
     </div>
   </div>
 

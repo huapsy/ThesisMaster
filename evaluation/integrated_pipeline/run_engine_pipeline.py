@@ -518,24 +518,341 @@ def _find_latest_profile_dir(runs_root: Path, profile_id: str) -> Optional[Path]
     return matches[-1]
 
 
+def _resolve_iterative_initial_model_runs_root(
+    *,
+    output_root: Path,
+    run_id: str,
+    source_cycle_root: str,
+) -> Optional[Path]:
+    candidates: List[Path] = []
+    source_raw = str(source_cycle_root or "").strip()
+    if source_raw:
+        source_root = Path(source_raw).expanduser().resolve()
+        candidates.append(source_root / "01_initial_observation_model" / "runs")
+        if source_root.name.startswith("cycle_") and source_root.parent.name == "cycles":
+            candidates.append(source_root.parent.parent / "01_initial_observation_model" / "runs")
+    candidates.append(output_root / run_id / "01_initial_observation_model" / "runs")
+
+    seen: set[str] = set()
+    for path in candidates:
+        key = str(path)
+        if key in seen:
+            continue
+        seen.add(key)
+        if path.exists() and path.is_dir():
+            return path.resolve()
+    return None
+
+
+def _safe_read_csv(path: Path) -> pd.DataFrame:
+    for sep in [",", ";", "\t", "|"]:
+        try:
+            frame = pd.read_csv(path, sep=sep, engine="python")
+            if frame.shape[1] > 1 or sep == ",":
+                return frame
+        except Exception:
+            continue
+    return pd.read_csv(path, engine="python")
+
+
+def _clean_csv_cell(value: Any) -> str:
+    if value is None:
+        return ""
+    try:
+        if pd.isna(value):
+            return ""
+    except Exception:
+        pass
+    text = str(value).strip()
+    if text.lower() in {"nan", "none", "null"}:
+        return ""
+    return text
+
+
+def _safe_var_code(raw: str, prefix: str, idx: int) -> str:
+    token = str(raw or "").strip().upper()
+    if re.fullmatch(rf"{prefix}\d{{2}}", token):
+        return token
+    if re.fullmatch(rf"{prefix}\d{{1}}", token):
+        return f"{prefix}{int(token[1:]):02d}"
+    return f"{prefix}{idx:02d}"
+
+
+def _slug_token(text: str) -> str:
+    token = re.sub(r"[^a-z0-9]+", "_", str(text or "").strip().lower()).strip("_")
+    return token or "unspecified"
+
+
+def _load_operationalization_rows(
+    *,
+    mapped_csv_path: Path,
+    profile_id: str,
+) -> Dict[str, Any]:
+    summary: Dict[str, Any] = {
+        "profile_id": str(profile_id),
+        "complaint_text": "",
+        "variables": [],
+    }
+    if not mapped_csv_path.exists():
+        return summary
+    try:
+        frame = _safe_read_csv(mapped_csv_path)
+    except Exception:
+        return summary
+    if frame.empty:
+        return summary
+
+    scoped = frame
+    if "pseudoprofile_id" in frame.columns:
+        candidate = frame[frame["pseudoprofile_id"].astype(str) == str(profile_id)]
+        if not candidate.empty:
+            scoped = candidate
+    if scoped.empty:
+        return summary
+
+    if "complaint_text" in scoped.columns:
+        vals = [_clean_csv_cell(v) for v in scoped["complaint_text"].tolist()]
+        vals = [v for v in vals if v]
+        if vals:
+            summary["complaint_text"] = vals[0]
+
+    rows: List[Dict[str, Any]] = []
+    seen: set[str] = set()
+    for _, row in scoped.iterrows():
+        var_id = _clean_csv_cell(row.get("variable_id"))
+        if not var_id or var_id in seen:
+            continue
+        seen.add(var_id)
+        label = (
+            _clean_csv_cell(row.get("variable_label"))
+            or _clean_csv_cell(row.get("variable_criterion"))
+            or var_id
+        )
+        ontology_path = _clean_csv_cell(
+            row.get("chosen_leaf_full_path")
+            or row.get("chosen_leaf_embed_path")
+            or row.get("variable_criterion")
+            or ""
+        )
+        confidence = 0.0
+        for key in ("chosen_confidence", "variable_confidence_0_1"):
+            raw = row.get(key)
+            try:
+                confidence = float(raw)
+                if confidence > 0:
+                    break
+            except Exception:
+                continue
+        rows.append(
+            {
+                "var_id": var_id,
+                "label": label,
+                "criterion": _clean_csv_cell(row.get("variable_criterion")),
+                "ontology_path": ontology_path,
+                "confidence_0_1": float(max(0.0, min(1.0, confidence))),
+                "polarity": _clean_csv_cell(row.get("variable_polarity")) or "higher_is_worse",
+            }
+        )
+    summary["variables"] = rows
+    return summary
+
+
+def _build_step02_fallback_payload(
+    *,
+    profile_id: str,
+    complaint_text: str,
+    op_rows: Sequence[Dict[str, Any]],
+) -> Dict[str, Any]:
+    criteria_variables: List[Dict[str, Any]] = []
+    for idx, row in enumerate(list(op_rows)[:8], start=1):
+        var_id = _safe_var_code(str(row.get("var_id") or ""), "C", idx)
+        label = str(row.get("label") or row.get("criterion") or var_id).strip() or var_id
+        criterion_path = str(row.get("ontology_path") or "").strip()
+        if not criterion_path:
+            criterion_path = f"CRITERION / high_level / {_slug_token(label)}"
+        confidence = float(row.get("confidence_0_1") or 0.75)
+        criteria_variables.append(
+            {
+                "var_id": var_id,
+                "label": label,
+                "include_priority": "HIGH" if idx <= 4 else "MEDIUM",
+                "criterion_path": criterion_path,
+                "polarity": str(row.get("polarity") or "higher_is_worse"),
+                "measurement": {
+                    "mode": "EMA_self_report",
+                    "assessment_type": "momentary",
+                    "item_or_signal": str(row.get("criterion") or label),
+                    "response_scale_or_unit": "0-10",
+                    "sampling_per_day": 1,
+                    "recall_window": "since last prompt",
+                },
+                "mapping_status": "MAPPED",
+                "mapped_leaf_full_path": criterion_path,
+                "mapped_confidence": float(max(0.1, min(1.0, confidence))),
+            }
+        )
+
+    predictor_variables: List[Dict[str, Any]] = []
+    predictor_count = max(3, min(6, len(criteria_variables) + 1))
+    for idx in range(1, predictor_count + 1):
+        source = criteria_variables[(idx - 1) % max(1, len(criteria_variables))]
+        source_label = str(source.get("label") or f"criterion_{idx}").strip()
+        p_var_id = f"P{idx:02d}"
+        predictor_path = (
+            f"PREDICTOR / high_level / self_regulation / "
+            f"{_slug_token(source_label)}"
+        )
+        predictor_variables.append(
+            {
+                "var_id": p_var_id,
+                "label": f"Self-regulation signal for {source_label}",
+                "include_priority": "HIGH" if idx <= 4 else "MEDIUM",
+                "bio_psycho_social_domain": "PSY",
+                "ontology_path": predictor_path,
+                "mapped_leaf_full_path": predictor_path,
+                "mapped_confidence": 0.7,
+                "targets_criteria_var_ids": [str(source.get("var_id") or "")],
+                "measurement": {
+                    "mode": "EMA_self_report",
+                    "assessment_type": "momentary",
+                    "item_or_signal": f"Daily burden linked to {source_label}",
+                    "response_scale_or_unit": "0-10",
+                    "sampling_per_day": 1,
+                    "recall_window": "since last prompt",
+                },
+            }
+        )
+
+    edges: List[Dict[str, Any]] = []
+    for p_idx, predictor in enumerate(predictor_variables, start=1):
+        for c_idx, criterion in enumerate(criteria_variables, start=1):
+            relevance = 0.62 if ((p_idx - 1) % max(1, len(criteria_variables))) + 1 == c_idx else 0.34
+            edges.append(
+                {
+                    "predictor_var_id": str(predictor.get("var_id") or ""),
+                    "criterion_var_id": str(criterion.get("var_id") or ""),
+                    "estimated_relevance_0_1": round(float(max(0.1, min(0.95, relevance))), 3),
+                    "selection_reason": "Complaint-grounded deterministic fallback edge.",
+                }
+            )
+
+    complaint_preview = str(complaint_text or "").strip()
+    return {
+        "timestamp_local": _ts(),
+        "pseudoprofile_id": str(profile_id),
+        "model_summary": (
+            "Complaint-grounded fallback model generated from Step-01 operationalization output. "
+            "Used because Step-02 mapped artifacts were unavailable."
+        ),
+        "variable_selection_notes": (
+            "Fallback preserves operationalized complaint variables and synthesizes high-level predictor probes "
+            "for downstream PHOENIX compatibility.\n"
+            f"Complaint context: {complaint_preview[:500]}"
+        ).strip(),
+        "design_recommendations": {"study_days": 14, "sampling_per_day": 1},
+        "criteria_variables": criteria_variables,
+        "predictor_variables": predictor_variables,
+        "edges": edges,
+    }
+
+
+def _write_step02_fallback_artifacts(
+    *,
+    target_dir: Path,
+    profile_id: str,
+    model_payload: Dict[str, Any],
+) -> Dict[str, str]:
+    _ensure_dir(target_dir)
+    final_json = target_dir / "llm_observation_model_final.json"
+    mapped_json = target_dir / "llm_observation_model_mapped.json"
+    mapped_txt = target_dir / "llm_observation_model_mapped.txt"
+
+    serialized = json.dumps(model_payload, ensure_ascii=False, indent=2)
+    final_json.write_text(serialized, encoding="utf-8")
+    mapped_json.write_text(serialized, encoding="utf-8")
+
+    criteria_rows = list(model_payload.get("criteria_variables") or [])
+    predictor_rows = list(model_payload.get("predictor_variables") or [])
+    lines: List[str] = [
+        f"pseudoprofile_id: {profile_id}",
+        "source_raw_model: integrated_pipeline_fallback_operationalization",
+        "",
+        "CRITERIA",
+    ]
+    for idx, row in enumerate(criteria_rows, start=1):
+        code = _safe_var_code(str(row.get("var_id") or ""), "C", idx)
+        label = str(row.get("label") or code).strip()
+        path = str(row.get("mapped_leaf_full_path") or row.get("criterion_path") or "criteria/unspecified").strip()
+        confidence = float(row.get("mapped_confidence") or 0.7)
+        lines.append(f"- {code}: {label} -> {path} (conf={confidence:.2f})")
+
+    lines.extend(["", "PREDICTORS"])
+    for idx, row in enumerate(predictor_rows, start=1):
+        code = _safe_var_code(str(row.get("var_id") or ""), "P", idx)
+        label = str(row.get("label") or code).strip()
+        path = str(row.get("mapped_leaf_full_path") or row.get("ontology_path") or "predictors/unspecified").strip()
+        confidence = float(row.get("mapped_confidence") or 0.7)
+        lines.append(f"- {code}: {label} -> {path} (conf={confidence:.2f})")
+
+    mapped_txt.write_text("\n".join(lines).strip() + "\n", encoding="utf-8")
+    return {
+        "model_final_json": str(final_json),
+        "model_mapped_json": str(mapped_json),
+        "model_mapped_txt": str(mapped_txt),
+    }
+
+
 def ensure_step02_profile_outputs(
     *,
     run_profile_root: Path,
     profile_ids: Sequence[str],
+    mapped_csv_path: Path,
     allow_fallback: bool,
     fallback_runs_root: Path,
     logger: PipelineLogger,
-) -> Dict[str, str]:
+) -> Dict[str, Dict[str, str]]:
     """
-    Ensure Step-02 required profile files exist. If missing and fallback is enabled,
-    copy profile artifacts from a legacy runs root.
+    Ensure Step-02 required profile files exist.
+
+    Fallback order when Step-02 artifacts are missing:
+    1) Build complaint-grounded deterministic artifacts from Step-01 mapped CSV.
+    2) If enabled, copy profile artifacts from fallback runs root.
     """
-    copied_from: Dict[str, str] = {}
+    fallback_records: Dict[str, Dict[str, str]] = {}
     for profile_id in profile_ids:
         target_dir = run_profile_root / profile_id
         mapped_json = target_dir / "llm_observation_model_mapped.json"
         mapped_txt = target_dir / "llm_observation_model_mapped.txt"
         if mapped_json.exists() and mapped_txt.exists():
+            continue
+
+        op_summary = _load_operationalization_rows(mapped_csv_path=mapped_csv_path, profile_id=profile_id)
+        op_rows = list(op_summary.get("variables") or [])
+        if op_rows:
+            complaint_text = str(op_summary.get("complaint_text") or "").strip()
+            fallback_payload = _build_step02_fallback_payload(
+                profile_id=profile_id,
+                complaint_text=complaint_text,
+                op_rows=op_rows,
+            )
+            artifact_map = _write_step02_fallback_artifacts(
+                target_dir=target_dir,
+                profile_id=profile_id,
+                model_payload=fallback_payload,
+            )
+            fallback_records[profile_id] = {
+                "strategy": "operationalization_synthesis",
+                "source": str(mapped_csv_path),
+                **artifact_map,
+            }
+            logger.log(
+                "WARNING",
+                "initial_model.fallback_operationalization_synthesis",
+                "Built Step-02 fallback artifacts from Step-01 operationalization output.",
+                profile_id=profile_id,
+                artifacts=artifact_map,
+                metrics={"mapped_variable_count": len(op_rows)},
+            )
             continue
 
         if not allow_fallback:
@@ -549,7 +866,11 @@ def ensure_step02_profile_outputs(
 
         _ensure_dir(target_dir)
         shutil.copytree(src_dir, target_dir, dirs_exist_ok=True)
-        copied_from[profile_id] = str(src_dir)
+        fallback_records[profile_id] = {
+            "strategy": "legacy_profile_copy",
+            "source": str(src_dir),
+            "target": str(target_dir),
+        }
         logger.log(
             "WARNING",
             "initial_model.fallback_profile_copy",
@@ -558,7 +879,7 @@ def ensure_step02_profile_outputs(
             artifacts={"source": str(src_dir), "target": str(target_dir)},
         )
 
-    return copied_from
+    return fallback_records
 
 
 def write_skipped_stage_artifacts(
@@ -1103,13 +1424,16 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
         "--step02-fallback-runs-root",
         type=str,
         default="",
-        help="Fallback Step-02 runs root used when mapped model outputs are missing.",
+        help="Legacy Step-02 runs root used only if complaint-grounded fallback synthesis is unavailable.",
     )
     parser.add_argument(
         "--allow-step02-fallback",
         action=argparse.BooleanOptionalAction,
-        default=True,
-        help="When Step-02 outputs are missing, copy profile artifacts from fallback runs root if available.",
+        default=False,
+        help=(
+            "Allow legacy fallback copy from --step02-fallback-runs-root when Step-02 artifacts are missing and "
+            "complaint-grounded fallback synthesis cannot be built from Step-01 output."
+        ),
     )
     parser.add_argument("--pseudodata-seed", type=int, default=42)
     parser.add_argument("--pseudodata-n", type=int, default=0)
@@ -1617,20 +1941,21 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                         env_overrides=runtime_env,
                     )
                 )
-                fallback_copies = ensure_step02_profile_outputs(
+                fallback_records = ensure_step02_profile_outputs(
                     run_profile_root=step02_runs_root / step02_run_id / "profiles",
                     profile_ids=selected_profile_ids,
+                    mapped_csv_path=mapped_csv,
                     allow_fallback=bool(args.allow_step02_fallback),
                     fallback_runs_root=step02_fallback_runs_root,
                     logger=logger,
                 )
-                if fallback_copies:
+                if fallback_records:
                     (stage_output_roots["initial_model"] / "step02_fallback_provenance.json").write_text(
                         json.dumps(
                             {
                                 "run_id": run_id,
                                 "step02_run_id": step02_run_id,
-                                "fallback_copies": fallback_copies,
+                                "fallback_records": fallback_records,
                             },
                             ensure_ascii=False,
                             indent=2,
@@ -1732,6 +2057,30 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         logger=logger,
     )
     active_pseudodata_root = Path(iterative_input.active_pseudodata_root).expanduser().resolve()
+
+    if bool(args.start_from_pseudodata):
+        resolved_initial_runs = _resolve_iterative_initial_model_runs_root(
+            output_root=output_root,
+            run_id=run_id,
+            source_cycle_root=str(iterative_input.source_cycle_root),
+        )
+        if resolved_initial_runs is not None:
+            initial_model_runs_root = resolved_initial_runs
+            logger.log(
+                "INFO",
+                "initial_model.runs_root_resolved",
+                "Resolved initial-model runs root for iterative start-from-pseudodata execution.",
+                initial_model_runs_root=str(initial_model_runs_root),
+                source_cycle_root=str(iterative_input.source_cycle_root),
+            )
+        else:
+            logger.log(
+                "WARNING",
+                "initial_model.runs_root_missing",
+                "Could not resolve run-lineage initial-model runs root; using configured default.",
+                configured_initial_model_runs_root=str(initial_model_runs_root),
+                source_cycle_root=str(iterative_input.source_cycle_root),
+            )
 
     if not active_pseudodata_root.exists():
         logger.log(
@@ -2401,6 +2750,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                             profiles=impact_profiles,
                             required_relpaths=[
                                 "step05_hapa_intervention.json",
+                                "step05_hapa_intervention.md",
                                 "step05_guardrail_review.json",
                                 "step05_selected_barriers_top10.csv",
                                 "step05_coping_candidates_ranked.csv",

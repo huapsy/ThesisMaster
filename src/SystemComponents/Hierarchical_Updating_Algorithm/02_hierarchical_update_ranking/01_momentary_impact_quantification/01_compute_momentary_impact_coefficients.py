@@ -428,6 +428,71 @@ def assert_has_columns(df: pd.DataFrame, cols: List[str], what: str, path: Path)
     assert not missing, f"[ASSERTION FAILED] {what} missing columns {missing} in file: {path}"
 
 
+def _build_synthetic_node_centrality_from_matrix(
+    *,
+    var_codes: List[str],
+    matrix: np.ndarray,
+) -> pd.DataFrame:
+    """
+    Construct a minimal local-metrics table when upstream node-centrality files are
+    empty (for example in correlation-only readiness-aligned execution paths).
+    """
+    mat = np.array(matrix, dtype=float, copy=True)
+    p = len(var_codes)
+    assert mat.shape == (p, p), (
+        f"[ASSERTION FAILED] synthetic node centrality: expected matrix shape {(p, p)}, got {mat.shape}"
+    )
+
+    np.fill_diagonal(mat, 0.0)
+    abs_mat = np.abs(mat)
+
+    in_strength_abs = abs_mat.sum(axis=1)
+    out_strength_abs = abs_mat.sum(axis=0)
+    in_strength_signed = mat.sum(axis=1)
+    out_strength_signed = mat.sum(axis=0)
+
+    total_strength = in_strength_abs + out_strength_abs
+    total_scale = float(np.max(total_strength)) if total_strength.size else 1.0
+    if not np.isfinite(total_scale) or total_scale <= 1e-12:
+        total_scale = 1.0
+
+    deg_nonzero = (abs_mat > 1e-9).sum(axis=0) + (abs_mat > 1e-9).sum(axis=1)
+    deg_scale = float(np.max(deg_nonzero)) if deg_nonzero.size else 1.0
+    if not np.isfinite(deg_scale) or deg_scale <= 1e-12:
+        deg_scale = 1.0
+
+    # Simple, deterministic proxies so downstream local-metric logic remains valid.
+    pagerank = np.clip(total_strength / (np.sum(total_strength) + 1e-12), 0.0, 1.0)
+    eigenvector = np.clip(total_strength / total_scale, 0.0, 1.0)
+    katz = np.clip((out_strength_abs + 0.5 * in_strength_abs) / (1.5 * total_scale + 1e-12), 0.0, 1.0)
+    betweenness = np.clip(out_strength_abs / (np.max(out_strength_abs) + 1e-12), 0.0, 1.0)
+    closeness = np.clip(in_strength_abs / (np.max(in_strength_abs) + 1e-12), 0.0, 1.0)
+    participation_coeff = np.clip((out_strength_abs + in_strength_abs) / (2.0 * total_scale + 1e-12), 0.0, 1.0)
+    core_number = np.clip(deg_nonzero / deg_scale, 0.0, 1.0)
+
+    rows: List[Dict[str, Any]] = []
+    for i, node in enumerate(var_codes):
+        rows.append(
+            {
+                "time_index": 0,
+                "t": 1.0,
+                "node": str(node),
+                "in_strength_abs": float(in_strength_abs[i]),
+                "out_strength_abs": float(out_strength_abs[i]),
+                "in_strength_signed": float(in_strength_signed[i]),
+                "out_strength_signed": float(out_strength_signed[i]),
+                "pagerank": float(pagerank[i]),
+                "betweenness": float(betweenness[i]),
+                "closeness": float(closeness[i]),
+                "eigenvector": float(eigenvector[i]),
+                "katz": float(katz[i]),
+                "core_number": float(core_number[i]),
+                "participation_coeff": float(participation_coeff[i]),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
 def load_profile(profile_dir: Path) -> ProfileData:
     profile_id = profile_dir.name
 
@@ -462,6 +527,7 @@ def load_profile(profile_dir: Path) -> ProfileData:
 
     tv_path = profile_dir / OUTPUT_SPECS["tv_arrays"]["relpath"]
     st_npz_path = profile_dir / "method 2/numerical outputs/stationary_full_arrays.npz"
+    corr_npz_path = profile_dir / "method 3/numerical outputs/correlation_full_arrays.npz"
 
     impact_source = "tv_gvar"
     estpoints: np.ndarray
@@ -510,10 +576,32 @@ def load_profile(profile_dir: Path) -> ProfileData:
         estpoints = np.array([1.0], dtype=float)
         Bhat = B[None, :, :]
         pcorr = P[None, :, :]
+    elif corr_npz_path.exists():
+        impact_source = "correlation_baseline_fallback"
+        corr_npz = np.load(corr_npz_path, allow_pickle=False)
+        corr_key = (
+            "partial_corr_lw"
+            if "partial_corr_lw" in corr_npz
+            else "pearson"
+            if "pearson" in corr_npz
+            else corr_npz.files[0]
+            if len(corr_npz.files) > 0
+            else ""
+        )
+        assert corr_key, (
+            f"[ASSERTION FAILED] {profile_id}: correlation fallback NPZ has no usable arrays in {corr_npz_path}"
+        )
+        base = np.asarray(corr_npz[corr_key], dtype=float)
+        assert base.ndim == 2 and base.shape[0] == base.shape[1], (
+            f"[ASSERTION FAILED] {profile_id}: correlation fallback array expected (p,p), got {base.shape}"
+        )
+        estpoints = np.array([1.0], dtype=float)
+        Bhat = base[None, :, :]
+        pcorr = base[None, :, :]
     else:
         raise AssertionError(
             f"[ASSERTION FAILED] {profile_id}: missing both tv and stationary arrays. "
-            f"Expected one of: {tv_path} OR {st_npz_path}"
+            f"Expected one of: {tv_path} OR {st_npz_path} OR {corr_npz_path}"
         )
 
     assert Bhat.shape[1] == len(var_codes), (
@@ -537,10 +625,20 @@ def load_profile(profile_dir: Path) -> ProfileData:
         nc_path_st = profile_dir / "network_metrics/stationary_lagged_node_centrality.csv"
         if nc_path_st.exists():
             temporal_node_centrality = safe_read_csv(nc_path_st)
-            temporal_node_centrality.insert(0, "time_index", 0)
-            temporal_node_centrality.insert(1, "t", 1.0)
+            if "time_index" not in temporal_node_centrality.columns:
+                temporal_node_centrality.insert(0, "time_index", 0)
+            if "t" not in temporal_node_centrality.columns:
+                temporal_node_centrality.insert(1, "t", 1.0)
             impact_source = impact_source + "+stationary_local_metrics"
             nc_path = nc_path_st
+
+    if temporal_node_centrality.empty:
+        temporal_node_centrality = _build_synthetic_node_centrality_from_matrix(
+            var_codes=var_codes,
+            matrix=np.asarray(Bhat[-1], dtype=float),
+        )
+        impact_source = impact_source + "+synthetic_local_metrics"
+        nc_path = profile_dir / "network_metrics/__synthetic_from_arrays__.csv"
 
     assert not temporal_node_centrality.empty, (
         f"[ASSERTION FAILED] {profile_id}: no local centrality metrics found. "

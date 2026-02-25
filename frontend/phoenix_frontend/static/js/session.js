@@ -30,6 +30,13 @@
     barrierChart: null,
     copingChart: null,
     timeSeriesChart: null,
+    readinessComponentsChart: null,
+    networkMethodChart: null,
+    networkTemporalTrendChart: null,
+    networkPredictorImportanceChart: null,
+    impactDecompositionChart: null,
+    stageRuntimeChart: null,
+    stageStatusChart: null,
     timeSeriesData: null,
     timeSeriesCacheKey: "",
     logsDrawerOpen: false,
@@ -47,9 +54,15 @@
     streamReconnectAttempts: 0,
     streamCursorByJob: {},
     lastTerminalJobMarker: "",
+    snapshotRefreshTimer: null,
+    snapshotRefreshPollTimer: null,
+    snapshotRefreshInFlight: false,
+    pendingSnapshotRefresh: false,
+    lastSnapshotRefreshMs: 0,
   };
 
   const COMPONENT_DEFS = [
+    { id: "full_session_pipeline", label: "Full Session Pipeline", category: "ORCHESTRATION" },
     { id: "cohort_batch", label: "Cohort Batch Runner", category: "ORCHESTRATION" },
     { id: "step01_operationalization", label: "Step 01 Operationalization", category: "MODEL CREATION" },
     { id: "step02_initial_model", label: "Step 02 Initial Model", category: "MODEL CREATION" },
@@ -69,6 +82,22 @@
   ];
 
   const JOB_KIND_COMPONENTS = {
+    full_session_pipeline: [
+      "full_session_pipeline",
+      "step01_operationalization",
+      "step02_initial_model",
+      "step02_visualization",
+      "pseudodata_collection",
+      "pipeline_cycle_engine",
+      "readiness_analysis",
+      "network_analysis",
+      "impact_quantification",
+      "step03_target_selection",
+      "step04_updated_model",
+      "step05_intervention",
+      "impact_visualization",
+      "evaluation_reporting",
+    ],
     initial_model: ["step01_operationalization", "step02_initial_model", "step02_visualization"],
     synthesize_pseudodata: ["pseudodata_collection"],
     manual_data_upload: ["manual_data_upload"],
@@ -128,6 +157,7 @@
     cohortSummary: document.getElementById("cohort-summary"),
     llmModelOptions: document.getElementById("llm-model-options"),
     llmModelInputs: [
+      document.getElementById("full-llm-model"),
       document.getElementById("initial-llm-model"),
       document.getElementById("cycle-llm-model"),
       document.getElementById("cohort-llm-model"),
@@ -141,6 +171,15 @@
       .replaceAll(">", "&gt;")
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#39;");
+  }
+
+  function shortPath(value, keepSegments = 3) {
+    const raw = String(value || "").trim();
+    if (!raw) return "—";
+    const norm = raw.replaceAll("\\", "/");
+    const parts = norm.split("/").filter((item) => item.length > 0);
+    if (parts.length <= keepSegments) return norm;
+    return `.../${parts.slice(-keepSegments).join("/")}`;
   }
 
   function normalizeStatus(status) {
@@ -193,6 +232,73 @@
     while (state.runtimeEvents.length > 20) state.runtimeEvents.pop();
     if (UI.runtimeLastEvent) UI.runtimeLastEvent.textContent = raw.slice(0, 220);
     renderRuntimeEvents();
+  }
+
+  function setLiveRefreshStatus(text, status = "idle") {
+    const node = document.getElementById("dashboard-live-refresh-status");
+    if (!node) return;
+    const safe = normalizeStatus(status);
+    node.textContent = String(text || "");
+    node.className = `status-chip status-${safe}`;
+  }
+
+  function clearLiveSnapshotRefreshTimer() {
+    if (state.snapshotRefreshTimer) {
+      clearTimeout(state.snapshotRefreshTimer);
+      state.snapshotRefreshTimer = null;
+    }
+  }
+
+  function clearLiveSnapshotPollTimer() {
+    if (state.snapshotRefreshPollTimer) {
+      clearInterval(state.snapshotRefreshPollTimer);
+      state.snapshotRefreshPollTimer = null;
+    }
+  }
+
+  function scheduleSnapshotRefresh(reason = "", force = false) {
+    const minIntervalMs = 2600;
+    if (state.snapshotRefreshInFlight) {
+      state.pendingSnapshotRefresh = true;
+      return;
+    }
+    if (state.snapshotRefreshTimer) return;
+    const now = Date.now();
+    const elapsed = now - Number(state.lastSnapshotRefreshMs || 0);
+    const delayMs = force ? 0 : Math.max(0, minIntervalMs - elapsed);
+    state.snapshotRefreshTimer = window.setTimeout(async () => {
+      state.snapshotRefreshTimer = null;
+      if (state.snapshotRefreshInFlight) {
+        state.pendingSnapshotRefresh = true;
+        return;
+      }
+      state.snapshotRefreshInFlight = true;
+      setLiveRefreshStatus("LIVE SYNC…", "running");
+      try {
+        await refreshSnapshot();
+        state.lastSnapshotRefreshMs = Date.now();
+        const syncLabel = new Date(state.lastSnapshotRefreshMs).toLocaleTimeString();
+        const suffix = reason ? ` (${reason})` : "";
+        setLiveRefreshStatus(`SYNCED ${syncLabel}${suffix}`, "succeeded");
+      } catch (err) {
+        appendLog(`[frontend] Live snapshot refresh failed: ${err.message || err}`);
+        setLiveRefreshStatus("SYNC ERROR", "failed");
+      } finally {
+        state.snapshotRefreshInFlight = false;
+        if (state.pendingSnapshotRefresh) {
+          state.pendingSnapshotRefresh = false;
+          scheduleSnapshotRefresh("queued", false);
+        }
+      }
+    }, delayMs);
+  }
+
+  function startLiveSnapshotPolling() {
+    clearLiveSnapshotPollTimer();
+    state.snapshotRefreshPollTimer = window.setInterval(() => {
+      if (!state.activeJobId) return;
+      scheduleSnapshotRefresh("poll", false);
+    }, 10000);
   }
 
   function updateBackdrop() {
@@ -457,6 +563,8 @@
       node.disabled = Boolean(disabled);
       node.title = title;
     };
+    setDisabled("run-full-btn", busy, busy ? "A background job is running." : "");
+    setDisabled("save-intake-btn", busy, busy ? "A background job is running." : "");
     setDisabled("run-initial-model-btn", busy, busy ? "A background job is running." : "");
     setDisabled("synthesize-btn", busy || !hasModel, !hasModel ? "Run model creation first." : "");
     setDisabled("manual-upload-btn", busy || !hasModel, !hasModel ? "Run model creation first." : "");
@@ -588,18 +696,39 @@
   }
 
   function destroyCharts() {
-    [state.impactChart, state.barrierChart, state.copingChart, state.timeSeriesChart].forEach((chart) => {
+    [
+      state.impactChart,
+      state.barrierChart,
+      state.copingChart,
+      state.timeSeriesChart,
+      state.readinessComponentsChart,
+      state.networkMethodChart,
+      state.networkTemporalTrendChart,
+      state.networkPredictorImportanceChart,
+      state.impactDecompositionChart,
+      state.stageRuntimeChart,
+      state.stageStatusChart,
+    ].forEach((chart) => {
       if (chart && typeof chart.destroy === "function") chart.destroy();
     });
     state.impactChart = null;
     state.barrierChart = null;
     state.copingChart = null;
     state.timeSeriesChart = null;
+    state.readinessComponentsChart = null;
+    state.networkMethodChart = null;
+    state.networkTemporalTrendChart = null;
+    state.networkPredictorImportanceChart = null;
+    state.impactDecompositionChart = null;
+    state.stageRuntimeChart = null;
+    state.stageStatusChart = null;
   }
 
-  function buildBarChart(canvasId, labels, values, color) {
+  function buildBarChart(canvasId, labels, values, color, opts = {}) {
     const canvas = document.getElementById(canvasId);
     if (!canvas || typeof Chart === "undefined") return null;
+    const hasExplicitMax = Object.prototype.hasOwnProperty.call(opts, "maxY");
+    const maxY = hasExplicitMax ? opts.maxY : 1;
     return new Chart(canvas, {
       type: "bar",
       data: {
@@ -613,13 +742,82 @@
         scales: {
           y: {
             beginAtZero: true,
-            max: 1,
+            ...(maxY != null ? { max: Number(maxY) } : {}),
             ticks: { color: "#b7cae8" },
             grid: { color: "rgba(109, 136, 180, 0.2)" },
           },
           x: {
             ticks: { color: "#b7cae8" },
             grid: { color: "rgba(109, 136, 180, 0.1)" },
+          },
+        },
+      },
+    });
+  }
+
+  function buildMultiBarChart(canvasId, labels, datasets, opts = {}) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas || typeof Chart === "undefined") return null;
+    const maxY = Number.isFinite(Number(opts.maxY)) ? Number(opts.maxY) : null;
+    const stacked = Boolean(opts.stacked);
+    return new Chart(canvas, {
+      type: "bar",
+      data: {
+        labels,
+        datasets,
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: true, labels: { color: "#c6d8f3", boxWidth: 12 } },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ...(maxY != null ? { max: maxY } : {}),
+            stacked,
+            ticks: { color: "#b7cae8" },
+            grid: { color: "rgba(109, 136, 180, 0.18)" },
+          },
+          x: {
+            stacked,
+            ticks: { color: "#b7cae8", maxRotation: 0, autoSkip: true, maxTicksLimit: 12 },
+            grid: { color: "rgba(109, 136, 180, 0.10)" },
+          },
+        },
+      },
+    });
+  }
+
+  function buildLineChart(canvasId, labels, datasets, opts = {}) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas || typeof Chart === "undefined") return null;
+    const maxY = Number.isFinite(Number(opts.maxY)) ? Number(opts.maxY) : null;
+    const minY = Number.isFinite(Number(opts.minY)) ? Number(opts.minY) : null;
+    return new Chart(canvas, {
+      type: "line",
+      data: {
+        labels,
+        datasets,
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: true, labels: { color: "#c6d8f3", boxWidth: 12 } },
+        },
+        scales: {
+          y: {
+            beginAtZero: minY == null ? true : false,
+            ...(minY != null ? { min: minY } : {}),
+            ...(maxY != null ? { max: maxY } : {}),
+            ticks: { color: "#b7cae8" },
+            grid: { color: "rgba(109, 136, 180, 0.18)" },
+          },
+          x: {
+            ticks: { color: "#b7cae8", maxTicksLimit: 12 },
+            grid: { color: "rgba(109, 136, 180, 0.10)" },
           },
         },
       },
@@ -647,6 +845,20 @@
   function parseNumeric(value) {
     const num = Number(value);
     return Number.isFinite(num) ? num : null;
+  }
+
+  function mean(values) {
+    const xs = (values || []).filter((v) => Number.isFinite(v));
+    if (!xs.length) return null;
+    return xs.reduce((a, b) => a + b, 0) / xs.length;
+  }
+
+  function stdev(values) {
+    const xs = (values || []).filter((v) => Number.isFinite(v));
+    if (xs.length < 2) return 0;
+    const mu = mean(xs) || 0;
+    const variance = xs.reduce((acc, v) => acc + ((v - mu) ** 2), 0) / (xs.length - 1);
+    return Math.sqrt(Math.max(0, variance));
   }
 
   const SERIES_COLORS = [
@@ -702,6 +914,16 @@
     return `${label} (${token})`;
   }
 
+  function normalizeSeries(values) {
+    const ys = Array.isArray(values) ? values : [];
+    const finite = ys.filter((v) => Number.isFinite(v));
+    if (!finite.length) return ys.map(() => null);
+    const minVal = Math.min(...finite);
+    const maxVal = Math.max(...finite);
+    const span = Math.max(1e-9, maxVal - minVal);
+    return ys.map((v) => (Number.isFinite(v) ? (v - minVal) / span : null));
+  }
+
   async function ensureTimeSeriesData(snapshot) {
     const profileId = String(snapshot?.session?.profile_id || "").trim();
     if (!profileId || !snapshot?.has_pseudodata) {
@@ -740,14 +962,24 @@
     });
     const dates = parsed.rows.map((row) => String(row.date || "").trim());
     const series = {};
+    const stats = {};
     variableColumns.forEach((col) => {
-      series[col] = parsed.rows.map((row) => parseNumeric(row[col]));
+      const values = parsed.rows.map((row) => parseNumeric(row[col]));
+      const finite = values.filter((v) => Number.isFinite(v));
+      series[col] = values;
+      stats[col] = {
+        mean: mean(finite),
+        std: stdev(finite),
+        missing: values.filter((v) => v == null).length,
+        n: values.length,
+      };
     });
 
     state.timeSeriesData = {
       x,
       dates,
       series,
+      stats,
       columns: variableColumns,
       labelMap,
       rowCount: parsed.rows.length,
@@ -787,6 +1019,34 @@
     if (node) node.textContent = String(text || "");
   }
 
+  function renderTimeSeriesDiagnostics(data, signalColumns, labelMap) {
+    const node = document.getElementById("timeseries-signal-diagnostics");
+    if (!node) return;
+    const cols = Array.isArray(signalColumns) ? signalColumns : [];
+    if (!cols.length) {
+      node.innerHTML = `<li class="muted">No signal diagnostics available.</li>`;
+      return;
+    }
+    const statsMap = data?.stats || {};
+    node.innerHTML = cols.slice(0, 10).map((col) => {
+      const stats = statsMap[col] || {};
+      const idx = Math.max(0, (data?.columns || []).indexOf(col));
+      const color = colorForSeries(idx, 1);
+      const label = toDisplayLabel(col, labelMap);
+      const meanVal = Number.isFinite(stats.mean) ? Number(stats.mean).toFixed(2) : "n/a";
+      const stdVal = Number.isFinite(stats.std) ? Number(stats.std).toFixed(2) : "n/a";
+      const missingPct = Number(stats.n || 0) > 0
+        ? ((Number(stats.missing || 0) / Number(stats.n || 1)) * 100).toFixed(1)
+        : "0.0";
+      return `
+        <li>
+          <span class="series-color-dot" style="background:${escapeHtml(color)}"></span>
+          ${escapeHtml(label)} · mean=${escapeHtml(meanVal)} · std=${escapeHtml(stdVal)} · missing=${escapeHtml(missingPct)}%
+        </li>
+      `;
+    }).join("");
+  }
+
   function renderTimeSeriesChart() {
     const canvas = document.getElementById("chart-timeseries");
     const variableSelect = document.getElementById("timeseries-variable-select");
@@ -799,12 +1059,15 @@
       }
       state.timeSeriesChart = null;
       updateTimeSeriesStatus("No pseudodata loaded.");
+      renderTimeSeriesDiagnostics(null, [], {});
       return;
     }
 
     const signal = String(variableSelect.value || data.columns[0] || "");
+    const normalizeToggle = Boolean(document.getElementById("timeseries-normalize")?.checked);
     if (!signal || (signal !== "__all__" && !data.series[signal])) {
       updateTimeSeriesStatus("Select a signal to display time-series data.");
+      renderTimeSeriesDiagnostics(data, [], data.labelMap || {});
       return;
     }
 
@@ -816,7 +1079,8 @@
     const labelMap = data.labelMap || {};
     const signalColumns = signal === "__all__" ? data.columns : [signal];
     const datasets = signalColumns.map((column) => {
-      const ySlice = (data.series[column] || []).slice(start);
+      const rawSlice = (data.series[column] || []).slice(start);
+      const ySlice = normalizeToggle ? normalizeSeries(rawSlice) : rawSlice;
       const baseIndex = Math.max(0, data.columns.indexOf(column));
       const color = colorForSeries(baseIndex, 1);
       return {
@@ -875,14 +1139,15 @@
         return acc + ys.filter((v) => v == null).length;
       }, 0);
       updateTimeSeriesStatus(
-        `Signals=${signalColumns.length} | points=${xSlice.length} / ${data.x.length} | missing cells=${aggregateMissing}`,
+        `Signals=${signalColumns.length} | points=${xSlice.length} / ${data.x.length} | missing cells=${aggregateMissing}${normalizeToggle ? " | normalized=on" : ""}`,
       );
     } else {
       const ySlice = (data.series[signal] || []).slice(start);
       updateTimeSeriesStatus(
-        `Signal=${toDisplayLabel(signal, labelMap)} | points=${xSlice.length} / ${data.x.length} | missing=${ySlice.filter((v) => v == null).length}`,
+        `Signal=${toDisplayLabel(signal, labelMap)} | points=${xSlice.length} / ${data.x.length} | missing=${ySlice.filter((v) => v == null).length}${normalizeToggle ? " | normalized=on" : ""}`,
       );
     }
+    renderTimeSeriesDiagnostics(data, signalColumns, labelMap);
   }
 
   async function refreshTimeSeries(snapshot) {
@@ -1116,6 +1381,413 @@
           noteNode.insertAdjacentHTML("beforeend", `<li>${escapeHtml(reason)}</li>`);
         }
       }
+    }
+    renderIntermediatePanels(dashboard);
+  }
+
+  function renderIntermediatePanels(dashboard) {
+    const snapshot = state.snapshot || {};
+    const session = snapshot.session || {};
+    const notes = session.notes || {};
+    const labelMap = buildVarLabelMap(snapshot);
+    const readiness = dashboard.readiness || {};
+    const network = dashboard.network || {};
+    const impact = dashboard.impact || {};
+    const runtime = dashboard.runtime || {};
+
+    const readinessNode = document.getElementById("dashboard-readiness-overview");
+    if (readinessNode) {
+      const ds = readiness.dataset_overview || {};
+      readinessNode.innerHTML = `
+        <div class="meta-grid">
+          <div><strong>Rows:</strong> ${escapeHtml(String(ds.n_rows ?? "—"))}</div>
+          <div><strong>Candidate variables:</strong> ${escapeHtml(String(ds.candidate_cols_count ?? "—"))}</div>
+          <div><strong>Correlation method:</strong> ${escapeHtml(String(ds.corr_method || "—"))}</div>
+        </div>
+      `;
+    }
+
+    const readinessVarNode = document.getElementById("dashboard-readiness-variables");
+    if (readinessVarNode) {
+      const rows = Array.isArray(readiness.variable_quality_rows) ? readiness.variable_quality_rows.slice(0, 8) : [];
+      if (!rows.length) {
+        readinessVarNode.innerHTML = `<li class="muted">No variable diagnostics available.</li>`;
+      } else {
+        readinessVarNode.innerHTML = rows.map((row) => {
+          const name = toDisplayLabel(row.var_id || "", { ...(labelMap || {}), [String(row.var_id || "")]: String(row.label || "") });
+          const missing = Number(row.missing_pct || 0).toFixed(1);
+          const ac = Number(row.autocorr_lag1 || 0).toFixed(2);
+          return `<li>${escapeHtml(name)} · missing=${missing}% · autocorr=${ac}</li>`;
+        }).join("");
+      }
+    }
+
+    const componentEntries = Object.entries(readiness.score_components || {})
+      .map(([k, v]) => ({ key: k, label: String(k || "").replaceAll("_", " "), value: Number(v || 0) }))
+      .sort((a, b) => b.value - a.value);
+    state.readinessComponentsChart = buildBarChart(
+      "chart-readiness-components",
+      componentEntries.map((x) => x.label),
+      componentEntries.map((x) => Number(x.value || 0) / 100),
+      "#11c4a5",
+    );
+
+    const networkOverviewNode = document.getElementById("dashboard-network-overview");
+    if (networkOverviewNode) {
+      const methodStatus = network.method_status || {};
+      const statuses = Object.keys(methodStatus).map((k) => `${k}:${methodStatus[k]}`).join(" | ") || "n/a";
+      networkOverviewNode.innerHTML = `
+        <div class="meta-grid">
+          <div><strong>Analysis set:</strong> ${escapeHtml(String(network.analysis_set || "—"))}</div>
+          <div><strong>Method status:</strong> ${escapeHtml(statuses)}</div>
+        </div>
+      `;
+    }
+
+    const methodRows = Array.isArray(network.method_prediction_rows) ? network.method_prediction_rows : [];
+    state.networkMethodChart = buildMultiBarChart(
+      "chart-network-methods",
+      methodRows.map((x) => String(x.method || "method")),
+      [
+        {
+          label: "r2_overall",
+          data: methodRows.map((x) => Number(x.r2_overall || 0)),
+          backgroundColor: "#4f8dff",
+        },
+        {
+          label: "aux_strength",
+          data: methodRows.map((x) => Number(x.aux_strength || 0)),
+          backgroundColor: "#f59f3a",
+        },
+      ],
+      { maxY: 1 },
+    );
+
+    const temporalRows = Array.isArray(network.temporal_metrics) ? network.temporal_metrics : [];
+    state.networkTemporalTrendChart = buildLineChart(
+      "chart-network-temporal",
+      temporalRows.map((x) => `t${x.time_index}`),
+      [
+        {
+          label: "global_efficiency",
+          data: temporalRows.map((x) => Number(x.global_efficiency || 0)),
+          borderColor: "#18b6d9",
+          backgroundColor: "rgba(24, 182, 217, 0.12)",
+          tension: 0.2,
+          pointRadius: 1.6,
+          borderWidth: 2,
+        },
+        {
+          label: "density",
+          data: temporalRows.map((x) => Number(x.density || 0)),
+          borderColor: "#8d6bff",
+          backgroundColor: "rgba(141, 107, 255, 0.12)",
+          tension: 0.2,
+          pointRadius: 1.6,
+          borderWidth: 2,
+        },
+        {
+          label: "modularity",
+          data: temporalRows.map((x) => Number(x.modularity || 0)),
+          borderColor: "#f06d5f",
+          backgroundColor: "rgba(240, 109, 95, 0.12)",
+          tension: 0.2,
+          pointRadius: 1.6,
+          borderWidth: 2,
+        },
+      ],
+      { minY: -0.1, maxY: 1 },
+    );
+
+    const predictorRows = Array.isArray(network.predictor_importance_rows) ? network.predictor_importance_rows.slice(0, 8) : [];
+    state.networkPredictorImportanceChart = buildMultiBarChart(
+      "chart-network-predictor-importance",
+      predictorRows.map((x) => toDisplayLabel(x.predictor || "", { ...(labelMap || {}), [String(x.predictor || "")]: String(x.predictor_label || "") })),
+      [
+        {
+          label: "network score",
+          data: predictorRows.map((x) => Number(x.score || 0)),
+          backgroundColor: "#6ccf5f",
+        },
+        {
+          label: "delta_mse_criteria",
+          data: predictorRows.map((x) => Number(x.delta_mse_criteria || 0)),
+          backgroundColor: "#4bc0ff",
+        },
+      ],
+      {},
+    );
+
+    const impactRows = Array.isArray(impact.decomposition_rows) ? impact.decomposition_rows.slice(0, 6) : [];
+    state.impactDecompositionChart = buildMultiBarChart(
+      "chart-impact-decomposition",
+      impactRows.map((x) => x.predictor_display || x.predictor_label || x.predictor || "predictor"),
+      [
+        {
+          label: "edge component",
+          data: impactRows.map((x) => Number(x.edge_component || 0)),
+          backgroundColor: "#4f8dff",
+        },
+        {
+          label: "delta component",
+          data: impactRows.map((x) => Number(x.delta_component || 0)),
+          backgroundColor: "#f4b43b",
+        },
+        {
+          label: "local component",
+          data: impactRows.map((x) => Number(x.local_component || 0)),
+          backgroundColor: "#11c4a5",
+        },
+      ],
+      { stacked: true },
+    );
+
+    const stageRowsFromRuntime = Array.isArray(runtime.stage_durations_seconds) ? runtime.stage_durations_seconds : [];
+    const stageRows = stageRowsFromRuntime.length
+      ? stageRowsFromRuntime
+      : Array.isArray(snapshot.pipeline_summary?.stage_results)
+        ? snapshot.pipeline_summary.stage_results.map((row) => ({
+          stage: row.stage,
+          duration_seconds: Number(row.duration_seconds || 0),
+          return_code: Number(row.return_code || 0),
+        }))
+        : [];
+    state.stageRuntimeChart = buildBarChart(
+      "chart-stage-runtime",
+      stageRows.map((x) => String(x.stage || "")),
+      stageRows.map((x) => Number(x.duration_seconds || 0)),
+      "#a5b4fc",
+      { maxY: null },
+    );
+
+    const stageCounts = runtime.stage_status_counts && typeof runtime.stage_status_counts === "object"
+      ? runtime.stage_status_counts
+      : {};
+    const stageCountRows = [
+      { key: "succeeded", label: "Succeeded", value: Number(stageCounts.succeeded || 0), color: "#34d399" },
+      { key: "running", label: "Running", value: Number(stageCounts.running || 0), color: "#4f8dff" },
+      { key: "failed", label: "Failed", value: Number(stageCounts.failed || 0), color: "#f87171" },
+      { key: "skipped", label: "Skipped", value: Number(stageCounts.skipped || 0), color: "#fbbf24" },
+      { key: "unknown", label: "Unknown", value: Number(stageCounts.unknown || 0), color: "#9cb2d3" },
+    ].filter((row) => row.value > 0);
+    state.stageStatusChart = buildBarChart(
+      "chart-stage-status",
+      stageCountRows.map((row) => row.label),
+      stageCountRows.map((row) => row.value),
+      stageCountRows.map((row) => row.color),
+      { maxY: null },
+    );
+
+    const runtimeNode = document.getElementById("dashboard-runtime-overview");
+    if (runtimeNode) {
+      const total = stageRows.reduce((acc, row) => acc + Number(row.duration_seconds || 0), 0);
+      const failed = stageRows.filter((row) => Number(row.return_code || 0) !== 0).length;
+      const partialText = runtime.is_partial ? "Yes (stage artifacts still accumulating)" : "No";
+      const pipelineSummary = snapshot.pipeline_summary || {};
+      const outputs = pipelineSummary.outputs || {};
+      const health = ((pipelineSummary.llm_runtime || {}).startup_health_check || {}).result || {};
+      const healthState = health.ok === true ? "OK" : health.ok === false ? "UNAVAILABLE" : "UNKNOWN";
+      const healthReason = String(health.reason || health.error_type || "").trim();
+      runtimeNode.innerHTML = `
+        <div class="meta-grid">
+          <div><strong>Stages tracked:</strong> ${escapeHtml(String(stageRows.length))}</div>
+          <div><strong>Total runtime:</strong> ${escapeHtml(total.toFixed(2))}s</div>
+          <div><strong>Failed stages:</strong> ${escapeHtml(String(failed))}</div>
+          <div><strong>Partial cycle:</strong> ${escapeHtml(partialText)}</div>
+          <div><strong>LLM startup health:</strong> ${escapeHtml(healthState)}${healthReason ? ` (${escapeHtml(healthReason)})` : ""}</div>
+          <div><strong>Initial-model runs root:</strong> <code>${escapeHtml(shortPath(outputs.initial_model_runs_root, 4))}</code></div>
+        </div>
+      `;
+    }
+
+    const flowNode = document.getElementById("dashboard-flow-state");
+    if (flowNode) {
+      const cycleStatus = String(notes.latest_cycle_status || "unknown").trim() || "unknown";
+      const currentCycle = Number(session.current_cycle || 0);
+      const fullStatus = String(notes.latest_full_session_status || "idle").trim() || "idle";
+      const fullDone = Number(notes.latest_full_session_cycles_completed || 0);
+      const fullRequested = Number(notes.latest_full_session_cycles_requested || 0);
+      const awaitingFresh = Boolean(notes.awaiting_fresh_acquisition || state.awaitingFreshAcquisition);
+      const requestedRefine = Boolean(notes.cycle_requested_refinement || state.cycleRequestedRefinement);
+      const pipelineSummary = snapshot.pipeline_summary || {};
+      const iterativeDataflow = pipelineSummary.iterative_dataflow || {};
+      const iterativeMode = String(iterativeDataflow.mode || "base_pseudodata");
+      const iterativeUsedPrev = Boolean(iterativeDataflow.used_previous_cycle);
+      const sourceCycleRoot = shortPath(iterativeDataflow.source_cycle_root, 4);
+      const initialModelRunsRoot = shortPath((pipelineSummary.outputs || {}).initial_model_runs_root, 4);
+      const nextAction = !snapshot.has_model
+        ? "Run model creation (Step 01 → 02)."
+        : !snapshot.has_pseudodata || awaitingFresh
+          ? "Acquire fresh pseudodata (Step 03) before next analysis cycle."
+          : "Run analysis cycle (Step 04).";
+      flowNode.innerHTML = `
+        <div class="meta-grid">
+          <div><strong>Current cycle:</strong> ${escapeHtml(String(currentCycle))}</div>
+          <div><strong>Latest cycle status:</strong> ${escapeHtml(cycleStatus)}</div>
+          <div><strong>Full-run status:</strong> ${escapeHtml(fullStatus)} (${escapeHtml(String(fullDone))}/${escapeHtml(String(fullRequested || currentCycle || 1))})</div>
+          <div><strong>Refinement requested:</strong> ${requestedRefine ? "Yes" : "No"}</div>
+          <div><strong>Awaiting fresh acquisition:</strong> ${awaitingFresh ? "Yes" : "No"}</div>
+          <div><strong>Iterative mode:</strong> ${escapeHtml(iterativeMode)}${iterativeUsedPrev ? " (previous-cycle memory)" : " (base input)"}</div>
+          <div><strong>Source cycle root:</strong> <code>${escapeHtml(sourceCycleRoot)}</code></div>
+          <div><strong>Handoff model source:</strong> <code>${escapeHtml(initialModelRunsRoot)}</code></div>
+        </div>
+        <p class="muted compact" style="margin-top:6px"><strong>Next logical action:</strong> ${escapeHtml(nextAction)}</p>
+      `;
+    }
+
+    const stageStatusNode = document.getElementById("dashboard-stage-status");
+    if (stageStatusNode) {
+      stageStatusNode.innerHTML = stageCountRows.length
+        ? `<div class="runtime-pill-grid">${stageCountRows.map((row) => `
+            <span class="runtime-pill" data-state="${escapeHtml(row.key)}">${escapeHtml(row.label)}: ${escapeHtml(String(row.value))}</span>
+          `).join("")}</div>`
+        : `<p class="muted compact">No stage status metrics available yet.</p>`;
+    }
+
+    const stageStatusRowsNode = document.getElementById("dashboard-stage-status-rows");
+    if (stageStatusRowsNode) {
+      const rows = Array.isArray(runtime.stage_status_rows) ? runtime.stage_status_rows.slice(0, 12) : [];
+      if (!rows.length) {
+        stageStatusRowsNode.innerHTML = `<li class="muted">No stage status rows available yet.</li>`;
+      } else {
+        stageStatusRowsNode.innerHTML = rows.map((row) => {
+          const stageId = String(row.stage_id || "stage");
+          const status = String(row.status || "unknown").toUpperCase();
+          const event = String(row.event || "").trim();
+          const ts = String(row.timestamp_local || "").trim();
+          const msg = String(row.message || "").trim();
+          const head = `${stageId} · ${status}${event ? ` · ${event}` : ""}${ts ? ` · ${ts}` : ""}`;
+          return `<li><strong>${escapeHtml(head)}</strong>${msg ? ` — ${escapeHtml(msg)}` : ""}</li>`;
+        }).join("");
+      }
+    }
+
+    const phaseOutputsNode = document.getElementById("dashboard-phase-outputs");
+    if (phaseOutputsNode) {
+      const lines = [];
+      const step03Count = Array.isArray(dashboard.step03?.recommended_targets) ? dashboard.step03.recommended_targets.length : 0;
+      const step04Count = Array.isArray(dashboard.step04?.recommended_predictors) ? dashboard.step04.recommended_predictors.length : 0;
+      const step05Targets = Array.isArray(dashboard.step05?.selected_targets) ? dashboard.step05.selected_targets.length : 0;
+      const step05Barriers = Array.isArray(dashboard.step05?.selected_barriers) ? dashboard.step05.selected_barriers.length : 0;
+      lines.push(`Step 03: ${dashboard.step03?.status || "unknown"} (${step03Count} targets)`);
+      lines.push(`Step 04: ${dashboard.step04?.status || "unknown"} (${step04Count} updated predictors)`);
+      lines.push(`Step 05: ${dashboard.step05?.status || "unknown"} (${step05Targets} targets, ${step05Barriers} barriers)`);
+      const communicationStage = String(state.snapshot?.communication_summary?.payload?.stage || "none");
+      lines.push(`Communication stage: ${communicationStage}`);
+      phaseOutputsNode.innerHTML = lines.map((line) => `<li>${escapeHtml(line)}</li>`).join("");
+    }
+
+    const impactNode = document.getElementById("dashboard-impact-overview");
+    if (impactNode) {
+      const top = (impact.top_predictors || [])[0] || {};
+      impactNode.innerHTML = `
+        <div class="meta-grid">
+          <div><strong>Status:</strong> ${escapeHtml(String(impact.status || "unknown"))}</div>
+          <div><strong>Top predictor:</strong> ${escapeHtml(String(top.predictor_display || top.predictor_label || top.predictor || "—"))}</div>
+        </div>
+      `;
+    }
+
+    const liveEventsNode = document.getElementById("dashboard-live-events");
+    if (liveEventsNode) {
+      const events = Array.isArray(state.runtimeEvents) ? state.runtimeEvents.slice(-8).reverse() : [];
+      if (!events.length) {
+        liveEventsNode.innerHTML = `<li class="muted">No live events yet.</li>`;
+      } else {
+        liveEventsNode.innerHTML = events.map((item) => {
+          const stamp = String(item?.time || "").trim();
+          const text = String(item?.message || "").trim();
+          return `<li>${escapeHtml(stamp ? `[${stamp}] ${text}` : text)}</li>`;
+        }).join("");
+      }
+    }
+
+    const stageEventsNode = document.getElementById("dashboard-stage-events");
+    if (stageEventsNode) {
+      const rows = Array.isArray(runtime.stage_event_rows) ? runtime.stage_event_rows.slice(0, 14) : [];
+      if (!rows.length) {
+        stageEventsNode.innerHTML = `<li class="muted">No stage artifact events written yet.</li>`;
+      } else {
+        stageEventsNode.innerHTML = rows.map((row) => {
+          const stamp = String(row.timestamp_local || "").trim();
+          const stage = String(row.stage || row.stage_id || "").trim();
+          const event = String(row.event || "").trim();
+          const msg = String(row.message || "").trim();
+          const head = [stamp ? `[${stamp}]` : "", stage, event].filter(Boolean).join(" ");
+          return `<li><strong>${escapeHtml(head)}</strong>${msg ? ` — ${escapeHtml(msg)}` : ""}</li>`;
+        }).join("");
+      }
+    }
+
+    const componentRuntimeNode = document.getElementById("dashboard-component-runtime");
+    if (componentRuntimeNode) {
+      const rows = COMPONENT_DEFS
+        .filter((item) => item.id !== "cohort_batch")
+        .map((item) => {
+          const status = normalizeStatus(state.componentStatus[item.id] || "idle");
+          const detail = String(state.componentDetail[item.id] || "").trim();
+          const extra = detail && !detail.startsWith("Category:") ? ` — ${detail}` : "";
+          return `<li class="detail-row-chip"><span class="status-chip status-${status}">${status.toUpperCase()}</span> ${escapeHtml(item.label)}${escapeHtml(extra)}</li>`;
+        });
+      componentRuntimeNode.innerHTML = rows.length
+        ? rows.join("")
+        : `<li class="muted">No component runtime state yet.</li>`;
+    }
+
+    const llmSignalsNode = document.getElementById("dashboard-llm-signals");
+    if (llmSignalsNode) {
+      const pipelineSummary = snapshot.pipeline_summary || {};
+      const llmRuntime = pipelineSummary.llm_runtime || {};
+      const health = (llmRuntime.startup_health_check || {}).result || {};
+      const eventRows = Array.isArray(runtime.stage_event_rows) ? runtime.stage_event_rows : [];
+      const liveRows = Array.isArray(state.runtimeEvents) ? state.runtimeEvents : [];
+      const corpus = [
+        ...eventRows.map((row) => `${row.stage || ""} ${row.event || ""} ${row.message || ""}`.toLowerCase()),
+        ...liveRows.map((row) => String(row.message || "").toLowerCase()),
+      ];
+      const countContains = (needles) => {
+        const keys = Array.isArray(needles) ? needles : [needles];
+        return corpus.reduce((acc, row) => (
+          keys.some((key) => row.includes(String(key).toLowerCase())) ? acc + 1 : acc
+        ), 0);
+      };
+      const healthText = health.ok === true
+        ? "OK"
+        : health.ok === false
+          ? `UNAVAILABLE (${health.reason || health.error_type || "unknown"})`
+          : "UNKNOWN";
+      const signalRows = [
+        `Startup health: ${healthText}`,
+        `Resolved provider: ${health.provider || "n/a"} · model=${health.resolved_model || health.requested_model || "n/a"}`,
+        `Fallback mentions: ${countContains(["fallback", "deterministic", "auto-repair"])}`,
+        `Critic loop mentions: ${countContains(["critic", "pass threshold", "guardrail"])}`,
+        `LLM failure mentions: ${countContains(["apiconnectionerror", "provider_unavailable", "llm call failed", "authentication_failed"])}`,
+      ];
+      llmSignalsNode.innerHTML = signalRows.map((row) => `<li>${escapeHtml(row)}</li>`).join("");
+    }
+
+    const opNode = document.getElementById("dashboard-operationalization-overview");
+    if (opNode) {
+      const op = snapshot.operationalization_summary || {};
+      const opVars = Array.isArray(op.variables) ? op.variables : [];
+      const source = String(op.source || "none");
+      const match = op.matches_session_complaint;
+      const confidence = Number(op.confidence_avg_0_1 || 0);
+      const domains = Array.isArray(op.ontology_domains) ? op.ontology_domains : [];
+      const complaintText = String(op.complaint_text || snapshot.session?.complaint_text || "").trim();
+      const preview = complaintText.length > 140 ? `${complaintText.slice(0, 140)}...` : complaintText;
+      const rows = [
+        `Source: ${source}`,
+        `Mapped criteria: ${opVars.length} · avg confidence=${confidence.toFixed(2)}`,
+        `Complaint sync: ${match === true ? "match" : match === false ? "mismatch" : "unknown"}`,
+        `Domains: ${domains.length ? domains.slice(0, 4).join(", ") : "n/a"}`,
+        `Input complaint: ${preview || "n/a"}`,
+      ];
+      if (opVars.length) {
+        const top = opVars.slice(0, 3).map((row) => toDisplayLabel(row.var_id || "", { ...(labelMap || {}), [String(row.var_id || "")]: String(row.label || "") }));
+        rows.push(`Top mapped signals: ${top.join(" | ")}`);
+      }
+      opNode.innerHTML = rows.map((row) => `<li>${escapeHtml(row)}</li>`).join("");
     }
   }
 
@@ -1653,6 +2325,7 @@
     const pipelineSummary = snapshot.pipeline_summary || {};
     const dashboard = snapshot.pipeline_dashboard || {};
     const cohortSummary = snapshot.cohort_summary || {};
+    const intakeSync = snapshot.intake_sync || {};
     state.engineFlowFromSummary = Array.isArray(pipelineSummary.engine_stage_flow) ? pipelineSummary.engine_stage_flow : [];
     state.qualityFlowFromSummary = Array.isArray(pipelineSummary.quality_and_research_flow)
       ? pipelineSummary.quality_and_research_flow
@@ -1669,6 +2342,33 @@
 
     const cycleEl = document.getElementById("current-cycle");
     if (cycleEl) cycleEl.textContent = String(session.current_cycle ?? 0);
+    const intakeComplaint = document.getElementById("intake-complaint");
+    const intakePerson = document.getElementById("intake-person");
+    const intakeContext = document.getElementById("intake-context");
+    if (document.activeElement !== intakeComplaint && intakeComplaint) {
+      intakeComplaint.value = String(session.complaint_text || "");
+    }
+    if (document.activeElement !== intakePerson && intakePerson) {
+      intakePerson.value = String(session.person_text || "");
+    }
+    if (document.activeElement !== intakeContext && intakeContext) {
+      intakeContext.value = String(session.context_text || "");
+    }
+    const intakeSyncNode = document.getElementById("intake-sync-status");
+    if (intakeSyncNode) {
+      const hasFileComplaint = String(intakeSync.file_complaint_text || "").trim().length > 0;
+      const match = intakeSync.matches === true;
+      if (!hasFileComplaint) {
+        intakeSyncNode.textContent = "Intake file sync: waiting for free-text artifact.";
+        intakeSyncNode.className = "muted compact";
+      } else if (match) {
+        intakeSyncNode.textContent = "Intake file sync: OK (session complaint matches Step-01 input file).";
+        intakeSyncNode.className = "alert success compact";
+      } else {
+        intakeSyncNode.textContent = "Intake file sync: mismatch detected. Save intake with reset before running Step 01.";
+        intakeSyncNode.className = "alert error compact";
+      }
+    }
     const updatedEl = document.getElementById("session-updated");
     if (updatedEl) updatedEl.textContent = session.updated_at || "—";
 
@@ -1822,6 +2522,15 @@
         setComponentState("step02_visualization", "succeeded", "Visual diagnostics ready");
       }
     }
+    const fullSessionStatus = String(sessionNotes.latest_full_session_status || "").toLowerCase();
+    if (fullSessionStatus === "running") {
+      setComponentState("full_session_pipeline", "running", "End-to-end run in progress");
+    } else if (fullSessionStatus === "succeeded") {
+      const doneCycles = Number(sessionNotes.latest_full_session_cycles_completed || 0);
+      setComponentState("full_session_pipeline", "succeeded", `Completed (${doneCycles} cycle${doneCycles === 1 ? "" : "s"})`);
+    } else if (fullSessionStatus === "failed") {
+      setComponentState("full_session_pipeline", "failed", String(sessionNotes.latest_full_session_error || "Full run failed"));
+    }
     if (snapshot.has_pseudodata && !state.awaitingFreshAcquisition) {
       setComponentState("pseudodata_collection", "succeeded", "Acquisition completed");
     }
@@ -1910,6 +2619,30 @@
 
   function parseComponentFromLog(line) {
     const text = String(line || "");
+    const heartbeatMarker = text.match(/\[component:([a-z0-9_]+)\]\s+heartbeat\s+elapsed=(\d+)s(?:\s+lines=(\d+))?(?:\s+last='([^']*)')?/i);
+    if (heartbeatMarker) {
+      const elapsed = String(heartbeatMarker[2] || "").trim();
+      const lines = String(heartbeatMarker[3] || "").trim();
+      const last = String(heartbeatMarker[4] || "").trim();
+      const detailParts = [];
+      if (elapsed) detailParts.push(`elapsed ${elapsed}s`);
+      if (lines) detailParts.push(`lines ${lines}`);
+      if (last) detailParts.push(last.slice(0, 72));
+      return {
+        componentId: heartbeatMarker[1],
+        status: "running",
+        detail: detailParts.join(" | ") || "Still running",
+      };
+    }
+    const startMarker = text.match(/\[component:([a-z0-9_]+)\]\s+command_start\s+(.*)$/i);
+    if (startMarker) {
+      const detail = String(startMarker[2] || "").trim();
+      return {
+        componentId: startMarker[1],
+        status: "running",
+        detail: detail ? `Command start: ${detail.slice(0, 120)}` : "Command start",
+      };
+    }
     const componentMarker = text.match(/\[component:([a-z0-9_]+)\]\s+status=([a-z_]+)(?:\s+(.*))?/i);
     if (componentMarker) {
       const rawStatus = String(componentMarker[2] || "").toLowerCase();
@@ -2049,6 +2782,7 @@
   }
 
   function kindFromPath(path) {
+    if (path.includes("/run-full")) return "full_session_pipeline";
     if (path.includes("/initial-model")) return "initial_model";
     if (path.includes("/synthesize")) return "synthesize_pseudodata";
     if (path.includes("/manual-data")) return "manual_data_upload";
@@ -2099,6 +2833,8 @@
     if (state.lastTerminalJobMarker === marker) return;
     state.lastTerminalJobMarker = marker;
     clearStreamReconnectTimer();
+    clearLiveSnapshotRefreshTimer();
+    clearLiveSnapshotPollTimer();
     state.streamReconnectAttempts = 0;
     state.activeJobKind = kind || state.activeJobKind;
     setJobMeta(jobId, finalStatus);
@@ -2131,8 +2867,10 @@
     syncControlStates();
     try {
       await refreshSnapshot();
+      setLiveRefreshStatus("SYNCED (FINAL)", "succeeded");
     } catch (err) {
       appendLog(`[frontend] Snapshot refresh failed: ${err.message || err}`);
+      setLiveRefreshStatus("SYNC ERROR", "failed");
     }
   }
 
@@ -2168,6 +2906,7 @@
       state.activeSource = null;
     }
     clearStreamReconnectTimer();
+    clearLiveSnapshotRefreshTimer();
     state.activeJobId = jobId;
     state.activeJobKind = kindHint || state.activeJobKind;
     const seedCursor = Math.max(0, Number(afterCursor || state.streamCursorByJob[jobId] || 0) || 0);
@@ -2182,6 +2921,8 @@
       pushRuntimeEvent(`Connected to job ${jobId}`);
       if (typeof switchTab === 'function') switchTab('logs');
     }
+    startLiveSnapshotPolling();
+    scheduleSnapshotRefresh("stream", true);
 
     const streamUrl = seedCursor > 0
       ? `/api/jobs/${jobId}/stream?after=${seedCursor}`
@@ -2208,12 +2949,17 @@
         if (parsed?.componentId) {
           setComponentState(parsed.componentId, parsed.status || "running", parsed.detail || line.slice(0, 140));
           setActiveComponent(parsed.componentId, parsed.status || "running");
+          const parsedStatus = normalizeStatus(parsed.status || "running");
+          if (parsedStatus !== "running" && parsedStatus !== "queued") {
+            scheduleSnapshotRefresh(`${parsed.componentId}.${parsedStatus}`, false);
+          }
         }
         if (low.includes("handoff.start")) {
           setComponentState("step04_updated_model", "running", "Updated model synthesis");
         }
         if (low.includes("handoff.done")) {
           setComponentState("step04_updated_model", "succeeded", "Updated model available");
+          scheduleSnapshotRefresh("handoff.done", false);
         }
         if (low.includes("cohort_batch")) {
           setComponentState("cohort_batch", parsed?.status || "running", parsed?.detail || "Cohort orchestration");
@@ -2259,14 +3005,17 @@
       if (jobKind === "initial_model") {
         return `model=${p.llm_model || "gpt-5-nano"} | workers=${p.max_workers || 12} | disable_llm=${Boolean(p.disable_llm)} | hard_ontology=${Boolean(p.hard_ontology_constraint)}`;
       }
+      if (jobKind === "full_session_pipeline") {
+        return `cycles=${p.cycles || 1} | model=${p.llm_model || "gpt-5-nano"} | net_jobs=${p.network_jobs || 1} | net_policy=${p.network_execution_policy || "readiness_aligned"} | disable_llm=${Boolean(p.disable_llm)}`;
+      }
       if (jobKind === "pipeline_cycle") {
-        return `model=${p.llm_model || "gpt-5-nano"} | net_jobs=${p.network_jobs || 1} | parallel=${Boolean(p.parallel_branches)} | intervention=${Boolean(p.include_intervention)} | communication=${Boolean(p.run_treatment_communication)} | disable_llm=${Boolean(p.disable_llm)}`;
+        return `model=${p.llm_model || "gpt-5-nano"} | net_jobs=${p.network_jobs || 1} | net_policy=${p.network_execution_policy || "readiness_aligned"} | parallel=${Boolean(p.parallel_branches)} | intervention=${Boolean(p.include_intervention)} | communication=${Boolean(p.run_treatment_communication)} | disable_llm=${Boolean(p.disable_llm)}`;
       }
       if (jobKind === "synthesize_pseudodata") {
         return `points=${p.n_points || 84} | missing_rate=${p.missing_rate ?? 0.1} | seed=${p.seed ?? 42}`;
       }
       if (jobKind === "full_cohort") {
-        return `patients=${p.patient_count || 10} | parallel_patients=${p.parallel_patients || 2} | cycles=${p.cycles || 1} | disable_llm=${Boolean(p.disable_llm)}`;
+        return `patients=${p.patient_count || 10} | parallel_patients=${p.parallel_patients || 2} | net_policy=${p.network_execution_policy || "readiness_aligned"} | cycles=${p.cycles || 1} | disable_llm=${Boolean(p.disable_llm)}`;
       }
       return "";
     };
@@ -2276,6 +3025,7 @@
       appendLog(`[frontend] Launch config: ${payloadSummary}`);
     }
     pushRuntimeEvent(`Launching ${kind || "job"}`);
+    setLiveRefreshStatus("LIVE SYNC PENDING", "queued");
     if (payloadSummary) {
       pushRuntimeEvent(payloadSummary);
     }
@@ -2293,6 +3043,51 @@
   }
 
   function bindActions() {
+    document.getElementById("run-full-btn")?.addEventListener("click", async () => {
+      try {
+        await launchJob(
+          `/api/sessions/${sessionId}/jobs/run-full`,
+          {
+            llm_model: document.getElementById("full-llm-model")?.value || "gpt-5-nano",
+            disable_llm: Boolean(document.getElementById("full-disable-llm")?.checked),
+            hard_ontology_constraint: Boolean(document.getElementById("full-hard-ontology")?.checked),
+            prompt_budget_tokens: Number(document.getElementById("full-prompt-budget")?.value || 400000),
+            critic_max_iterations: Number(document.getElementById("full-critic-iterations")?.value || 2),
+            critic_pass_threshold: Number(document.getElementById("full-critic-threshold")?.value || 0.74),
+            max_workers: Number(document.getElementById("full-max-workers")?.value || 12),
+            n_points: Number(document.getElementById("full-points")?.value || 84),
+            missing_rate: Number(document.getElementById("full-missing")?.value || 0.1),
+            seed: Number(document.getElementById("full-seed")?.value || 42),
+            cycles: Number(document.getElementById("full-cycles")?.value || 1),
+            include_intervention: Boolean(document.getElementById("full-include-intervention")?.checked),
+            request_model_refinement: Boolean(document.getElementById("full-request-refinement")?.checked),
+            auto_refresh_pseudodata_each_cycle: Boolean(document.getElementById("full-auto-refresh-acquisition")?.checked),
+            profile_memory_window: Number(document.getElementById("full-memory-window")?.value || 3),
+            handoff_critic_max_iterations: Number(document.getElementById("cycle-handoff-critic-iterations")?.value || 2),
+            handoff_critic_pass_threshold: Number(document.getElementById("cycle-handoff-critic-threshold")?.value || 0.74),
+            intervention_critic_max_iterations: Number(document.getElementById("cycle-intervention-critic-iterations")?.value || 2),
+            intervention_critic_pass_threshold: Number(document.getElementById("cycle-intervention-critic-threshold")?.value || 0.74),
+            network_boot: Number(document.getElementById("full-network-boot")?.value || 40),
+            network_block_len: Number(document.getElementById("full-network-block-len")?.value || 14),
+            network_jobs: Number(document.getElementById("full-network-jobs")?.value || 4),
+            network_execution_policy: document.getElementById("full-network-policy")?.value || "readiness_aligned",
+            run_impact_visualizations: Boolean(document.getElementById("full-run-visualizations")?.checked),
+            run_treatment_communication: Boolean(document.getElementById("full-run-communication")?.checked),
+            parallel_branches: Boolean(document.getElementById("full-parallel-branches")?.checked),
+          },
+          "run-full-btn",
+          "Running full pipeline…",
+        );
+      } catch (err) {
+        appendLog(`[frontend] ${err.message}`);
+        setButtonLoading("run-full-btn", false);
+        state.activeTriggerButtonId = "";
+        setJobMeta(state.activeJobId, "failed");
+        showError(err.message);
+        syncControlStates();
+      }
+    });
+
     document.getElementById("run-initial-model-btn")?.addEventListener("click", async () => {
       try {
         await launchJob(
@@ -2381,6 +3176,7 @@
             network_boot: Number(document.getElementById("cycle-network-boot")?.value || 40),
             network_block_len: Number(document.getElementById("cycle-network-block-len")?.value || 14),
             network_jobs: Number(document.getElementById("cycle-network-jobs")?.value || 4),
+            network_execution_policy: document.getElementById("cycle-network-policy")?.value || "readiness_aligned",
             run_impact_visualizations: Boolean(document.getElementById("cycle-run-visualizations")?.checked),
             run_treatment_communication: Boolean(document.getElementById("cycle-run-communication")?.checked),
             parallel_branches: Boolean(document.getElementById("cycle-parallel-branches")?.checked),
@@ -2432,10 +3228,55 @@
       }
     });
 
+    document.getElementById("save-intake-btn")?.addEventListener("click", async () => {
+      const complaint = String(document.getElementById("intake-complaint")?.value || "").trim();
+      if (!complaint) {
+        appendLog("[frontend] Complaint text is required.");
+        showError("Complaint text is required.");
+        return;
+      }
+      const person = String(document.getElementById("intake-person")?.value || "");
+      const context = String(document.getElementById("intake-context")?.value || "");
+      const resetOutputs = Boolean(document.getElementById("intake-reset-outputs")?.checked);
+      try {
+        setButtonLoading("save-intake-btn", true, "Saving intake…");
+        showError("");
+        const response = await fetch(`/api/sessions/${sessionId}/intake`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            complaint_text: complaint,
+            person_text: person,
+            context_text: context,
+            reset_outputs: resetOutputs,
+          }),
+        });
+        const payload = await response.json();
+        if (!response.ok || payload.status === "error") {
+          throw new Error(payload.message || `HTTP ${response.status}`);
+        }
+        appendLog(`[frontend] Intake updated (reset_outputs=${resetOutputs}).`);
+        pushRuntimeEvent("Session intake updated");
+        state.activeJobId = null;
+        state.activeJobKind = "";
+        setJobMeta("none", "idle");
+        await refreshSnapshot();
+      } catch (err) {
+        appendLog(`[frontend] ${err.message || err}`);
+        showError(err.message || String(err));
+      } finally {
+        setButtonLoading("save-intake-btn", false);
+        syncControlStates();
+      }
+    });
+
     document.getElementById("timeseries-variable-select")?.addEventListener("change", () => {
       renderTimeSeriesChart();
     });
     document.getElementById("timeseries-window-select")?.addEventListener("change", () => {
+      renderTimeSeriesChart();
+    });
+    document.getElementById("timeseries-normalize")?.addEventListener("change", () => {
       renderTimeSeriesChart();
     });
 
@@ -2474,6 +3315,7 @@
   bindActions();
   bindModelCatalogAutocomplete();
   setJobMeta("none", "idle");
+  setLiveRefreshStatus("LIVE SYNC IDLE", "idle");
   setActiveComponent("idle", "idle");
   renderRuntimeEvents();
   renderSnapshot();

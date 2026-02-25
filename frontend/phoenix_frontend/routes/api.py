@@ -60,6 +60,27 @@ def session_snapshot(session_id: str):
         return _error(str(exc), 500)
 
 
+@api_bp.patch("/sessions/<session_id>/intake")
+def update_session_intake(session_id: str):
+    payload = request.get_json(silent=True) or {}
+    complaint_text = str(payload.get("complaint_text") or "").strip()
+    if not complaint_text:
+        return _error("complaint_text is required.", 400)
+    try:
+        result = _service().update_session_intake(
+            session_id=session_id,
+            complaint_text=complaint_text,
+            person_text=str(payload.get("person_text") or ""),
+            context_text=str(payload.get("context_text") or ""),
+            reset_outputs=bool(payload.get("reset_outputs", True)),
+        )
+        return jsonify({"status": "ok", **result})
+    except FileNotFoundError:
+        return _error("Session not found.", 404)
+    except Exception as exc:
+        return _error(str(exc), 400)
+
+
 @api_bp.get("/llm/models")
 def list_llm_models():
     query = str(request.args.get("q") or "").strip()
@@ -155,6 +176,47 @@ def _start_cycle_job(session_id: str, payload: Dict[str, Any]) -> str:
             network_boot=int(payload.get("network_boot") or 40),
             network_block_len=int(payload.get("network_block_len") or 14),
             network_jobs=int(payload.get("network_jobs") or 4),
+            network_execution_policy=str(payload.get("network_execution_policy") or "readiness_aligned"),
+            run_impact_visualizations=bool(payload.get("run_impact_visualizations", True)),
+            run_treatment_communication=bool(payload.get("run_treatment_communication", True)),
+            parallel_branches=bool(payload.get("parallel_branches", True)),
+            log=log,
+        ),
+    )
+
+
+def _start_full_session_job(session_id: str, payload: Dict[str, Any]) -> str:
+    manager = _job_manager()
+    service = _service()
+    disable_llm = _llm_globally_disabled() or bool(payload.get("disable_llm") or False)
+    return manager.start_job(
+        session_id=session_id,
+        kind="full_session_pipeline",
+        target=lambda log: service.run_full_session_pipeline(
+            session_id=session_id,
+            llm_model=str(payload.get("llm_model") or "gpt-5-nano"),
+            disable_llm=disable_llm,
+            hard_ontology_constraint=bool(payload.get("hard_ontology_constraint") or False),
+            model_prompt_budget_tokens=int(payload.get("prompt_budget_tokens") or 400000),
+            model_critic_max_iterations=int(payload.get("critic_max_iterations") or 2),
+            model_critic_pass_threshold=float(payload.get("critic_pass_threshold") or 0.74),
+            model_max_workers=int(payload.get("max_workers") or 12),
+            pseudodata_n_points=int(payload.get("n_points") or 84),
+            pseudodata_missing_rate=float(payload.get("missing_rate") or 0.1),
+            pseudodata_seed=int(payload.get("seed") or 42),
+            cycles=int(payload.get("cycles") or 1),
+            include_intervention=bool(payload.get("include_intervention", True)),
+            request_model_refinement=bool(payload.get("request_model_refinement") or False),
+            auto_refresh_pseudodata_each_cycle=bool(payload.get("auto_refresh_pseudodata_each_cycle", True)),
+            profile_memory_window=int(payload.get("profile_memory_window") or 3),
+            handoff_critic_max_iterations=int(payload.get("handoff_critic_max_iterations") or 2),
+            handoff_critic_pass_threshold=float(payload.get("handoff_critic_pass_threshold") or 0.74),
+            intervention_critic_max_iterations=int(payload.get("intervention_critic_max_iterations") or 2),
+            intervention_critic_pass_threshold=float(payload.get("intervention_critic_pass_threshold") or 0.74),
+            network_boot=int(payload.get("network_boot") or 40),
+            network_block_len=int(payload.get("network_block_len") or 14),
+            network_jobs=int(payload.get("network_jobs") or 4),
+            network_execution_policy=str(payload.get("network_execution_policy") or "readiness_aligned"),
             run_impact_visualizations=bool(payload.get("run_impact_visualizations", True)),
             run_treatment_communication=bool(payload.get("run_treatment_communication", True)),
             parallel_branches=bool(payload.get("parallel_branches", True)),
@@ -193,6 +255,7 @@ def _start_full_cohort_job(session_id: str, payload: Dict[str, Any]) -> str:
             network_boot=int(payload.get("network_boot") or 40),
             network_block_len=int(payload.get("network_block_len") or 14),
             network_jobs=int(payload.get("network_jobs") or 4),
+            network_execution_policy=str(payload.get("network_execution_policy") or "readiness_aligned"),
             run_impact_visualizations=bool(payload.get("run_impact_visualizations", True)),
             run_treatment_communication=bool(payload.get("run_treatment_communication", True)),
             parallel_branches=bool(payload.get("parallel_branches", True)),
@@ -242,6 +305,18 @@ def start_pipeline_cycle_job(session_id: str):
     try:
         payload = request.get_json(silent=True) or {}
         job_id = _start_cycle_job(session_id, payload)
+        return jsonify({"status": "ok", "job_id": job_id})
+    except FileNotFoundError:
+        return _error("Session not found.", 404)
+    except Exception as exc:
+        return _error(str(exc), 400)
+
+
+@api_bp.post("/sessions/<session_id>/jobs/run-full")
+def start_full_session_job(session_id: str):
+    try:
+        payload = request.get_json(silent=True) or {}
+        job_id = _start_full_session_job(session_id, payload)
         return jsonify({"status": "ok", "job_id": job_id})
     except FileNotFoundError:
         return _error("Session not found.", 404)

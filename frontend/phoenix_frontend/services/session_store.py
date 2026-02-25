@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import shutil
 import uuid
 from pathlib import Path
 from typing import Dict, List, Optional
@@ -156,6 +157,13 @@ class SessionStore:
         if not str(target).startswith(str(session_root.resolve())):
             raise ValueError("Requested path resolves outside of session root.")
         return target
+
+    def clear_session_outputs(self, session_id: str) -> None:
+        session_root = self.sessions_root / session_id
+        outputs_root = session_root / "outputs"
+        if outputs_root.exists() and outputs_root.is_dir():
+            shutil.rmtree(outputs_root, ignore_errors=True)
+        self.session_paths(session_id)
 
     def _profile_id_for_session(self, session_id: str) -> str:
         digest = hashlib.sha1(session_id.encode("utf-8")).hexdigest()  # noqa: S324

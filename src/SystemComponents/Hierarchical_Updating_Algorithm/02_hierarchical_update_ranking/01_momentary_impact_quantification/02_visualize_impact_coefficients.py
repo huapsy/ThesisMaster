@@ -397,6 +397,26 @@ def _edge_lw(weights: np.ndarray, min_lw: float = 0.4, max_lw: float = 6.0) -> n
     return min_lw + y * (max_lw - min_lw)
 
 
+def _node_strength_prop(node_map: pd.DataFrame, node: str) -> float:
+    """
+    Return a scalar strength proportion even when node labels overlap between
+    predictor and criterion roles (duplicate index values).
+    """
+    try:
+        value = node_map.loc[node, "strength_prop_global"]
+    except Exception:
+        return 0.0
+    if isinstance(value, pd.Series):
+        parsed = pd.to_numeric(value, errors="coerce").dropna()
+        if parsed.empty:
+            return 0.0
+        return float(parsed.max())
+    try:
+        return float(value)
+    except Exception:
+        return 0.0
+
+
 def plot_bipartite_network(
     edges: pd.DataFrame,
     nodes: pd.DataFrame,
@@ -444,8 +464,16 @@ def plot_bipartite_network(
 
     # node strength proportions for sizing
     node_map = nodes.set_index("node")
-    pred_props = np.array([float(node_map.loc[p, "strength_prop_global"]) for p in predictors], dtype=float) if predictors else np.array([])
-    crit_props = np.array([float(node_map.loc[c, "strength_prop_global"]) for c in criteria], dtype=float) if criteria else np.array([])
+    pred_props = (
+        np.array([_node_strength_prop(node_map, p) for p in predictors], dtype=float)
+        if predictors
+        else np.array([])
+    )
+    crit_props = (
+        np.array([_node_strength_prop(node_map, c) for c in criteria], dtype=float)
+        if criteria
+        else np.array([])
+    )
 
     pred_sizes = _scaled_node_sizes(pred_props) if pred_props.size else np.array([])
     crit_sizes = _scaled_node_sizes(crit_props) if crit_props.size else np.array([])
@@ -549,7 +577,7 @@ def plot_circular_network(
     pos = {node: (math.cos(a), math.sin(a)) for node, a in zip(order, angles)}
 
     node_map = nodes.set_index("node")
-    props = np.array([float(node_map.loc[node, "strength_prop_global"]) for node in order], dtype=float)
+    props = np.array([_node_strength_prop(node_map, node) for node in order], dtype=float)
     sizes = _scaled_node_sizes(props, min_size=70, max_size=750)
 
     fig = plt.figure(figsize=(10, 10))

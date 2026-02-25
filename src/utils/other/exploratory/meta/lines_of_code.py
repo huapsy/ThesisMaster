@@ -27,7 +27,7 @@ from typing import Dict, List, Tuple
 
 # --- Configuration ---
 input_dir = Path("/Users/stijnvanseveren/PythonProjects/MASTERPROEF")
-exclude_dir = Path("/test_FC/data/BIDS/deepprep_test")
+exclude_dir = Path("/Users/stijnvanseveren/PythonProjects/MASTERPROEF/.venv")
 
 # --- Helpers ---
 def is_excluded(path: Path) -> bool:

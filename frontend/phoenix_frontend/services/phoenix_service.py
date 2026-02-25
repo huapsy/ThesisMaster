@@ -5,7 +5,9 @@ import os
 import queue
 import re
 import shlex
+import shutil
 import subprocess
+import sys
 import threading
 import time
 from concurrent.futures import Future, ThreadPoolExecutor, as_completed
@@ -30,7 +32,7 @@ LogFn = Callable[[str, str], None]
 class PhoenixService:
     def __init__(self, *, repo_root: Path, python_exe: str, session_store: SessionStore) -> None:
         self.repo_root = Path(repo_root).expanduser().resolve()
-        self.python_exe = str(python_exe)
+        self.python_exe = self._resolve_python_executable(str(python_exe))
         self.session_store = session_store
         self.evaluation_root = self._resolve_evaluation_root()
         self.default_max_workers = max(1, int(os.getenv("PHOENIX_MAX_WORKERS", "12")))
@@ -93,6 +95,10 @@ class PhoenixService:
         session = self.session_store.load_session(session_id)
         paths = self.session_store.session_paths(session_id)
         free_text_files = self.session_store.write_free_text_files(session)
+        intake_sync = self._ensure_session_intake_sync(
+            session=session,
+            complaints_path=free_text_files["free_text_complaints"],
+        )
         profile_id = session.profile_id
         effective_workers = max(1, int(max_workers if max_workers is not None else self.default_max_workers))
 
@@ -104,58 +110,111 @@ class PhoenixService:
         if mapped_csv.exists():
             mapped_csv.unlink()
 
+        complaint_preview = " ".join(str(session.complaint_text or "").split())
+        if len(complaint_preview) > 180:
+            complaint_preview = f"{complaint_preview[:180]}..."
         if disable_llm:
-            log("LLM disabled: constructing heuristic initial model fallback.", "WARNING")
-            heuristic_model = self._build_heuristic_initial_model(profile_id=profile_id, complaint_text=session.complaint_text)
-            profile_dir.mkdir(parents=True, exist_ok=True)
-            model_final_json = profile_dir / "llm_observation_model_final.json"
-            model_final_json.write_text(json.dumps(heuristic_model, ensure_ascii=False, indent=2), encoding="utf-8")
-            model_mapped_json = profile_dir / "llm_observation_model_mapped.json"
-            model_mapped_json.write_text(json.dumps(heuristic_model, ensure_ascii=False, indent=2), encoding="utf-8")
-            mapped_csv.write_text("pseudoprofile_id,variable_id,variable_label,mapping_status\n", encoding="utf-8")
+            log(
+                "[component:step01_operationalization] "
+                f"profile={profile_id} mode=deterministic input={free_text_files['free_text_complaints']} "
+                f"complaint_preview={complaint_preview}",
+                "INFO",
+            )
+            log(
+                "[component:step01_operationalization] "
+                f"intake_sync={str(intake_sync.get('matches') is True).lower()} "
+                f"key={intake_sync.get('profile_key') or 'unknown'}",
+                "INFO",
+            )
+            log("[component:step01_operationalization] status=running deterministic", "INFO")
+            self._write_deterministic_operationalization_csv(
+                profile_id=profile_id,
+                complaint_text=session.complaint_text,
+                mapped_csv=mapped_csv,
+            )
+            log("[component:step01_operationalization] status=succeeded deterministic", "INFO")
         else:
             self._assert_operationalization_cache()
             env_step01 = os.environ.copy()
             env_step01.setdefault("CRITERION_CACHE_DIR", str(self.operationalization_cache_dir))
-            complaint_preview = " ".join(str(session.complaint_text or "").split())
-            if len(complaint_preview) > 180:
-                complaint_preview = f"{complaint_preview[:180]}..."
             log(
                 "[component:step01_operationalization] "
                 f"profile={profile_id} input={free_text_files['free_text_complaints']} "
                 f"complaint_preview={complaint_preview}",
                 "INFO",
             )
+            log(
+                "[component:step01_operationalization] "
+                f"intake_sync={str(intake_sync.get('matches') is True).lower()} "
+                f"key={intake_sync.get('profile_key') or 'unknown'}",
+                "INFO",
+            )
+            cmd_step01 = [
+                self.python_exe,
+                str(self.step01_script),
+                "--input-txt",
+                str(free_text_files["free_text_complaints"]),
+                "--output-csv",
+                str(mapped_csv),
+                "--max-workers",
+                str(effective_workers),
+                "--limit",
+                "1",
+            ]
             log("Running Step 01 operationalization from session-specific free-text input.", "INFO")
             self._run_command(
-                cmd=[
-                    self.python_exe,
-                    str(self.step01_script),
-                    "--input-txt",
-                    str(free_text_files["free_text_complaints"]),
-                    "--output-csv",
-                    str(mapped_csv),
-                    "--max-workers",
-                    str(effective_workers),
-                    "--limit",
-                    "1",
-                ],
+                cmd=cmd_step01,
                 log=log,
                 env=env_step01,
                 component="step01_operationalization",
             )
 
-            op_summary = self._load_operationalization_summary(
-                mapped_csv_path=mapped_csv,
-                profile_id=profile_id,
-                fallback_complaint_text=session.complaint_text,
-            )
+        op_summary = self._load_operationalization_summary(
+            mapped_csv_path=mapped_csv,
+            profile_id=profile_id,
+            fallback_complaint_text=session.complaint_text,
+        )
+        log(
+            "[component:step01_operationalization] "
+            f"mapped_variables={int(op_summary.get('criteria_count') or 0)} source={op_summary.get('source') or 'none'}",
+            "INFO",
+        )
+
+        if disable_llm:
             log(
-                "[component:step01_operationalization] "
-                f"mapped_variables={int(op_summary.get('criteria_count') or 0)} source={op_summary.get('source') or 'none'}",
+                "[component:step02_initial_model] status=running deterministic_from_step01",
                 "INFO",
             )
-
+            deterministic_model = self._build_fallback_model_from_operationalization(
+                profile_id=profile_id,
+                complaint_text=session.complaint_text,
+                op_summary=op_summary,
+            )
+            if not deterministic_model:
+                deterministic_model = self._build_heuristic_initial_model(
+                    profile_id=profile_id,
+                    complaint_text=session.complaint_text,
+                )
+            deterministic_summary = str(deterministic_model.get("model_summary") or "").strip()
+            deterministic_model["model_summary"] = (
+                f"{deterministic_summary}\nStep 02 deterministic mode: generated from Step-01 output."
+            ).strip()
+            profile_dir.mkdir(parents=True, exist_ok=True)
+            model_final_json = profile_dir / "llm_observation_model_final.json"
+            model_final_json.write_text(
+                json.dumps(deterministic_model, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+            model_mapped_json = profile_dir / "llm_observation_model_mapped.json"
+            model_mapped_json.write_text(
+                json.dumps(deterministic_model, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+            log(
+                "[component:step02_initial_model] status=succeeded deterministic_from_step01",
+                "INFO",
+            )
+        else:
             hyde_dense_profiles = self._discover_latest_hyde_dense_profiles()
             step02_cmd = [
                 self.python_exe,
@@ -338,6 +397,73 @@ class PhoenixService:
         model_payload = self.load_model_payload(session_id)
         return build_collection_schema(model_payload)
 
+    def update_session_intake(
+        self,
+        *,
+        session_id: str,
+        complaint_text: str,
+        person_text: str,
+        context_text: str,
+        reset_outputs: bool,
+        log: Optional[LogFn] = None,
+    ) -> Dict[str, Any]:
+        cleaned_complaint = str(complaint_text or "").strip()
+        cleaned_person = str(person_text or "").strip()
+        cleaned_context = str(context_text or "").strip()
+        if not cleaned_complaint:
+            raise RuntimeError("Complaint text cannot be empty.")
+
+        session = self.session_store.load_session(session_id)
+        if reset_outputs:
+            self.session_store.clear_session_outputs(session_id)
+
+        note_updates = {
+            **session.notes,
+            "intake_last_updated_at": datetime.now().isoformat(timespec="seconds"),
+        }
+        if reset_outputs:
+            note_updates.pop("latest_cycle_dashboard", None)
+            note_updates.pop("latest_cycle_communication", None)
+            note_updates["latest_cycle_status"] = "idle"
+            note_updates["awaiting_fresh_acquisition"] = False
+            note_updates["cycle_requested_refinement"] = False
+            note_updates["latest_full_session_status"] = "idle"
+
+        updated = self.session_store.update_session(
+            session_id,
+            complaint_text=cleaned_complaint,
+            person_text=cleaned_person,
+            context_text=cleaned_context,
+            current_cycle=0 if reset_outputs else int(session.current_cycle),
+            initial_model_run_id="" if reset_outputs else session.initial_model_run_id,
+            initial_model_run_dir="" if reset_outputs else session.initial_model_run_dir,
+            latest_model_json="" if reset_outputs else session.latest_model_json,
+            latest_model_mapped_json="" if reset_outputs else session.latest_model_mapped_json,
+            pseudodata_ready=False if reset_outputs else bool(session.pseudodata_ready),
+            pseudodata_root="" if reset_outputs else session.pseudodata_root,
+            pipeline_run_id="" if reset_outputs else session.pipeline_run_id,
+            latest_pipeline_cycle_root="" if reset_outputs else session.latest_pipeline_cycle_root,
+            latest_pipeline_summary="" if reset_outputs else session.latest_pipeline_summary,
+            notes=note_updates,
+        )
+        free_text_files = self.session_store.write_free_text_files(updated)
+        intake_sync = self._read_session_intake_sync(
+            session=updated,
+            complaints_path=free_text_files["free_text_complaints"],
+        )
+        if log:
+            log(
+                "[component:intake_update] "
+                f"status=succeeded reset_outputs={str(bool(reset_outputs)).lower()} "
+                f"intake_sync={str(bool(intake_sync.get('matches'))).lower()}",
+                "INFO",
+            )
+        return {
+            "session": updated.to_dict(),
+            "intake_sync": intake_sync,
+            "reset_outputs": bool(reset_outputs),
+        }
+
     def synthesize_session_pseudodata(
         self,
         *,
@@ -480,10 +606,12 @@ class PhoenixService:
         network_boot: int,
         network_block_len: int,
         network_jobs: int,
+        network_execution_policy: str,
         run_impact_visualizations: bool,
         run_treatment_communication: bool,
         parallel_branches: bool,
         log: LogFn,
+        emit_communication_summary: bool = True,
     ) -> Dict[str, Any]:
         session = self.session_store.load_session(session_id)
         paths = self.session_store.session_paths(session_id)
@@ -496,6 +624,11 @@ class PhoenixService:
 
         pipeline_run_id = session.pipeline_run_id.strip() or f"frontend_pipeline_{session.session_id}"
         cycle_index = int(session.current_cycle) + 1
+        cycle_root = self._cycle_run_root(
+            output_root=paths["pipeline_root"],
+            run_id=pipeline_run_id,
+            cycle_index=cycle_index,
+        )
         effective_network_jobs = max(1, int(network_jobs))
         force_single_network_job = str(os.getenv("PHOENIX_FORCE_SINGLE_NETWORK_JOB", "")).strip().lower() in {
             "1",
@@ -514,6 +647,11 @@ class PhoenixService:
                 f"Using network_jobs={effective_network_jobs} (parallel network estimation enabled).",
                 "INFO",
             )
+        allowed_network_policies = {"readiness_aligned", "all_methods"}
+        policy = str(network_execution_policy or "").strip().lower()
+        if policy not in allowed_network_policies:
+            policy = "readiness_aligned"
+        log(f"Network execution policy: {policy}.", "INFO")
 
         cmd = [
             self.python_exe,
@@ -571,7 +709,7 @@ class PhoenixService:
             "--network-jobs",
             str(effective_network_jobs),
             "--network-execution-policy",
-            "all_methods",
+            policy,
             "--communication-llm-model",
             llm_model,
         ]
@@ -589,6 +727,18 @@ class PhoenixService:
             cmd.append("--disable-llm")
             cmd.append("--communication-disable-llm")
 
+        self.session_store.update_session(
+            session_id,
+            pipeline_run_id=pipeline_run_id,
+            latest_pipeline_cycle_root=str(cycle_root),
+            latest_pipeline_summary="",
+            notes={
+                **session.notes,
+                "latest_cycle_status": "running",
+                "latest_cycle_index": cycle_index,
+            },
+        )
+
         log(f"Running integrated PHOENIX analysis cycle {cycle_index}.", "INFO")
         try:
             self._run_command(
@@ -598,6 +748,14 @@ class PhoenixService:
             )
         except RuntimeError as exc:
             if effective_network_jobs <= 1:
+                self.session_store.update_session(
+                    session_id,
+                    notes={
+                        **self.session_store.load_session(session_id).notes,
+                        "latest_cycle_status": "failed",
+                        "latest_cycle_error": str(exc),
+                    },
+                )
                 raise
             retry_cmd = list(cmd)
             try:
@@ -611,18 +769,24 @@ class PhoenixService:
                 f"Original error: {exc}",
                 "WARNING",
             )
-            self._run_command(
-                cmd=retry_cmd,
-                log=log,
-                component="pipeline_cycle_engine",
-            )
-            effective_network_jobs = 1
+            try:
+                self._run_command(
+                    cmd=retry_cmd,
+                    log=log,
+                    component="pipeline_cycle_engine",
+                )
+                effective_network_jobs = 1
+            except RuntimeError as retry_exc:
+                self.session_store.update_session(
+                    session_id,
+                    notes={
+                        **self.session_store.load_session(session_id).notes,
+                        "latest_cycle_status": "failed",
+                        "latest_cycle_error": str(retry_exc),
+                    },
+                )
+                raise
 
-        cycle_root = self._cycle_run_root(
-            output_root=paths["pipeline_root"],
-            run_id=pipeline_run_id,
-            cycle_index=cycle_index,
-        )
         summary_json = cycle_root / "pipeline_summary.json"
         if not summary_json.exists():
             raise RuntimeError(f"Integrated pipeline finished but no summary was produced: {summary_json}")
@@ -632,27 +796,33 @@ class PhoenixService:
             profile_id=session.profile_id,
             session_id=session_id,
         )
-        communication = self._write_communication_summary(
-            session_id=session_id,
-            stage=f"cycle_{cycle_index:02d}",
-            llm_model=llm_model,
-            disable_llm=disable_llm,
-            evidence=dashboard,
-        )
+        communication: Dict[str, Any] = {}
+        if emit_communication_summary:
+            communication = self._write_communication_summary(
+                session_id=session_id,
+                stage=f"cycle_{cycle_index:02d}",
+                llm_model=llm_model,
+                disable_llm=disable_llm,
+                evidence=dashboard,
+            )
 
+        latest_session = self.session_store.load_session(session_id)
+        note_updates = {
+            **latest_session.notes,
+            "latest_cycle_dashboard": dashboard,
+            "latest_cycle_status": "succeeded",
+            "awaiting_fresh_acquisition": bool(request_model_refinement),
+            "cycle_requested_refinement": bool(request_model_refinement),
+        }
+        if emit_communication_summary:
+            note_updates["latest_cycle_communication"] = communication
         self.session_store.update_session(
             session_id,
             current_cycle=cycle_index,
             pipeline_run_id=pipeline_run_id,
             latest_pipeline_cycle_root=str(cycle_root),
             latest_pipeline_summary=str(summary_json),
-            notes={
-                **session.notes,
-                "latest_cycle_dashboard": dashboard,
-                "latest_cycle_communication": communication,
-                "awaiting_fresh_acquisition": bool(request_model_refinement),
-                "cycle_requested_refinement": bool(request_model_refinement),
-            },
+            notes=note_updates,
         )
         return {
             "cycle_index": cycle_index,
@@ -663,6 +833,181 @@ class PhoenixService:
             "dashboard": dashboard,
             "communication_summary": communication,
         }
+
+    def run_full_session_pipeline(
+        self,
+        *,
+        session_id: str,
+        llm_model: str,
+        disable_llm: bool,
+        hard_ontology_constraint: bool,
+        model_prompt_budget_tokens: int,
+        model_critic_max_iterations: int,
+        model_critic_pass_threshold: float,
+        model_max_workers: int,
+        pseudodata_n_points: int,
+        pseudodata_missing_rate: float,
+        pseudodata_seed: int,
+        cycles: int,
+        include_intervention: bool,
+        request_model_refinement: bool,
+        auto_refresh_pseudodata_each_cycle: bool,
+        profile_memory_window: int,
+        handoff_critic_max_iterations: int,
+        handoff_critic_pass_threshold: float,
+        intervention_critic_max_iterations: int,
+        intervention_critic_pass_threshold: float,
+        network_boot: int,
+        network_block_len: int,
+        network_jobs: int,
+        network_execution_policy: str,
+        run_impact_visualizations: bool,
+        run_treatment_communication: bool,
+        parallel_branches: bool,
+        log: LogFn,
+    ) -> Dict[str, Any]:
+        session = self.session_store.load_session(session_id)
+        n_cycles = max(1, int(cycles))
+        seed_base = int(pseudodata_seed)
+        log(
+            f"[component:full_session_pipeline] status=running cycles={n_cycles} "
+            f"model={llm_model} disable_llm={bool(disable_llm)}",
+            "INFO",
+        )
+        self.session_store.update_session(
+            session_id,
+            notes={
+                **session.notes,
+                "latest_full_session_cycles_requested": n_cycles,
+                "latest_full_session_status": "running",
+            },
+        )
+        self._clear_communication_artifacts(session_id=session_id)
+
+        try:
+            model_result = self.run_initial_model(
+                session_id=session_id,
+                llm_model=llm_model,
+                disable_llm=disable_llm,
+                hard_ontology_constraint=hard_ontology_constraint,
+                prompt_budget_tokens=int(model_prompt_budget_tokens),
+                critic_max_iterations=int(model_critic_max_iterations),
+                critic_pass_threshold=float(model_critic_pass_threshold),
+                max_workers=int(model_max_workers),
+                generate_communication=False,
+                log=log,
+            )
+
+            pseudodata_runs: List[Dict[str, Any]] = []
+            first_data = self.synthesize_session_pseudodata(
+                session_id=session_id,
+                n_points=int(pseudodata_n_points),
+                missing_rate=float(pseudodata_missing_rate),
+                seed=seed_base,
+                baseline_rows=[],
+                log=log,
+            )
+            pseudodata_runs.append(
+                {
+                    "seed": seed_base,
+                    "reason": "initial_acquisition",
+                    "result": first_data,
+                }
+            )
+
+            cycle_results: List[Dict[str, Any]] = []
+            for cycle_pos in range(1, n_cycles + 1):
+                request_refinement_this_cycle = bool(request_model_refinement and cycle_pos < n_cycles)
+                log(
+                    f"[component:full_session_pipeline] cycle={cycle_pos}/{n_cycles} "
+                    f"request_refinement={request_refinement_this_cycle}",
+                    "INFO",
+                )
+                cycle_payload = self.run_pipeline_cycle(
+                    session_id=session_id,
+                    hard_ontology_constraint=hard_ontology_constraint,
+                    llm_model=llm_model,
+                    disable_llm=disable_llm,
+                    include_intervention=include_intervention,
+                    request_model_refinement=request_refinement_this_cycle,
+                    profile_memory_window=profile_memory_window,
+                    handoff_critic_max_iterations=handoff_critic_max_iterations,
+                    handoff_critic_pass_threshold=handoff_critic_pass_threshold,
+                    intervention_critic_max_iterations=intervention_critic_max_iterations,
+                    intervention_critic_pass_threshold=intervention_critic_pass_threshold,
+                    network_boot=network_boot,
+                    network_block_len=network_block_len,
+                    network_jobs=network_jobs,
+                    network_execution_policy=network_execution_policy,
+                    run_impact_visualizations=run_impact_visualizations,
+                    run_treatment_communication=run_treatment_communication,
+                    parallel_branches=parallel_branches,
+                    emit_communication_summary=(cycle_pos == n_cycles),
+                    log=log,
+                )
+                cycle_results.append(cycle_payload)
+
+                if (
+                    cycle_pos < n_cycles
+                    and request_refinement_this_cycle
+                    and bool(auto_refresh_pseudodata_each_cycle)
+                ):
+                    refresh_seed = seed_base + cycle_pos
+                    log(
+                        f"[component:full_session_pipeline] refreshing pseudodata for next cycle with seed={refresh_seed}",
+                        "INFO",
+                    )
+                    refreshed = self.synthesize_session_pseudodata(
+                        session_id=session_id,
+                        n_points=int(pseudodata_n_points),
+                        missing_rate=float(pseudodata_missing_rate),
+                        seed=int(refresh_seed),
+                        baseline_rows=[],
+                        log=log,
+                    )
+                    pseudodata_runs.append(
+                        {
+                            "seed": int(refresh_seed),
+                            "reason": f"pre_cycle_{cycle_pos + 1}",
+                            "result": refreshed,
+                        }
+                    )
+
+            latest = self.session_store.load_session(session_id)
+            self.session_store.update_session(
+                session_id,
+                notes={
+                    **latest.notes,
+                    "latest_full_session_cycles_requested": n_cycles,
+                    "latest_full_session_cycles_completed": len(cycle_results),
+                    "latest_full_session_status": "succeeded",
+                },
+            )
+            log(
+                f"[component:full_session_pipeline] status=succeeded cycles_completed={len(cycle_results)}",
+                "INFO",
+            )
+            return {
+                "session_id": session_id,
+                "profile_id": session.profile_id,
+                "cycles_requested": n_cycles,
+                "cycles_completed": len(cycle_results),
+                "model_result": model_result,
+                "pseudodata_runs": pseudodata_runs,
+                "cycle_results": cycle_results,
+            }
+        except Exception as exc:
+            latest = self.session_store.load_session(session_id)
+            self.session_store.update_session(
+                session_id,
+                notes={
+                    **latest.notes,
+                    "latest_full_session_status": "failed",
+                    "latest_full_session_error": f"{type(exc).__name__}: {exc}",
+                },
+            )
+            log(f"[component:full_session_pipeline] status=failed error={type(exc).__name__}: {exc}", "ERROR")
+            raise
 
     def list_llm_models(self, *, query: str = "", limit: int = 80) -> List[Dict[str, Any]]:
         q = str(query or "").strip().lower()
@@ -778,6 +1123,7 @@ class PhoenixService:
         network_boot: int,
         network_block_len: int,
         network_jobs: int,
+        network_execution_policy: str,
         run_impact_visualizations: bool,
         run_treatment_communication: bool,
         parallel_branches: bool,
@@ -809,6 +1155,7 @@ class PhoenixService:
             "network_boot": int(network_boot),
             "network_block_len": int(network_block_len),
             "network_jobs": int(network_jobs),
+            "network_execution_policy": str(network_execution_policy),
             "run_impact_visualizations": bool(run_impact_visualizations),
             "run_treatment_communication": bool(run_treatment_communication),
             "parallel_branches": bool(parallel_branches),
@@ -957,6 +1304,7 @@ class PhoenixService:
                 network_boot=network_boot,
                 network_block_len=network_block_len,
                 network_jobs=network_jobs,
+                network_execution_policy=network_execution_policy,
                 run_impact_visualizations=run_impact_visualizations,
                 run_treatment_communication=run_treatment_communication,
                 parallel_branches=parallel_branches,
@@ -1060,6 +1408,10 @@ class PhoenixService:
     def session_snapshot(self, session_id: str) -> Dict[str, Any]:
         session = self.session_store.load_session(session_id)
         paths = self.session_store.session_paths(session_id)
+        intake_sync = self._read_session_intake_sync(
+            session=session,
+            complaints_path=paths["free_text_root"] / "free_text_complaints.txt",
+        )
 
         collection_schema: Dict[str, Any] = {}
         model_summary: Dict[str, Any] = {}
@@ -1091,15 +1443,16 @@ class PhoenixService:
         pipeline_dashboard: Dict[str, Any] = {}
         pipeline_summary_raw = str(session.latest_pipeline_summary or "").strip()
         pipeline_summary_path = Path(pipeline_summary_raw).expanduser().resolve() if pipeline_summary_raw else None
+        cycle_root_raw = str(session.latest_pipeline_cycle_root or "").strip()
+        cycle_root = Path(cycle_root_raw).expanduser().resolve() if cycle_root_raw else None
         if pipeline_summary_path is not None and pipeline_summary_path.exists() and pipeline_summary_path.is_file():
             pipeline_summary = json.loads(pipeline_summary_path.read_text(encoding="utf-8"))
-            cycle_root = Path(str(session.latest_pipeline_cycle_root or "")).expanduser().resolve()
-            if cycle_root.exists():
-                pipeline_dashboard = self._extract_cycle_dashboard(
-                    cycle_root=cycle_root,
-                    profile_id=session.profile_id,
-                    session_id=session_id,
-                )
+        if cycle_root is not None and cycle_root.exists() and cycle_root.is_dir():
+            pipeline_dashboard = self._extract_cycle_dashboard(
+                cycle_root=cycle_root,
+                profile_id=session.profile_id,
+                session_id=session_id,
+            )
 
         communication_summary = self._load_latest_communication_summary(session_id=session_id)
         cohort_summary: Dict[str, Any] = {}
@@ -1118,6 +1471,7 @@ class PhoenixService:
             "model_summary": model_summary,
             "collection_schema": collection_schema,
             "operationalization_summary": operationalization_summary,
+            "intake_sync": intake_sync,
             "visuals": visuals,
             "pseudodata_summary": pseudodata_summary,
             "pipeline_summary": pipeline_summary,
@@ -1179,6 +1533,10 @@ class PhoenixService:
             )
         if component:
             log(f"[component:{component}] status=running", "INFO")
+            log(
+                f"[component:{component}] command_start cwd={self.repo_root} cmd={shlex.join(cmd)}",
+                "INFO",
+            )
         process = subprocess.Popen(
             cmd,
             cwd=str(self.repo_root),
@@ -1203,6 +1561,8 @@ class PhoenixService:
         started = time.time()
         last_heartbeat = started
         rc: Optional[int] = None
+        lines_seen = 0
+        last_line = ""
 
         while True:
             try:
@@ -1211,7 +1571,12 @@ class PhoenixService:
                 now = time.time()
                 if component and now - last_heartbeat >= 5:
                     elapsed = int(now - started)
-                    log(f"[component:{component}] heartbeat elapsed={elapsed}s", "INFO")
+                    tail = (last_line[:120] + "...") if len(last_line) > 120 else last_line
+                    log(
+                        f"[component:{component}] heartbeat elapsed={elapsed}s lines={lines_seen}"
+                        + (f" last='{tail}'" if tail else ""),
+                        "INFO",
+                    )
                     last_heartbeat = now
                 rc = process.poll()
                 if rc is not None:
@@ -1221,23 +1586,38 @@ class PhoenixService:
             if line == "__PHOENIX_EOF__":
                 rc = process.wait()
                 break
+            lines_seen += 1
+            last_line = str(line)
             log(line, "INFO")
 
             now = time.time()
             if component and now - last_heartbeat >= 5:
                 elapsed = int(now - started)
-                log(f"[component:{component}] heartbeat elapsed={elapsed}s", "INFO")
+                tail = (last_line[:120] + "...") if len(last_line) > 120 else last_line
+                log(
+                    f"[component:{component}] heartbeat elapsed={elapsed}s lines={lines_seen}"
+                    + (f" last='{tail}'" if tail else ""),
+                    "INFO",
+                )
                 last_heartbeat = now
 
         if rc is None:
             rc = process.wait()
         reader_thread.join(timeout=1)
+        elapsed_total = round(time.time() - started, 3)
         if rc != 0:
             if component:
-                log(f"[component:{component}] status=failed exit_code={rc}", "ERROR")
+                log(
+                    f"[component:{component}] status=failed exit_code={rc} "
+                    f"duration_seconds={elapsed_total} lines={lines_seen}",
+                    "ERROR",
+                )
             raise RuntimeError(f"Command failed with exit code {rc}: {shlex.join(cmd)}")
         if component and mark_success:
-            log(f"[component:{component}] status=succeeded", "INFO")
+            log(
+                f"[component:{component}] status=succeeded duration_seconds={elapsed_total} lines={lines_seen}",
+                "INFO",
+            )
 
     def _extract_step02_worker_error(self, *, run_dir: Path, profile_id: str) -> str:
         errors_path = run_dir / "errors.csv"
@@ -1280,6 +1660,94 @@ class PhoenixService:
             return up
         return low
 
+    def _resolve_python_executable(self, candidate: str) -> str:
+        def _norm(path_or_cmd: str) -> str:
+            token = str(path_or_cmd or "").strip()
+            if not token:
+                return ""
+            expanded = Path(token).expanduser()
+            if expanded.exists():
+                return str(expanded.resolve())
+            return token
+
+        options: List[str] = []
+        for item in [
+            _norm(candidate),
+            _norm(str(self.repo_root / ".venv/bin/python")),
+            _norm(str(self.repo_root / ".venv/bin/python3")),
+            _norm(sys.executable),
+            _norm(shutil.which("python3") or ""),
+            _norm(shutil.which("python") or ""),
+        ]:
+            if item and item not in options:
+                options.append(item)
+
+        for exe in options:
+            if self._python_runtime_ok(exe):
+                return exe
+        return str(candidate)
+
+    @staticmethod
+    def _python_runtime_ok(executable: str) -> bool:
+        token = str(executable or "").strip()
+        if not token:
+            return False
+        try:
+            subprocess.run(
+                [token, "-c", "import json, pandas"],
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                timeout=8.0,
+            )
+            return True
+        except Exception:
+            return False
+
+    @staticmethod
+    def _normalize_free_text(text: str) -> str:
+        token = re.sub(r"\s+", " ", str(text or "").strip().lower())
+        return token
+
+    def _read_free_text_entry(self, path: Path) -> Dict[str, str]:
+        if not path.exists() or not path.is_file():
+            return {"profile_key": "", "complaint_text": ""}
+        lines = path.read_text(encoding="utf-8").splitlines()
+        key = ""
+        content_start = 0
+        for idx, line in enumerate(lines):
+            candidate = str(line or "").strip()
+            if not candidate:
+                continue
+            key = candidate
+            content_start = idx + 1
+            break
+        complaint = "\n".join(lines[content_start:]).strip()
+        return {"profile_key": key, "complaint_text": complaint}
+
+    def _read_session_intake_sync(self, *, session: Any, complaints_path: Path) -> Dict[str, Any]:
+        file_entry = self._read_free_text_entry(complaints_path)
+        session_text = str(getattr(session, "complaint_text", "") or "").strip()
+        file_text = str(file_entry.get("complaint_text") or "").strip()
+        matches = False
+        if session_text or file_text:
+            matches = self._normalize_free_text(session_text) == self._normalize_free_text(file_text)
+        return {
+            "profile_key": str(file_entry.get("profile_key") or ""),
+            "session_complaint_text": session_text,
+            "file_complaint_text": file_text,
+            "matches": bool(matches),
+            "complaints_path": str(complaints_path),
+        }
+
+    def _ensure_session_intake_sync(self, *, session: Any, complaints_path: Path) -> Dict[str, Any]:
+        sync = self._read_session_intake_sync(session=session, complaints_path=complaints_path)
+        if sync.get("matches"):
+            return sync
+        self.session_store.write_free_text_files(session)
+        return self._read_session_intake_sync(session=session, complaints_path=complaints_path)
+
     @staticmethod
     def _safe_read_csv(path: Path) -> pd.DataFrame:
         if not path.exists():
@@ -1301,6 +1769,94 @@ class PhoenixService:
             return json.loads(path.read_text(encoding="utf-8"))
         except Exception:
             return {}
+
+    def _write_deterministic_operationalization_csv(
+        self,
+        *,
+        profile_id: str,
+        complaint_text: str,
+        mapped_csv: Path,
+    ) -> None:
+        text = str(complaint_text or "").strip()
+        low = text.lower()
+        catalog: List[Dict[str, Any]] = [
+            {
+                "label": "Low energy and cognitive fog",
+                "criterion": "Energy and concentration burden",
+                "ontology_path": "criteria/high_level/energy_and_cognition",
+                "polarity": "higher_is_worse",
+                "timeframe": "daily",
+                "keywords": ["tired", "fatigue", "fog", "focus", "concentration", "scattered", "exhaust"],
+            },
+            {
+                "label": "Mood instability and emotional burden",
+                "criterion": "Mood dysregulation burden",
+                "ontology_path": "criteria/high_level/mood_regulation",
+                "polarity": "higher_is_worse",
+                "timeframe": "daily",
+                "keywords": ["sad", "mood", "happy", "anxious", "panic", "up and down", "hopeless", "irritable"],
+            },
+            {
+                "label": "Interpersonal friction and social strain",
+                "criterion": "Social functioning burden",
+                "ontology_path": "criteria/high_level/social_functioning",
+                "polarity": "higher_is_worse",
+                "timeframe": "daily",
+                "keywords": ["friend", "partner", "family", "social", "relationship", "argue", "snap", "lonely"],
+            },
+            {
+                "label": "Sleep disruption and recovery difficulty",
+                "criterion": "Sleep quality burden",
+                "ontology_path": "criteria/high_level/sleep_quality",
+                "polarity": "higher_is_worse",
+                "timeframe": "daily",
+                "keywords": ["sleep", "insomnia", "wake", "night", "restless", "bed", "3am"],
+            },
+            {
+                "label": "Stress reactivity and worry load",
+                "criterion": "Stress response burden",
+                "ontology_path": "criteria/high_level/stress_reactivity",
+                "polarity": "higher_is_worse",
+                "timeframe": "daily",
+                "keywords": ["stress", "worry", "overthink", "ruminate", "pressure", "deadline", "tense"],
+            },
+        ]
+        matched: List[Dict[str, Any]] = []
+        for item in catalog:
+            keys = [str(k).lower().strip() for k in item.get("keywords", [])]
+            if any(key and key in low for key in keys):
+                matched.append(item)
+        if len(matched) < 3:
+            for item in catalog:
+                if item in matched:
+                    continue
+                matched.append(item)
+                if len(matched) >= 3:
+                    break
+        selected = matched[:6]
+        rows: List[Dict[str, Any]] = []
+        for idx, item in enumerate(selected, start=1):
+            var_id = f"C{idx:02d}"
+            confidence = max(0.45, 0.68 - (idx - 1) * 0.04)
+            ontology_path = str(item.get("ontology_path") or "").strip() or "criteria/high_level/unspecified"
+            row = {
+                "pseudoprofile_id": str(profile_id),
+                "complaint_text": text,
+                "variable_id": var_id,
+                "variable_label": str(item.get("label") or var_id),
+                "variable_criterion": str(item.get("criterion") or ""),
+                "variable_polarity": str(item.get("polarity") or "higher_is_worse"),
+                "variable_timeframe": str(item.get("timeframe") or "daily"),
+                "mapping_status": "HEURISTIC_DETERMINISTIC",
+                "chosen_leaf_embed_path": ontology_path,
+                "chosen_leaf_full_path": ontology_path,
+                "chosen_confidence": f"{float(confidence):.3f}",
+                "chosen_method": "deterministic_heuristic",
+                "error": "",
+            }
+            rows.append(row)
+        mapped_csv.parent.mkdir(parents=True, exist_ok=True)
+        pd.DataFrame(rows).to_csv(mapped_csv, index=False)
 
     def _build_heuristic_initial_model(self, *, profile_id: str, complaint_text: str) -> Dict[str, Any]:
         source_runs = self.initial_model_assets_root / "constructed_PC_models/runs"
@@ -1419,18 +1975,79 @@ class PhoenixService:
                 }
         return {}
 
+    def _clear_communication_artifacts(self, *, session_id: str) -> None:
+        paths = self.session_store.session_paths(session_id)
+        for path in paths["frontend_logs_root"].glob("communication_*.json"):
+            try:
+                path.unlink()
+            except Exception:
+                continue
+
     def _extract_cycle_dashboard(self, *, cycle_root: Path, profile_id: str, session_id: str) -> Dict[str, Any]:
+        def _to_float(value: Any, default: float = 0.0) -> float:
+            try:
+                if value is None:
+                    return float(default)
+                if pd.isna(value):
+                    return float(default)
+                return float(value)
+            except Exception:
+                return float(default)
+
+        def _to_int(value: Any, default: int = 0) -> int:
+            try:
+                return int(float(value))
+            except Exception:
+                return int(default)
+
         def _stage_root(primary: str, legacy: str) -> Path:
             primary_root = cycle_root / primary
             if primary_root.exists():
                 return primary_root
             return cycle_root / legacy
 
+        def _parse_event_rows(path: Path, limit: int = 80) -> List[Dict[str, Any]]:
+            if not path.exists() or not path.is_file():
+                return []
+            rows: List[Dict[str, Any]] = []
+            try:
+                for raw in path.read_text(encoding="utf-8").splitlines():
+                    line = str(raw or "").strip()
+                    if not line:
+                        continue
+                    try:
+                        payload = json.loads(line)
+                    except Exception:
+                        continue
+                    if not isinstance(payload, dict):
+                        continue
+                    rows.append(payload)
+            except Exception:
+                return []
+            if limit > 0:
+                return rows[-limit:]
+            return rows
+
+        def _status_from_event(event_name: str) -> str:
+            token = str(event_name or "").strip().lower()
+            if token.endswith(".done"):
+                return "succeeded"
+            if token.endswith(".failed"):
+                return "failed"
+            if token.endswith(".start") or token.endswith(".parallel_start"):
+                return "running"
+            if token.endswith(".skipped") or token.endswith(".dry_run"):
+                return "skipped"
+            return "unknown"
+
         readiness_root = _stage_root("03_readiness_check", "00_readiness_check")
         network_root = _stage_root("04_time_series_analysis/network", "01_time_series_analysis/network")
         impact_root = _stage_root("05_momentary_impact_coefficients", "02_momentary_impact_coefficients")
         handoff_root = _stage_root("06_target_identification_and_model_update", "03_treatment_target_handoff")
         intervention_root = _stage_root("07_hapa_digital_intervention", "03b_translation_digital_intervention")
+        communication_root = _stage_root("08_treatment_translation_communication", "06_treatment_translation_communication")
+        visualization_root = _stage_root("09_impact_visualizations", "04_impact_visualizations")
+        reporting_root = _stage_root("10_research_reports", "90_quality_and_research_reports")
 
         readiness = self._read_json(readiness_root / profile_id / "readiness_report.json")
         network = self._read_json(network_root / profile_id / "comparison_summary.json")
@@ -1441,6 +2058,20 @@ class PhoenixService:
         step03 = self._read_json(step03_path)
         step04 = self._read_json(step04_path)
         step05 = self._read_json(step05_path)
+        network_profile_root = network_root / profile_id
+        tv_metrics = self._read_json(network_profile_root / "method 1/numerical outputs/metrics.json")
+        stationary_metrics = self._read_json(network_profile_root / "method 2/numerical outputs/metrics.json")
+        corr_metrics = self._read_json(network_profile_root / "method 3/numerical outputs/metrics.json")
+        temporal_global_df = self._safe_read_csv(
+            network_profile_root / "network_metrics/temporal_contemp_global_metrics.csv"
+        )
+        predictor_importance_tv_df = self._safe_read_csv(
+            network_profile_root / "network_metrics/predictor_importance_tv.csv"
+        )
+        predictor_importance_stationary_df = self._safe_read_csv(
+            network_profile_root / "network_metrics/predictor_importance_stationary.csv"
+        )
+        pipeline_summary = self._read_json(cycle_root / "pipeline_summary.json")
         variable_labels: Dict[str, str] = {}
         try:
             session = self.session_store.load_session(session_id)
@@ -1460,7 +2091,119 @@ class PhoenixService:
         except Exception:
             variable_labels = {}
 
+        readiness_variables = readiness.get("variables", {}) if isinstance(readiness.get("variables"), dict) else {}
+        readiness_variable_rows: List[Dict[str, Any]] = []
+        for var_id, row in readiness_variables.items():
+            if not isinstance(row, dict):
+                continue
+            token = str(var_id).strip()
+            if not token:
+                continue
+            readiness_variable_rows.append(
+                {
+                    "var_id": token,
+                    "label": str(variable_labels.get(token) or token),
+                    "role": str(row.get("role") or ""),
+                    "missing_pct": _to_float(row.get("missing_pct"), 0.0),
+                    "std": _to_float(row.get("std"), 0.0),
+                    "autocorr_lag1": _to_float(row.get("autocorr_lag1"), 0.0),
+                }
+            )
+        readiness_variable_rows = sorted(
+            readiness_variable_rows,
+            key=lambda x: (-_to_float(x.get("missing_pct")), str(x.get("var_id") or "")),
+        )[:12]
+
+        method_status = network.get("method_status", {}) if isinstance(network.get("method_status"), dict) else {}
+        method_prediction_rows = [
+            {
+                "method": "tv",
+                "status": str(method_status.get("tv") or ""),
+                "r2_overall": _to_float((tv_metrics.get("prediction") or {}).get("r2_overall"), 0.0),
+                "mse": _to_float((tv_metrics.get("prediction") or {}).get("mse"), 0.0),
+                "aux_strength": _to_float((tv_metrics.get("debug") or {}).get("nonzero_fraction"), 0.0),
+            },
+            {
+                "method": "stationary",
+                "status": str(method_status.get("stationary") or ""),
+                "r2_overall": _to_float((stationary_metrics.get("prediction") or {}).get("r2_overall"), 0.0),
+                "mse": _to_float((stationary_metrics.get("prediction") or {}).get("mse"), 0.0),
+                "aux_strength": _to_float(stationary_metrics.get("r2_node_mean"), 0.0),
+            },
+            {
+                "method": "correlation",
+                "status": str(method_status.get("corr") or ""),
+                "r2_overall": 0.0,
+                "mse": 0.0,
+                "aux_strength": _to_float(corr_metrics.get("avg_abs_corr_offdiag"), 0.0),
+            },
+        ]
+
+        temporal_metrics: List[Dict[str, Any]] = []
+        if not temporal_global_df.empty:
+            local_temporal = temporal_global_df.copy()
+            sort_key = "time_index" if "time_index" in local_temporal.columns else "t"
+            if sort_key in local_temporal.columns:
+                local_temporal["_sort"] = pd.to_numeric(local_temporal[sort_key], errors="coerce").fillna(0.0)
+                local_temporal = local_temporal.sort_values("_sort", ascending=True)
+            for _, row in local_temporal.head(80).iterrows():
+                temporal_metrics.append(
+                    {
+                        "time_index": _to_int(row.get("time_index"), len(temporal_metrics)),
+                        "t": _to_float(row.get("t"), float(len(temporal_metrics))),
+                        "density": _to_float(row.get("density"), 0.0),
+                        "modularity": _to_float(row.get("modularity"), 0.0),
+                        "global_efficiency": _to_float(row.get("global_efficiency_weighted"), 0.0),
+                    }
+                )
+
+        predictor_importance_rows: List[Dict[str, Any]] = []
+        importance_source = "none"
+        importance_df = predictor_importance_tv_df
+        if importance_df.empty and not predictor_importance_stationary_df.empty:
+            importance_df = predictor_importance_stationary_df
+            importance_source = "stationary"
+        elif not importance_df.empty:
+            importance_source = "tv"
+        if not importance_df.empty:
+            local_imp = importance_df.copy()
+            score_col = (
+                "out_strength_criteria_mean"
+                if "out_strength_criteria_mean" in local_imp.columns
+                else "out_strength_criteria"
+                if "out_strength_criteria" in local_imp.columns
+                else "out_strength_all_mean"
+                if "out_strength_all_mean" in local_imp.columns
+                else "out_strength_all"
+            )
+            local_imp["_score"] = pd.to_numeric(local_imp.get(score_col), errors="coerce").fillna(0.0)
+            local_imp = local_imp.sort_values("_score", ascending=False).head(10)
+            for _, row in local_imp.iterrows():
+                pid = str(row.get("predictor") or "").strip()
+                if not pid:
+                    continue
+                predictor_importance_rows.append(
+                    {
+                        "predictor": pid,
+                        "predictor_label": str(variable_labels.get(pid) or pid),
+                        "score": _to_float(row.get("_score"), 0.0),
+                        "delta_mse_criteria": _to_float(
+                            row.get("delta_mse_criteria")
+                            if "delta_mse_criteria" in row
+                            else row.get("delta_mse_criteria_mean"),
+                            0.0,
+                        ),
+                        "nonzero_fraction": _to_float(
+                            row.get("nonzero_fraction_mean")
+                            if "nonzero_fraction_mean" in row
+                            else row.get("nonzero_fraction_all"),
+                            0.0,
+                        ),
+                    }
+                )
+
         top_predictors: List[Dict[str, Any]] = []
+        impact_decomposition_rows: List[Dict[str, Any]] = []
         if not impact_df.empty:
             score_col = "predictor_impact"
             if score_col not in impact_df.columns and "predictor_impact_pct" in impact_df.columns:
@@ -1471,9 +2214,15 @@ class PhoenixService:
                 if local["_score"].max() > 1.0:
                     local["_score"] = local["_score"] / 1000.0
                 local = local.sort_values("_score", ascending=False).head(10)
+                local_contrib_cols = [col for col in local.columns if str(col).startswith("contrib__local_")]
                 for _, row in local.iterrows():
                     predictor_id = str(row.get("predictor") or "").strip()
                     predictor_label = str(variable_labels.get(predictor_id) or predictor_id).strip() or predictor_id
+                    edge_contrib = _to_float(row.get("contrib__edge_impact_to_criteria"), 0.0)
+                    delta_contrib = _to_float(row.get("contrib__delta_mse_criteria"), 0.0)
+                    local_contrib = 0.0
+                    for col in local_contrib_cols:
+                        local_contrib += _to_float(row.get(col), 0.0)
                     top_predictors.append(
                         {
                             "predictor": predictor_id,
@@ -1486,6 +2235,22 @@ class PhoenixService:
                             "score_0_1": float(max(0.0, min(1.0, row.get("_score", 0.0)))),
                         }
                     )
+                    impact_decomposition_rows.append(
+                        {
+                            "predictor": predictor_id,
+                            "predictor_label": predictor_label,
+                            "predictor_display": (
+                                f"{predictor_label} ({predictor_id})"
+                                if predictor_id and predictor_label and predictor_label != predictor_id
+                                else predictor_label
+                            ),
+                            "score_0_1": float(max(0.0, min(1.0, row.get("_score", 0.0)))),
+                            "edge_component": edge_contrib,
+                            "delta_component": delta_contrib,
+                            "local_component": local_contrib,
+                        }
+                    )
+                impact_decomposition_rows = impact_decomposition_rows[:6]
 
         recommended_targets = [
             {
@@ -1609,19 +2374,136 @@ class PhoenixService:
             "tier3_variant": str(overall.get("tier3_variant") or ""),
             "analysis_execution_plan": overall.get("analysis_execution_plan", {}),
             "why": [str(item) for item in (overall.get("why") or [])[:8]],
+            "score_components": {
+                str(key): _to_float(value, 0.0)
+                for key, value in ((overall.get("score_breakdown") or {}).get("components") or {}).items()
+            },
+            "dataset_overview": {
+                "n_rows": _to_int((readiness.get("dataset_overview") or {}).get("n_rows"), 0),
+                "candidate_cols_count": _to_int(
+                    (readiness.get("dataset_overview") or {}).get("candidate_cols_count"),
+                    0,
+                ),
+                "corr_method": str((readiness.get("dataset_overview") or {}).get("corr_method_selected") or ""),
+            },
+            "variable_quality_rows": readiness_variable_rows,
         }
         network_panel = {
             "method_path": str(network.get("executed_path") or network.get("selected_method_path") or ""),
             "analysis_set": str(execution_plan.get("analysis_set") or ""),
             "notes": network_notes[:8],
+            "method_status": {str(k): str(v) for k, v in method_status.items()},
+            "method_prediction_rows": method_prediction_rows,
+            "temporal_metrics": temporal_metrics,
+            "predictor_importance_source": importance_source,
+            "predictor_importance_rows": predictor_importance_rows,
         }
+        stage_roots: List[tuple[str, Path]] = [
+            ("readiness", readiness_root),
+            ("network", network_root),
+            ("impact", impact_root),
+            ("handoff", handoff_root),
+            ("intervention", intervention_root),
+            ("translation_communication", communication_root),
+            ("visualization", visualization_root),
+            ("reporting", reporting_root),
+        ]
+
+        stage_duration_rows: List[Dict[str, Any]] = []
+        stage_duration_by_name: Dict[str, Dict[str, Any]] = {}
+        for row in (pipeline_summary.get("stage_results") or []):
+            if not isinstance(row, dict):
+                continue
+            stage_name = str(row.get("stage") or "").strip()
+            if not stage_name:
+                continue
+            record = {
+                "stage": stage_name,
+                "duration_seconds": _to_float(row.get("duration_seconds"), 0.0),
+                "return_code": _to_int(row.get("return_code"), 0),
+            }
+            stage_duration_rows.append(record)
+            stage_duration_by_name[stage_name] = record
+
+        stage_status_rows: List[Dict[str, Any]] = []
+        stage_event_rows: List[Dict[str, Any]] = []
+        stage_status_counts: Dict[str, int] = {
+            "succeeded": 0,
+            "running": 0,
+            "failed": 0,
+            "skipped": 0,
+            "unknown": 0,
+        }
+        for stage_id, root in stage_roots:
+            trace = self._read_json(root / "stage_trace.json")
+            if trace:
+                trace_stage = str(trace.get("stage") or stage_id).strip() or stage_id
+                if trace_stage not in stage_duration_by_name:
+                    trace_row = {
+                        "stage": trace_stage,
+                        "duration_seconds": _to_float(trace.get("duration_seconds"), 0.0),
+                        "return_code": _to_int(trace.get("return_code"), 0),
+                    }
+                    stage_duration_rows.append(trace_row)
+                    stage_duration_by_name[trace_stage] = trace_row
+
+            events = _parse_event_rows(root / "stage_events.jsonl", limit=120)
+            if events:
+                last = events[-1]
+                last_event = str(last.get("event") or "").strip()
+                status = _status_from_event(last_event)
+                status_key = status if status in stage_status_counts else "unknown"
+                stage_status_counts[status_key] += 1
+                stage_status_rows.append(
+                    {
+                        "stage_id": stage_id,
+                        "status": status_key,
+                        "event": last_event,
+                        "timestamp_local": str(last.get("timestamp_local") or ""),
+                        "message": str(last.get("message") or ""),
+                    }
+                )
+                for payload in events[-8:]:
+                    stage_event_rows.append(
+                        {
+                            "stage_id": stage_id,
+                            "stage": str(payload.get("stage") or stage_id),
+                            "event": str(payload.get("event") or ""),
+                            "timestamp_local": str(payload.get("timestamp_local") or ""),
+                            "level": str(payload.get("level") or ""),
+                            "message": str(payload.get("message") or ""),
+                        }
+                    )
+            elif root.exists():
+                stage_status_counts["unknown"] += 1
+                stage_status_rows.append(
+                    {
+                        "stage_id": stage_id,
+                        "status": "unknown",
+                        "event": "",
+                        "timestamp_local": "",
+                        "message": "Stage directory exists but event log has not been written yet.",
+                    }
+                )
+
+        stage_duration_rows = sorted(stage_duration_rows, key=lambda row: str(row.get("stage") or ""))
+        stage_event_rows = sorted(
+            stage_event_rows,
+            key=lambda row: str(row.get("timestamp_local") or ""),
+            reverse=True,
+        )[:40]
         visuals = self._collect_cycle_visuals(cycle_root=cycle_root, profile_id=profile_id, session_id=session_id)
         return {
             "profile_id": profile_id,
             "cycle_root": str(cycle_root),
             "readiness": readiness_panel,
             "network": network_panel,
-            "impact": {"top_predictors": top_predictors, "status": impact_status, "status_reason": impact_reason},
+            "impact": {
+                "top_predictors": top_predictors,
+                "decomposition_rows": impact_decomposition_rows,
+                "status": impact_status,
+                "status_reason": impact_reason,
+            },
             "step03": {"recommended_targets": recommended_targets, "status": step03_status},
             "step04": {
                 "recommended_predictors": updated_predictors,
@@ -1641,6 +2523,13 @@ class PhoenixService:
                 "confidence_0_1": float(step05.get("confidence_0_1") or 0.0),
                 "user_summary": str(step05.get("user_friendly_summary") or step05.get("personalized_message") or ""),
                 "status": step05_status,
+            },
+            "runtime": {
+                "stage_durations_seconds": stage_duration_rows,
+                "stage_status_rows": stage_status_rows,
+                "stage_status_counts": stage_status_counts,
+                "stage_event_rows": stage_event_rows,
+                "is_partial": not bool(pipeline_summary),
             },
             "visuals": visuals,
         }
