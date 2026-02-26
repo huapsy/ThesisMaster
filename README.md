@@ -1,12 +1,13 @@
 # 🐦‍🔥 PHOENIX Engine 🐦‍🔥
 
-The PHOENIX engine conceptualises mental-state support as a closed-loop workflow that iteratively optimizes the intervention proposal based on data from previous cycles.
+The PHOENIX engine conceptualises mental health support as a closed-loop workflow that iteratively optimizes the intervention proposal based on data from previous cycles.
+
 (**P**ersonalized **H**ierarchical **O**ptimization **E**ngine for **N**avigating **I**nsightful e**X**plorations)
 
 ## 🏛️ Academic Context
-This research-grade software is being created for a Ghent University **master's thesis** that aims to enhance the clinical translation abilities of longitudinal **mental health applications**: towards an adaptive approach for **idiographic modelling** by using **ontologies and large language models**.
+This research-grade software is being created for a Ghent University **master's thesis** that aims to enhance the clinical translation abilities of longitudinal **mental health applications**: toward an adaptive approach for **idiographic modelling** by using **ontologies and large language models**.
 
-| | |
+| **Field** | **Value** |
 |---|---|
 | **Institution** | Ghent University |
 | **Author** | Stijn Van Severen |
