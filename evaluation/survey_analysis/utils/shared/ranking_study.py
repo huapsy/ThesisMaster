@@ -10,8 +10,8 @@ import numpy as np
 import pandas as pd
 import scipy.stats as stats
 
-from shared_stats import PALETTE, fit_crossed_mixedlm, p_to_stars, save_figure, violin_with_scatter
-from survey_paths import data_file, ensure_study_dirs
+from .shared_stats import PALETTE, fit_crossed_mixedlm, p_to_stars, save_figure, violin_with_scatter
+from .survey_paths import data_file, ensure_study_dirs
 
 
 @dataclass(frozen=True)

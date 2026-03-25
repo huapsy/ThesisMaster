@@ -1,1 +1,1 @@
-# Survey analysis utilities package
+"""Survey analysis study entrypoints and internal shared utilities."""

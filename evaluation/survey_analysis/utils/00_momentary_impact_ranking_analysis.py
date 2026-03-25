@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from ranking_study import RankingStudyConfig, run_ranking_study
+from shared.ranking_study import RankingStudyConfig, run_ranking_study
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from holistic_comparison import HolisticStudyConfig, run_holistic_reasoner_comparison
+from shared.holistic_comparison import HolisticStudyConfig, run_holistic_reasoner_comparison
 
 
 if __name__ == "__main__":

@@ -7,7 +7,7 @@ from typing import Dict, Sequence
 import numpy as np
 import pandas as pd
 
-from survey_paths import DATA_DIR
+from .survey_paths import DATA_DIR
 
 
 SEED = 42

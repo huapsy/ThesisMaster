@@ -21,7 +21,7 @@ Studies `00` and `03` are intentionally excluded from the holistic PHOENIX-versu
 ## Folder Structure
 
 - [data](/Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/survey_analysis/data): pseudodata entrypoint and generated CSV files
-- [utils](/Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/survey_analysis/utils): shared statistics modules and thin study wrappers
+- [utils](/Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/survey_analysis/utils): numbered study entrypoints (`00`-`06`) plus a `shared/` package for reusable statistics, plotting, path, and pseudodata logic
 - [results](/Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/survey_analysis/results): generated reports and figures
 - [run_all_studies.sh](/Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/survey_analysis/run_all_studies.sh): end-to-end runner for all studies
 

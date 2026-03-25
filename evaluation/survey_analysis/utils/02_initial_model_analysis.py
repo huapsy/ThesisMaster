@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from comparison_study import ComparisonStudyConfig, run_comparison_study
+from shared.comparison_study import ComparisonStudyConfig, run_comparison_study
 
 
 if __name__ == "__main__":

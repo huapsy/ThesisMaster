@@ -12,7 +12,7 @@ import pandas as pd
 import scipy.stats as stats
 import statsmodels.formula.api as smf
 
-from shared_stats import (
+from .shared_stats import (
     PALETTE,
     apply_rcparams,
     bonferroni_correct,
@@ -24,7 +24,7 @@ from shared_stats import (
     save_figure,
     violin_with_scatter,
 )
-from survey_paths import data_file, ensure_study_dirs
+from .survey_paths import data_file, ensure_study_dirs
 
 
 @dataclass(frozen=True)

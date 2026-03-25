@@ -9,7 +9,7 @@ UTILS_DIR = os.path.join(os.path.dirname(SCRIPT_DIR), "utils")
 if UTILS_DIR not in sys.path:
     sys.path.insert(0, UTILS_DIR)
 
-from pseudodata_factory import generate_all_studies
+from shared.pseudodata_factory import generate_all_studies
 
 
 if __name__ == "__main__":

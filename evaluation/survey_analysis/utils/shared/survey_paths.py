@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 
-SURVEY_ROOT = Path(__file__).resolve().parents[1]
+SURVEY_ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = SURVEY_ROOT / "data"
 RESULTS_DIR = SURVEY_ROOT / "results"
 
@@ -23,4 +23,3 @@ def ensure_study_dirs(study_slug: str) -> dict[str, Path]:
 
 def data_file(filename: str) -> Path:
     return DATA_DIR / filename
-
