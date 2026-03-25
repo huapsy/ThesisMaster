@@ -1472,7 +1472,7 @@ def parse_args() -> argparse.Namespace:
     default_readiness_root = repo_root / "evaluation/sequential/03_readiness_check/outputs"
     default_network_root = repo_root / "evaluation/sequential/04_network_time_series_analysis/outputs"
     default_impact_root = repo_root / "evaluation/sequential/05_momentary_impact_quantification/outputs"
-    default_free_text_root = repo_root / "evaluation/sequential/free_text"
+    default_free_text_root = repo_root / "evaluation/sequential/utils/free_text"
     default_predictor_barrier = (
         repo_root
         / "src/backend/utils/official/ontology_mappings/PREDICTOR/barrier_to_predictor/results/gpt-5-nano/predictor_to_barrier_edges_long.csv"

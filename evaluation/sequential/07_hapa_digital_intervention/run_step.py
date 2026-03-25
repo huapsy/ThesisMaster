@@ -11,7 +11,7 @@ SEQUENTIAL_ROOT = THIS_DIR.parent
 if str(SEQUENTIAL_ROOT) not in sys.path:
     sys.path.insert(0, str(SEQUENTIAL_ROOT))
 
-from common import default_python_executable, run_python_script, sequential_root
+from utils.common import default_python_executable, run_python_script, sequential_root
 
 
 def parse_args(argv: Optional[Sequence[str]] = None) -> tuple[argparse.Namespace, list[str]]:
@@ -44,7 +44,7 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> tuple[argparse.Namespace
         type=str,
         default=str(root / "05_momentary_impact_quantification/outputs"),
     )
-    parser.add_argument("--free-text-root", type=str, default=str(root / "free_text"))
+    parser.add_argument("--free-text-root", type=str, default=str(root / "utils/free_text"))
     parser.add_argument(
         "--predictor-to-barrier-csv",
         type=str,

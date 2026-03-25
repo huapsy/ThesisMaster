@@ -1692,7 +1692,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         repo_root / "src/backend/utils/agentic_core/others/initial_observation_model_assets/constructed_PC_models/runs"
     )
 
-    default_free_text_root = evaluation_root / "sequential/free_text"
+    default_free_text_root = evaluation_root / "sequential/utils/free_text"
     if not default_free_text_root.exists():
         default_free_text_root = evaluation_root / "artifacts/pseudoprofiles/free_text"
     initial_model_runs_root = (

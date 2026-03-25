@@ -2,9 +2,9 @@
 from __future__ import annotations
 
 import os
+import runpy
 import subprocess
 import sys
-import runpy
 from pathlib import Path
 from typing import Mapping, Optional, Sequence
 
@@ -15,7 +15,11 @@ except Exception:  # pragma: no cover - optional dependency
 
 
 def repo_root() -> Path:
-    return Path(__file__).resolve().parents[2]
+    here = Path(__file__).resolve()
+    for candidate in [here, *here.parents]:
+        if (candidate / "README.md").exists() and (candidate / "evaluation").exists():
+            return candidate
+    raise RuntimeError("Could not locate repository root from evaluation/sequential/utils/common.py")
 
 
 def evaluation_root() -> Path:

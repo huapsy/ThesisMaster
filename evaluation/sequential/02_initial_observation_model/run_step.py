@@ -12,7 +12,7 @@ SEQUENTIAL_ROOT = THIS_DIR.parent
 if str(SEQUENTIAL_ROOT) not in sys.path:
     sys.path.insert(0, str(SEQUENTIAL_ROOT))
 
-from common import default_python_executable, run_python_script, sequential_root
+from utils.common import default_python_executable, run_python_script, sequential_root
 
 
 def _default_hyde_dense_profiles_path() -> Path:

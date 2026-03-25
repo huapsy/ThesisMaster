@@ -11,7 +11,7 @@ SEQUENTIAL_ROOT = THIS_DIR.parent
 if str(SEQUENTIAL_ROOT) not in sys.path:
     sys.path.insert(0, str(SEQUENTIAL_ROOT))
 
-from common import default_python_executable, run_python_script, sequential_root
+from utils.common import default_python_executable, run_python_script, sequential_root
 
 
 def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
@@ -47,9 +47,9 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
 def main(argv: Optional[Sequence[str]] = None) -> int:
     args = parse_args(argv)
     step_root = sequential_root() / "00_pseudoprofile_generation"
-    tools_dir = step_root / "tools"
-    create_script = tools_dir / "create_pseudodata.py"
-    visualize_script = tools_dir / "visualize_time_series.py"
+    utils_dir = step_root / "utils"
+    create_script = utils_dir / "create_pseudodata.py"
+    visualize_script = utils_dir / "visualize_time_series.py"
 
     out_root = Path(args.out_root).expanduser().resolve()
     out_root.mkdir(parents=True, exist_ok=True)

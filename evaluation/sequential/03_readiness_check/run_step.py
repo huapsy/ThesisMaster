@@ -11,7 +11,7 @@ SEQUENTIAL_ROOT = THIS_DIR.parent
 if str(SEQUENTIAL_ROOT) not in sys.path:
     sys.path.insert(0, str(SEQUENTIAL_ROOT))
 
-from common import bool_token, default_python_executable, parse_boolish, run_python_script, sequential_root
+from utils.common import bool_token, default_python_executable, parse_boolish, run_python_script, sequential_root
 
 
 def parse_args(argv: Optional[Sequence[str]] = None) -> tuple[argparse.Namespace, list[str]]:

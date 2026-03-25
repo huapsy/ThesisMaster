@@ -1,7 +1,6 @@
 # PHOENIX Sequential Execution
 
-The sequential flow is now organized by step subdirectories.  
-Each stage has a real executable module at `run_step.py`.
+The sequential flow is organized around numbered stage directories only. Shared helpers and static sequential inputs now live under `evaluation/sequential/utils/`, so the root of this package stays reserved for executable stages plus documentation.
 
 ## Core Engine Sequence
 
@@ -14,6 +13,12 @@ Each stage has a real executable module at `run_step.py`.
 7. `06_target_identification_and_model_update/run_step.py`
 8. `07_hapa_digital_intervention/run_step.py`
 9. `08_treatment_translation_communication/run_step.py`
+
+## Shared Utilities
+
+- `utils/common.py`: shared runner and path helpers for all sequential stages
+- `utils/free_text/`: default complaint, person, and context input files used by the step wrappers
+- `00_pseudoprofile_generation/utils/`: step-local pseudodata generation and visualization helpers
 
 ## Support (Not Core Engine)
 

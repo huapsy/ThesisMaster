@@ -119,7 +119,7 @@ def _resolve_runtime_model(model_name: str) -> str:
 
 # Input: the free-text complaints file (pseudoprofile blocks)
 DEFAULT_FREE_TEXT_PATH = str(
-    REPO_ROOT / "evaluation/sequential/free_text/free_text_complaints.txt"
+    REPO_ROOT / "evaluation/sequential/utils/free_text/free_text_complaints.txt"
 )
 
 # Output: the mapped CSV

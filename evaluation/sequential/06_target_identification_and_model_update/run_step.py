@@ -11,7 +11,7 @@ SEQUENTIAL_ROOT = THIS_DIR.parent
 if str(SEQUENTIAL_ROOT) not in sys.path:
     sys.path.insert(0, str(SEQUENTIAL_ROOT))
 
-from common import default_python_executable, run_python_script, sequential_root
+from utils.common import default_python_executable, run_python_script, sequential_root
 
 
 def _default_hyde_dense_profiles_path() -> Path:
@@ -55,7 +55,7 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> tuple[argparse.Namespace
         type=str,
         default=str(root / "02_initial_observation_model/outputs/runs"),
     )
-    parser.add_argument("--free-text-root", type=str, default=str(root / "free_text"))
+    parser.add_argument("--free-text-root", type=str, default=str(root / "utils/free_text"))
     parser.add_argument(
         "--mapping-ranks-csv",
         type=str,

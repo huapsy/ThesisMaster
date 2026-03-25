@@ -1283,7 +1283,7 @@ def parse_args() -> argparse.Namespace:
     default_readiness_root = repo_root / "evaluation/sequential/03_readiness_check/outputs"
     default_network_root = repo_root / "evaluation/sequential/04_network_time_series_analysis/outputs"
     default_model_runs = repo_root / "evaluation/sequential/02_initial_observation_model/outputs/runs"
-    default_free_text_root = repo_root / "evaluation/sequential/free_text"
+    default_free_text_root = repo_root / "evaluation/sequential/utils/free_text"
     default_mapping_ranks = (
         initial_model_assets_root
         / "helpers/00_LLM_based_mapping_based_predictor_ranks/all_pseudoprofiles__predictor_ranks_dense.csv"
