@@ -304,7 +304,7 @@ The `evaluation/survey_analysis/` directory contains a complete 7-study statisti
 
 | Study | Name | Participants | Method |
 |---|---|---|---|
-| 00 | Momentary Impact Quantification | 30 | Repeated-measures mixed model on Spearman footrule |
+| 00 | Momentary Impact Quantification | 30 non-experts | Repeated-measures mixed model on Spearman footrule |
 | 01 | Operationalization | 10 HCPs | Dimension-wise crossed mixed models + Bonferroni |
 | 02 | Initial Observational Model | 10 HCPs | Dimension-wise crossed mixed models + Bonferroni |
 | 03 | Treatment Target Identification | 30 non-experts | Repeated-measures mixed model on Spearman footrule |
