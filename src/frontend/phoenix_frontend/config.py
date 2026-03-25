@@ -27,10 +27,8 @@ def load_paths() -> FrontendPaths:
     default_repo_root = _discover_repo_root()
     repo_root = Path(os.environ.get("PHOENIX_REPO_ROOT", str(default_repo_root))).expanduser().resolve()
     default_workspace = repo_root / "src" / "frontend" / "workspace"
-    legacy_workspace = repo_root / "frontend" / "workspace"
-    workspace_hint = str(default_workspace if default_workspace.exists() or not legacy_workspace.exists() else legacy_workspace)
     workspace_root = Path(
-        os.environ.get("PHOENIX_FRONTEND_WORKSPACE", workspace_hint)
+        os.environ.get("PHOENIX_FRONTEND_WORKSPACE", str(default_workspace))
     ).expanduser().resolve()
     sessions_root = workspace_root / "sessions"
     python_exe = os.environ.get("PHOENIX_PYTHON_EXE", sys.executable)

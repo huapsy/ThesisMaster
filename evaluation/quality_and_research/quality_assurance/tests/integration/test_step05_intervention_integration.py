@@ -17,7 +17,7 @@ def _write_json(path: Path, payload: dict) -> None:
 
 def test_step05_intervention_generates_outputs(tmp_path: Path, repo_file_fn) -> None:
     script = repo_file_fn(
-        "src/SystemComponents/Agentic_Framework/05_TranslationDigitalIntervention/01_generate_hapa_digital_intervention.py"
+        "src/backend/SystemComponents/Agentic_Framework/05_TranslationDigitalIntervention/01_generate_hapa_digital_intervention.py"
     )
     profile_id = "pseudoprofile_FTC_ID019"
 

@@ -39,33 +39,33 @@ class PhoenixService:
 
         self.step01_script = (
             self.repo_root
-            / "src/SystemComponents/Agentic_Framework/01_OperationalizationMentalHealthProblem/utils/02_operationalize_freetext_complaints.py"
+            / "src/backend/SystemComponents/Agentic_Framework/01_OperationalizationMentalHealthProblem/utils/02_operationalize_freetext_complaints.py"
         )
         self.step02_script = (
             self.repo_root
-            / "src/SystemComponents/Agentic_Framework/02_ConstructionInitialObservationModel/utils/01_construct_observation_model.py"
+            / "src/backend/SystemComponents/Agentic_Framework/02_ConstructionInitialObservationModel/utils/01_construct_observation_model.py"
         )
         self.step02_visual_script = (
             self.repo_root
-            / "src/SystemComponents/Agentic_Framework/02_ConstructionInitialObservationModel/utils/helpers/bipartite_model_visualization.py"
+            / "src/backend/SystemComponents/Agentic_Framework/02_ConstructionInitialObservationModel/utils/helpers/bipartite_model_visualization.py"
         )
         self.integrated_pipeline_script = self.evaluation_root / "integrated_pipeline/run_engine_pipeline.py"
         self.initial_model_assets_root = (
-            self.repo_root / "src/utils/agentic_core/others/initial_observation_model_assets"
+            self.repo_root / "src/backend/utils/agentic_core/others/initial_observation_model_assets"
         )
         self.predictor_feasibility_csv = (
             self.repo_root
-            / "src/utils/official/multi_dimensional_feasibility_evaluation/PREDICTORS/results/summary/predictor_rankings.csv"
+            / "src/backend/utils/official/multi_dimensional_feasibility_evaluation/PREDICTORS/results/summary/predictor_rankings.csv"
         )
         self.mapping_ranks_csv = (
             self.initial_model_assets_root
             / "helpers/00_LLM_based_mapping_based_predictor_ranks/all_pseudoprofiles__predictor_ranks_dense.csv"
         )
         self.ontology_predictor_list = (
-            self.repo_root / "src/utils/official/ontology_mappings/CRITERION/predictor_to_criterion/input_lists/predictors_list.txt"
+            self.repo_root / "src/backend/utils/official/ontology_mappings/CRITERION/predictor_to_criterion/input_lists/predictors_list.txt"
         )
         self.operationalization_cache_dir = (
-            self.repo_root / "src/SystemComponents/Agentic_Framework/01_OperationalizationMentalHealthProblem/tmp"
+            self.repo_root / "src/backend/SystemComponents/Agentic_Framework/01_OperationalizationMentalHealthProblem/tmp"
         )
         self.cohort_runs_root = (self.session_store.sessions_root.parent / "cohort_runs").resolve()
         self.cohort_runs_root.mkdir(parents=True, exist_ok=True)

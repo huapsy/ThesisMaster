@@ -6,7 +6,7 @@ import sys
 def test_frontend_app_boots(repo_root):
     if str(repo_root) not in sys.path:
         sys.path.insert(0, str(repo_root))
-    from frontend.phoenix_frontend import create_app
+    from src.frontend.phoenix_frontend import create_app
 
     app = create_app()
     client = app.test_client()
@@ -43,7 +43,7 @@ def test_frontend_global_disable_llm_env(repo_root, monkeypatch):
     monkeypatch.setenv("PHOENIX_DISABLE_LLM", "true")
     if str(repo_root) not in sys.path:
         sys.path.insert(0, str(repo_root))
-    from frontend.phoenix_frontend import create_app
+    from src.frontend.phoenix_frontend import create_app
 
     app = create_app()
     assert app.config.get("PHOENIX_DISABLE_LLM") is True
@@ -52,7 +52,7 @@ def test_frontend_global_disable_llm_env(repo_root, monkeypatch):
 def test_job_stream_supports_cursor_resume(repo_root):
     if str(repo_root) not in sys.path:
         sys.path.insert(0, str(repo_root))
-    from frontend.phoenix_frontend import create_app
+    from src.frontend.phoenix_frontend import create_app
 
     app = create_app()
     manager = app.extensions["phoenix.job_manager"]
@@ -85,7 +85,7 @@ def test_job_stream_supports_cursor_resume(repo_root):
 def test_full_session_pipeline_job_endpoint(repo_root, monkeypatch):
     if str(repo_root) not in sys.path:
         sys.path.insert(0, str(repo_root))
-    from frontend.phoenix_frontend import create_app
+    from src.frontend.phoenix_frontend import create_app
 
     app = create_app()
     store = app.extensions["phoenix.session_store"]
@@ -122,7 +122,7 @@ def test_full_session_pipeline_job_endpoint(repo_root, monkeypatch):
 def test_update_session_intake_endpoint(repo_root):
     if str(repo_root) not in sys.path:
         sys.path.insert(0, str(repo_root))
-    from frontend.phoenix_frontend import create_app
+    from src.frontend.phoenix_frontend import create_app
 
     app = create_app()
     store = app.extensions["phoenix.session_store"]

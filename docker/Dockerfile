@@ -47,4 +47,4 @@ CMD ["gunicorn", \
      "--workers", "2", \
      "--threads", "4", \
      "--timeout", "300", \
-     "src.frontend.app:create_app()"]
+     "src.frontend.app:app"]

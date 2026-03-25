@@ -30,7 +30,7 @@ def test_build_cohort_cases_count_and_variants(repo_root):
 def test_full_cohort_api_job_starts_and_finishes(monkeypatch, repo_root):
     if str(repo_root) not in sys.path:
         sys.path.insert(0, str(repo_root))
-    from frontend.phoenix_frontend import create_app
+    from src.frontend.phoenix_frontend import create_app
 
     app = create_app()
     session_store = app.extensions["phoenix.session_store"]

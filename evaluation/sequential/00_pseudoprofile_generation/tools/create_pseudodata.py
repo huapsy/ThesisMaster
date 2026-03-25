@@ -78,7 +78,7 @@ def _find_repo_root() -> Path:
 REPO_ROOT = _find_repo_root()
 
 LEGACY_RUNS_ROOT = (
-    REPO_ROOT / "src/utils/agentic_core/others/initial_observation_model_assets/constructed_PC_models/runs"
+    REPO_ROOT / "src/backend/utils/agentic_core/others/initial_observation_model_assets/constructed_PC_models/runs"
 )
 SEQUENTIAL_RUNS_ROOT = (
     REPO_ROOT / "evaluation/sequential/02_initial_observation_model/outputs/runs"

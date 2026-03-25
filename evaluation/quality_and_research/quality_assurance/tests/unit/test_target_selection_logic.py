@@ -12,7 +12,7 @@ def _mod(module_loader, repo_file_fn):
     return module_loader(
         str(
             repo_file_fn(
-                "src/SystemComponents/Agentic_Framework/03_TreatmentTargetIdentification/01_prepare_targets_from_impact.py"
+                "src/backend/SystemComponents/Agentic_Framework/03_TreatmentTargetIdentification/01_prepare_targets_from_impact.py"
             )
         ),
         "phoenix_target_selection_module",

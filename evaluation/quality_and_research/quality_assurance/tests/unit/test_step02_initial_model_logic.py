@@ -9,7 +9,7 @@ def _mod(module_loader, repo_file_fn):
     return module_loader(
         str(
             repo_file_fn(
-                "src/SystemComponents/Agentic_Framework/02_ConstructionInitialObservationModel/utils/01_construct_observation_model.py"
+                "src/backend/SystemComponents/Agentic_Framework/02_ConstructionInitialObservationModel/utils/01_construct_observation_model.py"
             )
         ),
         "phoenix_step02_initial_model_module",

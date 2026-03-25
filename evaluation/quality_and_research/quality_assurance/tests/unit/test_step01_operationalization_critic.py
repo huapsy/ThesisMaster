@@ -8,7 +8,7 @@ pytestmark = pytest.mark.unit
 def _load_step01_module(repo_root, module_loader):
     target = (
         repo_root
-        / "src/SystemComponents/Agentic_Framework/01_OperationalizationMentalHealthProblem/utils/02_operationalize_freetext_complaints.py"
+        / "src/backend/SystemComponents/Agentic_Framework/01_OperationalizationMentalHealthProblem/utils/02_operationalize_freetext_complaints.py"
     )
     return module_loader(str(target), "phoenix_step01_operationalization_runtime")
 

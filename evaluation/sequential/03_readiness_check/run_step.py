@@ -42,7 +42,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args, passthrough = parse_args(argv)
     target = (
         sequential_root().parents[1]
-        / "src/SystemComponents/Hierarchical_Updating_Algorithm/01_time_series_analysis/01_check_readiness/apply_readiness_check.py"
+        / "src/backend/SystemComponents/Hierarchical_Updating_Algorithm/01_time_series_analysis/01_check_readiness/apply_readiness_check.py"
     )
 
     output_root = Path(args.output_root).expanduser().resolve()

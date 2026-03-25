@@ -50,7 +50,7 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> tuple[argparse.Namespace
         type=str,
         default=str(
             repo
-            / "src/utils/official/ontology_mappings/PREDICTOR/barrier_to_predictor/results/gpt-5-nano/predictor_to_barrier_edges_long.csv"
+            / "src/backend/utils/official/ontology_mappings/PREDICTOR/barrier_to_predictor/results/gpt-5-nano/predictor_to_barrier_edges_long.csv"
         ),
     )
     parser.add_argument(
@@ -58,7 +58,7 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> tuple[argparse.Namespace
         type=str,
         default=str(
             repo
-            / "src/utils/official/ontology_mappings/HAPA/profile_to_barrier/results/gpt-5-nano/profile_to_barrier_edges_long.csv"
+            / "src/backend/utils/official/ontology_mappings/HAPA/profile_to_barrier/results/gpt-5-nano/profile_to_barrier_edges_long.csv"
         ),
     )
     parser.add_argument(
@@ -66,7 +66,7 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> tuple[argparse.Namespace
         type=str,
         default=str(
             repo
-            / "src/utils/official/ontology_mappings/HAPA/context_to_barrier/results/gpt-5-nano/context_to_barrier_edges_long.csv"
+            / "src/backend/utils/official/ontology_mappings/HAPA/context_to_barrier/results/gpt-5-nano/context_to_barrier_edges_long.csv"
         ),
     )
     parser.add_argument(
@@ -74,13 +74,13 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> tuple[argparse.Namespace
         type=str,
         default=str(
             repo
-            / "src/utils/official/ontology_mappings/HAPA/coping_to_barrier/results/gpt-5-nano/coping_to_barrier_edges_long.csv"
+            / "src/backend/utils/official/ontology_mappings/HAPA/coping_to_barrier/results/gpt-5-nano/coping_to_barrier_edges_long.csv"
         ),
     )
     parser.add_argument(
         "--predictor-feasibility-csv",
         type=str,
-        default=str(repo / "src/utils/official/multi_dimensional_feasibility_evaluation/PREDICTORS/results/summary/predictor_rankings.csv"),
+        default=str(repo / "src/backend/utils/official/multi_dimensional_feasibility_evaluation/PREDICTORS/results/summary/predictor_rankings.csv"),
     )
     parser.add_argument("--pattern", type=str, default="pseudoprofile_FTC_")
     parser.add_argument("--max-profiles", type=int, default=0)
@@ -106,7 +106,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args, passthrough = parse_args(argv)
     target = (
         sequential_root().parents[1]
-        / "src/SystemComponents/Agentic_Framework/05_TranslationDigitalIntervention/01_generate_hapa_digital_intervention.py"
+        / "src/backend/SystemComponents/Agentic_Framework/05_TranslationDigitalIntervention/01_generate_hapa_digital_intervention.py"
     )
 
     output_root = Path(args.output_root).expanduser().resolve()

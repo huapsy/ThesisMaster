@@ -1,6 +1,6 @@
 <div align="center">
 
-  <h1>Enhancing Translational Abilities of Longitudinal Mental Health Applications: An Adaptive Approach to Idiographic Modelling by Leveraging Ontology-based Agentic AI</h1>
+  <h1>Enhancing Translational Abilities of Longitudinal Mental Health Applications: An Adaptive Approach to Idiographic Modelling by Leveraging Ontology-based Multi-agentic Workflows</h1>
 
   <h2>🐦‍🔥 PHOENIX Engine</h2>
 
@@ -42,7 +42,7 @@
 
 ## 🏛️ Academic Context
 
-This research-grade software is being created for a Ghent University **master's thesis** that aims to enhance the clinical translation abilities of longitudinal **mental health applications**: toward an adaptive approach for **idiographic modelling** by using **ontologies and large language models**.
+This research-grade software is being created for a Ghent University **master's thesis** that aims to enhance the clinical translation abilities of longitudinal **mental health applications**: toward an adaptive approach for **idiographic modelling** by using **ontology-based multi-agentic workflows**.
 
 | **Field** | **Value** |
 |---|---|
@@ -87,11 +87,11 @@ All stages are constrained by five stable ontologies that enforce structural gua
 
 | Ontology | Role | Source |
 |---|---|---|
-| **CRITERION** | Operationalized mental health variables (DSM-5-TR, RDoC) | `src/SystemComponents/PHOENIX_ontology/separate/CRITERION/` |
-| **PREDICTOR** | Hierarchically structured treatment-solution entities used to model actionable intervention pathways and candidate refinement space | `src/SystemComponents/PHOENIX_ontology/separate/PREDICTOR/` |
-| **PERSON** | Individual characteristics (demographics, comorbidity, history) | `src/SystemComponents/PHOENIX_ontology/separate/PERSON/` |
-| **CONTEXT** | Situational and environmental factors | `src/SystemComponents/PHOENIX_ontology/separate/CONTEXT/` |
-| **HAPA** | Health Action Process Approach (barriers, coping, phases) | `src/SystemComponents/PHOENIX_ontology/separate/HAPA/` |
+| **CRITERION** | Operationalized mental health variables (DSM-5-TR, RDoC) | `src/backend/SystemComponents/PHOENIX_ontology/separate/CRITERION/` |
+| **PREDICTOR** | Hierarchically structured treatment-solution entities used to model actionable intervention pathways and candidate refinement space | `src/backend/SystemComponents/PHOENIX_ontology/separate/PREDICTOR/` |
+| **PERSON** | Individual characteristics (demographics, comorbidity, history) | `src/backend/SystemComponents/PHOENIX_ontology/separate/PERSON/` |
+| **CONTEXT** | Situational and environmental factors | `src/backend/SystemComponents/PHOENIX_ontology/separate/CONTEXT/` |
+| **HAPA** | Health Action Process Approach (barriers, coping, phases) | `src/backend/SystemComponents/PHOENIX_ontology/separate/HAPA/` |
 
 ### Runtime Multi-Agent Design
 
@@ -188,15 +188,15 @@ A client-side graph creator (GitNexus) was used to generate a comprehensive know
   <img src="src/backend/overview/gitnexus_overview.png" alt="PHOENIX GitNexus Codebase Graph" width="800" />
 </div>
 
-The main codebase is organized into three primary directories: `src/` for core engine logic, `evaluation/` for all evaluation scripts and research support, and `frontend/` for the Flask application. The structure is designed to maintain a clear separation of concerns while facilitating modular development and testing.
+The main codebase is organized around `src/` and `evaluation/`. Inside `src/`, the canonical runtime split is now `src/frontend/` for the Flask application and `src/backend/` for the engine, ontologies, shared runtime utilities, and architecture assets.
 
 ```text
 MASTERPROEF/
-├── src/                            # Core engine logic and ontology-backed components
-│   ├── SystemComponents/              # Agentic framework, HUA, intervention components
-│   ├── utils/                         # Shared agentic runtime, mappings, feasibility utilities
-│   ├── frontend/                      # Flask app, UI routes, runtime workspace integration
-│   └── backend/overview/              # Architecture visuals and codebase graph
+├── src/                            # Canonical application source tree
+│   ├── backend/                      # Engine runtime, SystemComponents, utils, orchestrator, overview assets
+│   ├── frontend/                     # Flask app, UI routes, runtime workspace integration
+│   ├── __init__.py                   # Package root for `src.frontend` and `src.backend`
+│   └── README.md                     # Architecture overview for the `src/` tree
 ├── evaluation/                     # Sequential scripts + integrated pipeline + QA/research
 │   ├── sequential/                    # Stage-wise run_step.py scripts (00..08)
 │   ├── integrated_pipeline/           # run_pipeline.py and run_engine_pipeline.py

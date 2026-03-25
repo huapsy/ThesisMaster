@@ -2,6 +2,8 @@
 
 Research-focused dashboard for the PHOENIX engine with a wizard-style pipeline interface, interactive Chart.js visualizations, and real-time SSE log streaming.
 
+The frontend is tightly coupled to the canonical backend tree under `src/backend/`: all runtime stage launchers, ontology-backed components, shared prompts, and evaluation assets are resolved from there so the UI and backend stay aligned after repository refactors.
+
 ## Features
 
 ### Wizard-Style Pipeline Interface
@@ -93,4 +95,4 @@ Open [http://127.0.0.1:5050](http://127.0.0.1:5050).
 - `OPENROUTER_API_KEY`: primary LLM key (mirrored to `OPENAI_API_KEY` at runtime)
 - `PHOENIX_DISABLE_LLM`: set to `true` for deterministic fallback mode
 - `PHOENIX_REPO_ROOT`, `PHOENIX_FRONTEND_WORKSPACE`, `PHOENIX_PYTHON_EXE`: optional overrides
-- Frontend writes only under `workspace/` (sessions + cohort_runs). No ontology content is modified.
+- Frontend writes only under `src/frontend/workspace/` (sessions + cohort_runs). No ontology content is modified.

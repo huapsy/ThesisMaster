@@ -40,7 +40,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args, passthrough = parse_args(argv)
     target = (
         sequential_root().parents[1]
-        / "src/SystemComponents/Hierarchical_Updating_Algorithm/02_hierarchical_update_ranking/01_momentary_impact_quantification/01_compute_momentary_impact_coefficients.py"
+        / "src/backend/SystemComponents/Hierarchical_Updating_Algorithm/02_hierarchical_update_ranking/01_momentary_impact_quantification/01_compute_momentary_impact_coefficients.py"
     )
 
     output_root = Path(args.output_root).expanduser().resolve()

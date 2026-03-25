@@ -17,7 +17,7 @@ def _resolve_repo_root() -> Path:
 
 def main() -> int:
     repo_root = _resolve_repo_root()
-    contracts_root = repo_root / "src/utils/agentic_core/shared/contracts"
+    contracts_root = repo_root / "src/backend/utils/agentic_core/shared/contracts"
     schemas_root = contracts_root / "schemas"
     required = [
         "readiness_report",
@@ -29,7 +29,7 @@ def main() -> int:
         "pipeline_summary",
     ]
 
-    agentic_core_root = str((repo_root / "src/utils/agentic_core").resolve())
+    agentic_core_root = str((repo_root / "src/backend/utils/agentic_core").resolve())
     if agentic_core_root not in sys.path:
         sys.path.insert(0, agentic_core_root)
     from shared import ContractValidator  # type: ignore

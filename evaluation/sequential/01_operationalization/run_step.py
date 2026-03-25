@@ -39,7 +39,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args, passthrough = parse_args(argv)
     target = (
         sequential_root().parents[1]
-        / "src/SystemComponents/Agentic_Framework/01_OperationalizationMentalHealthProblem/utils/02_operationalize_freetext_complaints.py"
+        / "src/backend/SystemComponents/Agentic_Framework/01_OperationalizationMentalHealthProblem/utils/02_operationalize_freetext_complaints.py"
     )
 
     output_csv = Path(args.output_csv).expanduser().resolve()

@@ -12,7 +12,7 @@ pytestmark = pytest.mark.unit
 def _load_service_module(repo_root):
     if str(repo_root) not in sys.path:
         sys.path.insert(0, str(repo_root))
-    from frontend.phoenix_frontend.services import phoenix_service as module
+    from src.frontend.phoenix_frontend.services import phoenix_service as module
 
     return module
 
@@ -78,7 +78,7 @@ def test_load_latest_communication_prefers_cycle_stage(repo_root, tmp_path: Path
 
 def test_run_pipeline_cycle_adds_start_from_pseudodata_after_cycle_one(repo_root, tmp_path: Path):
     module = _load_service_module(repo_root)
-    from frontend.phoenix_frontend.services.session_store import SessionStore
+    from src.frontend.phoenix_frontend.services.session_store import SessionStore
 
     store = SessionStore(tmp_path / "sessions")
     session = store.create_session(
@@ -158,7 +158,7 @@ def test_run_pipeline_cycle_adds_start_from_pseudodata_after_cycle_one(repo_root
 
 def test_run_pipeline_cycle_respects_network_jobs_when_not_forced(repo_root, tmp_path: Path, monkeypatch):
     module = _load_service_module(repo_root)
-    from frontend.phoenix_frontend.services.session_store import SessionStore
+    from src.frontend.phoenix_frontend.services.session_store import SessionStore
 
     monkeypatch.delenv("PHOENIX_FORCE_SINGLE_NETWORK_JOB", raising=False)
     store = SessionStore(tmp_path / "sessions")
@@ -234,7 +234,7 @@ def test_run_pipeline_cycle_respects_network_jobs_when_not_forced(repo_root, tmp
 
 def test_run_pipeline_cycle_clamps_network_jobs_when_forced(repo_root, tmp_path: Path, monkeypatch):
     module = _load_service_module(repo_root)
-    from frontend.phoenix_frontend.services.session_store import SessionStore
+    from src.frontend.phoenix_frontend.services.session_store import SessionStore
 
     monkeypatch.setenv("PHOENIX_FORCE_SINGLE_NETWORK_JOB", "1")
     store = SessionStore(tmp_path / "sessions")
@@ -310,7 +310,7 @@ def test_run_pipeline_cycle_clamps_network_jobs_when_forced(repo_root, tmp_path:
 
 def test_run_pipeline_cycle_retries_with_single_network_job_on_failure(repo_root, tmp_path: Path, monkeypatch):
     module = _load_service_module(repo_root)
-    from frontend.phoenix_frontend.services.session_store import SessionStore
+    from src.frontend.phoenix_frontend.services.session_store import SessionStore
 
     monkeypatch.delenv("PHOENIX_FORCE_SINGLE_NETWORK_JOB", raising=False)
     store = SessionStore(tmp_path / "sessions")
@@ -457,7 +457,7 @@ def test_operationalization_summary_ignores_nan_variable_rows_and_exposes_errors
 
 def test_run_initial_model_writes_and_uses_session_complaint(repo_root, tmp_path: Path):
     module = _load_service_module(repo_root)
-    from frontend.phoenix_frontend.services.session_store import SessionStore
+    from src.frontend.phoenix_frontend.services.session_store import SessionStore
 
     complaint = "UNIQUE_FRONTEND_COMPLAINT_TOKEN_ABC123"
     store = SessionStore(tmp_path / "sessions")
@@ -561,7 +561,7 @@ def test_run_initial_model_writes_and_uses_session_complaint(repo_root, tmp_path
 
 def test_run_initial_model_forwards_operationalization_controls(repo_root, tmp_path: Path):
     module = _load_service_module(repo_root)
-    from frontend.phoenix_frontend.services.session_store import SessionStore
+    from src.frontend.phoenix_frontend.services.session_store import SessionStore
 
     store = SessionStore(tmp_path / "sessions")
     session = store.create_session(

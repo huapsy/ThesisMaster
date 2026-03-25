@@ -18,7 +18,7 @@ from common import default_python_executable, run_python_script, sequential_root
 def _default_hyde_dense_profiles_path() -> Path:
     runs_root = (
         sequential_root().parents[1]
-        / "src/utils/agentic_core/others/initial_observation_model_assets/helpers/00_HyDe_based_predictor_ranks/runs"
+        / "src/backend/utils/agentic_core/others/initial_observation_model_assets/helpers/00_HyDe_based_predictor_ranks/runs"
     )
     candidates = sorted(runs_root.glob("*/dense_profiles.csv"))
     if candidates:
@@ -42,7 +42,7 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> tuple[argparse.Namespace
         type=str,
         default=str(
             sequential_root().parents[1]
-            / "src/utils/agentic_core/others/initial_observation_model_assets/helpers/00_LLM_based_mapping_based_predictor_ranks/all_pseudoprofiles__predictor_ranks_dense.csv"
+            / "src/backend/utils/agentic_core/others/initial_observation_model_assets/helpers/00_LLM_based_mapping_based_predictor_ranks/all_pseudoprofiles__predictor_ranks_dense.csv"
         ),
     )
     parser.add_argument(
@@ -50,14 +50,14 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> tuple[argparse.Namespace
         type=str,
         default=str(
             repo
-            / "src/utils/official/ontology_mappings/CRITERION/predictor_to_criterion/input_lists/predictors_list.txt"
+            / "src/backend/utils/official/ontology_mappings/CRITERION/predictor_to_criterion/input_lists/predictors_list.txt"
         ),
     )
     parser.add_argument(
         "--predictor-feasibility-csv",
         type=str,
         default=str(
-            repo / "src/utils/official/multi_dimensional_feasibility_evaluation/PREDICTORS/results/summary/predictor_rankings.csv"
+            repo / "src/backend/utils/official/multi_dimensional_feasibility_evaluation/PREDICTORS/results/summary/predictor_rankings.csv"
         ),
     )
     parser.add_argument(
@@ -86,7 +86,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args, passthrough = parse_args(argv)
     target = (
         sequential_root().parents[1]
-        / "src/SystemComponents/Agentic_Framework/02_ConstructionInitialObservationModel/utils/01_construct_observation_model.py"
+        / "src/backend/SystemComponents/Agentic_Framework/02_ConstructionInitialObservationModel/utils/01_construct_observation_model.py"
     )
 
     results_dir = Path(args.results_dir).expanduser().resolve()

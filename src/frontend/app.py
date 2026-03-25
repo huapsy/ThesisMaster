@@ -2,7 +2,10 @@ from __future__ import annotations
 
 import os
 
-from phoenix_frontend import create_app
+try:
+    from .phoenix_frontend import create_app
+except ImportError:  # pragma: no cover - direct script execution path
+    from phoenix_frontend import create_app
 
 app = create_app()
 

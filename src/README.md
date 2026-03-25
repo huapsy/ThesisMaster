@@ -41,7 +41,9 @@ Group 10: [08] Treatment Communication  +  [10] Research Reporting (parallel)
 
 | Agent | Method |
 |---|---|
-| **Criterion Operationalization Agent** | HTSSF fusion (dense embedding + BM25 + token-overlap + fuzzy) -> LLM re-rank top-50 -> single CRITERION leaf |
+| **Complaint Decomposition Actor** | Always-on LLM decomposition into current, changeable complaint variables before ontology grounding |
+| **Step 01 Local Critic** | Structured LLM critic over `schema_validity`, `coverage_grounding`, `atomicity_nonoverlap`, `granularity_fit`, `current_actionability` |
+| **Criterion Operationalization Agent** | HTSSF fusion (dense embedding + BM25 + token-overlap + fuzzy) + optional final LLM leaf adjudication -> single CRITERION leaf |
 
 ### Stage 02 -- Initial Observation Model
 
@@ -111,7 +113,9 @@ Cycle N
 src/
 ├── backend/
 │   ├── orchestrator.py                # DAG orchestrator (PipelineDAG, CriticActorLoop, PipelineOrchestrator)
-│   └── overview/                      # Architecture diagrams and Mermaid flowcharts
+│   ├── overview/                      # Architecture diagrams and Mermaid flowcharts
+│   ├── SystemComponents/              # Agentic framework, HUA, intervention components, ontologies
+│   └── utils/                         # Shared agentic runtime, prompts, contracts, feasibility assets
 ├── frontend/
 │   ├── app.py                         # Flask entry point (port 5050)
 │   └── phoenix_frontend/
@@ -119,16 +123,8 @@ src/
 │       ├── services/                  # PhoenixService, SessionStore, JobManager, CohortService
 │       ├── static/                    # CSS design system + client-side JavaScript
 │       └── templates/                 # Jinja2 templates (wizard-style pipeline UI)
-├── SystemComponents/
-│   ├── Agentic_Framework/             # LLM stages 01-05 (generator + critic each)
-│   ├── Hierarchical_Updating_Algorithm/  # Readiness -> network -> impact quantification
-│   └── PHOENIX_ontology/              # CRITERION, PREDICTOR, PERSON, CONTEXT, HAPA
-└── utils/
-    ├── agentic_core/
-    │   ├── shared/                    # guardrail, feasibility, BFS (target_refinement), llm_runtime
-    │   ├── contracts/                 # 7 JSON schema validators
-    │   └── prompts/                   # Versioned prompt registry
-    └── official/                      # Ontology mappings, feasibility evaluation
+├── __init__.py                        # Package root for `src.frontend` and `src.backend`
+└── README.md                          # Architecture overview for the `src/` tree
 ```
 
 ---

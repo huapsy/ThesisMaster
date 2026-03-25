@@ -38,16 +38,24 @@ def repo_file(rel_path: str) -> Path:
     if direct.exists():
         return direct
     rel = str(rel_path).lstrip("./")
+    if rel.startswith("src/SystemComponents/"):
+        mapped = REPO_ROOT / ("src/backend/" + rel[len("src/"):])
+        if mapped.exists():
+            return mapped
+    if rel.startswith("src/utils/"):
+        mapped = REPO_ROOT / ("src/backend/" + rel[len("src/"):])
+        if mapped.exists():
+            return mapped
     if rel.startswith("Evaluation/"):
         mapped = REPO_ROOT / ("evaluation/" + rel[len("Evaluation/"):])
         if mapped.exists():
             return mapped
     if rel.startswith("SystemComponents/"):
-        mapped = REPO_ROOT / "src" / rel
+        mapped = REPO_ROOT / "src/backend" / rel
         if mapped.exists():
             return mapped
     if rel.startswith("utils/"):
-        mapped = REPO_ROOT / "src" / rel
+        mapped = REPO_ROOT / "src/backend" / rel
         if mapped.exists():
             return mapped
     return direct

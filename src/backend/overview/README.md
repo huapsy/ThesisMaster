@@ -73,7 +73,7 @@ flowchart TD
 | Readiness Classifier | `HUA/01_time_series_analysis/01_check_readiness/` | Variance · stationarity · n-obs → `readiness_report.json`; selects tier: tv-gVAR / gVAR / baseline |
 | Network Time-Series Analyst | `HUA/01_time_series_analysis/02_network_time_series_analysis/` | Fits tv-gVAR / stationary gVAR → contemporaneous & temporal edge weights |
 | Momentary Impact Quantifier | `HUA/02_hierarchical_update_ranking/` | Predictor-level impact coefficients → `impact_matrix.csv` |
-| BFS Candidate Selector | `utils/agentic_core/shared/target_refinement.py` | `score = 0.45·mapping + 0.25·HyDE + 0.20·idiographic_anchor + 0.10·domain_bonus` |
+| BFS Candidate Selector | `src/backend/utils/agentic_core/shared/target_refinement.py` | `score = 0.45·mapping + 0.25·HyDE + 0.20·idiographic_anchor + 0.10·domain_bonus` |
 
 ---
 

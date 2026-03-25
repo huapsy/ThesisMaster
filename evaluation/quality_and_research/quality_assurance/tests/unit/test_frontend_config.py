@@ -11,7 +11,7 @@ def test_frontend_config_defaults_resolve_repo_and_workspace(repo_root, monkeypa
     if str(repo_root) not in sys.path:
         sys.path.insert(0, str(repo_root))
 
-    from frontend.phoenix_frontend.config import load_paths
+    from src.frontend.phoenix_frontend.config import load_paths
 
     paths = load_paths()
     assert paths.repo_root == repo_root.resolve()

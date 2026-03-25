@@ -1229,7 +1229,7 @@ def write_flow_structure_indexes(
 
 
 def _load_contract_validator(repo_root: Path):
-    agentic_core_root = repo_root / "src/utils/agentic_core"
+    agentic_core_root = repo_root / "src/backend/utils/agentic_core"
     if str(agentic_core_root) not in sys.path:
         sys.path.insert(0, str(agentic_core_root))
     from shared import ContractValidator  # type: ignore
@@ -1686,10 +1686,10 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     default_initial_model_runs_root = evaluation_root / "sequential/02_initial_observation_model/outputs/runs"
     if not default_initial_model_runs_root.exists():
         default_initial_model_runs_root = (
-            repo_root / "src/utils/agentic_core/others/initial_observation_model_assets/constructed_PC_models/runs"
+            repo_root / "src/backend/utils/agentic_core/others/initial_observation_model_assets/constructed_PC_models/runs"
         )
     default_step02_fallback_runs_root = (
-        repo_root / "src/utils/agentic_core/others/initial_observation_model_assets/constructed_PC_models/runs"
+        repo_root / "src/backend/utils/agentic_core/others/initial_observation_model_assets/constructed_PC_models/runs"
     )
 
     default_free_text_root = evaluation_root / "sequential/free_text"
@@ -1761,7 +1761,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     handoff_script = evaluation_root / "sequential/06_target_identification_and_model_update/run_step.py"
     visualization_script = (
         repo_root
-        / "src/SystemComponents/Hierarchical_Updating_Algorithm/02_hierarchical_update_ranking/01_momentary_impact_quantification/02_visualize_impact_coefficients.py"
+        / "src/backend/SystemComponents/Hierarchical_Updating_Algorithm/02_hierarchical_update_ranking/01_momentary_impact_quantification/02_visualize_impact_coefficients.py"
     )
     intervention_script = evaluation_root / "sequential/07_hapa_digital_intervention/run_step.py"
     translation_communication_script = evaluation_root / "sequential/08_treatment_translation_communication/run_step.py"
@@ -2438,7 +2438,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             if str(args.predictor_feasibility_csv).strip()
             else (
                 repo_root
-                / "src/utils/official/multi_dimensional_feasibility_evaluation/PREDICTORS/results/summary/predictor_rankings.csv"
+                / "src/backend/utils/official/multi_dimensional_feasibility_evaluation/PREDICTORS/results/summary/predictor_rankings.csv"
             ).resolve()
         )
         cmd_visualization = [
@@ -2522,7 +2522,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             elif not args.skip_handoff:
                 predictor_list_path = (
                     repo_root
-                    / "src/utils/official/ontology_mappings/CRITERION/predictor_to_criterion/input_lists/predictors_list.txt"
+                    / "src/backend/utils/official/ontology_mappings/CRITERION/predictor_to_criterion/input_lists/predictors_list.txt"
                 )
                 cmd_handoff = [
                     args.python_exe,

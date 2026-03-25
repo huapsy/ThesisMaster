@@ -84,7 +84,7 @@ def test_target_selection_generates_step03_and_step04_outputs(
     model_payload: dict,
 ) -> None:
     script = repo_file_fn(
-        "src/SystemComponents/Agentic_Framework/03_TreatmentTargetIdentification/01_prepare_targets_from_impact.py"
+        "src/backend/SystemComponents/Agentic_Framework/03_TreatmentTargetIdentification/01_prepare_targets_from_impact.py"
     )
     profile_id = "pseudoprofile_FTC_ID002"
 
