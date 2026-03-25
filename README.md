@@ -1,15 +1,18 @@
-# Enhancing Translational Abilities of Longitudinal Mental Health Applications: An Adaptive Approach to Idiographic Modelling by Leveraging Ontologies and Large Language Models
+<div align="center">
 
-## 🐦‍🔥 PHOENIX Engine
+  <h1>Enhancing Translational Abilities of Longitudinal Mental Health Applications: An Adaptive Approach to Idiographic Modelling by Leveraging Ontologies and Large Language Models</h1>
 
-This repository contains the **PHOENIX engine**, the software system developed for the master's thesis above.
+  <h2>🐦‍🔥 PHOENIX Engine</h2>
 
-The PHOENIX engine conceptualises mental health support as a **closed-loop workflow** that iteratively optimizes the intervention proposal based on data from previous cycles.
+  <p>This repository contains the PHOENIX engine, the software system developed for the master's thesis above.</p>
 
-(**P**ersonalized **H**ierarchical **O**ptimization **E**ngine for **N**avigating **I**nsightful e**X**plorations)
+  <p>The PHOENIX engine conceptualises mental health support as a closed-loop workflow that iteratively optimizes the intervention proposal based on data from previous cycles.</p>
 
-[![Software Tool](https://img.shields.io/badge/Type-Software_Tool-4f46e5.svg?style=flat-square)](#) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat-square)](#) [![Docker Ready](https://img.shields.io/badge/Docker-Ready-2496ED.svg?style=flat-square&logo=docker&logoColor=white)](#) [![Ghent University](https://img.shields.io/badge/Ghent_University-Master's_Thesis-007a64.svg?style=flat-square)](#)
-<br>
+  <p>(Personalized Hierarchical Optimization Engine for Navigating Insightful eXplorations)</p>
+
+  <p><strong>Software Tool</strong> License: GPL v3 Docker Ready Ghent University</p>
+
+</div>
 
 ---
 
