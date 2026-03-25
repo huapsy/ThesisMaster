@@ -309,10 +309,12 @@ The `evaluation/survey_analysis/` directory contains a complete 7-study statisti
 | 02 | Initial Observational Model | 10 HCPs | Dimension-wise crossed mixed models + Bonferroni |
 | 03 | Treatment Target Identification | 30 non-experts | Repeated-measures mixed model on Spearman footrule |
 | 04 | Updated Observational Model | 10 HCPs | Dimension-wise crossed mixed models + Bonferroni |
-| 05 | Tailored Intervention | 30 laypeople | Dimension-wise crossed mixed models + Bonferroni |
+| 05 | Tailored Intervention | 5 HCP generators + 30 lay raters | Dimension-wise crossed mixed models + Bonferroni |
 | 06 | Holistic Pipeline Quality | Aggregate | Study-adjusted crossed mixed model with participant, task, and answer-block clustering |
 
 In short, the survey framework now treats the evaluation as a repeated-measures problem rather than a collection of independent ratings. The holistic study pools studies `01`, `02`, `04`, and `05`, adjusts for study and dimension, and includes participant-level, task-level, and answer-block dependence so the PHOENIX-versus-healthcare-expert comparison is statistically aligned with how the data are actually generated.
+
+For feasibility, PHOENIX assumes participant-pool reuse where methodologically acceptable rather than fully new recruitment for every study. In practice, the same healthcare-expert pool is intended to be reused across the expert-facing studies (`01`, `02`, `04`, and the expert-generation part of `05`), and the same non-expert pool can be reused across the layperson-facing studies (`00`, `03`, and the lay-rating part of `05`) when burden and scheduling allow.
 
 Run all studies:
 
