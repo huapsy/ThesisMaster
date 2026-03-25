@@ -169,6 +169,36 @@ Key artifacts to inspect:
 - Profile-specific human-readable summaries:
   - `07_hapa_digital_intervention/<profile_id>/step05_hapa_intervention.md`
   - `08_treatment_translation_communication/<profile_id>/treatment_translation_communication.md`
+- Time-varying network animation: `04_time_series_analysis/<profile_id>/tv_network_animation.gif`
+- Publication-ready PNGs: `09_impact_visualizations/<profile_id>/` (for human healthcare expert comparison)
+
+---
+
+## 📊 Survey Evaluation Framework
+
+The `evaluation/survey_analysis/` directory contains a complete 7-study statistical evaluation framework:
+
+| Study | Name | Participants | Method |
+|---|---|---|---|
+| 00 | Momentary Impact Quantification | 30 | Repeated-measures mixed model on Spearman footrule |
+| 01 | Operationalization | 10 HCPs | Dimension-wise crossed mixed models + Bonferroni |
+| 02 | Initial Observational Model | 10 HCPs | Dimension-wise crossed mixed models + Bonferroni |
+| 03 | Treatment Target Identification | 30 non-experts | Repeated-measures mixed model on Spearman footrule |
+| 04 | Updated Observational Model | 10 HCPs | Dimension-wise crossed mixed models + Bonferroni |
+| 05 | Tailored Intervention | 30 laypeople | Dimension-wise crossed mixed models + Bonferroni |
+| 06 | Holistic Pipeline Quality | Aggregate | Study-adjusted crossed mixed model with participant, task, and answer-block clustering |
+
+In short, the survey framework now treats the evaluation as a repeated-measures problem rather than a collection of independent ratings. The holistic study pools studies `01`, `02`, `04`, and `05`, adjusts for study and dimension, and includes participant-level, task-level, and answer-block dependence so the PHOENIX-versus-healthcare-expert comparison is statistically aligned with how the data are actually generated.
+
+Run all studies:
+
+```bash
+bash evaluation/survey_analysis/run_all_studies.sh
+```
+
+Results are saved under `evaluation/survey_analysis/results/study_XX_*/` with publication-ready PNGs and statistical reports.
+
+---
 
 ## ✅ Quality Assurance and CI/CD
 
@@ -187,6 +217,22 @@ Automated workflows:
 
 Schema/contract validation entrypoint:
 - `evaluation/quality_and_research/quality_assurance/validate_contract_schemas.py`
+
+**Contract validation**: 7 JSON schemas enforce structural guarantees on every stage output: `readiness_report`, `network_comparison_summary`, `momentary_impact`, `step03_target_selection`, `step04_updated_model`, `step05_hapa_intervention`, `pipeline_summary`.
+
+---
+
+## 🐳 Docker
+
+PHOENIX ships with a ready-to-use Docker configuration for reproducible execution:
+
+```bash
+cd docker && docker compose up --build
+```
+
+The container bundles all Python dependencies, exposes the Flask frontend on port 5050, and mounts the evaluation output directory for artifact persistence. See [`docker/`](docker/) for configuration details.
+
+---
 
 ## 📜️ License
 

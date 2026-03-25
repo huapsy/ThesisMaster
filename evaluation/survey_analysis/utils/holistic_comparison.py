@@ -26,6 +26,18 @@ def _display_label(value: str) -> str:
     return str(value).replace("_", " ").title()
 
 
+def _holm_correct(p_values: list[float]) -> list[float]:
+    indexed = sorted(enumerate(p_values), key=lambda item: item[1])
+    adjusted = [1.0] * len(p_values)
+    running_max = 0.0
+    n_tests = len(p_values)
+    for rank, (original_idx, p_value) in enumerate(indexed, start=1):
+        scaled = (n_tests - rank + 1) * p_value
+        running_max = max(running_max, scaled)
+        adjusted[original_idx] = min(running_max, 1.0)
+    return adjusted
+
+
 def run_holistic_reasoner_comparison(config: HolisticStudyConfig) -> None:
     paths = ensure_study_dirs(config.study_slug)
     df = pd.read_csv(data_file(config.data_filename))
@@ -49,15 +61,15 @@ def run_holistic_reasoner_comparison(config: HolisticStudyConfig) -> None:
         effect_term="reasoner_bin",
         candidates=[
             {
-                "label": "Crossed LME (participant intercept + reasoner slope, task intercept)",
+                "label": "Crossed LME (participant intercept + reasoner slope, task intercept, answer-block intercept)",
                 "group_col": "participant_ID",
                 "re_formula": "~reasoner_bin",
-                "variance_components": {"task": "task_key"},
+                "variance_components": {"task": "task_key", "answer_block": "response_run_id"},
             },
             {
-                "label": "Crossed LME (participant intercept, task intercept)",
+                "label": "Crossed LME (participant intercept, task intercept, answer-block intercept)",
                 "group_col": "participant_ID",
-                "variance_components": {"task": "task_key"},
+                "variance_components": {"task": "task_key", "answer_block": "response_run_id"},
             },
             {
                 "label": "Crossed LME (task intercept, participant intercept)",
@@ -73,8 +85,9 @@ def run_holistic_reasoner_comparison(config: HolisticStudyConfig) -> None:
                 "--- Unified mixed model ---",
                 f"Method: {unified_result['method']}",
                 f"PHOENIX - HCP coefficient: {unified_result['coefficient']:.4f}",
+                f"95% CI: [{unified_result['ci_lower']:.4f}, {unified_result['ci_upper']:.4f}]",
                 f"p-value: {unified_result['p_value']:.4f} ({p_to_stars(unified_result['p_value'])})",
-                "Study-adjusted and dimension-adjusted comparison with crossed participant/task random structure.",
+                "Primary estimand adjusts for study and dimension while accounting for participant severity, task difficulty, and participant-specific answer-block clustering.",
             ]
         )
         if not np.isnan(unified_result.get("shapiro_w", np.nan)):
@@ -97,6 +110,7 @@ def run_holistic_reasoner_comparison(config: HolisticStudyConfig) -> None:
         )
 
     study_effects: Dict[str, Dict[str, Any]] = {}
+    raw_study_p_values = []
     for study_id in studies:
         sub = work.loc[work["study_id"].astype(str) == study_id].copy()
         phoenix_vals = sub.loc[sub["reasoner_group"].astype(str) == "phoenix", "normalized_score"].to_numpy()
@@ -108,15 +122,15 @@ def run_holistic_reasoner_comparison(config: HolisticStudyConfig) -> None:
             effect_term="reasoner_bin",
             candidates=[
                 {
-                    "label": "Crossed LME (participant intercept + reasoner slope, task intercept)",
+                    "label": "Crossed LME (participant intercept + reasoner slope, task intercept, answer-block intercept)",
                     "group_col": "participant_ID",
                     "re_formula": "~reasoner_bin",
-                    "variance_components": {"task": "task_key"},
+                    "variance_components": {"task": "task_key", "answer_block": "response_run_id"},
                 },
                 {
-                    "label": "Crossed LME (participant intercept, task intercept)",
+                    "label": "Crossed LME (participant intercept, task intercept, answer-block intercept)",
                     "group_col": "participant_ID",
-                    "variance_components": {"task": "task_key"},
+                    "variance_components": {"task": "task_key", "answer_block": "response_run_id"},
                 },
                 {
                     "label": "Crossed LME (task intercept, participant intercept)",
@@ -144,12 +158,23 @@ def run_holistic_reasoner_comparison(config: HolisticStudyConfig) -> None:
             "p_value": p_val,
             "method": method,
         }
+        raw_study_p_values.append(p_val)
+
+    corrected_study_p_values = _holm_correct(raw_study_p_values)
+    report_lines.append("")
+    report_lines.append("--- Study-specific follow-up models ---")
+    report_lines.append("Secondary study-level contrasts are Holm-adjusted across studies.")
+    for study_id, corrected_p in zip(studies, corrected_study_p_values):
+        study_effects[study_id]["p_value_holm"] = corrected_p
         report_lines.extend(
             [
                 "",
                 f"Study: {study_id}",
-                f"  HCP mean={np.mean(hcp_vals):.4f}, PHOENIX mean={np.mean(phoenix_vals):.4f}",
-                f"  PHOENIX - HCP={coef:.4f}, p={p_val:.4f}, method={method}",
+                f"  HCP mean={np.mean(work.loc[(work['study_id'].astype(str) == study_id) & (work['reasoner_group'].astype(str) == 'hcp'), 'normalized_score'].to_numpy()):.4f}, PHOENIX mean={np.mean(work.loc[(work['study_id'].astype(str) == study_id) & (work['reasoner_group'].astype(str) == 'phoenix'), 'normalized_score'].to_numpy()):.4f}",
+                f"  PHOENIX - HCP={study_effects[study_id]['coef']:.4f}",
+                f"  95% CI: [{study_effects[study_id]['ci_lo']:.4f}, {study_effects[study_id]['ci_hi']:.4f}]",
+                f"  p-value (raw)={study_effects[study_id]['p_value']:.4f}, p-value (Holm)={corrected_p:.4f} ({p_to_stars(corrected_p)})",
+                f"  Method={study_effects[study_id]['method']}",
             ]
         )
 

@@ -258,6 +258,7 @@ def generate_study_06(study_frames: Dict[str, pd.DataFrame]) -> pd.DataFrame:
                     "normalized_score": round((float(row["rating"]) - LIKERT_MIN) / (LIKERT_MAX - LIKERT_MIN), 4),
                     "task_key": f"{study_id}:{row[task_col]}",
                     "participant_ID": str(row["participant_ID"]),
+                    "response_run_id": f"{study_id}:{row['participant_ID']}:{row[task_col]}:{row['source']}",
                     "shift_regime": str(row.get("shift_regime", "standard")),
                     "rater_group": str(row.get("rater_group", "")),
                 }

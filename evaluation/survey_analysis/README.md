@@ -1,85 +1,162 @@
 # PHOENIX Survey Analysis
 
-This folder contains the pseudodata generator, shared analysis utilities, and study-specific runners for the survey-based evaluation framework around PHOENIX.
+This folder contains the modular survey-analysis stack for the PHOENIX evaluation framework: pseudodata generation, shared statistics utilities, study runners, and publication-oriented outputs.
 
-## Scope
+## Purpose
 
-The implemented study set covers:
+The goal of this folder is not only to generate plots, but to implement a defensible statistical comparison between PHOENIX and its human comparators at each decision point of the pipeline.
 
-- `study_00`: quantification of momentary impact, PHOENIX quantification versus layperson ranking
+The current implementation covers:
+
+- `study_00`: momentary-impact quantification versus a simpler non-LLM estimator
 - `study_01`: operationalization quality, PHOENIX versus healthcare expert
 - `study_02`: initial observational model quality, PHOENIX versus healthcare expert
-- `study_03`: treatment-target identification, PHOENIX versus non-expert ranking
+- `study_03`: treatment-target ranking, PHOENIX versus non-expert users
 - `study_04`: updated observational model quality, PHOENIX versus healthcare expert
-- `study_05`: tailored intervention message quality, PHOENIX versus healthcare expert outputs rated by non-expert users
-- `study_06`: holistic human-in-the-loop comparison, PHOENIX versus healthcare expert aggregated over studies 01, 02, 04, and 05
+- `study_05`: tailored intervention-message quality, PHOENIX versus healthcare expert outputs rated by lay users
+- `study_06`: holistic PHOENIX-versus-healthcare-expert synthesis across studies `01`, `02`, `04`, and `05`
 
-Study `06` intentionally excludes studies `00` and `03` from the unified PHOENIX-vs-HCP model because those studies do not compare PHOENIX directly against healthcare professionals.
+Studies `00` and `03` are intentionally excluded from the holistic PHOENIX-versus-HCP model because those studies do not compare PHOENIX directly against healthcare professionals.
 
-## Folder Layout
+## Folder Structure
 
-- [data](/Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/survey_analysis/data): pseudodata entrypoint and generated CSV inputs
-- [utils](/Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/survey_analysis/utils): shared analysis modules plus thin study wrappers
+- [data](/Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/survey_analysis/data): pseudodata entrypoint and generated CSV files
+- [utils](/Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/survey_analysis/utils): shared statistics modules and thin study wrappers
 - [results](/Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/survey_analysis/results): generated reports and figures
-- [run_all_studies.sh](/Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/survey_analysis/run_all_studies.sh): full end-to-end runner
+- [run_all_studies.sh](/Users/stijnvanseveren/PythonProjects/MASTERPROEF/evaluation/survey_analysis/run_all_studies.sh): end-to-end runner for all studies
 
-## Statistical Design
+## Statistical Principles
 
-The implementation follows the thesis intent, but the model structure is made more explicit to reflect the repeated-measures nature of the survey tasks.
+The implementation follows the thesis protocol closely, but makes the dependence structure more explicit so the analysis is closer to a research-grade repeated-measures design.
 
-### Ranking studies
+### Why mixed-effects models are the default
 
-Studies `00` and `03` use Spearman footrule distance as the dependent variable. The primary model is a linear mixed-effects model with:
+Across the survey studies, observations are not independent:
+
+- the same participant rates multiple items
+- the same item is rated by multiple participants
+- in comparative studies, the same participant often rates both PHOENIX and the comparison output
+
+For that reason, the primary analysis is based on linear mixed-effects models instead of simple rank tests or independent-group tests. Nonparametric tests remain only as fallbacks when a richer model does not converge.
+
+### Why Likert ratings are analyzed with linear mixed models
+
+The outcomes in studies `01`, `02`, `04`, and `05` are ordinal 1 to 9 ratings. In a strict psychometric sense, ordinal mixed models are possible. In this repository, linear mixed models are used as the primary analysis because they:
+
+- support the crossed random-effects structure needed here
+- keep coefficients directly comparable across studies and dimensions
+- work well for bounded Likert outcomes when the main target is comparative mean performance rather than latent-threshold estimation
+
+This is a pragmatic modelling choice, not a claim that the scale is interval-perfect.
+
+## Study Families
+
+### Ranking studies: `00` and `03`
+
+These studies use Spearman footrule distance as the dependent variable, where lower values indicate better agreement with the latent gold ranking.
+
+Primary model:
 
 - fixed effect for `estimator`
 - fixed effect for `shift_regime` when present
-- participant-level grouping with a random slope for estimator when the fit is stable
-- crossed task or network random intercepts
+- participant-level random intercept
+- participant-level random slope for estimator when estimable
+- crossed task or network random intercept
 
-This is preferable to treating tasks alone as the main grouping factor, because the repeated pairing is observed within participant across estimators.
+Why this structure:
 
-### Likert comparison studies
+- the repeated comparison is within participant
+- tasks vary in intrinsic difficulty
+- some participants may consistently prefer or misunderstand one estimator more than another
 
-Studies `01`, `02`, `04`, and `05` are analysed per dimension using:
+### Expert-comparison Likert studies: `01`, `02`, `04`, `05`
+
+These studies are run per dimension, not pooled across dimensions inside the same model.
+
+Primary model per dimension:
 
 - fixed effect for `source` (`PHOENIX` vs `HCP`)
 - fixed effect for `shift_regime` when present
-- participant-level grouping with a random slope for source when estimable
-- crossed item-level random intercepts (`text_ID`, `item_ID`, `task_ID`, or `intervention_ID`)
+- participant-level random intercept
+- participant-level random slope for source when estimable
+- crossed item-level random intercept
 
-Bonferroni correction is applied within each study across the rated dimensions, matching the thesis design.
+Item-level random factors are:
 
-### Holistic study
+- `text_ID` in study `01`
+- `item_ID` in study `02`
+- `task_ID` in study `04`
+- `intervention_ID` in study `05`
 
-Study `06` pools normalized trial-level scores from studies `01`, `02`, `04`, and `05`. The unified model includes:
+Multiplicity control:
 
-- fixed effect for `reasoner_group`
-- fixed effects for `study_id` and `dimension`
-- fixed effect for `shift_regime` when available
-- participant-level grouping with a random slope for reasoner when estimable
-- crossed `task_key` random intercepts
+- Bonferroni correction is applied within each study across the rated dimensions, in line with the thesis protocol
 
-This structure supports the central question of whether PHOENIX performs on par with or better than healthcare expert outputs after adjusting for study context and dimension.
+Interpretation target:
 
-## Pseudodata Logic
+- the coefficient of `source` estimates the average PHOENIX-versus-HCP difference after accounting for participant severity and task difficulty
 
-The pseudodata generator is not flat synthetic noise. It encodes expected evaluation patterns:
+### Holistic study: `06`
 
-- different baseline strengths for PHOENIX and HCP by dimension
-- task-level heterogeneity
-- participant-level heterogeneity
-- shift regimes such as `ambiguous`, `implementation_shift`, and `context_shift`
+Study `06` is the most important model from a validation perspective. It pools normalized trial-level scores from studies `01`, `02`, `04`, and `05` to ask whether PHOENIX performs better than healthcare-expert outputs overall.
 
-These regimes are meant to stress the analysis and visualization pipeline with realistic distribution shift rather than producing trivial one-sided dominance.
+Primary fixed effects:
+
+- `reasoner_group`
+- `study_id`
+- `dimension`
+- `shift_regime` when available
+
+Primary random structure:
+
+- participant-level random intercept
+- participant-level random slope for `reasoner_group` when estimable
+- crossed `task_key` random intercept
+- crossed `response_run_id` random intercept
+
+Why `response_run_id` is included:
+
+- each participant rates a PHOENIX or HCP output on several dimensions within the same answer block
+- those dimension ratings are not independent
+- `response_run_id` captures the local clustering of repeated answers within the same participant-task-source block
+
+In practical terms, the holistic model adjusts for three distinct sources of dependence:
+
+- stable leniency or severity differences between raters
+- some tasks being intrinsically easier or harder to rate well
+- repeated dimension-level scores coming from the same answer block
+
+Secondary follow-up models:
+
+- stratified study-specific PHOENIX-versus-HCP models are reported after the unified model
+- those follow-up p-values are Holm-adjusted across studies
+
+This makes the unified model the primary inferential target, while keeping study-specific effects interpretable without overclaiming.
+
+## Pseudodata Design
+
+The pseudodata generator is structured to stress-test the analysis pipeline rather than produce trivial synthetic wins.
+
+It explicitly encodes:
+
+- participant heterogeneity
+- task heterogeneity
+- dimension-specific advantages and disadvantages for PHOENIX and HCP
+- distribution shift through `standard`, `ambiguous`, `implementation_shift`, and `context_shift`
+- a study-06 answer-block identifier (`response_run_id`) so the holistic model can represent repeated dimension scoring properly
+
+This is useful because a realistic evaluation pipeline should still behave sensibly when performance varies by domain, regime, or rater population.
 
 ## Visual Outputs
 
-The plotting stack is intended for research reporting, not only debugging. Each study produces figures that answer a specific question:
+The figures are meant for research communication and diagnostic interpretation.
+
+Current output types include:
 
 - violin plots for distributional comparison
-- per-dimension or per-study forest plots for effect direction and uncertainty
-- shift-regime plots to inspect robustness under distribution shift
-- holistic heatmaps to show PHOENIX-minus-HCP patterns across studies and dimensions
+- forest plots for effect sizes and confidence intervals
+- shift-regime plots for robustness checks
+- holistic heatmaps to inspect PHOENIX-minus-HCP patterns across studies and dimensions
 
 ## Running The Full Pipeline
 
@@ -91,16 +168,18 @@ bash evaluation/survey_analysis/run_all_studies.sh
 
 This will:
 
-1. regenerate pseudodata
+1. regenerate survey pseudodata
 2. run studies `00` through `06`
-3. write reports and figures into `evaluation/survey_analysis/results`
+3. write updated reports and figures into `evaluation/survey_analysis/results`
 
-## Git Hygiene
+## Tracked Artifacts
 
-Generated survey CSVs and result folders are intentionally excluded from version control. The repository `.gitignore` ignores:
+Generated survey CSV files and result directories are intentionally excluded from version control.
+
+The repository `.gitignore` ignores:
 
 - `evaluation/survey_analysis/data/study_*.csv`
 - `evaluation/survey_analysis/results/`
 - large PHOENIX run outputs such as `evaluation/integrated_pipeline/runs/` and `evaluation/sequential/**/outputs/`
 
-This keeps the committed history focused on code, not reproducible heavy artifacts.
+That keeps commits focused on code and documentation rather than reproducible heavy artifacts.
