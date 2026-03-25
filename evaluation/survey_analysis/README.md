@@ -79,7 +79,7 @@ Primary model per dimension:
 - fixed effect for `shift_regime` when present
 - participant-level random intercept
 - participant-level random slope for source when estimable
-- crossed item-level random intercept
+- one study-specific item-level random intercept
 
 Item-level random factors are:
 
@@ -87,6 +87,8 @@ Item-level random factors are:
 - `item_ID` in study `02`
 - `task_ID` in study `04`
 - `intervention_ID` in study `05`
+
+These are not four random effects inside a single model. Each study uses exactly one item-level clustering variable, chosen to match the unit being rated in that study.
 
 Multiplicity control:
 

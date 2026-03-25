@@ -1,0 +1,18 @@
+# PHOENIX Docker ignore
+.git
+.github
+__pycache__
+*.pyc
+*.pyo
+.venv
+.env
+*.egg-info
+.mypy_cache
+.pytest_cache
+.ruff_cache
+node_modules
+
+# Large generated artifacts (rebuild inside container)
+evaluation/integrated_pipeline/runs/
+evaluation/artifacts/
+*.pdf

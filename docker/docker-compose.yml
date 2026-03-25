@@ -1,0 +1,48 @@
+# ─────────────────────────────────────────────────────────────
+# 🐦‍🔥 PHOENIX Engine — Docker Compose
+# ─────────────────────────────────────────────────────────────
+version: "3.9"
+
+services:
+  phoenix:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: phoenix-engine
+    ports:
+      - "5050:5050"
+    environment:
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL:-https://openrouter.ai/api/v1}
+      - PHOENIX_DISABLE_LLM=${PHOENIX_DISABLE_LLM:-false}
+      - PHOENIX_DEFAULT_MODEL=${PHOENIX_DEFAULT_MODEL:-gpt-5-nano}
+    volumes:
+      # Persist pipeline outputs on host
+      - ../evaluation/integrated_pipeline/runs:/app/evaluation/integrated_pipeline/runs
+      # Mount .env for API keys (optional)
+      - ../.env:/app/.env:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5050/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # Optional: CLI-only pipeline runner
+  phoenix-cli:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: phoenix-cli
+    profiles:
+      - cli
+    environment:
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL:-https://openrouter.ai/api/v1}
+      - PHOENIX_DISABLE_LLM=${PHOENIX_DISABLE_LLM:-false}
+    volumes:
+      - ../evaluation/integrated_pipeline/runs:/app/evaluation/integrated_pipeline/runs
+      - ../.env:/app/.env:ro
+    entrypoint: ["python", "evaluation/integrated_pipeline/run_pipeline.py"]
+    command: ["--mode", "synthetic_v1", "--max-profiles", "1"]

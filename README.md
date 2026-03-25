@@ -227,10 +227,20 @@ Schema/contract validation entrypoint:
 PHOENIX ships with a ready-to-use Docker configuration for reproducible execution:
 
 ```bash
-cd docker && docker compose up --build
+git clone https://github.com/stvsever/ThesisMaster.git
+cd MASTERPROEF
+
+# Optional for LLM-enabled runs; deterministic mode can skip this.
+cat > .env <<'EOF'
+OPENROUTER_API_KEY=<your_openrouter_key>
+OPENAI_BASE_URL=https://openrouter.ai/api/v1
+EOF
+
+cd docker
+docker compose up --build
 ```
 
-The container bundles all Python dependencies, exposes the Flask frontend on port 5050, and mounts the evaluation output directory for artifact persistence. See [`docker/`](docker/) for configuration details.
+This starts the Flask frontend on [http://127.0.0.1:5050](http://127.0.0.1:5050). The Docker setup bundles the project dependencies, mounts integrated-pipeline outputs back to the host, and also supports CLI runs through the `phoenix-cli` service. See [docker/README.md](/Users/stijnvanseveren/PythonProjects/MASTERPROEF/docker/README.md) for the full workflow.
 
 ---
 
