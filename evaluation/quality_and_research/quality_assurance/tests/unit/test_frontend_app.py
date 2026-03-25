@@ -25,15 +25,18 @@ def test_frontend_app_boots(repo_root):
 
     detail = client.get(location)
     assert detail.status_code == 200
-    assert b"topbar-pipeline-nodes" in detail.data
-    assert b"Session Profile" in detail.data
+    assert b"id=\"topbar-pipeline-nodes\"" in detail.data
+    assert b"Full Pipeline Run" in detail.data
+    assert b"Cohort Sandbox" in detail.data
     assert b"Runtime Components" in detail.data
-    assert b"run-next-phase-btn" in detail.data
-    assert b"Advanced configuration" in detail.data
+    assert b"id=\"run-next-phase-btn\"" in detail.data
+    assert b"Step 01 final leaf adjudication (LLM)" in detail.data
+    assert b"local LLM critic refinement" in detail.data
     assert b"Logs" in detail.data
-    assert b"Realtime Process Logs" in detail.data
+    assert b"Process Logs" in detail.data
     assert b"cycle-request-refinement" in detail.data
     assert b"runtime-events-list" in detail.data
+    assert b"run-cohort-btn" in detail.data
 
 
 def test_frontend_global_disable_llm_env(repo_root, monkeypatch):

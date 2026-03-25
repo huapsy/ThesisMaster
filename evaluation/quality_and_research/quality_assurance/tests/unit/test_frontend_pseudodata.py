@@ -7,7 +7,7 @@ import pandas as pd
 
 def test_frontend_pseudodata_synthesis_writes_expected_artifacts(module_loader, repo_root, tmp_path: Path):
     module = module_loader(
-        str(repo_root / "frontend/phoenix_frontend/services/pseudodata.py"),
+        str(repo_root / "src/frontend/phoenix_frontend/services/pseudodata.py"),
         "frontend_pseudodata_test_module",
     )
 

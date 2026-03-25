@@ -170,7 +170,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         return 2
 
     if bool(args.ui):
-        frontend_entry = repo_root / "frontend/app.py"
+        frontend_entry = repo_root / "src/frontend/app.py"
         env = os.environ.copy()
         env["PHOENIX_REPO_ROOT"] = str(repo_root)
         env["PHOENIX_UI_HOST"] = str(args.ui_host)

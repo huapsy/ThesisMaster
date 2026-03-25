@@ -7,7 +7,7 @@
 Goal:
     Operationalize MANY free-text mental health complaints into MULTIPLE ontology leaf nodes by:
       (1) ALWAYS running an LLM-based clinical-expert decomposition into distinct criteria/variables (ontology-agnostic).
-      (2) Running a deterministic local critic loop to refine decomposition quality before retrieval.
+      (2) Running an LLM-based local critic loop to refine decomposition quality before retrieval.
       (3) Mapping EACH decomposed criterion to the best matching CRITERION ontology leaf node via hybrid retrieval.
       (4) BY DEFAULT running an LLM-based per-criterion adjudication step to select the single best leaf from top-N candidates,
           with an explicit possibility to return UNMAPPED.
@@ -64,6 +64,7 @@ import math
 import csv
 import hashlib
 import threading
+import sys
 from dataclasses import dataclass, asdict
 from typing import Any, Dict, List, Tuple, Optional
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -73,6 +74,19 @@ import traceback
 from pathlib import Path
 
 import numpy as np
+from pydantic import BaseModel, Field
+
+try:
+    from shared import PromptSection, StructuredLLMClient, load_prompt, pack_prompt_sections, render_prompt
+except ModuleNotFoundError:
+    _THIS_DIR = Path(__file__).resolve().parent
+    for _candidate in [_THIS_DIR, *_THIS_DIR.parents]:
+        _agentic_root = _candidate / "src" / "utils" / "agentic_core"
+        if (_agentic_root / "shared" / "__init__.py").exists():
+            if str(_agentic_root) not in sys.path:
+                sys.path.insert(0, str(_agentic_root))
+            break
+    from shared import PromptSection, StructuredLLMClient, load_prompt, pack_prompt_sections, render_prompt
 
 from threading import Lock
 _csv_lock = Lock()
@@ -90,6 +104,18 @@ def _find_repo_root() -> Path:
 
 
 REPO_ROOT = _find_repo_root()
+
+
+def _resolve_runtime_model(model_name: str) -> str:
+    token = str(model_name or "").strip()
+    if not token:
+        return "gpt-5-nano"
+    openrouter_api_key = str(os.environ.get("OPENROUTER_API_KEY") or "").strip()
+    openai_base_url = str(os.environ.get("OPENAI_BASE_URL") or "").strip().lower()
+    looks_like_openrouter = bool(openrouter_api_key) or ("openrouter.ai" in openai_base_url)
+    if looks_like_openrouter and "/" not in token and token.startswith("gpt-"):
+        return f"openai/{token}"
+    return token
 
 # Input: the free-text complaints file (pseudoprofile blocks)
 DEFAULT_FREE_TEXT_PATH = str(
@@ -129,14 +155,16 @@ EMBED_MODEL = os.environ.get("CRITERION_EMBED_MODEL", "text-embedding-3-small")
 REQUEST_TIMEOUT_SECONDS = float(os.environ.get("OPENAI_TIMEOUT_S", "90.0"))
 
 # LLM Decomposition (ALWAYS ON)
-DECOMP_MODEL = os.environ.get("CRITERION_DECOMP_MODEL", "gpt-5-mini")  # NOTE: change to gpt-5 for actual non-test run
+DECOMP_MODEL = _resolve_runtime_model(os.environ.get("CRITERION_DECOMP_MODEL", "gpt-5-mini"))  # NOTE: change to gpt-5 for actual non-test run
 DECOMP_TEMPERATURE = float(os.environ.get("CRITERION_DECOMP_T", "1.0"))
+DECOMP_CRITIC_MODEL = _resolve_runtime_model(os.environ.get("CRITERION_DECOMP_CRITIC_MODEL", DECOMP_MODEL))
 DECOMP_LOCAL_CRITIC_MAX_ITERATIONS = int(os.environ.get("CRITERION_DECOMP_CRITIC_MAX_ITERATIONS", "2"))
 DECOMP_LOCAL_CRITIC_PASS_THRESHOLD = float(os.environ.get("CRITERION_DECOMP_CRITIC_PASS_THRESHOLD", "0.78"))
+DECOMP_CRITIC_PROMPT_BUDGET_TOKENS = int(os.environ.get("CRITERION_DECOMP_CRITIC_PROMPT_BUDGET_TOKENS", "16000"))
 
 # Per-criterion optional LLM picker (DEFAULT ON, as requested)
 ENABLE_LLM_RERANKER_DEFAULT = True
-LLM_RERANK_MODEL = os.environ.get("CRITERION_RERANK_MODEL", "gpt-5-nano")
+LLM_RERANK_MODEL = _resolve_runtime_model(os.environ.get("CRITERION_RERANK_MODEL", "gpt-5-nano"))
 LLM_RERANK_TOPN = int(os.environ.get("CRITERION_RERANK_TOPN", "200"))  # 50 --> 200
 LLM_RERANK_TEMPERATURE = float(os.environ.get("CRITERION_RERANK_T", "1.0"))
 
@@ -919,6 +947,18 @@ class DecompositionCriticReview:
     complaint_structure: Dict[str, Any]
     issues: List[str]
     actionable_feedback: List[str]
+    rationale: str = ""
+    critic_mode: str = "heuristic"
+    critic_trace: Optional[Dict[str, Any]] = None
+
+
+class DecompositionCriticReviewModel(BaseModel):
+    decision: str = Field(pattern="^(PASS|REVISE)$")
+    composite_score_0_1: float = Field(ge=0.0, le=1.0)
+    dimension_scores: Dict[str, float]
+    issues: List[str] = Field(default_factory=list)
+    actionable_feedback: List[str] = Field(default_factory=list)
+    rationale: str = ""
 
 
 def _clip01(value: float) -> float:
@@ -1168,8 +1208,113 @@ def _variable_signature_tokens(variable: Dict[str, Any]) -> set[str]:
     return set(tokenize_norm(" ".join(parts)))
 
 
-def run_local_decomposition_critic(complaint: str, decomposition: Dict[str, Any]) -> DecompositionCriticReview:
-    structure = _estimate_complaint_structure(complaint)
+def _build_decomposition_critic_payload(
+    complaint: str,
+    decomposition: Dict[str, Any],
+    structure: Dict[str, Any],
+) -> Dict[str, Any]:
+    variables = decomposition.get("variables", []) if isinstance(decomposition, dict) else []
+    evidence_bundle = {
+        "complaint_text": str(complaint or "").strip(),
+        "complaint_structure_soft_hints": {
+            "segments": list(structure.get("segments", []) or []),
+            "domain_hits": list(structure.get("domain_hits", []) or []),
+            "is_vague": bool(structure.get("is_vague", False)),
+            "expected_min_variables": int(structure.get("expected_min_variables", 1) or 1),
+            "expected_max_variables": int(structure.get("expected_max_variables", 12) or 12),
+        },
+        "decomposition_meta": decomposition.get("meta", {}) if isinstance(decomposition, dict) else {},
+        "variables": variables if isinstance(variables, list) else [],
+    }
+    return evidence_bundle
+
+
+def run_llm_decomposition_critic(
+    complaint: str,
+    decomposition: Dict[str, Any],
+    structure: Dict[str, Any],
+) -> Tuple[Optional[DecompositionCriticReview], Dict[str, Any]]:
+    try:
+        system_prompt = load_prompt("step01_operationalization_critic_system.md")
+        user_template = load_prompt("step01_operationalization_critic_user_template.md")
+    except Exception as exc:
+        return None, {"provider": "none", "reason": f"prompt_load_failed:{repr(exc)}"}
+
+    evidence_bundle = _build_decomposition_critic_payload(complaint, decomposition, structure)
+    serialized = json.dumps(evidence_bundle, ensure_ascii=False, indent=2)
+    rendered_user = render_prompt(user_template, {"EVIDENCE_BUNDLE_JSON": serialized})
+    pack = pack_prompt_sections(
+        [
+            PromptSection(name="step01_operationalization_critic_payload", text=rendered_user, priority=1),
+        ],
+        max_tokens=max(4096, int(DECOMP_CRITIC_PROMPT_BUDGET_TOKENS)),
+        reserve_tokens=2200,
+        model=str(DECOMP_CRITIC_MODEL),
+    )
+    runtime = StructuredLLMClient(
+        model=str(DECOMP_CRITIC_MODEL),
+        timeout_seconds=float(REQUEST_TIMEOUT_SECONDS),
+        max_attempts=2,
+        repair_attempts=1,
+    )
+    result = runtime.generate_structured(
+        system_prompt=system_prompt,
+        user_prompt=pack.text,
+        schema_model=DecompositionCriticReviewModel,
+    )
+    trace = {
+        "provider": result.provider,
+        "success": bool(result.success),
+        "failure_reason": result.failure_reason,
+        "used_repair": bool(result.used_repair),
+        "usage": result.usage,
+        "pack_estimated_tokens": int(pack.estimated_tokens),
+        "pack_truncated_sections": list(pack.truncated_sections),
+        "critic_model": str(DECOMP_CRITIC_MODEL),
+    }
+    if not result.success or not isinstance(result.parsed, dict):
+        return None, trace
+    try:
+        parsed = DecompositionCriticReviewModel.model_validate(result.parsed)
+    except Exception as exc:
+        trace["failure_reason"] = f"parsed_validation_failed:{repr(exc)}"
+        return None, trace
+
+    dimension_scores = {
+        "schema_validity": _clip01((parsed.dimension_scores or {}).get("schema_validity", 0.0)),
+        "coverage_grounding": _clip01((parsed.dimension_scores or {}).get("coverage_grounding", 0.0)),
+        "atomicity_nonoverlap": _clip01((parsed.dimension_scores or {}).get("atomicity_nonoverlap", 0.0)),
+        "granularity_fit": _clip01((parsed.dimension_scores or {}).get("granularity_fit", 0.0)),
+        "current_actionability": _clip01((parsed.dimension_scores or {}).get("current_actionability", 0.0)),
+    }
+    composite = _clip01(parsed.composite_score_0_1)
+    decision = "PASS" if (str(parsed.decision).upper() == "PASS" and composite >= float(DECOMP_LOCAL_CRITIC_PASS_THRESHOLD)) else "REVISE"
+    actionable_feedback = [str(item).strip() for item in (parsed.actionable_feedback or []) if str(item).strip()][:8]
+    if decision != "PASS" and not actionable_feedback:
+        actionable_feedback = [
+            "Revise the complaint decomposition so the variable set better covers the complaint, avoids overlap, and stays at the right practical granularity.",
+        ]
+
+    return DecompositionCriticReview(
+        decision=decision,
+        composite_score_0_1=float(composite),
+        pass_threshold_0_1=float(DECOMP_LOCAL_CRITIC_PASS_THRESHOLD),
+        dimension_scores=dimension_scores,
+        complaint_structure=structure,
+        issues=[str(item).strip() for item in (parsed.issues or []) if str(item).strip()][:8],
+        actionable_feedback=actionable_feedback,
+        rationale=str(parsed.rationale or "").strip(),
+        critic_mode="llm_structured",
+        critic_trace=trace,
+    ), trace
+
+
+def _run_heuristic_decomposition_critic(
+    complaint: str,
+    decomposition: Dict[str, Any],
+    structure: Optional[Dict[str, Any]] = None,
+) -> DecompositionCriticReview:
+    structure = structure or _estimate_complaint_structure(complaint)
     variables = decomposition.get("variables", []) if isinstance(decomposition, dict) else []
     complaint_tokens = set(tokenize_norm(complaint))
 
@@ -1179,7 +1324,7 @@ def run_local_decomposition_critic(complaint: str, decomposition: Dict[str, Any]
 
     if not isinstance(variables, list) or not variables:
         return DecompositionCriticReview(
-            decision="FAIL",
+            decision="REVISE",
             composite_score_0_1=0.0,
             pass_threshold_0_1=float(DECOMP_LOCAL_CRITIC_PASS_THRESHOLD),
             dimension_scores={
@@ -1194,6 +1339,8 @@ def run_local_decomposition_critic(complaint: str, decomposition: Dict[str, Any]
             actionable_feedback=[
                 "Return at least one current, changeable variable grounded in the complaint.",
             ],
+            rationale="Heuristic fallback critic could not validate an empty decomposition.",
+            critic_mode="heuristic_fallback",
         )
 
     schema_penalties = 0.0
@@ -1340,7 +1487,7 @@ def run_local_decomposition_critic(complaint: str, decomposition: Dict[str, Any]
         actionable_feedback.append("Use the complaint wording more directly in evidence and keep decomposition tightly grounded.")
 
     hard_fail = schema_score < 0.55 or coverage_score < 0.45
-    decision = "PASS" if (not hard_fail and composite >= float(DECOMP_LOCAL_CRITIC_PASS_THRESHOLD)) else "FAIL"
+    decision = "PASS" if (not hard_fail and composite >= float(DECOMP_LOCAL_CRITIC_PASS_THRESHOLD)) else "REVISE"
     return DecompositionCriticReview(
         decision=decision,
         composite_score_0_1=float(composite),
@@ -1349,7 +1496,28 @@ def run_local_decomposition_critic(complaint: str, decomposition: Dict[str, Any]
         complaint_structure=structure,
         issues=issues,
         actionable_feedback=actionable_feedback,
+        rationale=(
+            "Heuristic fallback critic combined schema quality, complaint coverage, overlap control, "
+            "granularity fit, and present-state actionability."
+        ),
+        critic_mode="heuristic_fallback",
     )
+
+
+def run_local_decomposition_critic(complaint: str, decomposition: Dict[str, Any]) -> DecompositionCriticReview:
+    structure = _estimate_complaint_structure(complaint)
+    llm_review, llm_trace = run_llm_decomposition_critic(complaint, decomposition, structure)
+    if llm_review is not None:
+        return llm_review
+
+    heuristic_review = _run_heuristic_decomposition_critic(complaint, decomposition, structure=structure)
+    critic_trace = dict(llm_trace or {})
+    if critic_trace.get("failure_reason"):
+        heuristic_review.issues = list(heuristic_review.issues) + [
+            f"LLM critic fallback activated ({critic_trace['failure_reason']}).",
+        ]
+    heuristic_review.critic_trace = critic_trace or None
+    return heuristic_review
 
 
 def llm_decompose_complaint(complaint: str) -> Dict[str, Any]:
@@ -1822,12 +1990,14 @@ def operationalize_complaint(
         complaint_preview=complaint,
     )
 
-    # 1) Always-on LLM decomposition with local critic-guided refinement
+    # 1) Always-on LLM decomposition with structured local critic-guided refinement
     decomp = llm_decompose_complaint(complaint)
     decomp_trace: Dict[str, Any] = {
         "generator_model": DECOMP_MODEL,
         "local_critic": {
             "enabled": True,
+            "mode": "llm_structured_with_heuristic_fallback",
+            "model": DECOMP_CRITIC_MODEL,
             "max_iterations": int(DECOMP_LOCAL_CRITIC_MAX_ITERATIONS),
             "pass_threshold_0_1": float(DECOMP_LOCAL_CRITIC_PASS_THRESHOLD),
         },
@@ -1843,6 +2013,8 @@ def operationalize_complaint(
                 "attempt_index": attempt + 1,
                 "generator_mode": "initial" if attempt == 0 else "revision",
                 "n_variables": len(variables_raw),
+                "critic_mode": decomp_review.critic_mode,
+                "critic_rationale": decomp_review.rationale,
                 "critic_review": asdict(decomp_review),
             }
         )
@@ -1852,6 +2024,7 @@ def operationalize_complaint(
                 "attempt": attempt + 1,
                 "decision": decomp_review.decision,
                 "score": f"{decomp_review.composite_score_0_1:.2f}",
+                "critic_mode": decomp_review.critic_mode,
             },
         )
         if decomp_review.decision == "PASS" or attempt >= int(DECOMP_LOCAL_CRITIC_MAX_ITERATIONS):

@@ -112,6 +112,12 @@
             </select>
           </label>
         </div>
+        <p class="muted compact">Operationalization controls apply to the Step 01 runtime: always-on LLM decomposition, local LLM critic refinement, ontology grounding, and optional final LLM leaf adjudication.</p>
+        <div class="inline-form">
+          <label class="checkline"><input id="full-operationalization-rerank" type="checkbox" checked> Step 01 final leaf adjudication (LLM)</label>
+          <label>Step 01 local critic iters <input id="full-operationalization-critic-iterations" type="number" min="0" max="6" value="2"></label>
+          <label>Step 01 local critic threshold <input id="full-operationalization-critic-threshold" type="number" min="0.5" max="1" step="0.01" value="0.78"></label>
+        </div>
         <div class="checkbox-row">
           <label class="checkline"><input id="full-request-refinement" type="checkbox"> Model refinement on intermediate cycles</label>
           <label class="checkline"><input id="full-auto-refresh-acquisition" type="checkbox" checked> Auto-refresh pseudodata between cycles</label>
@@ -131,6 +137,48 @@
       <p id="flow-progress-label" class="muted compact">0/5 stages complete</p>
       <p id="flow-progress-detail" class="muted compact"></p>
       <p id="flow-active-component" class="muted compact"></p>
+    </div>
+  </div>
+
+  <div class="panel panel-compact" id="cohort-orchestrator-panel">
+    <div class="panel-header">
+      <h2>Cohort Sandbox</h2>
+      <span class="badge">Frontend batch runner</span>
+    </div>
+    <div class="panel-body">
+      <p class="muted compact">
+        Launches a controlled cohort derived from the current intake so frontend, orchestration, and reporting behavior can be stress-tested across multiple synthetic patients.
+      </p>
+      <div class="inline-form">
+        <label>Patients <input id="cohort-patient-count" type="number" min="2" max="40" value="10"></label>
+        <label>Parallel patients <input id="cohort-parallel-patients" type="number" min="1" max="8" value="2"></label>
+        <label>
+          LLM Model
+          <input id="cohort-llm-model" type="text" value="gpt-5-nano" placeholder="Model name" autocomplete="off"
+            {% if llm_globally_disabled %}disabled{% endif %}>
+        </label>
+        <button id="run-cohort-btn" class="btn ghost">Run Cohort</button>
+      </div>
+      <details class="advanced-settings">
+        <summary>Advanced cohort settings</summary>
+        <div class="advanced-settings-body">
+          <div class="inline-form">
+            <label>Time points <input id="cohort-pseudodata-points" type="number" min="10" max="365" value="84"></label>
+            <label>Missing rate <input id="cohort-pseudodata-missing" type="number" step="0.01" min="0" max="0.7" value="0.10"></label>
+            <label>Seed <input id="cohort-pseudodata-seed" type="number" min="0" value="42"></label>
+            <label>Step 01 local critic iters <input id="cohort-operationalization-critic-iterations" type="number" min="0" max="6" value="2"></label>
+            <label>Step 01 local critic threshold <input id="cohort-operationalization-critic-threshold" type="number" min="0.5" max="1" step="0.01" value="0.78"></label>
+          </div>
+          <div class="checkbox-row">
+            <label class="checkline"><input id="cohort-include-intervention" type="checkbox" checked> Intervention</label>
+            <label class="checkline"><input id="cohort-run-visualizations" type="checkbox" checked> Impact visuals</label>
+            <label class="checkline"><input id="cohort-run-communication" type="checkbox" checked> Treatment communication</label>
+            <label class="checkline"><input id="cohort-parallel-branches" type="checkbox" checked> Parallel branches</label>
+            <label class="checkline"><input id="cohort-operationalization-rerank" type="checkbox" checked> Step 01 final leaf adjudication (LLM)</label>
+            <label class="checkline"><input id="cohort-disable-llm" type="checkbox" {% if llm_globally_disabled %}checked disabled{% endif %}> Deterministic mode</label>
+          </div>
+        </div>
+      </details>
     </div>
   </div>
 
@@ -201,6 +249,12 @@
             <label>Max workers <input id="initial-max-workers" type="number" min="1" max="64" value="12"></label>
             <label>Critic iterations <input id="initial-critic-iterations" type="number" min="1" max="6" value="2"></label>
             <label>Critic threshold <input id="initial-critic-threshold" type="number" min="0.5" max="1" step="0.01" value="0.74"></label>
+          </div>
+          <p class="muted compact">Step 01 runs before the initial model: free-text decomposition, local LLM critic refinement, ontology grounding, and optional final LLM leaf adjudication. The selected runtime model is reused for this stage unless environment overrides are set.</p>
+          <div class="inline-form">
+            <label class="checkline"><input id="initial-operationalization-rerank" type="checkbox" checked> Step 01 final leaf adjudication (LLM)</label>
+            <label>Step 01 local critic iters <input id="initial-operationalization-critic-iterations" type="number" min="0" max="6" value="2"></label>
+            <label>Step 01 local critic threshold <input id="initial-operationalization-critic-threshold" type="number" min="0.5" max="1" step="0.01" value="0.78"></label>
           </div>
         </div>
       </details>

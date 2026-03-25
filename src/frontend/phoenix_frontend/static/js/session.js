@@ -4264,10 +4264,10 @@
     const summarizeLaunchPayload = (jobKind, body) => {
       const p = body || {};
       if (jobKind === "initial_model") {
-        return `model=${p.llm_model || "gpt-5-nano"} | workers=${p.max_workers || 12} | disable_llm=${Boolean(p.disable_llm)} | hard_ontology=${Boolean(p.hard_ontology_constraint)}`;
+        return `model=${p.llm_model || "gpt-5-nano"} | workers=${p.max_workers || 12} | step01_leaf_adjudication=${Boolean(p.operationalization_enable_llm_rerank)} | step01_critic=${p.operationalization_critic_max_iterations || 2}@${p.operationalization_critic_pass_threshold ?? 0.78} | disable_llm=${Boolean(p.disable_llm)} | hard_ontology=${Boolean(p.hard_ontology_constraint)}`;
       }
       if (jobKind === "full_session_pipeline") {
-        return `cycles=${p.cycles || 1} | model=${p.llm_model || "gpt-5-nano"} | net_jobs=${p.network_jobs || 1} | net_policy=${p.network_execution_policy || "readiness_aligned"} | disable_llm=${Boolean(p.disable_llm)}`;
+        return `cycles=${p.cycles || 1} | model=${p.llm_model || "gpt-5-nano"} | step01_leaf_adjudication=${Boolean(p.operationalization_enable_llm_rerank)} | step01_critic=${p.operationalization_critic_max_iterations || 2}@${p.operationalization_critic_pass_threshold ?? 0.78} | net_jobs=${p.network_jobs || 1} | net_policy=${p.network_execution_policy || "readiness_aligned"} | disable_llm=${Boolean(p.disable_llm)}`;
       }
       if (jobKind === "pipeline_cycle") {
         return `model=${p.llm_model || "gpt-5-nano"} | net_jobs=${p.network_jobs || 1} | net_policy=${p.network_execution_policy || "readiness_aligned"} | parallel=${Boolean(p.parallel_branches)} | intervention=${Boolean(p.include_intervention)} | communication=${Boolean(p.run_treatment_communication)} | disable_llm=${Boolean(p.disable_llm)}`;
@@ -4276,7 +4276,7 @@
         return `points=${p.n_points || 84} | missing_rate=${p.missing_rate ?? 0.1} | seed=${p.seed ?? 42}`;
       }
       if (jobKind === "full_cohort") {
-        return `patients=${p.patient_count || 10} | parallel_patients=${p.parallel_patients || 2} | net_policy=${p.network_execution_policy || "readiness_aligned"} | cycles=${p.cycles || 1} | disable_llm=${Boolean(p.disable_llm)}`;
+        return `patients=${p.patient_count || 10} | parallel_patients=${p.parallel_patients || 2} | step01_leaf_adjudication=${Boolean(p.operationalization_enable_llm_rerank)} | step01_critic=${p.operationalization_critic_max_iterations || 2}@${p.operationalization_critic_pass_threshold ?? 0.78} | net_policy=${p.network_execution_policy || "readiness_aligned"} | disable_llm=${Boolean(p.disable_llm)}`;
       }
       return "";
     };
@@ -4316,6 +4316,9 @@
             critic_max_iterations: Number(document.getElementById("full-critic-iterations")?.value || 2),
             critic_pass_threshold: Number(document.getElementById("full-critic-threshold")?.value || 0.74),
             max_workers: Number(document.getElementById("full-max-workers")?.value || 12),
+            operationalization_enable_llm_rerank: Boolean(document.getElementById("full-operationalization-rerank")?.checked),
+            operationalization_critic_max_iterations: Number(document.getElementById("full-operationalization-critic-iterations")?.value || 2),
+            operationalization_critic_pass_threshold: Number(document.getElementById("full-operationalization-critic-threshold")?.value || 0.78),
             n_points: Number(document.getElementById("full-points")?.value || 84),
             missing_rate: Number(document.getElementById("full-missing")?.value || 0.1),
             seed: Number(document.getElementById("full-seed")?.value || 42),
@@ -4360,6 +4363,9 @@
             max_workers: Number(document.getElementById("initial-max-workers")?.value || 12),
             critic_max_iterations: Number(document.getElementById("initial-critic-iterations")?.value || 2),
             critic_pass_threshold: Number(document.getElementById("initial-critic-threshold")?.value || 0.74),
+            operationalization_enable_llm_rerank: Boolean(document.getElementById("initial-operationalization-rerank")?.checked),
+            operationalization_critic_max_iterations: Number(document.getElementById("initial-operationalization-critic-iterations")?.value || 2),
+            operationalization_critic_pass_threshold: Number(document.getElementById("initial-operationalization-critic-threshold")?.value || 0.78),
             hard_ontology_constraint: Boolean(document.getElementById("initial-hard-ontology")?.checked),
           },
           "run-initial-model-btn",
@@ -4481,6 +4487,9 @@
             parallel_patients: Number(document.getElementById("cohort-parallel-patients")?.value || 2),
             llm_model: document.getElementById("cohort-llm-model")?.value || "gpt-5-nano",
             disable_llm: Boolean(document.getElementById("cohort-disable-llm")?.checked),
+            operationalization_enable_llm_rerank: Boolean(document.getElementById("cohort-operationalization-rerank")?.checked),
+            operationalization_critic_max_iterations: Number(document.getElementById("cohort-operationalization-critic-iterations")?.value || 2),
+            operationalization_critic_pass_threshold: Number(document.getElementById("cohort-operationalization-critic-threshold")?.value || 0.78),
             n_points: Number(document.getElementById("cohort-pseudodata-points")?.value || 84),
             missing_rate: Number(document.getElementById("cohort-pseudodata-missing")?.value || 0.1),
             seed: Number(document.getElementById("cohort-pseudodata-seed")?.value || 42),

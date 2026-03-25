@@ -557,3 +557,87 @@ def test_run_initial_model_writes_and_uses_session_complaint(repo_root, tmp_path
     mapped_csv = Path(result["mapped_criterions_csv"])
     assert mapped_csv.exists()
     assert complaint in mapped_csv.read_text(encoding="utf-8")
+
+
+def test_run_initial_model_forwards_operationalization_controls(repo_root, tmp_path: Path):
+    module = _load_service_module(repo_root)
+    from frontend.phoenix_frontend.services.session_store import SessionStore
+
+    store = SessionStore(tmp_path / "sessions")
+    session = store.create_session(
+        complaint_text="Need frontend control passthrough validation.",
+        person_text="",
+        context_text="",
+        profile_id="pseudoprofile_FTC_ID654",
+    )
+    service = module.PhoenixService(
+        repo_root=repo_root,
+        python_exe=sys.executable,
+        session_store=store,
+    )
+
+    fake_hyde = tmp_path / "helpers" / "dense_profiles.csv"
+    fake_hyde.parent.mkdir(parents=True, exist_ok=True)
+    fake_hyde.write_text("pseudoprofile_id,dense_profile\n", encoding="utf-8")
+    service._discover_latest_hyde_dense_profiles = lambda: fake_hyde  # type: ignore[method-assign]
+    service._collect_profile_visuals = lambda *_args, **_kwargs: []  # type: ignore[method-assign]
+    service._assert_operationalization_cache = lambda: None  # type: ignore[method-assign]
+
+    captured: dict[str, object] = {}
+
+    def _fake_run_command(*, cmd, log, env=None, component="", mark_success=True):  # noqa: ANN001
+        if component == "step01_operationalization":
+            captured["step01_cmd"] = list(cmd)
+            captured["step01_env"] = dict(env or {})
+            output_path = Path(cmd[cmd.index("--output-csv") + 1])
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            output_path.write_text(
+                "pseudoprofile_id,complaint_text,variable_id,variable_label,mapping_status,chosen_confidence\n"
+                f"{session.profile_id},Need frontend control passthrough validation.,C01,Stress load,MAPPED,0.79\n",
+                encoding="utf-8",
+            )
+            return
+        if component == "step02_initial_model":
+            results_dir = Path(cmd[cmd.index("--results_dir") + 1])
+            run_id = str(cmd[cmd.index("--run_id") + 1])
+            pseudoprofile_id = str(cmd[cmd.index("--pseudoprofile_id") + 1])
+            profile_dir = results_dir / run_id / "profiles" / pseudoprofile_id
+            profile_dir.mkdir(parents=True, exist_ok=True)
+            payload = {
+                "pseudoprofile_id": pseudoprofile_id,
+                "model_summary": "control passthrough",
+                "criteria_variables": [],
+                "predictor_variables": [],
+            }
+            (profile_dir / "llm_observation_model_final.json").write_text(
+                json.dumps(payload, ensure_ascii=False, indent=2),
+                encoding="utf-8",
+            )
+            return
+        raise AssertionError(f"Unexpected component in fake run: {component}")
+
+    service._run_command = _fake_run_command  # type: ignore[method-assign]
+    service.run_initial_model(
+        session_id=session.session_id,
+        llm_model="gpt-5-nano",
+        disable_llm=False,
+        hard_ontology_constraint=False,
+        prompt_budget_tokens=10000,
+        critic_max_iterations=1,
+        critic_pass_threshold=0.7,
+        max_workers=1,
+        operationalization_enable_llm_rerank=False,
+        operationalization_critic_max_iterations=4,
+        operationalization_critic_pass_threshold=0.83,
+        generate_communication=False,
+        log=lambda *_: None,
+    )
+
+    step01_cmd = list(captured.get("step01_cmd") or [])
+    step01_env = dict(captured.get("step01_env") or {})
+    assert "--no-llm-rerank" in step01_cmd
+    assert step01_env["CRITERION_DECOMP_MODEL"] == "gpt-5-nano"
+    assert step01_env["CRITERION_DECOMP_CRITIC_MODEL"] == "gpt-5-nano"
+    assert step01_env["CRITERION_RERANK_MODEL"] == "gpt-5-nano"
+    assert step01_env["CRITERION_DECOMP_CRITIC_MAX_ITERATIONS"] == "4"
+    assert step01_env["CRITERION_DECOMP_CRITIC_PASS_THRESHOLD"] == "0.8300"

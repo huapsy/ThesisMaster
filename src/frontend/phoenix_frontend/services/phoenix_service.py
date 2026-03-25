@@ -89,6 +89,9 @@ class PhoenixService:
         critic_max_iterations: int = 2,
         critic_pass_threshold: float = 0.74,
         max_workers: Optional[int] = None,
+        operationalization_enable_llm_rerank: bool = True,
+        operationalization_critic_max_iterations: int = 2,
+        operationalization_critic_pass_threshold: float = 0.78,
         generate_communication: bool = False,
         log: LogFn,
     ) -> Dict[str, Any]:
@@ -117,7 +120,10 @@ class PhoenixService:
             log(
                 "[component:step01_operationalization] "
                 f"profile={profile_id} mode=deterministic input={free_text_files['free_text_complaints']} "
-                f"complaint_preview={complaint_preview}",
+                f"complaint_preview={complaint_preview} "
+                f"leaf_adjudication={bool(operationalization_enable_llm_rerank)} "
+                f"decomp_critic_iter={max(0, int(operationalization_critic_max_iterations))} "
+                f"decomp_critic_threshold={float(operationalization_critic_pass_threshold):.2f}",
                 "INFO",
             )
             log(
@@ -135,12 +141,19 @@ class PhoenixService:
             log("[component:step01_operationalization] status=succeeded deterministic", "INFO")
         else:
             self._assert_operationalization_cache()
-            env_step01 = os.environ.copy()
-            env_step01.setdefault("CRITERION_CACHE_DIR", str(self.operationalization_cache_dir))
+            env_step01 = self._build_operationalization_env(
+                llm_model=llm_model,
+                critic_max_iterations=int(operationalization_critic_max_iterations),
+                critic_pass_threshold=float(operationalization_critic_pass_threshold),
+            )
             log(
                 "[component:step01_operationalization] "
                 f"profile={profile_id} input={free_text_files['free_text_complaints']} "
-                f"complaint_preview={complaint_preview}",
+                f"complaint_preview={complaint_preview} "
+                f"llm_model={llm_model} "
+                f"leaf_adjudication={bool(operationalization_enable_llm_rerank)} "
+                f"decomp_critic_iter={max(0, int(operationalization_critic_max_iterations))} "
+                f"decomp_critic_threshold={float(operationalization_critic_pass_threshold):.2f}",
                 "INFO",
             )
             log(
@@ -161,6 +174,8 @@ class PhoenixService:
                 "--limit",
                 "1",
             ]
+            if not bool(operationalization_enable_llm_rerank):
+                cmd_step01.append("--no-llm-rerank")
             log("Running Step 01 operationalization from session-specific free-text input.", "INFO")
             self._run_command(
                 cmd=cmd_step01,
@@ -845,6 +860,9 @@ class PhoenixService:
         model_critic_max_iterations: int,
         model_critic_pass_threshold: float,
         model_max_workers: int,
+        operationalization_enable_llm_rerank: bool,
+        operationalization_critic_max_iterations: int,
+        operationalization_critic_pass_threshold: float,
         pseudodata_n_points: int,
         pseudodata_missing_rate: float,
         pseudodata_seed: int,
@@ -894,6 +912,9 @@ class PhoenixService:
                 critic_max_iterations=int(model_critic_max_iterations),
                 critic_pass_threshold=float(model_critic_pass_threshold),
                 max_workers=int(model_max_workers),
+                operationalization_enable_llm_rerank=bool(operationalization_enable_llm_rerank),
+                operationalization_critic_max_iterations=int(operationalization_critic_max_iterations),
+                operationalization_critic_pass_threshold=float(operationalization_critic_pass_threshold),
                 generate_communication=False,
                 log=log,
             )
@@ -1111,6 +1132,9 @@ class PhoenixService:
         model_critic_max_iterations: int,
         model_critic_pass_threshold: float,
         model_max_workers: int,
+        operationalization_enable_llm_rerank: bool,
+        operationalization_critic_max_iterations: int,
+        operationalization_critic_pass_threshold: float,
         pseudodata_n_points: int,
         pseudodata_missing_rate: float,
         pseudodata_seed: int,
@@ -1143,6 +1167,9 @@ class PhoenixService:
             "model_critic_max_iterations": int(model_critic_max_iterations),
             "model_critic_pass_threshold": float(model_critic_pass_threshold),
             "model_max_workers": int(model_max_workers),
+            "operationalization_enable_llm_rerank": bool(operationalization_enable_llm_rerank),
+            "operationalization_critic_max_iterations": int(operationalization_critic_max_iterations),
+            "operationalization_critic_pass_threshold": float(operationalization_critic_pass_threshold),
             "pseudodata_n_points": int(pseudodata_n_points),
             "pseudodata_missing_rate": float(pseudodata_missing_rate),
             "pseudodata_seed": int(pseudodata_seed),
@@ -1270,6 +1297,9 @@ class PhoenixService:
                 critic_max_iterations=model_critic_max_iterations,
                 critic_pass_threshold=model_critic_pass_threshold,
                 max_workers=model_max_workers,
+                operationalization_enable_llm_rerank=bool(operationalization_enable_llm_rerank),
+                operationalization_critic_max_iterations=int(operationalization_critic_max_iterations),
+                operationalization_critic_pass_threshold=float(operationalization_critic_pass_threshold),
                 generate_communication=False,
                 log=_row_log,
             )
@@ -2982,6 +3012,23 @@ class PhoenixService:
                 + ", ".join(missing)
                 + ". Run the embedding cache builder before frontend Step 01."
             )
+
+    def _build_operationalization_env(
+        self,
+        *,
+        llm_model: str,
+        critic_max_iterations: int,
+        critic_pass_threshold: float,
+    ) -> Dict[str, str]:
+        env = os.environ.copy()
+        env.setdefault("CRITERION_CACHE_DIR", str(self.operationalization_cache_dir))
+        if str(llm_model or "").strip():
+            env["CRITERION_DECOMP_MODEL"] = str(llm_model).strip()
+            env["CRITERION_DECOMP_CRITIC_MODEL"] = str(llm_model).strip()
+            env["CRITERION_RERANK_MODEL"] = str(llm_model).strip()
+        env["CRITERION_DECOMP_CRITIC_MAX_ITERATIONS"] = str(max(0, int(critic_max_iterations)))
+        env["CRITERION_DECOMP_CRITIC_PASS_THRESHOLD"] = f"{float(critic_pass_threshold):.4f}"
+        return env
 
     @staticmethod
     def _cycle_run_root(*, output_root: Path, run_id: str, cycle_index: int) -> Path:
