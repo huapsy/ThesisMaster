@@ -88,7 +88,7 @@ All stages are constrained by five stable ontologies that enforce structural gua
 | Ontology | Role | Source |
 |---|---|---|
 | **CRITERION** | Operationalized mental health variables (DSM-5-TR, RDoC) | `src/SystemComponents/PHOENIX_ontology/separate/CRITERION/` |
-| **PREDICTOR** | Measurable constructs that temporally precede criteria | `src/SystemComponents/PHOENIX_ontology/separate/PREDICTOR/` |
+| **PREDICTOR** | Hierarchically structured treatment-solution entities used to model actionable intervention pathways and candidate refinement space | `src/SystemComponents/PHOENIX_ontology/separate/PREDICTOR/` |
 | **PERSON** | Individual characteristics (demographics, comorbidity, history) | `src/SystemComponents/PHOENIX_ontology/separate/PERSON/` |
 | **CONTEXT** | Situational and environmental factors | `src/SystemComponents/PHOENIX_ontology/separate/CONTEXT/` |
 | **HAPA** | Health Action Process Approach (barriers, coping, phases) | `src/SystemComponents/PHOENIX_ontology/separate/HAPA/` |
