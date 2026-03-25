@@ -12,6 +12,7 @@ from .target_refinement import (
     load_profile_mapping_rows,
     normalize_path_text,
     path_similarity,
+    select_breadth_balanced_predictors,
 )
 from .feasibility import (
     build_parent_domain_scores,
@@ -44,6 +45,7 @@ __all__ = [
     "load_profile_mapping_rows",
     "normalize_path_text",
     "path_similarity",
+    "select_breadth_balanced_predictors",
     "build_parent_domain_scores",
     "load_predictor_feasibility_table",
     "match_predictors_to_parent_feasibility",

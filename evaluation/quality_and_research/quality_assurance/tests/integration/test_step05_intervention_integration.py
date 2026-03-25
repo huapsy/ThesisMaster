@@ -76,7 +76,7 @@ def test_step05_intervention_generates_outputs(tmp_path: Path, repo_file_fn) -> 
         {
             "free_text": {
                 "complaint_text": "Low mood, fatigue, and poor focus",
-                "person_text": "Works evening shifts and has limited routines",
+                "person_text": "{intake}\nWorks evening shifts and has limited routines",
                 "context_text": "Noisy apartment and irregular timing",
             },
             "initial_model": {
@@ -228,4 +228,5 @@ def test_step05_intervention_generates_outputs(tmp_path: Path, repo_file_fn) -> 
     assert len(payload["selected_barriers"]) >= 1
     assert len(payload["selected_coping_strategies"]) >= 1
     assert len(component_payload.get("components", [])) >= 4
+    assert "{intake}" not in payload["personalized_message"]
     assert "Limitation recorded: LLM unavailable, so it’s impact-driven only." in payload["limitations"]

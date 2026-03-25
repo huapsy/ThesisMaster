@@ -153,3 +153,34 @@ def test_fusion_supports_previous_cycle_scores(module_loader, repo_file_fn) -> N
     assert "fused_memory_score_0_1" in row
     assert "previous_cycle_impact_0_1" in row
     assert 0.0 <= float(row["fused_memory_score_0_1"]) <= 1.0
+
+
+def test_breadth_balanced_selection_avoids_single_parent_collapse(module_loader, repo_file_fn) -> None:
+    module = _mod(module_loader, repo_file_fn)
+    rankings = [
+        {
+            "predictor_path": "PSYCHO / Mindfulness / Stress / Grounding_A",
+            "fused_score_0_1": 0.91,
+        },
+        {
+            "predictor_path": "PSYCHO / Mindfulness / Stress / Grounding_B",
+            "fused_score_0_1": 0.90,
+        },
+        {
+            "predictor_path": "PSYCHO / Mindfulness / Stress / Grounding_C",
+            "fused_score_0_1": 0.89,
+        },
+        {
+            "predictor_path": "BIO / Sleep / Routine / Consistent_Bedtime",
+            "fused_score_0_1": 0.88,
+        },
+        {
+            "predictor_path": "PSYCHO / Self_Compassion / Repair / Self_Kindness",
+            "fused_score_0_1": 0.87,
+        },
+    ]
+    selected = module.select_breadth_balanced_predictors(rankings, max_predictors=4)
+    assert len(selected) == 4
+    assert selected[0] == "PSYCHO / Mindfulness / Stress / Grounding_A"
+    assert "BIO / Sleep / Routine / Consistent_Bedtime" in selected[:3]
+    assert "PSYCHO / Self_Compassion / Repair / Self_Kindness" in selected[:3]

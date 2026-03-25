@@ -1,92 +1,95 @@
 {% extends "base.html" %}
 
-{% block title %}PHOENIX Engine · Sessions{% endblock %}
+{% block title %}PHOENIX Engine -- Sessions{% endblock %}
 {% block nav_home_active %}active{% endblock %}
 {% block topbar_title %}Sessions{% endblock %}
 
 {% block content %}
 {% if llm_globally_disabled %}
-<div class="alert error" style="margin-bottom:16px">
+<div class="alert alert-warning" role="alert">
   LLM execution is globally disabled for this UI process (<code>PHOENIX_DISABLE_LLM=true</code>).
+  All pipeline stages will use deterministic fallbacks.
 </div>
 {% endif %}
 
+<section class="hero">
+  <h1 class="hero-title">PHOENIX Engine</h1>
+  <p class="hero-sub">Personalized mental-health modelling, network analysis, and HAPA-based intervention generation.</p>
+</section>
+
 <div class="home-grid">
-  <!-- Left: New Session -->
-  <div class="panel">
+  <section class="panel">
     <div class="panel-header">
-      <h2>Start a New Session</h2>
+      <h2>New Session</h2>
     </div>
-    <p class="muted text-sm" style="margin-bottom:14px">
-      Create a profile session, run the PHOENIX engine from complaint intake through
-      model creation, data collection, and iterative analysis cycles.
-    </p>
-    {% if error %}
-    <div class="alert error" style="margin-bottom:12px">{{ error }}</div>
-    {% endif %}
-    <form method="post" action="{{ url_for('ui.create_session_from_form') }}">
-      <div class="stack">
+    <div class="panel-body">
+      {% if error %}
+      <div class="alert alert-error">{{ error }}</div>
+      {% endif %}
+      <form method="post" action="{{ url_for('ui.create_session_from_form') }}" class="stack">
         <div class="form-group">
-          <label>Complaint text (required)</label>
-          <textarea name="complaint_text" rows="4" placeholder="Describe the complaint or mental-state issue..."
+          <label for="complaint_text">Complaint text <span class="required">*</span></label>
+          <textarea id="complaint_text" name="complaint_text" rows="3"
+            placeholder="Describe the mental-health complaint or presenting issue..."
             required></textarea>
         </div>
         <div class="form-group">
-          <label>Person context (optional)</label>
-          <textarea name="person_text" rows="3"
-            placeholder="Optional person profile context (history, preferences, constraints)."></textarea>
+          <label for="person_text">Person context</label>
+          <textarea id="person_text" name="person_text" rows="2"
+            placeholder="History, preferences, demographic context (optional)"></textarea>
         </div>
         <div class="form-group">
-          <label>Environmental context (optional)</label>
-          <textarea name="context_text" rows="3"
-            placeholder="Optional context such as time pressure, workload, social setting."></textarea>
+          <label for="context_text">Environment context</label>
+          <textarea id="context_text" name="context_text" rows="2"
+            placeholder="Situational factors: workload, social setting, time pressure (optional)"></textarea>
         </div>
         <div class="form-group">
-          <label>Custom profile ID (optional)</label>
-          <input type="text" name="profile_id" placeholder="pseudoprofile_FTC_ID777">
+          <label for="profile_id">Profile ID</label>
+          <input type="text" id="profile_id" name="profile_id" placeholder="pseudoprofile_FTC_ID777 (optional)">
         </div>
         <div class="form-actions">
           <button type="submit" class="btn primary">Create Session</button>
         </div>
-      </div>
-    </form>
-  </div>
+      </form>
+    </div>
+  </section>
 
-  <!-- Right: Recent Sessions -->
-  <div class="panel">
+  <section class="panel">
     <div class="panel-header">
       <h2>Recent Sessions</h2>
     </div>
-    {% if sessions %}
-    <div class="table-wrap">
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>Session</th>
-            <th>Profile ID</th>
-            <th>Cycles</th>
-            <th>Updated</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for row in sessions %}
-          <tr>
-            <td><code>{{ row.session_id }}</code></td>
-            <td><code>{{ row.profile_id }}</code></td>
-            <td>{{ row.current_cycle }}</td>
-            <td>{{ row.updated_at }}</td>
-            <td>
-              <a class="btn small" href="{{ url_for('ui.session_detail', session_id=row.session_id) }}">Open</a>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <div class="panel-body">
+      {% if sessions %}
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Session</th>
+              <th>Profile</th>
+              <th>Cycles</th>
+              <th>Updated</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in sessions %}
+            <tr>
+              <td><code title="{{ row.session_id }}">{{ row.session_id[:12] }}</code></td>
+              <td><code>{{ row.profile_id }}</code></td>
+              <td>{{ row.current_cycle }}</td>
+              <td>{{ row.updated_at }}</td>
+              <td>
+                <a class="btn small" href="{{ url_for('ui.session_detail', session_id=row.session_id) }}">Open</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+      <p class="muted">No sessions yet. Create one to get started.</p>
+      {% endif %}
     </div>
-    {% else %}
-    <p class="muted">No sessions yet. Create one to get started.</p>
-    {% endif %}
-  </div>
+  </section>
 </div>
 {% endblock %}

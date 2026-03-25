@@ -265,12 +265,38 @@ def build_bfs_candidates(
     for leaf in leaf_paths:
         mapping_score, mapping_source = _mapping_score_for_leaf(leaf, mapping_rows)
         hyde_score = float(hyde_scores.get(leaf.full_path.lower(), 0.0))
-        idiographic_anchor = 0.0
+
+        # Idiographic anchor: consensus-weighted across all impact anchors with
+        # diminishing returns (multi-anchor agreement lifts score more than single
+        # strong match, but avoids double-counting the same predictor family).
+        anchor_contributions: List[float] = []
         for anchor_path, anchor_impact in path_impact.items():
             sim = path_similarity(leaf.full_path, anchor_path)
-            idiographic_anchor = max(idiographic_anchor, _clamp01(sim * anchor_impact))
+            contribution = _clamp01(sim * anchor_impact)
+            if contribution > 0.01:
+                anchor_contributions.append(contribution)
+        anchor_contributions.sort(reverse=True)
+        idiographic_anchor = 0.0
+        decay = 1.0
+        for contrib in anchor_contributions[:4]:  # cap at 4 consensus anchors
+            idiographic_anchor += contrib * decay
+            decay *= 0.55  # geometric diminishing returns per additional anchor
+        idiographic_anchor = _clamp01(idiographic_anchor)
+
+        # Domain bonus: continuous similarity to nearest anchor domain (was binary).
+        # This preserves BFS breadth by giving partial credit to adjacent domains.
         domain_key = _domain_key_from_segments(leaf.segments)
-        domain_bonus = 1.0 if domain_key in anchor_domains else 0.0
+        if domain_key in anchor_domains:
+            domain_bonus = 1.0
+        elif anchor_domains:
+            leaf_domain_readable = domain_key.replace("_", " ")
+            domain_bonus = _clamp01(max(
+                path_similarity(leaf_domain_readable, anchor.replace("_", " "))
+                for anchor in anchor_domains
+            ))
+        else:
+            domain_bonus = 0.0
+
         total_score = _clamp01(
             0.45 * mapping_score
             + 0.25 * hyde_score
@@ -292,6 +318,8 @@ def build_bfs_candidates(
                 "mapping_score_0_1": round(float(mapping_score), 6),
                 "hyde_score_0_1": round(float(hyde_score), 6),
                 "idiographic_anchor_score_0_1": round(float(idiographic_anchor), 6),
+                "idiographic_anchor_consensus_n": len(anchor_contributions),
+                "domain_bonus_0_1": round(float(domain_bonus), 6),
                 "bfs_domain_key": domain_key,
                 "mapping_anchor_path": mapping_source,
             }
@@ -423,6 +451,67 @@ def _criterion_weight_vector(criteria: Sequence[Dict[str, Any]], impact_matrix: 
         weight = 1.0 / max(1, len(criteria))
         return {str(item.get("var_id")): weight for item in criteria}
     return {key: float(value / total) for key, value in out.items()}
+
+
+def _parent_group_key(path: str) -> str:
+    segments = path_segments(path)
+    if not segments:
+        return "unknown"
+    if len(segments) >= 3:
+        return " / ".join(segment.lower() for segment in segments[:3])
+    return _domain_key_from_segments(tuple(segment.lower() for segment in segments))
+
+
+def select_breadth_balanced_predictors(
+    rankings: Sequence[Dict[str, Any]],
+    *,
+    max_predictors: int,
+) -> List[str]:
+    limit = max(0, int(max_predictors))
+    if limit <= 0:
+        return []
+
+    normalized_rows: List[Dict[str, str]] = []
+    for row in rankings:
+        predictor_path = normalize_path_text(str(row.get("predictor_path") or ""))
+        if not predictor_path:
+            continue
+        normalized_rows.append(
+            {
+                "predictor_path": predictor_path,
+                "parent_group_key": _parent_group_key(predictor_path),
+            }
+        )
+    if not normalized_rows:
+        return []
+
+    selected: List[str] = []
+    seen_paths: set[str] = set()
+    per_parent_counts: Dict[str, int] = {}
+
+    for per_parent_cap in (1, 2):
+        for row in normalized_rows:
+            predictor_path = row["predictor_path"]
+            parent_group_key = row["parent_group_key"]
+            if predictor_path in seen_paths:
+                continue
+            if per_parent_counts.get(parent_group_key, 0) >= per_parent_cap:
+                continue
+            selected.append(predictor_path)
+            seen_paths.add(predictor_path)
+            per_parent_counts[parent_group_key] = per_parent_counts.get(parent_group_key, 0) + 1
+            if len(selected) >= limit:
+                return selected
+
+    for row in normalized_rows:
+        predictor_path = row["predictor_path"]
+        if predictor_path in seen_paths:
+            continue
+        selected.append(predictor_path)
+        seen_paths.add(predictor_path)
+        if len(selected) >= limit:
+            break
+    return selected
 
 
 def fuse_updated_model_matrix(

@@ -327,7 +327,18 @@ def parse_profile_text_file(path: Path) -> Dict[str, str]:
         if current_key is None:
             continue
         output[current_key].append(line)
-    return {k: "\n".join(v).strip() for k, v in output.items()}
+    return {k: _sanitize_profile_text_block("\n".join(v)) for k, v in output.items()}
+
+
+def _sanitize_profile_text_block(text: str) -> str:
+    cleaned_lines: List[str] = []
+    for raw in str(text or "").splitlines():
+        line = raw.rstrip()
+        if line.strip() == "{intake}":
+            continue
+        cleaned_lines.append(line)
+    cleaned = "\n".join(cleaned_lines).strip()
+    return re.sub(r"\n{3,}", "\n\n", cleaned)
 
 
 def profile_text_bundle(
@@ -338,9 +349,9 @@ def profile_text_bundle(
     evidence_bundle: Dict[str, Any],
 ) -> Dict[str, str]:
     from_evidence = evidence_bundle.get("free_text", {}) if isinstance(evidence_bundle, dict) else {}
-    complaint = str(from_evidence.get("complaint_text") or "").strip()
-    person = str(from_evidence.get("person_text") or "").strip()
-    context = str(from_evidence.get("context_text") or "").strip()
+    complaint = _sanitize_profile_text_block(str(from_evidence.get("complaint_text") or ""))
+    person = _sanitize_profile_text_block(str(from_evidence.get("person_text") or ""))
+    context = _sanitize_profile_text_block(str(from_evidence.get("context_text") or ""))
     if complaint and person and context:
         return {
             "complaint_text": complaint,
@@ -355,9 +366,9 @@ def profile_text_bundle(
             "context_text": context,
         }
     return {
-        "complaint_text": complaint or complaints.get(f"pseudoprofile_FTC_ID{number}", ""),
-        "person_text": person or person_profiles.get(f"pseudoprofile_person_ID{number}", ""),
-        "context_text": context or context_profiles.get(f"pseudoprofile_context_ID{number}", ""),
+        "complaint_text": complaint or _sanitize_profile_text_block(complaints.get(f"pseudoprofile_FTC_ID{number}", "")),
+        "person_text": person or _sanitize_profile_text_block(person_profiles.get(f"pseudoprofile_person_ID{number}", "")),
+        "context_text": context or _sanitize_profile_text_block(context_profiles.get(f"pseudoprofile_context_ID{number}", "")),
     }
 
 

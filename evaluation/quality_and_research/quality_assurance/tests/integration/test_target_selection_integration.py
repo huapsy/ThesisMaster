@@ -15,7 +15,74 @@ def _write_json(path: Path, payload: dict) -> None:
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
 
-def test_target_selection_generates_step03_and_step04_outputs(tmp_path: Path, repo_file_fn) -> None:
+@pytest.mark.parametrize(
+    ("model_filename", "model_payload"),
+    [
+        (
+            "llm_observation_model_mapped.json",
+            {
+                "criteria_variables": [
+                    {"var_id": "C01", "label": "Low mood", "mapped_leaf_full_path": "DSM / Mood"},
+                    {"var_id": "C02", "label": "Anhedonia", "mapped_leaf_full_path": "DSM / Interest"},
+                ],
+                "predictor_variables": [
+                    {
+                        "var_id": "P01",
+                        "label": "Sleep duration",
+                        "mapped_leaf_full_path": "BIO / Sleep / Sleep_Duration",
+                        "include_priority": "HIGH",
+                        "mapped_confidence": 0.81,
+                    },
+                    {
+                        "var_id": "P02",
+                        "label": "Behavioral activation",
+                        "mapped_leaf_full_path": "PSYCHO / Activation / Behavioral_Activation",
+                        "include_priority": "HIGH",
+                        "mapped_confidence": 0.75,
+                    },
+                ],
+                "edges": [
+                    {"source_var_id": "P01", "target_var_id": "C01", "estimated_relevance_0_1": 0.62},
+                    {"source_var_id": "P02", "target_var_id": "C02", "estimated_relevance_0_1": 0.55},
+                ],
+            },
+        ),
+        (
+            "llm_observation_model_final.json",
+            {
+                "criteria_variables": [
+                    {"var_id": "C01", "label": "Low mood", "criterion_path": "DSM / Mood"},
+                    {"var_id": "C02", "label": "Anhedonia", "criterion_path": "DSM / Interest"},
+                ],
+                "predictor_variables": [
+                    {
+                        "var_id": "P01",
+                        "label": "Sleep duration",
+                        "ontology_path": "BIO / Sleep / Sleep_Duration",
+                        "include_priority": "HIGH",
+                    },
+                    {
+                        "var_id": "P02",
+                        "label": "Behavioral activation",
+                        "ontology_path": "PSYCHO / Activation / Behavioral_Activation",
+                        "include_priority": "HIGH",
+                    },
+                ],
+                "edges": [
+                    {"source_var_id": "P01", "target_var_id": "C01", "estimated_relevance_0_1": 0.62},
+                    {"source_var_id": "P02", "target_var_id": "C02", "estimated_relevance_0_1": 0.55},
+                ],
+            },
+        ),
+    ],
+    ids=["mapped_model", "final_model"],
+)
+def test_target_selection_generates_step03_and_step04_outputs(
+    tmp_path: Path,
+    repo_file_fn,
+    model_filename: str,
+    model_payload: dict,
+) -> None:
     script = repo_file_fn(
         "src/SystemComponents/Agentic_Framework/03_TreatmentTargetIdentification/01_prepare_targets_from_impact.py"
     )
@@ -96,33 +163,8 @@ def test_target_selection_generates_step03_and_step04_outputs(tmp_path: Path, re
 
     model_runs_root = tmp_path / "model_runs"
     _write_json(
-        model_runs_root / "2026-02-13_18-00-00" / "profiles" / profile_id / "llm_observation_model_mapped.json",
-        {
-            "criteria_variables": [
-                {"var_id": "C01", "label": "Low mood", "mapped_leaf_full_path": "DSM / Mood"},
-                {"var_id": "C02", "label": "Anhedonia", "mapped_leaf_full_path": "DSM / Interest"},
-            ],
-            "predictor_variables": [
-                {
-                    "var_id": "P01",
-                    "label": "Sleep duration",
-                    "mapped_leaf_full_path": "BIO / Sleep / Sleep_Duration",
-                    "include_priority": "HIGH",
-                    "mapped_confidence": 0.81,
-                },
-                {
-                    "var_id": "P02",
-                    "label": "Behavioral activation",
-                    "mapped_leaf_full_path": "PSYCHO / Activation / Behavioral_Activation",
-                    "include_priority": "HIGH",
-                    "mapped_confidence": 0.75,
-                },
-            ],
-            "edges": [
-                {"source_var_id": "P01", "target_var_id": "C01", "estimated_relevance_0_1": 0.62},
-                {"source_var_id": "P02", "target_var_id": "C02", "estimated_relevance_0_1": 0.55},
-            ],
-        },
+        model_runs_root / "2026-02-13_18-00-00" / "profiles" / profile_id / model_filename,
+        model_payload,
     )
 
     free_text_root = tmp_path / "free_text"
@@ -132,7 +174,7 @@ def test_target_selection_generates_step03_and_step04_outputs(tmp_path: Path, re
         encoding="utf-8",
     )
     (free_text_root / "free_text_person.txt").write_text(
-        "pseudoprofile_person_ID002\nWorks full-time and has limited evening energy.\n",
+        "pseudoprofile_person_ID002\n{intake}\nWorks full-time and has limited evening energy.\n",
         encoding="utf-8",
     )
     (free_text_root / "free_text_context.txt").write_text(
@@ -212,6 +254,14 @@ def test_target_selection_generates_step03_and_step04_outputs(tmp_path: Path, re
     assert (profile_out / "step04_fusion_edges.csv").exists()
     assert (profile_out / "step04_fusion_predictor_rankings.csv").exists()
     assert (profile_out / "visuals" / "updated_model_fused_heatmap.png").exists()
+    evidence_bundle = json.loads((profile_out / "step03_evidence_bundle.json").read_text(encoding="utf-8"))
+    assert "{intake}" not in evidence_bundle["free_text"]["person_text"]
+    step04_trace = json.loads((profile_out / "step04_prompt_trace.json").read_text(encoding="utf-8"))
+    assert step04_trace["critic_review_scope"] == "post_fusion_finalized_candidate"
     step04 = json.loads((profile_out / "step04_updated_observation_model.json").read_text(encoding="utf-8"))
     assert step04["profile_id"] == profile_id
+    assert step04["retained_criteria_ids"]
+    fusion = json.loads((profile_out / "step04_nomothetic_idiographic_fusion.json").read_text(encoding="utf-8"))
+    assert fusion["criterion_order"]
+    assert fusion["predictor_rankings"]
     assert len(step04["retained_criteria_ids"]) >= 1

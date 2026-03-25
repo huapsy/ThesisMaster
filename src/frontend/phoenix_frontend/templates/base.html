@@ -6,32 +6,29 @@
   <title>{% block title %}PHOENIX Engine{% endblock %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
   {% block head %}{% endblock %}
 </head>
 <body>
   <div class="app-shell">
-    <!-- Sidebar -->
-    <nav class="sidebar">
+    <nav class="sidebar" aria-label="Main navigation">
       <div class="sidebar-brand">
         <div class="sidebar-brand-mark">PHOENIX</div>
-        <div class="sidebar-brand-sub">Personalized Hierarchical Optimization Engine</div>
+        <div class="sidebar-brand-sub">Personalized Hierarchical Optimization Engine for Network-Informed eXperimental interventions</div>
       </div>
       <div class="sidebar-nav">
         {% block sidebar_nav %}
-        <a href="{{ url_for('ui.index') }}" class="sidebar-link {% block nav_home_active %}{% endblock %}">
-          <span class="icon">🏠</span> Sessions
-        </a>
+        <a href="{{ url_for('ui.index') }}" class="sidebar-link {% block nav_home_active %}{% endblock %}">Sessions</a>
         {% endblock %}
       </div>
       <div class="sidebar-footer">
-        PHOENIX Engine · Ghent University
+        <span class="sidebar-footer-line">PHOENIX Engine</span>
+        <span class="sidebar-footer-line">Ghent University</span>
       </div>
     </nav>
 
-    <!-- Topbar -->
-    <header class="topbar">
+    <header class="topbar" role="banner">
       {% block topbar %}
       <span class="topbar-title">{% block topbar_title %}Dashboard{% endblock %}</span>
       <div class="topbar-meta">
@@ -40,7 +37,6 @@
       {% endblock %}
     </header>
 
-    <!-- Main content -->
     <main class="main-content">
       {% block content %}{% endblock %}
     </main>

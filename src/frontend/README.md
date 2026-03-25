@@ -1,90 +1,96 @@
 # PHOENIX Frontend (Flask)
 
-Interactive debugging UI for the PHOENIX engine, built to inspect and run the thesis pipeline with high-detail runtime logging.
+Research-focused dashboard for the PHOENIX engine with a wizard-style pipeline interface, interactive Chart.js visualizations, and real-time SSE log streaming.
 
-## What It Covers
+## Features
 
-- Session-based intake: complaint text + optional person/context.
-- Step 01→02 execution:
-  - mental-state operationalization,
-  - initial observation-model construction,
-  - model visualization artifact collection.
-- Data collection stage:
-  - variable-level collection schema preview,
-  - pseudodata synthesis with configurable points/missingness/seed,
-  - manual CSV upload fallback.
-- Iterative PHOENIX cycle trigger:
-  - cycle starts from current session pseudodata + model artifacts (Step 01/02 handled in Model Creation),
-  - core engine flow: readiness -> network -> impact -> Step-03/04 -> Step-05 -> treatment communication,
-  - quality-and-research flow: impact visualization + research reporting,
-  - run summaries with explicit `engine_stage_flow` and `quality_and_research_flow`.
-  - communication component appears only after final cycle communication is generated (not pre-shown at intake).
-  - startup LLM health-check/fallback state is surfaced in runtime component status text.
-- Comprehension dashboard:
-  - interactive time-series chart sourced from session CSV (no manual PNG upload required),
-  - impact/barrier/coping charts plus step-level summaries.
-- Full cohort execution:
-  - one-click 10-patient (or custom N) end-to-end runs,
-  - bounded patient-level parallelism,
-  - persisted cohort manifests with per-patient artifact pointers.
-- Realtime streaming logs via SSE for every background job.
-  - stream endpoint emits keepalive heartbeats and supports cursor resume (`after=<log_index>`) for reconnect-safe long runs.
+### Wizard-Style Pipeline Interface
+The frontend guides users through 5 sequential pipeline steps, each as a focused panel:
 
-## Directory Layout
+| Step | Phase | Controls |
+|---|---|---|
+| 01 | **Intake** | Complaint text, person context, environment context |
+| 02 | **Model Construction** | LLM model selector, ontology constraints, critic configuration |
+| 03 | **Data Collection** | Pseudodata synthesis (time points, missing rate, seed) or manual CSV upload |
+| 04 | **Analysis Cycle** | HUA sub-stages with compact progress tracker |
+| 05 | **Intervention** | HAPA-based intervention plan with barrier-coping pairs |
+
+### Dashboard Tab
+- KPI cards: readiness score, analysis tier, top predictor, barrier count
+- Chart.js visualizations: impact predictors, network dynamics (animated canvas), time-series, readiness components, barrier distribution, coping strategies
+- Stage analytics: readiness/network/impact/runtime overviews
+- Treatment communication summary
+
+### Logs Tab
+- Component status grid (17 runtime components)
+- Live process summary with recent events
+- Realtime log console with SSE streaming and verbosity control (concise/balanced/detailed)
+
+### One-Click Pipeline Execution
+- Full pipeline run with multi-cycle support (configurable cycles, memory window)
+- Cohort batch execution (N patients in parallel)
+- Advanced configuration: prompt budget, critic thresholds, network parameters
+
+## Architecture
 
 ```text
-frontend/
-├── app.py
-├── phoenix_frontend/
-│   ├── config.py
-│   ├── routes/
-│   │   ├── ui.py
-│   │   └── api.py
-│   ├── services/
-│   │   ├── cohort.py
-│   │   ├── job_manager.py
-│   │   ├── phoenix_service.py
-│   │   ├── pseudodata.py
-│   │   └── session_store.py
-│   ├── static/
-│   └── templates/
-└── workspace/
-    ├── cohort_runs/ (cohort manifests and batch-level metadata)
-    └── sessions/    (runtime artifacts, per session)
+src/frontend/
+├── app.py                           # Flask entry point (port 5050)
+└── phoenix_frontend/
+    ├── __init__.py                   # App factory
+    ├── config.py                    # Path configuration
+    ├── routes/
+    │   ├── ui.py                    # 3 UI routes (index, session create, session detail)
+    │   └── api.py                   # 14 REST API routes
+    ├── services/
+    │   ├── phoenix_service.py       # Pipeline orchestration (subprocess calls to backend)
+    │   ├── session_store.py         # Session persistence (JSON files)
+    │   ├── job_manager.py           # Background job execution (threading)
+    │   ├── cohort.py                # Multi-patient batch management
+    │   ├── pseudodata.py            # Synthetic EMA data generation
+    │   ├── communication_agent.py   # LLM-based treatment summaries
+    │   └── models.py                # Data classes
+    ├── static/
+    │   ├── css/app.css              # Design system (dark theme, Inter + JetBrains Mono)
+    │   └── js/session.js            # Client-side logic (state, charts, SSE, wizard)
+    └── templates/
+        ├── base.html                # App shell (sidebar, topbar, content)
+        ├── index.html               # Sessions list + new session form
+        └── session.html             # Pipeline wizard + dashboard + logs
 ```
+
+## API Endpoints
+
+| Method | Route | Purpose |
+|---|---|---|
+| POST | `/api/sessions` | Create session |
+| GET | `/api/sessions/<id>/snapshot` | Get session state |
+| PATCH | `/api/sessions/<id>/intake` | Update intake |
+| POST | `/api/sessions/<id>/jobs/initial-model` | Run Steps 01-02 |
+| POST | `/api/sessions/<id>/jobs/synthesize` | Synthesize pseudodata |
+| POST | `/api/sessions/<id>/jobs/manual-data` | Upload CSV |
+| POST | `/api/sessions/<id>/jobs/run-cycle` | Run analysis cycle |
+| POST | `/api/sessions/<id>/jobs/run-full` | Full end-to-end |
+| POST | `/api/sessions/<id>/jobs/full-cohort` | Batch cohort |
+| GET | `/api/jobs/<id>` | Job status |
+| GET | `/api/jobs/<id>/logs` | Job logs |
+| GET | `/api/jobs/<id>/stream` | SSE log stream |
+| GET | `/api/sessions/<id>/files/<path>` | Serve session files |
+| GET | `/api/llm/models` | LLM model catalog |
 
 ## Run
 
 ```bash
-python frontend/app.py
-```
-
-Or launch through the integrated pipeline launcher:
-
-```bash
+python src/frontend/app.py
+# or
 python evaluation/integrated_pipeline/run_pipeline.py --ui
 ```
 
-Open:
+Open [http://127.0.0.1:5050](http://127.0.0.1:5050).
 
-- [http://127.0.0.1:5050](http://127.0.0.1:5050)
+## Environment
 
-## Environment Notes
-
-- `OPENROUTER_API_KEY` is the primary key for LLM-enabled runs.
-- Frontend app startup auto-loads repo `.env` when present.
-- Frontend subprocesses mirror `OPENROUTER_API_KEY` into `OPENAI_API_KEY` and enforce `OPENAI_BASE_URL=https://openrouter.ai/api/v1` for legacy scripts.
-- `OPENAI_API_KEY` remains an optional fallback.
-- LLM execution is enabled by default in the UI; each run form includes a `Disable LLM` toggle.
-- LLM model fields support live catalog lookup from OpenRouter (`/api/llm/models`) with type-ahead suggestions.
-- Optional overrides:
-  - `PHOENIX_REPO_ROOT`
-  - `PHOENIX_FRONTEND_WORKSPACE`
-  - `PHOENIX_PYTHON_EXE`
-  - `PHOENIX_DISABLE_LLM` (`true/false`, enforced globally in UI)
-
-## Runtime Data Safety
-
-- Frontend writes only under `frontend/workspace/` (`sessions/` + `cohort_runs/`).
-- No ontology structure/content is modified.
-- Session files are isolated and can be inspected independently for reproducibility.
+- `OPENROUTER_API_KEY`: primary LLM key (mirrored to `OPENAI_API_KEY` at runtime)
+- `PHOENIX_DISABLE_LLM`: set to `true` for deterministic fallback mode
+- `PHOENIX_REPO_ROOT`, `PHOENIX_FRONTEND_WORKSPACE`, `PHOENIX_PYTHON_EXE`: optional overrides
+- Frontend writes only under `workspace/` (sessions + cohort_runs). No ontology content is modified.

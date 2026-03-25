@@ -149,6 +149,29 @@ try:
 except Exception:
     HAVE_JOBLIB = False
 
+HAVE_MATPLOTLIB = False
+try:
+    import matplotlib  # type: ignore
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt  # type: ignore
+    HAVE_MATPLOTLIB = True
+except Exception:
+    HAVE_MATPLOTLIB = False
+
+HAVE_PILLOW = False
+try:
+    from PIL import Image as PILImage  # type: ignore
+    HAVE_PILLOW = True
+except Exception:
+    HAVE_PILLOW = False
+
+HAVE_IMAGEIO = False
+try:
+    import imageio  # type: ignore
+    HAVE_IMAGEIO = True
+except Exception:
+    HAVE_IMAGEIO = False
+
 
 # ============================================================
 # Defaults (match your layout)
@@ -2348,6 +2371,273 @@ def compute_global_metrics(G: Any, directed: bool) -> Dict[str, Any]:
 # ============================================================
 # Saving outputs (numerical only)
 # ============================================================
+def generate_tv_network_animation_gif(
+    Bhat: np.ndarray,
+    estpoints: np.ndarray,
+    labels: List[str],
+    output_path: Path,
+    change_points: Optional[List[int]] = None,
+    frame_duration_ms: int = 150,
+    dpi: int = 300,
+    fig_size_inches: float = 4.0,
+    edge_threshold_abs: float = 1e-10,
+    exclude_self_loops: bool = True,
+    seed: int = 42,
+) -> bool:
+    """
+    Generate an animated GIF showing the time-varying network across estimation points.
+
+    Parameters
+    ----------
+    Bhat : np.ndarray
+        Shape (m, p, p) array of VAR(1) coefficient matrices at each time point.
+    estpoints : np.ndarray
+        Shape (m,) array of normalized time values for each estimation point.
+    labels : list of str
+        Variable names (length p).
+    output_path : Path
+        Full path for the output GIF file.
+    change_points : list of int, optional
+        Indices in [0..m-1] that are detected change points.
+    frame_duration_ms : int
+        Duration of each frame in milliseconds (100-200 recommended for smooth animation).
+    dpi : int
+        Resolution for rasterization (300 for publication quality).
+    fig_size_inches : float
+        Figure dimension in inches; final pixel size ~ fig_size_inches * dpi.
+    edge_threshold_abs : float
+        Minimum absolute coefficient to draw an edge.
+    exclude_self_loops : bool
+        Whether to exclude diagonal (self-loop) edges.
+    seed : int
+        Random seed for reproducible spring layout.
+
+    Returns
+    -------
+    bool
+        True if GIF was successfully created, False otherwise.
+    """
+    if not HAVE_NETWORKX:
+        log("[GIF] networkx not available; skipping tv network animation.")
+        return False
+    if not HAVE_MATPLOTLIB:
+        log("[GIF] matplotlib not available; skipping tv network animation.")
+        return False
+    if not (HAVE_PILLOW or HAVE_IMAGEIO):
+        log("[GIF] Neither Pillow nor imageio available; skipping tv network animation.")
+        return False
+
+    m, p, _ = Bhat.shape
+    if m < 2:
+        log("[GIF] Too few time points for animation (need >= 2); skipping.")
+        return False
+    if p < 1:
+        log("[GIF] No variables in network; skipping GIF animation.")
+        return False
+
+    change_points = change_points or []
+    cp_set = set(change_points)
+
+    # Abbreviate long labels
+    abbrev_labels = []
+    for lbl in labels:
+        if len(lbl) > 15:
+            abbrev_labels.append(lbl[:13] + "..")
+        else:
+            abbrev_labels.append(lbl)
+
+    # Compute consistent spring layout from the mean absolute network
+    B_mean_abs = np.mean(np.abs(Bhat), axis=0)
+    G_layout = nx.DiGraph()
+    for node in abbrev_labels:
+        G_layout.add_node(node)
+    for dst in range(p):
+        for src in range(p):
+            if exclude_self_loops and dst == src:
+                continue
+            w = float(B_mean_abs[dst, src])
+            if w > edge_threshold_abs:
+                G_layout.add_edge(abbrev_labels[src], abbrev_labels[dst], weight=w)
+    pos = nx.spring_layout(G_layout, seed=seed, k=2.0 / max(1, p ** 0.5), iterations=80)
+
+    # Pre-compute global scale factors for consistent sizing across frames
+    all_abs = np.abs(Bhat)
+    global_max_edge = float(np.max(all_abs)) if np.any(all_abs > edge_threshold_abs) else 1.0
+
+    # In-strength (sum of absolute incoming coefficients per node) across all frames
+    in_strengths_all = np.sum(all_abs, axis=2)  # shape (m, p) — sum over src dimension
+    if exclude_self_loops:
+        for ei in range(m):
+            for i in range(p):
+                in_strengths_all[ei, i] -= all_abs[ei, i, i]
+    global_max_in_strength = float(np.max(in_strengths_all)) if np.max(in_strengths_all) > 0 else 1.0
+
+    # Node size range: 200 to 2000 (matplotlib scatter units)
+    min_node_size = 200.0
+    max_node_size = 2000.0
+    # Edge width range: 0.3 to 4.0
+    min_edge_width = 0.3
+    max_edge_width = 4.0
+
+    import io
+
+    frames: List[bytes] = []
+
+    for ei in range(m):
+        te = float(estpoints[ei])
+        B_t = Bhat[ei]
+
+        # Build directed graph for this time point
+        G = nx.DiGraph()
+        for node in abbrev_labels:
+            G.add_node(node)
+
+        edges_data = []
+        for dst in range(p):
+            for src in range(p):
+                if exclude_self_loops and dst == src:
+                    continue
+                w = float(B_t[dst, src])
+                aw = abs(w)
+                if aw < edge_threshold_abs:
+                    continue
+                G.add_edge(abbrev_labels[src], abbrev_labels[dst], weight=w, abs_weight=aw)
+                edges_data.append((abbrev_labels[src], abbrev_labels[dst], w, aw))
+
+        # Node sizes proportional to in-strength
+        node_sizes = []
+        for i in range(p):
+            s = float(in_strengths_all[ei, i])
+            ratio = s / global_max_in_strength if global_max_in_strength > 0 else 0.0
+            node_sizes.append(min_node_size + ratio * (max_node_size - min_node_size))
+
+        fig, ax = plt.subplots(1, 1, figsize=(fig_size_inches, fig_size_inches), dpi=dpi)
+
+        # Draw nodes
+        nx.draw_networkx_nodes(
+            G, pos, ax=ax,
+            nodelist=abbrev_labels,
+            node_size=node_sizes,
+            node_color="#d4e6f1",
+            edgecolors="#2c3e50",
+            linewidths=1.2,
+            alpha=0.92,
+        )
+
+        # Draw node labels
+        font_size = max(5, min(9, 36 // max(1, p)))
+        nx.draw_networkx_labels(
+            G, pos, ax=ax,
+            font_size=font_size,
+            font_weight="bold",
+            font_color="#1a1a2e",
+        )
+
+        # Draw edges with color (blue=positive, red=negative) and width proportional to magnitude
+        if edges_data:
+            edge_list = [(src, dst) for src, dst, w, aw in edges_data]
+            edge_widths = [
+                min_edge_width + (aw / global_max_edge) * (max_edge_width - min_edge_width)
+                for _, _, w, aw in edges_data
+            ]
+            edge_colors = [
+                "#2980b9" if w >= 0 else "#c0392b"
+                for _, _, w, aw in edges_data
+            ]
+            edge_alphas = [
+                0.35 + 0.60 * (aw / global_max_edge)
+                for _, _, w, aw in edges_data
+            ]
+
+            for idx_e, (src_e, dst_e) in enumerate(edge_list):
+                nx.draw_networkx_edges(
+                    G, pos, ax=ax,
+                    edgelist=[(src_e, dst_e)],
+                    width=edge_widths[idx_e],
+                    edge_color=[edge_colors[idx_e]],
+                    alpha=edge_alphas[idx_e],
+                    arrows=True,
+                    arrowsize=max(6, min(14, 60 // max(1, p))),
+                    connectionstyle="arc3,rad=0.10",
+                    min_source_margin=12,
+                    min_target_margin=12,
+                )
+
+        # Title with time info and change-point indicator
+        is_cp = ei in cp_set
+        cp_marker = "  ** CHANGE POINT **" if is_cp else ""
+        title_color = "#c0392b" if is_cp else "#2c3e50"
+        ax.set_title(
+            f"t = {te:.3f}  (window {ei + 1}/{m}){cp_marker}",
+            fontsize=10,
+            fontweight="bold",
+            color=title_color,
+            pad=10,
+        )
+
+        ax.set_axis_off()
+        fig.tight_layout(pad=0.5)
+
+        # Rasterize to PNG in memory
+        buf = io.BytesIO()
+        fig.savefig(buf, format="png", dpi=dpi, bbox_inches="tight", facecolor="white")
+        plt.close(fig)
+        buf.seek(0)
+        frames.append(buf.read())
+
+    # Assemble GIF
+    if not frames:
+        log("[GIF] No frames generated; skipping.")
+        return False
+
+    ensure_dir(output_path.parent)
+
+    if HAVE_PILLOW:
+        try:
+            pil_frames = []
+            for raw_png in frames:
+                img = PILImage.open(io.BytesIO(raw_png)).convert("RGBA")
+                # Quantize to palette for smaller GIF
+                bg = PILImage.new("RGBA", img.size, (255, 255, 255, 255))
+                bg.paste(img, mask=img)
+                pil_frames.append(bg.convert("RGB"))
+
+            pil_frames[0].save(
+                str(output_path),
+                format="GIF",
+                save_all=True,
+                append_images=pil_frames[1:],
+                duration=frame_duration_ms,
+                loop=0,
+                optimize=True,
+            )
+            log(f"[GIF] Saved tv network animation ({m} frames): {output_path}")
+            return True
+        except Exception as e:
+            log(f"[GIF] Pillow GIF assembly failed ({repr(e)}); trying imageio fallback.")
+
+    if HAVE_IMAGEIO:
+        try:
+            import imageio  # noqa: F811
+            images = []
+            for raw_png in frames:
+                img = imageio.imread(io.BytesIO(raw_png))
+                images.append(img)
+            imageio.mimsave(
+                str(output_path),
+                images,
+                duration=frame_duration_ms / 1000.0,
+                loop=0,
+            )
+            log(f"[GIF] Saved tv network animation via imageio ({m} frames): {output_path}")
+            return True
+        except Exception as e:
+            log(f"[GIF] imageio GIF assembly also failed: {repr(e)}")
+
+    log("[GIF] Could not assemble GIF with any available backend.")
+    return False
+
+
 def save_tv_outputs(
     base_method_dir: Path,
     tv: TvKsResult,
@@ -2714,6 +3004,26 @@ def analyze_one_profile_from_readiness(
             exclude_self=bool(CFG.exclude_self_loops),
         )
         edge_shifts.to_csv(num1 / "edge_shifts_top.csv", index=False)
+
+        # ---- Generate animated GIF of time-varying network
+        cp_indices = cp.get("change_points", []) if isinstance(cp, dict) else []
+        gif_path = prof_out / "tv_network_animation.gif"
+        try:
+            generate_tv_network_animation_gif(
+                Bhat=tv.Bhat,
+                estpoints=tv.estpoints,
+                labels=label_list,
+                output_path=gif_path,
+                change_points=cp_indices,
+                frame_duration_ms=150,
+                dpi=300,
+                fig_size_inches=4.0,
+                edge_threshold_abs=float(CFG.edge_threshold_abs),
+                exclude_self_loops=bool(CFG.exclude_self_loops),
+                seed=int(seed),
+            )
+        except Exception as e:
+            log(f"[GIF] Failed to generate tv network animation: {repr(e)}")
 
         Y_tv, Yhat_tv, idx_map = one_step_prediction_tv(X_imp_z, t_norm, tv)
         tv_pred = prediction_metrics(Y_tv, Yhat_tv)

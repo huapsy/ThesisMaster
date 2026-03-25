@@ -1,10 +1,39 @@
-# 🐦‍🔥 PHOENIX Engine 🐦‍🔥
+# Enhancing Translational Abilities of Longitudinal Mental Health Applications: An Adaptive Approach to Idiographic Modelling by Leveraging Ontologies and Large Language Models
 
-The PHOENIX engine conceptualises mental health support as a closed-loop workflow that iteratively optimizes the intervention proposal based on data from previous cycles.
+## 🐦‍🔥 PHOENIX Engine
+
+This repository contains the **PHOENIX engine**, the software system developed for the master's thesis above.
+
+The PHOENIX engine conceptualises mental health support as a **closed-loop workflow** that iteratively optimizes the intervention proposal based on data from previous cycles.
 
 (**P**ersonalized **H**ierarchical **O**ptimization **E**ngine for **N**avigating **I**nsightful e**X**plorations)
 
+[![Software Tool](https://img.shields.io/badge/Type-Software_Tool-4f46e5.svg?style=flat-square)](#) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat-square)](#) [![Docker Ready](https://img.shields.io/badge/Docker-Ready-2496ED.svg?style=flat-square&logo=docker&logoColor=white)](#) [![Ghent University](https://img.shields.io/badge/Ghent_University-Master's_Thesis-007a64.svg?style=flat-square)](#)
+<br>
+
+---
+
+## 📋 Table of Contents
+
+- [🏛️ Academic Context](#-academic-context)
+- [🧭 PHOENIX Scope](#-phoenix-scope)
+- [🔁 End-to-End Stage Map](#-end-to-end-stage-map)
+- [🐦‍🔥 PHOENIX Ontology](#-phoenix-ontology-with-llm-based-mappings)
+- [🏗️ Technical Architecture](#-technical-architecture)
+- [🚀 Quick Setup](#-quick-setup-of-phoenix-engine)
+- [🗂️ Repository Structure](#-repository-structure)
+- [💻 Run from CLI](#-run-phoenix-from-cli)
+- [🖥️ Run from Frontend](#-run-phoenix-from-frontend)
+- [📦 Outputs and Validation](#-outputs-and-validation-targets)
+- [📊 Survey Evaluation Framework](#-survey-evaluation-framework)
+- [✅ Quality Assurance and CI/CD](#-quality-assurance-and-cicd)
+- [🐳 Docker](#-docker)
+- [📜 License](#-license)
+
+---
+
 ## 🏛️ Academic Context
+
 This research-grade software is being created for a Ghent University **master's thesis** that aims to enhance the clinical translation abilities of longitudinal **mental health applications**: toward an adaptive approach for **idiographic modelling** by using **ontologies and large language models**.
 
 | **Field** | **Value** |
@@ -12,6 +41,8 @@ This research-grade software is being created for a Ghent University **master's 
 | **Institution** | Ghent University |
 | **Author** | Stijn Van Severen |
 | **Supervisors** | Geert Crombez, Annick De Paepe |
+
+---
 
 ## 🧭 PHOENIX Scope
 
@@ -22,16 +53,74 @@ PHOENIX separates two concerns:
 
 This separation keeps scientific validation transparent without mixing support tasks into core decision logic.
 
+---
+
 ## 🔁 End-to-End Stage Map
 
 PHOENIX is a modular, multi-agent system that starts from free-text complaints, builds an initial observation model, analyzes time-series dynamics, proposes targets/interventions, and packages iterative updates for the next cycle.
 
-![PHOENIX engine — Multi Agent System Architecture](src/overview/create_flowchart.png)
+![PHOENIX engine — Multi Agent System Architecture](src/backend/overview/create_flowchart.png)
+
+---
 
 ## 🐦‍🔥 PHOENIX Ontology with LLM-based Mappings
-The following ontology was developed to support the PHOENIX engine's reasoning and decision-making processes. It includes a comprehensive set of concepts and relationships relevant to mental health interventions, such as mental health symptoms and treatment options. 
 
-![PHOENIX_ontology.png](src%2Foverview%2FPHOENIX_ontology.png)
+The following ontology was developed to support the PHOENIX engine's reasoning and decision-making processes.
+
+![PHOENIX Aggregated Ontology](src/SystemComponents/PHOENIX_ontology/aggretated/image.png)
+
+---
+
+## 🏗️ Technical Architecture
+
+### Five PHOENIX Ontologies
+
+All stages are constrained by five stable ontologies that enforce structural guarantees across the full pipeline:
+
+| Ontology | Role | Source |
+|---|---|---|
+| **CRITERION** | Operationalized mental health variables (DSM-5-TR, RDoC) | `src/SystemComponents/PHOENIX_ontology/separate/CRITERION/` |
+| **PREDICTOR** | Measurable constructs that temporally precede criteria | `src/SystemComponents/PHOENIX_ontology/separate/PREDICTOR/` |
+| **PERSON** | Individual characteristics (demographics, comorbidity, history) | `src/SystemComponents/PHOENIX_ontology/separate/PERSON/` |
+| **CONTEXT** | Situational and environmental factors | `src/SystemComponents/PHOENIX_ontology/separate/CONTEXT/` |
+| **HAPA** | Health Action Process Approach (barriers, coping, phases) | `src/SystemComponents/PHOENIX_ontology/separate/HAPA/` |
+
+### Multi-Agent Design
+
+Each core stage pairs a **generator agent** with a **critic agent**:
+
+| Stage | Generator | Critic Dimensions | Core Method |
+|---|---|---|---|
+| 01 | Complaint Operationalization Agent | — | HTSSF: hybrid temperature-scaled softmax fusion (dense + BM25 + token overlap + fuzzy) |
+| 02 | Initial Model Constructor | predictor_grounding, criterion_continuity, ontology_strictness, evidence_quality | HyDE-based predictor RAG |
+| 03 | Target Identifier + Model Update Actor | safety, domain_boundary, lineage_consistency | BFS candidate selector + idiographic-nomothetic fusion |
+| 04 | HAPA Intervention Mapper | reasoning_quality, evidence_grounding, hapa_consistency, medical_safety | Barrier scoring: 0.60·predictor + 0.20·profile + 0.15·context + 0.05·complaint |
+
+**Optional DAG orchestrator** (`src/backend/orchestrator.py`): for complex tasks, a flexible orchestrator creates DAG-based parallel/sequential execution plans — otherwise the pipeline runs sequentially (primary evaluation path).
+
+### Hierarchical Updating Algorithm (HUA)
+
+Quantitative backbone bridging EMA data to adaptive model weighting:
+
+1. **Readiness classifier** — stationarity (ADF/KPSS), collinearity, effective sample size → tier selection (tv-gVAR / gVAR / GGM / correlation / descriptives)
+2. **Network time-series analyst** — kernel-smoothed VAR(1), L1-penalized stationary gVAR, partial correlations (Ledoit-Wolf shrinkage), time-varying GIF animations
+3. **Momentary impact quantifier** — leave-one-predictor-out MSE delta + coefficient magnitude composite
+4. **BFS candidate selector** — `score = 0.45·mapping + 0.25·HyDE + 0.20·idiographic_anchor + 0.10·domain_bonus`
+
+**Adaptive idiographic-nomothetic weighting** per cycle:
+```
+idiographic_weight = clamp(0.30 + 0.50 × readiness_score / 100)
+nomothetic_weight  = 1.0 - idiographic_weight
+```
+
+### Iterative Cycle Design
+
+PHOENIX implements a breadth-first iterative algorithm across cycles:
+
+1. **Cycle N** produces: criterion leaf, initial model, pseudodata, HUA results, treatment targets, HAPA intervention
+2. **Cycle N+1** seeds from Cycle N via a history ledger: impact scores → `idiographic_anchor` in BFS; prior cycle scores modulate `domain_bonus`; `composite_score = 0.35·similarity + 0.25·impact[N] + 0.15·target_scores + 0.10·priority_scores + 0.15·quality_scores`
+
+---
 
 ## 🚀 Quick Setup of PHOENIX engine
 
@@ -73,12 +162,14 @@ If you want to quickly validate the integrated pipeline on a single profile with
 make pipeline-smoke
 ```
 
+---
+
 ## 🗂️ Repository Structure
 
-A client-side graph creator (GitNexus) was used to generate  a comprehensive knowledge graph of the entire codebase; its component interactions are provided below:
+A client-side graph creator (GitNexus) was used to generate a comprehensive knowledge graph of the entire codebase; its component interactions are provided below:
 
 <div align="center">
-  <img src="src/overview/gitnexus_overview.png" alt="PHOENIX GitNexus Codebase Graph" width="800" />
+  <img src="src/backend/overview/gitnexus_overview.png" alt="PHOENIX GitNexus Codebase Graph" width="800" />
 </div>
 
 The main codebase is organized into three primary directories: `src/` for core engine logic, `evaluation/` for all evaluation scripts and research support, and `frontend/` for the Flask application. The structure is designed to maintain a clear separation of concerns while facilitating modular development and testing.
@@ -88,23 +179,28 @@ MASTERPROEF/
 ├── src/                            # Core engine logic and ontology-backed components
 │   ├── SystemComponents/              # Agentic framework, HUA, intervention components
 │   ├── utils/                         # Shared agentic runtime, mappings, feasibility utilities
-│   └── overview/                      # Architecture visuals
+│   ├── frontend/                      # Flask app, UI routes, runtime workspace integration
+│   └── backend/overview/              # Architecture visuals and codebase graph
 ├── evaluation/                     # Sequential scripts + integrated pipeline + QA/research
 │   ├── sequential/                    # Stage-wise run_step.py scripts (00..08)
 │   ├── integrated_pipeline/           # run_pipeline.py and run_engine_pipeline.py
+│   ├── survey_analysis/               # 6-study evaluation framework with analysis scripts
 │   └── quality_and_research/          # pytest suites, schema contracts, research reporting
-├── frontend/                       # Flask app, UI routes, runtime workspace integration
+├── docker/                         # Dockerfile + docker-compose for reproducible deployment
 ├── .github/                        # CI/CD workflows
 ├── pyproject.toml                  # Python package metadata and constraints
 ├── requirements.txt                # Dependency baseline
 └── README.md                       # Root documentation
 ```
 
+---
+
 ## 💻 Run PHOENIX from CLI
 
 ### A. Standard integrated run
 
 The following command executes the full PHOENIX pipeline with default settings, processing the synthetic_v1 dataset through all stages and generating comprehensive outputs:
+
 ```bash
 python evaluation/integrated_pipeline/run_pipeline.py --mode synthetic_v1
 ```
@@ -112,6 +208,7 @@ python evaluation/integrated_pipeline/run_pipeline.py --mode synthetic_v1
 ### B. Single profile selection
 
 The following command runs the pipeline on the `synthetic_v1` dataset but limits the execution to a single profile matching the pattern `pseudoprofile_FTC_ID001`. This allows for focused testing and debugging on a specific case:
+
 ```bash
 python evaluation/integrated_pipeline/run_pipeline.py --mode synthetic_v1 \
   --pattern pseudoprofile_FTC_ID001 \
@@ -128,17 +225,25 @@ python evaluation/integrated_pipeline/run_pipeline.py --mode synthetic_v1 \
   --profile-memory-window 3
 ```
 
+### D. Deterministic mode (no LLM)
+
+```bash
+python evaluation/integrated_pipeline/run_pipeline.py --mode synthetic_v1 --disable-llm
+```
+
 Runtime note:
 - If a cycle is `readiness_aligned` and only contemporaneous correlation analysis is feasible, PHOENIX now applies a correlation-baseline impact fallback so downstream Step-03/04/05 and communication stages still execute and persist outputs.
 - If Step-02 model generation fails (for example provider/network failure), PHOENIX now builds complaint-grounded fallback Step-02 artifacts directly from Step-01 operationalization output, instead of copying unrelated historical profile artifacts.
 - For iterative cycles started via `--start-from-pseudodata`, PHOENIX now resolves `initial_model_runs_root` from the active run lineage (same run id) so Step-03/04 stay anchored to the current cycle history.
+
+---
 
 ## 🖥️ Run PHOENIX from Frontend
 
 Use the following command to start the Flask frontend:
 
 ```bash
-python frontend/app.py
+python src/frontend/app.py
 # or
 python evaluation/integrated_pipeline/run_pipeline.py --ui
 ```
@@ -150,7 +255,12 @@ Frontend provides:
 - Live component status and streaming logs
 - One-click full end-to-end run from free-text complaint (with iterative cycle controls)
 - Step-level run controls and advanced configuration toggles
-- Iterative-cycle execution and output inspection
+- Wizard-style iterative execution: INTAKE → MODEL → DATA → ANALYSIS → INTERVENTION → MODEL (cycle N+1)
+- Interactive Chart.js dashboard — all visualizations are dynamic (no static PNGs in UI)
+- Canvas-based animated network visualization with per-frame scrubbing
+- Session persistence and cohort batch execution
+
+---
 
 ## 📦 Outputs and Validation Targets
 

@@ -70,6 +70,7 @@ from shared import (
     normalize_path_text,
     pack_prompt_sections,
     render_prompt,
+    select_breadth_balanced_predictors,
     top_parent_domains_for_bundle,
     weighted_composite,
 )
@@ -153,7 +154,18 @@ def parse_profile_text_file(path: Path) -> Dict[str, str]:
         if current_key is None:
             continue
         output[current_key].append(line)
-    return {k: "\n".join(v).strip() for k, v in output.items()}
+    return {k: _sanitize_profile_text_block("\n".join(v)) for k, v in output.items()}
+
+
+def _sanitize_profile_text_block(text: str) -> str:
+    cleaned_lines: List[str] = []
+    for raw in str(text or "").splitlines():
+        line = raw.rstrip()
+        if line.strip() == "{intake}":
+            continue
+        cleaned_lines.append(line)
+    cleaned = "\n".join(cleaned_lines).strip()
+    return re.sub(r"\n{3,}", "\n\n", cleaned)
 
 
 def profile_text_bundle(
@@ -166,23 +178,26 @@ def profile_text_bundle(
     if number is None:
         return {"complaint_text": "", "person_text": "", "context_text": ""}
     return {
-        "complaint_text": complaints.get(f"pseudoprofile_FTC_ID{number}", ""),
-        "person_text": person_profiles.get(f"pseudoprofile_person_ID{number}", ""),
-        "context_text": context_profiles.get(f"pseudoprofile_context_ID{number}", ""),
+        "complaint_text": _sanitize_profile_text_block(complaints.get(f"pseudoprofile_FTC_ID{number}", "")),
+        "person_text": _sanitize_profile_text_block(person_profiles.get(f"pseudoprofile_person_ID{number}", "")),
+        "context_text": _sanitize_profile_text_block(context_profiles.get(f"pseudoprofile_context_ID{number}", "")),
     }
 
 
 def find_latest_initial_model(
     runs_root: Path,
     profile_id: str,
-    filename: str = "llm_observation_model_mapped.json",
+    filenames: Sequence[str] = ("llm_observation_model_mapped.json", "llm_observation_model_final.json"),
 ) -> Optional[Path]:
-    candidates = sorted(
-        runs_root.glob(f"*/profiles/{profile_id}/{filename}"),
-        key=lambda p: p.stat().st_mtime if p.exists() else 0.0,
-        reverse=True,
-    )
-    return candidates[0] if candidates else None
+    for filename in filenames:
+        candidates = sorted(
+            runs_root.glob(f"*/profiles/{profile_id}/{filename}"),
+            key=lambda p: p.stat().st_mtime if p.exists() else 0.0,
+            reverse=True,
+        )
+        if candidates:
+            return candidates[0]
+    return None
 
 
 def token_set(text: str) -> set[str]:
@@ -318,6 +333,13 @@ def summarize_network_metrics(network_profile_root: Path) -> Dict[str, Any]:
 
 
 def summarize_initial_model(initial_model_payload: Dict[str, Any]) -> Dict[str, Any]:
+    def _resolve_leaf_path(item: Dict[str, Any], *, role: str) -> str:
+        if role == "predictor":
+            raw = item.get("mapped_leaf_full_path") or item.get("ontology_path") or ""
+        else:
+            raw = item.get("mapped_leaf_full_path") or item.get("criterion_path") or ""
+        return normalize_path_text(str(raw or ""))
+
     predictors = initial_model_payload.get("predictor_variables", []) or []
     criteria = initial_model_payload.get("criteria_variables", []) or []
     predictor_summary: List[Dict[str, Any]] = []
@@ -327,7 +349,7 @@ def summarize_initial_model(initial_model_payload: Dict[str, Any]) -> Dict[str, 
                 "var_id": item.get("var_id"),
                 "label": item.get("label"),
                 "include_priority": item.get("include_priority"),
-                "mapped_leaf_full_path": item.get("mapped_leaf_full_path"),
+                "mapped_leaf_full_path": _resolve_leaf_path(item, role="predictor"),
                 "mapped_confidence": item.get("mapped_confidence"),
                 "bio_psycho_social_domain": item.get("bio_psycho_social_domain"),
                 "targets_criteria_var_ids": item.get("targets_criteria_var_ids", []),
@@ -339,7 +361,7 @@ def summarize_initial_model(initial_model_payload: Dict[str, Any]) -> Dict[str, 
             {
                 "var_id": item.get("var_id"),
                 "label": item.get("label"),
-                "mapped_leaf_full_path": item.get("mapped_leaf_full_path"),
+                "mapped_leaf_full_path": _resolve_leaf_path(item, role="criterion"),
                 "mapped_confidence": item.get("mapped_confidence"),
             }
         )
@@ -1093,7 +1115,10 @@ def apply_fusion_to_step04_output(
     if fused_shortlist:
         step04_output.refined_predictor_shortlist = fused_shortlist
 
-    next_predictors = [item.predictor_path for item in fused_shortlist[:20]]
+    next_predictors = select_breadth_balanced_predictors(
+        fusion_payload.get("predictor_rankings", []),
+        max_predictors=20,
+    )
     if not next_predictors:
         next_predictors = [item.predictor_path for item in step04_output.refined_predictor_shortlist[:20]]
     step04_output.recommended_next_observation_predictors = next_predictors
@@ -1116,6 +1141,56 @@ def apply_fusion_to_step04_output(
     )
 
     return fusion_payload
+
+
+def finalize_step04_candidate(
+    *,
+    step04_candidate: Step04UpdatedObservationModel,
+    step03_output: Step03SelectionModel,
+    initial_model_summary: Dict[str, Any],
+    initial_model_payload: Dict[str, Any],
+    impact_matrix: pd.DataFrame,
+    mapping_rows: Sequence[Dict[str, Any]],
+    readiness_score_0_100: Optional[float],
+    previous_cycle_scores: Optional[Dict[str, float]],
+    max_candidate_predictors: int,
+    ontology_candidates: Sequence[Dict[str, Any]],
+    preferred_predictor_count: int,
+    preferred_criterion_count: int,
+    hard_ontology_constraint: bool,
+    allowed_predictor_paths: Sequence[str],
+) -> Tuple[Step04UpdatedObservationModel, Dict[str, Any]]:
+    finalized = step04_candidate.model_copy(deep=True)
+    fusion_payload = apply_fusion_to_step04_output(
+        step04_output=finalized,
+        step03_output=step03_output,
+        initial_model_summary=initial_model_summary,
+        initial_model_payload=initial_model_payload,
+        impact_matrix=impact_matrix,
+        mapping_rows=mapping_rows,
+        readiness_score_0_100=readiness_score_0_100,
+        previous_cycle_scores=previous_cycle_scores,
+        max_candidate_predictors=max_candidate_predictors,
+    )
+    range_policy = enforce_step04_range_policy(
+        step04_output=finalized,
+        step03_output=step03_output,
+        initial_model_summary=initial_model_summary,
+        ontology_candidates=ontology_candidates,
+        preferred_predictor_count=preferred_predictor_count,
+        preferred_criterion_count=preferred_criterion_count,
+    )
+    post_fusion_constraint: Dict[str, Any] = {"applied": False}
+    if hard_ontology_constraint:
+        post_fusion_constraint = _enforce_step04_hard_ontology(
+            finalized,
+            allowed_predictor_paths=allowed_predictor_paths,
+        )
+    return finalized, {
+        "fusion_payload": fusion_payload,
+        "range_policy": range_policy,
+        "post_fusion_constraint": post_fusion_constraint,
+    }
 
 
 def enforce_step04_range_policy(
@@ -1645,10 +1720,29 @@ def main() -> int:
                 "ontology_candidates": ontology_candidates,
             }
 
-            step04_trace: Dict[str, Any] = {"provider": "heuristic", "reason": "disabled", "actor_attempts": [], "critic_attempts": []}
+            impact_matrix = load_impact_matrix(profile_dir / "impact_matrix.csv")
+            previous_cycle_scores = load_previous_cycle_scores(
+                profile_id=profile_id,
+                history_snapshots_path=history_snapshots_path,
+                memory_window=int(max(1, int(args.profile_memory_window))),
+            )
+
+            step04_trace: Dict[str, Any] = {
+                "provider": "heuristic",
+                "reason": "disabled",
+                "actor_attempts": [],
+                "critic_attempts": [],
+                "critic_review_scope": "post_fusion_finalized_candidate",
+            }
             step04_critic_review: Optional[StageCriticReviewModel] = None
             step04_feedback: List[str] = []
             step04_output: Optional[Step04UpdatedObservationModel] = None
+            fusion_payload: Dict[str, Any] = {}
+            range_policy: Dict[str, Any] = {}
+            post_fusion_constraint: Dict[str, Any] = {"applied": False}
+            allowed_step04_paths = [str(item.get("predictor_path") or "") for item in ontology_candidates]
+            step04_trace["memory_prior_loaded"] = bool(previous_cycle_scores)
+            step04_trace["memory_prior_count"] = int(len(previous_cycle_scores))
             for attempt in range(critic_max_iterations + 1):
                 step04_bundle_for_attempt = dict(step04_bundle)
                 if step04_feedback:
@@ -1687,6 +1781,32 @@ def main() -> int:
                 else:
                     step04_constraint = {"applied": False}
 
+                finalized_step04_candidate, finalized_step04_meta = finalize_step04_candidate(
+                    step04_candidate=step04_candidate,
+                    step03_output=step03_output,
+                    initial_model_summary=initial_model_summary,
+                    initial_model_payload=initial_model_payload,
+                    impact_matrix=impact_matrix,
+                    mapping_rows=mapping_rows,
+                    readiness_score_0_100=(evidence_bundle.get("readiness", {}) or {}).get("score_0_100"),
+                    previous_cycle_scores=previous_cycle_scores,
+                    max_candidate_predictors=int(args.max_candidate_predictors),
+                    ontology_candidates=ontology_candidates,
+                    preferred_predictor_count=int(args.preferred_predictor_count),
+                    preferred_criterion_count=int(args.preferred_criterion_count),
+                    hard_ontology_constraint=bool(args.hard_ontology_constraint),
+                    allowed_predictor_paths=allowed_step04_paths,
+                )
+                step04_actor_trace["finalized_shortlist_count"] = len(
+                    finalized_step04_candidate.refined_predictor_shortlist
+                )
+                step04_actor_trace["finalized_next_predictor_count"] = len(
+                    finalized_step04_candidate.recommended_next_observation_predictors
+                )
+                step04_actor_trace["fusion_weights"] = (
+                    finalized_step04_meta.get("fusion_payload", {}).get("weights", {}) or {}
+                )
+
                 run_critic = (not bool(args.disable_llm)) and (actor_mode == "structured_llm_success")
                 if run_critic:
                     critic_payload = {
@@ -1697,7 +1817,7 @@ def main() -> int:
                         client=llm_client,
                         profile_id=profile_id,
                         stage="step04",
-                        stage_output_payload=step04_candidate.model_dump(mode="json"),
+                        stage_output_payload=finalized_step04_candidate.model_dump(mode="json"),
                         evidence_bundle=critic_payload,
                         pass_threshold_0_1=float(args.critic_pass_threshold),
                         prompt_budget_tokens=int(args.prompt_budget_tokens),
@@ -1706,7 +1826,7 @@ def main() -> int:
                         step04_critic_review = _heuristic_stage_critic(
                             stage="step04",
                             profile_id=profile_id,
-                            stage_output=step04_candidate.model_dump(mode="json"),
+                            stage_output=finalized_step04_candidate.model_dump(mode="json"),
                             evidence_bundle=critic_payload,
                             pass_threshold_0_1=float(args.critic_pass_threshold),
                         )
@@ -1724,7 +1844,12 @@ def main() -> int:
                         step04_critic_review.pass_decision == "PASS"
                         or attempt >= critic_max_iterations
                     ):
-                        step04_output = step04_candidate
+                        step04_output = finalized_step04_candidate
+                        fusion_payload = dict(finalized_step04_meta.get("fusion_payload", {}) or {})
+                        range_policy = dict(finalized_step04_meta.get("range_policy", {}) or {})
+                        post_fusion_constraint = dict(
+                            finalized_step04_meta.get("post_fusion_constraint", {}) or {}
+                        )
                         step04_trace["reason"] = actor_mode
                         break
                     step04_feedback = list(step04_critic_review.feedback_for_revision or [])
@@ -1735,7 +1860,7 @@ def main() -> int:
                 step04_critic_review = _heuristic_stage_critic(
                     stage="step04",
                     profile_id=profile_id,
-                    stage_output=step04_candidate.model_dump(mode="json"),
+                    stage_output=finalized_step04_candidate.model_dump(mode="json"),
                     evidence_bundle=step04_bundle_for_attempt,
                     pass_threshold_0_1=float(args.critic_pass_threshold),
                 )
@@ -1748,7 +1873,12 @@ def main() -> int:
                         "critic_composite_score_0_1": step04_critic_review.composite_score_0_1,
                     }
                 )
-                step04_output = step04_candidate
+                step04_output = finalized_step04_candidate
+                fusion_payload = dict(finalized_step04_meta.get("fusion_payload", {}) or {})
+                range_policy = dict(finalized_step04_meta.get("range_policy", {}) or {})
+                post_fusion_constraint = dict(
+                    finalized_step04_meta.get("post_fusion_constraint", {}) or {}
+                )
                 step04_trace["reason"] = actor_mode
                 step04_trace["constraint"] = step04_constraint
                 break
@@ -1758,43 +1888,11 @@ def main() -> int:
             if step04_critic_review is not None:
                 step04_trace["critic_final_decision"] = step04_critic_review.pass_decision
                 step04_trace["critic_final_score_0_1"] = step04_critic_review.composite_score_0_1
-
-            impact_matrix = load_impact_matrix(profile_dir / "impact_matrix.csv")
-            previous_cycle_scores = load_previous_cycle_scores(
-                profile_id=profile_id,
-                history_snapshots_path=history_snapshots_path,
-                memory_window=int(max(1, int(args.profile_memory_window))),
-            )
-            step04_trace["memory_prior_loaded"] = bool(previous_cycle_scores)
-            step04_trace["memory_prior_count"] = int(len(previous_cycle_scores))
-            fusion_payload = apply_fusion_to_step04_output(
-                step04_output=step04_output,
-                step03_output=step03_output,
-                initial_model_summary=initial_model_summary,
-                initial_model_payload=initial_model_payload,
-                impact_matrix=impact_matrix,
-                mapping_rows=mapping_rows,
-                readiness_score_0_100=(evidence_bundle.get("readiness", {}) or {}).get("score_0_100"),
-                previous_cycle_scores=previous_cycle_scores,
-                max_candidate_predictors=int(args.max_candidate_predictors),
-            )
-
             step04_trace["fusion_weights"] = fusion_payload.get("weights", {})
             step04_trace["fusion_predictor_count"] = len(fusion_payload.get("predictor_rankings", []))
-            range_policy = enforce_step04_range_policy(
-                step04_output=step04_output,
-                step03_output=step03_output,
-                initial_model_summary=initial_model_summary,
-                ontology_candidates=ontology_candidates,
-                preferred_predictor_count=int(args.preferred_predictor_count),
-                preferred_criterion_count=int(args.preferred_criterion_count),
-            )
             step04_trace["target_range_policy"] = range_policy
             if bool(args.hard_ontology_constraint):
-                step04_trace["hard_ontology_post_fusion"] = _enforce_step04_hard_ontology(
-                    step04_output,
-                    allowed_predictor_paths=[str(item.get("predictor_path") or "") for item in ontology_candidates],
-                )
+                step04_trace["hard_ontology_post_fusion"] = post_fusion_constraint
 
             visual_files: List[str] = []
             if bool(args.visualize_updated_model):

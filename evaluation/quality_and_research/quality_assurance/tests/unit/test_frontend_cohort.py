@@ -12,7 +12,7 @@ pytestmark = pytest.mark.unit
 def test_build_cohort_cases_count_and_variants(repo_root):
     if str(repo_root) not in sys.path:
         sys.path.insert(0, str(repo_root))
-    from frontend.phoenix_frontend.services.cohort import build_cohort_cases
+    from src.frontend.phoenix_frontend.services.cohort import build_cohort_cases
 
     cases = build_cohort_cases(
         base_complaint="Mood is unstable.",

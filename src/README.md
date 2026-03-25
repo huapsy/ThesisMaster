@@ -1,81 +1,90 @@
-# PHOENIX Engine — Multi-Agent System (`src/`)
+# PHOENIX Engine -- Core Architecture (`src/`)
 
-The **PHOENIX Engine** is a research-grade **pre-determined sequential Multi-Agent System** for personalised mental-health treatment plan generation.
+The **PHOENIX Engine** is a research-grade **DAG-orchestrated multi-agent system** for personalized mental-health treatment plan generation. The system uses a directed acyclic graph (DAG) to manage stage dependencies, enabling parallel execution where possible and enforcing critic-actor quality gates at each stage boundary.
 
 | Property | Value |
 |---|---|
-| **Entry point** | Free-text mental health complaint (not raw time-series data) |
-| **No orchestrator** | Five-stage sequence is fixed; each stage's output deterministically feeds the next |
-| **Five ontologies** | CRITERION · PREDICTOR · PERSON · CONTEXT · HAPA — stable structural constraints across cycles |
-| **Iterative** | Artefacts from cycle N seed cycle N+1 via the history ledger |
+| **Entry point** | Free-text mental health complaint |
+| **Orchestrator** | DAG-based (`src/backend/orchestrator.py`) with topological scheduling and parallel execution |
+| **Five ontologies** | CRITERION, PREDICTOR, PERSON, CONTEXT, HAPA -- stable structural constraints across cycles |
+| **Iterative** | Artifacts from cycle N seed cycle N+1 via the history ledger |
+| **Quality gates** | Critic-actor loops with adaptive threshold relaxation and diminishing-returns detection |
 
 ---
 
-## Architecture
+## DAG Architecture
 
-![PHOENIX Multi-Agent System](./overview/create_flowchart.png)
+The pipeline consists of 12 stages organized as a DAG. The orchestrator identifies parallel execution groups automatically:
 
-*Full Mermaid flowchart and design principles: [`overview/README.md`](./overview/README.md) · Regenerate PNG: `python src/overview/create_flowchart.py`*
+```
+Group 1: [01] Complaint Operationalization
+Group 2: [02] Initial Observation Model
+Group 3: [03] Pseudodata Generation
+Group 4: [04a] Readiness Check
+Group 5: [04b] Network Time-Series Analysis
+Group 6: [04c] Momentary Impact Quantification
+Group 7: [05] Treatment Target ID  +  [09] Impact Visualization (parallel)
+Group 8: [06] Updated Observation Model
+Group 9: [07] HAPA Digital Intervention
+Group 10: [08] Treatment Communication  +  [10] Research Reporting (parallel)
+```
+
+**Key design**: stages 05 and 09 execute in parallel (both depend on 04c but not on each other), and stages 08 and 10 execute in parallel (both depend on 07 but not on each other).
+
+![PHOENIX Multi-Agent System](./backend/overview/create_flowchart.png)
 
 ---
 
-## Agents & Roles
+## Agents and Roles
 
-### Input
+### Stage 01 -- Criterion Operationalization
 
-| Component | Fields |
+| Agent | Method |
 |---|---|
-| Free-text complaint | `complaint_text` · `person_text` · `context_text` (pseudoprofile) |
+| **Criterion Operationalization Agent** | HTSSF fusion (dense embedding + BM25 + token-overlap + fuzzy) -> LLM re-rank top-50 -> single CRITERION leaf |
 
-### Stage 01 — Criterion Operationalization
+### Stage 02 -- Initial Observation Model
 
-| Agent | Script | Role |
-|---|---|---|
-| **Criterion Operationalization Agent** | `01_OperationalizationMentalHealthProblem/` | HTSSF fusion (embedding + BM25 + token-overlap + fuzzy) → LLM adjudication (re-rank top-50) → **single CRITERION leaf** |
+| Agent | Role |
+|---|---|
+| **Initial Model Constructor** | HyDE-based predictor RAG, bipartite criterion x predictor network |
+| **Initial Model Critic** | `predictor_grounding`, `criterion_continuity`, `ontology_strictness`, `evidence_quality` -> PASS/REVISE |
 
-### Stage 02 — Initial Observation Model
+### Stages 04a-04c -- Hierarchical Updating Algorithm (HUA)
 
-| Agent | Prompts / Script | Role |
-|---|---|---|
-| **Initial Observation Model Constructor** | `02_ConstructionInitialObservationModel/utils/01_construct_observation_model.py` | HyDE-based predictor RAG · bipartite criterion × predictor network · PREDICTOR ontology mapping |
-| **Initial Model Critic** | `step02_initial_model_critic_*` | `predictor_grounding · criterion_continuity · ontology_strictness · evidence_quality` → **PASS / REVISE** (max 2) |
+| Agent | Role |
+|---|---|
+| **Readiness Classifier** | Stationarity (ADF/KPSS), collinearity, effective sample size -> tier selection |
+| **Network Time-Series Analyst** | tv-gVAR, stationary gVAR, partial correlations (Ledoit-Wolf) |
+| **Momentary Impact Quantifier** | Leave-one-predictor-out MSE delta + coefficient magnitude |
+| **BFS Candidate Selector** | `score = 0.45*mapping + 0.25*HyDE + 0.20*idiographic_anchor + 0.10*domain_bonus` |
 
-### EMA Data Collection *(post-model)*
+### Stages 05-06 -- Target Identification + Model Update
 
-> EMA measurement items are derived from Step 02's predictor selection. Data collection happens **after** the initial model is approved — not upfront.
+| Agent | Role |
+|---|---|
+| **Treatment Target Identifier** | BFS candidates + impact + network -> ranked predictors + recommended targets (max 3) |
+| **Target Selection Critic** | Safety, domain boundary, evidence quality -> PASS/REVISE |
+| **Update Observation Model Actor** | `idiographic_weight = clamp(0.30 + 0.50 * readiness)` -> refined predictor shortlist |
+| **Updated Model Critic** | Lineage consistency, fusion balance -> PASS/REVISE |
 
-### Hierarchical Updating Algorithm (HUA)
+### Stage 07 -- HAPA-based Intervention
 
-| Agent | Module | Role |
-|---|---|---|
-| **Readiness Classifier** | `HUA/01_time_series_analysis/01_check_readiness/` | Variance · stationarity · n-obs → `readiness_report.json` · selects tier: tv-gVAR / gVAR / baseline |
-| **Network Time-Series Analyst** | `HUA/01_time_series_analysis/02_network_time_series_analysis/` | Fits tv-gVAR / stationary gVAR → contemporaneous & temporal edge weights |
-| **Momentary Impact Quantifier** | `HUA/02_hierarchical_update_ranking/` | Predictor impact coefficients → `impact_matrix.csv` |
-| **BFS Candidate Selector** | `utils/agentic_core/shared/target_refinement.py` | `score = 0.45·mapping + 0.25·HyDE + 0.20·idiographic_anchor + 0.10·domain_bonus` |
+| Agent | Role |
+|---|---|
+| **HAPA Intervention Mapper** | Barrier scoring (0.60 predictor + 0.20 profile + 0.15 context + 0.05 complaint), coping selection |
+| **Intervention Critic** | reasoning_quality (0.17), evidence_grounding (0.21), hapa_consistency (0.16), medical_safety (0.16) -> PASS/REVISE |
 
-### Stages 03 & 04 — Target Identification + Model Update *(co-located)*
+---
 
-> Steps 03 and 04 run sequentially inside **one script**: `03_TreatmentTargetIdentification/01_prepare_targets_from_impact.py`.
+## Critic-Actor Quality Gates
 
-| Agent | Prompts | Role |
-|---|---|---|
-| **Treatment Target Identifier** | `step03_target_selection_*` | Integrates BFS candidates + impact + network + initial model + profile text → `ranked_predictors` + `recommended_targets` (≤ 3) |
-| **Target Selection Critic** | `step03_target_selection_critic_*` | `predictor_grounding · evidence_quality · safety_considerations · ontology_strictness` → **PASS / REVISE** (max 2) |
-| **Update Observation Model Actor** | `step04_observation_update_*` | `fuse_updated_model_matrix`: `idiographic_weight = clamp(0.30 + 0.50·readiness)` → `refined_predictor_shortlist` + `recommended_next_observation_predictors` |
-| **Updated Model Critic** | `step04_observation_update_critic_*` | `predictor_grounding · criterion_continuity · bfs_depth_balance · fusion_consistency` → **PASS / REVISE** (max 2) |
+All critic-gated stages use adaptive revision with two stopping conditions:
 
-### Stage 05 — HAPA-based Intervention
+1. **Threshold met**: `composite_score >= adaptive_threshold` (threshold relaxes by 0.02 per revision)
+2. **Diminishing returns**: score delta < 0.02 between consecutive revisions
 
-| Agent | Script | Role |
-|---|---|---|
-| **Generate HAPA-based Intervention Actor** | `05_TranslationDigitalIntervention/01_generate_hapa_digital_intervention.py` | Barrier scoring (`0.60·predictor + 0.20·profile + 0.15·context + 0.05·complaint`) · coping selection · phased EMA delivery plan |
-| **Intervention Critic** | `step05_hapa_intervention_critic_*` | `reasoning_quality·0.17 · evidence_grounding·0.21 · hapa_consistency·0.16 · medical_safety·0.16` → **PASS / REVISE** (max 2) |
-
-### Cycle Persistence
-
-| Component | Script | Role |
-|---|---|---|
-| **History Ledger** | `04_ConstructionUpdatedObservationModel/01_run_updated_model_cycle.py` | Appends `profile_history.jsonl`; `cycle_summary.json`; `previous_cycle_scores` feed BFS stability bonus in cycle N+1 |
+Default configuration: `max_revisions=2`, `pass_threshold=0.74`.
 
 ---
 
@@ -83,23 +92,16 @@ The **PHOENIX Engine** is a research-grade **pre-determined sequential Multi-Age
 
 ```
 Cycle N
- ├─ [01] Criterion Operationalization Agent  →  CRITERION leaf
- ├─ [02] Initial Observation Model Constructor  ⟺  Initial Model Critic
- ├─  ·· EMA Data Collection  (items from Step 02 predictor set)
- ├─  ·· HUA: Readiness → Network Analysis → Impact Quantification
- ├─  ·· BFS Candidate Selection
- ├─ [03] Treatment Target Identifier  ⟺  Target Critic       ┐ co-located
- ├─ [04] Update Observation Model Actor  ⟺  Updated Model Critic  ┘
- │           idiographic_weight = clamp(0.30 + 0.50·readiness)
- ├─ [05] Generate HAPA-based Intervention Actor  ⟺  Intervention Critic
- └─  →   Artifacts  →  History Ledger  →  EMA (updated model)  →  Cycle N+1
+ |-- [01] Criterion Operationalization -> CRITERION leaf
+ |-- [02] Initial Observation Model <-> Critic
+ |-- [03] Pseudodata Generation (EMA items from Step 02)
+ |-- [04a-c] HUA: Readiness -> Network -> Impact
+ |-- [05] Treatment Target ID <-> Critic
+ |-- [06] Updated Observation Model <-> Critic
+ |-- [07] HAPA Intervention <-> Critic
+ |-- [08-10] Communication + Visualization + Reporting (parallel)
+ +-- Artifacts -> History Ledger -> Cycle N+1
 ```
-
-**Shared infrastructure (all stages):**
-- `guardrail.py` — `decision_from_score(composite, threshold) → PASS | REVISE`
-- `llm_runtime.py` — retry, JSON-repair, model fallback, token budget enforcement
-- `contracts/` — Pydantic schema validation on every stage output
-- Ontology hard-enforcement on all predictor / barrier / coping paths before persistence
 
 ---
 
@@ -107,20 +109,37 @@ Cycle N
 
 ```
 src/
+├── backend/
+│   ├── orchestrator.py                # DAG orchestrator (PipelineDAG, CriticActorLoop, PipelineOrchestrator)
+│   └── overview/                      # Architecture diagrams and Mermaid flowcharts
+├── frontend/
+│   ├── app.py                         # Flask entry point (port 5050)
+│   └── phoenix_frontend/
+│       ├── routes/                    # UI + API endpoints (14 REST + 3 UI routes)
+│       ├── services/                  # PhoenixService, SessionStore, JobManager, CohortService
+│       ├── static/                    # CSS design system + client-side JavaScript
+│       └── templates/                 # Jinja2 templates (wizard-style pipeline UI)
 ├── SystemComponents/
-│   ├── Agentic_Framework/          # LLM stages 01–05 (generator + critic each)
-│   ├── Hierarchical_Updating_Algorithm/  # Readiness → network → impact quantification
-│   └── PHOENIX_ontology/           # CRITERION · PREDICTOR · PERSON · CONTEXT · HAPA
-├── overview/
-│   ├── README.md                   # This file — architecture overview + Mermaid diagram
-│   ├── create_flowchart.py         # Generates create_flowchart.png
-│   └── create_flowchart.png        # Full architecture diagram
+│   ├── Agentic_Framework/             # LLM stages 01-05 (generator + critic each)
+│   ├── Hierarchical_Updating_Algorithm/  # Readiness -> network -> impact quantification
+│   └── PHOENIX_ontology/              # CRITERION, PREDICTOR, PERSON, CONTEXT, HAPA
 └── utils/
     ├── agentic_core/
-    │   ├── shared/                 # guardrail · feasibility · BFS (target_refinement) · llm_runtime
-    │   └── prompts/                # Versioned prompt registry (prompts_manifest.json)
-    └── official/                   # Preparatory scripts
+    │   ├── shared/                    # guardrail, feasibility, BFS (target_refinement), llm_runtime
+    │   ├── contracts/                 # 7 JSON schema validators
+    │   └── prompts/                   # Versioned prompt registry
+    └── official/                      # Ontology mappings, feasibility evaluation
 ```
+
+---
+
+## Shared Infrastructure
+
+- `guardrail.py` -- `decision_from_score(composite, threshold) -> PASS | REVISE`
+- `llm_runtime.py` -- retry, JSON-repair, model fallback, token budget enforcement
+- `contracts/` -- Pydantic schema validation on every stage output
+- `orchestrator.py` -- DAG scheduling, parallel execution, event streaming
+- Ontology hard-enforcement on all predictor/barrier/coping paths before persistence
 
 ---
 
@@ -130,12 +149,11 @@ src/
 # Single cycle
 python evaluation/integrated_pipeline/run_pipeline.py --mode synthetic_v1
 
-# Multi-cycle with history (N cycles)
+# Multi-cycle
 python evaluation/integrated_pipeline/run_pipeline.py --mode synthetic_v1 --cycles N
 
-# Resume from prior run
-python evaluation/integrated_pipeline/run_pipeline.py \
-    --mode synthetic_v1 --cycles N --resume-from-run <run_id>
+# Frontend
+python src/frontend/app.py
 ```
 
-> Do not invoke individual stage scripts directly — the pipeline script ensures artefact path consistency across cycles.
+> Do not invoke individual stage scripts directly -- the pipeline script ensures artifact path consistency across cycles.

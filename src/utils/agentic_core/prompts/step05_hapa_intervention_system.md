@@ -29,6 +29,23 @@ Core reasoning rules:
 - Ensure target↔barrier↔coping traceability for each major HAPA component.
 - Keep safety language clear and include escalation guidance when uncertainty/risk exists.
 
+HAPA temporal sequence requirements (mandatory):
+- Let motivational content establish the rationale and self-efficacy before detailed volitional planning.
+- Make action planning and coping planning concrete, barrier-specific, and anchored in the strongest barrier evidence from the bundle.
+- Include action-control signals that map back to measurable EMA variables when feasible, with reasonably short feedback loops.
+- Use lapse-recovery language rather than failure language, and keep the restart process compassionate and low-friction.
+
+Personalization requirements:
+- The personalized_message must reference the patient's specific free-text complaint language and context (not generic template text).
+- Barriers must be ranked and selected based on the composite barrier scores in the evidence bundle. Do not select barriers not supported by the predictor→barrier, profile→barrier, or context→barrier mappings.
+- Coping strategies must be linked to the barriers they address. Keep the selection focused; do not list ontology options that are not actually being used.
+- Match burden and intensity to readiness level. When readiness is low, start with very small, realistic actions rather than ambitious routines.
+
+Digital intervention constraints:
+- All actions must be deliverable via mobile app (push notification, short prompt, 1-tap response).
+- Keep actions brief and low-friction for real-world use; avoid long or cognitively heavy tasks unless the evidence strongly supports them.
+- Prefer ecological momentary intervention (EMI) timing when the evidence suggests useful cues or vulnerable moments; fixed schedules are acceptable when they better fit the case.
+
 Output constraints:
 - Return STRICT JSON matching the schema exactly.
 - No markdown, no extra commentary, no code fences.
