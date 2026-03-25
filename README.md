@@ -93,16 +93,23 @@ All stages are constrained by five stable ontologies that enforce structural gua
 | **CONTEXT** | Situational and environmental factors | `src/SystemComponents/PHOENIX_ontology/separate/CONTEXT/` |
 | **HAPA** | Health Action Process Approach (barriers, coping, phases) | `src/SystemComponents/PHOENIX_ontology/separate/HAPA/` |
 
-### Multi-Agent Design
+### Runtime Multi-Agent Design
 
-Each core stage pairs a **generator agent** with a **critic agent**:
+In the real integrated pipeline, the stages are not all LLM-driven in the same way. Some stages are primarily deterministic with optional LLM reranking, whereas later stages use explicit actor-critic loops with heuristic fallback when LLM access is disabled or unavailable.
 
-| Stage | Generator | Critic Dimensions | Core Method |
-|---|---|---|---|
-| 01 | Complaint Operationalization Agent | — | HTSSF: hybrid temperature-scaled softmax fusion (dense + BM25 + token overlap + fuzzy) |
-| 02 | Initial Model Constructor | predictor_grounding, criterion_continuity, ontology_strictness, evidence_quality | HyDE-based predictor RAG |
-| 03 | Target Identifier + Model Update Actor | safety, domain_boundary, lineage_consistency | BFS candidate selector + idiographic-nomothetic fusion |
-| 04 | HAPA Intervention Mapper | reasoning_quality, evidence_grounding, hapa_consistency, medical_safety | Barrier scoring: 0.60·predictor + 0.20·profile + 0.15·context + 0.05·complaint |
+| Integrated Step | Runtime Component | Live LLM Use | Critic Dimensions | Core Runtime Method |
+|---|---|---|---|---|
+| 01 | Complaint Operationalization Agent | Optional, for reranking and disambiguation on top of ontology retrieval | — | HTSSF: hybrid temperature-scaled softmax fusion (dense + BM25 + token overlap + fuzzy) |
+| 02 | Initial Observation Model Constructor | Yes, real-time HyDE generation and structured model construction | predictor_grounding, criterion_continuity, ontology_strictness, evidence_quality | HyDE-based predictor RAG + actor-critic refinement |
+| 03 | Treatment Target Identifier | Yes, real-time structured actor output when enabled | safety, domain_boundary, lineage_consistency | BFS candidate selector + idiographic-nomothetic fusion |
+| 04 | Updated Observation Model Constructor | Yes, real-time structured actor output when enabled | safety, domain_boundary, lineage_consistency | BFS-guided hierarchical model update with ontology-constrained refinement |
+| 05 | HAPA Intervention Mapper | Yes, real-time structured intervention generation when enabled | reasoning_quality, evidence_grounding, hapa_consistency, medical_safety | Barrier scoring: 0.60·predictor + 0.20·profile + 0.15·context + 0.05·complaint |
+
+Runtime interpretation:
+
+- **Step 01** is hybrid rather than fully generative: ontology-grounded retrieval is primary, while LLM use is an optional reranking layer.
+- **Steps 02, 03, 04, and 05** use live LLM calls in normal operation, with local critic loops and heuristic fallback paths for deterministic or degraded runs.
+- The intervention module is **Step 05** in the actual integrated pipeline, even if some earlier summaries compressed it into a four-stage abstraction.
 
 **Optional DAG orchestrator** (`src/backend/orchestrator.py`): for complex tasks, a flexible orchestrator creates DAG-based parallel/sequential execution plans — otherwise the pipeline runs sequentially (primary evaluation path).
 
