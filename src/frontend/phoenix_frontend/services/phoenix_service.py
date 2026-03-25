@@ -2071,6 +2071,18 @@ class PhoenixService:
         predictor_importance_stationary_df = self._safe_read_csv(
             network_profile_root / "network_metrics/predictor_importance_stationary.csv"
         )
+        temporal_contemp_node_df = self._safe_read_csv(
+            network_profile_root / "network_metrics/temporal_contemp_node_centrality.csv"
+        )
+        edge_shifts_df = self._safe_read_csv(
+            network_profile_root / "method 1/numerical outputs/edge_shifts_top.csv"
+        )
+        network_roles_payload = self._read_json(
+            network_profile_root / "data/roles_predictor_criterion.json"
+        )
+        network_labels_payload = self._read_json(
+            network_profile_root / "data/variables_labels.json"
+        )
         pipeline_summary = self._read_json(cycle_root / "pipeline_summary.json")
         variable_labels: Dict[str, str] = {}
         try:
@@ -2090,6 +2102,14 @@ class PhoenixService:
                         variable_labels[var_id] = str(item.get("label") or var_id).strip() or var_id
         except Exception:
             variable_labels = {}
+        if isinstance(network_labels_payload, dict):
+            for key, value in network_labels_payload.items():
+                var_id = str(key or "").strip()
+                if not var_id:
+                    continue
+                label = str(value or var_id).strip() or var_id
+                if var_id not in variable_labels:
+                    variable_labels[var_id] = label
 
         readiness_variables = readiness.get("variables", {}) if isinstance(readiness.get("variables"), dict) else {}
         readiness_variable_rows: List[Dict[str, Any]] = []
@@ -2201,6 +2221,139 @@ class PhoenixService:
                         ),
                     }
                 )
+
+        role_sets = {"criteria": set(), "predictors": set()}
+        if isinstance(network_roles_payload, dict):
+            for token in network_roles_payload.get("criteria", []) if isinstance(network_roles_payload.get("criteria"), list) else []:
+                tid = str(token or "").strip()
+                if tid:
+                    role_sets["criteria"].add(tid)
+            for token in network_roles_payload.get("predictors", []) if isinstance(network_roles_payload.get("predictors"), list) else []:
+                tid = str(token or "").strip()
+                if tid:
+                    role_sets["predictors"].add(tid)
+
+        time_varying_network: Dict[str, Any] = {
+            "status": "unavailable",
+            "reason": "No temporal node-centrality artifacts were found.",
+            "frames": [],
+            "nodes": [],
+            "edges": [],
+            "summary": {
+                "frame_count": 0,
+                "node_count": 0,
+                "edge_count": 0,
+            },
+        }
+        if not temporal_contemp_node_df.empty and {"time_index", "t", "node"}.issubset(set(temporal_contemp_node_df.columns)):
+            local_nodes = temporal_contemp_node_df.copy()
+            local_nodes["time_index"] = pd.to_numeric(local_nodes.get("time_index"), errors="coerce").fillna(0).astype(int)
+            local_nodes["t"] = pd.to_numeric(local_nodes.get("t"), errors="coerce").fillna(0.0)
+            local_nodes["strength_abs"] = pd.to_numeric(local_nodes.get("strength_abs"), errors="coerce").fillna(0.0)
+            local_nodes["betweenness"] = pd.to_numeric(local_nodes.get("betweenness"), errors="coerce").fillna(0.0)
+            local_nodes["node"] = local_nodes.get("node").astype(str)
+            local_nodes = local_nodes.sort_values(["time_index", "t", "node"], ascending=[True, True, True])
+
+            node_ids = sorted(
+                {
+                    str(token or "").strip()
+                    for token in local_nodes["node"].tolist()
+                    if str(token or "").strip()
+                }
+            )
+            node_rows: List[Dict[str, Any]] = []
+            for node_id in node_ids:
+                role = "unknown"
+                if node_id in role_sets["criteria"] or node_id.upper().startswith("C"):
+                    role = "criterion"
+                elif node_id in role_sets["predictors"] or node_id.upper().startswith("P"):
+                    role = "predictor"
+                node_rows.append(
+                    {
+                        "id": node_id,
+                        "label": str(variable_labels.get(node_id) or node_id),
+                        "role": role,
+                    }
+                )
+
+            frame_rows: List[Dict[str, Any]] = []
+            grouped = local_nodes.groupby("time_index", sort=True)
+            for frame_idx, frame_df in grouped:
+                if frame_df.empty:
+                    continue
+                t_value = _to_float(frame_df.iloc[0].get("t"), float(frame_idx))
+                node_strength_abs: Dict[str, float] = {}
+                node_betweenness: Dict[str, float] = {}
+                for _, item in frame_df.iterrows():
+                    nid = str(item.get("node") or "").strip()
+                    if not nid:
+                        continue
+                    node_strength_abs[nid] = _to_float(item.get("strength_abs"), 0.0)
+                    node_betweenness[nid] = _to_float(item.get("betweenness"), 0.0)
+                frame_rows.append(
+                    {
+                        "time_index": int(frame_idx),
+                        "t": t_value,
+                        "node_strength_abs": node_strength_abs,
+                        "node_betweenness": node_betweenness,
+                    }
+                )
+
+            edge_rows: List[Dict[str, Any]] = []
+            if not edge_shifts_df.empty and {"src", "dst"}.issubset(set(edge_shifts_df.columns)):
+                local_edges = edge_shifts_df.copy()
+                local_edges["max_abs_delta_adj"] = pd.to_numeric(
+                    local_edges.get("max_abs_delta_adj"), errors="coerce"
+                ).fillna(0.0)
+                local_edges = local_edges.sort_values("max_abs_delta_adj", ascending=False)
+                local_edges = local_edges.head(36)
+                max_edge_delta = float(local_edges["max_abs_delta_adj"].max() or 0.0)
+                max_edge_delta = max(max_edge_delta, 1e-9)
+                for _, item in local_edges.iterrows():
+                    src = str(item.get("src") or "").strip()
+                    dst = str(item.get("dst") or "").strip()
+                    if not src or not dst or src == dst:
+                        continue
+                    raw_delta = _to_float(item.get("max_abs_delta_adj"), 0.0)
+                    if raw_delta <= 0:
+                        continue
+                    slope = _to_float(item.get("slope"), 0.0)
+                    direction = str(item.get("direction") or "").strip().lower()
+                    if direction not in {"increase", "decrease", "up", "down"}:
+                        direction = "increase" if slope >= 0 else "decrease"
+                    edge_rows.append(
+                        {
+                            "src": src,
+                            "dst": dst,
+                            "abs_change": raw_delta,
+                            "norm_change": float(max(0.0, min(1.0, raw_delta / max_edge_delta))),
+                            "peak_time_index": _to_int(item.get("argmax_delta_time_index"), 0),
+                            "peak_t": _to_float(item.get("argmax_delta_t"), 0.0),
+                            "direction": direction,
+                            "range": _to_float(item.get("range"), 0.0),
+                            "slope": slope,
+                        }
+                    )
+
+            status = "ready" if frame_rows and node_rows else "unavailable"
+            reason = ""
+            if status != "ready":
+                reason = "Temporal node centrality exists but could not be parsed into animation frames."
+            elif not edge_rows:
+                reason = "Node dynamics available; edge-shift artifacts were not available for this run."
+            time_varying_network = {
+                "status": status,
+                "reason": reason,
+                "frames": frame_rows,
+                "nodes": node_rows,
+                "edges": edge_rows,
+                "summary": {
+                    "frame_count": len(frame_rows),
+                    "node_count": len(node_rows),
+                    "edge_count": len(edge_rows),
+                    "max_time_index": max([int(item.get("time_index") or 0) for item in frame_rows], default=0),
+                },
+            }
 
         top_predictors: List[Dict[str, Any]] = []
         impact_decomposition_rows: List[Dict[str, Any]] = []
@@ -2395,6 +2548,7 @@ class PhoenixService:
             "method_status": {str(k): str(v) for k, v in method_status.items()},
             "method_prediction_rows": method_prediction_rows,
             "temporal_metrics": temporal_metrics,
+            "time_varying_network": time_varying_network,
             "predictor_importance_source": importance_source,
             "predictor_importance_rows": predictor_importance_rows,
         }

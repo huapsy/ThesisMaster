@@ -40,12 +40,82 @@
 <!-- Error banner -->
 <div id="job-error-banner" class="alert error hidden" style="margin-bottom:12px"></div>
 
+<!-- ═══ FLOW CONTROL (high-level orchestration first) ═══ -->
+<div class="panel flow-orchestrator" id="flow-orchestrator-panel">
+  <div class="panel-header">
+    <h2>Pipeline Control & Dataflow</h2>
+    <span id="flow-next-chip" class="badge badge-primary">Next: waiting</span>
+  </div>
+  <p class="muted text-sm">
+    This view enforces one clear execution path from free-text complaint to intervention output.
+    Intermediate component noise is summarized unless you explicitly enable more detail.
+  </p>
+  <div class="flow-control-grid">
+    <article class="flow-control-card">
+      <h3>Input Channel</h3>
+      <p id="flow-input-channel" class="flow-control-value">Frontend intake</p>
+      <p id="flow-input-detail" class="muted compact">Session complaint is used as Step-01 input.</p>
+    </article>
+    <article class="flow-control-card">
+      <h3>Execution Channel</h3>
+      <p id="flow-execution-channel" class="flow-control-value">Waiting for run</p>
+      <p id="flow-execution-detail" class="muted compact">Cycle orchestration source will appear after first run.</p>
+    </article>
+    <article class="flow-control-card">
+      <h3>Intermediate Result Verbosity</h3>
+      <label class="text-sm" for="ui-verbosity-mode">How much transient output to show</label>
+      <select id="ui-verbosity-mode">
+        <option value="concise" selected>Concise (recommended)</option>
+        <option value="balanced">Balanced</option>
+        <option value="detailed">Detailed</option>
+      </select>
+      <p id="flow-verbosity-hint" class="muted compact">Concise keeps user-facing flow clear.</p>
+    </article>
+  </div>
+  <div id="flow-stage-grid" class="flow-stage-grid"></div>
+  <div class="flow-action-row">
+    <div class="flow-next-copy">
+      <strong>Next action:</strong> <span id="flow-next-action">Waiting for intake sync</span>
+    </div>
+    <div class="flow-buttons">
+      <button id="flow-run-next-btn" class="btn primary">Run Next Step</button>
+      <button id="flow-open-logs-btn" class="btn ghost">Open Live Logs</button>
+    </div>
+  </div>
+  <div class="flow-live-grid">
+    <article class="flow-live-card">
+      <h3>Live Execution Progress</h3>
+      <div class="flow-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Pipeline progress">
+        <div id="flow-progress-fill" class="flow-progress-fill" style="width:0%"></div>
+      </div>
+      <p id="flow-progress-label" class="flow-control-value">0/5 stages complete · 0%</p>
+      <p id="flow-progress-detail" class="muted compact">No active execution yet.</p>
+      <p id="flow-active-component" class="muted compact">Active component: idle</p>
+    </article>
+    <article class="flow-live-card">
+      <h3>Cycle Loop State</h3>
+      <ul id="flow-cycle-loop" class="detail-list flow-loop-list"></ul>
+    </article>
+    <article class="flow-live-card flow-live-wide">
+      <h3>Intermittent Results Feed</h3>
+      <ul id="flow-intermediate-feed" class="detail-list flow-feed-list"></ul>
+    </article>
+  </div>
+  <details class="advanced-settings flow-cli-bridge">
+    <summary>CLI bridge for the same PHOENIX dataflow</summary>
+    <p class="muted compact">
+      You can execute the pipeline from CLI and keep the same stage logic:
+    </p>
+    <pre class="json-view">python evaluation/integrated_pipeline/run_engine_pipeline.py --repo-root . --free-text-root &lt;inputs&gt; --output-root &lt;runs&gt; ...</pre>
+  </details>
+</div>
+
 <!-- ═══ TABS (centered, equal-width, no scroll) ═══ -->
 <div class="tab-bar">
   <button class="tab-btn active" data-tab="engine" onclick="switchTab('engine')"><span class="icon">🔧</span>
-    Engine</button>
+    Flow</button>
   <button class="tab-btn" data-tab="dashboard" onclick="switchTab('dashboard')"><span class="icon">📊</span>
-    Dashboard</button>
+    Insights</button>
   <button class="tab-btn" data-tab="communication" onclick="switchTab('communication')"><span class="icon">💬</span>
     Communication</button>
   <button class="tab-btn" data-tab="logs" onclick="switchTab('logs')"><span class="icon">📋</span> Logs</button>
@@ -450,6 +520,31 @@
     <div class="chart-card">
       <h3>Coping Strategy Strength</h3><canvas id="chart-coping"></canvas>
     </div>
+    <div class="chart-card chart-card-wide network-anim-card">
+      <div class="chart-card-head">
+        <h3>Time-Varying Network Dynamics</h3>
+        <span id="network-anim-status" class="status-chip status-idle">WAITING</span>
+      </div>
+      <div class="network-anim-controls">
+        <button id="network-anim-toggle" class="btn small">Pause</button>
+        <label class="network-control-label">
+          Frame
+          <input id="network-anim-frame" type="range" min="0" max="0" value="0" step="1">
+        </label>
+        <label class="network-control-label">
+          Speed
+          <input id="network-anim-speed" type="range" min="0.5" max="3" value="1" step="0.25">
+        </label>
+        <span id="network-anim-meta" class="muted compact">t=0.00 · frame 0/0</span>
+      </div>
+      <div class="network-anim-canvas-wrap">
+        <canvas id="network-anim-canvas"></canvas>
+      </div>
+      <p id="network-anim-caption" class="muted compact">
+        Animated graph from PHOENIX network-stage artifacts; node size tracks temporal centrality and edge intensity tracks shift magnitude near peak windows.
+      </p>
+      <ul id="network-anim-edges" class="detail-list"></ul>
+    </div>
     <div class="chart-card chart-card-wide">
       <div class="chart-card-head">
         <h3>Observed Time-Series</h3>
@@ -650,6 +745,7 @@
     const pane = document.getElementById('tab-' + tabId);
     if (pane) pane.classList.add('active');
     document.querySelectorAll('.tab-btn[data-tab="' + tabId + '"]').forEach(b => b.classList.add('active'));
+    window.dispatchEvent(new CustomEvent('phoenix:tab-switch', { detail: { tabId } }));
   }
 </script>
 {% endblock %}

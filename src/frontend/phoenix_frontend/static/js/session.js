@@ -6,6 +6,7 @@
   const snapshotTag = document.getElementById("snapshot-json");
   const LOG_MAX_LINES = 1200;
   const VISIBILITY_STORAGE_PREFIX = "phoenix.visible";
+  const VERBOSITY_STORAGE_KEY = "phoenix.ui.verbosity_mode";
 
   function parseSnapshot() {
     try {
@@ -59,6 +60,16 @@
     snapshotRefreshInFlight: false,
     pendingSnapshotRefresh: false,
     lastSnapshotRefreshMs: 0,
+    verbosityMode: "concise",
+    networkAnimPayloadKey: "",
+    networkAnimPayload: null,
+    networkAnimPlaying: true,
+    networkAnimFrameIndex: 0,
+    networkAnimSpeed: 1,
+    networkAnimLastTickMs: 0,
+    networkAnimRafId: null,
+    networkAnimPositions: {},
+    reconcilingSnapshot: false,
   };
 
   const COMPONENT_DEFS = [
@@ -154,6 +165,31 @@
     runtimeStageSummary: document.getElementById("runtime-stage-summary"),
     runtimeLastEvent: document.getElementById("runtime-last-event"),
     runtimeEventsList: document.getElementById("runtime-events-list"),
+    flowInputChannel: document.getElementById("flow-input-channel"),
+    flowInputDetail: document.getElementById("flow-input-detail"),
+    flowExecutionChannel: document.getElementById("flow-execution-channel"),
+    flowExecutionDetail: document.getElementById("flow-execution-detail"),
+    flowStageGrid: document.getElementById("flow-stage-grid"),
+    flowNextChip: document.getElementById("flow-next-chip"),
+    flowNextAction: document.getElementById("flow-next-action"),
+    flowRunNextBtn: document.getElementById("flow-run-next-btn"),
+    flowOpenLogsBtn: document.getElementById("flow-open-logs-btn"),
+    flowProgressFill: document.getElementById("flow-progress-fill"),
+    flowProgressLabel: document.getElementById("flow-progress-label"),
+    flowProgressDetail: document.getElementById("flow-progress-detail"),
+    flowActiveComponent: document.getElementById("flow-active-component"),
+    flowCycleLoop: document.getElementById("flow-cycle-loop"),
+    flowIntermediateFeed: document.getElementById("flow-intermediate-feed"),
+    verbosityModeSelect: document.getElementById("ui-verbosity-mode"),
+    flowVerbosityHint: document.getElementById("flow-verbosity-hint"),
+    networkAnimCanvas: document.getElementById("network-anim-canvas"),
+    networkAnimStatus: document.getElementById("network-anim-status"),
+    networkAnimToggle: document.getElementById("network-anim-toggle"),
+    networkAnimFrame: document.getElementById("network-anim-frame"),
+    networkAnimSpeed: document.getElementById("network-anim-speed"),
+    networkAnimMeta: document.getElementById("network-anim-meta"),
+    networkAnimCaption: document.getElementById("network-anim-caption"),
+    networkAnimEdges: document.getElementById("network-anim-edges"),
     cohortSummary: document.getElementById("cohort-summary"),
     llmModelOptions: document.getElementById("llm-model-options"),
     llmModelInputs: [
@@ -190,6 +226,15 @@
     return "idle";
   }
 
+  function normalizePipelineSummaryStatus(status) {
+    const raw = String(status || "").trim().toLowerCase();
+    if (!raw) return "idle";
+    if (["succeeded", "success", "done", "completed", "complete", "ok"].includes(raw)) return "succeeded";
+    if (["failed", "failure", "error", "crashed"].includes(raw)) return "failed";
+    if (["running", "in_progress", "in-progress", "queued", "started"].includes(raw)) return "running";
+    return normalizeStatus(raw);
+  }
+
   function applyStatusClass(node, status) {
     if (!node) return;
     const classes = ["status-idle", "status-queued", "status-running", "status-succeeded", "status-failed"];
@@ -201,9 +246,66 @@
     return ["queued", "running"].includes(normalizeStatus(status));
   }
 
+  function normalizeVerbosityMode(mode) {
+    const token = String(mode || "").trim().toLowerCase();
+    if (["concise", "balanced", "detailed"].includes(token)) return token;
+    return "concise";
+  }
+
+  function shouldSuppressLogLine(line) {
+    const mode = normalizeVerbosityMode(state.verbosityMode);
+    if (mode === "detailed") return false;
+    const low = String(line || "").toLowerCase();
+    if (!low) return false;
+    if (low.includes("[frontend]")) return false;
+    if (low.includes("failed") || low.includes("error") || low.includes("exception") || low.includes("traceback")) {
+      return false;
+    }
+    if (low.includes("heartbeat elapsed=")) return true;
+    if (mode === "balanced") return false;
+    if (
+      low.includes("llm call start")
+      || low.includes("llm call ok")
+      || low.includes("auto-repair: attempt")
+      || low.includes("critic loop")
+      || low.includes("command_start cwd=")
+      || low.includes("still running")
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  function setVerbosityMode(mode, persist = true) {
+    const next = normalizeVerbosityMode(mode);
+    state.verbosityMode = next;
+    document.body.setAttribute("data-verbosity-mode", next);
+    if (UI.verbosityModeSelect && UI.verbosityModeSelect.value !== next) {
+      UI.verbosityModeSelect.value = next;
+    }
+    if (UI.flowVerbosityHint) {
+      if (next === "concise") {
+        UI.flowVerbosityHint.textContent = "Concise hides heartbeat and low-signal intermediate noise.";
+      } else if (next === "balanced") {
+        UI.flowVerbosityHint.textContent = "Balanced shows stage transitions with reduced heartbeat noise.";
+      } else {
+        UI.flowVerbosityHint.textContent = "Detailed shows full runtime stream, including intermediate traces.";
+      }
+    }
+    if (persist) {
+      try {
+        localStorage.setItem(VERBOSITY_STORAGE_KEY, next);
+      } catch {
+        // Ignore storage failures; UI still updates in-memory.
+      }
+    }
+  }
+
   function appendLog(line) {
     if (!UI.logConsole) return;
-    state.logLines.push(String(line));
+    const text = String(line || "");
+    if (shouldSuppressLogLine(text)) return;
+    state.logLines.push(text);
     while (state.logLines.length > LOG_MAX_LINES) state.logLines.shift();
     UI.logConsole.textContent = state.logLines.join("\n");
     UI.logConsole.scrollTop = UI.logConsole.scrollHeight;
@@ -211,7 +313,8 @@
 
   function renderRuntimeEvents() {
     if (!UI.runtimeEventsList) return;
-    const rows = state.runtimeEvents.slice(0, 8);
+    const maxRows = state.verbosityMode === "detailed" ? 8 : state.verbosityMode === "balanced" ? 6 : 4;
+    const rows = state.runtimeEvents.slice(0, maxRows);
     if (!rows.length) {
       UI.runtimeEventsList.innerHTML = "";
       return;
@@ -379,7 +482,9 @@
       pushRuntimeEvent(`${label} -> ${safe.toUpperCase()}${suffix}`);
     }
     syncRuntimeCardVisibility();
-    renderPhaseProgress();
+    if (!state.reconcilingSnapshot) {
+      renderPhaseProgress();
+    }
   }
 
   function shouldShowRuntimeCard(componentId) {
@@ -573,6 +678,7 @@
       busy || !hasModel || !hasPseudodata,
       !hasPseudodata ? "Acquire pseudodata first." : "",
     );
+    setDisabled("flow-run-next-btn", busy, busy ? "A background job is running." : "");
     setDisabled("run-cohort-btn", busy, busy ? "A background job is running." : "");
   }
 
@@ -722,6 +828,492 @@
     state.impactDecompositionChart = null;
     state.stageRuntimeChart = null;
     state.stageStatusChart = null;
+  }
+
+  function stopNetworkAnimationLoop() {
+    if (state.networkAnimRafId) {
+      cancelAnimationFrame(state.networkAnimRafId);
+      state.networkAnimRafId = null;
+    }
+    state.networkAnimLastTickMs = 0;
+  }
+
+  function setNetworkAnimStatus(text, status = "idle") {
+    if (!UI.networkAnimStatus) return;
+    UI.networkAnimStatus.textContent = String(text || "");
+    UI.networkAnimStatus.className = `status-chip status-${normalizeStatus(status)}`;
+  }
+
+  function networkPayloadIdentity(payload) {
+    const summary = payload?.summary || {};
+    const frameCount = Number(summary.frame_count || (payload?.frames || []).length || 0);
+    const nodeCount = Number(summary.node_count || (payload?.nodes || []).length || 0);
+    const edgeCount = Number(summary.edge_count || (payload?.edges || []).length || 0);
+    const first = (payload?.frames || [])[0] || {};
+    const last = (payload?.frames || [])[Math.max(0, (payload?.frames || []).length - 1)] || {};
+    return [frameCount, nodeCount, edgeCount, first.time_index ?? 0, last.time_index ?? 0].join("|");
+  }
+
+  function roleColor(role) {
+    const token = String(role || "").toLowerCase();
+    if (token === "criterion") return "#f9a66b";
+    if (token === "predictor") return "#67d7f7";
+    return "#b8cce9";
+  }
+
+  function directionColor(direction) {
+    const token = String(direction || "").toLowerCase();
+    if (token === "decrease" || token === "down") return [244, 180, 59];
+    return [90, 220, 255];
+  }
+
+  function isDashboardTabActive() {
+    const pane = document.getElementById("tab-dashboard");
+    return Boolean(pane && pane.classList.contains("active"));
+  }
+
+  function updateNetworkAnimationStatus(payload) {
+    const frames = Array.isArray(payload?.frames) ? payload.frames : [];
+    if (!payload || !frames.length) {
+      setNetworkAnimStatus("UNAVAILABLE", "idle");
+      return;
+    }
+    if (frames.length === 1) {
+      setNetworkAnimStatus("STATIC", "succeeded");
+      return;
+    }
+    setNetworkAnimStatus(state.networkAnimPlaying ? "ANIMATING" : "PAUSED", state.networkAnimPlaying ? "running" : "queued");
+  }
+
+  function ensureNetworkCanvasSize() {
+    const canvas = UI.networkAnimCanvas;
+    if (!canvas) return { canvas: null, width: 0, height: 0, ctx: null };
+    const rect = canvas.getBoundingClientRect();
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    const width = Math.max(300, Math.floor(rect.width));
+    const height = Math.max(220, Math.floor(rect.height));
+    if (canvas.width !== Math.floor(width * dpr) || canvas.height !== Math.floor(height * dpr)) {
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+    }
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return { canvas, width, height, ctx: null };
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { canvas, width, height, ctx };
+  }
+
+  function computeNetworkNodePositions(nodes, width, height) {
+    const criteria = nodes.filter((row) => String(row.role || "").toLowerCase() === "criterion");
+    const predictors = nodes.filter((row) => String(row.role || "").toLowerCase() === "predictor");
+    const unknown = nodes.filter((row) => {
+      const token = String(row.role || "").toLowerCase();
+      return token !== "criterion" && token !== "predictor";
+    });
+    const out = {};
+    const layoutColumn = (rows, x, startY, endY, wobble = 0) => {
+      if (!rows.length) return;
+      const denom = Math.max(1, rows.length - 1);
+      rows.forEach((row, idx) => {
+        const y = rows.length === 1
+          ? (startY + endY) / 2
+          : (startY + ((endY - startY) * (idx / denom)));
+        out[String(row.id)] = {
+          x: x + Math.sin((idx + 1) * 0.9) * wobble,
+          y,
+        };
+      });
+    };
+    layoutColumn(criteria, width * 0.24, height * 0.16, height * 0.86, 10);
+    layoutColumn(predictors, width * 0.76, height * 0.16, height * 0.86, 10);
+    if (unknown.length) {
+      const cx = width * 0.5;
+      const cy = height * 0.5;
+      const ring = Math.max(50, Math.min(width, height) * 0.22);
+      unknown.forEach((row, idx) => {
+        const angle = (Math.PI * 2 * idx) / Math.max(1, unknown.length);
+        out[String(row.id)] = {
+          x: cx + Math.cos(angle) * ring,
+          y: cy + Math.sin(angle) * ring,
+        };
+      });
+    }
+    return out;
+  }
+
+  function normalizeNetworkPayload(raw) {
+    const payload = raw && typeof raw === "object" ? raw : {};
+    const nodes = Array.isArray(payload.nodes)
+      ? payload.nodes
+        .map((row) => ({
+          id: String(row?.id || "").trim(),
+          label: String(row?.label || row?.id || "").trim(),
+          role: String(row?.role || "unknown").trim().toLowerCase(),
+        }))
+        .filter((row) => row.id)
+      : [];
+    const frames = Array.isArray(payload.frames)
+      ? payload.frames
+        .map((row) => ({
+          time_index: Number(row?.time_index || 0),
+          t: Number(row?.t || 0),
+          node_strength_abs: row?.node_strength_abs && typeof row.node_strength_abs === "object" ? row.node_strength_abs : {},
+          node_betweenness: row?.node_betweenness && typeof row.node_betweenness === "object" ? row.node_betweenness : {},
+        }))
+        .sort((a, b) => Number(a.time_index || 0) - Number(b.time_index || 0))
+      : [];
+    const edges = Array.isArray(payload.edges)
+      ? payload.edges
+        .map((row) => ({
+          src: String(row?.src || "").trim(),
+          dst: String(row?.dst || "").trim(),
+          abs_change: Number(row?.abs_change || 0),
+          norm_change: Number(row?.norm_change || 0),
+          peak_time_index: Number(row?.peak_time_index || 0),
+          peak_t: Number(row?.peak_t || 0),
+          direction: String(row?.direction || "").trim().toLowerCase(),
+          range: Number(row?.range || 0),
+          slope: Number(row?.slope || 0),
+        }))
+        .filter((row) => row.src && row.dst && row.src !== row.dst)
+      : [];
+    const maxStrength = (() => {
+      let maxValue = 0;
+      frames.forEach((frame) => {
+        const entries = frame.node_strength_abs || {};
+        Object.values(entries).forEach((value) => {
+          const score = Number(value || 0);
+          if (score > maxValue) maxValue = score;
+        });
+      });
+      return maxValue > 0 ? maxValue : 1;
+    })();
+    return {
+      status: String(payload.status || "").trim().toLowerCase(),
+      reason: String(payload.reason || "").trim(),
+      summary: payload.summary && typeof payload.summary === "object" ? payload.summary : {},
+      nodes,
+      frames,
+      edges,
+      maxStrength,
+    };
+  }
+
+  function drawNetworkAnimationFrame(payload, frameIndex) {
+    const prepared = ensureNetworkCanvasSize();
+    const ctx = prepared.ctx;
+    const width = prepared.width;
+    const height = prepared.height;
+    if (!ctx || !width || !height) return;
+
+    const frames = payload.frames || [];
+    if (!frames.length || !(payload.nodes || []).length) {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = "rgba(185, 203, 232, 0.85)";
+      ctx.font = "600 14px Space Grotesk, sans-serif";
+      ctx.fillText("No time-varying network frames available.", 18, 30);
+      return;
+    }
+
+    const safeIndex = Math.max(0, Math.min(frames.length - 1, Number(frameIndex || 0)));
+    const frame = frames[safeIndex] || {};
+    const nodes = payload.nodes || [];
+    const edges = payload.edges || [];
+    const nodeStrength = frame.node_strength_abs || {};
+    const nodeBetweenness = frame.node_betweenness || {};
+    const timeIndex = Number(frame.time_index || safeIndex);
+    const timeNorm = Number(frame.t || 0);
+
+    if (!state.networkAnimPositions || Object.keys(state.networkAnimPositions).length !== nodes.length) {
+      state.networkAnimPositions = computeNetworkNodePositions(nodes, width, height);
+    }
+    const positions = state.networkAnimPositions || {};
+
+    const bgGrad = ctx.createLinearGradient(0, 0, width, height);
+    bgGrad.addColorStop(0, "rgba(12, 22, 38, 0.94)");
+    bgGrad.addColorStop(1, "rgba(8, 14, 26, 0.98)");
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, width, height);
+
+    const activeEdgeRows = [];
+    edges.forEach((edge) => {
+      const srcPos = positions[String(edge.src || "")];
+      const dstPos = positions[String(edge.dst || "")];
+      if (!srcPos || !dstPos) return;
+      const norm = Math.max(0, Math.min(1, Number(edge.norm_change || 0)));
+      const peak = Number(edge.peak_time_index || 0);
+      const distance = Math.abs(timeIndex - peak);
+      const pulse = Math.max(0, 1 - (distance / 5));
+      const alpha = Math.min(0.92, 0.08 + (norm * 0.24) + (pulse * 0.58));
+      const widthPx = 0.8 + (norm * 2.2) + (pulse * 2.0);
+      const [r, g, b] = directionColor(edge.direction);
+      const sign = String(edge.src || "") <= String(edge.dst || "") ? 1 : -1;
+      const mx = (srcPos.x + dstPos.x) / 2;
+      const my = (srcPos.y + dstPos.y) / 2;
+      const vx = dstPos.x - srcPos.x;
+      const vy = dstPos.y - srcPos.y;
+      const len = Math.max(1, Math.hypot(vx, vy));
+      const nx = (-vy / len) * sign;
+      const ny = (vx / len) * sign;
+      const bend = 10 + (norm * 20);
+
+      ctx.beginPath();
+      ctx.moveTo(srcPos.x, srcPos.y);
+      ctx.quadraticCurveTo(mx + (nx * bend), my + (ny * bend), dstPos.x, dstPos.y);
+      ctx.lineWidth = widthPx;
+      ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+      ctx.shadowBlur = 6 + (pulse * 14);
+      ctx.shadowColor = `rgba(${r}, ${g}, ${b}, ${Math.min(0.8, alpha + 0.12)})`;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      if (pulse > 0.34) {
+        activeEdgeRows.push({
+          src: String(edge.src || ""),
+          dst: String(edge.dst || ""),
+          pulse,
+          abs_change: Number(edge.abs_change || 0),
+          direction: String(edge.direction || ""),
+        });
+      }
+    });
+
+    nodes.forEach((node) => {
+      const id = String(node.id || "");
+      const pos = positions[id];
+      if (!pos) return;
+      const strength = Number(nodeStrength[id] || 0);
+      const between = Number(nodeBetweenness[id] || 0);
+      const normalized = Math.max(0, Math.min(1, strength / Math.max(1e-9, Number(payload.maxStrength || 1))));
+      const nodeRadius = 9 + (normalized * 15) + (Math.min(1, between) * 2.5);
+      const color = roleColor(node.role);
+
+      ctx.beginPath();
+      ctx.arc(pos.x, pos.y, nodeRadius + 5, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255,255,255,0.05)";
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(pos.x, pos.y, nodeRadius, 0, Math.PI * 2);
+      const grad = ctx.createRadialGradient(pos.x - 2, pos.y - 3, 2, pos.x, pos.y, nodeRadius + 3);
+      grad.addColorStop(0, "rgba(255,255,255,0.95)");
+      grad.addColorStop(0.2, color);
+      grad.addColorStop(1, "rgba(18, 28, 44, 0.96)");
+      ctx.fillStyle = grad;
+      ctx.strokeStyle = "rgba(210, 226, 252, 0.55)";
+      ctx.lineWidth = 1.1;
+      ctx.shadowBlur = 9;
+      ctx.shadowColor = `${color}99`;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.stroke();
+
+      ctx.fillStyle = "#f5f9ff";
+      ctx.font = "600 11px IBM Plex Mono, monospace";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(id, pos.x, pos.y);
+    });
+
+    ctx.fillStyle = "rgba(214, 230, 252, 0.9)";
+    ctx.font = "600 13px Space Grotesk, sans-serif";
+    ctx.textAlign = "left";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText(`t=${timeNorm.toFixed(3)}  •  frame ${safeIndex + 1}/${frames.length}`, 14, 22);
+
+    if (UI.networkAnimMeta) {
+      UI.networkAnimMeta.textContent = `t=${timeNorm.toFixed(3)} · frame ${safeIndex + 1}/${frames.length}`;
+    }
+    if (UI.networkAnimFrame && document.activeElement !== UI.networkAnimFrame) {
+      UI.networkAnimFrame.value = String(safeIndex);
+    }
+    if (UI.networkAnimEdges) {
+      const lines = activeEdgeRows
+        .sort((a, b) => ((b.pulse * b.abs_change) - (a.pulse * a.abs_change)))
+        .slice(0, 6)
+        .map((row) => {
+          const arrow = row.direction === "decrease" || row.direction === "down" ? "decreasing" : "increasing";
+          return `${row.src} -> ${row.dst} (${arrow}; delta=${Number(row.abs_change || 0).toFixed(4)})`;
+        });
+      UI.networkAnimEdges.innerHTML = lines.length
+        ? lines.map((line) => `<li>${escapeHtml(line)}</li>`).join("")
+        : `<li class="muted">No strongly active edge transitions at this frame.</li>`;
+    }
+  }
+
+  function startNetworkAnimationLoop() {
+    stopNetworkAnimationLoop();
+    if (!state.networkAnimPlaying || !state.networkAnimPayload) return;
+    const payload = state.networkAnimPayload;
+    const frames = Array.isArray(payload?.frames) ? payload.frames : [];
+    if (frames.length <= 1) return;
+
+    const stepMsBase = 320;
+    const tick = (timestamp) => {
+      if (!state.networkAnimPlaying || !state.networkAnimPayload) {
+        state.networkAnimRafId = null;
+        return;
+      }
+      if (!isDashboardTabActive() || document.hidden) {
+        state.networkAnimLastTickMs = Number(timestamp || 0);
+        state.networkAnimRafId = requestAnimationFrame(tick);
+        return;
+      }
+      if (!state.networkAnimLastTickMs) {
+        state.networkAnimLastTickMs = Number(timestamp || 0);
+      }
+      const elapsed = Number(timestamp || 0) - Number(state.networkAnimLastTickMs || 0);
+      const speed = Math.max(0.5, Math.min(3, Number(state.networkAnimSpeed || 1)));
+      const frameStepMs = stepMsBase / speed;
+      if (elapsed >= frameStepMs) {
+        state.networkAnimLastTickMs = Number(timestamp || 0);
+        state.networkAnimFrameIndex = (Number(state.networkAnimFrameIndex || 0) + 1) % Math.max(1, frames.length);
+        drawNetworkAnimationFrame(state.networkAnimPayload, state.networkAnimFrameIndex);
+      }
+      state.networkAnimRafId = requestAnimationFrame(tick);
+    };
+    state.networkAnimRafId = requestAnimationFrame(tick);
+  }
+
+  function bindNetworkAnimationControls() {
+    if (UI.networkAnimToggle && !UI.networkAnimToggle.dataset.bound) {
+      UI.networkAnimToggle.dataset.bound = "1";
+      UI.networkAnimToggle.addEventListener("click", () => {
+        state.networkAnimPlaying = !state.networkAnimPlaying;
+        UI.networkAnimToggle.textContent = state.networkAnimPlaying ? "Pause" : "Play";
+        if (state.networkAnimPlaying) startNetworkAnimationLoop();
+        else stopNetworkAnimationLoop();
+        updateNetworkAnimationStatus(state.networkAnimPayload);
+      });
+    }
+    if (UI.networkAnimFrame && !UI.networkAnimFrame.dataset.bound) {
+      UI.networkAnimFrame.dataset.bound = "1";
+      UI.networkAnimFrame.addEventListener("input", () => {
+        const idx = Number(UI.networkAnimFrame?.value || 0);
+        state.networkAnimFrameIndex = Math.max(0, Math.round(idx));
+        drawNetworkAnimationFrame(state.networkAnimPayload || { nodes: [], frames: [], edges: [], maxStrength: 1 }, state.networkAnimFrameIndex);
+      });
+      UI.networkAnimFrame.addEventListener("change", () => {
+        drawNetworkAnimationFrame(state.networkAnimPayload || { nodes: [], frames: [], edges: [], maxStrength: 1 }, state.networkAnimFrameIndex);
+      });
+    }
+    if (UI.networkAnimSpeed && !UI.networkAnimSpeed.dataset.bound) {
+      UI.networkAnimSpeed.dataset.bound = "1";
+      UI.networkAnimSpeed.addEventListener("input", () => {
+        state.networkAnimSpeed = Math.max(0.5, Math.min(3, Number(UI.networkAnimSpeed?.value || 1)));
+      });
+    }
+    if (!window.__phoenixNetworkAnimResizeBound) {
+      window.__phoenixNetworkAnimResizeBound = true;
+      window.addEventListener("resize", () => {
+        state.networkAnimPositions = {};
+        if (state.networkAnimPayload) {
+          drawNetworkAnimationFrame(state.networkAnimPayload, state.networkAnimFrameIndex);
+        }
+      });
+    }
+    if (!window.__phoenixNetworkAnimTabBound) {
+      window.__phoenixNetworkAnimTabBound = true;
+      window.addEventListener("phoenix:tab-switch", (event) => {
+        const tabId = String(event?.detail?.tabId || "");
+        if (tabId === "dashboard") {
+          if (state.networkAnimPayload) {
+            drawNetworkAnimationFrame(state.networkAnimPayload, state.networkAnimFrameIndex);
+            if (state.networkAnimPlaying && !state.networkAnimRafId) {
+              startNetworkAnimationLoop();
+            }
+          }
+          return;
+        }
+        stopNetworkAnimationLoop();
+      });
+    }
+  }
+
+  function renderTimeVaryingNetwork(dashboard) {
+    if (!UI.networkAnimCanvas) return;
+    bindNetworkAnimationControls();
+    const raw = dashboard?.network?.time_varying_network || {};
+    const payload = normalizeNetworkPayload(raw);
+    const key = networkPayloadIdentity(payload);
+
+    const ready = payload.status === "ready" && payload.frames.length > 0 && payload.nodes.length > 0;
+    if (!ready) {
+      stopNetworkAnimationLoop();
+      state.networkAnimPayload = null;
+      state.networkAnimPayloadKey = "";
+      state.networkAnimFrameIndex = 0;
+      setNetworkAnimStatus("UNAVAILABLE", "idle");
+      if (UI.networkAnimCaption) {
+        UI.networkAnimCaption.textContent = payload.reason || "No time-varying network artifacts available for this run.";
+      }
+      if (UI.networkAnimEdges) {
+        UI.networkAnimEdges.innerHTML = `<li class="muted">Run a cycle with temporal network outputs to animate dynamics.</li>`;
+      }
+      if (UI.networkAnimMeta) UI.networkAnimMeta.textContent = "t=0.00 · frame 0/0";
+      if (UI.networkAnimFrame) {
+        UI.networkAnimFrame.min = "0";
+        UI.networkAnimFrame.max = "0";
+        UI.networkAnimFrame.value = "0";
+        UI.networkAnimFrame.disabled = true;
+      }
+      if (UI.networkAnimSpeed) {
+        UI.networkAnimSpeed.disabled = true;
+      }
+      if (UI.networkAnimToggle) {
+        UI.networkAnimToggle.disabled = true;
+        UI.networkAnimToggle.textContent = "Play";
+      }
+      drawNetworkAnimationFrame({ nodes: [], frames: [], edges: [], maxStrength: 1 }, 0);
+      return;
+    }
+
+    state.networkAnimPayload = payload;
+    const payloadChanged = state.networkAnimPayloadKey !== key;
+    if (payloadChanged) {
+      state.networkAnimPayloadKey = key;
+      state.networkAnimFrameIndex = 0;
+      state.networkAnimPositions = {};
+      state.networkAnimLastTickMs = 0;
+    } else {
+      state.networkAnimFrameIndex = Math.max(
+        0,
+        Math.min(payload.frames.length - 1, Number(state.networkAnimFrameIndex || 0)),
+      );
+    }
+
+    if (UI.networkAnimFrame) {
+      UI.networkAnimFrame.min = "0";
+      UI.networkAnimFrame.max = String(Math.max(0, payload.frames.length - 1));
+      UI.networkAnimFrame.value = String(state.networkAnimFrameIndex);
+      UI.networkAnimFrame.disabled = payload.frames.length <= 1;
+    }
+    if (UI.networkAnimSpeed) {
+      UI.networkAnimSpeed.value = String(state.networkAnimSpeed || 1);
+      UI.networkAnimSpeed.disabled = payload.frames.length <= 1;
+    }
+    if (UI.networkAnimToggle) {
+      UI.networkAnimToggle.disabled = payload.frames.length <= 1;
+      UI.networkAnimToggle.textContent = payload.frames.length <= 1 ? "Static" : (state.networkAnimPlaying ? "Pause" : "Play");
+    }
+    if (UI.networkAnimCaption) {
+      const summary = payload.summary || {};
+      const base = `Animated from PHOENIX network artifacts: ${summary.node_count || payload.nodes.length} nodes, ${summary.edge_count || payload.edges.length} dynamic edges, ${summary.frame_count || payload.frames.length} frames.`;
+      UI.networkAnimCaption.textContent = payload.frames.length <= 1
+        ? `${base} This run produced a single temporal frame, so playback is static.`
+        : base;
+    }
+    updateNetworkAnimationStatus(payload);
+    drawNetworkAnimationFrame(payload, state.networkAnimFrameIndex);
+    if (state.networkAnimPlaying && payload.frames.length > 1) {
+      if (payloadChanged) {
+        stopNetworkAnimationLoop();
+        startNetworkAnimationLoop();
+      } else if (!state.networkAnimRafId) {
+        startNetworkAnimationLoop();
+      }
+    } else {
+      stopNetworkAnimationLoop();
+    }
   }
 
   function buildBarChart(canvasId, labels, values, color, opts = {}) {
@@ -1224,6 +1816,7 @@
       copingRows.map((x) => Number(x.score_0_1 || 0)),
       "#28c995",
     );
+    renderTimeVaryingNetwork(dashboard);
 
     const renderList = (id, rows, emptyText) => {
       const node = document.getElementById(id);
@@ -1869,7 +2462,9 @@
   function derivePipelineSignals() {
     const snapshot = state.snapshot || {};
     const dashboard = snapshot.pipeline_dashboard || {};
-    const hasIntake = Boolean(snapshot.session?.complaint_text);
+    const complaintText = String(snapshot.session?.complaint_text || "").trim();
+    const hasIntake = Boolean(complaintText);
+    const hasIntakeReady = hasIntake && snapshot.intake_sync?.matches === true;
     const hasModel = Boolean(snapshot.has_model);
     const hasAcquisition = Boolean(snapshot.has_pseudodata) && !state.awaitingFreshAcquisition;
     const communicationStage = String(snapshot.communication_summary?.payload?.stage || "").toLowerCase();
@@ -1887,36 +2482,31 @@
       dashboard.step05?.status === "generated" ||
       hasFinalCommunication
     );
-    return { hasIntake, hasModel, hasAcquisition, hasAnalysis, hasIntervention };
+    return { hasIntake, hasIntakeReady, hasModel, hasAcquisition, hasAnalysis, hasIntervention };
   }
 
   function phaseRunningFlags() {
     return {
       model: isRunningStatus(state.componentStatus.step01_operationalization) ||
-        isRunningStatus(state.componentStatus.step02_initial_model) ||
-        isRunningStatus(state.componentStatus.step04_updated_model),
+        isRunningStatus(state.componentStatus.step02_initial_model),
       acquisition: isRunningStatus(state.componentStatus.pseudodata_collection) ||
         isRunningStatus(state.componentStatus.manual_data_upload),
       analysis: isRunningStatus(state.componentStatus.pipeline_cycle_engine) ||
         isRunningStatus(state.componentStatus.readiness_analysis) ||
         isRunningStatus(state.componentStatus.network_analysis) ||
         isRunningStatus(state.componentStatus.impact_quantification) ||
-        isRunningStatus(state.componentStatus.step03_target_selection),
+        isRunningStatus(state.componentStatus.step03_target_selection) ||
+        isRunningStatus(state.componentStatus.step04_updated_model),
       intervention: isRunningStatus(state.componentStatus.step05_intervention) ||
         isRunningStatus(state.componentStatus.communication_agent),
     };
   }
 
-  function computePhases() {
-    /* Always use the 5-phase stepper logic based on pipeline signals */
-
-    const s = derivePipelineSignals();
-    const running = phaseRunningFlags();
-    const failed = {
+  function phaseFailureFlags() {
+    return {
       model:
         normalizeStatus(state.componentStatus.step01_operationalization) === "failed" ||
-        normalizeStatus(state.componentStatus.step02_initial_model) === "failed" ||
-        normalizeStatus(state.componentStatus.step04_updated_model) === "failed",
+        normalizeStatus(state.componentStatus.step02_initial_model) === "failed",
       acquisition:
         normalizeStatus(state.componentStatus.pseudodata_collection) === "failed" ||
         normalizeStatus(state.componentStatus.manual_data_upload) === "failed",
@@ -1925,17 +2515,26 @@
         normalizeStatus(state.componentStatus.readiness_analysis) === "failed" ||
         normalizeStatus(state.componentStatus.network_analysis) === "failed" ||
         normalizeStatus(state.componentStatus.impact_quantification) === "failed" ||
-        normalizeStatus(state.componentStatus.step03_target_selection) === "failed",
+        normalizeStatus(state.componentStatus.step03_target_selection) === "failed" ||
+        normalizeStatus(state.componentStatus.step04_updated_model) === "failed",
       intervention:
         normalizeStatus(state.componentStatus.step05_intervention) === "failed" ||
         normalizeStatus(state.componentStatus.communication_agent) === "failed",
     };
+  }
+
+  function computePhases() {
+    const s = derivePipelineSignals();
+    const running = phaseRunningFlags();
+    const failed = phaseFailureFlags();
     const phases = [
       {
         key: "intake",
         label: "INTAKE",
-        note: "Complaint and context captured",
-        done: true,  /* Always done — session exists with complaint */
+        note: s.hasIntakeReady
+          ? "Complaint and context synced to Step-01 input artifact"
+          : "Save intake to synchronize free-text complaint artifact",
+        done: s.hasIntakeReady,
         active: false,
       },
       {
@@ -1976,16 +2575,543 @@
     }
 
     const decorated = phases.map((phase, index) => {
+      if (phase.key === "intake" && !s.hasIntakeReady) {
+        return { ...phase, status: "active" };
+      }
       const failedPhase = (phase.key === "model" && failed.model)
         || (phase.key === "acquisition" && failed.acquisition)
         || (phase.key === "analysis" && failed.analysis)
         || (phase.key === "intervention" && failed.intervention);
       if (phase.done) return { ...phase, status: "done" };
-      if (failedPhase) return { ...phase, status: "pending" };
+      if (failedPhase) return { ...phase, status: "error" };
       if (index === activeIndex) return { ...phase, status: "active" };
       return { ...phase, status: "pending" };
     });
     return decorated;
+  }
+
+  function executionChannelMeta(snapshot) {
+    const runId = String(snapshot?.pipeline_summary?.run_id || snapshot?.session?.pipeline_run_id || "").trim();
+    if (!runId) {
+      return {
+        label: "No cycle execution yet",
+        detail: "Run from frontend controls or import CLI artifacts into this session path.",
+      };
+    }
+    const token = runId.toLowerCase();
+    const frontendRun = token.startsWith("frontend_pipeline_") || token.startsWith("frontend_");
+    if (frontendRun) {
+      return {
+        label: "Frontend orchestrated run",
+        detail: `run_id=${runId}`,
+      };
+    }
+    return {
+      label: "CLI / external orchestrated run",
+      detail: `run_id=${runId}`,
+    };
+  }
+
+  function flowChipClass(stateValue) {
+    if (stateValue === "done") return "status-succeeded";
+    if (stateValue === "running") return "status-running";
+    if (stateValue === "failed") return "status-failed";
+    if (stateValue === "ready") return "status-queued";
+    return "status-idle";
+  }
+
+  function flowStateLabel(stateValue) {
+    if (stateValue === "done") return "DONE";
+    if (stateValue === "running") return "RUNNING";
+    if (stateValue === "failed") return "FAILED";
+    if (stateValue === "ready") return "READY";
+    return "BLOCKED";
+  }
+
+  function buildFlowStages() {
+    const s = derivePipelineSignals();
+    const running = phaseRunningFlags();
+    const failed = phaseFailureFlags();
+    const snapshot = state.snapshot || {};
+    const dashboard = snapshot.pipeline_dashboard || {};
+    const modelSummary = snapshot.model_summary || {};
+    const pseudoSummary = snapshot.pseudodata_summary || {};
+    const intakeSync = state.snapshot?.intake_sync || {};
+    const intakeSynced = s.hasIntakeReady;
+    const complaintText = String(snapshot.session?.complaint_text || "").trim();
+    const step03Count = Array.isArray(dashboard.step03?.recommended_targets) ? dashboard.step03.recommended_targets.length : 0;
+    const step04Count = Array.isArray(dashboard.step04?.recommended_predictors) ? dashboard.step04.recommended_predictors.length : 0;
+    const step05Targets = Array.isArray(dashboard.step05?.selected_targets) ? dashboard.step05.selected_targets.length : 0;
+    const step05Barriers = Array.isArray(dashboard.step05?.selected_barriers) ? dashboard.step05.selected_barriers.length : 0;
+    const readinessTier = String(dashboard.readiness?.tier || dashboard.readiness?.label || "n/a");
+
+    const rows = [
+      {
+        key: "intake",
+        order: 1,
+        label: "Intake",
+        input: "Free-text complaint + context",
+        output: "free_text_complaints.txt",
+        note: intakeSynced
+          ? "Session complaint is synced to Step-01 input."
+          : "Enter complaint text (if empty) and save intake to sync artifact.",
+        done: intakeSynced,
+        running: false,
+        failed: false,
+        ready: !intakeSynced,
+        metric: complaintText ? `${complaintText.length} chars captured` : "Complaint missing; intake action required",
+        actionButtonId: !intakeSynced ? "save-intake-btn" : "",
+        actionKind: !intakeSynced ? "sync_intake" : "",
+      },
+      {
+        key: "model",
+        order: 2,
+        label: "Model",
+        input: "Synced complaint artifact",
+        output: "Step-01 criteria + Step-02 initial model",
+        note: "Operationalization and initial observation model construction.",
+        done: s.hasModel && !failed.model,
+        running: running.model,
+        failed: failed.model,
+        ready: !s.hasModel && intakeSynced,
+        metric: s.hasModel
+          ? `${Number(modelSummary.criteria_count || 0)} criteria · ${Number(modelSummary.predictor_count || 0)} predictors`
+          : "Model artifacts pending",
+        actionButtonId: "run-initial-model-btn",
+        actionKind: "model",
+      },
+      {
+        key: "acquisition",
+        order: 3,
+        label: "Data",
+        input: "Initial model schema",
+        output: "pseudodata_wide.csv",
+        note: state.awaitingFreshAcquisition
+          ? "Model refinement requested; generate fresh pseudodata first."
+          : "Synthesize or upload EMA-compatible time-series data.",
+        done: s.hasAcquisition && !failed.acquisition,
+        running: running.acquisition,
+        failed: failed.acquisition,
+        ready: !s.hasAcquisition && s.hasModel,
+        metric: s.hasAcquisition
+          ? `${Number(pseudoSummary.n_points || 0)} points · missing ${(Number(pseudoSummary.missing_rate_target || 0) * 100).toFixed(0)}%`
+          : "No usable pseudodata yet",
+        actionButtonId: "synthesize-btn",
+        actionKind: "acquisition",
+      },
+      {
+        key: "analysis",
+        order: 4,
+        label: "Analysis",
+        input: "Pseudodata + model",
+        output: "Readiness/network/impact + Step-03/04",
+        note: "Run integrated cycle through readiness, network, impact, and handoff.",
+        done: s.hasAnalysis && !failed.analysis,
+        running: running.analysis,
+        failed: failed.analysis,
+        ready: !s.hasAnalysis && s.hasAcquisition,
+        metric: s.hasAnalysis
+          ? `readiness=${readinessTier} · step03=${step03Count} · step04=${step04Count}`
+          : "No HUA analysis artifacts yet",
+        actionButtonId: "run-cycle-btn",
+        actionKind: "analysis",
+      },
+      {
+        key: "intervention",
+        order: 5,
+        label: "Intervention",
+        input: "Analysis handoff outputs",
+        output: "Step-05 + treatment communication",
+        note: "Generate intervention package and communication summary.",
+        done: s.hasIntervention && !failed.intervention,
+        running: running.intervention,
+        failed: failed.intervention,
+        ready: !s.hasIntervention && s.hasAnalysis,
+        metric: s.hasIntervention
+          ? `targets=${step05Targets} · barriers=${step05Barriers}`
+          : "No intervention outputs yet",
+        actionButtonId: "run-cycle-btn",
+        actionKind: "intervention",
+      },
+    ];
+
+    rows.forEach((row) => {
+      if (row.failed) {
+        row.state = "failed";
+      } else if (row.running) {
+        row.state = "running";
+      } else if (row.done) {
+        row.state = "done";
+      } else if (row.ready) {
+        row.state = "ready";
+      } else {
+        row.state = "blocked";
+      }
+    });
+    return rows;
+  }
+
+  function nextFlowAction(stages) {
+    if (stages.some((row) => row.state === "running")) {
+      const active = stages.find((row) => row.state === "running");
+      return {
+        text: `${active?.label || "Stage"} is running`,
+        chip: "In progress",
+        buttonId: "",
+        actionKind: "",
+      };
+    }
+    const candidate = stages.find((row) => row.state === "failed" || row.state === "ready");
+    if (!candidate || !candidate.actionButtonId) {
+      const blocked = stages.find((row) => row.state === "blocked");
+      if (blocked) {
+        return {
+          text: `Waiting for ${blocked.label} prerequisites`,
+          chip: `Blocked: ${blocked.label}`,
+          buttonId: "",
+          actionKind: "",
+        };
+      }
+      return {
+        text: "All stages complete for current cycle",
+        chip: "Pipeline complete",
+        buttonId: "",
+        actionKind: "",
+      };
+    }
+    const retry = candidate.state === "failed";
+    return {
+      text: retry ? `Retry ${candidate.label}` : `Run ${candidate.label}`,
+      chip: retry ? `Retry ${candidate.label}` : `Next: ${candidate.label}`,
+      buttonId: candidate.actionButtonId,
+      actionKind: candidate.actionKind,
+    };
+  }
+
+  function componentLabel(componentId) {
+    const match = COMPONENT_DEFS.find((row) => row.id === componentId);
+    return match ? match.label : String(componentId || "component");
+  }
+
+  function buildCycleLoopRows(stages) {
+    const snapshot = state.snapshot || {};
+    const dashboard = snapshot.pipeline_dashboard || {};
+    const signals = derivePipelineSignals();
+    const failures = phaseFailureFlags();
+    const running = phaseRunningFlags();
+    const pipelineSummary = snapshot.pipeline_summary || {};
+    const iterativeDataflow = pipelineSummary.iterative_dataflow || {};
+    const communicationStage = String(snapshot.communication_summary?.payload?.stage || "").toLowerCase();
+    const step04CycleStatus = String(dashboard.step04?.status || "").toLowerCase();
+    const step05CycleStatus = String(dashboard.step05?.status || "").toLowerCase();
+
+    const step04Status = normalizeStatus(state.componentStatus.step04_updated_model || "");
+    const step04Generated = step04CycleStatus === "generated" || step04Status === "succeeded";
+    const step04Skipped = step04CycleStatus === "skipped";
+    const updateModelState = failures.analysis
+      ? "failed"
+      : step04Status === "running"
+        ? "running"
+        : (step04Generated || step04Skipped)
+          ? "done"
+          : signals.hasAnalysis
+            ? "ready"
+            : "blocked";
+
+    const dataRefreshState = failures.acquisition
+      ? "failed"
+      : running.acquisition
+        ? "running"
+        : signals.hasAcquisition
+          ? "done"
+          : (signals.hasModel || step04Generated)
+            ? "ready"
+            : "blocked";
+
+    const huaState = failures.analysis
+      ? "failed"
+      : running.analysis
+        ? "running"
+        : signals.hasAnalysis
+          ? "done"
+          : signals.hasAcquisition
+            ? "ready"
+            : "blocked";
+
+    const interventionState = failures.intervention
+      ? "failed"
+      : running.intervention
+        ? "running"
+        : (signals.hasIntervention || communicationStage.startsWith("cycle_") || step05CycleStatus === "skipped")
+          ? "done"
+          : signals.hasAnalysis
+            ? "ready"
+            : "blocked";
+
+    const activeStage = stages.find((row) => row.state === "running")?.label || "none";
+    const mode = String(iterativeDataflow.mode || "base_pseudodata");
+    const sourceCycleRoot = shortPath(iterativeDataflow.source_cycle_root || "", 4);
+
+    return [
+      {
+        label: "Updated model handoff (Step-04)",
+        state: updateModelState,
+        note: step04Generated
+          ? "Updated predictors available for next loop."
+          : step04Skipped
+            ? "Skipped this cycle (no Step-03 targets)."
+            : "Awaiting first cycle handoff output.",
+      },
+      {
+        label: "Data refresh (Step-03)",
+        state: dataRefreshState,
+        note: state.awaitingFreshAcquisition
+          ? "Fresh pseudodata required before next HUA cycle."
+          : "Pseudodata artifact available for cycle execution.",
+      },
+      {
+        label: "HUA cycle execution",
+        state: huaState,
+        note: `mode=${mode} · source=${sourceCycleRoot}`,
+      },
+      {
+        label: "Intervention + communication",
+        state: interventionState,
+        note: step05CycleStatus === "skipped"
+          ? "Skipped this cycle (handoff/intervention conditions not met)."
+          : communicationStage.startsWith("cycle_")
+            ? `Communication published (${communicationStage}).`
+            : `Active stage: ${activeStage}`,
+      },
+    ];
+  }
+
+  function buildIntermediateFeedRows(stages, next) {
+    const snapshot = state.snapshot || {};
+    const dashboard = snapshot.pipeline_dashboard || {};
+    const runtime = dashboard.runtime || {};
+    const rows = [];
+
+    const addRow = (source, message) => {
+      const text = String(message || "").trim();
+      if (!text) return;
+      rows.push({ source, message: text });
+    };
+
+    const readiness = dashboard.readiness || {};
+    const impact = dashboard.impact || {};
+    const step03Targets = Array.isArray(dashboard.step03?.recommended_targets) ? dashboard.step03.recommended_targets.length : 0;
+    const step04Predictors = Array.isArray(dashboard.step04?.recommended_predictors) ? dashboard.step04.recommended_predictors.length : 0;
+    const step05Targets = Array.isArray(dashboard.step05?.selected_targets) ? dashboard.step05.selected_targets.length : 0;
+    const step05Barriers = Array.isArray(dashboard.step05?.selected_barriers) ? dashboard.step05.selected_barriers.length : 0;
+    const topPredictor = (impact.top_predictors || [])[0] || {};
+    const activeComponent = Object.entries(state.componentStatus || {})
+      .find(([, status]) => normalizeStatus(status) === "running");
+
+    const doneCount = stages.filter((row) => row.state === "done").length;
+    addRow("result", `Stage progress: ${doneCount}/${stages.length || 0} completed`);
+    addRow("result", `Next action: ${next.text}`);
+    if (activeComponent) {
+      const detail = String(state.componentDetail?.[activeComponent[0]] || "").trim();
+      addRow("live", `Running: ${componentLabel(activeComponent[0])}${detail ? ` — ${detail}` : ""}`);
+    }
+    if (snapshot.has_model) {
+      addRow("result", `Model ready: criteria=${Number(snapshot.model_summary?.criteria_count || 0)} · predictors=${Number(snapshot.model_summary?.predictor_count || 0)}`);
+    }
+    if (snapshot.has_pseudodata) {
+      addRow("result", `Data ready: points=${Number(snapshot.pseudodata_summary?.n_points || 0)} · profile=${snapshot.pseudodata_summary?.profile_id || "n/a"}`);
+    }
+    if (String(readiness.tier || readiness.label || "").trim()) {
+      addRow("result", `Readiness: tier=${readiness.tier || readiness.label || "n/a"} · score=${Number(readiness.score_0_100 || 0).toFixed(1)}`);
+    }
+    if (step03Targets || step04Predictors || step05Targets || step05Barriers) {
+      addRow("result", `Intermittent outputs: step03=${step03Targets} · step04=${step04Predictors} · step05 targets=${step05Targets} barriers=${step05Barriers}`);
+    }
+    if (topPredictor.predictor_display || topPredictor.predictor_label || topPredictor.predictor) {
+      addRow("result", `Top impact predictor: ${topPredictor.predictor_display || topPredictor.predictor_label || topPredictor.predictor}`);
+    }
+
+    const stageEvents = Array.isArray(runtime.stage_event_rows) ? runtime.stage_event_rows : [];
+    stageEvents.slice(0, 14).forEach((row) => {
+      const stamp = String(row.timestamp_local || "").trim();
+      const stage = String(row.stage || row.stage_id || "").trim();
+      const event = String(row.event || "").trim();
+      const msg = String(row.message || "").trim();
+      const head = [stamp ? `[${stamp}]` : "", stage, event].filter(Boolean).join(" ");
+      addRow("artifact", `${head}${msg ? ` — ${msg}` : ""}`);
+    });
+
+    const liveEvents = Array.isArray(state.runtimeEvents) ? state.runtimeEvents : [];
+    liveEvents.slice(0, 16).forEach((item) => {
+      const stamp = String(item.time || "").trim();
+      const msg = String(item.message || "").trim();
+      if (!msg) return;
+      if (shouldSuppressLogLine(msg)) return;
+      addRow("live", `${stamp ? `[${stamp}] ` : ""}${msg}`);
+    });
+    const tailLogs = Array.isArray(state.logLines) ? state.logLines.slice(-24) : [];
+    tailLogs.slice().reverse().forEach((line) => {
+      const raw = String(line || "").trim();
+      if (!raw) return;
+      if (shouldSuppressLogLine(raw)) return;
+      const normalized = raw.length > 200 ? `${raw.slice(0, 200)}...` : raw;
+      addRow("log", normalized);
+    });
+
+    const dedupe = [];
+    const seen = new Set();
+    rows.forEach((row) => {
+      const key = `${row.source}|${row.message}`;
+      if (seen.has(key)) return;
+      seen.add(key);
+      dedupe.push(row);
+    });
+
+    const limit = state.verbosityMode === "detailed" ? 18 : state.verbosityMode === "balanced" ? 12 : 8;
+    return dedupe.slice(0, limit);
+  }
+
+  function stageComponentRatios(stages) {
+    const map = {
+      intake: [],
+      model: ["step01_operationalization", "step02_initial_model"],
+      acquisition: ["pseudodata_collection", "manual_data_upload"],
+      analysis: ["pipeline_cycle_engine", "readiness_analysis", "network_analysis", "impact_quantification", "step03_target_selection", "step04_updated_model"],
+      intervention: ["step05_intervention", "communication_agent"],
+    };
+    return stages.map((row) => {
+      if (row.state === "done") return 1;
+      if (row.state === "failed") return 0;
+      if (row.key === "intake") return row.state === "ready" ? 0.2 : 0;
+      const ids = map[row.key] || [];
+      if (!ids.length) return row.state === "running" ? 0.35 : 0;
+      const scores = ids.map((id) => {
+        const status = normalizeStatus(state.componentStatus[id] || "idle");
+        if (status === "succeeded") return 1;
+        if (status === "running") return 0.45;
+        if (status === "queued") return 0.2;
+        return 0;
+      });
+      const avg = scores.reduce((acc, value) => acc + value, 0) / Math.max(1, scores.length);
+      if (row.state === "running") return Math.max(avg, 0.35);
+      if (row.state === "ready") return Math.max(avg, 0.18);
+      return avg;
+    });
+  }
+
+  function renderFlowExecutionCockpit(stages, next) {
+    const total = Math.max(1, stages.length);
+    const doneCount = stages.filter((row) => row.state === "done").length;
+    const runningCount = stages.filter((row) => row.state === "running").length;
+    const failedCount = stages.filter((row) => row.state === "failed").length;
+    const readyCount = stages.filter((row) => row.state === "ready").length;
+    const blockedCount = stages.filter((row) => row.state === "blocked").length;
+    const ratios = stageComponentRatios(stages);
+    const base = (ratios.reduce((acc, value) => acc + value, 0) / total) * 100;
+    const withRunBoost = runningCount > 0 ? Math.min(99, base + 3) : base;
+    const percent = failedCount === 0 && doneCount === total ? 100 : Math.max(0, Math.min(99, withRunBoost));
+
+    if (UI.flowProgressFill) {
+      UI.flowProgressFill.style.width = `${percent.toFixed(1)}%`;
+      UI.flowProgressFill.classList.toggle("is-running", runningCount > 0);
+      const track = UI.flowProgressFill.parentElement;
+      if (track) track.setAttribute("aria-valuenow", String(Math.round(percent)));
+    }
+    if (UI.flowProgressLabel) {
+      UI.flowProgressLabel.textContent = `${doneCount}/${total} stages complete · ${Math.round(percent)}%`;
+    }
+    if (UI.flowProgressDetail) {
+      UI.flowProgressDetail.textContent = `running=${runningCount} · failed=${failedCount} · ready=${readyCount} · blocked=${blockedCount}`;
+    }
+    if (UI.flowActiveComponent) {
+      const activeComponent = Object.entries(state.componentStatus || {})
+        .find(([, status]) => normalizeStatus(status) === "running");
+      if (activeComponent) {
+        UI.flowActiveComponent.textContent = `Active component: ${componentLabel(activeComponent[0])}`;
+      } else if (failedCount > 0) {
+        const failedComponent = Object.entries(state.componentStatus || {})
+          .find(([, status]) => normalizeStatus(status) === "failed");
+        UI.flowActiveComponent.textContent = failedComponent
+          ? `Active component: failure at ${componentLabel(failedComponent[0])}`
+          : "Active component: failure detected";
+      } else {
+        UI.flowActiveComponent.textContent = `Active component: ${next.buttonId ? "ready for next stage" : "idle"}`;
+      }
+    }
+
+    if (UI.flowCycleLoop) {
+      const loopRows = buildCycleLoopRows(stages);
+      UI.flowCycleLoop.innerHTML = loopRows.map((row) => `
+        <li>
+          <span class="status-chip ${flowChipClass(row.state)}">${flowStateLabel(row.state)}</span>
+          <span class="loop-label">${escapeHtml(row.label)}</span>
+          <span class="muted compact">${escapeHtml(row.note)}</span>
+        </li>
+      `).join("");
+    }
+
+    if (UI.flowIntermediateFeed) {
+      const feedRows = buildIntermediateFeedRows(stages, next);
+      UI.flowIntermediateFeed.innerHTML = feedRows.length
+        ? feedRows.map((row) => `
+            <li>
+              <span class="feed-source">${escapeHtml(String(row.source || "event").toUpperCase())}</span>
+              ${escapeHtml(String(row.message || ""))}
+            </li>
+          `).join("")
+        : `<li class="muted">No intermediate results yet.</li>`;
+    }
+  }
+
+  function renderFlowOrchestrator() {
+    if (!UI.flowStageGrid) return;
+    const snapshot = state.snapshot || {};
+    const inputSync = snapshot.intake_sync || {};
+    const complaint = String(snapshot.session?.complaint_text || "").trim();
+    const execution = executionChannelMeta(snapshot);
+    const stages = buildFlowStages();
+    const next = nextFlowAction(stages);
+
+    if (UI.flowInputChannel) {
+      if (!complaint) {
+        UI.flowInputChannel.textContent = "Missing complaint intake";
+      } else if (inputSync.matches === true) {
+        UI.flowInputChannel.textContent = "Frontend intake (synced)";
+      } else {
+        UI.flowInputChannel.textContent = "Frontend intake (sync required)";
+      }
+    }
+    if (UI.flowInputDetail) {
+      const path = shortPath(inputSync.complaints_path || "", 4);
+      UI.flowInputDetail.textContent = inputSync.matches === true
+        ? `Step-01 input artifact: ${path}`
+        : `Save intake before model execution. Artifact path: ${path}`;
+    }
+    if (UI.flowExecutionChannel) UI.flowExecutionChannel.textContent = execution.label;
+    if (UI.flowExecutionDetail) UI.flowExecutionDetail.textContent = execution.detail;
+
+    UI.flowStageGrid.innerHTML = stages.map((row) => `
+      <article class="flow-stage-card" data-state="${escapeHtml(row.state)}">
+        <div class="flow-stage-head">
+          <span class="flow-stage-title"><span class="flow-stage-index">${row.order}</span>${escapeHtml(row.label)}</span>
+          <span class="status-chip ${flowChipClass(row.state)}">${flowStateLabel(row.state)}</span>
+        </div>
+        <p class="muted compact"><strong>Input:</strong> ${escapeHtml(row.input)}</p>
+        <p class="muted compact"><strong>Output:</strong> ${escapeHtml(row.output)}</p>
+        <p class="flow-stage-metric">${escapeHtml(String(row.metric || ""))}</p>
+        <p class="flow-stage-note">${escapeHtml(row.note)}</p>
+      </article>
+    `).join("");
+
+    if (UI.flowNextAction) UI.flowNextAction.textContent = next.text;
+    if (UI.flowNextChip) UI.flowNextChip.textContent = next.chip;
+    if (UI.flowRunNextBtn) {
+      UI.flowRunNextBtn.disabled = !next.buttonId || Boolean(state.activeJobId);
+      UI.flowRunNextBtn.dataset.targetButtonId = String(next.buttonId || "");
+      UI.flowRunNextBtn.dataset.actionKind = String(next.actionKind || "");
+      UI.flowRunNextBtn.textContent = next.buttonId ? next.text : "Run Next Step";
+    }
+    renderFlowExecutionCockpit(stages, next);
   }
 
   function renderTopbarProgress(phases) {
@@ -2242,10 +3368,14 @@
         chip.textContent = label;
         chip.className = "status-chip " + statusClass;
       }
+      const muted = state.verbosityMode === "concise" && (liveStatus === "idle" || liveStatus === "succeeded" || liveStatus === "done");
+      item.classList.toggle("sub-stage-muted", muted);
       var detailEl = item.querySelector(".sub-stage-detail");
       /* Only overwrite detail if it's meaningful (not a category label) */
       if (detailEl && detail && !detail.startsWith("Category:")) {
         detailEl.textContent = detail;
+      } else if (detailEl && state.verbosityMode === "concise" && muted) {
+        detailEl.textContent = "Hidden in concise mode";
       }
     });
   }
@@ -2267,6 +3397,7 @@
         runNextLabel.textContent = "Run Next Phase";
       }
     }
+    renderFlowOrchestrator();
   }
 
   function populateCollectionSummary(collection) {
@@ -2454,9 +3585,26 @@
         /* Filter out skipped stages — they ran during model creation, not the cycle */
         const activeEngine = engineFlow.filter(r => String(r.status || "").toLowerCase() !== "skipped");
         const activeSupport = supportFlow.filter(r => String(r.status || "").toLowerCase() !== "skipped");
+        const verbosity = normalizeVerbosityMode(state.verbosityMode);
 
         const flowTable = (rows, title) => {
           if (!rows.length) return "";
+          if (verbosity === "concise") {
+            const clipped = rows.slice(0, 8);
+            return `
+              <h4>${escapeHtml(title)}</h4>
+              <div class="flow-summary-grid">
+                ${clipped.map((row) => `
+                  <span class="flow-summary-pill">
+                    <span class="label">${escapeHtml(String(row.label || row.stage_id || "stage"))}</span>
+                    <span class="status-chip ${row.status === "succeeded" ? "status-succeeded" : row.status === "failed" ? "status-failed" : "status-idle"}">${escapeHtml(String(row.status || "unknown"))}</span>
+                    <span>${escapeHtml(String(Number(row.duration_seconds || 0).toFixed(1)))}s</span>
+                  </span>
+                `).join("")}
+              </div>
+            `;
+          }
+          const clippedRows = verbosity === "balanced" ? rows.slice(0, 10) : rows;
           return `
             <h4>${escapeHtml(title)}</h4>
             <div class="table-wrap">
@@ -2465,7 +3613,7 @@
                   <tr><th>Stage</th><th>Status</th><th>Duration (s)</th></tr>
                 </thead>
                 <tbody>
-                  ${rows.map((row) => `
+                  ${clippedRows.map((row) => `
                     <tr>
                       <td>${escapeHtml(String(row.label || row.stage_id || "unknown"))}</td>
                       <td><span class="status-chip ${row.status === "succeeded" ? "status-succeeded" : row.status === "failed" ? "status-failed" : "status-idle"}">${escapeHtml(String(row.status || "unknown"))}</span></td>
@@ -2514,98 +3662,208 @@
       communication: hasFinalCommunication,
     };
     applySectionVisibility();
+    state.reconcilingSnapshot = true;
+    try {
+      const setIdleIfNotRunning = (componentId, detail) => {
+        const current = normalizeStatus(state.componentStatus[componentId] || "idle");
+        if (isRunningStatus(current)) return;
+        setComponentState(componentId, "idle", detail);
+      };
 
-    if (snapshot.has_model) {
-      setComponentState("step01_operationalization", "succeeded", "Criteria mapped");
-      setComponentState("step02_initial_model", "succeeded", "Initial model created");
-      if (visuals.length > 0) {
-        setComponentState("step02_visualization", "succeeded", "Visual diagnostics ready");
+      if (!snapshot.has_model) {
+        setIdleIfNotRunning("step01_operationalization", "Awaiting model creation");
+        setIdleIfNotRunning("step02_initial_model", "Awaiting model creation");
+        setIdleIfNotRunning("step02_visualization", "Awaiting model diagnostics");
       }
-    }
-    const fullSessionStatus = String(sessionNotes.latest_full_session_status || "").toLowerCase();
-    if (fullSessionStatus === "running") {
-      setComponentState("full_session_pipeline", "running", "End-to-end run in progress");
-    } else if (fullSessionStatus === "succeeded") {
-      const doneCycles = Number(sessionNotes.latest_full_session_cycles_completed || 0);
-      setComponentState("full_session_pipeline", "succeeded", `Completed (${doneCycles} cycle${doneCycles === 1 ? "" : "s"})`);
-    } else if (fullSessionStatus === "failed") {
-      setComponentState("full_session_pipeline", "failed", String(sessionNotes.latest_full_session_error || "Full run failed"));
-    }
-    if (snapshot.has_pseudodata && !state.awaitingFreshAcquisition) {
-      setComponentState("pseudodata_collection", "succeeded", "Acquisition completed");
-    }
-    if (snapshot.has_pipeline_summary) {
-      const stageRows = Array.isArray(pipelineSummary.stage_results) ? pipelineSummary.stage_results : [];
-      const stageStatus = {};
-      stageRows.forEach((row) => {
-        const key = String(row.stage || "").trim().toLowerCase();
-        if (!key) return;
-        const code = Number(row.return_code);
-        stageStatus[key] = Number.isFinite(code) && code === 0 ? "succeeded" : "failed";
-      });
-      const supportRows = Array.isArray(pipelineSummary.quality_and_research_flow)
-        ? pipelineSummary.quality_and_research_flow
-        : [];
-      const supportStatusById = {};
-      supportRows.forEach((row) => {
-        const key = String(row.stage_id || "").trim();
-        if (!key) return;
-        supportStatusById[key] = String(row.status || "skipped").toLowerCase();
-      });
+      if (!snapshot.has_pseudodata || state.awaitingFreshAcquisition) {
+        setIdleIfNotRunning(
+          "pseudodata_collection",
+          state.awaitingFreshAcquisition ? "Fresh pseudodata required for next cycle" : "No pseudodata artifact yet",
+        );
+        setIdleIfNotRunning("manual_data_upload", "No manual upload in current cycle");
+      }
+      if (!snapshot.has_pipeline_summary) {
+        setIdleIfNotRunning("pipeline_cycle_engine", "No cycle output yet");
+        setIdleIfNotRunning("readiness_analysis", "No readiness output yet");
+        setIdleIfNotRunning("network_analysis", "No network output yet");
+        setIdleIfNotRunning("impact_quantification", "No impact output yet");
+        setIdleIfNotRunning("step03_target_selection", "No Step-03 output yet");
+        setIdleIfNotRunning("step04_updated_model", "No Step-04 output yet");
+        setIdleIfNotRunning("step05_intervention", "No Step-05 output yet");
+        setIdleIfNotRunning("impact_visualization", "No support visuals yet");
+        setIdleIfNotRunning("evaluation_reporting", "No support reporting yet");
+      }
+      if (!hasFinalCommunication) {
+        setIdleIfNotRunning("communication_agent", "Generated after cycle completion");
+      }
+      if (!Object.keys(cohortSummary).length) {
+        setIdleIfNotRunning("cohort_batch", "No cohort run yet");
+      }
 
-      setComponentState("pipeline_cycle_engine", "succeeded", "Cycle completed");
-      setComponentState("readiness_analysis", "succeeded", "Readiness output available");
-      setComponentState("network_analysis", "succeeded", "Network output available");
-      if ((dashboard.impact?.top_predictors || []).length > 0) {
-        setComponentState("impact_quantification", "succeeded", "Impact output available");
-      } else {
-        setComponentState("impact_quantification", "idle", "Impact not generated for selected method path");
+      if (snapshot.has_model) {
+        setComponentState("step01_operationalization", "succeeded", "Criteria mapped");
+        setComponentState("step02_initial_model", "succeeded", "Initial model created");
+        if (visuals.length > 0) {
+          setComponentState("step02_visualization", "succeeded", "Visual diagnostics ready");
+        }
       }
-      if (dashboard.step03?.status === "generated") {
-        setComponentState("step03_target_selection", "succeeded", "Targets selected");
-      } else {
-        setComponentState("step03_target_selection", "idle", "Skipped (no impact profile)");
+
+      const fullSessionStatus = String(sessionNotes.latest_full_session_status || "").toLowerCase();
+      if (fullSessionStatus === "running") {
+        setComponentState("full_session_pipeline", "running", "End-to-end run in progress");
+      } else if (fullSessionStatus === "succeeded") {
+        const doneCycles = Number(sessionNotes.latest_full_session_cycles_completed || 0);
+        setComponentState("full_session_pipeline", "succeeded", `Completed (${doneCycles} cycle${doneCycles === 1 ? "" : "s"})`);
+      } else if (fullSessionStatus === "failed") {
+        setComponentState("full_session_pipeline", "failed", String(sessionNotes.latest_full_session_error || "Full run failed"));
       }
-      if (dashboard.step05?.status === "generated") {
-        setComponentState("step05_intervention", "succeeded", "Intervention available");
-      } else {
-        setComponentState("step05_intervention", "idle", "Skipped (no handoff output)");
+
+      if (snapshot.has_pseudodata && !state.awaitingFreshAcquisition) {
+        setComponentState("pseudodata_collection", "succeeded", "Acquisition completed");
       }
-      if (stageStatus.visualization === "succeeded" || supportStatusById.impact_visualization_support === "succeeded") {
-        setComponentState("impact_visualization", "succeeded", "Support visuals generated");
-      } else if (stageStatus.visualization === "failed") {
-        setComponentState("impact_visualization", "failed", "Support visualization failed");
-      } else {
-        setComponentState("impact_visualization", "idle", "Support visualization skipped");
+
+      if (snapshot.has_pipeline_summary) {
+        const stageRows = Array.isArray(pipelineSummary.stage_results) ? pipelineSummary.stage_results : [];
+        const stageStatus = {};
+        stageRows.forEach((row) => {
+          const key = String(row.stage || "").trim().toLowerCase();
+          if (!key) return;
+          const code = Number(row.return_code);
+          stageStatus[key] = Number.isFinite(code) && code === 0 ? "succeeded" : "failed";
+        });
+        const supportRows = Array.isArray(pipelineSummary.quality_and_research_flow)
+          ? pipelineSummary.quality_and_research_flow
+          : [];
+        const supportStatusById = {};
+        supportRows.forEach((row) => {
+          const key = String(row.stage_id || "").trim();
+          if (!key) return;
+          supportStatusById[key] = String(row.status || "skipped").toLowerCase();
+        });
+
+        const stageOutcome = (...aliases) => {
+          const cleanAliases = aliases.map((item) => String(item || "").toLowerCase()).filter(Boolean);
+          for (const alias of cleanAliases) {
+            if (stageStatus[alias]) return stageStatus[alias];
+          }
+          for (const [key, value] of Object.entries(stageStatus)) {
+            if (cleanAliases.some((alias) => key.includes(alias))) return value;
+          }
+          return "";
+        };
+
+        const readinessOutcome = stageOutcome("readiness");
+        const networkOutcome = stageOutcome("network", "time_series");
+        const impactOutcome = stageOutcome("impact", "momentary");
+        const handoffOutcome = stageOutcome("handoff", "target_identification");
+        const interventionOutcome = stageOutcome("intervention", "digital_intervention");
+        const communicationOutcome = stageOutcome("translation_communication", "treatment_translation_communication", "communication");
+        const pipelineOutcome = normalizePipelineSummaryStatus(pipelineSummary.status || "");
+        const coreFailed = [readinessOutcome, networkOutcome, impactOutcome, handoffOutcome, interventionOutcome, communicationOutcome]
+          .some((token) => token === "failed");
+
+        if (pipelineOutcome === "failed" || coreFailed) {
+          setComponentState("pipeline_cycle_engine", "failed", "Cycle completed with failed core stages");
+        } else if (pipelineOutcome === "running") {
+          setComponentState("pipeline_cycle_engine", "running", "Cycle pipeline still running");
+        } else {
+          setComponentState("pipeline_cycle_engine", "succeeded", "Cycle completed");
+        }
+
+        if (readinessOutcome === "failed") {
+          setComponentState("readiness_analysis", "failed", "Readiness stage failed");
+        } else if (readinessOutcome === "succeeded" || String(dashboard.readiness?.tier || dashboard.readiness?.label || "").trim()) {
+          setComponentState("readiness_analysis", "succeeded", "Readiness output available");
+        } else {
+          setComponentState("readiness_analysis", "idle", "Readiness stage skipped");
+        }
+
+        if (networkOutcome === "failed") {
+          setComponentState("network_analysis", "failed", "Network stage failed");
+        } else if (networkOutcome === "succeeded" || String(dashboard.network?.analysis_set || dashboard.network?.method_path || "").trim()) {
+          setComponentState("network_analysis", "succeeded", "Network output available");
+        } else {
+          setComponentState("network_analysis", "idle", "Network stage skipped");
+        }
+
+        if (impactOutcome === "failed") {
+          setComponentState("impact_quantification", "failed", "Impact stage failed");
+        } else if ((dashboard.impact?.top_predictors || []).length > 0 || impactOutcome === "succeeded") {
+          setComponentState("impact_quantification", "succeeded", "Impact output available");
+        } else {
+          setComponentState("impact_quantification", "idle", "Impact not generated for selected method path");
+        }
+
+        if (handoffOutcome === "failed") {
+          setComponentState("step03_target_selection", "failed", "Step-03 handoff failed");
+        } else if (dashboard.step03?.status === "generated") {
+          setComponentState("step03_target_selection", "succeeded", "Targets selected");
+        } else if (handoffOutcome === "succeeded") {
+          setComponentState("step03_target_selection", "succeeded", "Handoff completed (no targets)");
+        } else {
+          setComponentState("step03_target_selection", "idle", "Skipped (no impact profile)");
+        }
+
+        if (handoffOutcome === "failed") {
+          setComponentState("step04_updated_model", "failed", "Step-04 update failed");
+        } else if (dashboard.step04?.status === "generated" && (dashboard.step04?.recommended_predictors || []).length > 0) {
+          setComponentState("step04_updated_model", "succeeded", "Updated model available");
+        } else if (dashboard.step04?.status === "skipped") {
+          setComponentState("step04_updated_model", "idle", "Skipped (no Step-03 targets)");
+        } else if (handoffOutcome === "succeeded") {
+          setComponentState("step04_updated_model", "idle", "No Step-04 predictor updates emitted");
+        }
+
+        if (interventionOutcome === "failed") {
+          setComponentState("step05_intervention", "failed", "Intervention stage failed");
+        } else if (dashboard.step05?.status === "generated") {
+          setComponentState("step05_intervention", "succeeded", "Intervention available");
+        } else if (interventionOutcome === "succeeded") {
+          setComponentState("step05_intervention", "idle", "Intervention completed without selected outputs");
+        } else {
+          setComponentState("step05_intervention", "idle", "Skipped (no handoff output)");
+        }
+
+        if (stageOutcome("visualization") === "succeeded" || supportStatusById.impact_visualization_support === "succeeded") {
+          setComponentState("impact_visualization", "succeeded", "Support visuals generated");
+        } else if (stageOutcome("visualization") === "failed") {
+          setComponentState("impact_visualization", "failed", "Support visualization failed");
+        } else {
+          setComponentState("impact_visualization", "idle", "Support visualization skipped");
+        }
+
+        if (stageOutcome("reporting") === "succeeded" || supportStatusById.research_reporting_support === "succeeded") {
+          setComponentState("evaluation_reporting", "succeeded", "Research report generated");
+        } else if (stageOutcome("reporting") === "failed") {
+          setComponentState("evaluation_reporting", "failed", "Research reporting failed");
+        } else {
+          setComponentState("evaluation_reporting", "idle", "Support reporting skipped");
+        }
+
+        const commStage = String(snapshot.communication_summary?.payload?.stage || "").toLowerCase();
+        if (communicationOutcome === "failed") {
+          setComponentState("communication_agent", "failed", "Treatment communication stage failed");
+        } else if (commStage.startsWith("cycle_")) {
+          setComponentState("communication_agent", "succeeded", "Summary generated");
+        } else if (communicationOutcome === "succeeded") {
+          setComponentState("communication_agent", "succeeded", "Communication stage completed");
+        } else {
+          setComponentState("communication_agent", "idle", "Generated after final cycle stage");
+        }
       }
-      if (stageStatus.reporting === "succeeded" || supportStatusById.research_reporting_support === "succeeded") {
-        setComponentState("evaluation_reporting", "succeeded", "Research report generated");
-      } else if (stageStatus.reporting === "failed") {
-        setComponentState("evaluation_reporting", "failed", "Research reporting failed");
-      } else {
-        setComponentState("evaluation_reporting", "idle", "Support reporting skipped");
+
+      if (Object.keys(cohortSummary).length) {
+        const cohortStatus = String(cohortSummary.status || "").toLowerCase();
+        if (cohortStatus === "succeeded") {
+          setComponentState("cohort_batch", "succeeded", "Cohort run completed");
+        } else if (cohortStatus === "failed") {
+          setComponentState("cohort_batch", "failed", "Cohort run has failed patients");
+        } else if (cohortStatus === "running") {
+          setComponentState("cohort_batch", "running", "Cohort run in progress");
+        }
       }
-      if (dashboard.step04?.status === "generated" && (dashboard.step04?.recommended_predictors || []).length > 0) {
-        setComponentState("step04_updated_model", "succeeded", "Updated model available");
-      } else if (dashboard.step04?.status === "skipped") {
-        setComponentState("step04_updated_model", "idle", "Skipped (no Step-03 targets)");
-      }
-      const commStage = String(snapshot.communication_summary?.payload?.stage || "").toLowerCase();
-      if (commStage.startsWith("cycle_")) {
-        setComponentState("communication_agent", "succeeded", "Summary generated");
-      } else {
-        setComponentState("communication_agent", "idle", "Generated after final cycle stage");
-      }
-    }
-    if (Object.keys(cohortSummary).length) {
-      const cohortStatus = String(cohortSummary.status || "").toLowerCase();
-      if (cohortStatus === "succeeded") {
-        setComponentState("cohort_batch", "succeeded", "Cohort run completed");
-      } else if (cohortStatus === "failed") {
-        setComponentState("cohort_batch", "failed", "Cohort run has failed patients");
-      } else if (cohortStatus === "running") {
-        setComponentState("cohort_batch", "running", "Cohort run in progress");
-      }
+    } finally {
+      state.reconcilingSnapshot = false;
     }
     syncRuntimeCardVisibility();
 
@@ -2950,6 +4208,9 @@
           setComponentState(parsed.componentId, parsed.status || "running", parsed.detail || line.slice(0, 140));
           setActiveComponent(parsed.componentId, parsed.status || "running");
           const parsedStatus = normalizeStatus(parsed.status || "running");
+          if (parsedStatus !== "idle") {
+            renderPhaseProgress();
+          }
           if (parsedStatus !== "running" && parsedStatus !== "queued") {
             scheduleSnapshotRefresh(`${parsed.componentId}.${parsedStatus}`, false);
           }
@@ -3163,6 +4424,19 @@
     document.getElementById("run-cycle-btn")?.addEventListener("click", async () => {
       const requestRefinement = Boolean(document.getElementById("cycle-request-refinement")?.checked);
       const includeIntervention = Boolean(document.getElementById("cycle-include-intervention")?.checked);
+      if (state.awaitingFreshAcquisition) {
+        const msg = "Fresh data collection is required before running the next HUA cycle because the model was updated.";
+        appendLog(`[frontend] ${msg}`);
+        pushRuntimeEvent("Cycle blocked: acquire fresh pseudodata before next HUA run");
+        showError(msg);
+        return;
+      }
+      if (!Boolean(state.snapshot?.has_pseudodata)) {
+        const msg = "No pseudodata found. Run Data Collection (Step 03) before the HUA cycle.";
+        appendLog(`[frontend] ${msg}`);
+        showError(msg);
+        return;
+      }
       try {
         await launchJob(
           `/api/sessions/${sessionId}/jobs/run-cycle`,
@@ -3280,11 +4554,15 @@
       renderTimeSeriesChart();
     });
 
-    UI.runNextPhaseBtn?.addEventListener("click", () => {
+    const triggerNextPhase = () => {
       const phases = state.phaseState || [];
       const next = phases.find((phase) => phase.status !== "done");
       if (!next) {
         appendLog("[frontend] All phases completed for the current iteration.");
+        return;
+      }
+      if (next.key === "intake") {
+        document.getElementById("save-intake-btn")?.click();
         return;
       }
       if (next.key === "model") {
@@ -3304,6 +4582,29 @@
         return;
       }
       appendLog(`[frontend] ${next.label} has no executable action.`);
+    };
+
+    UI.runNextPhaseBtn?.addEventListener("click", triggerNextPhase);
+    UI.flowRunNextBtn?.addEventListener("click", () => {
+      const actionKind = String(UI.flowRunNextBtn?.dataset.actionKind || "");
+      const targetButtonId = String(UI.flowRunNextBtn?.dataset.targetButtonId || "");
+      if (actionKind === "intervention") {
+        const includeInterventionToggle = document.getElementById("cycle-include-intervention");
+        if (includeInterventionToggle) includeInterventionToggle.checked = true;
+      }
+      if (targetButtonId) {
+        document.getElementById(targetButtonId)?.click();
+        return;
+      }
+      triggerNextPhase();
+    });
+    UI.flowOpenLogsBtn?.addEventListener("click", () => {
+      if (typeof switchTab === "function") switchTab("logs");
+    });
+    UI.verbosityModeSelect?.addEventListener("change", () => {
+      const value = String(UI.verbosityModeSelect?.value || "concise");
+      setVerbosityMode(value, true);
+      renderSnapshot();
     });
 
     /* Drawer button bindings removed — replaced by tab-based layout */
@@ -3312,6 +4613,18 @@
   initRuntimeMap();
   initCollapsibleSections();
   initSectionVisibilityControls();
+  try {
+    setVerbosityMode(localStorage.getItem(VERBOSITY_STORAGE_KEY) || "concise", false);
+  } catch {
+    setVerbosityMode("concise", false);
+  }
+  try {
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      state.networkAnimPlaying = false;
+    }
+  } catch {
+    // Ignore media-query lookup failures.
+  }
   bindActions();
   bindModelCatalogAutocomplete();
   setJobMeta("none", "idle");

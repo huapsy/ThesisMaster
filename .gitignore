@@ -53,17 +53,22 @@ pip-wheel-metadata/
 *.log
 *.tmp
 *.bak
+# Large generated evaluation outputs are reproducible and should stay out of git.
 SystemComponents/**/tmp/
 src/SystemComponents/**/tmp/
+evaluation/survey_analysis/data/study_*.csv
+evaluation/survey_analysis/results/
 evaluation/**/visuals/
 evaluation/**/runs/
+evaluation/integrated_pipeline/runs/
+evaluation/sequential/**/outputs/
 evaluation/04_initial_observation_analysis/
 evaluation/05_integrated_pipeline_runs/
 evaluation/quality_and_research/research_communication/run_report.md
 evaluation/quality_and_research/research_communication/run_report.json
 evaluation/quality_and_research/research_communication/component_status.csv
 evaluation/quality_and_research/research_communication/profile_overview.csv
-frontend/workspace/
+src/frontend/workspace/
 utils/official/cluster_criterions/results/02_embeddings_db/
 src/utils/official/cluster_criterions/results/02_embeddings_db/
 utils/**/results/
@@ -73,9 +78,9 @@ src/utils/other/
 *.npz
 *.sqlite
 *.png
-!src/overview/create_flowchart.png
-!src/overview/gitnexus_overview.png
-!src/overview/PHOENIX_ontology.png
+!src/backend/overview/create_flowchart.png
+!src/backend/overview/gitnexus_overview.png
+!src/backend/overview/PHOENIX_ontology.png
 *.owl
 utils/official/cluster_criterions/results/02_embeddings_db/embeddings.npy
 utils/official/cluster_criterions/results/02_embeddings_db/cache.sqlite
