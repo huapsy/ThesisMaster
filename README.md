@@ -95,11 +95,11 @@ All stages are constrained by five stable ontologies that enforce structural gua
 
 ### Runtime Multi-Agent Design
 
-In the real integrated pipeline, the stages are not all LLM-driven in the same way. Some stages are primarily deterministic with optional LLM reranking, whereas later stages use explicit actor-critic loops with heuristic fallback when LLM access is disabled or unavailable.
+In the real integrated pipeline, the stages are not all LLM-driven in the same way. Step 01 starts with an always-on LLM decomposition and then applies a deterministic local critic before ontology retrieval, whereas later stages use explicit actor-critic loops with heuristic fallback when LLM access is disabled or unavailable.
 
 | Integrated Step | Runtime Component | Live LLM Use | Critic Dimensions | Core Runtime Method |
 |---|---|---|---|---|
-| 01 | Complaint Operationalization Agent | Optional, for reranking and disambiguation on top of ontology retrieval | — | HTSSF: hybrid temperature-scaled softmax fusion (dense + BM25 + token overlap + fuzzy) |
+| 01 | Complaint Operationalization Agent | Yes, always-on for free-text decomposition; optional again for final leaf adjudication | schema_validity, coverage_grounding, atomicity_nonoverlap, granularity_fit, current_actionability | LLM decomposition + local critic refinement + HTSSF retrieval (dense + BM25 + token overlap + fuzzy) |
 | 02 | Initial Observation Model Constructor | Yes, real-time HyDE generation and structured model construction | predictor_grounding, criterion_continuity, ontology_strictness, evidence_quality | HyDE-based predictor RAG + actor-critic refinement |
 | 03 | Treatment Target Identifier | Yes, real-time structured actor output when enabled | safety, domain_boundary, lineage_consistency | BFS candidate selector + idiographic-nomothetic fusion |
 | 04 | Updated Observation Model Constructor | Yes, real-time structured actor output when enabled | safety, domain_boundary, lineage_consistency | BFS-guided hierarchical model update with ontology-constrained refinement |
@@ -107,7 +107,8 @@ In the real integrated pipeline, the stages are not all LLM-driven in the same w
 
 Runtime interpretation:
 
-- **Step 01** is hybrid rather than fully generative: ontology-grounded retrieval is primary, while LLM use is an optional reranking layer.
+- **Step 01** is not just retrieval: it always begins with LLM-based complaint decomposition, with no non-LLM fallback for that decomposition phase, and then runs a deterministic local critic loop to check complaint coverage, granularity, overlap, and current-state actionability before mapping to ontology leaves.
+- **Step 01** still uses hybrid retrieval for ontology grounding, and can optionally run an additional LLM adjudication pass to choose the final leaf or return `UNMAPPED`.
 - **Steps 02, 03, 04, and 05** use live LLM calls in normal operation, with local critic loops and heuristic fallback paths for deterministic or degraded runs.
 - The intervention module is **Step 05** in the actual integrated pipeline, even if some earlier summaries compressed it into a four-stage abstraction.
 

@@ -7,8 +7,9 @@
 Goal:
     Operationalize MANY free-text mental health complaints into MULTIPLE ontology leaf nodes by:
       (1) ALWAYS running an LLM-based clinical-expert decomposition into distinct criteria/variables (ontology-agnostic).
-      (2) Mapping EACH decomposed criterion to the best matching CRITERION ontology leaf node via hybrid retrieval.
-      (3) BY DEFAULT running an LLM-based per-criterion adjudication step to select the single best leaf from top-N candidates,
+      (2) Running a deterministic local critic loop to refine decomposition quality before retrieval.
+      (3) Mapping EACH decomposed criterion to the best matching CRITERION ontology leaf node via hybrid retrieval.
+      (4) BY DEFAULT running an LLM-based per-criterion adjudication step to select the single best leaf from top-N candidates,
           with an explicit possibility to return UNMAPPED.
 
 This script loads caches created by embed_leaf_nodes.py:
@@ -22,6 +23,8 @@ Batch pipeline:
         ↓
   For each complaint:
     LLM decomposition (ontology-agnostic) -> list of criteria variables
+        ↓
+    Local critic loop -> refine coverage / granularity / overlap / actionability
         ↓
     Batch embeddings (one call) for each criterion query text
         ↓
@@ -128,6 +131,8 @@ REQUEST_TIMEOUT_SECONDS = float(os.environ.get("OPENAI_TIMEOUT_S", "90.0"))
 # LLM Decomposition (ALWAYS ON)
 DECOMP_MODEL = os.environ.get("CRITERION_DECOMP_MODEL", "gpt-5-mini")  # NOTE: change to gpt-5 for actual non-test run
 DECOMP_TEMPERATURE = float(os.environ.get("CRITERION_DECOMP_T", "1.0"))
+DECOMP_LOCAL_CRITIC_MAX_ITERATIONS = int(os.environ.get("CRITERION_DECOMP_CRITIC_MAX_ITERATIONS", "2"))
+DECOMP_LOCAL_CRITIC_PASS_THRESHOLD = float(os.environ.get("CRITERION_DECOMP_CRITIC_PASS_THRESHOLD", "0.78"))
 
 # Per-criterion optional LLM picker (DEFAULT ON, as requested)
 ENABLE_LLM_RERANKER_DEFAULT = True
@@ -197,6 +202,8 @@ def _config_fingerprint(enable_llm_reranker: bool) -> str:
         "embed_model": EMBED_MODEL,
         "decomp_model": DECOMP_MODEL,
         "decomp_temperature": DECOMP_TEMPERATURE,
+        "decomp_local_critic_max_iterations": DECOMP_LOCAL_CRITIC_MAX_ITERATIONS,
+        "decomp_local_critic_pass_threshold": DECOMP_LOCAL_CRITIC_PASS_THRESHOLD,
         "enable_llm_reranker": bool(enable_llm_reranker),
         "rerank_model": (LLM_RERANK_MODEL if enable_llm_reranker else None),
         "rerank_temperature": LLM_RERANK_TEMPERATURE,
@@ -871,44 +878,172 @@ def _repair_json_with_llm(raw_text: str, model: str) -> str:
     return text
 
 
-def llm_decompose_complaint(complaint: str) -> Dict[str, Any]:
-    """
-    Always-on decomposition that DOES NOT use the ontology.
-    Output format (strict JSON object):
-      {
-        "meta": {"n_variables": int, "notes": str},
-        "variables": [
-          {
-            "id": "C01",
-            "label": "Sleep-maintenance insomnia",
-            "criterion": "Wakes up repeatedly and cannot return to sleep",
-            "evidence": "wake up too early, can't fall back asleep",
-            "polarity": "present" | "absent" | "unclear",
-            "timeframe": "e.g., weeks/months/unspecified",
-            "severity_0_1": 0.0-1.0,
-            "confidence_0_1": 0.0-1.0
-          }, ...
-        ]
-      }
-    """
-    complaint = complaint.strip()
-    if not complaint:
-        raise ValueError("Complaint is empty.")
+_DECOMP_SPLIT_RE = re.compile(
+    r"(?:[.;!?]+|\b(?:and|but|while|also|plus|because|then|although|though|yet)\b)",
+    flags=re.IGNORECASE,
+)
+_DECOMP_CONNECTOR_RE = re.compile(
+    r"\b(?:and|also|plus|but|while|because|then|although|though|yet|when|after|before)\b",
+    flags=re.IGNORECASE,
+)
+_DECOMP_VAGUE_RE = re.compile(
+    r"\b(?:off|weird|bad|wrong|not\s+myself|not\s+right|something\s+is\s+wrong|not\s+okay)\b",
+    flags=re.IGNORECASE,
+)
+_DECOMP_DOMAIN_PATTERNS: Dict[str, re.Pattern[str]] = {
+    "sleep_energy": re.compile(r"\b(?:sleep|tired|fatigue|exhaust|wake|insomnia|rested|restless)\b", flags=re.IGNORECASE),
+    "cognitive": re.compile(r"\b(?:fog|focus|concentrat|attention|ruminat|worry|thought|memory)\b", flags=re.IGNORECASE),
+    "affective": re.compile(r"\b(?:sad|down|anxious|panic|angry|guilt|ashamed|hopeless|irritable)\b", flags=re.IGNORECASE),
+    "behavioral": re.compile(r"\b(?:avoid|checking|escape|withdraw|procrastinat|freeze|compuls)\b", flags=re.IGNORECASE),
+    "social": re.compile(r"\b(?:social|people|lonely|isolat|relationship|friends|partner)\b", flags=re.IGNORECASE),
+    "somatic": re.compile(r"\b(?:chest|heart|pulse|headache|stomach|nausea|pain|dizzy|faint)\b", flags=re.IGNORECASE),
+}
+_DECOMP_STATIC_HINTS = (
+    "childhood",
+    "genetic",
+    "personality",
+    "temperament",
+    "upbringing",
+    "historical trauma",
+    "past trauma",
+    "family history",
+)
 
-    client = make_openai_client()
 
-    # IMPORTANT: keep prompt EXACTLY as provided
-    sys_msg = (
+@dataclass
+class DecompositionCriticReview:
+    decision: str
+    composite_score_0_1: float
+    pass_threshold_0_1: float
+    dimension_scores: Dict[str, float]
+    complaint_structure: Dict[str, Any]
+    issues: List[str]
+    actionable_feedback: List[str]
+
+
+def _clip01(value: float) -> float:
+    return max(0.0, min(1.0, float(value)))
+
+
+def _token_overlap_ratio(a: set[str], b: set[str]) -> float:
+    if not a or not b:
+        return 0.0
+    return float(len(a & b)) / float(max(1, min(len(a), len(b))))
+
+
+def _complaint_segments(complaint: str) -> List[str]:
+    segments = [seg.strip() for seg in _DECOMP_SPLIT_RE.split(complaint) if len(tokenize_norm(seg)) >= 2]
+    if not segments and complaint.strip():
+        return [complaint.strip()]
+    return segments
+
+
+def _estimate_complaint_structure(complaint: str) -> Dict[str, Any]:
+    tokens = tokenize_norm(complaint)
+    segments = _complaint_segments(complaint)
+    connector_count = len(_DECOMP_CONNECTOR_RE.findall(complaint))
+    domain_hits = [name for name, pattern in _DECOMP_DOMAIN_PATTERNS.items() if pattern.search(complaint)]
+    vague_flag = bool(_DECOMP_VAGUE_RE.search(complaint))
+
+    richness = 0
+    richness += int(len(tokens) >= 8)
+    richness += int(len(tokens) >= 18)
+    richness += int(len(tokens) >= 32)
+    richness += int(len(segments) >= 3)
+    richness += int(len(segments) >= 5)
+    richness += int(connector_count >= 2)
+    richness += int(len(domain_hits) >= 2)
+    richness += int(len(domain_hits) >= 4)
+
+    expected_min = 1 + int(richness >= 2) + int(richness >= 5)
+    if len(domain_hits) >= 2:
+        expected_min = max(expected_min, 2)
+    if len(domain_hits) >= 4:
+        expected_min = max(expected_min, 3)
+
+    expected_max = min(12, max(3, 3 + richness + min(len(domain_hits), 3)))
+    if vague_flag and len(tokens) <= 18:
+        expected_max = min(expected_max, 4)
+
+    return {
+        "token_count": len(tokens),
+        "segment_count": len(segments),
+        "segments": segments,
+        "connector_count": connector_count,
+        "domain_hits": domain_hits,
+        "is_vague": vague_flag,
+        "expected_min_variables": expected_min,
+        "expected_max_variables": expected_max,
+    }
+
+
+def _normalize_decomposition_payload(data: Dict[str, Any]) -> Dict[str, Any]:
+    if not isinstance(data, dict) or "variables" not in data:
+        raise RuntimeError("Decomposition JSON malformed.")
+
+    vars_ = data.get("variables", [])
+    if not isinstance(vars_, list) or not vars_:
+        raise RuntimeError("Decomposition returned no variables.")
+
+    out_vars: List[Dict[str, Any]] = []
+    for i, v in enumerate(vars_):
+        if not isinstance(v, dict):
+            continue
+        vid = str(v.get("id") or f"C{i+1:02d}")
+        label = str(v.get("label") or "").strip() or f"Variable {i+1}"
+        crit = str(v.get("criterion") or "").strip()
+        evid = str(v.get("evidence") or "").strip()
+        polarity = str(v.get("polarity") or "unclear").strip().lower()
+        if polarity not in {"present", "absent", "unclear"}:
+            polarity = "unclear"
+        timeframe = str(v.get("timeframe") or "unspecified").strip()
+        try:
+            sev = float(v.get("severity_0_1", 0.5))
+        except Exception:
+            sev = 0.5
+        try:
+            conf = float(v.get("confidence_0_1", 0.5))
+        except Exception:
+            conf = 0.5
+        sev = _clip01(sev)
+        conf = _clip01(conf)
+        if not crit:
+            crit = label if not evid else f"{label}: {evid}"
+        out_vars.append(
+            {
+                "id": vid,
+                "label": label,
+                "criterion": crit,
+                "evidence": evid,
+                "polarity": polarity,
+                "timeframe": timeframe,
+                "severity_0_1": sev,
+                "confidence_0_1": conf,
+            }
+        )
+
+    meta = data.get("meta", {})
+    if not isinstance(meta, dict):
+        meta = {}
+    meta.setdefault("n_variables", len(out_vars))
+    meta.setdefault("notes", "")
+    return {"meta": meta, "variables": out_vars}
+
+
+def _decomposition_system_prompt() -> str:
+    return (
         "You are a clinical-experimental healthcare expert.\n\n"
-        "Task: Decompose a free-text mental health complaint into a optimal set of distinct, operational variables that preserve the overall resolution of the (non-)clinical mental health complain.\n"
+        "Task: Decompose a free-text mental health complaint into an optimal set of distinct, operational variables that preserve the practical resolution of the complaint.\n"
         "Important constraints:\n"
         " - DO NOT use or reference any ontology, categories, diagnostic manuals, or leaf node names.\n"
-        " - The variables must be state-optimizable factors that can be targeted in (non-)clinical interventions ; with focus on CURRENT issues"
-        " - This is purely reasoning-based decomposition of what is described; be specific in your decomposition so that the full complaint is preserved in its full practical resolution.\n"
-        " - Variables must be atomic and non-overlapping as much as possible.\n"
-        " - Choose the GRANULARITY that matches the input: do not over-fragment short descriptions; do not under-specify rich ones.\n"
-        " - Prefer 3–12 variables (but can be 0–20 if strongly justified by the text).\n"
-        " - IMPORTANT: only decompose into set of variables that are changeable (e.g., no genetic, immutable, or distant factors).\n"
+        " - The variables must be current, changeable, intervention-relevant state variables.\n"
+        " - Preserve comorbid or multi-part structure when it is genuinely present in the complaint.\n"
+        " - If the complaint is vague or short, stay appropriately broad instead of hallucinating fine-grained subcomponents.\n"
+        " - Variables must be as atomic and non-overlapping as possible.\n"
+        " - Choose the granularity that matches the input: do not over-fragment short descriptions and do not under-specify rich descriptions.\n"
+        " - Ground every variable in the complaint itself using short evidence snippets or tight paraphrases.\n"
+        " - Avoid immutable traits, distant historical causes, and generic background descriptors unless they are explicitly part of the current complaint state.\n"
+        " - Prefer 3-12 variables when the complaint richness justifies it, but use fewer for simple complaints.\n"
         "Output STRICT JSON ONLY (no markdown, no extra text):\n"
         "{\n"
         '  "meta": {"n_variables": <int>, "notes": <string>},\n'
@@ -927,7 +1062,33 @@ def llm_decompose_complaint(complaint: str) -> Dict[str, Any]:
         "}\n"
     )
 
-    user_msg = f"Complaint:\n'{complaint}'"
+
+def _call_decomposition_llm(
+    complaint: str,
+    *,
+    stage_label: str,
+    revision_feedback: Optional[List[str]] = None,
+    previous_decomposition: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
+    complaint = complaint.strip()
+    if not complaint:
+        raise ValueError("Complaint is empty.")
+
+    client = make_openai_client()
+    sys_msg = _decomposition_system_prompt()
+    user_parts = [f"Complaint:\n'{complaint}'"]
+
+    if revision_feedback:
+        user_parts.append(
+            "Revise the decomposition below using all critic feedback while keeping only variables grounded in the complaint."
+        )
+        user_parts.append("Critic feedback:\n- " + "\n- ".join([str(item).strip() for item in revision_feedback if str(item).strip()]))
+        if previous_decomposition is not None:
+            user_parts.append(
+                "Previous decomposition JSON:\n" + json.dumps(previous_decomposition, ensure_ascii=False, indent=2)
+            )
+
+    user_msg = "\n\n".join(user_parts)
 
     text = None
     for attempt in range(1, MAX_RETRIES + 1):
@@ -940,7 +1101,6 @@ def llm_decompose_complaint(complaint: str) -> Dict[str, Any]:
                             {"role": "system", "content": sys_msg},
                             {"role": "user", "content": user_msg},
                         ],
-                        #temperature=DECOMP_TEMPERATURE,
                         response_format={"type": "json_object"},
                     )
                     text = resp.output_text
@@ -951,7 +1111,6 @@ def llm_decompose_complaint(complaint: str) -> Dict[str, Any]:
                             {"role": "system", "content": sys_msg},
                             {"role": "user", "content": user_msg},
                         ],
-                        #temperature=DECOMP_TEMPERATURE,
                     )
                     text = resp.output_text
             except Exception:
@@ -962,7 +1121,6 @@ def llm_decompose_complaint(complaint: str) -> Dict[str, Any]:
                             {"role": "system", "content": sys_msg},
                             {"role": "user", "content": user_msg},
                         ],
-                        #temperature=DECOMP_TEMPERATURE,
                         response_format={"type": "json_object"},
                     )
                     text = resp.choices[0].message.content
@@ -973,7 +1131,6 @@ def llm_decompose_complaint(complaint: str) -> Dict[str, Any]:
                             {"role": "system", "content": sys_msg},
                             {"role": "user", "content": user_msg},
                         ],
-                        #temperature=DECOMP_TEMPERATURE,
                     )
                     text = resp.choices[0].message.content
             break
@@ -981,78 +1138,235 @@ def llm_decompose_complaint(complaint: str) -> Dict[str, Any]:
             msg = str(e)
             sleep_s = min(BACKOFF_MAX_SECONDS, BACKOFF_BASE_SECONDS * (2 ** (attempt - 1)))
             sleep_s = sleep_s * (0.9 + 0.2 * ((time.time() * 997) % 1.0))
-            log(f"[decomp] attempt {attempt}/{MAX_RETRIES} failed: {type(e).__name__}: {msg}")
+            log(f"[{stage_label}] attempt {attempt}/{MAX_RETRIES} failed: {type(e).__name__}: {msg}")
             if attempt >= MAX_RETRIES:
                 raise
-            log(f"[decomp] backing off {sleep_s:.2f}s...")
+            log(f"[{stage_label}] backing off {sleep_s:.2f}s...")
             time.sleep(sleep_s)
 
     if not text:
         raise RuntimeError("Decomposition LLM returned empty output.")
 
-    # Parse JSON (with repair fallback if needed)
     try:
         obj_text = _extract_json_object(text)
         data = _safe_json_loads(obj_text)
     except Exception as e:
-        log(f"[decomp] JSON parse failed ({type(e).__name__}: {e}); attempting JSON repair...")
+        log(f"[{stage_label}] JSON parse failed ({type(e).__name__}: {e}); attempting JSON repair...")
         repaired = _repair_json_with_llm(text, model=DECOMP_MODEL)
         obj_text = _extract_json_object(repaired)
         data = _safe_json_loads(obj_text)
 
-    if not isinstance(data, dict) or "variables" not in data:
-        raise RuntimeError(f"Decomposition JSON malformed. Raw:\n{obj_text}")
+    return _normalize_decomposition_payload(data)
 
-    vars_ = data.get("variables", [])
-    if not isinstance(vars_, list) or not vars_:
-        raise RuntimeError(f"Decomposition returned no variables. Raw:\n{obj_text}")
 
-    # Basic normalization
-    out_vars: List[Dict[str, Any]] = []
-    for i, v in enumerate(vars_):
-        if not isinstance(v, dict):
-            continue
-        vid = str(v.get("id") or f"C{i+1:02d}")
-        label = str(v.get("label") or "").strip() or f"Variable {i+1}"
-        crit = str(v.get("criterion") or "").strip()
-        evid = str(v.get("evidence") or "").strip()
-        polarity = str(v.get("polarity") or "unclear").strip().lower()
+def _variable_signature_tokens(variable: Dict[str, Any]) -> set[str]:
+    parts = [
+        str(variable.get("label") or ""),
+        str(variable.get("criterion") or ""),
+        str(variable.get("evidence") or ""),
+    ]
+    return set(tokenize_norm(" ".join(parts)))
+
+
+def run_local_decomposition_critic(complaint: str, decomposition: Dict[str, Any]) -> DecompositionCriticReview:
+    structure = _estimate_complaint_structure(complaint)
+    variables = decomposition.get("variables", []) if isinstance(decomposition, dict) else []
+    complaint_tokens = set(tokenize_norm(complaint))
+
+    issues: List[str] = []
+    actionable_feedback: List[str] = []
+    dimension_scores: Dict[str, float] = {}
+
+    if not isinstance(variables, list) or not variables:
+        return DecompositionCriticReview(
+            decision="FAIL",
+            composite_score_0_1=0.0,
+            pass_threshold_0_1=float(DECOMP_LOCAL_CRITIC_PASS_THRESHOLD),
+            dimension_scores={
+                "schema_validity": 0.0,
+                "coverage_grounding": 0.0,
+                "atomicity_nonoverlap": 0.0,
+                "granularity_fit": 0.0,
+                "current_actionability": 0.0,
+            },
+            complaint_structure=structure,
+            issues=["No decomposed variables were returned."],
+            actionable_feedback=[
+                "Return at least one current, changeable variable grounded in the complaint.",
+            ],
+        )
+
+    schema_penalties = 0.0
+    duplicate_ids = 0
+    missing_criterion = 0
+    missing_evidence = 0
+    grounded_variables = 0
+    generic_variables = 0
+    static_like_variables = 0
+    variable_signatures: List[set[str]] = []
+
+    seen_ids = set()
+    for variable in variables:
+        vid = str(variable.get("id") or "").strip()
+        label = str(variable.get("label") or "").strip()
+        criterion = str(variable.get("criterion") or "").strip()
+        evidence = str(variable.get("evidence") or "").strip()
+        polarity = str(variable.get("polarity") or "unclear").strip().lower()
+
+        if not vid:
+            schema_penalties += 0.15
+        elif vid in seen_ids:
+            duplicate_ids += 1
+            schema_penalties += 0.15
+        else:
+            seen_ids.add(vid)
+
+        if not label:
+            schema_penalties += 0.12
+        if not criterion:
+            missing_criterion += 1
+            schema_penalties += 0.18
+        if not evidence:
+            missing_evidence += 1
+
         if polarity not in {"present", "absent", "unclear"}:
-            polarity = "unclear"
-        timeframe = str(v.get("timeframe") or "unspecified").strip()
-        try:
-            sev = float(v.get("severity_0_1", 0.5))
-        except Exception:
-            sev = 0.5
-        sev = max(0.0, min(1.0, sev))
-        try:
-            conf = float(v.get("confidence_0_1", 0.5))
-        except Exception:
-            conf = 0.5
-        conf = max(0.0, min(1.0, conf))
+            schema_penalties += 0.08
 
-        if not crit:
-            # fallback: if criterion missing, use label/evidence
-            crit = label if not evid else f"{label}: {evid}"
+        sig_tokens = _variable_signature_tokens(variable)
+        variable_signatures.append(sig_tokens)
 
-        out_vars.append({
-            "id": vid,
-            "label": label,
-            "criterion": crit,
-            "evidence": evid,
-            "polarity": polarity,
-            "timeframe": timeframe,
-            "severity_0_1": sev,
-            "confidence_0_1": conf,
-        })
+        if len(tokenize_norm(label)) <= 1 and len(tokenize_norm(criterion)) <= 4:
+            generic_variables += 1
 
-    meta = data.get("meta", {})
-    if not isinstance(meta, dict):
-        meta = {}
-    meta.setdefault("n_variables", len(out_vars))
-    meta.setdefault("notes", "")
+        grounding = max(
+            _token_overlap_ratio(set(tokenize_norm(evidence)), complaint_tokens),
+            _token_overlap_ratio(set(tokenize_norm(criterion)), complaint_tokens),
+        )
+        if grounding >= 0.25:
+            grounded_variables += 1
 
-    return {"meta": meta, "variables": out_vars}
+        combined = f"{label} {criterion} {evidence}".lower()
+        if any(hint in combined for hint in _DECOMP_STATIC_HINTS):
+            static_like_variables += 1
+
+    n_variables = len(variables)
+    schema_score = _clip01(1.0 - schema_penalties)
+    grounded_rate = float(grounded_variables) / float(max(1, n_variables))
+
+    pair_overlaps: List[Tuple[str, str, float]] = []
+    for i in range(len(variables)):
+        for j in range(i + 1, len(variables)):
+            overlap = _token_overlap_ratio(variable_signatures[i], variable_signatures[j])
+            pair_overlaps.append((str(variables[i].get("id") or f"C{i+1:02d}"), str(variables[j].get("id") or f"C{j+1:02d}"), overlap))
+    overlapping_pairs = [(a, b, score) for a, b, score in pair_overlaps if score >= 0.72]
+    atomicity_penalty = (0.55 * len(overlapping_pairs) / max(1, len(pair_overlaps))) + (0.20 * generic_variables / max(1, n_variables))
+    atomicity_score = _clip01(1.0 - atomicity_penalty)
+
+    segment_scores: List[float] = []
+    for segment in structure["segments"]:
+        seg_tokens = set(tokenize_norm(segment))
+        best = 0.0
+        for sig in variable_signatures:
+            best = max(best, _token_overlap_ratio(seg_tokens, sig))
+        segment_scores.append(best)
+    segment_coverage = (
+        float(sum(1 for score in segment_scores if score >= 0.34)) / float(len(segment_scores))
+        if segment_scores
+        else 1.0
+    )
+    coverage_score = _clip01((0.55 * grounded_rate) + (0.45 * segment_coverage) - (0.10 * missing_evidence / max(1, n_variables)))
+
+    expected_min = int(structure["expected_min_variables"])
+    expected_max = int(structure["expected_max_variables"])
+    if expected_min <= n_variables <= expected_max:
+        granularity_score = 1.0
+    elif n_variables < expected_min:
+        granularity_score = _clip01(1.0 - 0.40 * (expected_min - n_variables))
+    else:
+        granularity_score = _clip01(1.0 - 0.14 * (n_variables - expected_max))
+    if len(structure["domain_hits"]) >= 2 and n_variables == 1:
+        granularity_score = min(granularity_score, 0.35)
+    if structure["is_vague"] and n_variables > 6:
+        granularity_score = min(granularity_score, 0.40)
+
+    actionability_score = _clip01(1.0 - (static_like_variables / float(max(1, n_variables))))
+
+    dimension_scores = {
+        "schema_validity": schema_score,
+        "coverage_grounding": coverage_score,
+        "atomicity_nonoverlap": atomicity_score,
+        "granularity_fit": granularity_score,
+        "current_actionability": actionability_score,
+    }
+    composite = _clip01(
+        0.18 * schema_score
+        + 0.30 * coverage_score
+        + 0.20 * atomicity_score
+        + 0.20 * granularity_score
+        + 0.12 * actionability_score
+    )
+
+    if duplicate_ids:
+        issues.append(f"Duplicate variable identifiers detected ({duplicate_ids}).")
+        actionable_feedback.append("Ensure every variable has a unique stable id such as C01, C02, C03.")
+    if missing_criterion:
+        issues.append(f"{missing_criterion} variables are missing a proper operational criterion statement.")
+        actionable_feedback.append("Rewrite each variable as a concrete operational criterion rather than a loose label.")
+    if missing_evidence / float(max(1, n_variables)) > 0.35:
+        issues.append("Too many variables are not explicitly grounded in complaint evidence.")
+        actionable_feedback.append("Provide a short complaint-grounded evidence snippet or paraphrase for each variable.")
+    if segment_coverage < 0.75:
+        issues.append("Parts of the complaint are not sufficiently represented in the decomposition.")
+        actionable_feedback.append("Cover all distinct complaint segments, especially when the complaint contains multiple simultaneous problems.")
+    if overlapping_pairs:
+        overlap_text = ", ".join([f"{a}/{b}" for a, b, _ in overlapping_pairs[:3]])
+        issues.append(f"Some variables overlap too strongly ({overlap_text}).")
+        actionable_feedback.append("Merge or sharpen overlapping variables so each variable captures a distinct current problem.")
+    if n_variables < expected_min:
+        issues.append(
+            f"Decomposition is too collapsed for the complaint structure ({n_variables} variables, expected at least {expected_min})."
+        )
+        actionable_feedback.append("Split the complaint into a few more distinct variables where different symptom clusters or barriers are present.")
+    if n_variables > expected_max:
+        issues.append(
+            f"Decomposition is too fragmented for the complaint structure ({n_variables} variables, expected at most {expected_max})."
+        )
+        actionable_feedback.append("Reduce over-fragmentation and keep only variables that meaningfully preserve the complaint resolution.")
+    if static_like_variables:
+        issues.append("Some variables appear too static, historical, or trait-like rather than currently changeable.")
+        actionable_feedback.append("Replace static background descriptors with present-state, intervention-relevant variables.")
+    if grounded_rate < 0.70:
+        issues.append("Too many variables are weakly anchored to the literal complaint content.")
+        actionable_feedback.append("Use the complaint wording more directly in evidence and keep decomposition tightly grounded.")
+
+    hard_fail = schema_score < 0.55 or coverage_score < 0.45
+    decision = "PASS" if (not hard_fail and composite >= float(DECOMP_LOCAL_CRITIC_PASS_THRESHOLD)) else "FAIL"
+    return DecompositionCriticReview(
+        decision=decision,
+        composite_score_0_1=float(composite),
+        pass_threshold_0_1=float(DECOMP_LOCAL_CRITIC_PASS_THRESHOLD),
+        dimension_scores=dimension_scores,
+        complaint_structure=structure,
+        issues=issues,
+        actionable_feedback=actionable_feedback,
+    )
+
+
+def llm_decompose_complaint(complaint: str) -> Dict[str, Any]:
+    return _call_decomposition_llm(complaint, stage_label="decomp")
+
+
+def llm_revise_decomposition(
+    complaint: str,
+    previous_decomposition: Dict[str, Any],
+    critic_review: DecompositionCriticReview,
+) -> Dict[str, Any]:
+    return _call_decomposition_llm(
+        complaint,
+        stage_label="decomp-revise",
+        revision_feedback=critic_review.actionable_feedback or critic_review.issues,
+        previous_decomposition=previous_decomposition,
+    )
 
 
 # --------------------------
@@ -1422,6 +1736,10 @@ def build_searcher_from_cache() -> Tuple[CriterionSearcher, Dict[str, Any]]:
     log(f"[config] input_file  = {input_file}")
     log(f"[config] EMBED_MODEL = {EMBED_MODEL}")
     log(f"[config] DECOMP_MODEL = {DECOMP_MODEL}")
+    log(
+        f"[config] DECOMP_LOCAL_CRITIC = on | max_iter={DECOMP_LOCAL_CRITIC_MAX_ITERATIONS} "
+        f"| pass_threshold={DECOMP_LOCAL_CRITIC_PASS_THRESHOLD:.2f}"
+    )
     log(f"[config] RERANK_MODEL = {LLM_RERANK_MODEL}")
     log(f"[config] FUSION_METHOD = {FUSION_METHOD}")
     log(f"[config] weights: emb={WEIGHT_EMBED:.2f} bm25={WEIGHT_BM25:.2f} tok={WEIGHT_TOKEN_OVERLAP:.2f} fuz={WEIGHT_FUZZY:.2f}")
@@ -1504,13 +1822,57 @@ def operationalize_complaint(
         complaint_preview=complaint,
     )
 
-    # 1) Decompose (always-on)
+    # 1) Always-on LLM decomposition with local critic-guided refinement
     decomp = llm_decompose_complaint(complaint)
+    decomp_trace: Dict[str, Any] = {
+        "generator_model": DECOMP_MODEL,
+        "local_critic": {
+            "enabled": True,
+            "max_iterations": int(DECOMP_LOCAL_CRITIC_MAX_ITERATIONS),
+            "pass_threshold_0_1": float(DECOMP_LOCAL_CRITIC_PASS_THRESHOLD),
+        },
+        "attempts": [],
+    }
+    decomp_review: Optional[DecompositionCriticReview] = None
+
+    for attempt in range(max(0, int(DECOMP_LOCAL_CRITIC_MAX_ITERATIONS)) + 1):
+        decomp_review = run_local_decomposition_critic(complaint, decomp)
+        variables_raw = decomp.get("variables", [])
+        decomp_trace["attempts"].append(
+            {
+                "attempt_index": attempt + 1,
+                "generator_mode": "initial" if attempt == 0 else "revision",
+                "n_variables": len(variables_raw),
+                "critic_review": asdict(decomp_review),
+            }
+        )
+        log_stage(
+            "DECOMPOSITION_CRITIC_REVIEW",
+            extra={
+                "attempt": attempt + 1,
+                "decision": decomp_review.decision,
+                "score": f"{decomp_review.composite_score_0_1:.2f}",
+            },
+        )
+        if decomp_review.decision == "PASS" or attempt >= int(DECOMP_LOCAL_CRITIC_MAX_ITERATIONS):
+            break
+        log_stage(
+            "DECOMPOSITION_REVISION_START",
+            extra={
+                "attempt": attempt + 2,
+                "feedback_count": len(decomp_review.actionable_feedback),
+            },
+        )
+        decomp = llm_revise_decomposition(complaint, decomp, decomp_review)
+
     variables_raw = decomp.get("variables", [])
 
     log_stage(
         "DECOMPOSITION_DONE",
-        extra={"n_variables": len(decomp.get("variables", []))}
+        extra={
+            "n_variables": len(variables_raw),
+            "critic_decision": (decomp_review.decision if decomp_review else "NA"),
+        },
     )
 
     variables: List[CriterionVariable] = []
@@ -1685,6 +2047,8 @@ def operationalize_complaint(
         "config": {
             "embed_model": EMBED_MODEL,
             "decomp_model": DECOMP_MODEL,
+            "decomp_local_critic_max_iterations": DECOMP_LOCAL_CRITIC_MAX_ITERATIONS,
+            "decomp_local_critic_pass_threshold": DECOMP_LOCAL_CRITIC_PASS_THRESHOLD,
             "rerank_model": LLM_RERANK_MODEL,
             "enable_llm_reranker": bool(enable_llm_reranker),
             "fusion_method": FUSION_METHOD,
@@ -1700,6 +2064,8 @@ def operationalize_complaint(
         },
         "complaint": complaint,
         "decomposition": decomp,
+        "decomposition_trace": decomp_trace,
+        "decomposition_guardrail_review": asdict(decomp_review) if decomp_review else None,
         "mappings": [
             {
                 "variable": asdict(m.variable),
