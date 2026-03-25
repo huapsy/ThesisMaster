@@ -1,6 +1,6 @@
 <div align="center">
 
-  <h1>Enhancing Translational Abilities of Longitudinal Mental Health Applications: An Adaptive Approach to Idiographic Modelling by Leveraging Ontologies and Large Language Models</h1>
+  <h1>Enhancing Translational Abilities of Longitudinal Mental Health Applications: An Adaptive Approach to Idiographic Modelling by Leveraging Ontology-based Multi-agentic Workflows</h1>
 
   <h2>🐦‍🔥 PHOENIX Engine</h2>
 
@@ -10,7 +10,12 @@
 
   <p>(Personalized Hierarchical Optimization Engine for Navigating Insightful eXplorations)</p>
 
-  <p><strong>Software Tool</strong> License: GPL v3 Docker Ready Ghent University</p>
+  <p>
+    <a href="#"><img src="https://img.shields.io/badge/Type-Software_Tool-4f46e5.svg?style=flat-square" alt="Software Tool" /></a>
+    <a href="#"><img src="https://img.shields.io/badge/License-GPLv3-blue.svg?style=flat-square" alt="License GPL v3" /></a>
+    <a href="#"><img src="https://img.shields.io/badge/Docker-Ready-2496ED.svg?style=flat-square&logo=docker&logoColor=white" alt="Docker Ready" /></a>
+    <a href="#"><img src="https://img.shields.io/badge/Ghent_University-Master's_Thesis-007a64.svg?style=flat-square" alt="Ghent University Master's Thesis" /></a>
+  </p>
 
 </div>
 
