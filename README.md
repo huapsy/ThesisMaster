@@ -4,9 +4,7 @@
 
   <h2>🐦‍🔥 PHOENIX Engine</h2>
 
-  <p>This repository contains the PHOENIX engine, the software system developed for the master's thesis above.</p>
-
-  <p>The PHOENIX engine conceptualises mental health support as a closed-loop workflow that iteratively optimizes the intervention proposal based on data from previous cycles.</p>
+  <p>The PHOENIX engine conceptualises mental health support as a closed-loop workflow that iteratively optimizes the digital intervention proposal based on multi-modal data from previous collection cycles.</p>
 
   <p>(Personalized Hierarchical Optimization Engine for Navigating Insightful eXplorations)</p>
 
