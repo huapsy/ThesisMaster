@@ -1,0 +1,427 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{tcolorbox}
+\usepackage{amsmath}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=black,
+  citecolor=black,
+  pdftitle={PHOENIX Example Run Report},
+  pdfauthor={Codex for MASTERPROEF}
+}
+
+\definecolor{PhoenixBlue}{HTML}{1D4ED8}
+\definecolor{PhoenixTeal}{HTML}{0E7490}
+\definecolor{PhoenixGreen}{HTML}{047857}
+\definecolor{PhoenixAmber}{HTML}{B45309}
+\definecolor{PhoenixPurple}{HTML}{6D28D9}
+\definecolor{PhoenixSlate}{HTML}{475569}
+\definecolor{PhoenixBorder}{HTML}{CBD5E1}
+\definecolor{PhoenixSoft}{HTML}{F8FAFC}
+
+\titleformat{\section}{\large\bfseries\color{PhoenixBlue}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{PhoenixTeal}}{\thesubsection}{0.6em}{}
+
+\setlist[itemize]{topsep=4pt,itemsep=3pt,leftmargin=1.4em}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+\newcommand{\RunID}{example\_run\_2026\_thesis\_full\_mini\_v13\_report}
+\newcommand{\ProfileID}{pseudoprofile\_FTC\_ID200}
+\newcommand{\ComplaintText}{Lately I've been having troubles falling asleep; I keep thinking about so many things I have to do and it makes me so stressed; and when I'm in social situations I can not experience the small joyful things that made me feel happy; and the back of my head hurts sometimes, like sharp sudden peaks sometimes.}
+\newcommand{\CriterionCount}{4}
+\newcommand{\PredictorCount}{6}
+\newcommand{\SparseEdgeCount}{16}
+\newcommand{\StudyDays}{21}
+\newcommand{\PromptsPerDay}{5}
+\newcommand{\ReadinessScore}{94.92}
+\newcommand{\ReadinessTier}{Tier2\_ContemporaneousPartialCorrelation}
+\newcommand{\TopTarget}{Evening smartphone use duration (self-report)}
+\newcommand{\TopBarrier}{Self\_Efficacy}
+\newcommand{\MobileInterventionParagraph}{Based on your recent pattern, we will focus first on Evening smartphone use duration (self-report). Use one short action that fits your day and keep the first step intentionally small to make consistency realistic. When a barrier appears, apply the linked coping option immediately and restart at the next available moment. At the end of each day, note what you tried, what blocked progress, and what helped so the next cycle can personalize support more precisely.}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{PHOENIX Example Run}
+\fancyhead[R]{\RunID}
+\fancyfoot[C]{Page \thepage\ of \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+\vspace*{1.8cm}
+
+{\Huge\bfseries\color{PhoenixBlue} PHOENIX Engine\\[0.3em] End-to-End Example Run Report\par}
+\vspace{0.8cm}
+{\Large Professional demonstration of intermittent outputs across all core stages\par}
+\vspace{1.2cm}
+
+\begin{tcolorbox}[
+  colback=white,
+  colframe=PhoenixBorder,
+  width=0.90\textwidth,
+  boxrule=0.7pt,
+  arc=1.5mm,
+  left=7pt,
+  right=7pt,
+  top=7pt,
+  bottom=7pt
+]
+\begin{center}
+\textbf{Run metadata}
+\end{center}
+\vspace{0.2em}
+\small
+\renewcommand{\arraystretch}{1.18}
+\begin{tabularx}{0.98\textwidth}{@{}>{\raggedright\arraybackslash}p{0.23\textwidth}X@{}}
+\textbf{Run id} & \path{\RunID} \\
+\textbf{Profile id} & \path{\ProfileID} \\
+\textbf{Execution mode} & Integrated PHOENIX pipeline with stage-level artifact persistence \\
+\textbf{LLM configuration} & OpenRouter-backed \texttt{gpt-5-mini} across all LLM-enabled stages \\
+\textbf{Scope} & Steps 01--05 core stages, HUA analytics, target/model update, HAPA intervention, communication, and reporting \\
+\textbf{Provenance} & Early analytics from \path{example_run_2026_thesis_full_mini_v3}; late-stage completion artifacts from \path{\RunID}. \\
+\end{tabularx}
+\renewcommand{\arraystretch}{1.0}
+\normalsize
+\end{tcolorbox}
+
+\vspace{0.8cm}
+
+\begin{tcolorbox}[
+  colback=white,
+  colframe=PhoenixBlue,
+  width=0.88\textwidth,
+  boxrule=0.8pt,
+  arc=1.5mm,
+  left=10pt,
+  right=10pt,
+  top=9pt,
+  bottom=9pt
+]
+\begin{center}
+\textbf{Input complaint}\\[0.4em]
+{\small\emph{\ComplaintText}}
+\end{center}
+\end{tcolorbox}
+
+\vfill
+{\large MASTERPROEF example documentation package\par}
+{\large \today\par}
+\end{titlepage}
+
+\section{Purpose}
+This report documents a single end-to-end execution of the PHOENIX engine for a free-text mental-health complaint. The objective is twofold:
+\begin{itemize}
+\item to demonstrate the scientific and technical logic of the sequential PHOENIX workflow across the core agentic stages and the hierarchical updating algorithm (HUA), and
+\item to show that each stage now produces auditable intermittent outputs that can be inspected while the run is still in progress, rather than only after the pipeline terminates.
+\end{itemize}
+
+The report is an example artifact for thesis-level communication. It is not a diagnostic report and should not be interpreted as medical advice.
+
+\section{Sequential PHOENIX Structure}
+Figure~\ref{fig:architecture} anchors the reporting structure used throughout this document. The diagram makes explicit that PHOENIX is a predetermined sequential multi-agent system. Free-text complaint intake is followed by complaint operationalization, initial observation-model construction, EMA/pseudodata generation, HUA readiness and network analysis, impact quantification, treatment-target identification, observation-model updating, and HAPA-based intervention design.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{../assets/figures/fig_00_phoenix_architecture.png}
+  \caption{Research-grade architecture overview of the PHOENIX engine used as the reporting scaffold for this example run.}
+  \label{fig:architecture}
+\end{figure}
+
+\section{Run Configuration}
+The example run was executed for one profile only (\ProfileID) to keep the report interpretable while still exercising the full engine. The operationalization stage extracted \CriterionCount{} complaint criteria, which were used to seed an initial observation model with \PredictorCount{} predictors and \SparseEdgeCount{} sparse predictor-to-criterion edges. The initial design recommendation was a \StudyDays{}-day EMA window with \PromptsPerDay{} prompts per day, producing a compact but analyzable idiographic measurement plan.
+
+\begin{tcolorbox}[
+  colback=PhoenixSoft,
+  colframe=PhoenixBorder,
+  boxrule=0.6pt,
+  arc=1.2mm
+]
+\textbf{Key artifact persistence improvements implemented for this run}
+\begin{itemize}
+\item Every executed stage now writes \texttt{stage.log}, \texttt{stage\_events.jsonl}, and \texttt{stage\_trace.json}.
+\item In-flight stages write a \texttt{stage\_trace.json} placeholder immediately at stage start, including status, command, log path, event path, and a current artifact summary.
+\item Skipped stages now emit a skip manifest, README, event row, and trace file so the run directory remains structurally complete and thesis-auditable.
+\item The stage trace format now includes start time, end time, command, return code, artifact counts, file previews, and contract-validation metadata when available.
+\end{itemize}
+\end{tcolorbox}
+
+\section{Stage-by-Stage Results}
+
+\subsection{Step 01: Complaint Operationalization}
+The operationalization stage decomposed the complaint into four distinct complaint dimensions that could be mapped to ontology leaves with moderate to high confidence:
+\begin{itemize}
+\item sleep onset difficulty,
+\item cognitive stress burden from unresolved to-dos,
+\item reduced positive affect in social situations, and
+\item a paroxysmal occipital-headache pattern.
+\end{itemize}
+
+The importance of this stage is methodological: the downstream pipeline does not work directly on raw complaint text. Instead, it depends on the Step-01 actor-critic decomposition plus hybrid HTSSF retrieval and adjudication to create well-scoped criterion variables that can be measured, modeled, and updated later in the cycle.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{../assets/figures/fig_01a_step01_mapped_criteria.png}
+  \caption{Step-01 mapped criteria and ontology leaves exported from the actual run artifact.}
+  \label{fig:step01table}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{../assets/figures/fig_01b_step01_confidence.png}
+    \caption{Per-criterion mapping confidence.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\textwidth]{../assets/figures/fig_01c_step01_score_decomposition.png}
+    \caption{HTSSF score decomposition.}
+  \end{subfigure}
+  \caption{Operationalization diagnostics showing both the adjudicated confidence and the retrieval-score composition that led to the selected leaves.}
+  \label{fig:step01diag}
+\end{figure}
+
+\subsection{Step 02: Initial Observation Model Construction}
+The Step-02 initial observation model preserved the four complaint-derived criteria and proposed \PredictorCount{} modifiable predictors. This is the first stage where PHOENIX explicitly transitions from complaint interpretation to an analyzable criterion-predictor network. The resulting model is not a treatment plan yet; it is a data-collection and causal-hypothesis scaffold designed to support later HUA updates and intervention planning.
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{../assets/figures/fig_02a_step02_bipartite_model.png}
+    \caption{Criterion-predictor bipartite model.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{../assets/figures/fig_02b_step02_relevance_heatmap.png}
+    \caption{Dense relevance matrix used to inform edge selection.}
+  \end{subfigure}
+  \caption{Step-02 initial observation model exported from the real run.}
+  \label{fig:step02}
+\end{figure}
+
+\subsection{EMA / Pseudodata Generation}
+After the initial model was constructed, the pipeline generated synthetic EMA-compatible pseudodata to drive the downstream HUA stages. This is crucial because the PHOENIX engine does not begin with EMA time-series; it first derives a complaint-grounded observation model, then uses that model to define the variables that later populate the idiographic series.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{../assets/figures/fig_03_pseudodata_timeseries.png}
+  \caption{Illustrative pseudodata series generated from the initial model structure. The plotted panels show the most variable criterion and predictor channels.}
+  \label{fig:pseudodata}
+\end{figure}
+
+\subsection{HUA Readiness, Network Analysis, and Impact Quantification}
+The hierarchical updating algorithm consists of three closely connected stages: readiness checking, network time-series analysis, and momentary impact quantification. Together, these transform the observation model from a complaint-grounded prior into a partially idiographic estimate of which predictors appear most actionable for this profile.
+
+The readiness stage determines whether the generated data support more demanding analyses such as time-varying or stationary gVAR. The network stage estimates graph structure and node centrality under the selected method family. The impact stage then translates those network outputs into predictor-level impact scores that can be consumed by the later agentic stages.
+
+For this example, the readiness classifier yielded \textbf{\ReadinessScore/100} with the label \textbf{FullyReady} and recommended the tier \textbf{\ReadinessTier}. The run did not satisfy the confidence requirements for time-varying gVAR at the available sample density, so the analysis proceeded with the contemporaneous partial-correlation branch.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\textwidth]{../assets/figures/fig_04_readiness_dashboard.png}
+  \caption{HUA readiness dashboard, including readiness score, selected analysis tier, and variable-level gating.}
+  \label{fig:readiness}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{../assets/figures/fig_05_network_analysis.png}
+    \caption{Network-level metrics and node centrality.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{../assets/figures/fig_06a_impact_ranking.png}
+    \caption{Predictor-level impact ranking.}
+  \end{subfigure}
+  \caption{Core HUA outputs that bridge the measurement layer and the later treatment-target layer.}
+  \label{fig:hua}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{../assets/figures/fig_05b_network_time_slices.png}
+  \caption{Time-varying network snapshots estimated from rolling correlation windows (early, middle, late) over the observed EMA series.}
+  \label{fig:hua_timeslices}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.80\textwidth]{../assets/figures/fig_06b_impact_heatmap.png}
+  \caption{Predictor-to-criterion impact matrix used by the target-identification stage.}
+  \label{fig:impactheatmap}
+\end{figure}
+
+\subsection{Agentic Step 03: Treatment Target Identification}
+The target-identification stage integrates impact coefficients, the initial model, profile text, feasibility information, and ontology constraints to produce a ranked shortlist of candidate treatment targets. This is where PHOENIX begins to move from analysis toward decision support. In the completed run, the highest-priority recommended target was \textbf{\TopTarget}.
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{../assets/figures/fig_07a_step03_target_candidates.png}
+    \caption{Candidate ranking.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{../assets/figures/fig_07b_step03_recommended_targets.png}
+    \caption{Final recommended targets.}
+  \end{subfigure}
+  \caption{Step-03 treatment-target outputs.}
+  \label{fig:step03}
+\end{figure}
+
+\subsection{Agentic Step 04: Updated Observation Model}
+Step 04 uses the Step-03 target shortlist and the HUA outputs to adapt the observation model. The central methodological idea is that the observation plan should not remain static once idiographic evidence starts to accumulate. Instead, PHOENIX reweights the predictor space and recommends which predictors should be prioritized in the next cycle.
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{../assets/figures/fig_08a_step04_fusion_matrix.png}
+    \caption{Nomothetic-idiographic fusion matrix (highest-variance predictors).}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{../assets/figures/fig_08b_step04_shortlist.png}
+    \caption{Refined predictor shortlist with score decomposition.}
+  \end{subfigure}
+
+  \vspace{0.8em}
+
+  \begin{subfigure}[t]{0.80\textwidth}
+    \includegraphics[width=\textwidth]{../assets/figures/fig_08c_step04_score_spread.png}
+    \caption{Score-spread diagnostic across top ranked predictors (zoomed axis for low-variance cases).}
+  \end{subfigure}
+
+  \vspace{0.8em}
+
+  \begin{subfigure}[t]{0.80\textwidth}
+    \includegraphics[width=\textwidth]{../assets/figures/fig_08d_step04_rank_gaps.png}
+    \caption{Fused-score rank gaps in milli-score units (difference from top rank).}
+  \end{subfigure}
+  \caption{Step-04 updated observation-model outputs.}
+  \label{fig:step04}
+\end{figure}
+
+\subsection{Agentic Step 05: HAPA-Based Digital Intervention}
+The final core agentic stage translates the selected treatment targets into a HAPA-structured digital intervention. This includes barrier prioritization, coping strategy selection, component planning, and phased delivery sequencing. The stage is designed to remain grounded in the target-selection evidence while enforcing a structured intervention grammar. In the completed run, the highest-ranked intervention barrier was \textbf{\TopBarrier}.
+
+\begin{tcolorbox}[
+  colback=PhoenixSoft,
+  colframe=PhoenixBorder,
+  boxrule=0.6pt,
+  arc=1.2mm
+]
+\textbf{Step-05 mobile delivery paragraph}\\[0.3em]
+\MobileInterventionParagraph
+\end{tcolorbox}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{../assets/figures/fig_09a_step05_barriers.png}
+    \caption{Barrier ranking.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{../assets/figures/fig_09b_step05_coping_strategies.png}
+    \caption{Selected coping strategies.}
+  \end{subfigure}
+
+  \vspace{0.8em}
+
+  \begin{subfigure}[t]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{../assets/figures/fig_09c_step05_hapa_plan.png}
+    \caption{HAPA component plan.}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{../assets/figures/fig_09d_step05_phased_delivery.png}
+    \caption{Phased delivery schedule.}
+  \end{subfigure}
+
+  \vspace{0.8em}
+
+  \begin{subfigure}[t]{0.90\textwidth}
+    \includegraphics[width=\textwidth]{../assets/figures/fig_09e_step05_generated_message.png}
+    \caption{Actual generated mobile intervention message from Step-05 run artifact.}
+  \end{subfigure}
+  \caption{Step-05 HAPA intervention outputs.}
+  \label{fig:step05}
+\end{figure}
+
+\section{Run-Level Audit Trail}
+The pipeline summary in Figure~\ref{fig:pipelinesummary} captures the stage-level execution footprint of the example run. For thesis purposes, this matters because it demonstrates that the PHOENIX engine is not only producing final outputs but is also producing a run-local evidence trail that can be inspected, cited, and debugged.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\textwidth]{../assets/figures/fig_10_pipeline_summary.png}
+  \caption{Run-level stage-duration and stage-status summary generated from \texttt{pipeline\_summary.json}.}
+  \label{fig:pipelinesummary}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\textwidth]{../assets/figures/fig_11_component_runtime_ms.png}
+  \caption{Component runtime breakdown in milliseconds aggregated across the analytical run roots used in this report package.}
+  \label{fig:componentruntime}
+\end{figure}
+
+In this run package, the largest runtime contributors were initial model construction (2,025,618 ms), target identification/model update (226,098 ms), and operationalization (193,424 ms), which is consistent with the expected LLM-intensive and graph-construction workload concentration.
+
+\section{Interpretation}
+This example run demonstrates the intended PHOENIX logic:
+\begin{itemize}
+\item complaint text is first operationalized into measurement-ready criteria rather than being treated as direct evidence for intervention,
+\item the initial observation model defines the first measurement scaffold,
+\item HUA analysis converts those measurements into idiographic impact information,
+\item Step 03 prioritizes targets from that impact surface,
+\item Step 04 updates what should be measured next, and
+\item Step 05 translates the final target set into a HAPA-structured digital intervention plan.
+\end{itemize}
+
+Two practical diagnostics explain the previously observed visual issues. First, the Step-04 fusion shortlist can appear nearly flat because many ontology leaves share the same parent-domain prior and therefore receive similar fused scores after nomothetic-idiographic weighting. The updated figure set now shows explicit score decomposition and spread so this behavior is inspectable rather than hidden. Second, network centrality files can be empty when readiness selects a contemporaneous baseline/correlation branch; this is expected for Tier-2 execution and does not imply a pipeline failure. The report now includes rolling-window network snapshots to retain temporal interpretability under that branch.
+
+From a usefulness perspective, the PHOENIX output is coherent for the provided complaint: the top target (evening smartphone use) is behaviorally actionable, the dominant barrier (self-efficacy) is intervention-relevant, and the selected coping and phased plan map onto a realistic mobile coaching flow.
+
+The resulting documentation package is therefore not just a narrative description; it is a concrete example of PHOENIX as a staged, inspectable, multi-agent research pipeline.
+
+\section{Limitations}
+\begin{itemize}
+\item This example is based on a single profile and is intended as a worked demonstration rather than a benchmark evaluation.
+\item The pseudodata-driven HUA section illustrates the intended technical flow, but the substantive interpretation of network and intervention outputs remains conditional on the quality of the upstream simulated or real EMA data.
+\item The complaint includes a somatic pain component; PHOENIX can preserve and route such information in the modeling pipeline, but this does not substitute for clinical assessment of headache or neurological symptoms.
+\end{itemize}
+
+\section{Artifact Locations}
+The report was generated from a mixed provenance: early-stage analytics from \path{evaluation/integrated_pipeline/runs/example_run_2026_thesis_full_mini_v3} and late-stage completion outputs from \path{evaluation/integrated_pipeline/runs/\RunID}. Report-ready figures and tables are stored in:
+\begin{itemize}
+\item \texttt{evaluation/example/assets/figures}
+\item \texttt{evaluation/example/assets/tables}
+\item \texttt{evaluation/example/report/main.tex}
+\end{itemize}
+
+\end{document}

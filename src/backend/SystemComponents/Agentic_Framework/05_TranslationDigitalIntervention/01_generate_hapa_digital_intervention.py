@@ -932,10 +932,60 @@ class Step05InterventionModel(BaseModel):
     hapa_component_plan: List[HAPAComponentStepModel] = Field(default_factory=list)
     phased_delivery_plan: List[PhaseStepModel] = Field(default_factory=list)
     personalized_message: str
+    singular_intervention_message: str = ""
     monitoring_plan: List[str] = Field(default_factory=list)
     safety_notes: List[str] = Field(default_factory=list)
     confidence_0_1: float = Field(ge=0.0, le=1.0)
     limitations: List[str] = Field(default_factory=list)
+
+
+def compose_singular_intervention_message(intervention: Step05InterventionModel) -> str:
+    target = ""
+    if intervention.selected_treatment_targets:
+        target = str(intervention.selected_treatment_targets[0].predictor_label or "").strip()
+    if not target:
+        target = "your highest-priority daily lever"
+
+    barrier = ""
+    if intervention.selected_barriers:
+        barrier = str(intervention.selected_barriers[0].barrier_name or "").strip()
+    if not barrier:
+        barrier = "Action_Initiation"
+
+    coping = ""
+    if intervention.selected_coping_strategies:
+        coping = str(intervention.selected_coping_strategies[0].coping_name or "").strip()
+    if not coping:
+        coping = "Starting_Skills"
+
+    context_hint = ""
+    raw_context = str(intervention.personalized_message or "").strip()
+    if raw_context:
+        context_hint = raw_context.split(".", 1)[0].strip()
+        context_hint = " ".join(context_hint.split())
+        if len(context_hint) > 140:
+            context_hint = context_hint[:140].rstrip() + "..."
+
+    opening = f"Based on your recent pattern, we will focus first on {target}."
+    if context_hint:
+        opening = f"{opening} {context_hint}."
+
+    return (
+        f"{opening} "
+        "Use one short, concrete action that fits your daily rhythm and keep the first step intentionally small so it is easy to repeat. "
+        f"When {barrier} appears, apply {coping} immediately as your default recovery move, then restart at the next available moment instead of waiting for a perfect reset. "
+        "At the end of each day, log what you attempted, what got in the way, and what helped so your next cycle can adapt support with higher precision."
+    )
+
+
+def _normalize_mobile_paragraph(text: str, fallback: str) -> str:
+    raw = " ".join(str(text or "").strip().split())
+    if not raw:
+        return fallback
+    # Ensure output reads as a complete app paragraph (standalone, 4+ sentences, no bullets).
+    if raw.count(".") < 4 or len(raw) < 320:
+        return fallback
+    return raw
 
 
 class Step05CriticReviewModel(BaseModel):
@@ -1298,14 +1348,15 @@ def heuristic_step05_intervention(
         "Intervention prioritizes high-impact predictors, barrier-focused coping, and HAPA-consistent phased support."
     )
     personalized_message = (
-        f"Based on your recent pattern, we will focus first on {target_models[0].predictor_label if target_models else 'your top daily lever'}, "
-        "using short actions that fit your day. "
-        "When barriers appear, follow the linked coping option immediately and restart quickly after misses."
+        f"Based on your recent pattern, we will focus first on {target_models[0].predictor_label if target_models else 'your top daily lever'}. "
+        "Use one short action that fits your day and keep the first step intentionally small to make consistency realistic. "
+        "When a barrier appears, apply the linked coping option immediately and restart at the next available moment."
     )
     if person:
-        personalized_message += f" Personal context considered: {person[:180]}."
+        personalized_message += f" Personal context considered: {person[:220]}."
     if context:
-        personalized_message += f" Environmental context considered: {context[:180]}."
+        personalized_message += f" Environmental context considered: {context[:220]}."
+    personalized_message += " At the end of each day, note what you tried, what blocked progress, and what helped so the next cycle can personalize support more precisely."
 
     return Step05InterventionModel(
         profile_id=profile_id,
@@ -1318,6 +1369,7 @@ def heuristic_step05_intervention(
         hapa_component_plan=hapa_components,
         phased_delivery_plan=phased,
         personalized_message=personalized_message,
+        singular_intervention_message=personalized_message,
         monitoring_plan=[
             "Track criterion changes daily and compare against baseline week.",
             "Track adherence to target actions and coping-plan usage.",
@@ -1517,6 +1569,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--llm-max-attempts", type=int, default=2)
     parser.add_argument("--llm-repair-attempts", type=int, default=1)
     parser.add_argument("--disable-llm", action=argparse.BooleanOptionalAction, default=False)
+    parser.add_argument("--strict-llm", action=argparse.BooleanOptionalAction, default=False)
     parser.add_argument("--prompt-budget-tokens", type=int, default=400000)
     parser.add_argument("--critic-max-iterations", type=int, default=2)
     parser.add_argument("--critic-pass-threshold", type=float, default=0.74)
@@ -1530,6 +1583,8 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    if bool(args.strict_llm) and bool(args.disable_llm):
+        raise RuntimeError("Strict LLM mode does not allow --disable-llm for Step-05.")
     _init_plot_style()
     handoff_root = Path(args.handoff_root).expanduser().resolve()
     output_root = ensure_dir(Path(args.output_root).expanduser().resolve())
@@ -1721,6 +1776,8 @@ def main() -> int:
 
                 actor_mode = "structured_llm_success"
                 if step05_candidate is None:
+                    if bool(args.strict_llm):
+                        raise RuntimeError("Step-05 actor LLM failed in strict mode; heuristic fallback is disabled.")
                     actor_mode = "heuristic_fallback_disabled_llm" if bool(args.disable_llm) else "heuristic_fallback_llm_failure"
                     step05_candidate = heuristic_step05_intervention(
                         profile_id=profile_id,
@@ -1753,6 +1810,10 @@ def main() -> int:
                         prompt_budget_tokens=int(args.prompt_budget_tokens),
                     )
                     if critic_llm is None:
+                        if bool(args.strict_llm):
+                            raise RuntimeError(
+                                "Step-05 critic LLM failed in strict mode; heuristic fallback is disabled."
+                            )
                         step05_guardrail = _heuristic_step05_critic(
                             profile_id=profile_id,
                             intervention=step05_candidate,
@@ -1781,6 +1842,8 @@ def main() -> int:
                         ]
                     continue
 
+                if bool(args.strict_llm):
+                    raise RuntimeError("Step-05 strict mode received a non-LLM actor path unexpectedly.")
                 step05_guardrail = _heuristic_step05_critic(
                     profile_id=profile_id,
                     intervention=step05_candidate,
@@ -1803,6 +1866,17 @@ def main() -> int:
 
             assert step05_output is not None
             step05_output.contract_version = str(args.contract_version)
+            fallback_paragraph = compose_singular_intervention_message(step05_output)
+            source_paragraph = str(step05_output.singular_intervention_message or step05_output.personalized_message or "")
+            step05_output.singular_intervention_message = _normalize_mobile_paragraph(source_paragraph, fallback_paragraph)
+            if bool(args.strict_llm):
+                final_step05_decision = str(
+                    step05_trace.get("critic_final_decision") or (step05_guardrail.pass_decision if step05_guardrail else "")
+                ).strip().upper()
+                if final_step05_decision != "PASS":
+                    raise RuntimeError(
+                        f"Step-05 critic did not PASS in strict mode (final_decision={final_step05_decision or 'missing'})."
+                    )
 
             if "heuristic_fallback" in str(step05_trace.get("reason", "")) and LIMITATION_LLM_UNAVAILABLE not in step05_output.limitations:
                 step05_output.limitations = [LIMITATION_LLM_UNAVAILABLE, *step05_output.limitations]
@@ -1847,6 +1921,10 @@ def main() -> int:
                 json.dumps(step05_output.model_dump(mode="json"), indent=2, ensure_ascii=False),
                 encoding="utf-8",
             )
+            (out_profile_dir / "step05_singular_intervention_message.txt").write_text(
+                (step05_output.singular_intervention_message.strip() or "No singular intervention message generated.") + "\n",
+                encoding="utf-8",
+            )
             step05_md_lines: List[str] = [
                 f"# {step05_output.intervention_title}",
                 "",
@@ -1857,6 +1935,9 @@ def main() -> int:
                 "",
                 "## Personalized Message",
                 step05_output.personalized_message.strip() or "No personalized message provided.",
+                "",
+                "## Singular Intervention Message",
+                step05_output.singular_intervention_message.strip() or "No singular intervention message provided.",
                 "",
                 "## Clinical Case Formulation",
                 step05_output.clinical_case_formulation.strip() or "No clinical case formulation provided.",

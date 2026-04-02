@@ -317,7 +317,7 @@ def build():
 
     # ── STEP 04a — Update Observation Model Actor ─────────────────────────────
     box(ax, Cx, y_s04, 8.5, 0.90,
-        "Update Observation Model Actor",
+        "Update Observation Model Agent",
         sub=("Step 04a  ·  fuse_updated_model_matrix (co-located in 01_prepare_targets_from_impact.py)\n"
              "nomothetic_weight = 1 − (0.30 + 0.50·readiness)  ·  idiographic_weight adaptive\n"
              "→  refined_predictor_shortlist  ·  recommended_next_observation_predictors"),
@@ -340,7 +340,7 @@ def build():
 
     # ── STEP 05a — Generate HAPA-based Intervention Actor ────────────────────
     box(ax, Cx, y_s05, 8.5, 0.94,
-        "Generate HAPA-based Intervention Actor",
+        "Generate HAPA-based Intervention Agent",
         sub=("Step 05a  ·  01_generate_hapa_digital_intervention.py\n"
              "barrier = 0.60·predictor + 0.20·profile + 0.15·context + 0.05·complaint_match\n"
              "→  selected_targets · selected_barriers · coping_strategies · phased EMA delivery plan"),

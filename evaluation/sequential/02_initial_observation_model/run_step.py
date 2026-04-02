@@ -84,9 +84,13 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> tuple[argparse.Namespace
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
     args, passthrough = parse_args(argv)
-    target = (
+    construct_target = (
         sequential_root().parents[1]
         / "src/backend/SystemComponents/Agentic_Framework/02_ConstructionInitialObservationModel/utils/01_construct_observation_model.py"
+    )
+    map_target = (
+        sequential_root().parents[1]
+        / "src/backend/SystemComponents/Agentic_Framework/02_ConstructionInitialObservationModel/utils/02_map_observation_model_to_ontology.py"
     )
 
     results_dir = Path(args.results_dir).expanduser().resolve()
@@ -128,10 +132,26 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         script_args.append("--no-enable_sampling")
     script_args.extend(passthrough)
 
-    return run_python_script(
+    rc = run_python_script(
         step_label="Step 02 - Initial Observation Model",
-        script_path=target,
+        script_path=construct_target,
         script_args=script_args,
+        dry_run=bool(args.dry_run),
+    )
+    if rc != 0:
+        return rc
+
+    map_args = [
+        "--run-dir",
+        str(results_dir / "runs" / str(args.run_id)),
+        "--max-workers",
+        str(int(args.max_workers)),
+        "--overwrite",
+    ]
+    return run_python_script(
+        step_label="Step 02 - Observation Model Ontology Mapping",
+        script_path=map_target,
+        script_args=map_args,
         dry_run=bool(args.dry_run),
     )
 

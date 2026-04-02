@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 from pydantic import BaseModel, Field
+from openai import OpenAI
 
 try:
     from shared import (
@@ -383,18 +385,206 @@ def run_llm_step02_critic(
     runtime = StructuredLLMClient(
         model=str(llm_model),
         timeout_seconds=float(timeout_seconds),
-        max_attempts=2,
-        repair_attempts=1,
+        max_attempts=5,
+        repair_attempts=2,
     )
-    result = runtime.generate_structured(
-        system_prompt=system_prompt,
-        user_prompt=pack.text,
-        schema_model=Step02CriticReviewModel,
-    )
+
+    transient_reasons = {
+        "provider_unavailable",
+        "service_unavailable",
+        "rate_limited",
+        "timeout",
+        "request_timeout",
+    }
+
+    result = None
+    last_reason = ""
+    for outer_attempt, sleep_s in enumerate((0.0, 2.0, 5.0, 10.0), start=1):
+        result = runtime.generate_structured(
+            system_prompt=system_prompt,
+            user_prompt=pack.text,
+            schema_model=Step02CriticReviewModel,
+        )
+        reason = str(getattr(result, "failure_reason", "") or "").strip().lower()
+        last_reason = reason
+        if bool(getattr(result, "success", False)):
+            break
+        if reason not in transient_reasons:
+            break
+        if sleep_s <= 0.0:
+            continue
+        import time
+
+        time.sleep(float(sleep_s))
+
+    if result is None:
+        return None, {"provider": "none", "success": False, "failure_reason": "critic_runtime_not_executed", "profile_id": profile_id}
+
+    def _safe_score(value: Any, default: float) -> float:
+        try:
+            return max(0.0, min(1.0, float(value)))
+        except Exception:
+            return max(0.0, min(1.0, float(default)))
+
+    def _as_text_list(value: Any, *, fallback_key: str = "message") -> List[str]:
+        if not isinstance(value, list):
+            return []
+        out: List[str] = []
+        for item in value:
+            if isinstance(item, str) and item.strip():
+                out.append(item.strip())
+            elif isinstance(item, dict):
+                text = item.get(fallback_key) or item.get("text") or item.get("detail") or item.get("issue")
+                if isinstance(text, str) and text.strip():
+                    out.append(text.strip())
+        return out[:8]
+
+    def _normalize_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
+        decision = str(payload.get("decision") or "REVISE").strip().upper()
+        if decision not in {"PASS", "REVISE"}:
+            decision = "REVISE"
+
+        raw_composite = payload.get("composite_score_0_1", payload.get("overall_score_0_1", payload.get("score_0_1", None)))
+        try:
+            composite = _safe_score(raw_composite, 0.82 if decision == "PASS" else 0.55)
+        except Exception:
+            composite = 0.82 if decision == "PASS" else 0.55
+
+        dims_in = payload.get("weighted_dimensions_0_1")
+        if not isinstance(dims_in, dict):
+            dims_in = payload.get("dimension_scores")
+        if not isinstance(dims_in, dict):
+            dims_in = payload.get("scores")
+        if not isinstance(dims_in, dict):
+            dims_in = {}
+
+        dims = {
+            "schema_integrity": _safe_score(dims_in.get("schema_integrity", dims_in.get("schema", composite)), composite),
+            "gvar_design_quality": _safe_score(dims_in.get("gvar_design_quality", dims_in.get("gvar", composite)), composite),
+            "evidence_grounding": _safe_score(dims_in.get("evidence_grounding", dims_in.get("grounding", composite)), composite),
+            "feasibility_alignment": _safe_score(dims_in.get("feasibility_alignment", dims_in.get("feasibility", composite)), composite),
+            "safety_scope": _safe_score(dims_in.get("safety_scope", dims_in.get("safety", composite)), composite),
+        }
+        if raw_composite is None:
+            composite = _safe_score(sum(dims.values()) / max(1, len(dims)), composite)
+
+        weighted_used_in = payload.get("weighted_dimensions_used")
+        if isinstance(weighted_used_in, dict) and weighted_used_in:
+            weighted_used = {
+                str(k): _safe_score(v, 0.2)
+                for k, v in weighted_used_in.items()
+            }
+        else:
+            weighted_used = {
+                "schema_integrity": 0.25,
+                "gvar_design_quality": 0.18,
+                "evidence_grounding": 0.22,
+                "feasibility_alignment": 0.20,
+                "safety_scope": 0.15,
+            }
+
+        critical_issues = _as_text_list(payload.get("critical_issues"), fallback_key="message")
+        if not critical_issues:
+            critical_issues = _as_text_list(payload.get("issues"), fallback_key="message")
+        actionable_feedback = _as_text_list(payload.get("actionable_feedback"), fallback_key="feedback")
+        if not actionable_feedback:
+            actionable_feedback = _as_text_list(payload.get("recommendations"), fallback_key="message")
+
+        rationale = str(payload.get("rationale") or payload.get("reasoning") or "").strip()
+        hard_constraint = bool(payload.get("hard_ontology_constraint_applied"))
+        feasibility_summary = payload.get("feasibility_alignment_summary")
+        if not isinstance(feasibility_summary, dict):
+            feasibility_summary = {
+                "n_parent_domains_considered": 0,
+                "mean_feasibility_0_1": dims.get("feasibility_alignment", composite),
+            }
+
+        return {
+            "decision": decision,
+            "composite_score_0_1": composite,
+            "weighted_dimensions_0_1": dims,
+            "weighted_dimensions_used": weighted_used,
+            "critical_issues": critical_issues,
+            "actionable_feedback": actionable_feedback,
+            "rationale": rationale,
+            "hard_ontology_constraint_applied": hard_constraint,
+            "feasibility_alignment_summary": feasibility_summary,
+        }
+
+    def _extract_json_object(text: str) -> Optional[str]:
+        raw = str(text or "").strip()
+        if not raw:
+            return None
+        start = raw.find("{")
+        end = raw.rfind("}")
+        if start < 0 or end <= start:
+            return None
+        return raw[start : end + 1]
+
+    def _coerce_response_text(response: Any) -> str:
+        try:
+            output_text = getattr(response, "output_text", None)
+            if isinstance(output_text, str) and output_text.strip():
+                return output_text
+        except Exception:
+            pass
+        try:
+            output = getattr(response, "output", None)
+            if isinstance(output, list):
+                chunks: List[str] = []
+                for item in output:
+                    content = getattr(item, "content", None)
+                    if not isinstance(content, list):
+                        continue
+                    for block in content:
+                        text = getattr(block, "text", None)
+                        if isinstance(text, str) and text.strip():
+                            chunks.append(text)
+                if chunks:
+                    return "\n".join(chunks)
+        except Exception:
+            pass
+        return ""
+
+    def _try_unstructured_fallback() -> Tuple[Optional[Step02CriticReviewModel], str]:
+        api_key = str(os.environ.get("OPENAI_API_KEY") or "").strip()
+        base_url = str(os.environ.get("OPENAI_BASE_URL") or "").strip()
+        if not api_key:
+            return None, "missing_api_key"
+        kwargs: Dict[str, Any] = {"api_key": api_key, "timeout": float(timeout_seconds)}
+        if base_url:
+            kwargs["base_url"] = base_url
+        try:
+            client = OpenAI(**kwargs)
+            response = client.responses.create(
+                model=str(llm_model),
+                input=[
+                    {"role": "system", "content": system_prompt},
+                    {
+                        "role": "user",
+                        "content": (
+                            "Return STRICT JSON only. No markdown.\n\n" + pack.text
+                        ),
+                    },
+                ],
+            )
+            raw_text = _coerce_response_text(response)
+            obj_text = _extract_json_object(raw_text)
+            if not obj_text:
+                return None, "empty_or_non_json_unstructured"
+            payload = json.loads(obj_text)
+            if not isinstance(payload, dict):
+                return None, "unstructured_payload_not_object"
+            normalized_payload = _normalize_payload(payload)
+            parsed = Step02CriticReviewModel.model_validate(normalized_payload)
+            return parsed, ""
+        except Exception as exc:
+            return None, f"unstructured_exception:{type(exc).__name__}:{exc}"
     trace = {
         "provider": result.provider,
         "success": bool(result.success),
         "failure_reason": result.failure_reason,
+        "outer_retry_last_reason": last_reason,
         "used_repair": bool(result.used_repair),
         "usage": result.usage,
         "pack_estimated_tokens": int(pack.estimated_tokens),
@@ -402,9 +592,20 @@ def run_llm_step02_critic(
         "profile_id": profile_id,
     }
     if not result.success or not isinstance(result.parsed, dict):
+        reason = str(result.failure_reason or "").strip().lower()
+        if reason in transient_reasons:
+            parsed_fallback, fallback_error = _try_unstructured_fallback()
+            if parsed_fallback is not None:
+                trace["provider"] = "openai_responses_unstructured"
+                trace["success"] = True
+                trace["failure_reason"] = None
+                trace["used_repair"] = False
+                return parsed_fallback, trace
+            trace["failure_reason"] = f"{reason}_unstructured_failed:{fallback_error}"
         return None, trace
     try:
-        parsed = Step02CriticReviewModel.model_validate(result.parsed)
+        normalized_payload = _normalize_payload(result.parsed)
+        parsed = Step02CriticReviewModel.model_validate(normalized_payload)
     except Exception as exc:
         trace["failure_reason"] = f"parsed_validation_failed:{repr(exc)}"
         return None, trace

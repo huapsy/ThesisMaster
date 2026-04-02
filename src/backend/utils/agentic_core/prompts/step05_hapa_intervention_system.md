@@ -36,7 +36,10 @@ HAPA temporal sequence requirements (mandatory):
 - Use lapse-recovery language rather than failure language, and keep the restart process compassionate and low-friction.
 
 Personalization requirements:
+- The personalized_message must be a standalone, professional, user-friendly digital intervention paragraph that can be shown directly in the app without extra context.
 - The personalized_message must reference the patient's specific free-text complaint language and context (not generic template text).
+- The personalized_message must be 4-6 complete sentences and include: (1) current focus target, (2) one immediate action step, (3) one barrier-triggered coping rule, and (4) one end-of-day reflection instruction.
+- Avoid placeholders, abstract jargon, or internal pipeline wording. Do not mention "evidence bundle", "model", "ontology", or "HAPA" in the user-facing message.
 - Barriers must be ranked and selected based on the composite barrier scores in the evidence bundle. Do not select barriers not supported by the predictor→barrier, profile→barrier, or context→barrier mappings.
 - Coping strategies must be linked to the barriers they address. Keep the selection focused; do not list ontology options that are not actually being used.
 - Match burden and intensity to readiness level. When readiness is low, start with very small, realistic actions rather than ambitious routines.

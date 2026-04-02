@@ -19,8 +19,10 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
+import time
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -28,6 +30,7 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 import pandas as pd
+from openai import OpenAI
 from pydantic import BaseModel, Field
 
 try:
@@ -468,6 +471,44 @@ class Step04UpdatedObservationModel(BaseModel):
     rationale: str
 
 
+def ensure_minimum_step03_targets(
+    step03_output: Step03SelectionModel,
+    *,
+    min_targets: int = 2,
+    max_targets: int = 3,
+) -> Dict[str, Any]:
+    """
+    Keep Step-03 robust when impact sparsity is high by filling recommended targets
+    from ranked predictors (without violating the max target cap).
+    """
+    min_targets = max(1, int(min_targets))
+    max_targets = max(min_targets, int(max_targets))
+    selected: List[RankedPredictorModel] = list(step03_output.recommended_targets or [])
+    seen = {str(item.predictor).strip() for item in selected if str(item.predictor).strip()}
+    appended = 0
+
+    for candidate in list(step03_output.ranked_predictors or []):
+        if len(selected) >= min_targets:
+            break
+        predictor = str(candidate.predictor).strip()
+        if not predictor or predictor in seen:
+            continue
+        selected.append(candidate)
+        seen.add(predictor)
+        appended += 1
+
+    if len(selected) > max_targets:
+        selected = selected[:max_targets]
+
+    step03_output.recommended_targets = selected
+    return {
+        "min_targets": int(min_targets),
+        "max_targets": int(max_targets),
+        "recommended_count": int(len(selected)),
+        "appended_from_ranked": int(appended),
+    }
+
+
 class StageCriticReviewModel(BaseModel):
     contract_version: str = "1.0.0"
     profile_id: str
@@ -735,6 +776,72 @@ def run_llm_step03(
         user_prompt=user_prompt,
         schema_model=Step03SelectionModel,
     )
+
+    def _extract_json_object(text: str) -> Optional[str]:
+        raw = str(text or "").strip()
+        if not raw:
+            return None
+        start = raw.find("{")
+        end = raw.rfind("}")
+        if start < 0 or end <= start:
+            return None
+        return raw[start : end + 1]
+
+    def _coerce_output_text(response: Any) -> str:
+        output_text = getattr(response, "output_text", None)
+        if isinstance(output_text, str) and output_text.strip():
+            return output_text
+        output = getattr(response, "output", None)
+        if isinstance(output, list):
+            chunks: List[str] = []
+            for item in output:
+                content = getattr(item, "content", None)
+                if not isinstance(content, list):
+                    continue
+                for block in content:
+                    text = getattr(block, "text", None)
+                    if isinstance(text, str) and text.strip():
+                        chunks.append(text)
+            if chunks:
+                return "\n".join(chunks)
+        return ""
+
+    transient_reasons = {
+        "provider_unavailable",
+        "service_unavailable",
+        "rate_limited",
+        "timeout",
+        "request_timeout",
+    }
+
+    if (not llm_result.success) and str(llm_result.failure_reason or "").strip().lower() in transient_reasons:
+        try:
+            api_key = str(os.environ.get("OPENAI_API_KEY") or "").strip()
+            base_url = str(os.environ.get("OPENAI_BASE_URL") or "").strip()
+            if api_key:
+                kwargs: Dict[str, Any] = {"api_key": api_key, "timeout": 90.0}
+                if base_url:
+                    kwargs["base_url"] = base_url
+                raw_client = OpenAI(**kwargs)
+                raw_response = raw_client.responses.create(
+                    model=str(client.model),
+                    input=[
+                        {"role": "system", "content": system_template},
+                        {"role": "user", "content": "Return STRICT JSON only.\n\n" + user_prompt},
+                    ],
+                )
+                raw_text = _coerce_output_text(raw_response)
+                raw_obj = _extract_json_object(raw_text)
+                if raw_obj:
+                    raw_payload = json.loads(raw_obj)
+                    if isinstance(raw_payload, dict):
+                        parsed_tmp = Step03SelectionModel.model_validate(raw_payload)
+                        llm_result.success = True
+                        llm_result.parsed = parsed_tmp.model_dump(mode="json")
+                        llm_result.provider = "openai_responses_unstructured"
+                        llm_result.failure_reason = None
+        except Exception:
+            pass
     trace = {
         "profile_id": profile_id,
         "packed_prompt_estimated_tokens": packed.estimated_tokens,
@@ -790,6 +897,72 @@ def run_llm_step04(
         user_prompt=user_prompt,
         schema_model=Step04UpdatedObservationModel,
     )
+
+    def _extract_json_object(text: str) -> Optional[str]:
+        raw = str(text or "").strip()
+        if not raw:
+            return None
+        start = raw.find("{")
+        end = raw.rfind("}")
+        if start < 0 or end <= start:
+            return None
+        return raw[start : end + 1]
+
+    def _coerce_output_text(response: Any) -> str:
+        output_text = getattr(response, "output_text", None)
+        if isinstance(output_text, str) and output_text.strip():
+            return output_text
+        output = getattr(response, "output", None)
+        if isinstance(output, list):
+            chunks: List[str] = []
+            for item in output:
+                content = getattr(item, "content", None)
+                if not isinstance(content, list):
+                    continue
+                for block in content:
+                    text = getattr(block, "text", None)
+                    if isinstance(text, str) and text.strip():
+                        chunks.append(text)
+            if chunks:
+                return "\n".join(chunks)
+        return ""
+
+    transient_reasons = {
+        "provider_unavailable",
+        "service_unavailable",
+        "rate_limited",
+        "timeout",
+        "request_timeout",
+    }
+
+    if (not llm_result.success) and str(llm_result.failure_reason or "").strip().lower() in transient_reasons:
+        try:
+            api_key = str(os.environ.get("OPENAI_API_KEY") or "").strip()
+            base_url = str(os.environ.get("OPENAI_BASE_URL") or "").strip()
+            if api_key:
+                kwargs: Dict[str, Any] = {"api_key": api_key, "timeout": 90.0}
+                if base_url:
+                    kwargs["base_url"] = base_url
+                raw_client = OpenAI(**kwargs)
+                raw_response = raw_client.responses.create(
+                    model=str(client.model),
+                    input=[
+                        {"role": "system", "content": system_template},
+                        {"role": "user", "content": "Return STRICT JSON only.\n\n" + user_prompt},
+                    ],
+                )
+                raw_text = _coerce_output_text(raw_response)
+                raw_obj = _extract_json_object(raw_text)
+                if raw_obj:
+                    raw_payload = json.loads(raw_obj)
+                    if isinstance(raw_payload, dict):
+                        parsed_tmp = Step04UpdatedObservationModel.model_validate(raw_payload)
+                        llm_result.success = True
+                        llm_result.parsed = parsed_tmp.model_dump(mode="json")
+                        llm_result.provider = "openai_responses_unstructured"
+                        llm_result.failure_reason = None
+        except Exception:
+            pass
     trace = {
         "profile_id": profile_id,
         "packed_prompt_estimated_tokens": packed.estimated_tokens,
@@ -1326,9 +1499,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-candidate-predictors", type=int, default=200)
     parser.add_argument("--llm-model", type=str, default="gpt-5-nano")
     parser.add_argument("--llm-timeout-seconds", type=float, default=90.0)
-    parser.add_argument("--llm-max-attempts", type=int, default=2)
-    parser.add_argument("--llm-repair-attempts", type=int, default=1)
+    parser.add_argument("--llm-max-attempts", type=int, default=5)
+    parser.add_argument("--llm-repair-attempts", type=int, default=2)
     parser.add_argument("--disable-llm", action=argparse.BooleanOptionalAction, default=False)
+    parser.add_argument("--strict-llm", action=argparse.BooleanOptionalAction, default=False)
     parser.add_argument("--prompt-budget-tokens", type=int, default=400000)
     parser.add_argument("--critic-max-iterations", type=int, default=2)
     parser.add_argument("--critic-pass-threshold", type=float, default=0.74)
@@ -1349,6 +1523,8 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    if bool(args.strict_llm) and bool(args.disable_llm):
+        raise RuntimeError("Strict LLM mode does not allow --disable-llm for Step-03/04.")
     impact_root = Path(args.impact_root).expanduser().resolve()
     output_root = ensure_dir(Path(args.output_root).expanduser().resolve())
     readiness_root = Path(args.readiness_root).expanduser().resolve()
@@ -1588,6 +1764,13 @@ def main() -> int:
             step03_critic_review: Optional[StageCriticReviewModel] = None
             step03_feedback: List[str] = []
             step03_output: Optional[Step03SelectionModel] = None
+            transient_llm_reasons = {
+                "provider_unavailable",
+                "service_unavailable",
+                "rate_limited",
+                "timeout",
+                "request_timeout",
+            }
 
             for attempt in range(critic_max_iterations + 1):
                 step03_bundle_for_attempt = dict(evidence_bundle)
@@ -1611,6 +1794,15 @@ def main() -> int:
 
                 actor_mode = "structured_llm_success"
                 if step03_candidate is None:
+                    if bool(args.strict_llm):
+                        reason = str((step03_actor_trace or {}).get("failure_reason") or "unknown").strip().lower()
+                        if reason in transient_llm_reasons and attempt < critic_max_iterations:
+                            log(f"[{ts()}] {profile_id}: Step-03 actor transient failure ({reason}); retrying strict actor loop.")
+                            time.sleep(1.5 * (attempt + 1))
+                            continue
+                        raise RuntimeError(
+                            f"Step-03 actor LLM failed in strict mode; heuristic fallback is disabled. reason={reason}"
+                        )
                     actor_mode = "heuristic_fallback_disabled_llm" if bool(args.disable_llm) else "heuristic_fallback_llm_failure"
                     step03_candidate = heuristic_step03_selection(
                         profile_id=profile_id,
@@ -1645,6 +1837,15 @@ def main() -> int:
                         prompt_budget_tokens=int(args.prompt_budget_tokens),
                     )
                     if critic_llm is None:
+                        if bool(args.strict_llm):
+                            reason = str((critic_trace or {}).get("failure_reason") or "unknown").strip().lower()
+                            if reason in transient_llm_reasons and attempt < critic_max_iterations:
+                                log(f"[{ts()}] {profile_id}: Step-03 critic transient failure ({reason}); retrying strict critic loop.")
+                                time.sleep(1.5 * (attempt + 1))
+                                continue
+                            raise RuntimeError(
+                                f"Step-03 critic LLM failed in strict mode; heuristic fallback is disabled. reason={reason}"
+                            )
                         step03_critic_review = _heuristic_stage_critic(
                             stage="step03",
                             profile_id=profile_id,
@@ -1674,6 +1875,8 @@ def main() -> int:
                         step03_feedback = ["Increase ontology alignment and provide stronger evidence grounding."]
                     continue
 
+                if bool(args.strict_llm):
+                    raise RuntimeError("Step-03 strict mode received a non-LLM actor path unexpectedly.")
                 step03_critic_review = _heuristic_stage_critic(
                     stage="step03",
                     profile_id=profile_id,
@@ -1697,6 +1900,21 @@ def main() -> int:
 
             assert step03_output is not None
             step03_output.contract_version = str(args.contract_version)
+            step03_target_range_trace = ensure_minimum_step03_targets(
+                step03_output,
+                min_targets=2,
+                max_targets=3,
+            )
+            step03_trace["target_range_policy"] = step03_target_range_trace
+            if bool(args.strict_llm):
+                final_step03_decision = str(
+                    step03_trace.get("critic_final_decision") or (step03_critic_review.pass_decision if step03_critic_review else "")
+                ).strip().upper()
+                if final_step03_decision != "PASS":
+                    log(
+                        f"[{ts()}] {profile_id}: Strict mode Step-03 critic returned {final_step03_decision or 'missing'}; continuing with latest LLM-generated candidate."
+                    )
+                    step03_trace["strict_llm_nonpass_decision"] = final_step03_decision or "missing"
             if step03_critic_review is not None:
                 step03_trace["critic_final_decision"] = step03_critic_review.pass_decision
                 step03_trace["critic_final_score_0_1"] = step03_critic_review.composite_score_0_1
@@ -1766,6 +1984,15 @@ def main() -> int:
 
                 actor_mode = "structured_llm_success"
                 if step04_candidate is None:
+                    if bool(args.strict_llm):
+                        reason = str((step04_actor_trace or {}).get("failure_reason") or "unknown").strip().lower()
+                        if reason in transient_llm_reasons and attempt < critic_max_iterations:
+                            log(f"[{ts()}] {profile_id}: Step-04 actor transient failure ({reason}); retrying strict actor loop.")
+                            time.sleep(1.5 * (attempt + 1))
+                            continue
+                        raise RuntimeError(
+                            f"Step-04 actor LLM failed in strict mode; heuristic fallback is disabled. reason={reason}"
+                        )
                     actor_mode = "heuristic_fallback_disabled_llm" if bool(args.disable_llm) else "heuristic_fallback_llm_failure"
                     step04_candidate = heuristic_step04_update(
                         profile_id=profile_id,
@@ -1824,6 +2051,15 @@ def main() -> int:
                         prompt_budget_tokens=int(args.prompt_budget_tokens),
                     )
                     if critic_llm is None:
+                        if bool(args.strict_llm):
+                            reason = str((critic_trace or {}).get("failure_reason") or "unknown").strip().lower()
+                            if reason in transient_llm_reasons and attempt < critic_max_iterations:
+                                log(f"[{ts()}] {profile_id}: Step-04 critic transient failure ({reason}); retrying strict critic loop.")
+                                time.sleep(1.5 * (attempt + 1))
+                                continue
+                            raise RuntimeError(
+                                f"Step-04 critic LLM failed in strict mode; heuristic fallback is disabled. reason={reason}"
+                            )
                         step04_critic_review = _heuristic_stage_critic(
                             stage="step04",
                             profile_id=profile_id,
@@ -1858,6 +2094,8 @@ def main() -> int:
                         step04_feedback = ["Improve predictor grounding and BFS breadth-vs-depth rationale."]
                     continue
 
+                if bool(args.strict_llm):
+                    raise RuntimeError("Step-04 strict mode received a non-LLM actor path unexpectedly.")
                 step04_critic_review = _heuristic_stage_critic(
                     stage="step04",
                     profile_id=profile_id,
@@ -1886,6 +2124,15 @@ def main() -> int:
 
             assert step04_output is not None
             step04_output.contract_version = str(args.contract_version)
+            if bool(args.strict_llm):
+                final_step04_decision = str(
+                    step04_trace.get("critic_final_decision") or (step04_critic_review.pass_decision if step04_critic_review else "")
+                ).strip().upper()
+                if final_step04_decision != "PASS":
+                    log(
+                        f"[{ts()}] {profile_id}: Strict mode Step-04 critic returned {final_step04_decision or 'missing'}; continuing with latest LLM-generated candidate."
+                    )
+                    step04_trace["strict_llm_nonpass_decision"] = final_step04_decision or "missing"
             if step04_critic_review is not None:
                 step04_trace["critic_final_decision"] = step04_critic_review.pass_decision
                 step04_trace["critic_final_score_0_1"] = step04_critic_review.composite_score_0_1

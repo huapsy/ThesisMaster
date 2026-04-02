@@ -157,7 +157,7 @@ EMBED_MODEL = os.environ.get("CRITERION_EMBED_MODEL", "text-embedding-3-small")
 REQUEST_TIMEOUT_SECONDS = float(os.environ.get("OPENAI_TIMEOUT_S", "90.0"))
 
 # LLM Decomposition (ALWAYS ON)
-DECOMP_MODEL = _resolve_runtime_model(os.environ.get("CRITERION_DECOMP_MODEL", "gpt-5-mini"))  # NOTE: change to gpt-5 for actual non-test run
+DECOMP_MODEL = _resolve_runtime_model(os.environ.get("CRITERION_DECOMP_MODEL", "gpt-5-nano"))
 DECOMP_TEMPERATURE = float(os.environ.get("CRITERION_DECOMP_T", "1.0"))
 DECOMP_CRITIC_MODEL = _resolve_runtime_model(os.environ.get("CRITERION_DECOMP_CRITIC_MODEL", DECOMP_MODEL))
 DECOMP_LOCAL_CRITIC_MAX_ITERATIONS = int(os.environ.get("CRITERION_DECOMP_CRITIC_MAX_ITERATIONS", "2"))
@@ -829,6 +829,43 @@ def _safe_json_loads(text: str) -> Any:
         cleaned = _repair_json_text_best_effort(text)
         return json.loads(cleaned)
 
+
+def _coerce_llm_text(resp: Any) -> str:
+    text = str(getattr(resp, "output_text", "") or "").strip()
+    if text:
+        return text
+
+    try:
+        output = getattr(resp, "output", None)
+        if isinstance(output, list):
+            chunks: List[str] = []
+            for item in output:
+                content = getattr(item, "content", None)
+                if isinstance(content, list):
+                    for part in content:
+                        value = str(getattr(part, "text", "") or getattr(part, "output_text", "") or "").strip()
+                        if value:
+                            chunks.append(value)
+                value = str(getattr(item, "text", "") or "").strip()
+                if value:
+                    chunks.append(value)
+            if chunks:
+                return "\n".join(chunks).strip()
+    except Exception:
+        pass
+
+    try:
+        choices = getattr(resp, "choices", None)
+        if isinstance(choices, list) and choices:
+            message = getattr(choices[0], "message", None)
+            value = str(getattr(message, "content", "") or "").strip()
+            if value:
+                return value
+    except Exception:
+        pass
+
+    return ""
+
 def _repair_json_with_llm(raw_text: str, model: str) -> str:
     """
     If an LLM produced almost-JSON but invalid JSON (missing commas, bad escaping, etc),
@@ -1111,6 +1148,7 @@ def _call_decomposition_llm(
     stage_label: str,
     revision_feedback: Optional[List[str]] = None,
     previous_decomposition: Optional[Dict[str, Any]] = None,
+    strict_llm: bool = False,
 ) -> Dict[str, Any]:
     complaint = complaint.strip()
     if not complaint:
@@ -1145,7 +1183,7 @@ def _call_decomposition_llm(
                         ],
                         response_format={"type": "json_object"},
                     )
-                    text = resp.output_text
+                    text = _coerce_llm_text(resp)
                 except Exception:
                     resp = client.responses.create(
                         model=DECOMP_MODEL,
@@ -1154,8 +1192,10 @@ def _call_decomposition_llm(
                             {"role": "user", "content": user_msg},
                         ],
                     )
-                    text = resp.output_text
+                    text = _coerce_llm_text(resp)
             except Exception:
+                if strict_llm:
+                    raise
                 try:
                     resp = client.chat.completions.create(
                         model=DECOMP_MODEL,
@@ -1165,7 +1205,7 @@ def _call_decomposition_llm(
                         ],
                         response_format={"type": "json_object"},
                     )
-                    text = resp.choices[0].message.content
+                    text = _coerce_llm_text(resp)
                 except Exception:
                     resp = client.chat.completions.create(
                         model=DECOMP_MODEL,
@@ -1174,7 +1214,11 @@ def _call_decomposition_llm(
                             {"role": "user", "content": user_msg},
                         ],
                     )
-                    text = resp.choices[0].message.content
+                    text = _coerce_llm_text(resp)
+
+            text = str(text or "").strip()
+            if not text:
+                raise RuntimeError("Decomposition LLM returned empty output.")
             break
         except Exception as e:
             msg = str(e)
@@ -1231,6 +1275,178 @@ def _build_decomposition_critic_payload(
     return evidence_bundle
 
 
+def _call_decomposition_critic_unstructured_llm(
+    *,
+    system_prompt: str,
+    user_prompt: str,
+) -> Tuple[Optional[Dict[str, Any]], Optional[str]]:
+    """LLM-only fallback transport when structured runtime is transiently unavailable."""
+    client = make_openai_client()
+    text: Optional[str] = None
+    last_error: Optional[str] = None
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            try:
+                resp = client.responses.create(
+                    model=DECOMP_CRITIC_MODEL,
+                    input=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt},
+                    ],
+                    response_format={"type": "json_object"},
+                )
+                text = _coerce_llm_text(resp)
+            except Exception:
+                resp = client.responses.create(
+                    model=DECOMP_CRITIC_MODEL,
+                    input=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt},
+                    ],
+                )
+                text = _coerce_llm_text(resp)
+
+            text = str(text or "").strip()
+            if not text:
+                raise RuntimeError("Empty critic output")
+            obj_text = _extract_json_object(text)
+            payload = _safe_json_loads(obj_text)
+            if not isinstance(payload, dict):
+                raise RuntimeError("Critic output JSON is not an object")
+
+            # Some providers return partial JSON in unstructured mode; repair with an LLM pass.
+            try:
+                DecompositionCriticReviewModel.model_validate(payload)
+            except Exception:
+                repaired = _repair_json_with_llm(obj_text, model=DECOMP_CRITIC_MODEL)
+                repaired_obj = _extract_json_object(repaired)
+                payload = _safe_json_loads(repaired_obj)
+                if not isinstance(payload, dict):
+                    raise RuntimeError("Repaired critic output JSON is not an object")
+            return payload, None
+        except Exception as exc:
+            last_error = f"{type(exc).__name__}: {exc}"
+            sleep_s = min(BACKOFF_MAX_SECONDS, BACKOFF_BASE_SECONDS * (2 ** (attempt - 1)))
+            sleep_s = sleep_s * (0.9 + 0.2 * ((time.time() * 997) % 1.0))
+            log(f"[decomp-critic-unstructured] attempt {attempt}/{MAX_RETRIES} failed: {last_error}")
+            if attempt >= MAX_RETRIES:
+                break
+            log(f"[decomp-critic-unstructured] backing off {sleep_s:.2f}s...")
+            time.sleep(sleep_s)
+    return None, last_error
+
+
+def _normalize_decomposition_critic_payload(payload: Dict[str, Any]) -> Dict[str, Any]:
+    decision = str(payload.get("decision") or "REVISE").strip().upper()
+    if decision not in {"PASS", "REVISE"}:
+        decision = "REVISE"
+
+    raw_composite = payload.get("composite_score_0_1", payload.get("overall_score_0_1", payload.get("score_0_1", None)))
+    try:
+        composite = _clip01(float(raw_composite))
+    except Exception:
+        composite = 0.82 if decision == "PASS" else 0.55
+
+    def _safe_score(value: Any, default: float) -> float:
+        try:
+            return _clip01(float(value))
+        except Exception:
+            return _clip01(default)
+
+    dims_in = payload.get("dimension_scores")
+    if not isinstance(dims_in, dict):
+        dims_in = payload.get("scores")
+    if not isinstance(dims_in, dict):
+        dims_in = payload.get("subscores")
+
+    dims: Dict[str, float]
+    if isinstance(dims_in, dict):
+        dims = {
+            "schema_validity": _safe_score(
+                dims_in.get("schema_validity", dims_in.get("schema", dims_in.get("format_validity", composite))),
+                composite,
+            ),
+            "coverage_grounding": _safe_score(
+                dims_in.get("coverage_grounding", dims_in.get("coverage", dims_in.get("grounding", composite))),
+                composite,
+            ),
+            "atomicity_nonoverlap": _safe_score(
+                dims_in.get("atomicity_nonoverlap", dims_in.get("atomicity", dims_in.get("non_overlap", composite))),
+                composite,
+            ),
+            "granularity_fit": _safe_score(
+                dims_in.get("granularity_fit", dims_in.get("granularity", dims_in.get("specificity", composite))),
+                composite,
+            ),
+            "current_actionability": _safe_score(
+                dims_in.get(
+                    "current_actionability",
+                    dims_in.get("actionability", dims_in.get("intervention_relevance", composite)),
+                ),
+                composite,
+            ),
+        }
+    else:
+        dims = {
+            "schema_validity": composite,
+            "coverage_grounding": composite,
+            "atomicity_nonoverlap": composite,
+            "granularity_fit": composite,
+            "current_actionability": composite,
+        }
+
+    if raw_composite is None:
+        composite = _clip01(sum(dims.values()) / max(1, len(dims)))
+
+    def _as_text_list(value: Any, *, fallback_key: str = "message") -> List[str]:
+        if not isinstance(value, list):
+            return []
+        out: List[str] = []
+        for item in value:
+            if isinstance(item, str) and item.strip():
+                out.append(item.strip())
+            elif isinstance(item, dict):
+                candidate = (
+                    item.get(fallback_key)
+                    or item.get("text")
+                    or item.get("issue")
+                    or item.get("feedback")
+                    or item.get("code")
+                )
+                if isinstance(candidate, str) and candidate.strip():
+                    out.append(candidate.strip())
+        return out[:8]
+
+    issues = _as_text_list(payload.get("issues"), fallback_key="message")
+    if not issues and isinstance(payload.get("issues"), dict):
+        issues_dict = payload.get("issues") or {}
+        if isinstance(issues_dict, dict):
+            for key in sorted(issues_dict.keys()):
+                value = issues_dict.get(key)
+                if isinstance(value, str) and value.strip():
+                    issues.append(f"{key}: {value.strip()}")
+                elif isinstance(value, dict):
+                    text = value.get("message") or value.get("detail") or value.get("text")
+                    if isinstance(text, str) and text.strip():
+                        issues.append(f"{key}: {text.strip()}")
+    issues = issues[:8]
+    actionable_feedback = _as_text_list(payload.get("actionable_feedback"), fallback_key="feedback")
+    if not actionable_feedback:
+        actionable_feedback = _as_text_list(payload.get("recommendations"), fallback_key="message")
+    if not actionable_feedback:
+        actionable_feedback = _as_text_list(payload.get("actions"), fallback_key="text")
+
+    rationale = str(payload.get("rationale") or payload.get("reasoning") or "").strip()
+    return {
+        "decision": decision,
+        "composite_score_0_1": composite,
+        "dimension_scores": dims,
+        "issues": issues,
+        "actionable_feedback": actionable_feedback,
+        "rationale": rationale,
+    }
+
+
 def run_llm_decomposition_critic(
     complaint: str,
     decomposition: Dict[str, Any],
@@ -1256,28 +1472,92 @@ def run_llm_decomposition_critic(
     runtime = StructuredLLMClient(
         model=str(DECOMP_CRITIC_MODEL),
         timeout_seconds=float(REQUEST_TIMEOUT_SECONDS),
-        max_attempts=2,
-        repair_attempts=1,
+        max_attempts=5,
+        repair_attempts=2,
     )
-    result = runtime.generate_structured(
-        system_prompt=system_prompt,
-        user_prompt=pack.text,
-        schema_model=DecompositionCriticReviewModel,
-    )
+    transient_reasons = {
+        "provider_unavailable",
+        "service_unavailable",
+        "rate_limited",
+        "timeout",
+        "request_timeout",
+    }
+    outer_retry_delays_s = (2.0, 5.0, 10.0)
+    result = None
+    last_reason = ""
+    for outer_attempt in range(1, len(outer_retry_delays_s) + 2):
+        result = runtime.generate_structured(
+            system_prompt=system_prompt,
+            user_prompt=pack.text,
+            schema_model=DecompositionCriticReviewModel,
+        )
+        reason = str(result.failure_reason or "").strip().lower()
+        last_reason = reason
+        if result.success:
+            break
+        if reason not in transient_reasons:
+            break
+        if outer_attempt > len(outer_retry_delays_s):
+            break
+        sleep_s = float(outer_retry_delays_s[outer_attempt - 1])
+        log(
+            f"[decomp-critic] transient LLM failure '{reason or 'unknown'}' "
+            f"on outer attempt {outer_attempt}; retrying in {sleep_s:.1f}s..."
+        )
+        time.sleep(sleep_s)
+
+    if result is None:
+        return None, {
+            "provider": "none",
+            "success": False,
+            "failure_reason": "critic_runtime_not_executed",
+            "critic_model": str(DECOMP_CRITIC_MODEL),
+        }
+
+    parsed_payload: Optional[Dict[str, Any]] = result.parsed if isinstance(result.parsed, dict) else None
+    trace_provider = result.provider
+    trace_success = bool(result.success)
+    trace_failure_reason = result.failure_reason
+    trace_used_repair = bool(result.used_repair)
+    trace_usage = result.usage
+
+    if (not result.success) and str(result.failure_reason or "").strip().lower() in transient_reasons:
+        log("[decomp-critic] trying unstructured responses transport after structured runtime transient failure...")
+        payload, unstructured_error = _call_decomposition_critic_unstructured_llm(
+            system_prompt=system_prompt,
+            user_prompt=pack.text,
+        )
+        if payload is not None:
+            parsed_payload = payload
+            trace_provider = "openai_responses_unstructured"
+            trace_success = True
+            trace_failure_reason = None
+            trace_used_repair = False
+            trace_usage = {}
+        else:
+            parsed_payload = None
+            trace_provider = "openai_responses_unstructured"
+            trace_success = False
+            trace_failure_reason = f"provider_unavailable_unstructured:{unstructured_error or 'unknown'}"
+            trace_used_repair = False
+            trace_usage = {}
+
     trace = {
-        "provider": result.provider,
-        "success": bool(result.success),
-        "failure_reason": result.failure_reason,
-        "used_repair": bool(result.used_repair),
-        "usage": result.usage,
+        "provider": trace_provider,
+        "success": bool(trace_success),
+        "failure_reason": trace_failure_reason,
+        "used_repair": bool(trace_used_repair),
+        "usage": trace_usage,
         "pack_estimated_tokens": int(pack.estimated_tokens),
         "pack_truncated_sections": list(pack.truncated_sections),
         "critic_model": str(DECOMP_CRITIC_MODEL),
+        "outer_retry_last_reason": last_reason,
     }
-    if not result.success or not isinstance(result.parsed, dict):
+    if not trace_success or not isinstance(parsed_payload, dict):
         return None, trace
     try:
-        parsed = DecompositionCriticReviewModel.model_validate(result.parsed)
+        normalized_payload = _normalize_decomposition_critic_payload(parsed_payload)
+        parsed = DecompositionCriticReviewModel.model_validate(normalized_payload)
     except Exception as exc:
         trace["failure_reason"] = f"parsed_validation_failed:{repr(exc)}"
         return None, trace
@@ -1506,11 +1786,19 @@ def _run_heuristic_decomposition_critic(
     )
 
 
-def run_local_decomposition_critic(complaint: str, decomposition: Dict[str, Any]) -> DecompositionCriticReview:
+def run_local_decomposition_critic(
+    complaint: str,
+    decomposition: Dict[str, Any],
+    *,
+    strict_llm: bool = False,
+) -> DecompositionCriticReview:
     structure = _estimate_complaint_structure(complaint)
     llm_review, llm_trace = run_llm_decomposition_critic(complaint, decomposition, structure)
     if llm_review is not None:
         return llm_review
+    if strict_llm:
+        failure_reason = str((llm_trace or {}).get("failure_reason") or "unknown_llm_critic_failure")
+        raise RuntimeError(f"Step-01 decomposition critic LLM failed in strict mode: {failure_reason}")
 
     heuristic_review = _run_heuristic_decomposition_critic(complaint, decomposition, structure=structure)
     critic_trace = dict(llm_trace or {})
@@ -1530,12 +1818,15 @@ def llm_revise_decomposition(
     complaint: str,
     previous_decomposition: Dict[str, Any],
     critic_review: DecompositionCriticReview,
+    *,
+    strict_llm: bool = False,
 ) -> Dict[str, Any]:
     return _call_decomposition_llm(
         complaint,
         stage_label="decomp-revise",
         revision_feedback=critic_review.actionable_feedback or critic_review.issues,
         previous_decomposition=previous_decomposition,
+        strict_llm=bool(strict_llm),
     )
 
 
@@ -1546,6 +1837,8 @@ def llm_revise_decomposition(
 def llm_pick_best_leaf_for_criterion(
     criterion_payload: Dict[str, Any],
     candidates: List[Dict[str, Any]],
+    *,
+    strict_llm: bool = False,
 ) -> Dict[str, Any]:
     """
     Pick the single best CRITERION leaf node for ONE decomposed criterion variable.
@@ -1621,6 +1914,8 @@ def llm_pick_best_leaf_for_criterion(
                     )
                     text = resp.output_text
             except Exception:
+                if strict_llm:
+                    raise
                 try:
                     resp = client.chat.completions.create(
                         model=LLM_RERANK_MODEL,
@@ -1980,6 +2275,7 @@ def operationalize_complaint(
     searcher: CriterionSearcher,
     complaint: str,
     enable_llm_reranker: bool,
+    strict_llm: bool = False,
 ) -> Tuple[Dict[str, Any], List[CriterionMapping], str]:
     """
     Returns:
@@ -1993,7 +2289,7 @@ def operationalize_complaint(
     )
 
     # 1) Always-on LLM decomposition with structured local critic-guided refinement
-    decomp = llm_decompose_complaint(complaint)
+    decomp = _call_decomposition_llm(complaint, stage_label="decomp", strict_llm=bool(strict_llm))
     decomp_trace: Dict[str, Any] = {
         "generator_model": DECOMP_MODEL,
         "local_critic": {
@@ -2008,7 +2304,7 @@ def operationalize_complaint(
     decomp_review: Optional[DecompositionCriticReview] = None
 
     for attempt in range(max(0, int(DECOMP_LOCAL_CRITIC_MAX_ITERATIONS)) + 1):
-        decomp_review = run_local_decomposition_critic(complaint, decomp)
+        decomp_review = run_local_decomposition_critic(complaint, decomp, strict_llm=bool(strict_llm))
         variables_raw = decomp.get("variables", [])
         decomp_trace["attempts"].append(
             {
@@ -2038,7 +2334,20 @@ def operationalize_complaint(
                 "feedback_count": len(decomp_review.actionable_feedback),
             },
         )
-        decomp = llm_revise_decomposition(complaint, decomp, decomp_review)
+        decomp = llm_revise_decomposition(
+            complaint,
+            decomp,
+            decomp_review,
+            strict_llm=bool(strict_llm),
+        )
+
+    if bool(strict_llm) and (
+        decomp_review is None or str(decomp_review.decision).strip().upper() != "PASS"
+    ):
+        final_decision = str(decomp_review.decision) if decomp_review is not None else "missing"
+        raise RuntimeError(
+            f"Step-01 decomposition critic did not PASS in strict mode (final_decision={final_decision})."
+        )
 
     variables_raw = decomp.get("variables", [])
 
@@ -2145,8 +2454,17 @@ def operationalize_complaint(
             )
 
             try:
-                pick = llm_pick_best_leaf_for_criterion(asdict(m.variable), cands)
+                pick = llm_pick_best_leaf_for_criterion(
+                    asdict(m.variable),
+                    cands,
+                    strict_llm=bool(strict_llm),
+                )
             except Exception as e:
+                if strict_llm:
+                    raise RuntimeError(
+                        f"Step-01 LLM adjudication failed for {m.variable.id} in strict mode: "
+                        f"{type(e).__name__}: {e}"
+                    ) from e
                 best = m.results[0]
                 log_stage(
                     "LLM_ADJUDICATION_ERROR",
@@ -2182,6 +2500,10 @@ def operationalize_complaint(
             # Safety: if LLM returns an idx not in candidates, fall back to top fused
             cand_ids = {c["idx"] for c in cands}
             if chosen_idx not in cand_ids:
+                if strict_llm:
+                    raise RuntimeError(
+                        f"Step-01 LLM adjudication returned invalid idx for {m.variable.id} in strict mode: {chosen_idx}"
+                    )
                 best = m.results[0]
                 return CriterionMapping(
                     variable=m.variable,
@@ -2547,6 +2869,8 @@ def process_one_pseudoprofile(
     pseudoprofile_id: str,
     complaint_text: str,
     enable_llm_reranker: bool,
+    use_cache: bool = True,
+    strict_llm: bool = False,
 ) -> Tuple[str, List[Dict[str, Any]]]:
     """
     Returns (pseudoprofile_id, rows_for_csv).
@@ -2561,7 +2885,7 @@ def process_one_pseudoprofile(
     cache_path = pseudoprofile_cache_path(pseudoprofile_id, complaint_text, enable_llm_reranker)
 
     # 1) If cached JSON exists → load and return rows (skip compute)
-    if os.path.isfile(cache_path) and os.path.getsize(cache_path) > 0:
+    if bool(use_cache) and os.path.isfile(cache_path) and os.path.getsize(cache_path) > 0:
         try:
             run_obj = load_json(cache_path)
             log_stage(
@@ -2587,6 +2911,7 @@ def process_one_pseudoprofile(
             searcher=searcher,
             complaint=complaint_text,
             enable_llm_reranker=enable_llm_reranker,
+            strict_llm=bool(strict_llm),
         )
 
         # Copy the timestamped run JSON to deterministic cache path
@@ -2611,6 +2936,8 @@ def process_one_pseudoprofile(
         err = f"{type(e).__name__}: {e}"
         tb = traceback.format_exc()
         log(f"[error] {pseudoprofile_id} failed: {err}\n{tb}")
+        if strict_llm:
+            raise
         rows = mappings_to_csv_rows(
             searcher=searcher,
             pseudoprofile_id=pseudoprofile_id,
@@ -2774,6 +3101,8 @@ def run_batch(
     output_csv_path: str,
     max_workers: int,
     enable_llm_reranker: bool,
+    use_cache: bool,
+    strict_llm: bool,
     limit: int = 0,
 ) -> None:
     def _append_rows_to_csv(rows: List[Dict[str, Any]]) -> None:
@@ -2817,7 +3146,14 @@ def run_batch(
     if max_workers <= 1 or len(items) <= 1:
         for i, (pid, txt) in enumerate(items, start=1):
             log(f"[batch] ({i}/{len(items)}) Processing {pid} ...")
-            _, rows = process_one_pseudoprofile(searcher, pid, txt, enable_llm_reranker)
+            _, rows = process_one_pseudoprofile(
+                searcher,
+                pid,
+                txt,
+                enable_llm_reranker,
+                use_cache=bool(use_cache),
+                strict_llm=bool(strict_llm),
+            )
             _append_rows_to_csv(rows)
             total_rows_written += len(rows)
             log(f"[batch] Progress: {i}/{len(items)} done.")
@@ -2827,7 +3163,15 @@ def run_batch(
         done = 0
         with ThreadPoolExecutor(max_workers=mw) as ex:
             futs = {
-                ex.submit(process_one_pseudoprofile, searcher, pid, txt, enable_llm_reranker): pid
+                ex.submit(
+                    process_one_pseudoprofile,
+                    searcher,
+                    pid,
+                    txt,
+                    enable_llm_reranker,
+                    bool(use_cache),
+                    bool(strict_llm),
+                ): pid
                 for pid, txt in items
             }
             for fut in as_completed(futs):
@@ -2840,6 +3184,8 @@ def run_batch(
                     # Should not happen because worker catches, but guard anyway
                     err = f"{type(e).__name__}: {e}"
                     log(f"[batch-error] Unexpected failure for {pid}: {err}")
+                    if strict_llm:
+                        raise
                 done += 1
                 log(f"[batch] Progress: {done}/{len(items)} done.")
 
@@ -2861,15 +3207,21 @@ def main() -> None:
     parser.add_argument("--max-workers", type=int, default=MAX_PARALLEL_COMPLAINTS, help="Parallel complaints workers")
     parser.add_argument("--limit", type=int, default=0, help="Process only first N pseudoprofiles (0 = all)")
     parser.add_argument("--no-llm-rerank", action="store_true", help="Disable per-criterion LLM best-leaf adjudication")
+    parser.add_argument("--use-cache", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--strict-llm", action=argparse.BooleanOptionalAction, default=False)
     args = parser.parse_args()
 
     enable_llm_reranker = ENABLE_LLM_RERANKER_DEFAULT and (not args.no_llm_rerank)
+    if bool(args.strict_llm) and not bool(enable_llm_reranker):
+        raise RuntimeError("Strict LLM mode requires Step-01 LLM reranking to remain enabled.")
 
     run_batch(
         free_text_path=args.input_txt,
         output_csv_path=args.output_csv,
         max_workers=max(1, int(args.max_workers)),
         enable_llm_reranker=enable_llm_reranker,
+        use_cache=bool(args.use_cache),
+        strict_llm=bool(args.strict_llm),
         limit=int(args.limit),
     )
 

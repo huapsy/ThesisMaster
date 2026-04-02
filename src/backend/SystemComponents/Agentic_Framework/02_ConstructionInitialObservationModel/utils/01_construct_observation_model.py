@@ -154,7 +154,7 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional, Tuple
 from pathlib import Path
 
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError, as_completed
 
 import pandas as pd
 from openai import OpenAI
@@ -264,7 +264,14 @@ DEFAULT_RESULTS_DIR = str(
 )
 
 # LLM model (per your request)
-DEFAULT_LLM_MODEL_NAME = "gpt-5-mini"  # Use 'gpt-5' during deployment ; for now test with 'nano' or 'mini'
+DEFAULT_LLM_MODEL_NAME = "gpt-5-nano"
+
+
+def _resolve_runtime_llm_model_name(model_name: str) -> str:
+    token = str(model_name or "").strip() or DEFAULT_LLM_MODEL_NAME
+    if str(os.getenv("OPENROUTER_API_KEY") or "").strip() and "/" not in token and token.startswith("gpt-"):
+        return f"openai/{token}"
+    return token
 
 
 # ============================================================
@@ -411,13 +418,28 @@ def _log(pid: str, msg: str) -> None:
         print(f"[{ts}] {msg}", flush=True)
 
 
-def _with_retries(fn, *, pid: str = "", label: str = "", retries: int = 3, base_sleep_s: float = 2.0):
+def _with_retries(
+    fn,
+    *,
+    pid: str = "",
+    label: str = "",
+    retries: int = 3,
+    base_sleep_s: float = 2.0,
+    call_timeout_s: float = 300.0,
+):
     last_exc = None
     for attempt in range(1, retries + 1):
         try:
             if label:
                 _log(pid, f"{label}: attempt {attempt}/{retries} ...")
-            return fn()
+            with ThreadPoolExecutor(max_workers=1) as local_pool:
+                fut = local_pool.submit(fn)
+                return fut.result(timeout=float(call_timeout_s))
+        except FuturesTimeoutError as e:
+            last_exc = TimeoutError(
+                f"{label or 'call'} timed out after {float(call_timeout_s):.1f}s"
+            )
+            _log(pid, f"{label}: attempt {attempt} TIMED OUT after {float(call_timeout_s):.1f}s")
         except Exception as e:
             last_exc = e
             _log(pid, f"{label}: attempt {attempt} FAILED with {type(e).__name__}: {e}")
@@ -2953,6 +2975,7 @@ def process_one_pseudoprofile(
     prompt_budget_tokens: int,
     parent_feasibility_top_k: int,
     disable_critic_llm: bool,
+    strict_llm: bool,
 ) -> Dict[str, Any]:
     """
     Returns:
@@ -3003,6 +3026,11 @@ def process_one_pseudoprofile(
     _save_json(paths["config"], profile_cfg)
 
     try:
+        if bool(strict_llm) and bool(use_cache):
+            raise RuntimeError("Strict LLM mode requires Step-02 live generation; disable cache for this run.")
+        if bool(strict_llm) and bool(disable_critic_llm):
+            raise RuntimeError("Strict LLM mode requires the Step-02 critic LLM to remain enabled.")
+
         # Load profile evidence once (also used by critic and constraints)
         profile = load_profile_input(
             mapped_criterions_path=mapped_criterions_path,
@@ -3058,7 +3086,7 @@ def process_one_pseudoprofile(
                     report = validate_observation_model(model)
 
         if model is None:
-            client = OpenAI()
+            client = OpenAI(timeout=120.0)
             feedback_for_revision: List[str] = []
             max_actor_iterations = max(0, int(critic_max_iterations))
             for actor_attempt in range(max_actor_iterations + 1):
@@ -3079,12 +3107,18 @@ def process_one_pseudoprofile(
                     else:
                         _save_json(paths["input_payload"], {"pseudoprofile_id": pid, "note": "payload extraction failed"})
 
-                raw_model = call_llm_structured(
-                    client=client,
-                    llm_model=llm_model,
-                    instructions=instructions,
-                    messages=messages,
-                    pseudoprofile_id=pid,
+                raw_model = _with_retries(
+                    lambda: call_llm_structured(
+                        client=client,
+                        llm_model=llm_model,
+                        instructions=instructions,
+                        messages=messages,
+                        pseudoprofile_id=pid,
+                    ),
+                    pid=pid,
+                    label="step02.actor",
+                    retries=3,
+                    base_sleep_s=2.0,
                 )
                 _save_json(paths["llm_raw"], raw_model)
                 model = raw_model
@@ -3102,12 +3136,18 @@ def process_one_pseudoprofile(
                             validation_report=report,
                             pseudoprofile_id=pid,
                         )
-                        repaired = call_llm_structured(
-                            client=client,
-                            llm_model=llm_model,
-                            instructions=rep_instructions,
-                            messages=rep_messages,
-                            pseudoprofile_id=pid,
+                        repaired = _with_retries(
+                            lambda: call_llm_structured(
+                                client=client,
+                                llm_model=llm_model,
+                                instructions=rep_instructions,
+                                messages=rep_messages,
+                                pseudoprofile_id=pid,
+                            ),
+                            pid=pid,
+                            label=f"step02.repair.{repair_attempt}",
+                            retries=3,
+                            base_sleep_s=2.0,
                         )
                         model = repaired
                         report = validate_observation_model(model)
@@ -3164,6 +3204,11 @@ def process_one_pseudoprofile(
                     critic_attempt_trace = {"provider": "none", "reason": "disable_critic_llm=true"}
                 critic_trace["critic_attempts"].append(critic_attempt_trace)
                 if critic_from_llm is None:
+                    if strict_llm:
+                        reason = str((critic_attempt_trace or {}).get("failure_reason") or "unknown")
+                        raise RuntimeError(
+                            f"Step-02 critic LLM failed in strict mode; heuristic fallback is disabled. reason={reason}"
+                        )
                     critic_review = _heuristic_step02_critic(
                         model=model or {},
                         validation_report=report or {},
@@ -3187,6 +3232,15 @@ def process_one_pseudoprofile(
                     break
                 feedback_for_revision = [str(item) for item in critic_review.actionable_feedback if str(item).strip()][:8]
 
+            if bool(strict_llm):
+                final_decision = str(critic_review.decision) if isinstance(critic_review, Step02CriticReviewModel) else "missing"
+                if final_decision.strip().upper() != "PASS":
+                    _log(
+                        pid,
+                        "Strict mode: Step-02 critic returned REVISE; continuing with latest revised model because live LLM critic execution succeeded.",
+                    )
+                    critic_trace["strict_llm_nonpass_decision"] = str(final_decision)
+
         # Cached-model path: still run deterministic checks and critic once.
         if model is not None and report is not None and bool(used_cache):
             if deterministic_fix:
@@ -3203,6 +3257,8 @@ def process_one_pseudoprofile(
                 )
                 report = validate_observation_model(model)
             if critic_review is None:
+                if strict_llm:
+                    raise RuntimeError("Strict LLM mode cannot use cached Step-02 heuristic critic review.")
                 critic_review = _heuristic_step02_critic(
                     model=model,
                     validation_report=report,
@@ -3291,7 +3347,7 @@ def _parse_args() -> argparse.Namespace:
     p.add_argument("--sample_seed", type=int, default=DEFAULT_SAMPLE_SEED)
 
     # Cache
-    p.add_argument("--use_cache", action=argparse.BooleanOptionalAction, default=DEFAULT_USE_CACHE)
+    p.add_argument("--use_cache", "--use-cache", action=argparse.BooleanOptionalAction, default=DEFAULT_USE_CACHE)
 
     # Repair controls
     p.add_argument("--auto_repair", action=argparse.BooleanOptionalAction, default=DEFAULT_AUTO_REPAIR)
@@ -3306,6 +3362,7 @@ def _parse_args() -> argparse.Namespace:
     p.add_argument("--hard_ontology_constraint", action=argparse.BooleanOptionalAction, default=False)
     p.add_argument("--prompt_budget_tokens", type=int, default=400000)
     p.add_argument("--disable_critic_llm", action=argparse.BooleanOptionalAction, default=False)
+    p.add_argument("--strict-llm", action=argparse.BooleanOptionalAction, default=False)
 
     # Optional: print summaries
     p.add_argument("--print_summary", action=argparse.BooleanOptionalAction, default=False)
@@ -3315,6 +3372,10 @@ def _parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = _parse_args()
+    if bool(args.strict_llm) and bool(args.use_cache):
+        raise RuntimeError("Strict LLM mode requires --no-use-cache for Step-02.")
+    if bool(args.strict_llm) and bool(args.disable_critic_llm):
+        raise RuntimeError("Strict LLM mode does not allow --disable_critic_llm.")
 
     openrouter_api_key = str(os.getenv("OPENROUTER_API_KEY") or "").strip()
     if openrouter_api_key:
@@ -3323,6 +3384,7 @@ def main() -> None:
             os.environ["OPENAI_BASE_URL"] = "https://openrouter.ai/api/v1"
     if not str(os.getenv("OPENAI_API_KEY") or "").strip():
         raise RuntimeError("Missing API key. Set OPENROUTER_API_KEY (preferred) or OPENAI_API_KEY.")
+    resolved_llm_model = _resolve_runtime_llm_model_name(str(args.llm_model))
 
     run_id = _safe_filename(args.run_id.strip()) if args.run_id.strip() else _now_stamp()
 
@@ -3333,7 +3395,7 @@ def main() -> None:
     run_cfg = {
         "run_id": run_id,
         "created_at_local": datetime.now().isoformat(timespec="seconds"),
-        "llm_model": args.llm_model,
+        "llm_model": resolved_llm_model,
         "paths": {
             "mapped_criterions_path": args.mapped_criterions_path,
             "hyde_dense_profiles_path": args.hyde_dense_profiles_path,
@@ -3390,7 +3452,7 @@ def main() -> None:
     _log(
         "",
         f"Run {run_id} | profiles={len(pseudoprofile_ids)} | max_workers={args.max_workers} | "
-        f"model={args.llm_model} | hard_ontology_constraint={bool(args.hard_ontology_constraint)}",
+        f"model={resolved_llm_model} | hard_ontology_constraint={bool(args.hard_ontology_constraint)}",
     )
 
     # Aggregation buffers
@@ -3419,7 +3481,7 @@ def main() -> None:
                     llm_mapping_ranks_path=args.llm_mapping_ranks_path,
                     ontology_path=args.ontology_path,
                     profiles_dir=profiles_dir,
-                    llm_model=args.llm_model,
+                    llm_model=resolved_llm_model,
                     n_criteria=str(args.n_criteria),
                     n_predictors=str(args.n_predictors),
                     prompt_top_hyde=int(args.prompt_top_hyde),
@@ -3438,6 +3500,7 @@ def main() -> None:
                     prompt_budget_tokens=int(args.prompt_budget_tokens),
                     parent_feasibility_top_k=int(args.parent_feasibility_top_k),
                     disable_critic_llm=bool(args.disable_critic_llm),
+                    strict_llm=bool(args.strict_llm),
                 )
             )
 
@@ -3509,6 +3572,8 @@ def main() -> None:
     _write_csv(errors_rows, os.path.join(run_root, "errors.csv"))
 
     _log("", f"DONE | ok={len(models_ok)} | errors={len(errors_rows)} | run_dir={run_root}")
+    if bool(args.strict_llm) and errors_rows:
+        raise SystemExit(4)
 
 
 if __name__ == "__main__":

@@ -214,17 +214,35 @@ def _run_startup_llm_health_check(*, model: str, timeout_seconds: float) -> Dict
     started = time.time()
     try:
         client = OpenAI(**kwargs)
-        try:
-            response = client.responses.create(
-                model=details["resolved_model"],
-                input=[{"role": "user", "content": "Health check: respond with OK."}],
-                max_output_tokens=8,
-            )
-        except TypeError:
-            response = client.responses.create(
-                model=details["resolved_model"],
-                input=[{"role": "user", "content": "Health check: respond with OK."}],
-            )
+        response = None
+        last_exc: Optional[Exception] = None
+        attempts = 3
+        for attempt in range(1, attempts + 1):
+            try:
+                try:
+                    response = client.responses.create(
+                        model=details["resolved_model"],
+                        input=[{"role": "user", "content": "Health check: respond with OK."}],
+                        max_output_tokens=8,
+                    )
+                except TypeError:
+                    response = client.responses.create(
+                        model=details["resolved_model"],
+                        input=[{"role": "user", "content": "Health check: respond with OK."}],
+                    )
+                break
+            except Exception as exc:
+                last_exc = exc
+                name = type(exc).__name__.lower()
+                emsg = str(exc).lower()
+                transient = any(token in name or token in emsg for token in ["connection", "timeout", "tempor", "reset"])
+                if attempt >= attempts or not transient:
+                    raise
+                time.sleep(min(3.0, 0.75 * attempt))
+
+        if response is None and last_exc is not None:
+            raise last_exc
+
         elapsed = round(time.time() - started, 3)
         usage = getattr(response, "usage", None)
         usage_payload: Dict[str, Any]
@@ -248,6 +266,7 @@ def _run_startup_llm_health_check(*, model: str, timeout_seconds: float) -> Dict
             "base_url": details.get("base_url") or "",
             "elapsed_seconds": elapsed,
             "usage": usage_payload,
+            "attempts": attempts if last_exc is not None else 1,
         }
     except Exception as exc:
         reason = "provider_unavailable"
@@ -274,6 +293,7 @@ def _run_startup_llm_health_check(*, model: str, timeout_seconds: float) -> Dict
             "error_type": name,
             "error": str(exc),
             "elapsed_seconds": round(time.time() - started, 3),
+            "attempts": 3,
         }
 
 
@@ -364,19 +384,106 @@ def _write_stage_trace(
     result: StageResult,
     profile_count: int,
     contract_results: Optional[List[Dict[str, Any]]] = None,
+    status: str = "completed",
+    started_at_local: Optional[str] = None,
+    ended_at_local: Optional[str] = None,
+    stage_root: Optional[Path] = None,
+    stage_events_path: Optional[Path] = None,
+    metadata: Optional[Dict[str, Any]] = None,
 ) -> None:
+    root = (stage_root or trace_path.parent).resolve()
+
+    files_preview: List[Dict[str, Any]] = []
+    suffix_counts: Dict[str, int] = {}
+    total_bytes = 0
+    total_files = 0
+    total_dirs = 0
+    preview_limit = 200
+    ignored_preview_names = {"stage_trace.json", "stage_events.jsonl", "stage.log"}
+    if root.exists():
+        for path in sorted(root.rglob("*")):
+            rel = str(path.relative_to(root))
+            if path.is_dir():
+                total_dirs += 1
+                continue
+            total_files += 1
+            try:
+                size = int(path.stat().st_size)
+            except OSError:
+                size = 0
+            total_bytes += size
+            suffix = path.suffix.lower() or "<no_ext>"
+            suffix_counts[suffix] = int(suffix_counts.get(suffix, 0)) + 1
+            if len(files_preview) < preview_limit and path.name not in ignored_preview_names:
+                files_preview.append(
+                    {
+                        "path": rel,
+                        "bytes": size,
+                    }
+                )
+
     payload = {
         "timestamp_local": _ts(),
         "run_id": run_id,
         "cycle_index": int(cycle_index),
         "stage": stage,
+        "status": status,
+        "started_at_local": started_at_local,
+        "ended_at_local": ended_at_local or _ts(),
         "duration_seconds": round(float(result.duration_seconds), 3),
         "return_code": int(result.return_code),
         "command": list(result.command),
         "profile_count": int(profile_count),
         "contract_results": contract_results or [],
+        "stage_root": str(root),
+        "log_path": str(result.log_path),
+        "stage_events_path": str(stage_events_path) if stage_events_path is not None else "",
+        "artifacts_summary": {
+            "file_count": int(total_files),
+            "dir_count": int(total_dirs),
+            "total_bytes": int(total_bytes),
+            "suffix_counts": dict(sorted(suffix_counts.items(), key=lambda item: item[0])),
+            "files_preview": files_preview,
+            "preview_truncated": bool(total_files > len(files_preview)),
+        },
+        "metadata": metadata or {},
     }
     trace_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _write_stage_trace_placeholder(
+    trace_path: Path,
+    *,
+    run_id: str,
+    cycle_index: int,
+    stage: str,
+    command: Sequence[str],
+    profile_count: int,
+    stage_log_path: Path,
+    stage_events_path: Path,
+) -> None:
+    placeholder = StageResult(
+        stage=stage,
+        command=list(command),
+        return_code=-1,
+        duration_seconds=0.0,
+        log_path=str(stage_log_path),
+    )
+    _write_stage_trace(
+        trace_path,
+        run_id=run_id,
+        cycle_index=cycle_index,
+        stage=stage,
+        result=placeholder,
+        profile_count=profile_count,
+        contract_results=[],
+        status="running",
+        started_at_local=_ts(),
+        ended_at_local=None,
+        stage_root=trace_path.parent,
+        stage_events_path=stage_events_path,
+        metadata={"note": "Stage started; artifacts may still be accumulating."},
+    )
 
 
 def discover_profiles(pseudodata_root: Path, filename: str, pattern: str, max_profiles: int) -> List[str]:
@@ -809,6 +916,7 @@ def ensure_step02_profile_outputs(
     mapped_csv_path: Path,
     allow_fallback: bool,
     fallback_runs_root: Path,
+    strict_llm: bool,
     logger: PipelineLogger,
 ) -> Dict[str, Dict[str, str]]:
     """
@@ -823,8 +931,57 @@ def ensure_step02_profile_outputs(
         target_dir = run_profile_root / profile_id
         mapped_json = target_dir / "llm_observation_model_mapped.json"
         mapped_txt = target_dir / "llm_observation_model_mapped.txt"
+        final_json = target_dir / "llm_observation_model_final.json"
         if mapped_json.exists() and mapped_txt.exists():
             continue
+
+        if bool(strict_llm) and final_json.exists():
+            try:
+                model_payload = json.loads(final_json.read_text(encoding="utf-8"))
+            except Exception as exc:
+                raise RuntimeError(f"Strict LLM Step-02 final artifact exists but could not be read: {final_json}: {exc}")
+            if not mapped_json.exists():
+                mapped_json.write_text(json.dumps(model_payload, ensure_ascii=False, indent=2), encoding="utf-8")
+            if not mapped_txt.exists():
+                criteria_rows = list(model_payload.get("criteria_variables") or [])
+                predictor_rows = list(model_payload.get("predictor_variables") or [])
+                lines = [
+                    f"pseudoprofile_id: {profile_id}",
+                    "source_raw_model: llm_observation_model_final.json",
+                    "",
+                    "CRITERIA",
+                ]
+                for idx, row in enumerate(criteria_rows, start=1):
+                    code = _safe_var_code(str(row.get("var_id") or ""), "C", idx)
+                    label = str(row.get("label") or code).strip()
+                    path = str(row.get("mapped_leaf_full_path") or row.get("criterion_path") or "").strip()
+                    confidence = float(row.get("mapped_confidence") or 0.0)
+                    lines.append(f"- {code}: {label} -> {path} (conf={confidence:.2f})")
+                lines.extend(["", "PREDICTORS"])
+                for idx, row in enumerate(predictor_rows, start=1):
+                    code = _safe_var_code(str(row.get("var_id") or ""), "P", idx)
+                    label = str(row.get("label") or code).strip()
+                    path = str(row.get("mapped_leaf_full_path") or row.get("ontology_path") or "").strip()
+                    confidence = float(row.get("mapped_confidence") or 0.0)
+                    lines.append(f"- {code}: {label} -> {path} (conf={confidence:.2f})")
+                mapped_txt.write_text("\n".join(lines).strip() + "\n", encoding="utf-8")
+            logger.log(
+                "INFO",
+                "initial_model.compatibility_artifacts_created",
+                "Created Step-02 compatibility artifacts from the live final LLM output.",
+                profile_id=profile_id,
+                artifacts={
+                    "final_json": str(final_json),
+                    "mapped_json": str(mapped_json),
+                    "mapped_txt": str(mapped_txt),
+                },
+            )
+            continue
+
+        if bool(strict_llm):
+            raise RuntimeError(
+                f"Strict LLM mode forbids Step-02 fallback synthesis/copy; missing artifacts for {profile_id}: {mapped_json}"
+            )
 
         op_summary = _load_operationalization_rows(mapped_csv_path=mapped_csv_path, profile_id=profile_id)
         op_rows = list(op_summary.get("variables") or [])
@@ -921,6 +1078,38 @@ def write_skipped_stage_artifacts(
         ),
         encoding="utf-8",
     )
+    _write_stage_event(
+        stage_root / "stage_events.jsonl",
+        run_id=run_id,
+        profile_id=None,
+        stage=stage_name,
+        event=f"{stage_name}.skipped",
+        level="INFO",
+        message=reason,
+        metrics={"cycle_index": cycle_index},
+        artifacts={"stage_skip_manifest": str(stage_root / "stage_skip_manifest.json")},
+    )
+    _write_stage_trace(
+        stage_root / "stage_trace.json",
+        run_id=run_id,
+        cycle_index=cycle_index,
+        stage=stage_name,
+        result=StageResult(
+            stage=stage_name,
+            command=[],
+            return_code=0,
+            duration_seconds=0.0,
+            log_path=str(stage_root / "stage.log"),
+        ),
+        profile_count=0,
+        contract_results=[],
+        status="skipped",
+        started_at_local=payload["timestamp_local"],
+        ended_at_local=payload["timestamp_local"],
+        stage_root=stage_root,
+        stage_events_path=stage_root / "stage_events.jsonl",
+        metadata=metadata or {},
+    )
 
 
 def mirror_profiles_to_run_local_pseudodata(
@@ -964,6 +1153,7 @@ def run_stage(
     env_overrides: Optional[Dict[str, str]] = None,
 ) -> StageResult:
     start = time.time()
+    started_at_local = _ts()
     logger.log("INFO", f"{stage}.start", "Running stage command.", stage=stage, command=" ".join(cmd))
     _write_stage_event(
         stage_events_path,
@@ -975,6 +1165,16 @@ def run_stage(
         message="Running stage command.",
         metrics={"profile_count": profile_count, "cycle_index": cycle_index},
         artifacts={"command": " ".join(cmd)},
+    )
+    _write_stage_trace_placeholder(
+        stage_trace_path,
+        run_id=run_id,
+        cycle_index=cycle_index,
+        stage=stage,
+        command=cmd,
+        profile_count=profile_count,
+        stage_log_path=stage_log_path,
+        stage_events_path=stage_events_path,
     )
 
     process_env = os.environ.copy()
@@ -997,6 +1197,7 @@ def run_stage(
             prefixed = f"[{stage}] {clean}"
             print(prefixed, flush=True)
             stage_log.write(prefixed + "\n")
+            stage_log.flush()
         return_code = process.wait()
 
     duration = time.time() - start
@@ -1037,6 +1238,11 @@ def run_stage(
             result=result,
             profile_count=profile_count,
             contract_results=contract_results,
+            status="failed",
+            started_at_local=started_at_local,
+            ended_at_local=_ts(),
+            stage_root=stage_trace_path.parent,
+            stage_events_path=stage_events_path,
         )
         raise RuntimeError(f"Stage '{stage}' failed with exit code {return_code}.")
 
@@ -1067,6 +1273,11 @@ def run_stage(
         result=result,
         profile_count=profile_count,
         contract_results=contract_results,
+        status="completed",
+        started_at_local=started_at_local,
+        ended_at_local=_ts(),
+        stage_root=stage_trace_path.parent,
+        stage_events_path=stage_events_path,
     )
     return result
 
@@ -1474,6 +1685,12 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
         help="Global switch to disable LLM-dependent stages and force deterministic fallbacks where available.",
     )
     parser.add_argument(
+        "--strict-llm",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Require live LLM execution at every LLM-backed stage and forbid fallback/cached substitutes.",
+    )
+    parser.add_argument(
         "--startup-llm-health-check",
         action=argparse.BooleanOptionalAction,
         default=True,
@@ -1498,6 +1715,30 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
         help="Client timeout for startup LLM health check probe.",
     )
     parser.add_argument("--llm-finalize", action=argparse.BooleanOptionalAction, default=False)
+    parser.add_argument(
+        "--operationalization-decomp-model",
+        type=str,
+        default="gpt-5-nano",
+        help="Model for Step-01 complaint decomposition.",
+    )
+    parser.add_argument(
+        "--operationalization-decomp-critic-model",
+        type=str,
+        default="",
+        help="Optional override model for the Step-01 decomposition critic. Defaults to the Step-01 decomposition model.",
+    )
+    parser.add_argument(
+        "--operationalization-rerank-model",
+        type=str,
+        default="gpt-5-nano",
+        help="Model for Step-01 per-criterion adjudication/reranking.",
+    )
+    parser.add_argument(
+        "--initial-model-llm-model",
+        type=str,
+        default="gpt-5-nano",
+        help="Model for Step-02 initial observation model generation and critic loop.",
+    )
     parser.add_argument("--prefer-time-varying", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--readiness-quiet", action=argparse.BooleanOptionalAction, default=False)
 
@@ -1629,6 +1870,14 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     if bool(args.dry_run) and not bool(args.start_from_pseudodata):
         # Dry runs are contract/shell checks and should not require generating fresh artifacts.
         args.start_from_pseudodata = True
+    if bool(args.strict_llm) and bool(args.disable_llm):
+        raise RuntimeError("Strict LLM mode does not allow --disable-llm.")
+    if bool(args.strict_llm):
+        if bool(args.operationalization_disable_llm_rerank):
+            raise RuntimeError("Strict LLM mode requires Step-01 LLM reranking to remain enabled.")
+        if bool(args.handoff_disable_llm) or bool(args.intervention_disable_llm) or bool(args.communication_disable_llm):
+            raise RuntimeError("Strict LLM mode does not allow stage-specific disable-llm flags.")
+        args.allow_step02_fallback = False
     if bool(args.disable_llm):
         args.llm_finalize = False
         args.handoff_disable_llm = True
@@ -1651,6 +1900,21 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         else (output_root / "_history")
     )
     runtime_env = _build_runtime_env(run_root=run_root)
+    operationalization_decomp_model = str(args.operationalization_decomp_model).strip()
+    operationalization_decomp_critic_model = str(args.operationalization_decomp_critic_model).strip()
+    operationalization_rerank_model = str(args.operationalization_rerank_model).strip()
+    initial_model_model_details = _resolve_llm_provider_and_model(model=str(args.initial_model_llm_model))
+    if operationalization_decomp_model:
+        runtime_env["CRITERION_DECOMP_MODEL"] = operationalization_decomp_model
+        runtime_env["CRITERION_DECOMP_CRITIC_MODEL"] = (
+            operationalization_decomp_critic_model or operationalization_decomp_model
+        )
+    elif operationalization_decomp_critic_model:
+        runtime_env["CRITERION_DECOMP_CRITIC_MODEL"] = operationalization_decomp_critic_model
+    if operationalization_rerank_model:
+        runtime_env["CRITERION_RERANK_MODEL"] = operationalization_rerank_model
+    if str(initial_model_model_details.get("resolved_model") or "").strip():
+        runtime_env["OBS_MAP_MODEL"] = str(initial_model_model_details["resolved_model"]).strip()
 
     operationalization_root = _ensure_dir(run_root / "00_operationalization")
     initial_model_root = _ensure_dir(run_root / "01_initial_observation_model")
@@ -1726,6 +1990,15 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 "has_openrouter_key": bool(str(runtime_env.get("OPENROUTER_API_KEY") or "").strip()),
                 "has_openai_key": bool(str(runtime_env.get("OPENAI_API_KEY") or "").strip()),
                 "openai_base_url": str(runtime_env.get("OPENAI_BASE_URL") or ""),
+            },
+            "llm_stage_models": {
+                "operationalization_decomp_model": operationalization_decomp_model,
+                "operationalization_decomp_critic_model": runtime_env.get("CRITERION_DECOMP_CRITIC_MODEL", ""),
+                "operationalization_rerank_model": operationalization_rerank_model,
+                "initial_model_llm_model": str(args.initial_model_llm_model),
+                "handoff_llm_model": str(args.handoff_llm_model),
+                "intervention_llm_model": str(args.intervention_llm_model),
+                "communication_llm_model": str(args.communication_llm_model),
             },
         },
     )
@@ -1875,6 +2148,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             ]
             if bool(args.operationalization_disable_llm_rerank):
                 cmd_operationalization.append("--disable-llm-rerank")
+            if bool(args.strict_llm):
+                cmd_operationalization.extend(["--strict-llm", "--no-use-cache"])
 
         if not bool(args.start_from_pseudodata):
             if args.dry_run:
@@ -1913,11 +2188,15 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 str(initial_model_root),
                 "--run-id",
                 step02_run_id,
+                "--llm-model",
+                str(args.initial_model_llm_model),
             ]
             if len(selected_profile_ids) == 1:
                 cmd_initial_model.extend(["--pseudoprofile-id", selected_profile_ids[0]])
             if bool(args.hard_ontology_constraint):
                 cmd_initial_model.append("--hard-ontology-constraint")
+            if bool(args.strict_llm):
+                cmd_initial_model.extend(["--strict-llm", "--no-use-cache"])
 
             if args.dry_run:
                 logger.log(
@@ -1947,6 +2226,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     mapped_csv_path=mapped_csv,
                     allow_fallback=bool(args.allow_step02_fallback),
                     fallback_runs_root=step02_fallback_runs_root,
+                    strict_llm=bool(args.strict_llm),
                     logger=logger,
                 )
                 if fallback_records:
@@ -2574,6 +2854,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 ]
                 if bool(args.hard_ontology_constraint):
                     cmd_handoff.append("--hard-ontology-constraint")
+                if bool(args.strict_llm):
+                    cmd_handoff.append("--strict-llm")
                 if bool(args.enable_iterative_memory):
                     cmd_handoff.extend(
                         [
@@ -2720,6 +3002,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     ]
                     if bool(args.hard_ontology_constraint):
                         cmd_intervention.append("--hard-ontology-constraint")
+                    if bool(args.strict_llm):
+                        cmd_intervention.append("--strict-llm")
                     if bool(args.intervention_disable_llm):
                         cmd_intervention.append("--disable-llm")
                     if args.dry_run:
@@ -2842,6 +3126,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                         "--llm-model",
                         str(args.communication_llm_model),
                     ]
+                    if bool(args.strict_llm):
+                        cmd_translation.append("--strict-llm")
                     if bool(args.communication_disable_llm):
                         cmd_translation.append("--disable-llm")
                     stage_results.append(
@@ -3061,9 +3347,16 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             "llm_runtime": {
                 "disable_llm": bool(args.disable_llm),
                 "llm_finalize": bool(args.llm_finalize),
+                "operationalization_decomp_model": operationalization_decomp_model,
+                "operationalization_decomp_critic_model": runtime_env.get("CRITERION_DECOMP_CRITIC_MODEL", ""),
+                "operationalization_rerank_model": operationalization_rerank_model,
+                "initial_model_llm_model": str(args.initial_model_llm_model),
                 "handoff_disable_llm": bool(args.handoff_disable_llm),
+                "handoff_llm_model": str(args.handoff_llm_model),
                 "intervention_disable_llm": bool(args.intervention_disable_llm),
+                "intervention_llm_model": str(args.intervention_llm_model),
                 "communication_disable_llm": bool(args.communication_disable_llm),
+                "communication_llm_model": str(args.communication_llm_model),
                 "startup_health_check": {
                     "enabled": bool(args.startup_llm_health_check),
                     "fail_on_check_failure": bool(args.fail_on_llm_health_check),
@@ -3291,9 +3584,16 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         "llm_runtime": {
             "disable_llm": bool(args.disable_llm),
             "llm_finalize": bool(args.llm_finalize),
+            "operationalization_decomp_model": operationalization_decomp_model,
+            "operationalization_decomp_critic_model": runtime_env.get("CRITERION_DECOMP_CRITIC_MODEL", ""),
+            "operationalization_rerank_model": operationalization_rerank_model,
+            "initial_model_llm_model": str(args.initial_model_llm_model),
             "handoff_disable_llm": bool(args.handoff_disable_llm),
+            "handoff_llm_model": str(args.handoff_llm_model),
             "intervention_disable_llm": bool(args.intervention_disable_llm),
+            "intervention_llm_model": str(args.intervention_llm_model),
             "communication_disable_llm": bool(args.communication_disable_llm),
+            "communication_llm_model": str(args.communication_llm_model),
             "startup_health_check": {
                 "enabled": bool(args.startup_llm_health_check),
                 "fail_on_check_failure": bool(args.fail_on_llm_health_check),

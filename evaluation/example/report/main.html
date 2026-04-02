@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PHOENIX Example Run Report</title>
+  <style>
+    @page { size: A4; margin: 18mm; }
+    :root {
+      --blue: #1d4ed8;
+      --teal: #0e7490;
+      --green: #047857;
+      --amber: #b45309;
+      --slate: #475569;
+      --border: #cbd5e1;
+      --soft: #f8fafc;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: #0f172a;
+      font: 15px/1.55 "Georgia", "Times New Roman", serif;
+      background: #fff;
+    }
+    main { max-width: 960px; margin: 0 auto; padding: 24px 32px 48px; }
+    h1, h2, h3 { margin: 0 0 10px; line-height: 1.2; }
+    h1 { font-size: 34px; color: var(--blue); }
+    h2 { font-size: 22px; color: var(--blue); margin-top: 28px; }
+    h3 { font-size: 18px; color: var(--teal); margin-top: 22px; }
+    p { margin: 0 0 12px; }
+    ul { margin: 0 0 14px 20px; padding: 0; }
+    li { margin: 0 0 6px; }
+    .cover {
+      min-height: 250mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 18px;
+      page-break-after: always;
+    }
+    .subtitle { font-size: 20px; color: var(--slate); }
+    .box {
+      border: 1px solid var(--border);
+      background: var(--soft);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .box strong { color: var(--blue); }
+    .meta-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    .meta-table td {
+      padding: 7px 8px;
+      vertical-align: top;
+      border-top: 1px solid var(--border);
+    }
+    .meta-table td:first-child {
+      width: 190px;
+      font-weight: 700;
+      color: var(--slate);
+    }
+    figure { margin: 16px 0 20px; }
+    figure img {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+    }
+    figcaption {
+      margin-top: 8px;
+      color: var(--slate);
+      font-size: 13px;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .small { font-size: 13px; color: var(--slate); }
+    .page-break { page-break-before: always; }
+    code { background: #f1f5f9; padding: 1px 4px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="cover">
+      <h1>PHOENIX Engine End-to-End Example Run Report</h1>
+      <div class="subtitle">Professional demonstration of intermittent outputs across all core stages</div>
+
+      <div class="box">
+        <strong>Run metadata</strong>
+        <table class="meta-table">
+          <tr><td>Run id</td><td><code>example_run_2026_report_ready</code></td></tr>
+          <tr><td>Profile id</td><td><code>pseudoprofile_FTC_ID200</code></td></tr>
+          <tr><td>Execution mode</td><td>Integrated PHOENIX pipeline with live OpenRouter-backed LLM calls and stage-level artifact persistence.</td></tr>
+          <tr><td>LLM configuration</td><td><code>gpt-5-nano</code> pinned across operationalization, initial-model construction, target identification, observation-model updating, intervention generation, and communication generation.</td></tr>
+          <tr><td>Scope</td><td>Complaint operationalization, initial observation model, pseudodata generation, HUA readiness/network/impact analysis, target selection, updated observation model, HAPA intervention, and treatment-translation communication.</td></tr>
+        </table>
+      </div>
+
+      <div class="box">
+        <strong>Input complaint</strong>
+        <p><em>Lately I've been having troubles falling asleep; I keep thinking about so many things I have to do and it makes me so stressed; and when I'm in social situations I can not experience the small joyful things that made me feel happy; and the back of my head hurts sometimes, like sharp sudden peaks sometimes.</em></p>
+      </div>
+
+      <div class="small">MASTERPROEF example documentation package. Generated on 2026-04-02.</div>
+    </section>
+
+    <h2>Purpose</h2>
+    <p>This report documents a single end-to-end execution of the PHOENIX engine for a free-text mental-health complaint. The objective is to demonstrate the scientific and technical logic of the sequential PHOENIX workflow across the core agentic stages and the hierarchical updating algorithm (HUA), while also showing that each stage now produces auditable intermittent outputs that can be inspected during runtime.</p>
+    <p>This is a thesis-facing research artifact, not a diagnostic report or a source of medical advice.</p>
+
+    <h2>Sequential PHOENIX Structure</h2>
+    <p>The architecture below anchors the reporting structure used throughout the document. PHOENIX operates as a predetermined sequential multi-agent system: free-text intake, complaint operationalization, initial observation-model construction, EMA/pseudodata generation, HUA readiness and network analysis, impact quantification, treatment-target identification, observation-model updating, and HAPA-based intervention design.</p>
+    <figure>
+      <img src="../assets/figures/fig_00_phoenix_architecture.png" alt="PHOENIX architecture diagram" />
+      <figcaption>Research-grade architecture overview of the PHOENIX engine used as the reporting scaffold for this example run.</figcaption>
+    </figure>
+
+    <h2>Run Configuration</h2>
+    <p>The example run was executed for one profile only. Step 01 produced 4 complaint criteria, which seeded an initial observation model with 6 predictors and 16 sparse predictor-to-criterion edges. The initial design recommendation was a 14-day EMA window with 4 prompts per day, plus a daily diary anchor.</p>
+    <div class="box">
+      <strong>Key artifact persistence improvements</strong>
+      <ul>
+        <li>Every executed stage writes <code>stage.log</code>, <code>stage_events.jsonl</code>, and <code>stage_trace.json</code>.</li>
+        <li>In-flight stages write a <code>stage_trace.json</code> placeholder immediately at stage start.</li>
+        <li>Skipped stages emit skip manifests so the run directory remains structurally complete.</li>
+        <li>The stage trace format includes start and end times, command, return code, and artifact summaries.</li>
+      </ul>
+    </div>
+
+    <h2>Stage-by-Stage Results</h2>
+
+    <h3>Step 01: Complaint Operationalization</h3>
+    <p>The operationalization stage decomposed the complaint into four distinct complaint dimensions: sleep initiation difficulty, cognitive arousal and task-related stress, reduced positive affect in social settings, and episodic occipital headache. These were mapped to ontology leaves with live LLM adjudication and retained for downstream modeling.</p>
+    <figure>
+      <img src="../assets/figures/fig_01a_step01_mapped_criteria.png" alt="Step 01 mapped criteria" />
+      <figcaption>Step 01 mapped criteria and ontology leaves exported from the actual run artifact.</figcaption>
+    </figure>
+    <div class="two-col">
+      <figure>
+        <img src="../assets/figures/fig_01b_step01_confidence.png" alt="Step 01 confidence" />
+        <figcaption>Per-criterion mapping confidence.</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/figures/fig_01c_step01_score_decomposition.png" alt="Step 01 score decomposition" />
+        <figcaption>HTSSF retrieval-score decomposition.</figcaption>
+      </figure>
+    </div>
+
+    <h3>Step 02: Initial Observation Model Construction</h3>
+    <p>The Step 02 actor-critic loop preserved the four complaint-derived criteria and proposed six modifiable predictors. This produced the first analyzable criterion-predictor network and the first explicit data-collection design for the profile.</p>
+    <div class="two-col">
+      <figure>
+        <img src="../assets/figures/fig_02a_step02_bipartite_model.png" alt="Step 02 bipartite model" />
+        <figcaption>Criterion-predictor bipartite model.</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/figures/fig_02b_step02_relevance_heatmap.png" alt="Step 02 heatmap" />
+        <figcaption>Dense relevance matrix used to inform edge selection.</figcaption>
+      </figure>
+    </div>
+
+    <h3>EMA / Pseudodata Generation</h3>
+    <p>After the initial model was constructed, the pipeline generated EMA-compatible pseudodata to drive the downstream HUA stages. This preserves the intended PHOENIX logic: the model is built first, and the idiographic series follow from that model.</p>
+    <figure>
+      <img src="../assets/figures/fig_03_pseudodata_timeseries.png" alt="Pseudodata" />
+      <figcaption>Illustrative pseudodata series generated from the initial model structure.</figcaption>
+    </figure>
+
+    <h3>HUA Readiness, Network Analysis, and Impact Quantification</h3>
+    <p>The readiness classifier yielded <strong>94.0/100</strong> with the label <strong>Ready_High</strong> and recommended the tier <strong>Tier3_LaggedDynamicNetwork</strong>. The time-varying branch was not feasible at the current data density, so PHOENIX executed the static lagged-dynamic network path before computing predictor-level impact coefficients.</p>
+    <figure>
+      <img src="../assets/figures/fig_04_readiness_dashboard.png" alt="Readiness dashboard" />
+      <figcaption>HUA readiness dashboard, including score, selected analysis tier, and variable-level gating.</figcaption>
+    </figure>
+    <div class="two-col">
+      <figure>
+        <img src="../assets/figures/fig_05_network_analysis.png" alt="Network analysis" />
+        <figcaption>Network-level metrics and node centrality.</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/figures/fig_06a_impact_ranking.png" alt="Impact ranking" />
+        <figcaption>Predictor-level impact ranking.</figcaption>
+      </figure>
+    </div>
+    <figure>
+      <img src="../assets/figures/fig_06b_impact_heatmap.png" alt="Impact heatmap" />
+      <figcaption>Predictor-to-criterion impact matrix used by the target-identification stage.</figcaption>
+    </figure>
+
+    <h3>Agentic Step 03: Treatment Target Identification</h3>
+    <p>The target-identification stage integrated impact coefficients, the initial model, profile text, feasibility information, and ontology evidence to produce a ranked shortlist of treatment targets. In the completed run, the highest-priority recommended target was <strong>Headache intensity (headache-related somatic symptoms)</strong>.</p>
+    <div class="two-col">
+      <figure>
+        <img src="../assets/figures/fig_07a_step03_target_candidates.png" alt="Target candidates" />
+        <figcaption>Candidate ranking.</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/figures/fig_07b_step03_recommended_targets.png" alt="Recommended targets" />
+        <figcaption>Final recommended targets.</figcaption>
+      </figure>
+    </div>
+
+    <h3>Agentic Step 04: Updated Observation Model</h3>
+    <p>Step 04 fused the Step 03 target shortlist with the HUA outputs to adapt the observation model for the next cycle. The result is a refined predictor shortlist and a concrete recommendation for what should be observed next.</p>
+    <div class="two-col">
+      <figure>
+        <img src="../assets/figures/fig_08a_step04_fusion_matrix.png" alt="Fusion matrix" />
+        <figcaption>Nomothetic-idiographic fusion matrix.</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/figures/fig_08b_step04_shortlist.png" alt="Step 04 shortlist" />
+        <figcaption>Refined predictor shortlist.</figcaption>
+      </figure>
+    </div>
+
+    <h3>Agentic Step 05: HAPA-Based Digital Intervention</h3>
+    <p>The final core agentic stage translated the selected treatment target into a HAPA-structured digital intervention. In the completed run, the highest-ranked barrier was <strong>Action_Initiation</strong>, with three selected barriers and four coping strategies carried into the intervention plan.</p>
+    <div class="two-col">
+      <figure>
+        <img src="../assets/figures/fig_09a_step05_barriers.png" alt="Barriers" />
+        <figcaption>Barrier ranking.</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/figures/fig_09b_step05_coping_strategies.png" alt="Coping strategies" />
+        <figcaption>Selected coping strategies.</figcaption>
+      </figure>
+    </div>
+    <div class="two-col">
+      <figure>
+        <img src="../assets/figures/fig_09c_step05_hapa_plan.png" alt="HAPA plan" />
+        <figcaption>HAPA component plan.</figcaption>
+      </figure>
+      <figure>
+        <img src="../assets/figures/fig_09d_step05_phased_delivery.png" alt="Phased delivery" />
+        <figcaption>Phased delivery schedule.</figcaption>
+      </figure>
+    </div>
+
+    <h2>Run-Level Audit Trail</h2>
+    <p>The pipeline summary below captures the stage-level execution footprint of the example run and shows that the PHOENIX engine now produces a run-local evidence trail that can be inspected, cited, and debugged.</p>
+    <figure>
+      <img src="../assets/figures/fig_10_pipeline_summary.png" alt="Pipeline summary" />
+      <figcaption>Run-level stage-duration and stage-status summary generated from <code>pipeline_summary.json</code>.</figcaption>
+    </figure>
+
+    <h2>Interpretation</h2>
+    <ul>
+      <li>Complaint text is first operationalized into measurement-ready criteria rather than treated as direct intervention evidence.</li>
+      <li>The initial observation model defines the first measurement scaffold.</li>
+      <li>HUA analysis converts those measurements into idiographic impact information.</li>
+      <li>Step 03 prioritizes targets from that impact surface.</li>
+      <li>Step 04 updates what should be measured next.</li>
+      <li>Step 05 translates the final target set into a HAPA-structured digital intervention plan.</li>
+    </ul>
+
+    <h2>Limitations</h2>
+    <ul>
+      <li>This example is based on a single profile and is intended as a worked demonstration rather than a benchmark evaluation.</li>
+      <li>The pseudodata-driven HUA section illustrates the technical flow, but the substantive interpretation of network and intervention outputs remains conditional on upstream data quality.</li>
+      <li>The complaint includes a somatic pain component; PHOENIX can preserve and route such information in the modeling pipeline, but this does not substitute for clinical assessment of headache or neurological symptoms.</li>
+    </ul>
+
+    <h2>Artifact Locations</h2>
+    <ul>
+      <li><code>evaluation/integrated_pipeline/runs/example_run_2026_report_ready</code></li>
+      <li><code>evaluation/example/assets/figures</code></li>
+      <li><code>evaluation/example/assets/tables</code></li>
+      <li><code>evaluation/example/report/main.tex</code></li>
+    </ul>
+  </main>
+</body>
+</html>

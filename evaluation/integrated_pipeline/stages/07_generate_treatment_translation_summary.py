@@ -3,12 +3,32 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List
 
 import pandas as pd
+from pydantic import BaseModel, Field
+
+THIS_DIR = Path(__file__).resolve().parent
+
+
+def _bootstrap_repo_root(start_dir: Path) -> Path:
+    for candidate in [start_dir, *start_dir.parents]:
+        marker = candidate / "src" / "backend" / "utils" / "agentic_core" / "shared" / "__init__.py"
+        if marker.exists():
+            return candidate
+    raise RuntimeError(f"Unable to locate repository root from {start_dir}")
+
+
+REPO_ROOT = _bootstrap_repo_root(THIS_DIR)
+AGENTIC_CORE_ROOT = REPO_ROOT / "src" / "backend" / "utils" / "agentic_core"
+if str(AGENTIC_CORE_ROOT) not in sys.path:
+    sys.path.insert(0, str(AGENTIC_CORE_ROOT))
+
+from shared import StructuredLLMClient
 
 
 def _ts() -> str:
@@ -188,6 +208,51 @@ def _build_summary_payload(
     }
 
 
+class TranslationCommunicationSummaryModel(BaseModel):
+    headline: str = Field(min_length=8, max_length=160)
+    summary_markdown: str = Field(min_length=20, max_length=2000)
+    key_points: List[str] = Field(min_length=3, max_length=6)
+    risks: List[str] = Field(default_factory=list, max_length=5)
+    recommended_next_actions: List[str] = Field(min_length=2, max_length=4)
+
+
+def _generate_llm_summary(
+    *,
+    profile_id: str,
+    base_payload: Dict[str, Any],
+    llm_client: StructuredLLMClient,
+) -> Dict[str, Any]:
+    system_prompt = (
+        "You are the PHOENIX treatment-translation communication writer. "
+        "Write a precise, clinically cautious, non-diagnostic summary for a research report. "
+        "Keep the language concrete, professional, and tightly grounded in the supplied evidence. "
+        "Do not invent evidence. Do not mention missing internal IDs unless they appear in the evidence."
+    )
+    user_prompt = (
+        f"Profile ID: {profile_id}\n"
+        "Use the following evidence snapshot to produce the final communication summary.\n\n"
+        f"{json.dumps(base_payload, ensure_ascii=False, indent=2)}"
+    )
+    result = llm_client.generate_structured(
+        system_prompt=system_prompt,
+        user_prompt=user_prompt,
+        schema_model=TranslationCommunicationSummaryModel,
+    )
+    if not result.success or not isinstance(result.parsed, dict):
+        raise RuntimeError(
+            "Translation communication LLM generation failed: "
+            f"{result.failure_reason or result.validation_error or 'unknown_error'}"
+        )
+    payload = TranslationCommunicationSummaryModel.model_validate(result.parsed).model_dump(mode="json")
+    payload["_llm_trace"] = {
+        "provider": result.provider,
+        "model": result.model,
+        "used_repair": bool(result.used_repair),
+        "usage": result.usage,
+    }
+    return payload
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Generate final treatment-translation communication summaries.")
     parser.add_argument("--handoff-root", type=str, required=True)
@@ -199,15 +264,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-workers", type=int, default=4)
     parser.add_argument("--llm-model", type=str, default="gpt-5-nano")
     parser.add_argument("--disable-llm", action=argparse.BooleanOptionalAction, default=False)
+    parser.add_argument("--strict-llm", action=argparse.BooleanOptionalAction, default=False)
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
+    if bool(args.strict_llm) and bool(args.disable_llm):
+        raise RuntimeError("Strict LLM mode does not allow --disable-llm for translation communication.")
     handoff_root = Path(args.handoff_root).expanduser().resolve()
     intervention_root = Path(args.intervention_root).expanduser().resolve()
     impact_root = Path(args.impact_root).expanduser().resolve()
     output_root = _ensure_dir(Path(args.output_root).expanduser().resolve())
+    llm_client = StructuredLLMClient(
+        model=str(args.llm_model),
+        timeout_seconds=90.0,
+        max_attempts=5,
+        repair_attempts=2,
+    )
 
     profiles = _discover_profiles(
         handoff_root=handoff_root,
@@ -250,6 +324,28 @@ def main() -> int:
             step05=step05,
             impact_df=impact_df,
         )
+        if not bool(args.disable_llm):
+            try:
+                llm_summary = _generate_llm_summary(
+                    profile_id=profile_id,
+                    base_payload=payload,
+                    llm_client=llm_client,
+                )
+                llm_trace = llm_summary.pop("_llm_trace", {})
+                payload["summary"] = llm_summary
+                payload["summary_generation"] = {
+                    "mode": "structured_llm",
+                    **llm_trace,
+                }
+            except Exception as exc:
+                if bool(args.strict_llm):
+                    raise
+                payload["summary_generation"] = {
+                    "mode": "deterministic_fallback_after_llm_failure",
+                    "error": f"{type(exc).__name__}: {exc}",
+                }
+        else:
+            payload["summary_generation"] = {"mode": "deterministic_fallback"}
         profile_out = _ensure_dir(output_root / profile_id)
         target_json = profile_out / "treatment_translation_communication.json"
         target_md = profile_out / "treatment_translation_communication.md"
@@ -282,6 +378,7 @@ def main() -> int:
             "json": str(target_json),
             "markdown": str(target_md),
             "counts": payload.get("counts", {}),
+            "summary_generation": payload.get("summary_generation", {}),
         }
 
     with ThreadPoolExecutor(max_workers=max(1, int(args.max_workers))) as pool:
