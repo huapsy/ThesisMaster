@@ -1,0 +1,822 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper,left=2.2cm,right=2.2cm,top=2.4cm,bottom=2.4cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{tcolorbox}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\tcbuselibrary{skins,breakable}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=black,
+  pdftitle={PHOENIX evaluatiestudie - HCP-PRE-01 (C01 + C02)},
+  pdfauthor={Stijn Van Severen --- Universiteit Gent}
+}
+
+\definecolor{PrimaryBlue}{HTML}{1D4ED8}
+\definecolor{DarkBlue}{HTML}{1E3A5F}
+\definecolor{SlateMid}{HTML}{475569}
+\definecolor{ForestGreen}{HTML}{047857}
+\definecolor{RichPurple}{HTML}{6D28D9}
+\definecolor{GoldAmber}{HTML}{B45309}
+\definecolor{StrongRed}{HTML}{B91C1C}
+\definecolor{SoftBG}{HTML}{F8FAFC}
+\definecolor{BorderGrey}{HTML}{CBD5E1}
+\definecolor{AccentBlue}{HTML}{DBEAFE}
+\definecolor{AccentGreen}{HTML}{D1FAE5}
+\definecolor{AccentAmber}{HTML}{FEF3C7}
+\definecolor{AccentPurple}{HTML}{EDE9FE}
+\definecolor{AccentTeal}{HTML}{CCFBF1}
+
+\titleformat{\section}{\Large\bfseries\color{DarkBlue}}{\thesection}{0.7em}{}[\vspace{-0.2em}\color{PrimaryBlue}\rule{\textwidth}{0.6pt}]
+\titleformat{\subsection}{\large\bfseries\color{PrimaryBlue}}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{ForestGreen}}{\thesubsubsection}{0.5em}{}
+
+\setlist[itemize]{topsep=3pt,itemsep=2pt,leftmargin=1.4em}
+\setlist[enumerate]{topsep=3pt,itemsep=2pt,leftmargin=1.6em}
+\setlength{\parskip}{0.45em}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.28}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{SlateMid}PHOENIX evaluatiestudie --- Fase 1}
+\fancyhead[R]{\small\color{SlateMid}\textbf{HCP-PRE-01}\quad C01 + C02}
+\fancyfoot[C]{\small Pagina \thepage\ van \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\newtcolorbox{complaintbox}[1][]{
+  colback=blue!3,colframe=PrimaryBlue,
+  boxrule=0.8pt,arc=2.5mm,breakable,
+  left=10pt,right=10pt,top=8pt,bottom=8pt,
+  fonttitle=\small\bfseries\color{PrimaryBlue},
+  title=Casusvignet,#1
+}
+\newtcolorbox{contextbox}[1][]{
+  colback=green!3,colframe=ForestGreen,
+  boxrule=0.6pt,arc=2mm,breakable,
+  left=8pt,right=8pt,top=7pt,bottom=7pt,
+  fonttitle=\small\bfseries\color{ForestGreen},
+  title=Gestandaardiseerde context,#1
+}
+\newtcolorbox{instrbox}[1][]{
+  colback=SoftBG,colframe=BorderGrey,
+  boxrule=0.5pt,arc=1.5mm,breakable,
+  left=8pt,right=8pt,top=7pt,bottom=7pt,
+  fonttitle=\bfseries\color{SlateMid},#1
+}
+\newtcolorbox{monitorbox}{
+  colback=SoftBG,colframe=BorderGrey,
+  boxrule=0.5pt,arc=1.5mm,breakable,
+  left=6pt,right=6pt,top=5pt,bottom=5pt
+}
+\newtcolorbox{responsebox}{
+  colback=yellow!5,colframe=GoldAmber,
+  boxrule=0.7pt,arc=2mm,breakable,
+  left=10pt,right=10pt,top=9pt,bottom=9pt,
+  fonttitle=\small\bfseries\color{GoldAmber},
+  title=Uw antwoord
+}
+
+\tikzset{
+  crnode/.style={
+    draw=PrimaryBlue,fill=AccentBlue,rounded corners=2pt,
+    text width=3.55cm,minimum height=0.76cm,
+    font=\fontsize{6.5}{8}\selectfont\bfseries\color{DarkBlue},
+    align=center,inner sep=3pt
+  },
+  prnode/.style={
+    draw=ForestGreen,fill=AccentTeal,rounded corners=2pt,
+    text width=3.55cm,minimum height=0.76cm,
+    font=\fontsize{6.5}{8}\selectfont\bfseries\color{ForestGreen},
+    align=center,inner sep=3pt
+  },
+  edgeS/.style={line width=1.6pt,draw=StrongRed!80,opacity=0.92},
+  edgeM/.style={line width=1.0pt,draw=PrimaryBlue!70,opacity=0.88},
+  edgeW/.style={line width=0.7pt,dashed,draw=gray!55,opacity=0.70},
+}
+
+\newcommand{\writeline}{\vspace{0.22em}\noindent\rule{\linewidth}{0.25pt}\vspace{0.42em}\par}
+
+\newcommand{\criterionslot}[1]{%
+\vspace{0.25em}\noindent
+\begin{tcolorbox}[colback=SoftBG,colframe=BorderGrey,boxrule=0.4pt,arc=1.5mm,left=8pt,right=8pt,top=5pt,bottom=5pt]%
+\small\textbf{\color{SlateMid}Criterium #1}\hspace{1em}%
+\textbf{Label (2--5 woorden):}\hspace{0.5em}\rule{0.50\linewidth}{0.25pt}%
+\end{tcolorbox}%
+}
+
+\newcommand{\predictorslot}[1]{%
+\vspace{0.25em}\noindent
+\begin{tcolorbox}[colback=SoftBG,colframe=BorderGrey,boxrule=0.4pt,arc=1.5mm,left=8pt,right=8pt,top=5pt,bottom=5pt]%
+\small\textbf{\color{SlateMid}Predictor #1}\hspace{1em}%
+\textbf{Label (2--6 woorden):}\hspace{0.5em}\rule{0.50\linewidth}{0.25pt}%
+\end{tcolorbox}%
+}
+
+\newcommand{\rankbox}[1]{%
+\vspace{0.22em}\noindent
+\begin{tikzpicture}[baseline=3pt]
+  \node[draw=DarkBlue,fill=AccentBlue,rounded corners=3pt,minimum width=2.5cm,minimum height=0.72cm,font=\small\bfseries\color{DarkBlue},align=center] {Prioriteit #1};
+\end{tikzpicture}
+\hspace{0.7em}\rule{0.60\linewidth}{0.25pt}\par\vspace{0.05em}
+}
+
+\newcommand{\checkitemBFS}[2]{%
+\noindent\small\textbf{#1.}\hspace{0.45em}$\square$\hspace{0.4em}#2\par\vspace{0.20em}}
+
+\newcommand{\messagelines}{\writeline\writeline\writeline\writeline}
+
+\begin{document}
+
+% ── TITELPAGINA ─────────────────────────────────────────────────────────────
+\begin{titlepage}
+\centering\vspace*{0.6cm}
+
+\begin{tcolorbox}[
+  colback=DarkBlue,colframe=DarkBlue,
+  arc=3mm,left=14pt,right=14pt,top=12pt,bottom=12pt,
+  width=\textwidth
+]
+\centering
+{\fontsize{22}{28}\selectfont\bfseries\color{white}
+PHOENIX evaluatiestudie\\[0.3em]
+\fontsize{15}{20}\selectfont\color{AccentBlue}
+Fase 1 --- onafhankelijke expertgeneratie\\[0.2em]
+\fontsize{12}{16}\selectfont\color{white}
+\textit{Instrument voor Zorgprofessionals}
+}
+\end{tcolorbox}
+
+\vspace{0.7cm}
+
+\begin{tcolorbox}[
+  colback=AccentBlue,colframe=PrimaryBlue,
+  arc=2.5mm,boxrule=1.2pt,left=12pt,right=12pt,top=10pt,bottom=10pt,
+  width=0.86\textwidth
+]
+\centering
+{\large\bfseries\color{DarkBlue}Deelnemerscode: \texttt{HCP-PRE-01}}\\[0.5em]
+{\normalsize\color{SlateMid}
+Toegewezen casussen:\quad
+\textbf{\color{PrimaryBlue}C01} (28-jarige softwareontwikkelaar)
+\quad en \quad
+\textbf{\color{PrimaryBlue}C02} (34-jarige administratief medewerker in de zorg)
+}
+\end{tcolorbox}
+
+\vspace{0.6cm}
+
+\begin{tcolorbox}[
+  colback=SoftBG,colframe=BorderGrey,
+  arc=2mm,left=10pt,right=10pt,top=9pt,bottom=9pt,
+  width=0.92\textwidth
+]
+\small\renewcommand{\arraystretch}{1.28}
+\begin{tabularx}{\textwidth}{@{}>{\bfseries\raggedright\arraybackslash}p{0.29\textwidth}X@{}}
+Studie & Evaluatie van de klinische kwaliteit van een ontologiegebaseerd multi-agentsysteem voor gepersonaliseerde digitale geestelijke gezondheidszorg (PHOENIX) \\
+Instelling & Universiteit Gent --- Faculteit Psychologie en Pedagogische Wetenschappen \\
+Onderzoeker & Stijn Van Severen (masterproefstudent) \\
+Promotoren & Prof.\ Geert Crombez; Dr.\ Annick De Paepe \\
+Contact & \texttt{stijn.vanseveren@ugent.be} \\
+Geschatte duur & Ongeveer 35--45 minuten voor beide casussen samen \\
+\end{tabularx}
+\end{tcolorbox}
+
+\vspace{0.5cm}
+
+\begin{tcolorbox}[
+  colback=SoftBG,colframe=BorderGrey,
+  arc=2mm,left=10pt,right=10pt,top=9pt,bottom=9pt,
+  width=0.92\textwidth
+]
+\textbf{\color{PrimaryBlue}Doel van deze bundel}
+
+\medskip\small
+U neemt deel aan een evaluatiestudie waarin zorgprofessionals onafhankelijk dezelfde
+vijf klinische redeneerstappen uitvoeren als het PHOENIX-systeem. Uw antwoorden
+vormen het menselijke referentiecorpus voor een latere dubbelblinde vergelijking
+met systeemoutput.
+
+\medskip
+Voor elk van uw twee casussen vult u dezelfde vijf delen in: (1) operationalisering,
+(2) initieel observatiemodel, (3) prioritering van behandeldoelen, (4) verfijning van
+EMA-metingen en (5) een mobiele coachingsboodschap.
+
+\medskip
+\textbf{We vragen uw eigen klinische oordeelsvorming.} Antwoord zoals u dat in een
+reele professionele context zou doen, maar werk strikt volgens de instructies op de
+volgende pagina.
+\end{tcolorbox}
+
+\vspace{0.5cm}
+
+\begin{tcolorbox}[
+  colback=AccentAmber,colframe=GoldAmber,
+  arc=2mm,boxrule=0.7pt,left=10pt,right=10pt,top=8pt,bottom=8pt,
+  width=0.90\textwidth
+]
+\small\centering
+\textbf{\color{GoldAmber}Vertrouwelijkheid:} uw antwoorden worden voor analyse
+geanonimiseerd en uitsluitend gebruikt binnen deze masterproefstudie. Deelname is
+vrijwillig; u kan zich op elk moment terugtrekken door contact op te nemen met de
+onderzoeker.
+\end{tcolorbox}
+
+\vfill
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\newpage
+
+
+% ── INSTRUCTIEPAGINA ─────────────────────────────────────────────────────────
+\section{Instructiepagina}
+
+\subsection{Wat u in deze bundel doet}
+
+\textbf{PHOENIX} is een multi-agentsysteem dat een vrije klachttekst omzet in een
+gestructureerde klinische redenering over vijf opeenvolgende stappen. In deze bundel
+voert u diezelfde stappen onafhankelijk uit voor uw twee toegewezen casussen.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.40}
+\small
+\begin{tabular}{@{}>{\bfseries\color{PrimaryBlue}}p{0.07\textwidth}>{\bfseries}p{0.35\textwidth}p{0.47\textwidth}@{}}
+\toprule
+Stap & Klinische taak & Wat u concreet doet \\
+\midrule
+1 & Operationalisering & U noteert 2--6 labels voor actuele mentale gezondheidsproblemen \\
+2 & Initieel observatiemodel & U genereert 3--5 biopsychosociale predictorlabels, geschikt voor dagelijkse EMA \\
+3 & Behandeldoelprioritering & U rangschikt de 5 standaardpredictoren van hoogste naar laagste klinische prioriteit \\
+4 & Verfijnd observatiemodel & U selecteert exact 5 EMA-items uit een lijst van 20 volgens de breadth-first update-logica \\
+5 & Mobiele coaching & U schrijft een korte patientgerichte boodschap voor de mobiele applicatie \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Werkwijze en methodologische aandachtspunten}
+
+\begin{instrbox}[title=Gelieve deze instructies strikt te volgen]
+\begin{enumerate}
+\item \textbf{Werk sequentieel.} Doorloop de bundel strikt in de volgorde Deel 1 $\rightarrow$ Deel 5.
+Ga pas naar een volgend deel wanneer het huidige deel voor beide casussen is afgewerkt.
+\item \textbf{Gebruik geen generatieve AI, automatische schrijfhulpmiddelen, klinische richtlijnen of overleg met collega's.}
+Externe hulp zou de methodologische validiteit, vergelijkbaarheid en blind scoringswaarde van de studie aantasten.
+\item \textbf{Gebruik in latere delen uitsluitend de meegeleverde gestandaardiseerde context.}
+Die context is bewust vastgezet zodat alle deelnemers op identieke input reageren.
+\item \textbf{Herwerk eerdere antwoorden niet retroactief} nadat u latere context hebt gezien.
+De volgorde maakt deel uit van het onderzoeksdesign.
+\item \textbf{Formuleer bondig, klinisch precies en case-specifiek.} Vermijd brede beschouwingen of theoretische uitweidingen.
+\item \textbf{Noteer of typ rechtstreeks in de voorziene antwoordzones.} Onleesbare of ambigu geformuleerde antwoorden bemoeilijken latere blind beoordeling.
+\end{enumerate}
+\end{instrbox}
+
+\begin{instrbox}[title=EMA-principes voor Deel 2 en Deel 4]
+\begin{itemize}
+\item Een EMA-variabele moet \textbf{dagelijks via een mobiele app rapporteerbaar} zijn.
+\item Een goede EMA-variabele is \textbf{dynamisch en veranderbaar}: geen statische eigenschap, diagnose of achtergrondkenmerk.
+\item Geef bij voorkeur labels die later meetbaar kunnen worden gemaakt als \textbf{ja/nee}, \textbf{aantal}, \textbf{minuten} of \textbf{0--10 score}.
+\item Kies variabelen die \textbf{binnen-persoonsvariatie} kunnen tonen en die klinisch relevant zijn voor opvolging in een volgende meetcyclus.
+\item In Deel 4 zijn alle antwoordopties reeds uitgewerkt als \textbf{dagelijkse EMA-items}; daar selecteert u enkel de meest geschikte 5.
+\end{itemize}
+\end{instrbox}
+
+\subsection{Overzicht van antwoordformats}
+
+\begin{center}
+\small
+\begin{tabular}{@{}>{\bfseries}p{0.06\textwidth}p{0.35\textwidth}p{0.33\textwidth}p{0.16\textwidth}@{}}
+\toprule
+Deel & Taak & Antwoordformat & Richttijd \\
+\midrule
+1 & Operationalisering & 2--6 criteriumlabels & $\approx$ 6 min \\
+2 & Initieel observatiemodel & 3--5 predictorlabels & $\approx$ 6 min \\
+3 & Behandeldoelprioritering & volledige rangorde van 5 predictors & $\approx$ 7 min \\
+4 & Verfijnd observatiemodel & exact 5 selecties uit 20 EMA-items & $\approx$ 8 min \\
+5 & Mobiele coaching & korte digitale boodschap & $\approx$ 8 min \\
+\midrule
+ & \textbf{Totaal voor 2 casussen} & & \textbf{$\approx$ 35--45 min} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\newpage
+
+
+\section{Deel 1 --- Operationalisering van mentale gezondheidsproblemen}
+
+\begin{tcolorbox}[colback=blue!3,colframe=PrimaryBlue,arc=2.5mm,boxrule=0.9pt,
+  left=10pt,right=10pt,top=9pt,bottom=9pt]
+\textbf{\color{PrimaryBlue}Instructies Deel 1}
+
+\smallskip\small
+\textbf{Opdracht:} identificeer de belangrijkste actuele probleemdimensies in de klachttekst en noteer
+voor elke dimensie uitsluitend een \textbf{kort criteriumlabel}.
+
+\textbf{Wat telt als criterium?}
+Een klinisch relevante probleemdimensie die:
+\begin{itemize}[topsep=2pt,itemsep=1pt]
+\item momenteel aanwezig is in de casus,
+\item inhoudelijk apart te onderscheiden is van andere probleemdimensies,
+\item in principe herhaald meetbaar zou kunnen zijn.
+\end{itemize}
+
+\textbf{Antwoordformat:} label van 2--5 woorden, zonder beschrijvende zin.
+Noteer per casus \textbf{2--6 criteria}. Laat ongebruikte velden leeg.
+\end{tcolorbox}
+
+\vspace{0.5em}
+
+\subsection*{Casus C01 --- 28-jarige softwareontwikkelaar}
+
+\begin{complaintbox}[title={Casus C01 --- 28-jarige softwareontwikkelaar; duur: 2 maanden}]
+\small ``De afgelopen twee maanden geraak ik 's avonds heel moeilijk in slaap. Mijn hoofd blijft maar doorgaan over alles wat ik nog moet doen -- deadlines, onafgewerkte taken, gesprekken die ik nog moet voeren. Zelfs als ik uitgeput ben, krijg ik die gedachten niet uitgezet. Ik merk ook dat ik minder plezier beleef aan sociale momenten. Ik ga nog wel naar afspraken met vrienden, maar ik voel me er afstandelijk en niet echt betrokken. Mijn nek en schouders staan bovendien bijna voortdurend gespannen en pijnlijk, wat volgens mijn huisarts waarschijnlijk stressgerelateerd is.''
+\end{complaintbox}
+
+\begin{responsebox}
+\small\textbf{Opdracht:} noteer \textbf{2--6 criteriumlabels} voor deze casus.
+Gebruik enkel korte labels; voeg geen beschrijving toe.
+
+\criterionslot{1}
+\criterionslot{2}
+\criterionslot{3}
+\criterionslot{4}
+\criterionslot{5}
+\criterionslot{6}
+\end{responsebox}
+
+\vspace{0.6em}
+
+\newpage
+
+\subsection*{Casus C02 --- 34-jarige administratief medewerker in de zorg}
+
+\begin{complaintbox}[title={Casus C02 --- 34-jarige administratief medewerker in de zorg; duur: 3 maanden}]
+\small ``Ongeveer drie maanden geleden begon ik plots episodes te krijgen waarbij mijn hart tekeergaat, ik het gevoel heb dat ik geen lucht krijg en ik er zeker van ben dat er iets ernstig misloopt. Die episodes zijn heel beangstigend en kunnen zelfs optreden wanneer ik thuis rustig neerzit. Sindsdien ben ik bang geworden om zo'n episode in het openbaar te krijgen en vermijd ik supermarkten, openbaar vervoer en drukke plaatsen. Ik heb mij al meerdere keren ziek gemeld omdat ik bang was dat het op het werk zou gebeuren. Ik weet rationeel dat die situaties niet gevaarlijk zijn, maar de angst blijft overheersen.''
+\end{complaintbox}
+
+\begin{responsebox}
+\small\textbf{Opdracht:} noteer \textbf{2--6 criteriumlabels} voor deze casus.
+Gebruik enkel korte labels; voeg geen beschrijving toe.
+
+\criterionslot{1}
+\criterionslot{2}
+\criterionslot{3}
+\criterionslot{4}
+\criterionslot{5}
+\criterionslot{6}
+\end{responsebox}
+
+\vspace{0.6em}
+
+\newpage
+
+
+\section{Deel 2 --- Initieel observatiemodel}
+
+\begin{tcolorbox}[colback=green!3,colframe=ForestGreen,arc=2.5mm,boxrule=0.9pt,
+  left=10pt,right=10pt,top=9pt,bottom=9pt]
+\textbf{\color{ForestGreen}Instructies Deel 2}
+
+\smallskip\small
+\textbf{Opdracht:} genereer \textbf{3--5 biopsychosociale predictorlabels} die een initieel observatiemodel
+vormen voor deze casus.
+
+\textbf{Wat telt als predictor?}
+Een veranderbare factor die:
+\begin{itemize}[topsep=2pt,itemsep=1pt]
+\item klinisch plausibel samenhangt met een of meerdere criteria,
+\item geschikt is voor \textbf{dagelijkse Ecological Momentary Assessment (EMA)},
+\item door de persoon zelf eenvoudig via een mobiele app kan worden gerapporteerd.
+\end{itemize}
+
+\textbf{Antwoordformat:} enkel een label van 2--6 woorden, zonder meetdefinitie of toelichting.
+Laat ongebruikte velden leeg.
+\end{tcolorbox}
+
+\vspace{0.5em}
+\subsection*{Casus C01 --- Deel 2}
+
+\begin{complaintbox}[title={Casus C01 --- verkorte klachtomschrijving}]
+\small 28-jarige softwareontwikkelaar; duur: 2 maanden. Inslaapproblemen, cognitieve hyperarousal bij het slapengaan, sociale anhedonie en stressgerelateerde spierspanning.
+\end{complaintbox}
+
+\begin{contextbox}
+\small\textbf{Gestandaardiseerde criteria uit stap 1:}
+\begin{itemize}[topsep=2pt,itemsep=1pt]
+\item \textbf{CR-1} Inslaapproblemen
+\item \textbf{CR-2} Cognitieve hyperarousal
+\item \textbf{CR-3} Sociale anhedonie
+\item \textbf{CR-4} Stressgerelateerde spierspanning
+\end{itemize}
+\end{contextbox}
+
+\begin{responsebox}
+\small\textbf{Opdracht:} noteer \textbf{3--5 predictorlabels} voor een initieel observatiemodel.
+Zorg dat elk label later dagelijks via een mobiele app meetbaar kan worden gemaakt.
+
+\predictorslot{1}
+\predictorslot{2}
+\predictorslot{3}
+\predictorslot{4}
+\predictorslot{5}
+\end{responsebox}
+
+\vspace{0.6em}
+\newpage
+\subsection*{Casus C02 --- Deel 2}
+
+\begin{complaintbox}[title={Casus C02 --- verkorte klachtomschrijving}]
+\small 34-jarige administratief medewerker in de zorg; duur: 3 maanden. Recidiverende paniekepisoden, anticipatieangst, situationele vermijding en beroepsmatige interferentie.
+\end{complaintbox}
+
+\begin{contextbox}
+\small\textbf{Gestandaardiseerde criteria uit stap 1:}
+\begin{itemize}[topsep=2pt,itemsep=1pt]
+\item \textbf{CR-1} Recidiverende paniekepisoden
+\item \textbf{CR-2} Anticipatieangst
+\item \textbf{CR-3} Situationele vermijding
+\item \textbf{CR-4} Beroepsmatige interferentie
+\end{itemize}
+\end{contextbox}
+
+\begin{responsebox}
+\small\textbf{Opdracht:} noteer \textbf{3--5 predictorlabels} voor een initieel observatiemodel.
+Zorg dat elk label later dagelijks via een mobiele app meetbaar kan worden gemaakt.
+
+\predictorslot{1}
+\predictorslot{2}
+\predictorslot{3}
+\predictorslot{4}
+\predictorslot{5}
+\end{responsebox}
+
+\vspace{0.6em}
+\newpage
+
+
+\section{Deel 3 --- Prioritering van behandeldoelen}
+
+\begin{tcolorbox}[colback=yellow!5,colframe=GoldAmber,arc=2.5mm,boxrule=0.9pt,
+  left=10pt,right=10pt,top=9pt,bottom=9pt]
+\textbf{\color{GoldAmber}Instructies Deel 3}
+
+\smallskip\small
+\textbf{Opdracht:} rangschik de \textbf{5 standaardpredictoren} van \textbf{hoogste} naar \textbf{laagste}
+klinische prioriteit als behandeldoel.
+
+\textbf{Gebruik voor uw rangschikking:}
+\begin{itemize}[topsep=2pt,itemsep=1pt]
+\item de 21-daagse monitoring,
+\item de bipartiete netwerkstructuur,
+\item de mate waarin een predictor meerdere criteria kan beinvloeden.
+\end{itemize}
+
+\textbf{Visuele sleutel van het netwerk:}
+\begin{center}
+\begin{tikzpicture}[baseline=-0.5ex]
+\draw[line width=1.6pt,draw=StrongRed!80] (0,0) -- (1.0,0);
+\end{tikzpicture}~\textbf{Rood = sterke relatie}\qquad
+\begin{tikzpicture}[baseline=-0.5ex]
+\draw[line width=1.0pt,draw=PrimaryBlue!70] (0,0) -- (1.0,0);
+\end{tikzpicture}~\textbf{Blauw = matige relatie}
+\end{center}
+
+\textbf{Antwoordformat:} vul alle prioriteitslijnen in, van 1 tot en met 5.
+\end{tcolorbox}
+
+\vspace{0.5em}
+\subsection*{Casus C01 --- Deel 3}
+
+\begin{complaintbox}[title={Casus C01 --- 28-jarige softwareontwikkelaar}]
+\small Inslaapproblemen, cognitieve hyperarousal bij het slapengaan, sociale anhedonie en stressgerelateerde spierspanning. Duur: 2 maanden.
+\end{complaintbox}
+
+\begin{monitorbox}
+\small\textbf{21-daagse monitoring:} Schermtijd na 22.00 uur: 16/21 avonden (gem. 78 min). Openstaande taken: gem. 6,2 per dag. Sociale activiteiten: 2,1/week (beleving 2,3/10). Preslaap offloading toegepast: 3/21 avonden. Lichamelijke activiteit: gem. 0,7 sessies/week.
+\end{monitorbox}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0pt]
+  \node[crnode] (cr1) at (0, 1.65) {CR-1\\Inslaapproblemen};
+  \node[crnode] (cr2) at (0, 0.55) {CR-2\\Cognitieve hyperarousal};
+  \node[crnode] (cr3) at (0, -0.55) {CR-3\\Sociale anhedonie};
+  \node[crnode] (cr4) at (0, -1.65) {CR-4\\Stressgerelateerde spierspanning};
+  \node[prnode] (p1) at (9, 2.2) {P1\\Late avondschermtijd};
+  \node[prnode] (p2) at (9, 1.1) {P2\\Dagelijkse taakaccumulatie};
+  \node[prnode] (p3) at (9, 0.0) {P3\\Preslaap cognitieve offloading};
+  \node[prnode] (p4) at (9, -1.1) {P4\\Sociale participatie};
+  \node[prnode] (p5) at (9, -2.2) {P5\\Aerobe beweging};
+  \draw[edgeS] (cr1.east) -- (p1.west);
+  \draw[edgeS] (cr2.east) -- (p1.west);
+  \draw[edgeM] (cr2.east) -- (p2.west);
+  \draw[edgeS] (cr2.east) -- (p3.west);
+  \draw[edgeM] (cr1.east) -- (p3.west);
+  \draw[edgeS] (cr3.east) -- (p4.west);
+  \draw[edgeM] (cr1.east) -- (p5.west);
+  \draw[edgeM] (cr4.east) -- (p5.west);
+\end{tikzpicture}
+\end{center}
+
+\begin{responsebox}
+\small\textbf{Opdracht:} rangschik \textbf{alle 5 predictors} van hoogste naar laagste behandelprioriteit.
+\textbf{Beschikbare predictors:} \textbf{P1: Late avondschermtijd},\quad \textbf{P2: Dagelijkse taakaccumulatie},\quad \textbf{P3: Preslaap cognitieve offloading},\quad \textbf{P4: Sociale participatie},\quad \textbf{P5: Aerobe beweging}
+
+\rankbox{1}
+\rankbox{2}
+\rankbox{3}
+\rankbox{4}
+\rankbox{5}
+\end{responsebox}
+
+\vspace{0.6em}
+\newpage
+\subsection*{Casus C02 --- Deel 3}
+
+\begin{complaintbox}[title={Casus C02 --- 34-jarige administratief medewerker in de zorg}]
+\small Recidiverende paniekepisoden, anticipatieangst, situationele vermijding en beroepsmatige interferentie. Duur: 3 maanden.
+\end{complaintbox}
+
+\begin{monitorbox}
+\small\textbf{21-daagse monitoring:} Paniekepisoden: gem. 2,3/week. Vermijdingsepisodes: gem. 4,1/dag. Veiligheidsgedrag: gem. 8,7/dag. Geplande exposurepogingen: gem. 0,3/dag. Werkaanwezigheid: 60\%. Verwachte angst in publieke settings: 7,8/10.
+\end{monitorbox}
+
+\begin{center}
+\begin{tikzpicture}[node distance=0pt]
+  \node[crnode] (cr1) at (0, 1.65) {CR-1\\Recidiverende paniekepisoden};
+  \node[crnode] (cr2) at (0, 0.55) {CR-2\\Anticipatieangst};
+  \node[crnode] (cr3) at (0, -0.55) {CR-3\\Situationele vermijding};
+  \node[crnode] (cr4) at (0, -1.65) {CR-4\\Beroepsmatige interferentie};
+  \node[prnode] (p1) at (9, 2.2) {P1\\Vermijdingsgedrag};
+  \node[prnode] (p2) at (9, 1.1) {P2\\Veiligheidsgedrag};
+  \node[prnode] (p3) at (9, 0.0) {P3\\Interoceptieve focus};
+  \node[prnode] (p4) at (9, -1.1) {P4\\Geplande exposure};
+  \node[prnode] (p5) at (9, -2.2) {P5\\Dagstructuur};
+  \draw[edgeS] (cr3.east) -- (p1.west);
+  \draw[edgeS] (cr2.east) -- (p1.west);
+  \draw[edgeS] (cr2.east) -- (p2.west);
+  \draw[edgeM] (cr1.east) -- (p2.west);
+  \draw[edgeS] (cr2.east) -- (p3.west);
+  \draw[edgeS] (cr1.east) -- (p3.west);
+  \draw[edgeS] (cr3.east) -- (p4.west);
+  \draw[edgeM] (cr4.east) -- (p5.west);
+\end{tikzpicture}
+\end{center}
+
+\begin{responsebox}
+\small\textbf{Opdracht:} rangschik \textbf{alle 5 predictors} van hoogste naar laagste behandelprioriteit.
+\textbf{Beschikbare predictors:} \textbf{P1: Vermijdingsgedrag},\quad \textbf{P2: Veiligheidsgedrag},\quad \textbf{P3: Interoceptieve focus},\quad \textbf{P4: Geplande exposure},\quad \textbf{P5: Dagstructuur}
+
+\rankbox{1}
+\rankbox{2}
+\rankbox{3}
+\rankbox{4}
+\rankbox{5}
+\end{responsebox}
+
+\vspace{0.6em}
+\newpage
+
+
+\section{Deel 4 --- Verfijnd observatiemodel via breadth-first update-logica}
+
+\begin{tcolorbox}[colback=purple!4,colframe=RichPurple,arc=2.5mm,boxrule=0.9pt,
+  left=10pt,right=10pt,top=9pt,bottom=9pt]
+\textbf{\color{RichPurple}Instructies Deel 4}
+
+\smallskip\small
+\textbf{Opdracht:} selecteer per casus \textbf{exact 5 EMA-items} uit een lijst van 20.
+
+\textbf{Wat bootst dit deel na?}
+PHOENIX verfijnt het observatiemodel via een \textbf{breadth-first update-logica}: vanuit de
+reeds geprioriteerde behandeldoelen wordt gezocht naar de meest geschikte, direct meetbare
+subpredictoren voor de volgende EMA-cyclus.
+
+\textbf{Selectieprincipe:}
+\begin{itemize}[topsep=2pt,itemsep=1pt]
+\item start vanuit de standaardbehandeldoelen hieronder,
+\item kies de 5 dagelijkse EMA-items die daar het best op aansluiten,
+\item verkies klinisch relevante breedte boven irrelevante of perifere items,
+\item noteer \textbf{geen} toelichting of extra commentaar.
+\end{itemize}
+
+\textbf{Antwoordformat:} vink \textbf{exact 5} items aan.
+\end{tcolorbox}
+
+\vspace{0.5em}
+\subsection*{Casus C01 --- Deel 4}
+
+\begin{contextbox}
+\small\textbf{Gestandaardiseerde behandeldoelen uit Deel 3:}
+\begin{enumerate}[topsep=2pt,itemsep=1pt,label=\arabic*.]
+\item \textbf{Schermtijd na 22.00 uur}\quad\textit{\small (hoogste impact op CR-1 en CR-2; monitoring toont consequent laat gebruik (16/21 avonden))}
+\item \textbf{Preslaap cognitieve offloading}\quad\textit{\small (nauwelijks ingezet ondanks duidelijke taakaccumulatie; rechtstreeks relevant voor CR-2)}
+\item \textbf{Aerobe beweging}\quad\textit{\small (zeer lage frequentie (0,7 sessies/week); potentieel effect op CR-1 en CR-4)}
+\end{enumerate}
+\end{contextbox}
+
+\begin{responsebox}
+\small\textbf{Opdracht:} selecteer \textbf{exact 5} EMA-items die het best passen als volgende subpredictoren.
+\textit{Alle antwoordopties zijn dagelijkse mobiele EMA-items.}
+
+\checkitemBFS{1}{Cafeine-inname na 16.00 uur (aantal)}
+\checkitemBFS{2}{Schermtijd na 22:00 uur (min)}
+\checkitemBFS{3}{Aantal dutjes overdag (min)}
+\checkitemBFS{4}{Preslaap cognitieve offloading toegepast (ja/nee)}
+\checkitemBFS{5}{Tijd in bed voor het opstaan (min)}
+\checkitemBFS{6}{Aerobe beweging vandaag (min)}
+\checkitemBFS{7}{Aantal sociale afspraken gepland (aantal)}
+\checkitemBFS{8}{Nek- en schouderspanning in de namiddag (0--10)}
+\checkitemBFS{9}{Blootstelling aan blauw licht voor het slapengaan (min)}
+\checkitemBFS{10}{Piekeren over sociale afwijzing (0--10)}
+\checkitemBFS{11}{Aantal maaltijden na 21.00 uur (aantal)}
+\checkitemBFS{12}{Ochtendlichtblootstelling (min)}
+\checkitemBFS{13}{Preslaap ontspanningsritueel uitgevoerd (ja/nee)}
+\checkitemBFS{14}{Werkuren vandaag (uren)}
+\checkitemBFS{15}{Alcoholinname in de avond (aantal)}
+\checkitemBFS{16}{Slaapduur afgelopen nacht (uren)}
+\checkitemBFS{17}{Aantal onbeantwoorde berichten (aantal)}
+\checkitemBFS{18}{Pijnintensiteit lage rug (0--10)}
+\checkitemBFS{19}{Hydratatie vandaag (glazen)}
+\checkitemBFS{20}{Concentratie overdag (0--10)}
+\vspace{0.4em}
+\noindent\textbf{Totaal geselecteerd:}\hspace{0.5em}\rule{1.2cm}{0.25pt}\hspace{0.2em}/ 5
+\end{responsebox}
+
+\vspace{0.6em}
+\newpage
+\subsection*{Casus C02 --- Deel 4}
+
+\begin{contextbox}
+\small\textbf{Gestandaardiseerde behandeldoelen uit Deel 3:}
+\begin{enumerate}[topsep=2pt,itemsep=1pt,label=\arabic*.]
+\item \textbf{Geplande exposure}\quad\textit{\small (nagenoeg afwezig in de monitoring (0,3/dag); rechtstreeks aangrijpingspunt voor vermijdingsreductie)}
+\item \textbf{Veiligheidsgedrag}\quad\textit{\small (hoge frequentie (8,7/dag) onderhoudt anticipatieangst en paniekverwachting)}
+\item \textbf{Interoceptieve focus}\quad\textit{\small (verhoogde aandacht voor lichamelijke sensaties voedt escalatie van CR-1 en CR-2)}
+\end{enumerate}
+\end{contextbox}
+
+\begin{responsebox}
+\small\textbf{Opdracht:} selecteer \textbf{exact 5} EMA-items die het best passen als volgende subpredictoren.
+\textit{Alle antwoordopties zijn dagelijkse mobiele EMA-items.}
+
+\checkitemBFS{1}{Cafeine-inname voor 12.00 uur (aantal)}
+\checkitemBFS{2}{Geplande exposure-oefening uitgevoerd (ja/nee)}
+\checkitemBFS{3}{Rusthartslag bij ontwaken (slagen/min)}
+\checkitemBFS{4}{Spierspanning in schouders (0--10)}
+\checkitemBFS{5}{Veiligheidsgedrag frequentie (0--10)}
+\checkitemBFS{6}{Sociale contacten vandaag (aantal)}
+\checkitemBFS{7}{Lichamelijke sensaties zonder reactie geobserveerd (min)}
+\checkitemBFS{8}{Stress op het werk (0--10)}
+\checkitemBFS{9}{Inslaaptijd afgelopen nacht (min)}
+\checkitemBFS{10}{Vermijdingssituatie betreden ondanks angst (ja/nee)}
+\checkitemBFS{11}{Waterinname vandaag (glazen)}
+\checkitemBFS{12}{Plezier in vrijetijdsactiviteit (0--10)}
+\checkitemBFS{13}{Aantal dutjes overdag (min)}
+\checkitemBFS{14}{Eetlust vandaag (0--10)}
+\checkitemBFS{15}{Anticipatieangst voor gevreesde situatie (0--10)}
+\checkitemBFS{16}{Stemmingsval in de namiddag (0--10)}
+\checkitemBFS{17}{Stapelteller vandaag (aantal)}
+\checkitemBFS{18}{Concentratie tijdens administratie (0--10)}
+\checkitemBFS{19}{Alcoholinname vanavond (aantal)}
+\checkitemBFS{20}{Tijd buitenshuis zonder ondersteuning (min)}
+\vspace{0.4em}
+\noindent\textbf{Totaal geselecteerd:}\hspace{0.5em}\rule{1.2cm}{0.25pt}\hspace{0.2em}/ 5
+\end{responsebox}
+
+\vspace{0.6em}
+\newpage
+
+
+\section{Deel 5 --- Mobiele coachingsboodschap}
+
+\begin{tcolorbox}[colback=red!3,colframe=ForestGreen,arc=2.5mm,boxrule=0.9pt,
+  left=10pt,right=10pt,top=9pt,bottom=9pt]
+\textbf{\color{ForestGreen}Instructies Deel 5}
+
+\smallskip\small
+\textbf{Opdracht:} schrijf een korte, patientgerichte coachingsboodschap die rechtstreeks in de
+mobiele applicatie kan verschijnen.
+
+\textbf{Gebruik hiervoor:}
+\begin{itemize}[topsep=2pt,itemsep=2pt]
+\item het primaire probleem van de casus,
+\item het geselecteerde behandeldoel,
+\item de voornaamste barriere,
+\item de aangegeven copingstrategie.
+\end{itemize}
+
+\textbf{De boodschap hoort:}
+\begin{itemize}[topsep=2pt,itemsep=2pt]
+\item compact genoeg te zijn voor een mobiel scherm,
+\item warm en professioneel te klinken,
+\item een concrete eerstvolgende stap te bevatten,
+\item rechtstreeks tot de persoon gericht te zijn.
+\end{itemize}
+
+\textbf{Werkvoorbeeld} (niet gerelateerd aan een studiecasus):
+\begin{tcolorbox}[colback=SoftBG,colframe=BorderGrey,boxrule=0.4pt,arc=1.5mm,
+  left=7pt,right=7pt,top=5pt,bottom=5pt]
+\small
+\textbf{Context:} verpleegkundige met het doel om opnieuw korte beweegmomenten in te bouwen;
+barriere = vermoeidheid na de shift; coping = een vaste 10-minutenwandeling koppelen aan het thuiskomen.\\[0.3em]
+\textbf{Voorbeeldboodschap:}\\
+\textit{``Na een zware shift voelt rust nemen logisch, maar net dat eerste kleine beweegmoment kan je avond helpen ontladen. Trek vanavond meteen na thuiskomst je schoenen aan en wandel 10 minuten buiten, zonder jezelf meer op te leggen dan dat ene blokje. Zo maak je de stap haalbaar en vergroot je de kans dat je lichaam later echt kan afschakelen.''}
+\end{tcolorbox}
+\end{tcolorbox}
+
+\vspace{0.5em}
+\subsection*{Casus C01 --- Deel 5}
+
+\begin{contextbox}
+\small\renewcommand{\arraystretch}{1.24}
+\begin{tabular}{@{}>{\bfseries\color{ForestGreen}}p{0.28\textwidth}p{0.66\textwidth}@{}}
+Primair probleem & Moeizaam inslapen door een overactieve geest en aanhoudende spanning in de avond. \\[0.15em]
+Behandeldoel & Schermtijd in de late avond reduceren en een vaste afschakelroutine installeren. \\[0.15em]
+Voornaamste barriere & Lage zelfeffectiviteit: schermgebruik voelt als de enige haalbare manier om na het werk te decomprimeren. \\[0.15em]
+Copingstrategie & Implementatie-intentie met substitutie: vervang de laatste 30 minuten schermtijd door een korte schrijf- of bewegingsroutine voor het slapengaan. \\
+\end{tabular}
+\end{contextbox}
+
+\begin{responsebox}
+\small\textbf{Opdracht:} schrijf hieronder de mobiele coachingsboodschap voor deze casus.
+\textit{Formuleer alsof de tekst morgen rechtstreeks op de smartphone van de persoon verschijnt.}
+
+\messagelines
+\end{responsebox}
+
+\vspace{0.6em}
+\newpage
+\subsection*{Casus C02 --- Deel 5}
+
+\begin{contextbox}
+\small\renewcommand{\arraystretch}{1.24}
+\begin{tabular}{@{}>{\bfseries\color{ForestGreen}}p{0.28\textwidth}p{0.66\textwidth}@{}}
+Primair probleem & Paniekangst leidt tot toenemende vermijding en duidelijke hinder in het dagelijks functioneren. \\[0.15em]
+Behandeldoel & Geplande exposure aan gevreesde situaties in een hanteerbare, stapsgewijze opbouw. \\[0.15em]
+Voornaamste barriere & Sterke negatieve uitkomstverwachting: de persoon verwacht dat betreden van de situatie onvermijdelijk tot een onbeheersbare paniekreactie zal leiden. \\[0.15em]
+Copingstrategie & Werk met een concrete exposurehiërarchie en een vooraf afgesproken copingzin per stap. \\
+\end{tabular}
+\end{contextbox}
+
+\begin{responsebox}
+\small\textbf{Opdracht:} schrijf hieronder de mobiele coachingsboodschap voor deze casus.
+\textit{Formuleer alsof de tekst morgen rechtstreeks op de smartphone van de persoon verschijnt.}
+
+\messagelines
+\end{responsebox}
+
+\vspace{0.6em}
+\newpage
+
+
+\section{Afronding en terugbezorging}
+
+Dank u voor het invullen van alle vijf delen voor uw twee toegewezen casussen
+(C01 en C02).
+
+\begin{instrbox}[title=Checklist voor terugbezorging]
+\begin{itemize}
+\item[$\square$] Ik heb in Deel 1 voor beide casussen criteriumlabels ingevuld.
+\item[$\square$] Ik heb in Deel 2 voor beide casussen predictorlabels ingevuld.
+\item[$\square$] Ik heb in Deel 3 voor beide casussen alle 5 predictors gerangschikt.
+\item[$\square$] Ik heb in Deel 4 voor beide casussen exact 5 EMA-items geselecteerd.
+\item[$\square$] Ik heb in Deel 5 voor beide casussen een mobiele coachingsboodschap geschreven.
+\item[$\square$] Mijn antwoorden weerspiegelen mijn eigen klinische oordeel zonder gebruik van generatieve AI of andere externe hulp.
+\item[$\square$] Ik begrijp dat mijn antwoorden geanonimiseerd worden voor analyse.
+\end{itemize}
+\end{instrbox}
+
+\medskip
+Bezorg het ingevulde document terug via e-mail aan:
+\begin{center}
+\texttt{stijn.vanseveren@ugent.be}\quad met onderwerp:\quad \texttt{PHOENIX PRE --- HCP-PRE-01}
+\end{center}
+
+\vspace{0.5em}
+\begin{tcolorbox}[colback=AccentBlue,colframe=PrimaryBlue,arc=2mm,boxrule=0.6pt,left=8pt,right=8pt,top=7pt,bottom=7pt]
+\small\centering
+Na ontvangst worden uw antwoorden geanonimiseerd en opgenomen in het expertreferentiecorpus
+voor de latere blind evaluatie van PHOENIX. Hartelijk dank voor uw bijdrage aan dit onderzoek.
+\end{tcolorbox}
+
+\end{document}
